@@ -1,0 +1,688 @@
+\documentclass[MAS331_Note.tex]{subfiles}
+
+\begin{document}
+\chapter{Set Theory and Logic}
+\section{Basic Notation}
+\nt{
+	\begin{itemize}[nolistsep]
+		\item Sets: $A, B, C, \cdots, \RR, \QQ, \ZZ$
+		\item Elements: $a, b, c, \cdots, 3, 3/4, \pi$
+		\item $a \in A$, $3 \in \ZZ$, $3/4 \notin \ZZ$
+		\item $A \subseteq B$, $A \subsetneq B$         , $A \not\subseteq B$
+		\item $\varnothing$: empty set
+		\item $A \times B \coloneqq \{(a, b) \mid a \in A \text{ and } b \in B\}$ (Cartesian product)
+	\end{itemize}
+}
+\dfn{Function, Restriction, and Composition}{
+A \textit{function} $f$ from a set $A$ to a set $B$ is an assignment of an element of $B$
+to each element of $A$.
+\begin{itemize}[noitemsep]
+	\item $A$: Domain
+	\item $B$: Range or Codomain
+	\item $\Img f \coloneqq \{ f(a) \mid a \in A \}$: Image; $\Img f \subseteq B$
+\end{itemize}
+If $A_0 \subseteq A$ and $f \colon A \to B$ is a function,
+then the \textit{restriction} of $f$ to $A_0$ is denoted by $f \big|_{A_0}$ and is defined as \[
+	f \big|_{A_0} (a_0) \coloneqq f(a_0)
+\]
+for each $a_0 \in A_0$.
+If $f \colon A \to B$ and $g \colon B \to A$, then the \textit{composite} $g \circ f$ is defined as \[
+	(g \circ f)(a) \coloneqq g \big(f(a)\big)
+\]
+for each $a \in A$.
+}
+\dfn{Injectivity, Surjectivity and Bijectivity}{
+	A function $f \colon A \to B$ is
+	\begin{enumerate}[noitemsep,label=\roman*)]
+		\item \textit{injective} (or \textit{one-to-one}, 1-1) if $\forall a, a' \in A,\: f(a) = f(a') \implies a = a'$,
+		\item \textit{surjective} (or \textit{onto}) if $\forall b \in B,\: \exists a \in A,\: b = f(a)$, and
+		\item \textit{bijective} if $f$ is both injective and surjective.
+	\end{enumerate}
+}
+\dfn{Inverse Function}{
+	If $f \colon A \to B$ is bijective, then the inverse of $f$ is denoted by \[
+		f^{-1} \colon B \to A
+	\]
+	and is defined as \[
+		f^{-1}(b) = a
+	\] for each $b \in B$ where $f(a) = b$.
+}
+\exmp{}{
+	\begin{enumerate}[nolistsep, label=\alph*)]
+		\item $f$ is bijective $\iff$ $f^{-1}$ is bijective.
+		\item The inverse is unique.
+	\end{enumerate}
+}
+\solve{
+	Suppose $f$ is bijective. Then, \[
+		f^{-1}(b_1) = f^{-1}(b_2) \implies b_1 = (f \circ f^{-1})(b_1) = (f \circ f^{-1})(b_2) = b_2\text{.}
+	\]
+	Therefore, $f^{-1}$ is injective.
+
+	Take any $a \in A$. Then, $b \coloneqq f(a) \in B$ satisfies $f^{-1}(b) = a$.
+	Therefore, $f^{-1}$ is surjective.
+
+	Now, suppose $f^{-1}$ is bijective. Then, \[
+		f(a_1) = f(a_2) \implies a_1 = (f^{-1} \circ f)(a_1) = (f^{-1} \circ f)(a_2) = a_2\text{.}
+	\]
+	Therefore, $f$ is injective.
+
+	Take any $b \in B$. Then, $a \coloneqq f^{-1}(a) \in B$ satisfies $f(a) = b$.
+	Therefore, $f$ is surjective; a) is now proven.
+
+	Let $g$ and $h$ are inverses of $f$. Take any $b \in B$.
+	Since $f$ is bijective, $\exists! a \in A,\; f(a) = b$.
+	Therefore, $g(b) = a = h(b)$, which implies $g = h$; b) is now proven.
+}
+
+\dfn{Image and Preimage of a Set}{
+	Let $f \colon A \to B$ and $A_0 \subseteq A$, $B_0 \subseteq B$.
+	\begin{itemize}
+		\item $f(A_0) \coloneqq \{b \mid b = f(a_0) \text{ and } a_0 \in A \}$
+		\item $f^{-1}(B_0) \coloneqq \{a \mid f(a) \in B_0 \}$
+	\end{itemize}
+}
+\exmp{}{
+	\begin{enumerate}[nolistsep, label=\alph*)]
+		\item $A_0 \subseteq f^{-1} \big(f(A_0)\big)$
+		\item $f$ is injective if and only if $\forall A_0 \subseteq A,\: A_0 = f^{-1}\big(f(A_0)\big)$.
+		\item $f\big(f^{-1}(B_0)\big) \subseteq B_0$
+		\item $f$ is surjective if and only if $\forall B_0 \subseteq B,\: B_0 = f \big(f^{-1}(B_0)\big)$.
+	\end{enumerate}
+}
+\solve{
+	\paragraph*{a)}
+	For every $a_0 \in A_0$, $f(a_0) \in f(A_0)$, which implies $a_0 \in f^{-1}\big(f(A_0)\big)$.
+	Therefore, $A_0 \subseteq f^{-1} \big(f(A_0)\big)$ holds.
+	\paragraph*{b)}
+	Suppose $f$ is injective. Take any $A_0 \subseteq A$ and $a_0 \in f^{-1}\big(f(A_0)\big)$.
+	Then, $f(a_0) \in f(A_0)$. We may take $a_1 \in A_0$ such that $f(a_0) = f(a_1) \in f(A_0)$.
+	Since $f$ is injective, $a_0 = a_1 \in A_0$.
+
+	Suppose `$\forall A_0 \subseteq A,\: A_0 = f^{-1}\big(f(A_0)\big)$' holds. Suppose $f(a_1) = f(a_2) = b_0$.
+	Let $A_0 \coloneqq \{ a_1 \}$. Then, $A_0 = f^{-1}\big(f(A_0)\big) = f^{-1}\big(\{b_0\}\big) \ni a_2$.
+	This means $a_2 \in \{ a_1\}$, which implies $a_1 = a_2$.
+	\paragraph*{c)}
+	Take any $b_0 \in f \big(f^{-1}(B_0)\big)$. Then, there is some $a_0 \in f^{-1}(B_0)$ such that $f(a_0) = b_0$.
+	Such $a_0$ satisfies $f(a_0) \in B_0$, which implies $b_0 = f(a_0) \in B_0$.
+	Therefore, $f\big(f^{-1}(B_0)\big) \subseteq B_0$ holds.
+	\paragraph*{d)}
+	Suppose $f$ is surjective. Take any $B_0 subs B$ and $b_0 \in B_0$. Then, there is some $a_0 \in A$ such that $f(a_0) = b_0$,
+	which implies $a_0 \in f\inv(B_0)$. Therefore, $b_0 \in f \big(f\inv(B_0)\big)$; $B_0 \subseteq \big(f\inv(B_0)\big)$.
+
+	Suppose `$\forall B_0 \subseteq B,\: B_0 = f \big(f^{-1}(B_0)\big)$' holds. Take any $b_0 \in B$ and let $B_0 \coloneqq \{b_0\}$.
+	Since $b_0 \in f \big(f\inv(B_0)\big)$, There is some $a_0 \in f\inv(B_0)$ such that $f(a_0) = b_0$.
+	Therefore, $f$ is surjective.
+}
+
+\section{Relations}
+\dfn{Relation}{
+	A relation $\sim$ on a set $A$ is a subset of $A \times A$. \[
+		x \sim y \coloneqq (x, y) \in \:\sim
+	\]
+}
+\dfn{Equivalence Relation and Equivalence Class}{
+	A relation $\sim$ on a set $A$ is an \textit{equivalence relation} if
+	\begin{enumerate}[noitemsep, label=(\arabic*)]
+		\item $x \sim x$ for each $x \in A$ (reflexive)
+		\item $x \sim y \implies y \sim x$ (symmetric)
+		\item $x \sim y \land y \sim z \implies x \sim z$. (transitive)
+	\end{enumerate}
+	Moreover, the \textit{equivalence class} of $x$ is defined as \[
+		\big\{ y \in A \:\big|\: y \sim x \big\}\text{.}
+	\]
+}
+\exmp{Partition}{
+	If there are equivalence classes $E$ and $E'$, then they are either $E = E'$ or $E \cap E' = \varnothing$.
+	This implies, if we let $\mcal{E} \coloneqq \{ E \mid E \text{ is an equivalence class of } x \text{ where } x \in A \}$,
+	$A = \bigcup_{E \in \mcal{E}} E$.
+}
+\solve{
+	Since if $E \cap E' = \varnothing$ it is done, suppose $E \cap E' \neq \varnothing$. There are $a$ and $a'$ such that
+	$E$ and $E'$ are equivalence classes of $a$ and $a'$ respectively.
+	We may take $a_0 \in E \cap E'$. By definition and transitivity, $a \sim a_0 \sim a'$.
+	Therefore, for all $x \in E$, $x \in E'$ since $x \sim a \sim a'$, which implies $E \subseteq E'$.
+	In the same way, $E' \subseteq E$.
+}
+
+\dfn{Order Relation}{
+	A relation $<$ on a set $A$ is an \textit{order relation} if
+	\begin{enumerate}[noitemsep, label=(\arabic*)]
+		\item $x < y$ or $y < x$ for each $x \neq y \in A$
+		\item $x \not< x$ for each $x \in A$
+		\item $x < y \land y < z \implies x < z$.
+	\end{enumerate}
+	Also, we define \[
+		(a, b) \coloneqq \big\{ x \in X \:\big|\: a < x < b \big\}\text{.}
+	\]
+}
+\dfn{Order Type}{
+	Let $A$ and $B$ be sets with order relations $<_A$ and $<_B$, respectively.
+	Then, $A$ and $B$ have the same \textit{order type} if there is a bijection
+	$f \colon A \to B$ such that $a_1 <_A a_2 \iff f(a_1) <_B f(a_2)$.
+}
+\dfn{Dictionary Order Relation}{
+	Let $A$, $B$ be sets with order relations $<_A$, $<_B$ respectively.
+	Then, there is an order relation $<_{A \times B}$ on $A \times B$
+	defined as $(a_1, b_1) <_{A \times B} (a_2, b_2)$ if \[
+		a_1 <_A a_2 \text{ or } a_1 = a_2 \text{ and } b_2 <_B b_2\text{.}
+	\]
+	This is often called \textit{dictionary order relation} on $A \times B$.
+}
+\dfn{Boundedness} {
+	Let $A_0 \subseteq A$ with an order relation $<_A$.
+	\begin{itemize}[noitemsep]
+		\item The \textit{largest element} of $A_0$ is $b \in A_0$ if $x \in A_0 \implies x \le b$.
+		\item The \textit{smallest element} of $A_0$ is $b \in A_0$ if $x \in A_0 \implies x \ge b$.
+	\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item $A_0$ is \textit{bounded above} by $b \in A$ if $x \in A_0 \implies x \le b$.
+		      \begin{itemize}[nolistsep]
+			      \item The smallest such $b$ is called the \textit{least uppder bound} or the \textit{supremum} of $A_0$.
+		      \end{itemize}
+		\item $A_0$ is \textit{bounded below} by $b \in A$ if $x \in A_0 \implies x \ge b$.
+		      \begin{itemize}[nolistsep]
+			      \item The largest such $b$ is called the \textit{greatest lower bound} or the \textit{infimum} of $A_0$.
+		      \end{itemize}
+	\end{itemize}
+	\begin{itemize}[noitemsep]
+		\item $A$ has \textit{least upper bound property} if every bounded above nonempty set $A_0 \subseteq A$
+		      has a least upper bound.
+		\item $A$ has \textit{greatest lower bound property} if every bounded below nonempty set $A_0 \subseteq A$
+		      has a greatest lower bound.
+	\end{itemize}
+}
+\thm{}{
+	A set $A$ with an order relation $<_A$ has l.u.b. property if and only if $A$ has g.l.b. property.
+}
+\pf{Proof}{
+	Suppose $A$ has l.u.b. property. Let $A_0$ be any bounded below nonempty subset of $A$.
+	Let $L \coloneqq \{ a \in A \mid a \text{ is a lower bound of } A_0 \}$.
+	Take a $a_0 \in A_0$. Then, since $\ell \le_A a_0$ for all $\ell \in L$, $L$ is bounded above by $a_0$.
+	By l.u.b. property of $A$, there is $\ell_0 \coloneqq \sup L \in A$.
+
+	Take any $a_0$ in $A_0$. Since $a_0$ is an upper bound of $L$ and $\ell_0$ is the least upper bound, $\ell_0 \le_A a_0$.
+	Therefore, $\ell_0$ is a lower bound of $A_0$.
+
+	Suppose $\ell_0 <_A \ell_1$ and $\ell_1$ is a lower bound of $A_0$.
+	This implies $\ell_1 \in L$, which contradicts to $\ell_1 \le_A \sup L = \ell_0$.
+	Therefore, $\ell_0$ is the greatest lower bound, and $A$ has g.l.b. property.
+
+	The inverse can be proven by the similar reasoning.
+}
+\thm[completeR]{Completeness of $\RR$}{
+	The set of real numbers $\RR$ has least upper bound property.
+}
+
+\section{The Integers and the Real Numbers}
+
+\thm[wop]{Well-Ordering Property}{
+	Every nonempty subset of $\ZZ_+$ has a smallest element.
+}
+\pf{Proof}{
+	We first prove that, for each $n \in \ZZ_+$, every nonempty subset of $[n] \coloneqq \{1, 2, \cdots, n\}$ has a smallest element,
+	using induction. For the base case, it is known the the only nonempty subset of $[1]$, $\{1\}$, has $1$ as its smallest element.
+
+	Suppose the statement holds for $n = k$. Now take any nonempty subset $S$ of $[k + 1]$.
+	If $S = \{k+1\}$, $k+1$, the only element of $S$, is a smallest element of $S$.
+	Otherwise, $S \setminus \{k+1\}$ is nonempty and is a subset of $[k]$; we may let $\mu \coloneqq \min S$ by the induction hypothesis.
+	Then, $\mu$ is also a smallest element of $S$, regardless of whether it is $k + 1 \in S$ or $k + 1 \notin S$.
+
+	Now, take any $\varnothing \neq T \subseteq \ZZ_+$ and $m \in T$.
+	Then, by our previous result, since $T \cap [m]$ is a nonempty subset of $[m]$, it has a smallest element, which is also a smallest element of $T$.
+}
+
+\section{Cartesian Products}
+
+\dfn{Indexing Function and Indexed Family of Sets}{
+Let $\mcal{A}$ be a nonempty collection of sets.
+An \textit{indexing function} for $\mcal{A}$ is a surjective function
+$f \colon J \to \mcal{A}$ where $A_{\alpha} \coloneqq f(\alpha)$.
+An \textit{indexed family} of sets is defined as $\big\{A_{\alpha}\big\}_{\alpha \in J}$.
+
+Now, we define \[
+	\begin{aligned}[t]
+		\bigcup_{\alpha \in J} A_{\alpha} & \coloneqq \big\{x \:\big|\: \exists \alpha \in J,\: x \in A_{\alpha} \big\}                                                                           \\
+		\bigcap_{\alpha \in J} A_{\alpha} & \coloneqq \big\{x \:\big|\: \forall \alpha \in J,\: x \in A_{\alpha} \big\}                                                                           \\
+		\prod_{\alpha \in J} A_{\alpha}   & \coloneqq \big\{ f \colon J \to \textstyle\bigcup_{\alpha \in J} A_{\alpha} \:\big|\: \forall \alpha \in J,\: f(\alpha) \in A_{\alpha} \big\}\text{.}
+	\end{aligned}
+\]
+}
+
+\section{Finite Sets}
+\dfn{Finite Set and Cardinality}{
+	A set $A$ is \textit{finite} if there is a bijective $f \colon A \to [n]$ for some $n \in \ZZ_+$ or $A = \varnothing$.
+	\begin{itemize}[nolistsep]
+		\item In the former case, we say \textit{cardinality} $n$ or $|A| = n$.
+		\item In the latter case, we say \textit{cardinality} $0$ or $|A| = 0$.
+	\end{itemize}
+}
+\nt{
+	Let $A$ and $B$ be finite sets. Then, $|A| = |B| = n$ if and only if $\exists$ bijective $f \colon A \to B$.
+}
+
+\mlemma[cardOneMinus]{}{
+	Let $a_0 \in A$. Then, \[
+		|A| = n \iff |\,A \setminus \{a_0\} | = n - 1\text{.}
+	\]
+}
+\pf{Proof}{
+For $n = 1$, it is trivial. So suppose $n \ge 2$.
+\par ($\Rightarrow$) There is a bijection $f \colon A \to [n]$.
+If $f(a_0) = n$, then $f \big|_{A \setminus \{a_0\}}$ is a bijection from $A \setminus \{a_0\}$ to $[n-1]$, and it's done.
+Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
+	g(a) \coloneqq \begin{cases}
+		a_0 & \text{if } a = a_1 \\
+		a_1 & \text{if } a = a_0 \\
+		a   & \text{otherwise.}
+	\end{cases}
+\] $g$ is bijective. Then, $f \circ g$ is a bijection from $A$ to $[n]$ such that $(f \circ g)(a_0) = n$.
+\par ($\Leftarrow$) Trivial.
+}
+
+\thm[cardPropSubset]{}{
+	Let $A$ be a set with $|A| = n$ and $B \subsetneq A$.
+	Then, there is no bijection between $B$ and $[n]$, but (provided $B \neq \varnothing$)
+	there is a bijection between $B$ and $[m]$ for some $m < n$.
+}
+\pf{Proof by Induction}{
+	(Base case) It is trivial for $n = 1$.
+	\par (Induction) Suppose it is true for $n \ge 1$.
+	WTS for the case $|A| = n+1$. Suppose $B \neq \varnothing$ because we have nothing to talk about then.
+	Let $a_0 \in B$.
+	By \Cref{lem:cardOneMinus}, there is a bijection $g \colon A \setminus \{a_0\} \to [n]$.
+	Since $B \setminus \{a_0\} \subsetneq A \setminus \{a_0\}$, by induction hypothesis,
+	we have two things.
+	\begin{itemize}[nolistsep]
+		\item There is no bijection between $B \setminus \{a_0\}$ and $[n]$.
+		\item As long as $B \neq \{a_0\}$, there is a bijection from $B \setminus \{a_0\}$ to $[m]$ for some $m < n$.
+	\end{itemize}
+	We conclude that there is no bijection from $B$ and $[n+1]$ since, if there were, there would be a
+	trivial bijection from $B \setminus \{a_0\}$ to $[n]$.
+	Moreover, we can construct a bijection between $B$ and $[m+1]$, and $m+1 < n+1$.
+}
+
+\cor[cardUnique]{Uniqueness of Cardinality}{
+	The cardinality of a finite set is uniquely determined.
+}
+\pf{Proof}{
+	Let $m < n$ and suppose $m$ and $n$ are cardinalities of a finite set $A$.
+	Then there are bijections $f \colon A \to [m]$ and $g \colon A \to [n]$.
+	Then, $f \circ g^{-1}$ is a bijection from $[m]$ to $[n]$ but it is impossible
+	since $[m] \subsetneq [n]$ and because of \Cref{th:cardPropSubset}.
+}
+
+\cor[ZplusIsInf]{}{
+	$\ZZ_+$ is not finite.
+}
+\pf{Proof by Contradiction}{
+	Suppose $\ZZ_+$ is finite and $|\ZZ_+| = n$.
+	$f \colon \ZZ_+ \to \ZZ_+ \setminus \{1\}$ with $x \mapsto x + 1$ is bijective.
+	Then, by \Cref{lem:cardOneMinus}, $n - 1 = |\,\ZZ_+ \setminus \{1\}| = |\ZZ_+| = n$, \#.
+}
+
+\thm[finSetTFAE]{}{
+	Let $A$ be a set. {\sf TFAE}
+	\begin{enumerate}[noitemsep, label=(\roman*)]
+		\item $|A| = n$
+		\item $\exists$ surjective $[m] \twoheadrightarrow A$ for some $m \in \ZZ_+$.
+		\item $\exists$ injective $A \hookrightarrow [m]$ for some $m \in \ZZ_+$.
+	\end{enumerate}
+}
+\pf{Proof}{
+	((i) $\to$ (ii)) There is a bijective function from $A$ to $[n]$, and it is also surjective.
+	\par ((ii) $\to$ (iii)) Let $f$ be a surjective function from $[m]$ to $A$.
+	Since $f$ is surjective, $f^{-1}(\{a\}) \neq \varnothing$ for every $a \in A$.
+	Let $M \coloneqq \max \{\, \min f^{-1}(\{a\}) \mid a \in A \,\}$.
+	$M$ is well defined thanks to \Cref{th:wop} and the fact that $\varnothing \neq f^{-1}(\{a\}) \subseteq [m]$.
+	Then the function $g \colon A \to [M]$ defined by $a \mapsto \min f^{-1}(\{a\})$ is injective.
+	\par ((iii) $\to$ (i)) Let $f$ be an injective function from $A$ to $[m]$.
+	Then, $g \colon A \to \Img f$ defined by $a \mapsto f(a)$ is bijective.
+	$A$ is finite because $\Img f$ is finite by \Cref{th:cardPropSubset}.
+}
+
+\exer[finUandCOfFinSetIsFin]{}{
+	\begin{enumerate}[label=(\roman*), nolistsep]
+		\item Finite unions of finite sets are finite.
+		\item Finite Cartesian products of finite sets are finite.
+	\end{enumerate}
+}
+\solve{
+(i) Suppose there are $n$ finite sets $A_1$, $A_2$, $\cdots$, $A_n$ to union.
+WLOG, $A_i \neq \varnothing$ for each $i \in [n]$.
+Let $M \coloneqq \max_{i \in [n]} |\,A_i\,|$ and $g_i \colon [|\,A_i\,|] \to A_i$ be a bijective function for each $i \in [n]$.
+Extend each $g_i$ to $g_i' \colon [M] \to A_i$ by \[
+	g_i'(k) = \begin{cases}
+		g_i(k) & \text{if } k \le |A_i| \\
+		g_i(1) & \text{otherwise.}
+	\end{cases}
+\] for $k \in [M]$. Now, we define $f \colon [nM] \to \bigcup_{i \in [n]} A_i$ by \[
+	f\big(n(i-1)+k\big) \coloneqq g_i'(k)
+\] for each $i \in [n]$ and $k \in [M]$. Then, $f$ is surjective.
+Therefore, $\bigcup_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
+
+(ii) Suppose there are $n$ finite sets $A_1$, $A_2$, $\cdots$, $A_n$ to construct a Cartesian product with.
+WLOG, $A_i \neq \varnothing$ for each $i \in [n]$.
+Let $M \coloneqq \max_{i \in [n]} |\,A_i\,|$ and $h_i \colon A_i \to [|\,A_i\,|]$ be a bijective function for each $i \in [n]$.
+Let $p_i$ be the $i^{\text{th}}$ prime. (i.e., $p_1 = 2$, $p_2 = 3$, $p_3 = 5$.)
+Define a function $f \colon \prod_{i \in [n]} A_i \to \left[ \left( \prod_{i=1}^n p_i \right)^M \right]$ by \[
+	f(a_1, a_2, \cdots, a_n) \coloneqq \prod_{i=1}^n p_i^{\> h_i(a_i)}\text{.}
+\]
+$f$ is injective since prime factorization of a natural number is unique.
+Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
+}
+
+\section{Countable and Uncountable Sets}
+\dfn{Infinite and Countably Infinite}{
+	A set $A$ is said to be \textit{infinite} if it is not finite.
+	It is said to be \textit{countably infinite} if there is a bijective correspondence \[
+		f \colon A \to \ZZ_+\text{.}
+	\]
+}
+\exmp{}{
+	$\ZZ_+$, $\ZZ$, and $\ZZ_+ \times \ZZ_+$ are countably infinite.
+}
+\dfn{Countability}{
+	A set is said to be \textit{countable} if it is either finite or countably infinite.
+	A set that is not countable is said to be \textit{uncountable}.
+}
+
+\mlemma[ZsubsCount]{}{
+	Any subset of $\ZZ_+$ is countable.
+}
+\pf{Proof}{
+	Let $C \subseteq \ZZ_+$. If $C$ is finite, then it's done; we now assume $C$ is infinite.
+	Now we want to show that $C$ is countably infinite.
+
+	Define $h \colon \ZZ_+ \to C$ by the following.
+	\begin{enumerate}[nolistsep, label=(\alph*)]
+		\item $h(1) \coloneqq \min C$
+		\item $h(n+1) \coloneqq \min \big(C \setminus h([n])\big)$ for each $n \in \ZZ_+$
+	\end{enumerate}
+	$h$ is well defined because $C \setminus h([n])$ is always nonempty.
+	Morever, $h$ is injective since it is $h(m) < h(n)$ whenever $m < n$.
+
+	Now, we are going to show $h$ is surjective. To do this, first take any $c \in C$.
+	Since $C$ is infinite and $h$ is injective, $\Img h \not\subseteq [c]$, which means $\exists n \in \ZZ_+,\: h(n) > c$.
+	From this, we get $m \coloneqq \min \{\, n \in \ZZ_+ \mid h(n) \ge c \,\}$ is well-defined.
+	From the definition of $m$, we also get, for any $1 \le i < m$, we have $h(i) < c \le h(m)$.
+	Therefore, $c \notin h([m-1])$.
+	Together with $h(m) = \min \big(C \setminus h([m-1])\big)$, we get $h(m) \le c \le h(m)$, which implies $c = h(m)$.
+}
+
+\thm[countSetFTAE]{}{
+	Let $A \neq \varnothing$. {\sf TFAE}
+	\begin{enumerate}[noitemsep, label=(\roman*)]
+		\item $A$ is countable.
+		\item $\exists$ surjective $\ZZ_+ \twoheadrightarrow A$.
+		\item $\exists$ injective $A \hookrightarrow \ZZ_+$.
+	\end{enumerate}
+}
+\pf{Proof}{
+	((i) $\to$ (ii)) Trivial.
+	\par ((ii) $\to$ (iii)) Let $f \colon \ZZ_+ \twoheadrightarrow A$.
+	Define $g \colon A \to \ZZ_+$ by $a \mapsto \min f^{-1}(\{a\})$.
+	$g$ is well-defined because $f^{-1}(\{a\}) \neq \varnothing$ for every $a \in A$ and \Cref{th:wop} holds.
+	$g$ is also injective since $f^{-1}(\{a_1\}) \cap f^{-1}(\{a_2\}) = \varnothing$ if $a_1 \neq a_2 \in A$.
+	\par ((iii) $\to$ (i)) Let $f$ be an injection from $A$ to $\ZZ_+$.
+	If we define $g \colon A \to \Img f$ by $a \mapsto f(a)$, $g$ is a bijection.
+	Since $\Img f \subseteq \ZZ_+$, $A$ is countable by \Cref{lem:ZsubsCount}.
+}
+
+\cor[subsOfCountIsCount]{}{
+	If $A \subseteq B$ and $B$ is countable, then $A$ is countable.
+}
+\pf{Proof}{
+	$A \xhookrightarrow{\text{trivial injection}} B \xhookrightarrow{\text{injection}} \ZZ_+$ and \Cref{th:countSetFTAE}.
+}
+
+\cor[ZsqIsCount]{}{
+	$\ZZ_+ \times \ZZ_+$ is countably infinite.
+}
+\pf{Proof}{
+	$f \colon \ZZ_+ \times \ZZ_+ \to \ZZ_+$ with $(x, y) \mapsto 2^x 3^y$ is an injection.
+
+	Or, $g \colon \ZZ_+ \times \ZZ_+ \to \ZZ_+$ with $(x, y) \mapsto \dfrac{(x+y-1)(x+y-2)}{2} + y$ is a bijection.
+}
+\cor[QIsCount]{}{
+	$\QQ$ is countably infinite.
+}
+\pf{Proof}{
+	$f \colon \ZZ \times \ZZ_+ \to \QQ$ with $(x, y) \mapsto x/y$ is surjective.
+}
+
+\exer[UnionOfCountSets]{}{
+	The union of a countable number of countable sets is countable.
+}
+
+\solve{
+    Let $\{A_i\}_{i \in J}$ be an indexed family of sets where $J$ and $A_i$'s are countable.
+    WLOG, $A_i \neq \varnothing$ for each $i \in J$.
+    For each $i \in J$, since $A_i$ is countable, by \Cref{th:countSetFTAE},
+    there is a surjection $g_i \colon \ZZ_+ \twoheadrightarrow A_i$.
+    Similarly, since $J$ is countable, there is a surjection $h \colon \ZZ_+ \twoheadrightarrow J$.
+
+    Now, construct a function $f \colon \ZZ_+ \times \ZZ_+ \to \bigcup_{i \in J} A_i$ by \[
+        f(i, j) \coloneqq g_{h(i)}(j)\text{.}
+    \] $f$ is naturally surjective by the contruction. Therefore, $\bigcup_{i \in J} A_i$ is countable.
+}
+
+\exer[ProductOfCountSets]{}{
+	The Cartesian product of a finite number of countable sets is countable.
+}
+\solve{
+    Suppose there are $n \in \ZZ_+$ sets $A_1$, $A_2$, $\cdots$, $A_n$ to make Cartesian product with
+    and each $A_i$ is countable. WLOG, $A_i \neq \varnothing$ for each $i \in [n]$.
+    For each $i \in [n]$, there is a injection $g_i \colon A_i \to \ZZ_+$ by \Cref{th:countSetFTAE}.
+
+    Now, construct a fuction $f \colon \prod_{i=1}^n A_i \to \ZZ_+$ by \[
+        f(a_1, a_2, \cdots, a_n) \coloneqq \prod_{i=1}^n p_i^{g_i(a_i)}\text{,}
+    \] where $p_i$ is the $i^{\text{th}}$ prime.
+    Since prime factorization of a natural number is unique, $f$ is injective; therefore $\prod_{i=1}^{n} A_i$ is countable.
+}
+
+\thm[2toZUncount]{}{
+	Let $X_i \coloneqq \{0, 1\}$ for each $i \in \ZZ_+$. Then, $\prod_{i \in \ZZ_+} X_i$ is uncountable.
+}
+\pf{Proof}{
+	Let $f \colon \ZZ_+ \to \prod_{i \in \ZZ_+} X_i$ is any function.
+	Denote $f(n) = (x_{n,1}, x_{n,2}, \cdots) \in \prod_{i \in \ZZ_+} X_i$
+	and construct $y = (y_1, y_2, \cdots) \in \prod_{i \in \ZZ_+} X_i$ by \[
+		y_i \coloneqq 1 - x_{i,i}
+	\] for each $i \in \ZZ_+$.
+	Then, $y \notin \Img f$; therefore, one cannot construct a surjection from $\ZZ_+$ to $\prod_{i \in \ZZ_+} X_i$.
+}
+
+\cor[PSetOfZUncount]{}{
+	$\mcal{P}(\ZZ_+)$ is uncountable.
+}
+\pf{Proof}{
+	$f \colon \mcal{P}(\ZZ_+) \to \prod_{i \in \ZZ_+} X_i$ defined by \[
+		S \mapsto (y_1, y_2, \cdots) \text{ where } y_i \coloneqq \begin{cases}
+			0 & \text{if } i \in S    \\
+			1 & \text{if } i \notin S
+		\end{cases}
+	\] is a bijection, and $\prod_{i \in \ZZ_+} X_i$ is uncountable by \Cref{th:2toZUncount}.
+}
+
+\thm[noInjSurjWithPSet]{}{
+	Let $A$ be a set. Then, there is no injection $\mcal{P}(A) \hookrightarrow A$,
+	and there is no surjection $A \twoheadrightarrow \mcal{P}(A)$.
+}
+\pf{Proof}{
+	Since a surjective map can be naturally deducted from $f \colon B \hookrightarrow C$
+	(by constructing $g \colon C \to B$ by $g(c) \in f^{-1}(\{c\})$ for $c \in \Img f$ and
+	map $c$ to an arbitrary element in $B$ for $c \notin \Img f$),
+	it suffices to show $A \twoheadrightarrow \mcal{P}(A)$ does not exist.
+
+	Let $f \colon A \to \mcal{P}(A)$ be any function, and let $B \coloneqq \{\, a \in A \mid a \notin f(a) \,\} \in \mcal{P}(A)$.
+	Suppose $B = f(a_0)$ for some $a_0 \in A$. Then, by the definition of $B$, \[
+		a_0 \in B \iff a_0 \notin f(a_0) = B\text{,}
+	\] which is a contradiction.
+	Therefore, any such $f$ cannot be surjective.
+}
+
+\section{Infinite Sets and the Axiom of Choice}
+
+\thm[InfSetTFAE]{}{
+	Let $A$ be a set. {\sf TFAE}
+	\begin{enumerate}[noitemsep, label=(\roman*)]
+		\item $A$ is infinite.
+		\item $\exists$ injection $f \colon \ZZ_+ \hookrightarrow A$.
+		\item $\exists$ bijection $g \colon A \to B$ where $B \subsetneq A$.
+	\end{enumerate}
+}
+\pf{Proof}{
+	((i) $\to$ (ii)) Construct $f \colon \ZZ_+ \to A$ recursively as following.
+    Let $c \colon \mcal{P}(A) \setminus \{\varnothing\} \to A$ be a function
+    such that $c(A') \in A'$ for every $\varnothing \neq A' \subseteq A$.
+    Its existence is guaranteed by \Cref{lem:choiceFtnExs}.
+	\begin{enumerate}[nolistsep, label=(\arabic*)]
+		\item $f(1) \coloneqq c(A)$
+        \item $f(n+1) \coloneqq c(A \setminus f([n]))$ for each $n \in \ZZ_+$.
+	\end{enumerate}
+	\par Suppose $A \setminus f([n]) = \varnothing$ for some $n \in \ZZ_+$.
+	Then, $A \subseteq f([n])$, and $f([n])$ is finite by \Cref{th:finSetTFAE};
+	therefore $A$ is finite by \Cref{th:cardPropSubset}.
+	Thus, $f$ is well-defined and it is injective by definition.
+
+	((ii) $\to$ (iii))
+	Let $f \colon \ZZ_+ \hookrightarrow A$ be an injectiion.
+	Define $g \colon A \to A \setminus \{\,f(1)\,\}$ by \[
+		g(a) \coloneqq \begin{cases}
+			f(n+1) & \text{if } a = f(n) \text{ for some } n \in \NN_+ \\
+			a      & \text{if } a \notin \Img f\text{.}
+		\end{cases}
+	\] $g$ is well-defined because $f$ is injective, and it is bijective by definition.
+
+	((iii) $\to$ (i)) This is just a contrapositive of \Cref{th:cardPropSubset}.
+}
+
+\thm[AoC]{Axiom of Choice}{
+    Given a collection $\mscr{A}$ of disjoint nonempty sets,
+    there exists a set $C$ such that $C \subseteq \bigcup \mscr{A}$ and $\forall A \in \mscr{A},\: |\,C \cap A\,| = 1$.
+}
+
+\mlemma[choiceFtnExs]{Existence of a Choice Function}{
+    Given a collection $\mscr{B}$ of nonempty sets, there exists a function \[
+        c \colon \mscr{B} \to \textstyle\bigcup\mscr{B}
+    \] such that $c(B) \in B$ for each $B \in \mscr{B}$.
+}
+\pf{Proof}{
+    Let $\mscr{A} \coloneqq \big\{\, \{\, (B, x) \mid x \in B \,\} \:\big|\: B \in \mscr{B} \,\big\}$.
+    Then, by \Cref{th:AoC}, there exists $c \subseteq \mscr{A}$ such that $c \subseteq \bigcup\mscr{A}$ and
+    each $B \in \mscr{B}$ appears only once in the first coordinate in $c$.
+    Therefore, $c$ is a function such that $c(B) \in C$ for each $B \in \mscr{B}$.
+}
+
+\section{Well-Ordered Sets}
+\dfn{Well-Ordered}{
+	A set $A$ with an order relation is an \textit{well-ordered} set if
+	every nonempty subset of $A$ has a smallest element.
+}
+\exmp{}{
+	\begin{itemize}[nolistsep]
+		\item $\ZZ_+$ is well-ordered.
+		\item $\{1, 2\} \times \ZZ_+$ is well ordered with respect to the dictionary ordering.
+	\end{itemize}
+}
+
+\thm{}{
+	Every nonempty finite set has the order type of $[n]$, and thus it is well-ordered.
+}
+\pf{Proof}{
+	We shall first claim that, if $A$ is a nonempty finite set, then it has a largest element.
+	It can be prove by induction on $|A|$. If $|A| = 1$, then it is trivial.
+	Suppose the claim holds for $|A| = n$, and suppose $|A| = n + 1$ and $a_0 \in A$.
+	Then, $A \setminus \{\,a_0\,\}$ has a largest element $a_1$.
+	This implies $A$ has a largest element $\max \{\,a_0, a_1\,\}$.
+
+	Now, we prove there is an order-preserving bijection $f \colon A \to [n]$.
+	This will also be proven with induction.
+	It is true when $|A| = 1$, so suppose it is true for $|A| = n \in \ZZ_+$ and let $|A| = n + 1$.
+	By above, we may let $a_0 \coloneqq \max A$.
+	By induction hypothesis, there is an order-preserving bijection $f' \colon A \setminus \{\,a_0\,\} \to [n]$.
+	Define $f \colon A \to [n+1]$ by \[
+		f(a) \coloneqq \begin{cases}
+			f'(a) & \text{if } a \neq a_0      \\
+			n+1   & \text{if } a = a_0\text{.}
+		\end{cases}
+	\] Then, $f$ is an order-preserving bijection from $A$ to $[n+1]$.
+}
+
+\thm[CofFinManyWOisWO]{}{
+	The Cartesian product of finitely many well-ordered sets is well-ordered with respect to the dictionary ordering.
+}
+\pf{Proof by Induction}{
+	We will prove this by induction on the number of sets. If there is one set, then it is trivial.
+
+	Assume the theorem holds for $n$ sets. Suppose we have $n+1$ sets $A_1, A_2, \cdots, A_{n+1}$.
+	Then, $\prod_{i=2}^{n+1} A_i$ is well-ordered with respect to a dictionary ordering $<_1$.
+
+	Let $<_2$ and $<_3$ be the dictionary order of $A_1 \times \prod_{i=2}^{n+1} A_i$ and $\prod_{i=1}^{n+1} A_i$, respectively.
+	Since $\left(A_1 \times \prod_{i=2}^{n+1} A_i, <_2\right)$ and $\left(\prod_{i=1}^{n+1} A_i, <_3\right)$ has the same order type,
+	we only need to prove that $\left(A_1 \times \prod_{i=2}^{n+1} A_i, <_2\right)$ is well-ordered.
+
+	Let $\varnothing \neq S \subseteq A_1 \times \prod_{i=2}^{n+1} A_i$.
+	If we define $S' \coloneqq \{\, a_1 \mid (a_1, b) \in S \,\} \subseteq A_1$,
+	$S'$ is a nonempty subset of $A_1$, and therefore has $a_1' \coloneqq \min S'$.
+	Similarly, if we define $S'' \coloneqq \{\, b_1 \mid (a_1', b_1) \in S \,\} \subseteq \prod_{i=2}^{n+1} A_i$,
+	$S''$ is nonempty and has a smallest element $b_1'$. Then, $(a_1', b_1')$ is a smallest element of $A_1 \times \prod_{i=2}^{n+1} A_i$
+	with respect to $<_2$.
+}
+
+\exer{}{
+	$\prod_{i \in \ZZ_+} \ZZ_+$ is not well-ordered with respect to the dictionary ordering.
+}
+\sol
+Let $x_{ij} \coloneqq \begin{cases}
+		2 & \text{if }i = j    \\
+		1 & \text{if }i \neq j
+	\end{cases}$ for each $i \in \ZZ_+$ and $j \in \ZZ_+$.
+The set $A \coloneqq \{\, (x_{i1}, x_{i2}, \cdots) \mid i \in \ZZ_+ \,\} \subseteq \prod_{i \in \ZZ_+} \ZZ_+$ has no smallest element.
+
+\thm[wot]{Well-Ordering Theorem}{
+	If $A$ is a set, then there exists an order relation on $A$ that is well-ordering.
+}
+The proof of \Cref{th:wot} involves the Axiom of Choice.
+
+\cor[woUncountSet]{}{
+	There exists an uncountable well-ordered set.
+}
+
+\dfn[section]{Section}{
+	Let $X$ be a well-ordered set. Given $\alpha \in X$, let \[
+		S_\alpha \coloneqq \{\, x \in X \mid x < \alpha \}\text{.}
+	\] $S_\alpha$ is called the \textit{section} of $X$ by $\alpha$.
+}
+
+\mlemma[onlySOmegaUncount]{}{
+	There exists a well-ordered set $A$ with the largest element $\Omega$, such that
+	\begin{itemize}[nolistsep]
+		\item section $S_{\Omega}$ of $A$ is uncountable, and,
+		\item for every $\alpha \in A \setminus \{\,\Omega\,\}$, section $S_{\alpha}$ of $A$ is countable.
+	\end{itemize}
+}
+\pf{Proof}{
+	By \Cref{cor:woUncountSet}, there exists an uncountable well-ordered set $B$.
+	Let $C \coloneqq \{\,1,2\,\} \times B$ be a set with a dictionary ordering.
+	$C$ is well-ordered by \Cref{th:CofFinManyWOisWO}.
+
+	Let $S \coloneqq \{\, \alpha \in C \mid \text{section } S_{\alpha} \text{ of } C \text{ is uncountable} \,\} \subseteq C$.
+	We may let $\Omega \coloneqq \min S$. Then, the set $\ol{S_{\Omega}} = S_{\Omega} \cup \{\,\Omega\,\}$
+	satisfies the two conditions.
+}
+
+\thm[AHasUBinSOmega]{}{
+	If $A$ is a countable subset of $S_{\Omega}$ (in \Cref{lem:onlySOmegaUncount}),
+	then $A$ has an upper bound in $S_{\Omega}$.
+}
+\pf{Proof}{
+	For each $a \in A$, the section $S_{a}$ is countable;
+	therefore, the union $B \coloneqq \bigcup_{a \in A} S_a$ is also countable by \Cref{exer:UnionOfCountSets}.
+
+	Since $S_\Omega$ is uncountable, we may take an $x \in S_\Omega \setminus B$.
+	If it were $x < a$ for some $a \in A$, then $x$ would be contained in $S_a$, which is a subset of $B$, \#.
+	Therefore, $x \in S_\Omega$ is an upper bound of $A$.
+}
+\end{document}

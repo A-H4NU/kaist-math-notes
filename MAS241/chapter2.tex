@@ -1,0 +1,367 @@
+\documentclass[MAS241_Note.tex]{subfiles}
+
+\begin{document}
+\chapter{Euclidean Spaces}
+\section{Euclidean $n$-Space}
+
+\dfn{Inner Product}{
+	The \textit{inner product} of two vectors $\vec{x} = (x_1, x_2, \cdots, x_n)$ and $\vec{y} = (y_1, y_2, \cdots, y_n)$
+	in $\RR[n]$ is \[
+		\langle \vec{x}, \vec{y} \rangle = \sum_{j=1}^{n} x_jy_j\text{.}
+	\]
+}
+\thm{}{
+	If $\vec{x}$, $\vec{y}$, and $\vec{z}$ are arbitrary vectors in $\RR[n]$
+	and if $a$ and $b$ are real numbers, then the following hold:
+	\begin{enumerate}[label=(\roman*),nolistsep]
+		\ii The inner product is \textit{additive} in both its variables: \[
+			      \begin{aligned}[t]
+				      \lang \vec{x} + \vec{y}, \vec{z} \rang & = \lang \vec{x}, \vec{z} \rang + \lang \vec{y}, \vec{z} \rang \\
+				      \lang \vec{x}, \vec{y} + \vec{z} \rang & = \lang \vec{x}, \vec{y} \rang + \lang \vec{x}, \vec{z} \rang
+			      \end{aligned}
+		      \]
+		\ii The inner product is \textit{symmetric}: $\lang \vec{x}, \vec{y} \rang = \lang \vec{y}, \vec{x} \rang$.
+		\ii The inner product is \textit{homogeneous} in both its variables:
+		      $\lang a\vec x, b \vec y \rang = ab \lang \vec x, \vec y \rang$.
+	\end{enumerate}
+}
+
+\dfn{Euclidean Norm}{
+	The \textit{Euclidean norm} of a vector $\vec x$ in $\RR[n]$ is \[
+		\|\vec x\| = \sqrt{\lang \vec x, \vec x \rang}\text{.}
+	\]
+}
+
+\thm[CSIneq]{The Cauchy-Schwarz Inequality}{
+	If $\vec x, \vec y \in \RR[n]$, then \[
+		|\langle \vec x, \vec y \rangle| \le \|\vec x\| \cdot \|\vec y\|\text{.}
+	\]
+}
+\pf{Proof}{
+	For any $t \in \RR$, $0 \le \|t\vec x + \vec y\|^2 = \|\vec x\|^2 t^2 + 2\lang \vec x, \vec y \rang t + \|\vec y\|^2$.
+	Thus, the discriminant $|\lang \vec x, \vec y \rang|^2 - \|\vec x\|^2\|\vec y\|^2$ is nonpositive.
+}
+
+\thm{}{
+	For vectors $\vec x$ and $\vec y$ in $\RR[n]$ and any $c \in \RR$, the Euclidean norm has the following properties.
+	\begin{enumerate}[label=(\roman*), nolistsep]
+		\ii $\|\vec x\| \ge 0$; $\|\vec x\| = 0$ if and only if $\vec x = \vec 0$. (\textit{Positive Definiteness})
+		\ii $\|c\vec x\| = |c| \cdot \|\vec x\|$. (\textit{Absolute Homogeneity})
+		\ii $\|\vec x + \vec y\| \le \|\vec x\| + \|\vec y\|$. (\textit{Subadditivity})
+	\end{enumerate}
+}
+\pf{Proof of (iii)}{
+	\[
+		\begin{aligned}[t]
+			0 \le \|\vec x + \vec y\|^2 & = \|\vec x\|^2 + 2\lang \vec x, \vec y \rang + \|\vec y\|^2                           \\
+			                            & \le \|\vec x\|^2 + 2\|\vec x\|\|\vec y\| + \|\vec y\|^2 = (\|\vec x\| + \|\vec y\|)^2
+		\end{aligned}
+	\]
+}
+
+\dfn{Norm}{
+	A \textit{norm} on $\RR[n]$ is any function $n \colon \RR[n] \to \RR$
+	that is positive definite, absolutely homogeneous, and subadditive.
+}
+
+\dfn{Metric}{
+	A \textit{metric} on $\RR[n]$ is a function from $\RR[n] \times \RR[n] \to \RR$
+	having the following properties.
+	\begin{enumerate}[label=(\roman*), nolistsep]
+		\ii $\forall \vec x, \vec y \in \RR[n],\: d(\vec x, \vec y) \ge 0$; $d(\vec x, \vec y) = 0 \iff \vec x = \vec y$.
+		      (\textit{Positive Definiteness})
+		\ii $\forall \vec x, \vec y \in \RR[n],\: d(\vec x, \vec y) = d(\vec y, \vec y)$. (\textit{Symmetry})
+		\ii $\forall \vec x, \vec y, \vec z \in \RR[n],\: d(\vec x, \vec z) \le d(\vec x, \vec y) + d(\vec y, \vec z)$.
+		      (\textit{The Triangle Inequality})
+	\end{enumerate}
+}
+
+\dfn{Euclidean Metric}{
+	The \textit{Euclidean metric} on $\RR[n]$ is defined by \[
+		d(\vec x, \vec y) = \|\vec x-\vec y\| = \left[\sum_{j=1}^{n} (x_j-y_j)^2\right]^{1/2}\text{.}
+	\]
+}
+
+\thm{}{
+	The Euclidean metric is a metric on $\RR[n]$.
+}
+
+\dfn{Orthogonality}{
+	Two vectors $\vec x$ and $\vec y$ in $\RR[n]$ are said to be \textit{orthogonal}
+	if $\lang \vec x, \vec y \rang = 0$.
+}
+
+\dfn{Neighborhood and Deleted Neighborhood}{
+	A \textit{neighborhood} $N(\vec x; r)$ or $\vec x \in \RR[n]$ with radius $r$ is the set \[
+		N(\vec x; r) = \{\, \vec y \in \RR[n] \mid \|\vec x - \vec y\| < r \,\}\text{.}
+	\] A \textit{deleted neighborhood} $N'(\vec x, r)$ of $\vec x$ is $N'(\vec x; r) = N(\vec x; r) \setminus \{\vec x\}$.
+}
+
+\dfn{Limit Point}{
+	Let $S$ be nonempty subset of $\RR[n]$.
+	We say that $\vec x$ is a \textit{limit point} of $S$ if \[
+		\forall \veps \in \RR_+,\: N'(\vec x; \veps) \cap S \neq \varnothing\text{.}
+	\]
+}
+
+\thm{}{
+	$\QQ[n]$ is dense in $\RR[n]$.
+}
+\pf{Proof}{
+    Take any $\vec y = (y_1, y_2, \cdots, y_n) \in \RR[n]$ and $\veps \in \RR_+$.
+    For each $j=1,2,\cdots,n$, choose a rational $x_j \in N(y_j; \veps/\sqrt{n})$
+    and form $\vec x \triangleq (x_1, x_2, \cdots, x_n) \in \QQ[n]$. Then, \[
+        \|\vec x - \vec y\|^2 = \sum_{j=1}^{n} (x_j-y_j)^2 < n(\veps/\sqrt{n})^2 = \veps^2\text{.}
+    \] Therefore $\vec y$ is a limit point of $\QQ[n]$.
+}
+
+\dfn{Boundedness}{
+	A subset $S$ of $\RR[n]$ is said to be \textit{bounded} if \[
+		\exs M \in \RR_+,\: \forall\vec x \in S,\: \|\vec x\| \le M\text{.}
+	\]
+}
+
+\subsection{Sequences in $\RR[n]$}
+
+\dfn{Cluster Point}{
+	$\vec c \in \RR[n]$ is a \textit{cluster point} of the sequence $\{\vec x_k\}$ if, \[
+		\forall (\veps, k) \in \RR_+ \times \NN,\: \exists k_1 \in \NN_{>k},\: \vec x_{k_1} \in N(\vec c; \veps)\text{.}
+	\]
+}
+
+\dfn{Convergence and Divergence of a Sequence}{
+	The sequnce $\{\vec x_k\}$ \textit{converges} to $\vec x_0$ and $\vec x_0$ is the \textit{limit} of $\{\vec x_k\}$ if, \[
+		\forall \veps \in \RR_+,\: \exists k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: \vec x_k \in N(\vec x_0; \veps)\text{.}
+	\] We write $\displaystyle \lim_{k \to \infty} \vec x_k = \vec x_0$.
+	If there is no such $\vec x_0$, then $\{\vec x_k\}$ \textit{diverges}.
+}
+
+\thm[seqConvIffCoordsConv]{}{
+    Let $\{\vec x_k\} = (x_1^{(k)}, x_2^{(k)}, \cdots, x_n^{(k)})$ for each $k \in \NN$.
+    Let $\vec x_0 = (x_1^{(0)}, x_2^{(0)}, \cdots, x_n^{(0)})$.
+    The sequence $\{\vec x_k\}$ converges to $\vec x_0$ if and only if,
+    for each $j \in [n]$, the sequence $\{x_j^{(k)}\}$ converges to $\{x_j^{(0)}\}$.
+}
+\pf{Proof}{
+    ($\Rightarrow$) Take any $\veps \in \RR_+$.
+    There there is $k_0 \in \NN$ such that \[
+        \forall k \in \NN_{\ge k_0}, \vec x_k \in N(\vec x_0; \veps)\text{.}
+    \]
+    Then, for each $j \in [n]$, \[
+        \left(x_j^{(k)} - x_0^{(k)}\right)^2 \le \sum_{i=1}^{n} \left(x_i^{(k)}-x_0^{(k)}\right)^2 = \|\vec x_k - \vec x_0\|^2 < \veps\text{.}
+    \]
+    ($\Leftarrow$) Take any $\veps \in \RR_+$. Then, for each $j \in [n]$,
+    there is some $k_j \in \NN$ such that \[
+        \forall k \in \NN_{\ge k_j},\: x_j^{(k)} \in N(x_0^{(k)}; \veps/\sqrt{n})\text{.}
+    \] Then, for all natural number $k$ not smaller than $\max_{j \in [n]} k_j$, \[
+        \|\vec x_k - \vec x_0\|^2 = \sum_{j=1}^{n} \left(x_j^{(k)}-x_0^{(k)}\right)^2 < n(\veps/\sqrt{n})^2 = \veps^2\text{.}
+    \]
+}
+
+\dfn{Cauchy Seqeunce}{
+	A seqeunce $\{\vec x_k\}$ in $\RR[n]$ is called a \textit{Cauchy sequence} if \[
+		\forall \veps \in \RR_+,\: \exs k_0 \in \NN,\: \forall k, m \in \NN_{\ge k_0},\: \|\vec x_k-\vec x_m\| < \veps\text{.}
+	\]
+}
+
+\thm[convIffCauchyRn]{Cauchy's Completeness Theorem in $\RR[n]$}{
+	A sequence $\{\vec x_k\}$ in $\RR[n]$ is Cauchy if and only if it converges.
+	$\RR[n]$ is Cauchy complete.
+}
+\pf{Proof}{
+    ($\Leftarrow$) The proof if similar to \Cref{th:convThenCauchy}. \par
+    ($\Rightarrow$) Let some Cauchy sequence $\{\vec x_k\}$ in $\RR[n]$ be given. Take any $\veps \in \RR_+$.
+    There is some $k_0 \in \NN$ such that for every natural number $k$ and $m$ not smaller than $k_0$,
+    $\|\vec x_k - \vec x_m\| < \veps$.
+    Then, for each $j \in [n]$, $|x_j^{(k)} - x_j^{(m)}| \le \|\vec x_k - \vec x_m\| < \veps$,
+    which implies each $\{x_j^{(k)}\}_{k \in \NN}$ is Cauchy.
+    By \Cref{th:convIffCauchy}, $\{x_j^{(k)}\}_{j \in \NN}$ converges to some number $x_j^{(0)}$.
+    Then, \Cref{th:seqConvIffCoordsConv} ensures that $\lim_{k \to \infty} \vec x_k = (x_1^{(0)}, x_2^{(0)}, \cdots, x_n^{(0)})$.
+}
+
+\thm[BW2]{The Generalized Bolzano–Weierstra Theorem}{
+	Every bounded infinite set in $\RR[n]$ has a limit point in $\RR[n]$.
+}
+\pf{Proof}{
+    Suppose that $S$ is any bounded, infinite set in $\RR[n]$.
+    Being bounded, $S$ is contained in some $n$-cube $C(2M) = [-M, M]^n$ centered at $\vec 0$.
+    Construct $C_1, C_2, \cdots$ as following.
+    \begin{itemize}[nolistsep]
+        \ii $C_1 \triangleq C(2M) = [a_1^{(1)}, b_1^{(1)}] \times \cdots \times [a_n^{(1)}, b_n^{(1)}]$
+            \begin{itemize}[nolistsep]
+                \ii Note that $C_1 \cap S = S$ is infinite.
+            \end{itemize}
+        \ii For each $k \in \NN$, $C_{k+1}$ is any cube of the form $[a_1^{(k+1)}, b_1^{(k+1)}] \times \cdots \times [a_n^{(k+1)}, b_n^{(k+1)}]$
+            where each $[a_j^{(k+1)}, b_j^{(k+1)}]$ is either
+            $[a_j^{(k)}, (a_j^{(k)}+b_j^{(k)})/2]$ or $[(a_j^{(k)}+b_j^{(k)})/2, b_j^{(k)}]$
+            so that $C_{k+1} \cap S$ is infinite.
+            \begin{itemize}[nolistsep]
+                \ii This is possible since there is at least one cube among $2^n$ possible choices
+                    that $C_{k+1} \cap S$ is infinite.
+            \end{itemize}
+    \end{itemize}
+    Then, the main diagonal $d_k$ of $C_k$ equals to $Mn^{1/2}/2^{k-2}$.
+    Also, note that $C_k \supseteq C_{k+1}$ for all $k \in \NN$.
+
+    Now, we may construct a sequence $\{\vec x_k\}_{k \in \NN}$ as following.
+    \begin{itemize}[nolistsep]
+        \ii $\vec x_1$ is any element in $C_1 \cap S$.
+        \ii For each $k \in \NN$, $\vec x_{k+1}$ is arbitrarily taken from
+            $C_{k+1} \cap S \setminus \{\, \vec x_1, \vec x_2, \cdots, \vec x_k \,\}$.
+    \end{itemize}
+    We claim that $\{\vec x_k\}_{k \in \NN}$ is a Cauchy sequence. To show this, take any $\veps \in \RR_+$.
+    There is some $k_0 \in \NN$ such that $d_{k_0} = Mn^{1/2}/2^{k_0-2} < \veps$ by \Cref{th:archi}.
+    Then, for all $k, m \in \NN_{\ge k_0}$, $\|\vec x_k - \vec x_m\| \le d_{k_0} < \veps$.
+    Therefore, since $\{\vec x_k\}$ is Cauchy, and therefore convergent by \Cref{th:convIffCauchyRn}.
+
+    Clearly, $\vec x_0 \triangleq \lim_{k \to \infty} \vec x_k$ is a limit point of $S$
+    since any deleted neighborhood $N'(\vec x_0)$ of $\vec x_0$
+    intersects infinitely many points with $\{\vec x_k\}_{k \in \NN} \subseteq S$.
+}
+
+\dfn{Subsequence}{
+    Let $\{\vec x_k\}$ be any sequence in $\RR[n]$.
+    Choose any strictly monotone increasing sequnce $k_1 < k_2 < k_3 <\cdots$ of natural numbers.
+    For each $j \in \NN$, let $\vec y_j \coloneqq \vec x_{k_j}$.
+    The sequence $\{\vec y_j\}_{j=1}^\infty$ is called an \textit{subsequence} of $\{\vec x_k\}$.
+}
+
+\thm{}{
+	The point $\vec c$ is a cluster point of $\{\vec x_k\}$
+    if and only if there exists a subsequence of $\{\vec x_k\}$ that converges to $\vec c$.
+}
+\pf{Proof}{
+    Analogous to \Cref{th:clusterIffSubseqConv}.
+}
+
+\thm[bddRnSeqHasCluster]{}{
+	Any bounded sequence $\{\vec x_k\}$ has a cluster point.
+}
+\pf{Proof}{
+    Analogous to \Cref{th:bddSeqHasCluster}.
+}
+
+\cor{}{
+    If a sequence in $\RR[n]$ has no cluster point, then the sequence is unbounded.
+}
+
+\cor[bddRnSeqConvIffOneCluster]{}{
+    Any bounded sequence in $\RR[n]$ converges if and only if it has exactly one cluster point.
+}
+
+\cor{}{
+	A sequence $\{\vec x_k\}$ diverges if and only if at least one of the following conditions holds.
+	\begin{itemize}[nolistsep]
+		\ii $\{\vec x_k\}$ has two or more cluster points.
+		\ii $\{\vec x_k\}$ is unbounded.
+	\end{itemize}
+}
+
+\section{Open and Closed Sets}
+
+\dfn{Interior/Boundary Point and Open/Closed Set}{
+    Let $S$ be any subset of $\RR[n]$ and let $\vec x$ be any point in $\RR[n]$.
+    \begin{enumerate}[label=(\roman*), nolistsep]
+        \ii $\vec x$ is an \textit{interior point} of $S$ if $\exs r \in \RR_+,\: N(\vec x; r) \subseteq S$.
+        \ii If every point of $S$ is an interior point of $S$, then $S$ is said to be \textit{open}.
+        \ii We call $\vec x$ is a \textit{boundary point} of $S$ if
+              $\forall r \in \RR_+,\: N(\vec x; r) \cap S \neq \varnothing \land N(\vec x; r) \setminus S \neq \varnothing$.
+        \ii If $S$ continas all its boundary points, then $S$ is said to be \textit{closed}.
+    \end{enumerate}
+}
+
+\thm[UofOpenIsOpen]{}{
+    The union of any collection of open sets in $\RR[n]$ is open.
+    The intersection of any finite collection of open sets in $\RR[n]$ is also open.
+}
+\pf{Proof}{
+    To prove the first assertion, suppose that $\{\,U_{\alpha} \mid \alpha \in J \,\}$
+    is any collection of open sets in $\RR[n]$. Let $U \triangleq \bigcup_{a \in J} U_\alpha$.
+    Take any $\vec x \in U$. Then, there is some $\alpha_0 \in J$ such that $\vec x \in U_{\alpha_0}$.
+    Since $U_{\alpha_0}$ is open, there is some neighborhood $N(\vec x; \veps)$ such that
+    $N(\vec x; \veps) \subseteq U_{\alpha_0}$, which, in turn, $N(\vec x; \veps) \subseteq U$.
+    Therefore, $\vec x$ is an interior point of $U$; $U$ is open.
+
+    To prove the second assertion, let $U$ be the intersection of any finite collection
+    $\{\,U_1, U_2, \cdots, U_k\,\}$ of open sets and take any $\vec x \in U$.
+    For each $j \in [k]$, since $\vec x \in U_j$, there is some $r_j \in \RR_+$ such that
+    $N(\vec x; r_j) \subseteq U_j$.
+    Then, take $r_0 \triangleq \min_{j \in [k]} r_j \in \RR_+$.
+    Since, for all $j \in [k]$, $N(\vec x; r_0) \subseteq U_j$, it is implied that $N(\vec x; r_0) \subseteq U$.
+    Therefore, $\vec x$ is an interior point of $U$; $U$ is open.
+}
+
+\nt{
+    Intersection of infinitely many open sets may fail to be open. For instance, consider \[
+        U_k \triangleq N(\vec 0; 1/k)\text{,}
+    \] for each $k \in \NN$. Then, $\bigcap_{k \in \NN} U_k = \{\vec 0\}$, which is not open.
+}
+
+\thm[ClosedIffCmplOpen]{}{
+    A set $C \subseteq \RR[n]$ is closed if and only if $C^{c}$ is open.
+}
+\pf{Proof}{
+    TBA
+}
+
+\thm[IofClosedIsClosed]{}{
+    The intersection of any collection of closed sets in $\RR[n]$ is closed.
+    The union of any finite collection of closed sets in $\RR[n]$ is also closed.
+}
+
+\dfn{}{
+    Let $S \subseteq \RR[n]$.
+    \begin{enumerate}[label=(\roman*), nolistsep]
+        \ii The \textit{interior} of $S$, denoted $\inter S$, is the set of all interior points of $S$.
+        \ii The \textit{boundary} of $S$, denoted $\bd S$, is the set of all boundary points of $S$.
+        \ii The \textit{derived set} of $S$, denoted $S'$, is the set of all limit points of $S$.
+        \ii The \textit{closure} of $S$, denoted $\cl S$, is the union of $S$ and $S'$.
+        \ii The \textit{complement} of $S$, denoted $\cmpl S$, is the set $\RR[n] \setminus S$.
+    \end{enumerate}
+}
+
+\thm[IntIsUOfOpenSetsInS]{}{
+    Let $S \subseteq \RR[n]$. The interior of $S$ is the union of all open sets contained in $S$.
+}
+\pf{Proof}{
+
+}
+
+\cor[IntIsOpen]{}{
+    For any $S \subseteq \RR[n]$, the set $S^0$ is open.
+}
+
+\thm{}{
+    The closure of $S$ is the intersection of all closed sets that contain $S$.
+}
+
+\cor[ClosureIsClosed]{}{
+    For any $S \subseteq \RR[n]$, the set $\ol{S}$ is closed.
+}
+
+\thm{}{
+    Let $S \subseteq \RR[n]$.
+    \begin{enumerate}[label=(\roman*), nolistsep]
+        \ii $\inter{\inter S}= \inter S$
+        \ii $\cl{(\cl S)} = \cl S$
+        \ii $\inter S \cap \bd S = \varnothing$
+        \ii $\inter S \cup \bd S = \ol{S}$
+        \ii $\cl S \cap \cl{(\cmpl S)} = \bd S$
+    \end{enumerate}
+}
+
+\dfn{Diamter}{
+    Let $\varnothing \neq S \subseteq \RR[n]$ be a bounded set.
+    The \textit{diameter} of $S$ is defined to be \[
+        d(S) \triangleq \sup \{\, \|\vec x - \vec y\| \mid \vec x, \vec y \in S \,\}\text{.}
+    \]
+}
+
+\dfn{Distance}{
+    Let $\varnothing \neq S \subseteq \RR[n]$ and $\vec x \in \RR[n]$.
+    The distance from $\vec x$ to $S$ is defined to be \[
+        d(\vec x, S) \triangleq \inf \{\, \|\vec x - \vec y\| \mid \vec y \in S \,\}\text{.}
+    \]
+}
+
+\end{document}

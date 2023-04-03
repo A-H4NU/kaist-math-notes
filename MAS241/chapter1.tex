@@ -1,0 +1,706 @@
+\documentclass[MAS241_Note.tex]{subfiles}
+
+\begin{document}
+\chapter{Structure of the Real Numbers}
+\section{Completeness of the Real Numbers}
+\dfn{Cauchy Sequence}{
+Let $X$ be a space. A sequence $\{x_n\}_{n \in \NN}$ is a \textit{Cauchy sequence}
+if $\|x_n - x_m\| \to 0$ as $n, m \to \infty$.
+}
+\dfn{Completeness}{
+	A set $X$ is \textit{complete} if every Cauchy sequnce has a limit in X, i.e., \[
+		x_n \to x_\infty \in X\text{.}
+	\]
+}
+\dfn{Boundedness}{
+	Let $\varnothing \neq S \subseteq \RR$.
+	\begin{enumerate}[noitemsep,label=\alph*)]
+		\ii $S$ is \textit{bounded above} if $\exists M \in \RR,\: \forall x \in S,\: x \le M$.
+		      \begin{itemize}
+			      \ii $M$ is called an \textit{upper bound} of $S$.
+		      \end{itemize}
+		\ii $S$ is \textit{bounded below} if $\exists M \in \RR,\: \forall x \in S,\: x \ge M$.
+		      \begin{itemize}
+			      \ii $M$ is called an \textit{lower bound} of $S$.
+		      \end{itemize}
+		\ii $S$ is bounded if $S$ is bounded above and below.
+	\end{enumerate}
+}
+\thm[archi]{Archimedes' Principle}{
+	Let $\veps$ and $M$ be any two possible real numbers.
+	Then, there exists a $k$ in $\NN$ such that $M < k \veps$.
+}
+\noindent
+The proof of \Cref{th:archi} can be done by integrating \Cref{th:completeR} and \Cref{th:sup1}.
+\dfn{Supremum and Infimum}{
+	\begin{enumerate}[noitemsep,label=\alph*)]
+		\ii Let $S$ be bounded above. Then, the smallest upper bound is called the \textit{supremum} of $S$, $\sup S$.
+		\ii Let $S$ be bounded below. Then, the largest lower bound is called the \textit{infimum} of $S$, $\inf S$.
+	\end{enumerate}
+}
+\exmp{}{
+	Let $S = \left\{(-1)^k (1 - 1/k) \:\big|\: k \in \NN\right\}$.
+	It is clear that $-1 < S < 1$; $1$ is an upper bound and $-1$ is a lower bound.
+	We now claim that $\sup S = 1$. To show this, let us assume that $M < 1$ is an upper bound of $S$.
+	By Archimedes' principle, there exists an natural number $k_0$ such that $(1-M)/2 < k_0$,
+	which implies $(-1)^{2k_0}\big(1-1/(2k_0)\big) > M$; $M$ is not an upper bound. Therefore, $1$ is the smallest upper bound.
+	It can be similarly shown that $\inf S = -1$.
+}
+\thm[completeR]{Completeness Axiom for $\RR$}{
+	If $\varnothing \neq S \subseteq \RR$ and $S$ is bounded above, then $\sup S$ exists in $\RR$.
+}
+\cor{}{
+	If $\varnothing \neq S \subseteq \RR$ and $S$ is bounded below, then $\inf S$ exists in $\RR$.
+}
+\pf{Proof}{
+	Let $B \coloneqq \{-x \:|\: x \in S\}$. Then, $M = \sup S \in \RR$ by \Cref{th:completeR}.
+	We now claim that $\inf S = -M$.
+
+	For all $x \in S$, $-x \in B$, which implies $-x \le M$, and therefore $x \ge -M$.
+	Thus, $-M$ is a lower bound of $S$.
+
+	Suppose there is a $M_1 > -M$ such that $M_1$ is a lower bound of $S$.
+	For all $x \in S$, $x \ge M_1$, which implies $-x \le -M_1$.
+	Thus, $-M_1$ is an upper bound of $B$ but $-M_1 < M = \sup B$, \#.
+
+	Therefore, $\inf S = -M \in \RR$.
+}
+\exmp{}{
+	\begin{itemize}[nolistsep]
+		\ii $\displaystyle S \coloneqq \left\{ \sum_{j=0}^{k} \frac{1}{j!} \:\bigg|\: k \in \NN \right\}$. $S$ is bounded above.\\
+		      \centerline{$\displaystyle \sum_{j=0}^{k} \frac{1}{j!} = 1 + \sum_{j=1}^{k} \frac{1}{j!} \le 1 + \sum_{j=1}^{k} \frac{1}{2^{j-1}} < 3$}
+		      In fact, $e \coloneqq \sup S$.\\[-.8em]
+		\ii $\displaystyle S \coloneqq \left\{ \left(1+\frac{1}{k}\right)^k \:\bigg|\: k \in \NN \right\}$. $S$ is bounded above.\\
+		      \centerline{$\displaystyle \left(1+\frac{1}{k}\right)^k = \sum_{j=0}^{k} \binom{k}{j} \frac{1}{k^j} \le \sum_{j=0}^{k} \frac{1}{j!} \le e$}
+	\end{itemize}
+}
+
+\thm[finSup]{}{
+	Let $S$ be a finite nonempty subset of $\RR$. Then, $\sup S \in S$ and $\inf S \in S$.
+}
+\pf{Proof}{(Induction on $|S|$)
+	For $S = \{x\}$, $x = \inf S = \sup S \in S$. \par
+	Take any $k \in \NN$ and suppose the statement holds for every $S$ with $|S| = k$.
+	Now, take any $S' \subseteq \RR$ such that $|S'|=k+1$.
+	Let $x \in S'$, $\mu \coloneqq \sup (S' \setminus \{x\})$, and $\nu \coloneqq \inf (S' \setminus \{x\})$.
+	By the induction hypothesis, $\mu, \nu \in S' \setminus \{x\}$.
+	Letting $\mu' \coloneqq \max(\mu, x)$ and $\nu' \coloneqq \min(\nu, x)$, $\mu'$ and $\nu'$ are the supremum and infimum of $S'$, respectively.
+	Moreover, $\mu'$ and $\nu'$ are elements of $S'$.
+}
+
+\thm[sup1]{}{
+	Let $\varnothing \neq S \subseteq \RR$.
+	\begin{itemize}
+		\ii If $S$ is bounded above, then ``$\mu = \sup S$ if and only if
+		      $\mu \text{ is an upper bound and }\forall\: \veps \in \RR_+,\: \exists\: x \in S,\: \mu-\veps < x \le \mu$''.
+		\ii If $S$ is bounded below, then ``$\nu = \inf S$ if and only if
+		      $\nu \text{ is an lower bound and }\forall\: \veps \in \RR_+,\: \exists\: x \in S,\: \nu \le x < \nu+\veps$''.
+	\end{itemize}
+}
+\pf{Proof}{
+	Let $S$ be bounded above. If there is no $x \in S$ in $(\mu - \veps, \mu]$, then $\mu - \veps$ would be a smaller upper bound.
+
+	For the converse, assume $M$ is an upper bound and $M < \mu$. Let $\veps \coloneqq \mu - M > 0$.
+	Then, there is some $x \in S$ such that $M = \mu - \veps < x \le \mu$, \# to $M$ is an upper bound.
+	Therfore, $\mu$ is the least upper bound.
+
+	The same logic may be applied for bounded below $S$.
+}
+\pf{Proof of \Cref{th:archi}}{
+	Let $S \coloneqq \{k \veps \:|\: k \in \NN \}$. Assume $S$ is bounded above and nonempty.
+	Then, by \Cref{th:completeR}, there is $\mu = \sup S$.
+	We also know, from \Cref{th:sup1}, that there is $k \in \NN$ such such that $\mu - \veps < k \veps \le \mu$,
+	which implies $\mu < (k+1) \veps$.
+	Since $(k+1)\veps \in S$, $\mu$ is not an upper bound of $S$, which is a contradiction.
+	Therefore, $S$ is not bounded above.
+	In other words, for any $M > 0$, there is some $k \in \NN$ such that $M < k \veps$.
+}
+
+\thm[archi2]{}{
+	\Cref{th:archi} (Archimedes' principle) is equivalent to the following statement: \[
+		\forall\, c \in \RR_+,\: \exists\: k \in \NN,\: k-1 \le c < k\text{.}
+	\]
+}
+\pf{Proof}{
+	Assume Archimedes' principle. If $c < 1$, $k = 1$ satisfies, and it is done. Now, let us suppose $c \ge 1$.
+	By \Cref{th:archi}, there is a $k \in \NN$ such that $c < k$.
+	We may let $k_0 \coloneqq \min \{k \in \NN \:|\: k > c\}$ by Well-Ordering of $\NN$.
+	We note that $k_0 - 1 \le c$ since $k_0 - 1 \in \NN$ since $k_0 > 1$. Therefore, $k_0-1 \le c < k_0$.
+
+	Now, assume ``$\forall\: c \in \RR_+,\: \exists\: k \in \NN,\: k-1 \le c < k$''.
+	Take any $M > 0$ and $\veps \in \RR_+$ and let $c \coloneqq M/\veps$.
+	The assumption tells the existence of a $k \in \NN$ such that $M / \veps = c < k$, which directly implies $M < k \veps$.
+}
+
+\thm{}{
+	Let $c$ and $d$ be real numbers with $c < d$. Then, $\exists\: x \in \QQ,\: c < x < d$.
+}
+\pf{Proof}{
+	There are three cases: $0 < c < d$, $c \le 0 < d$, or $c < d \le 0$.
+
+	Case 1) By Archimedes' principle, $\exists\: q \in \NN,\: 1 < (d-c)q$, which implies $cq + 1 < dq$.
+	By \Cref{th:archi2}, $\exists\: q \in \NN,\: p - 1 \le cq < p$ since $cq > 0$.
+	To sum up, $p - 1 \le cq < p \le cq + 1 < dq$, which implies $c < p/q < d$.
+
+	Case 2) By Archimedes' principle, $\exists\: q \in \NN,\: 1 < dq$. Then, $c \le 0 < 1/q < d$ holds.
+
+	Case 3) By case 1 and 2, there is $r \in \QQ$ such that $-d < r < -c$. Then, $c < -r < d$ holds.
+}
+\clearpage
+
+\section{Neighborhoods and Limit Points}
+\dfn{Neighborhood and Deleted Neighborhood}{
+	For each $x \in \RR$ and $r \in \RR_+$, \[
+		N(x; r) \coloneqq \{ y \in \RR \:\colon\: |y-x| < r\} = (x-r, x+r)
+	\] is called the \textit{neighborhood} of $x$ with radius $r$, and \[
+		N'(x; r) \coloneqq \{ y \in \RR \:\colon\: 0 < |y-x| < r \} = N(x; r) \setminus \{ x \}
+	\] is called the \textit{deleted neighborhood} of $x$ with radius $r$.
+}
+\dfn{Limit Point and Isolated Point}{
+	For $\varnothing \neq S \subseteq \RR$, $x \in \RR$ is a \textit{limit point} of $S$ if \[
+		\forall \veps \in \RR_+,\: N'(x, \veps) \cap S \neq \varnothing\text{.}
+	\]
+	If $x \in \RR$ is not a limit point of $S$, then it is called an \textit{isolated point} of $S$.
+}
+\dfn{Discrete Set}{
+	If $\varnothing \neq S \subseteq \RR$ has no limit points, then $S$ is said to be \textit{discrete}.
+}
+
+\exmp{}{
+	Let $S \coloneqq \big\{(-1)^k (1 + 1/k) \:\big|\: k \in \NN \big\}$. Then, $1$ and $-1$ are limit points of $S$.
+
+	To see $1$ is a limit point, take any $\veps \in \RR_+$ and, using \Cref{th:archi}, choose a $k \in \NN$ such that $1 < (2\veps)k$.
+	Then, $1 < 1 + \frac{1}{2k} = (-1)^{2k} \left(1 + \frac{1}{2k}\right) < 1 + \veps$; $N'(1, \veps) \cap S \neq \varnothing$.
+	Therefore, $1$ is a limit point.
+}
+
+\thm[limPointWeak]{}{
+	Let $\varnothing \neq S \subseteq \RR$. Then, $x \in \RR$ is a limit point of $S$ if and only if \[
+		\exists \veps_0 \in \RR_+,\: \forall \veps \in (0, \veps_0),\: N'(x, \veps) \cap S \neq \varnothing\text{.}
+	\]
+}
+\pf{Proof}{Trivial; $0 < \veps_1 < \veps_2$ implies $N'(x, \veps_1) \subsetneq N'(x, \veps_2)$.}
+
+\thm[limPointInf]{}{
+	Let $\varnothing \neq S \subseteq \RR$ and $x \in \RR$ be a limit point of $S$.
+	Then, every deleted neighborhood of $x$ must contain infinitely many points of $S$.
+}
+\pf{Proof}{
+	Assume $N'(x; \veps) \cap S$ were to contain only finitely many points,
+	namely, $N'(x; \veps) \cap S = \{x_1, x_2, \cdots, x_k\}$.
+	Let $S_1 \coloneqq \big\{ |x-x_i| \:\colon\: i \in [k] \big\}$.
+	Since $S_1$ is finite, we may let $x_j$ be an element of $N'(x; \veps) \cap S$
+	that satisfies $|x-x_j| = \min S_1 = \inf S_1 > 0$.
+	If we let $\veps_0 \coloneqq |x-x_j|/2$, $N'(x; \veps_0) \cap S = \varnothing$, \#.
+}
+\cor[noLimPointFinite]{}{
+	If $S$ is a finite subset of $\RR$, then $S$ has no limit point.
+}
+\exmp{}{
+	$\ZZ$ has no limit point.
+}
+
+\thm[BW]{Bolzano–Weierstra Theorem}{
+	If $S \subseteq \RR$ is bounded and has an infinite number of elements,
+	then $S$ has a limit point.
+}
+\pf{Proof}{
+Since $S$ is bounded, $a_0 \coloneqq \inf S$ and $b_0 \coloneqq \sup S$ exist; $S \subseteq [a_0, b_0]$.
+At least one of $[a_0, (a_0+b_0)/2]$ and $[(a_0+b_0)/2, b_0]$ has an infinite number of elements in $S$,
+otherwise $S$ must be finite.
+Choose whichever has an infinite number of elements in $S$, and let us denote it as $[a_1, b_1]$.
+Since, $S \cap [a_1, b_1]$ is bounded and has an infinite number of elements, we may find $a_2$ and $b_2$
+in the same manner. Note that
+\begin{enumerate}[nolistsep, label=(\alph*)]
+	\ii for every natural number $k$, $S \cap [a_k, b_k]$ has an infinite number of elements,
+	\ii $\forall k \in \NN,\: b_k - a_k = (b_0 - a_0)/2^k > 0$, and
+	\ii $\forall k \in \NN,\: a_{k-1} \le a_{k} < b_{k} \le b_{k-1}$.
+\end{enumerate}
+The sequence $\{a_k\}_{k=0}^\infty$ is bounded above by $b_0$, and the sequence $\{b_k\}_{k=0}^\infty$ is bounded below by $a_0$.
+Therefore, we may let $\alpha \coloneqq \sup \{a_k\}$ and $\beta \coloneqq \inf \{b_k\}$.
+
+Since $a_j$ is a lower bound of $\{b_k\}_{k=0}^\infty$ for all $j \in \NN$, $\forall j \in \NN,\: a_j \le \beta$.
+This implies $\beta$ is an upper bound of $\{a_k\}_{k=0}^\infty$, therefore $\alpha \le \beta$.
+Since $a_j \le \alpha \le \beta \le b_j$ for all $j \in \NN$, we get $0 \le \beta - \alpha \le b_j - a_j = (b_0-a_0)/2^j$.
+Therefore, $\beta - \alpha = 0$.
+
+We now claim that $\alpha$ is a limit point of $S$.
+Take any $\veps \in \RR_+$.
+By \Cref{th:sup1}, $\exists k_0 \in \NN,\: \alpha - \veps < a_{k_0} \le \alpha$.
+We may take $k \in \NN$ such that $k > k_0$ and $|b_k - a_k| < \veps$ thanks to (b).
+Since $\alpha \in [a_k, b_k]$, $\alpha - \veps < a_{k_0} \le a_k \le \alpha \le b_k < \alpha + \veps$,
+which implies $[a_k, b_k] \subseteq N(\alpha; \veps)$.
+
+In conclusion, $S \cap [a_k, b_k]$ has infinitely many elements by (a), and so does $(S \cap [a_k, b_k]) \setminus \{\alpha\}$.
+$S \cap N'(\alpha; \veps)$ is, therefore, nonempty.
+}
+
+\dfn{Bolzano–Weierstra Property}{
+	We say that a nonempty set $X$ has the \textit{Bolzano–Weierstra property}
+	if every bounded, infinite subset $S$ of $X$ has a limit point in $X$.
+}
+
+\clearpage
+\section{The Limit of a Sequence}
+\dfn[cluster]{Cluster Point}{
+	$c \in \RR$ is a \textit{cluster point} of the sequence $\{x_k\}$ if, \[
+		\forall (\veps, k) \in \RR_+ \times \NN,\: \exists k_1 \in \NN_{>k},\: x_{k_1} \in N(c; \veps)\text{.}
+	\]
+}
+\mlemma[clusterSetInf]{}{
+	$c \in \RR$ is a cluster point of $\{x_k\}$ if and only if
+	$\big\{ k \in \NN \:\big|\: x_k \in N(c; \veps) \big\}$ is infinite for every $\veps \in \RR_+$.
+}
+\pf{Proof}{
+	($\Rightarrow$) Suppose $S \coloneqq \big\{ k \in \NN \:\big|\: x_k \in N(c; \veps) \big\}$ is finite for some $\veps \in \RR_+$.
+	If $S$ were empty, then, $c$ is not a cluster point by \Cref{def:cluster}.
+	Therefore, $S$ is nonempty and has a maximum element $k_{0} \coloneqq \max S$ by \Cref{th:finSup}.
+	Since $c$ is a cluster point, there is a natural number $k_1 > k_0$ such that $x_{k_1} \in N(c; \veps)$; $k_1 \in S$.
+	This contradicts the maximality of $k_0$.
+
+	($\Leftarrow$) Take any $\veps \in \RR_+$ and $k_0 \in \NN$.
+	If there is no $k_1 \in \NN$ such that $k_1 > k_0$ and $x_{k_1} \in N(c; \veps)$,
+	$S$ will be bounded above by $k_0$ and finite, which is a contradiction.
+	Therefore, $c$ is a cluster point of $S$.
+
+}
+\dfn{Convergence and Divergence of a Sequnce}{
+	The sequnce $\{x_k\}$ \textit{converges} to $x_0$ and $x_0$ is the \textit{limit} of $\{x_k\}$ if, \[
+		\forall \veps \in \RR_+,\: \exists k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: x_k \in N(x_0; \veps)\text{.}
+	\] We write $\displaystyle \lim_{k \to \infty} x_k = x_0$. If there is no such $x_0$, then $\{x_k\}$ \textit{diverges}.
+}
+\mlemma[limDistSetFin]{}{
+	$\displaystyle \lim_{x \to \infty} x_k = x_0$ if and only if
+	$\big\{ k \in \NN \:\big|\: x_k \notin N(x_0; \veps) \big\}$ is finite for every $\veps \in \RR_+$.
+}
+\pf{Proof}{
+	($\Rightarrow$) Take any $\veps \in \RR_+$. There is some $k_0 \in \NN$ such that $k \in N(x_0; \veps)$ for all natural numbers $k \ge k_0$.
+	Therefore, $\big\{ k \in \NN \:\big|\: x_k \notin N(x_0; \veps) \big\} \subseteq [k_0]$ and thus finite.
+
+	($\Leftarrow$) Take any $\veps \in \RR_+$. Let $k_0 \coloneqq \max \big\{ k \in \NN \:\big|\: x_k \notin N(x_0; \veps) \big\}$.
+	Then, for every natural number $k$ larger than $k_0$ satisfies $x_k \in N(x_0; \veps)$.
+}
+\mlemma[limIsCluster]{}{
+	The limit $x_0$ of a sequence, if it exists, is a cluster point of the sequence.
+}
+
+\thm[limDistUnique]{Uniqueness of the Limit}{
+	The limit of a convergent sequence of $\RR$ is unique.
+}
+\pf{Proof}{
+	Suppose $a$ and $b$ are two limits of a sequence $\{x_{k}\}$ and $a \neq b$.
+	Let $\veps \coloneqq |b - a|/2$.
+	Then, by \Cref{lem:limDistSetFin}, $A \coloneqq \{ k \in \NN \:|\: x_k \notin N(a; \veps) \}$ and
+	$B \coloneqq \{ k \in \NN \:|\: x_k \notin N(b; \veps) \}$ are both finite, which means
+	$A \cup B = \NN$ is finite, \#.
+}
+
+\thm[seqDivIfTwoCluster]{}{
+	If a sequence has two (or more) cluster points, then it diverges.
+}
+\pf{Proof}{
+	Suppose $x_0$ is the limit of $\{x_k\}$. Since, by \Cref{lem:limIsCluster}, $x_0$ is a cluster point,
+	there is another cluster point $c$ different from $x_0$. Let $\veps \coloneqq |x_0-c|/2$.
+
+	Although $S \coloneqq \{ k \in \NN \:\: x_k \notin N(x_0; \veps) \}$ should be finite by \Cref{lem:limDistSetFin},
+	$\{ k \in \NN \:|\: x_k \in N(c; \veps) \}$, a subset of $S$, is infinite by \Cref{lem:clusterSetInf}, \#.
+}
+
+\thm[convSeqBdd]{}{
+	A convergent sequence is bounded.
+}
+\pf{Proof}{
+	Let $x_0$ is the limit of $\{x_k\}$. There is some $k_0 \in \NN$ such that $|x_k - x_0| < 1$ for all $k \in \NN_{k_0}$.
+	Let $A \coloneqq \{ x_k \:|\: k \in \NN \text{ and } k \le k_0 \}$ and $B \coloneqq \{ x_k \:|\: k \in \NN \text{ and } k \ge k_0 \}$.
+	Then, $A$ is finite and $B$ is bounded above and below by $x_0 + 1$ and $x_0 - 1$, respectively.
+	Therefore, $\{ x_k \}$ is bounded above by $\max (\max A, x_0+1)$ and below by $\min(\min A, x_0 - 1)$.
+}
+\cor[unbddSeqDiv]{}{
+	An unbounded sequence diverges.
+}
+
+\mlemma{}{
+	The following hold.
+	\begin{enumerate}[nolistsep, label=(\roman*)]
+		\ii $\lim_{k \to \infty} x_k = 0 \iff \lim_{k \to \infty} |x_k| = 0$
+		\ii $\lim_{k \to \infty} x_k = x_0 \implies \forall c \in \RR,\: \lim_{k \to \infty} cx_k = cx_0$
+	\end{enumerate}
+}
+\pf{Proof of (ii)}{
+	If $c = 0$, then it is done; so suppose $c \neq 0$.
+	Take any $\veps \in \RR_+$. Then, there is some $k_0 \in \NN$ such that $|x_k - x_0| < \veps/|c|$ for all $k \ge k_0$.
+	This directly implies for all $k \ge k_0$, $|cx_k - cx_0| = |c|\cdot|x_k-x_0| < |c| \cdot \veps/|c| = \veps$.
+}
+
+\thm[bddMonotoneSeqConv]{}{
+	A bounded, monotone sequence converges.
+}
+\pf{Proof}{
+	Suppose $\{x_k\}$ is a monotone increasing sequence.
+	Since it is bounded, $\{x_k\}$ has $\mu \coloneqq \sup \{\,x_k\mid k \in \NN\,\}$.
+	Take any $\veps \in \RR_+$. By \Cref{th:sup1}, there is some $k_0 \in \NN$ such that $\mu - \veps < x_{k_0} \le \mu$.
+	Then, for all $k \in \NN_{\ge k_0}$, $\mu - \veps < x_{k_0} \le x_k \le \mu$, which implies $|x_k - \mu| < \veps$.
+	Therefore $\lim_{k \to \infty} x_k = \mu$.
+}
+
+\thm[squeeze]{The Squeeze Play}{
+	Let $\{x_k\}$, $\{y_k\}$, and $\{z_k\}$ be sequences that satisfy $x_k \le y_k \le z_k$ for $k \in \NN$.
+	If both $\{x_k\}$ and $\{z_k\}$ converges to $L \in \RR$, then $\{y_k\}$ also converges to $L$.
+}
+\pf{Proof}{
+	Take any $\veps > 0$.
+	There is $k_1 \in \NN$ such that $\forall k \in \NN_{\ge k_1},\: x_k \in N(L; \veps)$.
+	Similarly, there is $k_2 \in \NN$ such that $\forall k \in \NN_{\ge k_2},\: x_k \in N(L; \veps)$.
+	Then, for all $k \in \NN$ not smaller than $\max \{k_1, k_2\}$, $L - \veps < x_k \le y_k \le z_k < L + \veps$ holds,
+	which implies $y_k \in N(L; \veps)$.
+}
+
+\clearpage
+\thm[limIsOrderPrsving]{Limit is Order Preserving on Convergent Sequences}{
+	If both $\{x_k\}$ and $\{y_k\}$ converge and if $x_k \le y_k$ for each $k \in \NN$, then \[
+		\lim_{k \to \infty} x_k \le \lim_{k \to \infty} y_k\text{.}
+	\]
+}
+\pf{Proof}{
+	Let $L_x \coloneqq \lim_{k \to \infty} x_k$ and $L_y \coloneqq \lim_{k \to \infty} y_k$, and suppose $L_x > L_y$.
+	Let $\veps \coloneqq (L_x - L_y) / 2 > 0$.
+	Then, there is $k \in \NN$ such that $x_{k} \in N(L_x; \veps)$ and $y_{k} \in N(L_y; \veps)$,
+	which implies $y_k < L_y + \veps = L_x - \veps < x_k$, \#.
+}
+
+\dfn{Subsequence}{
+Let $\{x_k\}$ be any sequence. Choose any strictly monotone increasing sequnce $k_1 < k_2 < k_3 <\cdots$ of natural numbers.
+For each $j \in \NN$, let $y_j \coloneqq x_{k_j}$. The sequence $\{y_j\}_{j=1}^\infty$ is called an \textit{subsequence} of $\{x_k\}$.
+}
+
+\thm[clusterIffSubseqConv]{}{
+	The point $c$ is a cluster point of $\{x_k\}$ if and only if there exists a subsequence of $\{x_k\}$ that converges to $c$.
+}
+\pf{Proof}{
+($\Rightarrow$) Let $\{\veps_k\}$ be an arbitrary sequence of positive real numbers that converges to $0$. (e.g. $\veps_k = 1/k$)
+Define $\{k_j\}_{j=1}^\infty$ by the inductive definition below.
+\begin{itemize}[nolistsep]
+	\ii $k_0 \coloneqq 0$
+	\ii For each $j \in \NN$, $k_j \in \{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps) \,\}$.
+\end{itemize}
+Since $c$ is a cluster point, $\{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps) \,\} \neq \varnothing$
+for all $j \in \NN$. Therefore, $\{k_j\}$ is well-defined.
+It is immediate that $\lim_{j \to \infty} x_{k_j} = c$.
+
+($\Leftarrow$) Let $\{x_{k_j}\}_{j=1}^\infty$ be a sequence such that $\lim_{j \to \infty} x_{k_j} = c$.
+Take any $\veps \in \RR_+$ and $k \in \NN$. Then, there is some $j_0 \in \NN$ such that $\forall j \in \NN_{\ge j_0},\: x_{k_j} \in N(c; \veps)$.
+Let $k_0 \coloneqq \min \{\, k_j \in \NN \mid j > j_0 \text{ and } k_j > k \,\}$.
+Then, $x_{k_0} \in N(c; \veps)$ and $k_0 > k$. Therefore, $c$ is a cluster point.
+}
+
+\thm[bddSeqHasCluster]{}{
+	Any bounded sequence $\{x_k\}$ has a cluster point.
+}
+\pf{Proof}{
+If the set $S \coloneqq \{\, x_k \mid k \in \NN \,\}$ is finite, there is some $x_{k_0}$
+that is repeated infinitely. Then, $x_{k_0}$ is surely a cluster point.
+
+Now, suppose $S$ is infinite. Then, by \Cref{th:BW}, $S$ has a limit point $\ell$.
+To prove $\ell$ is a cluster point, take any $\veps \in \RR_+$ and $k \in \NN$.
+
+Let $S' \coloneqq \{\, x_{k'} \mid k' \in \NN_{>k} \,\}$.
+We first claim that $\ell$ is a limit point of $S'$.
+Take any $\veps' \in \RR_+$ less than $m = \min \{\, |x_{k'} - \ell| \in \RR_+ \mid k' \in \NN_{\le k} \,\}$.
+($m$ exists due to \Cref{th:finSup}.)
+Then, $S' \cap N'(\ell; \veps') = S \cap N'(\ell; \veps')$ is nonempty.
+Therefore, $\ell$ is a limit point of $S'$ by \Cref{th:limPointWeak}.
+
+Finally, we can say $S' \cap N(\ell; \veps)$ is nonempty.
+This implies there is some $k_0 \in \ZZ_{> k}$ such that $x_{k_0} \in N(\ell; \veps)$.
+Therefore, $\ell$ is a cluster point of $\{x_k\}$.
+}
+
+\cor{}{
+	If a sequence has no cluster point, then the sequence is unbounded.
+}
+
+\cor[bddSeqConvIffOneCluster]{}{
+	Any bounded sequence converges if and only if it has exactly one cluster point.
+}
+
+\cor{}{
+	A sequence $\{x_k\}$ diverges if and only if at least one of the following conditions holds.
+	\begin{itemize}[nolistsep]
+		\ii $\{x_k\}$ has two or more cluster points.
+		\ii $\{x_k\}$ is unbounded.
+	\end{itemize}
+}
+\pf{Proof}{
+	($\Rightarrow$) Suppose $\{x_k\}$ is diverging and bounded.
+	By \Cref{th:bddSeqHasCluster}, it has at least one cluster point.
+	Also, if it had exactly one cluster point, it would converge by \Cref{cor:bddSeqConvIffOneCluster}.
+
+	($\Leftarrow$) It is direct from \Cref{th:seqDivIfTwoCluster} and \Cref{cor:unbddSeqDiv}.
+}
+
+\thm[seqConvIffSubseqConv]{}{
+	A sequence $\{x_k\}$ converges if and only if every subsequence of $\{x_k\}$ converges.
+}
+\pf{Proof}{
+($\Rightarrow$) Take any subsequence $\{x_{k_i}\}_{i=1}^\infty$ of $\{x_k\}_{k=1}^\infty$ and $\veps \in \RR_+$.
+There is $i_0 \in \NN$ such that $\forall i \in \NN_{\ge i_0},\: |x_i| < \veps$.
+Since $k_i \ge i$ for all natural number $i$, $\forall i \in \NN_{\ge i_0},\: |x_{k_i}| < \veps$.
+
+($\Leftarrow$) $\{x_k\}$ is a subsequence of itself.
+}
+
+\dfn{Limit Superior and Inferior}{
+	Let $\{x_k\}$ be a sequence and $C$ be a set of cluster points of the sequence.
+	\begin{itemize}
+		\ii $\limsup x_k \triangleq \begin{cases}
+				      \sup C  & \text{if } \{x_k\} \text{ is bounded}                                                   \\
+				      \infty  & \text{if } \{x_k\} \text{ is unbounded above}                                           \\
+				      \sup C  & \text{if } \{x_k\} \text{ is bounded above but unbounded below and } C \neq \varnothing \\
+				      -\infty & \text{if } \{x_k\} \text{ is bounded above but unbounded below and } C = \varnothing    \\
+			      \end{cases}$\\ is called \textit{limit superior} of $\{x_k\}$.
+		\ii $\liminf x_k \triangleq \begin{cases}
+				      \inf C  & \text{if } \{x_k\} \text{ is bounded}                                                   \\
+				      -\infty & \text{if } \{x_k\} \text{ is unbounded below}                                           \\
+				      \inf C  & \text{if } \{x_k\} \text{ is bounded below but unbounded above and } C \neq \varnothing \\
+				      \infty  & \text{if } \{x_k\} \text{ is bounded below but unbounded above and } C = \varnothing    \\
+			      \end{cases}$\\ is called \textit{limit inferior} of $\{x_k\}$.
+	\end{itemize}
+}
+
+\nt{
+	In all cases, $\liminf x_k \le \limsup x_k$.
+}
+
+\thm[limsupFinThenInC]{}{
+	\begin{itemize}[nolistsep]
+		\ii If $\mu = \limsup x_k$ is finite, then $\mu$ is in $C$. ($\mu = \max C$)
+		\ii If $\nu = \liminf x_k$ is finite, then $\nu$ is in $C$. ($\nu = \min C$)
+	\end{itemize}
+}
+\pf{Proof}{
+	Suppose $\mu = \limsup x_k$ is finite. Take any $\veps \in \RR_+$ and $k \in \NN$.
+	The finiteness of $\mu$ implies $\mu = \sup C$.
+	By \Cref{th:sup1}, there is some $c \in C$ such that $\mu - \veps < c \le \mu$.
+	If $c = \mu$, then we are done. So let $c < \mu$.
+
+	Choose any positive $\veps_1$ less than $\min \{\,c-(\mu-\veps), \mu-c\}$
+	so $N(c; \veps_1) \subseteq N(\mu; \veps)$.
+	Then, $\{\, k \in \NN \mid x_k \in N(\mu; \veps) \,\}$ is infinite since
+	it has an infinite set $\{\, k \in \NN \mid x_k \in N(c; \veps_1) \,\}$ as its subset.
+	(See \Cref{lem:clusterSetInf}.)
+
+	The second part can be proven analogously.
+}
+
+\thm[bddSeqLimSup]{}{
+	Let $\{x_k\}$ be any bounded sequence in $\RR$. Fix any $\veps \in \RR_+$.
+	\begin{itemize}[nolistsep]
+		\ii Let $\mu = \limsup x_k$.
+		      \begin{itemize}[nolistsep]
+			      \ii $\exs k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: x_k < \mu + \veps$.
+			      \ii $\forall k \in \NN,\: \exs k_1 \in \NN_{>k},\: x_{k_1} > \mu - \veps$.
+		      \end{itemize}
+		\ii Let $\nu = \liminf x_k$.
+		      \begin{itemize}[nolistsep]
+			      \ii $\exs k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: x_k > \nu - \veps$.
+			      \ii $\forall k \in \NN,\: \exs k_1 \in \NN_{>k},\: x_{k_1} < \nu + \veps$.
+		      \end{itemize}
+	\end{itemize}
+}
+\pf{Proof}{
+	Take any $\veps \in \RR_+$. Then, $\{\, k \in \NN \mid x_k \ge \mu + \veps \}$ is finite.
+	If it were not, then there would be a cluster point larger than $\mu$ since \Cref{th:bddSeqHasCluster}
+	implies the existence of a cluster point in a subsequence of $\{x_k\}$ which is composed of
+	$x_k$'s not smaller than $\mu + \veps$.
+	Therefore, if $k_0 \coloneqq \max \{\, k \in \NN \mid x_k \ge \mu + \veps\} + 1$, then
+	$x_k < \mu + \veps$ for all $k$ not smaller than $k_0$.
+
+	Also, since $\mu$ is a cluster point by \Cref{th:limsupFinThenInC},
+	$\forall k \in \NN,\: \exs k_1 \in \NN_{>k},\: x_{k_1} > \mu - \veps$. (See \Cref{lem:clusterSetInf}.)
+
+	The second part can be proven analogously.
+}
+
+\thm{}{
+	Let $\{x_k\}$ be any sequence in $\RR$.
+	\begin{enumerate}[label=(\roman*), nolistsep]
+		\ii $\{x_k\}$ converges to $x_0$ if and only if $\liminf x_k = \limsup x_k = x_0$.
+		\ii $\{x_k\}$ diverges if and only if one of the following holds.
+		      \begin{itemize}[nolistsep]
+			      \ii Either $\liminf x_k$ or $\limsup x_k$ is infinite.
+			      \ii Both $\liminf x_k$ or $\limsup$ are finite and $\liminf x_k < \limsup x_k$.
+		      \end{itemize}
+	\end{enumerate}
+}
+\pf{Proof}{
+	$ $\\[-1em]
+	\begin{enumerate}[label=(\roman*), nolistsep]
+		\ii ($\Rightarrow$) $C = \{x_0\}$, therefore $\liminf x_k = \limsup x_k = x_0$. \\
+		      ($\Leftarrow$) Take any $\veps \in \RR_+$.
+		      There are natural numbers $k_1$ and $k_2$ such that $\forall k \in \NN_{\ge k_1},\: x_k < x_0 + \veps$
+		      and $\forall k \in \NN_{\ge k_0},\: x_k > x_0 - \veps$.
+		      Then, for all natural number $k$ not smller than $k_0 \coloneqq \max \{k_1, k_2\}$,
+		      $x_0 - \veps < x_k < x_0 + \veps$ holds.
+		\ii If it is not $\liminf x_k = \limsup x_k \in \RR$, then it is either ``One of them is infinite.'' or
+		      ``They are both finite but they are different.''
+	\end{enumerate}
+}
+
+\exer{}{
+	Let $\{x_k\}$ be a bounded sequence of positive numbers.
+	For each $k \in \NN$ define $y_k \coloneqq x_{k+1}/x_k$ and $z_k \coloneqq (x_k)^{1/k}$.
+	Prove that $\liminf y_k \le \liminf z_k \le \limsup z_k \le \limsup y_k$.
+}
+\solve{
+($\liminf y_k \le \liminf z_k$) Let $L \coloneqq \liminf y_k$.
+Now, we claim that \[
+	\forall \veps \in \RR_+,\: \exs k_0 \in \NN,\: \forall\: k \in \NN_{\ge k_0},\: z_k > L - \veps\text{.}
+\]
+If $L = 0$, then it is done. Therefore, suppose $L > 0$.
+To prove this, take any $\veps \in \RR_+$ smaller than $L$.
+Then, there is some $k_1 \in \NN$ such that $y_k > L - \veps/2$ for all $k$ not smaller than $k_1$ by \Cref{th:bddSeqLimSup}.
+Then, for all $k \in \NN_{k \ge k_1}$, $x_k > (L - \veps/2)^{k-k_1}x_{k_1}$, which is equivalent to \[
+	z_k = x_k^{1/k} > \left(L-\frac{\veps}{2}\right) \left[\left(L-\frac{\veps}{2}\right)^{-k_1} x_{k_1}\right]^{1/k}\text{.}
+\]
+Since $\lim_{k \to \infty} \left[ (L-\veps/2)^{-k_1} x_{k_1} \right]^{1/k} = 1$,
+there is some $k_2 \in \NN$ such that \[
+	\left[\left(L-\frac{\veps}{2}\right)^{-k_1} x_{k_1}\right]^{1/k} > 1 - \frac{\veps/2}{L-\veps/2} = \frac{L-\veps}{L-\veps/2}.
+\] for all $k \in \NN_{\ge k_2}$.
+Thus, for every natural number $k$ not smaller than $\max \{k_1, k_2\}$, \[
+	z_k > \left(L-\frac{\veps}{2}\right) \left[\left(L-\frac{\veps}{2}\right)^{-k_1} x_{k_1}\right]^{1/k}
+	> \left(L-\frac{\veps}{2}\right) \cdot \frac{L-\veps}{L-\veps/2} = L - \veps\text{.}
+\] The claim is now proven.
+
+For the main proof, assume that $\liminf z_k < L$ for the sake of contradiction.
+Take $\veps_0 \coloneqq \left(L - \liminf z_k\right)/2$.
+Then, by the previous claim,
+$\exs k_3 \in \NN,\: \forall k \in \NN_{\ge k_3},\: z_k > L - \veps_0 = \left(L + \liminf x_k\right)/2$.
+
+Nevertheless, by \Cref{th:bddSeqLimSup}, there is some $k_4 \in \NN_{> k_3}$ such that
+$z_{k_4} < \liminf x_k + \veps_0 = \left(L + \liminf x_k\right)/2$, which is a contradiction.
+
+$\limsup z_k \le \limsup y_k$ can be proven analogously.
+}
+
+\section{Cauchy Sequences}
+\dfn{Cauchy Seqeunce}{
+	A seqeunce $\{x_k\}$ in $\RR$ is called a \textit{Cauchy sequence} if \[
+		\forall \veps \in \RR_+,\: \exs k_0 \in \NN,\: \forall k, m \in \NN_{\ge k_0},\: |x_k-x_m| < \veps\text{.}
+	\]
+}
+\thm[convThenCauchy]{}{
+	If $\{x_k\}$ is a convergent sequence of real numbers, then $\{x_k\}$ is a Cauchy sequence.
+}
+\pf{Proof}{
+	Let $x_0 \coloneqq \lim_{k \to \infty} x_k$. Take any $\veps \in \RR_+$.
+	Then, there is some $k_0 \in \NN$ such that $|x_k - x_0| < \veps/2$ for all $k \in \NN$ not smaller than $k_0$.
+	Then, for all $k, m \in \NN$ greater than $k_0$, $|x_k - x_m| \le |x_k - x_0| + |x_k - x_m| < \veps/2 + \veps/2 = \veps$.
+}
+
+\thm[cauchyBdd]{}{
+	If $\{x_k\}$ is a Cauchy sequence, then $\{x_k\}$ is bounded.
+}
+\pf{Proof}{
+There is $k_0 \in \NN$ such that $|x_k - x_m| < 1$ for all $k, m \in \NN_{\ge k_0}$.
+It implies that $|x_k-x_{k_0}| < 1$, for all $k \in \NN_{\ge k_0}$, which impliees $|x_k| < |x_{k_0}|+1$.
+Therefore, for all $k \in \NN$, $|x_k| \le \max \left\{\,|x_1|, |x_2|, \cdots, |x_{k_0}|, |x_{k_0}| + 1\,\right\}$.
+}
+
+\thm[cauchyOneCluster]{}{
+	A Cauchy sequence has exactly one cluster point.
+}
+\pf{Proof}{
+Since a Cauchy sequence is bounded, it has at least one cluster point by \Cref{th:bddSeqHasCluster}.
+So, we should prove that the sequence does not have more than one cluster point.
+Assume $c_1$ and $c_2$ are cluster points for the sake of contradiction.
+Let $\veps \coloneqq |c_1-c_2|/3$.
+Choose $k_0 \in \NN$ such that $\forall k, m \in \NN_{\ge k_0},\: |x_k-x_m| < \veps$.
+Also, there are $k_1, k_2 \in \NN_{>k_0}$ such that $|x_{k_1} - c_1| < \veps$ and $|x_{k_2}-c_2| < \veps$.
+Note that $|c_1-c_2| \le |c_1-x_{k_1}| + |x_{k_1}-x_{k_2}| + |x_{k_2}-c_2|$.
+Nevertheless, then \[
+	\begin{aligned}[t]
+		\veps > |x_{k_1} - x_{k_2}| & \ge |c_1-c_2| - |c_1-x_{k_1}| - |c_2-x_{k_2}| \\
+		                            & > 3\veps - \veps - \veps = \veps\text{,}
+	\end{aligned}
+\] which is a contradiction.
+}
+
+\thm[convIffCauchy]{Cauchy Completeness of $\RR$}{
+	A sequence in $\RR$ is convergent if and only if it is a Cauchy sequence.
+}
+\pf{Proof}{
+	By \Cref{cor:bddSeqConvIffOneCluster}, a Cauchy sequence is convergent
+	since it is bounded (\Cref{th:cauchyBdd}) and has exactly one cluster point (\Cref{th:cauchyOneCluster}).
+	A convergent sequence in $\RR$ is Cauchy. (\Cref{th:convThenCauchy})
+}
+
+\dfn{Cauchy Completeness}{
+	A set $X$ is said to be \textit{Cauchy complete} if every Cauchy sequence in $X$ converges to a point of $X$.
+}
+\exmp{}{
+	$\RR$ is Cauchy complete.
+}
+
+\dfn{Contractive Sequence}{
+A sequence $\{x_k\}$ is said to be \textit{contractive} if there exists a constant $C$, with $0 < C < 1$, such that \[
+	\forall k \in \NN_{>1},\: |x_{k+1} - x_k| \le C |x_k - x_{k-1}|\text{.}
+\]
+}
+
+
+\thm{}{
+	Any contractive sequence in $\RR$ is a Cauchy sequence.
+}
+\pf{Proof}{
+Suppose $0 < C < 1$ and $\forall k \in \NN_{>1},\: |x_{k+1} - x_k| \le C|x_k - s_{k-1}|$.
+If it is trivial when $|x_2 - x_1| = 0$, so supose $|x_2 - x_1| \neq 0$.
+By induction, $\forall k \in \NN_{>1},\: |x_{k+1} - x_k| \le C^{k-1}|x_2-x_1|$.
+
+To prove $\{x_k\}$ is a Cauchy sequence, take any $\veps \in \RR_+$.
+Since $\lim_{k \to \infty} C^{k-1} = 0$, \[
+	\exs k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: C^{k-1} < \dfrac{(1-C)\veps}{|x_2-x_1|}\text{.}
+\]
+Then, for any $k, m \in \NN$ with $k_0 \le m < k$, \[
+	\begin{aligned}[t]
+		|x_k-x_m| & = \left| \sum_{j=m}^{k-1} (x_{j+1} - x_j) \right| \le \sum_{j=m}^{k-1} |x_{j+1} - x_j| \\
+		          & \le \sum_{j=m}^{k-1} C^{j-1}|x_2-x_1| = C^{m-1}|x_2-x_1| \sum_{j=0}^{k-m-1} C^j        \\
+		          & = C^{m-1}|x_2-x_1| \frac{1-C^{k-m}}{1-C} < \frac{C^{m-1}}{1-C}|x_2-x_1|                \\
+		          & < \frac{(1-C)\veps}{|x_2-x_1|} \cdot \frac{1}{1-C}|x_2-x_1| = \veps\text{.}
+	\end{aligned}
+\]
+}
+
+\section{The Algebra of Convergent Series}
+
+\thm{}{
+	Let $\{x_k\}$ and $\{y_k\}$ be convergent sequences in $\RR$
+	and $\displaystyle \lim_{k \to \infty} x_k = x_0$ and $\displaystyle \lim_{k \to \infty} y_k = y_0$.
+	\begin{itemize}
+		\ii $\displaystyle \lim_{k \to \infty} (x_k + y_k) = x_0 + y_0$
+		\ii $\displaystyle \lim_{k \to \infty} x_ky_k = x_0y_0$
+		\ii $\displaystyle \lim_{k \to \infty} \frac{y_k}{x_k} = \frac{y_0}{x_0}$ if $x_0 \neq 0$.
+	\end{itemize}
+}
+
+\thm{}{
+Let $\{x_k\}$ and $\{y_k\}$ be convergent sequences in $\RR$ and $\displaystyle \lim_{k \to \infty} x_k = x_0$.
+Then, if $r \in \QQ$, then \[
+	\lim_{k \to \infty} x_k^{\>r} = x_0^{\>r}\text{.}
+\] Nevertheless, we requre $x_0 \neq 0$ if $r < 0$.
+}
+
+\section{Cardinality}
+
+\dfn{Dense Set}{
+	We say a subset $S$ of $T$ is dense in $T$ if every neighborhood of any point $x \in T$ contains points of $S$.
+}
+
+\thm{}{
+	\begin{itemize}[nolistsep]
+		\ii $\NN$, $\ZZ$, and $\QQ$ are countably infinite.
+		\ii $\RR$ is uncountable.
+		\ii $\QQ$ is dense in $\RR$.
+	\end{itemize}
+}
+
+\end{document}
