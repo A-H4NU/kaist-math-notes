@@ -270,6 +270,25 @@
     \end{enumerate}
 }
 
+\dfn{}{
+    Let $S \subseteq \RR[n]$.
+    \begin{enumerate}[label=(\roman*), nolistsep]
+        \ii The \textit{interior} of $S$, denoted $\inter S$, is the set of all interior points of $S$.
+        \ii The \textit{boundary} of $S$, denoted $\bd S$, is the set of all boundary points of $S$.
+        \ii The \textit{derived set} of $S$, denoted $S'$, is the set of all limit points of $S$.
+        \ii The \textit{closure} of $S$, denoted $\cl S$, is the union of $S$ and $S'$.
+        \ii The \textit{complement} of $S$, denoted $\cmpl S$, is the set $\RR[n] \setminus S$.
+    \end{enumerate}
+}
+
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii For $S \subseteq \RR[n]$, $\inter S \subseteq S \subseteq \cl S$.
+        \ii For $S \subseteq \RR[n]$, $S$ is open if and only if $\inter S = S$.
+        \ii For $S \subseteq \RR[n]$, $\inter S$ is open.
+    \end{itemize}
+}
+
 \thm[UofOpenIsOpen]{}{
     The union of any collection of open sets in $\RR[n]$ is open.
     The intersection of any finite collection of open sets in $\RR[n]$ is also open.
@@ -297,46 +316,110 @@
     \] for each $k \in \NN$. Then, $\bigcap_{k \in \NN} U_k = \{\vec 0\}$, which is not open.
 }
 
-\thm[ClosedIffCmplOpen]{}{
+\thm[closedIffCmplOpen]{}{
     A set $C \subseteq \RR[n]$ is closed if and only if $C^{c}$ is open.
 }
 \pf{Proof}{
-    TBA
+    ($\Rightarrow$) Take any $\vec x \in \cmpl C$. Since $C$ is closed and contains all of its boundary points,
+    $\vec x$ is not a boundary point of $C$. Therefore, there is some neighborhood $N(\vec x)$ of $\vec x$
+    such that $N(\vec x) C = \varnothing$ or $N(\vec x) \cap \cmpl C = \varnothing$.
+    The second case is not possible since $\vec x \in N(\vec x) \cap \cmpl C$.
+    Therefore, $N(\vec x) = \varnothing$, which implies $N(\vec x) \subseteq \cmpl C$;
+    $\vec x$ is an interior point of $\cmpl C$. Therefore, $\cmpl C$ is open.
+
+    ($\Leftarrow$) Take any bounddary point $\vec x$ of $C$. Assume $\vec x \in \cmpl C$ for the sake of contradiction.
+    Since $\cmpl C$ is open, there is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq \cmpl C$.
+    However, that implies $N(\vec x) \cap C = \varnothing$, which contradicts $\vec x$ is a boundary point of $C$.
+    Therefore, $\vec x \in C$; $C$ contains all of its boundary points.
 }
 
 \thm[IofClosedIsClosed]{}{
     The intersection of any collection of closed sets in $\RR[n]$ is closed.
     The union of any finite collection of closed sets in $\RR[n]$ is also closed.
 }
+\pf{Proof}{
+    To prove the first assertion, let $\{C_\alpha\}_{\alpha \in J}$ be any collection of closed sets in $\RR[n]$.
+    Then, each $\cmpl{C_\alpha}$ is open by \Cref{th:closedIffCmplOpen},
+    and thus $\bigcup_{\alpha \in J} \cmpl{C_\alpha}$ is open by \Cref{th:UofOpenIsOpen}.
+    Its complement $\cmpl{\left(\bigcup_{\alpha \in J} \cmpl{C_\alpha}\right)}$ is closed by \Cref{th:closedIffCmplOpen}.
+    And note that $\cmpl{\left(\bigcup_{\alpha \in J} \cmpl{C_\alpha}\right)} = \bigcap_{\alpha \in J} C_\alpha$
+    by De Morgan's law.
 
-\dfn{}{
-    Let $S \subseteq \RR[n]$.
-    \begin{enumerate}[label=(\roman*), nolistsep]
-        \ii The \textit{interior} of $S$, denoted $\inter S$, is the set of all interior points of $S$.
-        \ii The \textit{boundary} of $S$, denoted $\bd S$, is the set of all boundary points of $S$.
-        \ii The \textit{derived set} of $S$, denoted $S'$, is the set of all limit points of $S$.
-        \ii The \textit{closure} of $S$, denoted $\cl S$, is the union of $S$ and $S'$.
-        \ii The \textit{complement} of $S$, denoted $\cmpl S$, is the set $\RR[n] \setminus S$.
-    \end{enumerate}
+    To prove the second assertion, let $\{\,C_1,C_2,\cdots,C_k\,\}$ be a finite collection of closed sets in $\RR[n]$.
+    Then, each $\cmpl{C_i}$ is open by \Cref{th:closedIffCmplOpen},
+    and thus $\bigcap_{i=1}^k \cmpl{C_i}$ is open by \Cref{th:UofOpenIsOpen}.
+    Its complement $\cmpl{\left(\bigcap_{i=1}^k \cmpl{C_i}\right)}$ is closed by \Cref{th:closedIffCmplOpen}.
+    And note that $\cmpl{\left(\bigcap_{i=1}^k \cmpl{C_i}\right)} = \bigcup_{i=1}^k C_i$
+    by De Morgan's law.
 }
 
-\thm[IntIsUOfOpenSetsInS]{}{
+\thm[closedIffContainsLimPts]{}{
+    $C \subseteq \RR[n]$ is closed if and only if $C' \subseteq C$.
+}
+\pf{Proof}{
+    ($\Rightarrow$) Let $\vec x \in C'$. Assume $\vec x \in \cmpl C$ for the sake of contradiction.
+    Since $\cmpl C$ is open by \Cref{th:closedIffCmplOpen},
+    there is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq \cmpl C$.
+    Such $N(\vec x)$ satisfies $N(\vec x) \cap C = \varnothing$, which contradicts $\vec x \in C'$.
+    Therefore, $\vec x \in C$; $C$ contains all its limit points.
+
+    ($\Leftarrow$) It is enough to prove $\cmpl C$ is open by \Cref{th:closedIffCmplOpen}.
+    Take any $\vec x \in \cmpl C$. $\vec x$ is not a limit point of $C$ by the hypothesis.
+    Therefore, there is a deleted neighborhood $N'(\vec x)$ of $\vec x$ such that $N'(\vec x) \cap C = \varnothing$.
+    Then, $N'(\vec x) \subseteq \cmpl C$, and thus $N(\vec x) \subseteq \cmpl C$,
+    which implies $\vec x$ is an interior point of $\cmpl C$. Thus, $\cmpl C$ is open.
+}
+
+\cor{}{
+    $C \subseteq \RR[n]$ is closed if and only if $\cl C = C$.
+}
+
+\thm[intIsUOfOpenSetsInS]{}{
     Let $S \subseteq \RR[n]$. The interior of $S$ is the union of all open sets contained in $S$.
 }
 \pf{Proof}{
-
-}
-
-\cor[IntIsOpen]{}{
-    For any $S \subseteq \RR[n]$, the set $S^0$ is open.
+    Let $\mcal U \triangleq \{\, U \subseteq S \mid U \text{ is open in } \RR[n]\}$. \par
+    ($\subseteq$) Let $\vec x \in \inter S$. Then, there is an open neighborhood
+    $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq S$.
+    Noting that $\vec x \in N(\vec x) \in \mcal U$, we conclude $\inter S \subseteq \bigcup \mcal U$. \par
+    ($\supseteq$) Take any $\vec x \in \bigcup \mcal U$.
+    Then, there is an open set $U$ in $\RR[n]$ such that $x \in U \subseteq S$.
+    There is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq U$.
+    Therefore, $N(\vec x) \subseteq S$; $\vec x$ is an interior point of $S$.
+    Thus; $\inter S \supseteq \bigcup \mcal U$.
 }
 
 \thm{}{
     The closure of $S$ is the intersection of all closed sets that contain $S$.
 }
+\pf{Proof}{
+    Let $\mcal C \triangleq \{\, C \subseteq \RR[n] \mid S \subseteq C \text{ and } C \text{ is closed}\,\}$. \par
+    ($\subseteq$) Since $S \subseteq \bigcap \mcal C$ is obvious, we only need to show $S' \subseteq \bigcap \mcal C$.
+    Let $\vec x \in S'$. Then, it is direct that $\forall C \in \mcal C,\: \vec x \in C'$ since each $C \in \mcal C$
+    satisfies $S \subseteq C$.
+    As $C$ is closed and thus $\vec x \in C' \subseteq C$ by \Cref{th:closedIffContainsLimPts},
+    Consequently, $\vec x \in \bigcap \mcal C$; $\cl S \subseteq \bigcap \mcal C$. \par
+    ($\supseteq$) It is enough to show that $\cl S$ is closed, which, in turn,
+    is sufficient to show that $(\cl S)' \subseteq \cl S$ by \Cref{th:closedIffContainsLimPts}.
+    Let $\vec y \in (\cl S)'$ and take any deleted neighborhood $N'(\vec y; \veps)$ of $\vec y$.
+    Then, there is some element $\vec z$ in $N'(\vec y; \veps) \cap \cl S$. Then, $\vec z \in S$ or $\vec z \in S'$.
 
-\cor[ClosureIsClosed]{}{
-    For any $S \subseteq \RR[n]$, the set $\ol{S}$ is closed.
+    If $\vec z \in S$, then $\vec z \in N'(\vec y; \veps) \cap S \neq \varnothing$.
+    If $\vec z \in S'$, take $\veps' \triangleq \min \{\,\|\vec z - \vec y\|, \veps - \|\vec z - \vec y\|\}$.
+    Then, $N(\vec z; \veps') \subseteq N'(\vec y; \veps)$.
+    Since $\vec z \in S'$, there is some $\vec x$ in $N'(\vec z; \veps') \cap S$.
+    Thus, $\vec x \in N'(\vec z; \veps') \cap S \subseteq N'(\vec y; \veps) \cap S \neq \varnothing$.
+    
+    In both cases, $N'(\vec y; \veps) \cap S \neq \varnothing$. Thus, we proved that $\vec y \in S' \subseteq \cl S$;
+    $(\cl S)' \subseteq \cl S$.
+}
+
+\cor[closureIsClosed]{}{
+    For any $S \subseteq \RR[n]$, the set $\cl{S}$ is closed.
+}
+
+\cor[closedIffClosureOfItself]{}{
+    For any $C \subseteq \RR[n]$, $C$ is closed if and only if $\cl C = C$.
 }
 
 \thm{}{
@@ -345,8 +428,49 @@
         \ii $\inter{\inter S}= \inter S$
         \ii $\cl{(\cl S)} = \cl S$
         \ii $\inter S \cap \bd S = \varnothing$
-        \ii $\inter S \cup \bd S = \ol{S}$
-        \ii $\cl S \cap \cl{(\cmpl S)} = \bd S$
+        \ii $\inter S \cup \bd S = \cl S$
+        \ii $\cl S \cap \cl{\cmpl S} = \bd S$
+    \end{enumerate}
+}
+\pf{Proof}{
+    $ $\\[-1em]
+    \begin{enumerate}[label=(\roman*), nolistsep]
+        \ii $\inter S$ is open and an open set is the interior of itself.
+        \ii $\cl S$ is closed and a closed set is the closure of itself.
+            (See \Cref{cor:closureIsClosed} and \Cref{cor:closedIffClosureOfItself}).
+        \ii Suppose there is some $\vec x \in \inter S \cap \bd S$.
+            There is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq S$.
+            Then, $N(\vec x) \cap \cmpl C = \varnothing$, which contradicts $\vec x \in \bd S$.
+        \ii ($\subseteq$) Since it is already $\inter S \subseteq S \subseteq \cl S$, we only need to show $\bd S \subseteq \cl S$.
+            Let $\vec x \in \bd S$. If $\vec x \in S$, then it is done; so suppose $\vec x \in \cmpl S$.
+            Take any neighborhood $N(\vec x; \veps)$ of $\vec x$. Then, $N(\vec x; \veps) \cap S \neq \varnothing$.
+            Noting that $N'(\vec x; \veps) \cap S = N(\vec x; \veps) \cap S \neq \varnothing$,
+            $\vec x \in S'$. \par
+            ($\supseteq$) Let $\vec x \in \cl S$. If $\vec x \in S$, then it is either
+            ``There is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq S$.''
+            or ``Every neighborhood $N(\vec x)$ of $\vec x$ satisfies $N(\vec x) \cap \cmpl S \neq \varnothing$.''
+            The first case is $\vec x \in \inter S$ and the latter case is $\vec x \in \bd S$.
+
+            Now the only left case if $\vec x \in S' \setminus S$.
+            Take any deleted neighborhood $N'(\vec x)$ of $\vec x$.
+            Then, $N(\vec x) \cap S = N'(\vec x) \cap S \neq \varnothing$.
+            Also, $\vec x \in N(\vec x) \cap \cmpl S$. Thus, $\vec x \in \bd S$.
+        \ii Using $\cl S = \inter S \cup \bd S$, we get \[
+                \begin{aligned}[t]
+                    \cl S \cap \cl{\cmpl S} & = (\inter S \cup \bd S) \cap (\inter{(\cmpl S)} \cup \bd\cmpl S) \\
+                                            & = (\inter S \cap \inter{(\cmpl S)}) \cup (\inter S \cap \bd{\cmpl S}) \cup
+                                                (\bd S \cap \inter{(\cmpl S)}) \cup (\bd S \cap \bd{\cmpl S})
+                \end{aligned}
+            \]
+            $\inter S \cap \inter{(\cmpl S)} = \varnothing$ since
+            $S \cap \cmpl S = \varnothing$ and $\inter S \subseteq S$ and $\inter{\cmpl S} \subseteq \cmpl S$.\par
+            $\bd S = \bd \cmpl S$ is direct from their definitions. Thus, \[
+                \begin{aligned}[t]
+                    \inter S \cap \bd{\cmpl S}   & = \inter S \cap \bd S = \varnothing \\
+                    \bd S \cap \inter{(\cmpl S)} & = \bd \cmpl S \cap \inter{(\cmpl S)} = \varnothing
+                \end{aligned}
+            \]
+            by (iv). Therefore, $\cl S \cap \cl{\cmpl S} = \bd S \cap \bd{\cmpl S} = \bd S$.
     \end{enumerate}
 }
 
