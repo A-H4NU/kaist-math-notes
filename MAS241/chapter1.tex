@@ -235,6 +235,7 @@ In conclusion, $S \cap [a_k, b_k]$ has infinitely many elements by (a), and so d
 $S \cap N'(\alpha; \veps)$ is, therefore, nonempty.
 }
 
+
 \dfn{Bolzano–Weierstra Property}{
 	We say that a nonempty set $X$ has the \textit{Bolzano–Weierstra property}
 	if every bounded, infinite subset $S$ of $X$ has a limit point in $X$.
@@ -381,9 +382,9 @@ For each $j \in \NN$, let $y_j \coloneqq x_{k_j}$. The sequence $\{y_j\}_{j=1}^\
 Define $\{k_j\}_{j=1}^\infty$ by the inductive definition below.
 \begin{itemize}[nolistsep]
 	\ii $k_0 \coloneqq 0$
-	\ii For each $j \in \NN$, $k_j \in \{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps) \,\}$.
+	\ii For each $j \in \NN$, $k_j \in \{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps_j) \,\}$.
 \end{itemize}
-Since $c$ is a cluster point, $\{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps) \,\} \neq \varnothing$
+Since $c$ is a cluster point, $\{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps_j) \,\} \neq \varnothing$
 for all $j \in \NN$. Therefore, $\{k_j\}$ is well-defined.
 It is immediate that $\lim_{j \to \infty} x_{k_j} = c$.
 

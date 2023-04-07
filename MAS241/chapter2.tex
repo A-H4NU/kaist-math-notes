@@ -474,7 +474,7 @@
     \end{enumerate}
 }
 
-\dfn{Diamter}{
+\dfn{Diameter}{
     Let $\varnothing \neq S \subseteq \RR[n]$ be a bounded set.
     The \textit{diameter} of $S$ is defined to be \[
         d(S) \triangleq \sup \{\, \|\vec x - \vec y\| \mid \vec x, \vec y \in S \,\}\text{.}
@@ -486,6 +486,47 @@
     The distance from $\vec x$ to $S$ is defined to be \[
         d(\vec x, S) \triangleq \inf \{\, \|\vec x - \vec y\| \mid \vec y \in S \,\}\text{.}
     \]
+}
+
+\thm{}{
+    Let $S$ be a nonempty set in $\RR[n]$ and let $\vec x$ be a point of $\RR[n]$.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $d(\vec x, S) = 0$ if and only if $\vec x \in \cl S$.
+        \ii $S$ is closed if and only if $d(\vec x, S) > 0$ for every $\vec x \in \cmpl S$.
+        \ii If $S$ is closed, then there exists $\vec y_0 \in S$ such that $d(\vec x, S) = \|\vec x - \vec y_0\|$.
+        \ii If $S$ is open and if $\vec x \in \cmpl S$, then there exists no $\vec y \in S$ such that $d(\vec x, S) = \|\vec x - \vec y\|$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    $ $\\[-1em]
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii ($\Rightarrow$) We shall show that if such $\vec x$ is not in $S$, then it is in $S'$.
+            So, suppose $\vec x \notin S$.
+            By \Cref{th:sup1}, for any $\veps \in \RR_+$, there is some $\vec y \in S$ such that
+            $0 \le \|\vec x - \vec y\| < \veps$. Since $\vec x \notin S$, $\vec x \neq \vec y$, and thus
+            $\vec y \in N'(\vec x; \veps) \cap S$, implying $\vec x$ is a limit point of $S$. \par
+            ($\Leftarrow$) Conversely, if $\vec x \in S' \setminus S$, then for all $\veps \in \RR_+$,
+            there is some $\vec z \in S$ such that $0 < \|\vec x - \vec z\| < \veps$.
+            Therefore, $0 \le d(\vec x, S) < \veps$.
+            Since $\veps$ is arbitrary, $d(\vec x, S) = 0$.
+        \ii ($\Rightarrow$) $d(\vec x, S) = 0$ if and only if $\vec x \in \cl S = S$.
+            Therefore, $d(\vec x, S) > 0$ if and only if $\vec x \in \cmpl S$. \par
+            ($\Leftarrow$) For every $\vec x \in \cmpl S$, $\vec x \notin \cl S$ by (i).
+            Thus, if $\vec x \in \cl S$, then $\vec x \in S$, or, $\cl S \subseteq S$.
+            $S$ is therefore closed.
+        \ii If $S$ is finite, then we can easily see $d(\vec x, S) = \min \{\,\|\vec x- \vec y\| \mid \vec y \in S\,\}$.
+
+            Therefore, now suppose $S$ is infinite.
+            Let $\{\veps_k\}_{k \in \NN}$ be a sequence defined by $\veps_k = 1/k$ for each $k \in \NN$.
+            By \Cref{th:sup1}, for each $k \in \NN$, we can find $\vec y_k \in S$ that satisfies \[
+                d(\vec x, S) \le \|\vec x-\vec y_k\| < d(\vec x, S) + \veps_k\text{.}
+            \]
+            If the set $\{\,\vec y_k \mid k \in \NN\,\}$ is finite,
+            then there must be some $\vec y_k$ such that $\|\vec x-\vec y_k\| = d(\vec x, S)$, and we are done.
+
+            Suppose $\{\,\vec y_k \mid k \in \NN\,\}$ is infinite.
+            Since the set is also bounded since 
+    \end{enumerate}
 }
 
 \end{document}
