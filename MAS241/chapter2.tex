@@ -179,7 +179,7 @@
     Then, \Cref{th:seqConvIffCoordsConv} ensures that $\lim_{k \to \infty} \vec x_k = (x_1^{(0)}, x_2^{(0)}, \cdots, x_n^{(0)})$.
 }
 
-\thm[BW2]{The Generalized Bolzano–Weierstra Theorem}{
+\thm[BW2]{The Generalized Bolzano–Weierstrass Theorem}{
 	Every bounded infinite set in $\RR[n]$ has a limit point in $\RR[n]$.
 }
 \pf{Proof}{
@@ -508,12 +508,12 @@
             ($\Leftarrow$) Conversely, if $\vec x \in S' \setminus S$, then for all $\veps \in \RR_+$,
             there is some $\vec z \in S$ such that $0 < \|\vec x - \vec z\| < \veps$.
             Therefore, $0 \le d(\vec x, S) < \veps$.
-            Since $\veps$ is arbitrary, $d(\vec x, S) = 0$.
+            Since $\veps$ is arbitrary, $d(\vec x, S) = 0$. \checkmark
         \ii ($\Rightarrow$) $d(\vec x, S) = 0$ if and only if $\vec x \in \cl S = S$.
             Therefore, $d(\vec x, S) > 0$ if and only if $\vec x \in \cmpl S$. \par
             ($\Leftarrow$) For every $\vec x \in \cmpl S$, $\vec x \notin \cl S$ by (i).
             Thus, if $\vec x \in \cl S$, then $\vec x \in S$, or, $\cl S \subseteq S$.
-            $S$ is therefore closed.
+            $S$ is therefore closed. \checkmark
         \ii If $S$ is finite, then we can easily see $d(\vec x, S) = \min \{\,\|\vec x- \vec y\| \mid \vec y \in S\,\}$.
 
             Therefore, now suppose $S$ is infinite.
@@ -525,8 +525,203 @@
             then there must be some $\vec y_k$ such that $\|\vec x-\vec y_k\| = d(\vec x, S)$, and we are done.
 
             Suppose $\{\,\vec y_k \mid k \in \NN\,\}$ is infinite.
-            Since the set is also bounded since 
+            Since the set is also bounded ($\|x-y_k\| < d(\vec x, S) + \veps_1$ for each $k \in \NN$),
+            by \Cref{th:BW2}, there is a convergent subsequence $\{\vec y_{k_j}\}_{j \in \NN}$ of $\{\vec y_k\}_{k \in \NN}$.
+            Let $\vec y_0 \triangleq \lim_{j \to \infty} \vec y_{k_j}$. Since \[
+                d(\vec x, S) \le \|\vec x-\vec y_{k_j}\| < d(\vec x, S) + \veps_{k_j}
+            \] still holds, it follows that $\|\vec x-\vec y_0\| = d(\vec x, S)$ by \Cref{th:squeeze}.
+
+            $\vec y_0 \in S$ since $S$ is closed and $\vec y_0 \in S$ is a limit point of $S$. \checkmark
+        \ii Suppose there is some $\vec y \in S$ such that $d(\vec x, S) = \|\vec x-\vec y\|$.
+            $\|\vec x - \vec y\| > 0$ since $\vec x \neq \vec y$.
+            Since $S$ is open, there is some neighborhood $N(\vec y; r_0)$ of $\vec y$ such that $N(\vec y; r_0) \subseteq S$.
+            It must be $r_0 \le \|\vec x - \vec y\|$. Let \[
+                \vec z \triangleq \vec y + \frac{r_0}{2} \cdot \frac{\vec x - \vec y}{\|\vec x - \vec y\|}
+            \]
+            Then, \[
+                \|\vec z - \vec y\| = \frac{r_0}{2} < r_0\text{,}
+            \] thus $\vec z \in N(\vec y; r_0) \subseteq S$. However, \[
+                \|\vec x - \vec y\| = \left| 1 - \frac{r_0}{2\|\vec x-\vec y\|} \right|\,\|\vec x-\vec y\| < \|\vec x - \vec y\|\text{,}
+            \] contradicting the minimality of $\|\vec x- \vec y\|$, \#. \checkmark
     \end{enumerate}
 }
+
+\section{Completeness}
+
+\dfn{Nested Sets}{
+    A sequence $\{S_k\}$ of sets in $\RR[n]$ such that $S_k \supset S_{k+1}$ for each $k \in \NN$
+    is said to be \textit{nested}.
+}
+
+\thm[nestedInterval]{Cantor's Nested Interval Theorem}{
+    For each $k \in \NN$, let $I_k = [a_k, b_k]$ with $a_k < b_k$.
+    Suppose that $\{I_k\}_{k \in \NN}$ is a nested sequence in $\RR$. Then \[
+        \bigcap_{k=1}^\infty I_k = [\alpha, \beta]
+    \] where $\alpha = \sup \{\,a_k \mid k \in \NN\,\}$ and $\beta = \inf \{\,b_k \mid k \in \NN\,\}$.
+}
+\pf{Proof}{
+    Let $A \triangleq \{\,a_k \mid k \in \NN\,\}$ and $B \triangleq \{\,b_k \mid k \in \NN\,\}$.
+    Then, $A$ is bounded above by any $b_k$ and $B$ is bounded below by any $a_k$.
+    Thus, by \Cref{th:completeR}, $\alpha = \sup A$ and $\beta = \sup B$ exist.
+    
+    Any $a_k$ is a lower bound of $B$, therefore $a_k \le \beta$ for each $k \in \NN$,
+    which implies $\beta$ is an upper bound of $A$. Hence $\alpha \le \beta$.
+    
+    To prove $\bigcap_{k=1}^\infty I_k \supseteq [\alpha, \beta]$, take any $x \in [\alpha, \beta]$.
+    Then, for each $k \in \NN$, $a_k \le \alpha \le x \le \beta \le b_k$, which means $x \in I_k$.
+    Thus, $[\alpha, \beta] \subseteq \bigcap_{k=1}^\infty I_k$.
+    Now, to prove the reverse containment, take any $x \in \bigcap_{k=1}^\infty I_k$.
+    This means $\forall k \in \NN,\: a_k \le x \le b_k$;
+    $x$ is an upper bound of $A$ and is a lower bound of $B$ at the same time.
+    Therefore, $\alpha \le x \le \beta$, hence $\bigcap_{k=1}^\infty I_k \subseteq [\alpha, \beta]$.
+}
+\pf{Another Proof}{
+    Since the sequences $\{a_k\}$ and $\{b_k\}$ are bounded and monotone,
+    there are limits $\alpha = \lim_{k \to \infty} a_k$ and $\beta = \lim_{k \to \infty} b_k$ by \Cref{th:bddMonotoneSeqConv}.
+    By \Cref{th:limIsOrderPrsving}, $\alpha \le \beta$.
+
+    Since $a_k \le \alpha \le \beta \le b_k$ for each $k \in \NN$, $[a, b] \subseteq \bigcap_{k=1}^n I_k$.
+
+    Now, take any $x \in \bigcap_{k=1}^\infty I_k$.
+    Then, for all $k \in \NN$, $a_k \le x \le b_k$.
+    If it were $\alpha > x$, there is some $k_0 \in \NN$ such that $a_{k_0} > x$.
+    It is similar for the case when $\beta < x$. Therefore, $\alpha \le x \le \beta$.
+    We have proven that $\bigcap_{k=1}^\infty I_k \subseteq [\alpha, \beta]$.
+}
+
+\cor{}{
+    If, in the notation of the previous theorem, $\lim_{k \to \infty} (b_k - a_k) = 0$,
+    then $\bigcap_{k=1}^\infty I_k$ is a singleton.
+}
+\pf{Proof}{
+    Take any $\veps \in \RR_+$. Then, there is some $k_0 \in \NN$ such that $b_{k_0} - a_{k_0} < \veps$. \[
+        0 \le \beta - \alpha \le b_{k_0} - a_{k_0} < \veps
+    \] holds. This implies that $0 \le \beta - \alpha < \veps$ for arbitrary $\veps \in \RR_+$; therfore $\alpha = \beta$.
+}
+
+\thm[CantorCriterionRn]{Cartor's Criterion}{
+    If $\{C_k\}$ is a nested sequence of closed, bounded, nonempty subsets of $\RR[n]$, then \[
+        \bigcap_{k=1}^\infty C_k \neq \varnothing\text{.}
+    \]
+    Furthermore, if $\lim_{k \to \infty} d(C_k) = 0$, then $\bigcap_{k=1}^\infty C_k$ is a singleton.
+}
+\pf{Proof}{
+    If any of $C_k$ is finite, it is trivial. So, we suppose every $C_k$ is infinite.
+    Construct a seqeunce $\{\vec x_k\}$ of points in $\RR[n]$ as following.
+    \begin{itemize}[nolistsep]
+        \ii Take any $\vec x_1$ in $C_1$.
+        \ii For each $k \in \NN$, take any $\vec x_{k+1}$ in $C_{k+1} \setminus \{\,x_1, x_2, \cdots, x_k\,\}$.
+    \end{itemize}
+    Since $S \subseteq C_1$ is bounded and contains infinitely many points,
+    by \Cref{th:BW2}, there is a limit point $\vec x_0$ of $S$ in $\RR[n]$.
+    We now claim that $\vec x_0 \in \bigcap_{k=1}^\infty C_k$.
+
+    Fix any $k \in \NN$ and choose any deleted neighborhood $N'(\vec x_0)$ of $\vec x_0$.
+    Since $N'(\vec x_0) \cap S$ is infinite, there is some $k_1 \in \NN_{>k}$ such that $\vec x_{k_1} \in N'(\vec x_0)$.
+    By the construction, $\vec x_{k_1} \in C_{k_1} \subseteq C_k$.
+    This shows that every deleted neighborhood of $\vec x_0$ contains a point in $C_k$; $\vec x_0 \in C_k'$.
+    As each $C_k$ is closed, $\vec x_0 \in C_k$, and thus $\vec x_0 \in \bigcap_{k=1}^\infty C_k$.
+
+    Suppose, in addition, $\lim_{k \to \infty} d(C_k) = 0$.
+    Assume $\bigcap_{k=1}^\infty C_k$ has two distinct points $\vec x$ and $\vec y$ for the sake of contradiction.
+    Choose any $\veps \in (0, \|\vec x-\vec y\|)$ and then there is some $k \in \NN$ with $d(C_k) < \veps$.
+    Nonetheless, $\veps < \|\vec x-\vec y\| \le d(C_k) < \veps$, \#.
+}
+
+\thm{Cantor's Criterion in $\RR[n]$ implies Cantor's Criterion in $\RR$}{
+    Cantor's criterion in $\RR[n]$ implies Cantor's criterion also holds in $\RR$.
+}
+\pf{Proof}{
+    $\RR \times \{0\} \times \cdots \times \{0\}$ is a closed subset of $\RR[n]$.
+}
+
+\thm[cantorCritImpliesSupExs]{}{
+    Cantor's criterion in $\RR$ and Archimedes' principle implies the existence of supremum
+    of any bounded above nonempty subset of $\RR$.
+}
+\pf{Proof}{
+    Let $S$ be a nonempty, bounded above set in $\RR$.
+    Let $B$ denote the set of upper bounds of $S$ and let $A = \cmpl B$.
+    Since $x - 1 \in A$ for all $x \in S$, $A \neq \varnothing$.
+    
+    We first show that for all $a \in A$ and $b \in B$, $a < b$.
+    If otherwise, i.e., $a \ge b$, $x \le b \le a$ for each $x \in S$,
+    which implies $a \in B$, which is a contradiction.
+
+    Moreover, $S \cap [a, b] \neq \varnothing$ for each $a \in A$ and $b \in B$.
+    Assume $S \cap [a, b] = \varnothing$ for the sake of contradiction.
+    Since $S \cap (b, \infty) = \varnothing$ as $b$ is an upper bound of $S$,
+    then it follows $S \subseteq (-\infty, a)$, which implies $a$
+    is an upper bound of $S$, which is a contradiction.
+
+    Construct a nested sequence $\{[a_k, b_k]\}_{k \in \NN}$ of closed interval
+    of which each $a_k$ is in $A$ and $b_k$ is in $B$.
+    \begin{itemize}[nolistsep]
+        \ii Take any $a_1$ in $A$ and $b_1$ in $B$.
+        \ii For each $k \in \NN$, if $(a_k + b_k)/2 \in A$, then let $a_{k+1} \triangleq (a_k + b_k)/2$ and $b_{k+1} \triangleq b_k$.
+            If $(a_k + b_k)/2 \in B$, then let $a_{k+1} \triangleq a_k$ and $b_{k+1} \triangleq (a_k + b_k)/2$.
+    \end{itemize}
+    Then it is immediate that $\lim_{k \to \infty} (b_k - a_k) = \lim_{k \to \infty} 2^{-k+1}(b_1-a_1) = 0$.
+    Therefore, by Cantor's criterion in $\RR$, $\bigcap_{k=1}^\infty [a_k, b_k] = \{x_0\}$ for some $x_0 \in \RR$.
+
+    We now show that $x_0$ is an upper bound of $S$.
+    Assume not for the sake of contradiction, that is,
+    there is some $x \in S$ such that $x > x_0$.
+    Then, we may find some $k \in \NN$ such that $b_k - a_k < x - x_0$.
+    Then it follows $b_k - x_0 \le b_k - a_k < x - x_0$, and therefore $b_k < x_0$.
+    This contradicts that $b_k$ is an upper bound of $S$. Thus, $x_0 \in B$.
+
+    We now claim that $x_0$ is the least upper bound.
+    Assume to the contrary that there is some $b \in B$ such that $b < x_0$.
+    Then, we may find some $k \in \NN$ such that $b_k - a_k < x_0 - b$.
+    It follows $x_0 - a_k \le b_k - a_k < x_0 - b$, and therefore $b < a_k$.
+    This contradicts that $a_k \in A$.
+}
+
+\thm{}{
+    Assuming that Archimedes' principle holds in $\RR$, the following are equivalent.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Eery nonempty supset in $\RR$ which is bounded above has a supremum in $\RR$.
+        \ii Every bounded monotone sequence in $\RR$ converges.
+        \ii $\RR$ has Bolzano–Weierstrass property.
+        \ii $\RR$ is Cauchy complete.
+        \ii $\RR[n]$ is Cauchy complete.
+        \ii $\RR[n]$ has Bolzano–Weierstrass property.
+        \ii Cantor's criterion holds in $\RR[n]$.
+        \ii Cantor's criterion holds in $\RR$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    \[
+        \text{(i)} \overbrace{\implies}^{\text{\Cref{th:bddMonotoneSeqConv}}} \text{(ii)}
+        \overbrace{\implies}^{\text{\Cref{th:nestedInterval}}} \text{(viii)}
+        \overbrace{\implies}^{\text{\Cref{th:cantorCritImpliesSupExs}}} \text{(i)}
+    \]
+    \[
+        \begin{aligned}[t]
+            \text{(i)} \overbrace{\implies}^{\text{\Cref{th:BW}}} \text{(iii)}
+            \overbrace{\implies}^{\text{\Cref{th:convIffCauchy}}} &\text{(iv)}
+            \overbrace{\implies}^{\text{\Cref{th:convIffCauchyRn}}} \text{(v)}
+            \overbrace{\implies}^{\text{\Cref{th:BW2}}} \text{(vi)} \\
+            &\overbrace{\implies}^{\text{\Cref{th:CantorCriterionRn}}} \text{(vii)}
+            \overbrace{\implies}^{\text{special case}} \text{(viii)}
+            \overbrace{\implies}^{\text{\Cref{th:cantorCritImpliesSupExs}}} \text{(i)}
+        \end{aligned}
+    \]
+}
+
+\dfn{Completeness}{
+    When the word \textit{complete} is applied to $\RR[n]$,
+    it is assumed that it means any of these statements:
+    \begin{itemize}[nolistsep]
+        \ii the existence of least upper bounds in $\RR$,
+        \ii the Monotone Convergence theorem in $\RR[n]$,
+        \ii Cantor's criterion,
+        \ii the Bolzano–Weierstrass property, or
+        \ii Cauchy completeness.
+    \end{itemize}
+}
+
+\section{Relative Topology and Connectedness}
 
 \end{document}
