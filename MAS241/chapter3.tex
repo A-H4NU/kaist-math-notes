@@ -1,0 +1,103 @@
+\documentclass[MAS241_Note.tex]{subfiles}
+
+\begin{document}
+\chapter{Continuity}
+\section{Limit and Continuity}
+
+\dfn{Limit of a Function}{
+    Let $f \colon S \to \RR$ where $S \subseteq \RR[n]$.
+    Let $\vec c \in \cl S$.
+    We say $f$ has \textit{limit} $L$ as $\vec x$ approaches $\vec c$
+    provided that, for every neighborhood $N(L)$,
+    there exists a deleted neighborhood $N'(\vec c)$ such that \[
+        S \cap N'(\vec c) \subseteq f\inv(N(L))\text{.}
+    \]
+    We write $\lim_{\vec x \to \vec c} f(\vec x) = L$.
+}
+
+\nt{
+    Limit is unique if it exists.
+}
+
+\nt{
+    Note that $S \cap N'(\vec c; \delta) = \varnothing$ for sufficiently small $\delta$
+    if $\vec c$ is an isolated point of $S$.
+    This implies any real number can be a limit of $f$ as $\vec x$ approaches $\vec c$.
+    Somehow, Douglass defined that $\lim_{\vec x \to \vec c} f(\vec x) = f(\vec c)$
+    (since $\vec c \in S$ in this case).
+    {\color{lightgray} Actually I do not think we should define limit for isolated points.}
+}
+\nt{
+    This definition of limit is equivalent to the normal
+    $\veps$-$\delta$ definition of limit,
+    except that it defines a limit for isolated points.
+}
+
+\dfn{Continuity}{
+    Let $f \colon S \to \RR$ where $S \subseteq \RR[n]$.
+    Let $\vec c \in S$.
+    We say $f$ is \textit{continuous} at $\vec c$ if \[
+        \lim_{\vec x \to \vec c} f(\vec x) = f(\vec c)\text{.}
+    \]
+    In other words, for every neighborhood $N(f(\vec c))$,
+    there exists a deleted neighborhood $N(\vec c)$ such that \[
+        S \cap N(\vec c) \subseteq f\inv \big(N(f(\vec c))\big)\text{.}
+    \]
+}
+
+\thm[non0LimThenBddAwayFrom0]{}{
+    Let $f \colon S \to \RR$ where $S \subseteq \RR[n]$.
+    Let $\vec c \in \cl S$ where $\lim_{\vec x \to \vec c} f(\vec c) = L$ exists and $L \neq 0$.
+    Then, $f$ is locally ounded away from $0$ on some deleted neighborhood of $\vec c$,
+    that is, there are $m, \delta \in \RR_+$ such that \[
+        \vec x \in S \cap N'(\vec c; \delta) \implies |f(\vec x)| \ge m\text{.}
+    \]
+}
+\pf{Proof}{
+    There exists $\delta \in \RR_+$ such that $S \cap N'(\vec c; \delta) \subseteq f\inv(N(L; |L|/2))$.
+    Then, $|f(\vec x)| \ge |L|/2$ if $\vec x \in S \cap N'(\vec x; \delta)$.
+}
+
+\thm[limAlgebra]{}{
+    Let $f_1 \colon S \to \RR$ and $f_2 \colon S \to \RR$ where $S \subseteq \RR[n]$.
+    Let $\vec c \in \cl S$, and suppose $\lim_{\vec x \to \vec c} f_1(\vec x) = L_1$
+    and $\lim_{\vec x \to \vec c} f_2(\vec x) = L_2$. Then
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $\lim_{\vec x \to \vec c} \big(f_1(\vec x) + f_2(\vec x)\big) = L_1 + L_2$.
+        \ii For any $a \in \RR$, $\lim_{\vec x \to \vec c} af(\vec x) = aL_1$.
+        \ii $\lim_{\vec x \to \vec c} f_1(\vec x)\,f_2(\vec x) = L_1L_2$.
+        \ii $\lim_{\vec x \to \vec c} f_1(\vec x)/f_2(\vec x) = L_1/L_2$ provided that $L_2 \neq 0$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    Proved in MAS102 (Calculus \rom{2}).
+}
+
+\thm[squeezeFtn]{The Squeeze Play}{
+    Let $f$, $g$, and $h$ be three real-valued functions
+    sharing a common domain $S \subseteq \RR[n]$.
+    Let $\vec c \in \cl C$ where $\lim_{\vec x \to \vec c} f(\vec x) = \lim_{\vec x \to \vec c} h(\vec x) = L$ exist.
+    Suppose also that, for some $\delta_0 \in \RR_+$, \[
+        \vec x \in S \cap N'(\vec c; \delta_0) \implies f(\vec x) \le g(\vec x) \le h(\vec x)
+    \]
+    Then, $\lim_{\vec x \to \vec c} g(\vec x) = L$.
+}
+\pf{Proof}{
+    Proved in MAS102 (Calculus \rom{2}).
+}
+
+\thm[limIsOrderPrsvingFtn]{Limit is Order Preserving}{
+    Let $f$ and $g$ be two real-valued functions
+    sharing a common domain $S \subseteq \RR[n]$.
+    Let $\vec c \in \cl C$ where $\lim_{\vec x \to \vec c} f(\vec x) = L_1$ and
+    $\lim_{\vec x \to \vec c} g(\vec x) = L_2$ exist.
+    Suppose also that, for some $\delta_0 \in \RR_+$, \[
+        \vec x \in S \cap N'(\vec c; \delta_0) \implies f(\vec x) \le g(\vec x)
+    \]
+    Then, $L_1 \le L_2$.
+}
+\pf{Proof}{
+    Proved in MAS102 (Calculus \rom{2}).
+}
+
+\end{document}
