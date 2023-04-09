@@ -951,4 +951,165 @@
     Similarly, $x_0 \in I \cap V$, which contradicts $U \cap V = \varnothing$.
 }
 
+\section{Compactness}
+
+\dfn{Open Cover}{
+    Let $S$ be any nonempty subset of $\RR[n]$.
+    An \textit{open cover} of $S$ is any collection
+    $\mcal C = \{\,U_\alpha \mid \alpha \in A\,\}$ of open sets
+    such that $S \subseteq \bigcup_{\alpha \in A} U_{\alpha}$.
+}
+
+\dfn{Compactness}{
+    A set $S$ in $\RR[n]$ is said to be \textit{compact} if,
+    for every open cover $\mcal C$ of $S$, there exists a finite subcover,
+    that is, there is some finite subset $A_0$ of $A$ such that
+    $S \subseteq \bigcup_{\alpha \in A_0} U_{\alpha}$.
+}
+
+\thm[heine]{Heine–Borel}{
+    Let $S$ be any closed and bounded set in $\RR[n]$.
+    Then any \textit{countable} open cover of $S$ has a finite subcover.
+}
+\pf{Proof}{
+    Let $\{\,I_k \mid k \in \NN\,\}$ be any open cover of $S$.
+    Let $U_k \triangleq \bigcup_{j=1}^k I_j$, $C_k \triangleq \cmpl{U_k}$, and
+    $D_k \triangleq C_k \cap S$ for each $k \in \NN$.
+    Then, for each $k \in \NN$, $U_k \subseteq U_{k+1}$, $C_{k} \supseteq C_{k+1}$,
+    and $D_k \supseteq D_{k+1}$.
+    Note that each $U_k$ is open and thus $C_k$ and $D_k$ are closed.
+    
+    Assume that every $D_k$ is nonempty.
+    Then, since $\{D_k\}$ is a nested sequence of bounded, nonempty, closed sets,
+    by Cantor's criterion, there is some $x \in \bigcap_{k=1}^\infty D_k$.
+    Then, \[
+        x \in \bigcap_{k=1}^\infty (S \cap C_k) = S \cap \left(\bigcap_{k=1}^\infty C_k\right)
+        = S \cap \cmpl{\left(\bigcup_{k=1}^\infty U_k\right)}
+        = S \cap \cmpl{\left(\bigcup_{k=1}^\infty I_k\right)}
+    \]
+    Thus, $x$ is a point in $S$ that is not covered by $\{\,I_k \mid k \in \NN,\}$,
+    which is a contradiction.
+
+    Hence, some $D_{k_0}$ is empty, and it means that
+    $S \subseteq \bigcup_{j=1}^{k_0} I_k$.
+}
+
+\thm[lindelof]{Lindelöf}{
+    Let $S$ be any subset of $\RR[n]$.
+    Then, every open cover of $S$ has a countable subcover.
+}
+\pf{Proof}{
+    Since the set $\{\,N(\vec y; r) \mid \vec y \in \QQ^n, r \in \QQ\,\}$
+    has the trivial one-to-one correspondence with $\QQ[n+1]$, the set is countable.
+    Thus, we may index them as $\{\,N_k \mid k \in \NN\,\}$.
+
+    Let $\mcal C = \{\,U_\alpha \mid \alpha \in A\,\}$ be any open cover of $S$.
+    Take any $\vec x \in S$.
+    Then there is some $U_\alpha$ such that $\vec x \in U_\alpha$.
+    Since $U_\alpha$ is open, there is a neighborhood $N(\vec x; \veps)$
+    such that $N(\vec x; \veps) \subseteq U_\alpha$.
+    
+    As $\QQ[n]$ is dense in $\RR[n]$, there is some $\vec y \in N(\vec x; \veps/2) \cap \QQ[n]$.
+    As $\QQ$ is dense in $\RR$, there is some $r \in (\|\vec x - \vec y\|, \veps - \|\vec x - \vec y\|) \cap \QQ$.
+    Then, $\vec x \in N(\vec y; r) \subseteq N(\vec x; \veps) \subseteq U_\alpha$.
+    The neighborhood $N(\vec y; r)$ is in the set $\{\,N_k \mid k \in \NN\,\}$.
+
+    Let us define $K(\vec x) \triangleq \{\,k \in \NN \mid \vec x \in N_k \subseteq U_\alpha \text{ for some } U_\alpha \in \mcal C\,\}$.
+    Then, by Well-Ordering Property of $\NN$, there is $k(\vec x) \triangleq \min K(\vec x)$.
+
+    The collection $\{\, N_{k(\vec x)} \mid \vec x \in S\,\}$ is an open cover of $S$ and is countable since
+    it is a subset of $\{\,N_k \mid k \in \NN\,\}$.
+
+    By construction, for each $N_{k(\vec x)}$, there is $U_\alpha \in \mcal C$ such that $N_{k(\vec x)} \subseteq U_\alpha$.
+    Hence, if we denote one of such sets as $U_{k(\vec x)}$,
+    the collection $\{\,U_{k(\vec x)} \mid \vec x \in S\,\}$ is a countable subcover of $S$.
+}
+
+\cor{}{
+    If $S \subseteq \RR[n]$ is closed and bounded, then $S$ is compact.
+}
+\pf{Proof}{
+    Simply combine \Cref{th:lindelof} and \Cref{th:heine}.
+}
+
+\thm[compactIffClAndBdd]{}{
+    If $S$ is a compact subset of $\RR[n]$, then $S$ is closed and bounded.
+}
+\pf{Proof}{
+    Suppose $S \subseteq \RR[n]$ is not closed.
+    Then $S$ has a limit point $\vec x_0$ that is not in $S$.
+    Let $\{\veps_k\}$ be any sequence of positive numbers that monotonically converges to $0$.
+    Define $U_k \triangleq \cmpl{\left[\cl{N(\vec x_0; \veps_k)}\right]}$.
+
+    Then $\mcal C \triangleq \{\,U_k \mid k \in \NN\,\}$ is an open cover of $S$.
+    To prove this, take any $\vec x \in S$.
+    There exists $k_0 \in \NN$ such that $\veps_k < \|\vec x - \vec x_k\|$ for all $k \in \NN_{\ge k_0}$.
+    Thus, for $k \ge k_0$, $\vec x_0 \notin \cl{N(\vec x_0; \veps_k)}$, i.e., $\vec x_0 \in U_k$.
+
+    We now claim there is no finite subcover.
+    Take finitely many subsets $\{\,U_{k_1}, U_{k_2}, \cdots, U_{k_p}\,\}$ from the open cover.
+    Let $k_0 = \max_{i\in[p]} k_i$. Note that $\bigcup_{i=1}^p U_{k_i} = U_{k_0}$.
+    Take $\veps$ from $(0, \veps_{k_0})$.
+    Then, since $\vec x_0$ is a limit point of $S$,
+    we may take $\vec x \in S \cap N'(\vec x_0; \veps)$.
+    Then, $\vec x \notin U_{k_0}$.
+    Therefore, $\{U_{k_i}\}_{i \in [p]}$ does not cover $S$.
+    Thus, we proved that a set which is not closed is not compact.
+
+    Now, suppose $S$ is not bounded.
+    Let $U_k = N(\vec 0; k)$. Then, $S \subseteq \RR[n] = \bigcup_{k=1}^\infty U_k$;
+    $\{U_k\}$ is an open cover of $S$.
+
+    Take finitely many subsets $\{\,U_{k_1}, U_{k_2}, \cdots, U_{k_p}\,\}$ from the open cover.
+    Let $k_0 = \max_{i \in [p]} U_{k_i}$. Note that $\bigcup_{i=1}^p U_{k_i} = U_{k_0}$. 
+    Because $S$ is unbounded, there is some $\vec x \in S$ such that $\|\vec x\| > k_0$;
+    $\vec x \notin U_{k_0} = \bigcup_{i=1}^P U_{k_i}$.
+    Thus, we proved that an unbounded set is not compact.
+}
+
+\nt{
+    A set $S \subseteq \RR[n]$ is complete if and only if $S$ is closed.
+    A set $S$ is compact if and only if $S$ is closed and bounded.
+    Thus, compactness implies completeness, but not vice versa.
+}
+
+\thm[compactEquiv]{}{
+    Let $S$ be a nonempty subset of $\RR[n]$.
+    Then the following statements are equivalent.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $S$ is closed and bounded.
+        \ii $S$ is compact.
+        \ii Every infinite subset of $S$ has a limit point which is in $S$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    We already know (i) is equivalent to (ii).
+    Therefore, we only need to prove (i) and (iii) are equivalent.
+    $\text{(i)} \implies \text{(iii)}$ is direct
+    since $S$ is complete by \Cref{th:completeIffClosed}.
+    So we are left to prove (iii) implies (i).
+
+    Suppose $S$ is not bounded.
+    Then we may constrct a sequence $\{\vec x_k\}$ in $S$ as following.
+    \begin{itemize}[nolistsep]
+        \ii Take any $\vec x_1 \in S$.
+        \ii For each $k \in \NN$, take $\vec x_{k+1} \in S \setminus N(\vec 0; \|\vec x_k\| + 1)$.
+    \end{itemize}
+    The construction is valid since $S$ is unbounded.
+    Then, the set $\{\,\vec x_k \mid k \in \NN\,\}$ is infinite but it does not have a limit point
+    since $\|\vec x_k - \vec x_m\| \ge 1$ for each $\{k, m\} \subseteq \NN$.
+    Thus, (iii) implies $S$ is bounded.
+
+    Now, we shall prove (iii) implies $S$ is closed.
+    Let $\vec x$ be a limit point of $S$.
+    Let $\{\veps_k\}$ be a monotonic sequence of positive numbers that converges to $0$.
+    Construct a sequence $\{\vec x_k\}$ as following.
+    \begin{itemize}[nolistsep]
+        \ii For each $k \in \NN$, take $\vec x_k \in S \cap N'(\vec x; \veps_k)$.
+    \end{itemize}
+    The construction is valid since $\vec x$ is a limit point of $S$.
+    Then, the set $\{\,\vec x_k \mid k \in \NN\,\}$ has the only limit point $\vec x$.
+    Then, by (iii), $\vec x \in S$.
+    We proved that $S$ contains all its limit points, thus $S$ is closed by \Cref{th:closedIffContainsLimPts}.
+}
 \end{document}
