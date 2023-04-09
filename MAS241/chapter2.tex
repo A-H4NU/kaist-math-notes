@@ -762,6 +762,7 @@
             A \textit{deleted neighborhood} is $N'(\vec x; r) \cap X$.
         \ii A sequence $\{\vec x_k\}$ in $X$ \textit{converges in} $X$ if $\lim_{k \to \infty} \vec x_k \in X$.
         \ii The relative closure of $S$ is $\cl S \cap X$.
+        \ii A point $\vec x_0$ in $X$ is a \textit{relative limit point} of $S$ in $X$ if $\vec x_0$ is a limit point of $S$.
     \end{itemize}
 }
 
@@ -783,6 +784,20 @@
     ($\supseteq$) There exists a closed set $\hat C$ in $\RR[n]$ such that $C = \hat C \cap X$.
     Since $C \subseteq \hat C$ and $\hat C$ is closed, $\cl C \subseteq \hat C$ by \Cref{th:closureIsIntOfClosedSetsContainS}.
     Thus, $\cl C \cap X \subseteq \hat C \cap X = C$.
+}
+
+\mlemma[relClosedIffContainsRelLimPts]{}{
+    Let $C \subseteq X \subseteq \RR[n]$.
+    Then, $C$ is relatively closed in $X$ if and only if $C$ contains all its relative limit points in $X$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    If $\vec x_0$ is a relative limit point of $C$ in $X$,
+    then $\vec x_0 \in \cl C \cap X = C$. (\Cref{lem:relClosedIffClCapX})
+
+    ($\Leftarrow$)
+    It means $\cl C \cap X \subseteq C$. And it is already $C \subseteq \cl C \cap X$.
+    Therefore, $C$ is relatively closed in $X$ by \Cref{th:relClosedIffClCapX}.
 }
 
 \thm[completeInX]{}{
@@ -875,6 +890,65 @@
     By Bolzano–Weierstrass property of $\RR[n]$, $S$ has a limit point $\vec x_0$ in $\RR[n]$.
     As $X$ being closed, $\vec x_0 \in X$. Therefore, $X$ has Bolzano–Weierstrass property;
     $X$ is complete by \Cref{th:completeInX}.
+}
+
+\dfn{Connectedness}{
+    A set $S$ is \textit{disconnected} if there are two open sets $U, V$ such that
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $U \cap V = \varnothing$,
+        \ii $S \subseteq U \cup V$, and
+        \ii $S \cap U \neq \varnothing$ and $S \cap V \neq \varnothing$.
+    \end{enumerate}
+    $S$ is \textit{connected} if $S$ is not disconected.
+}
+\exmp{}{
+    \begin{itemize}[nolistsep]
+        \ii $[0, 1) \cup (1, 2]$ is disconnected. ($U = (-1, 1)$ and $V = (1, 3)$)
+        \ii $\QQ$ is disconnected. ($U = (-\infty, r)$ and $V = (r, \infty)$ where $r \in \RR \setminus \QQ$)
+    \end{itemize}
+}
+
+\thm[intervalIsConnected]{}{
+    Any interval of the form of $[a, b]$, $(a, b]$, $[a, b)$, or $(a, b)$ is connected.
+    $\RR$ itself is connected.
+}
+\pf{Proof}{
+    Let $I$ be any of these sets.
+    The only fact needed for this proof is that $(u, v) \subseteq I$ for any $u < v$ in $I$.
+
+    Suppose $I$ is disconnected. Then, there are disjoint open sets $U, V \subseteq \RR$ such that
+    $I \subseteq U \cup V$, $I \cap U \neq \varnothing$, and $I \cap V \neq \varnothing$.
+    Take any $u \in I \cap U$ and $v \in I \cap V$. WLOG, $u < v$.
+    
+    Construct sequences $\{u_k\}$ in $I \cap U$ and $\{v_k\}$ in $I \cap V$ as following.
+    \begin{itemize}[nolistsep]
+        \ii $u_1 \triangleq u$ and $v_1 \triangleq v$.
+        \ii For each $k \in \NN$, $u_{k+1} \triangleq \begin{cases}
+                \dfrac{u_k + v_k}{2} & \dfrac{u_k + v_k}{2} \in U \\
+                u_k & \text{otherwise}
+            \end{cases}$ and $v_{k+1} \triangleq \begin{cases}
+                \dfrac{u_k + v_k}{2} & \dfrac{u_k + v_k}{2} \in V \\
+                v_k & \text{otherwise}
+            \end{cases}$.
+    \end{itemize}
+    Then, $\{u_k\}$ and $\{v_k\}$ are bounded, monotone sequences
+    ($u_k < v$ and $v_k > u$ for each $k \in \NN$);
+    hence they converge by \Cref{th:bddMonotoneSeqConv}.
+    
+    Since $(u_k + v_k)/2 \in I \subseteq U \cup V$ for each $k \in \NN$ and $U \cap V = \varnothing$,
+    $v_{k+1} - u_{k+1} = (v_k - u_k) / 2 = (v - u)/2^k$.
+    They converge to the same point $x_0$ since $\lim_{k \to \infty} (v_k - u_k) = 0$.
+
+    If $x_0$ is ever equal to $u_k$, then by openness of $U$,
+    there is some neighborhood $N(x_0; \veps)$ of $x_0$
+    such that $N(x_0; \veps) \subseteq U$, which contradicts $\lim_{k \to \infty} v_k = x_0$.
+    Thus, $x_0$ is never equal to $u_k$; by the same reason, $x_0$ is never equal to $v_k$.
+    We conclude $x_0$ is a relative limit point in $I$ of both $I \cap U$ and $I \cap V$.
+
+    Since $I \cap U = I \cap \cmpl V$ and $\cmpl V$ is closed, $I \cap U$ is closed and thus
+    any relative limit point of $I \cap U$ in $I$, $x_0$, in particular, is in $I \cap U$
+    by \Cref{lem:relClosedIffContainsRelLimPts}.
+    Similarly, $x_0 \in I \cap V$, which contradicts $U \cap V = \varnothing$.
 }
 
 \end{document}
