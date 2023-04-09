@@ -389,7 +389,7 @@
     Thus; $\inter S \supseteq \bigcup \mcal U$.
 }
 
-\thm{}{
+\thm[closureIsIntOfClosedSetsContainS]{}{
     The closure of $S$ is the intersection of all closed sets that contain $S$.
 }
 \pf{Proof}{
@@ -488,7 +488,7 @@
     \]
 }
 
-\thm{}{
+\exer{}{
     Let $S$ be a nonempty set in $\RR[n]$ and let $\vec x$ be a point of $\RR[n]$.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii $d(\vec x, S) = 0$ if and only if $\vec x \in \cl S$.
@@ -497,7 +497,7 @@
         \ii If $S$ is open and if $\vec x \in \cmpl S$, then there exists no $\vec y \in S$ such that $d(\vec x, S) = \|\vec x - \vec y\|$.
     \end{enumerate}
 }
-\pf{Proof}{
+\solve{
     $ $\\[-1em]
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii ($\Rightarrow$) We shall show that if such $\vec x$ is not in $S$, then it is in $S'$.
@@ -544,6 +544,26 @@
                 \|\vec x - \vec y\| = \left| 1 - \frac{r_0}{2\|\vec x-\vec y\|} \right|\,\|\vec x-\vec y\| < \|\vec x - \vec y\|\text{,}
             \] contradicting the minimality of $\|\vec x- \vec y\|$, \#. \checkmark
     \end{enumerate}
+}
+
+\exer[closureSameDiam]{}{
+    Let $S$ be a nonempty set in $\RR[n]$. Then, $d(S) = d(\cl S)$.
+}
+\solve{
+    Since $S \subseteq \cl S$, $d(S) \le d(\cl S)$ is direct.
+
+    To prove $d(S) = d(\cl S)$, take any $\veps \in \RR_+$.
+    Let $\vec x$ and $\vec y$ be any point in $\cl S$.
+    Then, each of $S \cap N(\vec x; \veps/2)$ and $S \cap N(\vec y; \veps/2)$ is nonempty.
+    Thus, we take $\vec x'$ and $\vec y'$ from each set. Then, \[
+        \begin{aligned}[t]
+            \|\vec x - \vec y\| &\le \|\vec x - \vec x'\| + \|\vec x' - \vec y'\| + \|\vec y' - \vec y\| \\
+                                &< \veps/2 + d(S) + \veps/2 = d(S) + \veps
+        \end{aligned}
+    \]
+    Therefore, $d(S) + \veps$ is an upper bound of $\{\,\|\vec x-\vec y\| \mid \vec x, \vec y \in \cl S\,\}$.
+    Thus, $d(S) \le d(\cl S) \le d(S) + \veps$.
+    Since $\veps$ was arbitrary, we conclude $d(S) = d(\cl S)$.
 }
 
 \section{Completeness}
@@ -723,5 +743,138 @@
 }
 
 \section{Relative Topology and Connectedness}
+
+\dfn{Relatively Open and Relatively Closed Set}{
+    A set $S$ is said to be \textit{relatively open} in $X$
+    if there exists an open set $U$ in $\RR[n]$ such that $S = U \cap X$.
+    Likewise, a set $S$ is said to be \textit{relatively closed}
+    if there exists a closed set $C$ in $\RR[n]$ such that $S = C \cap X$.
+}
+
+\nt{
+    Every relatively open set in $X$ is open in $\RR[n]$ if and only if $X$ is open in $\RR[n]$.
+    Every relatively closed set in $X$ is closed in $\RR[n]$ if and only if $X$ is closed in $\RR[n]$.
+}
+
+\dfn{}{
+    \begin{itemize}[nolistsep]
+        \ii A \textit{relative neighborhood} of $\vec x$ in $X$ is $N(\vec x; r) \cap X$.
+            A \textit{deleted neighborhood} is $N'(\vec x; r) \cap X$.
+        \ii A sequence $\{\vec x_k\}$ in $X$ \textit{converges in} $X$ if $\lim_{k \to \infty} \vec x_k \in X$.
+        \ii The relative closure of $S$ is $\cl S \cap X$.
+    \end{itemize}
+}
+
+\nt{
+    Depending on $X$, $X$ may not be complete, i.e., a Cauchy sequence in $X$ may not converge in $X$,
+    an infinite and bounded subset of $X$ may not have a limit point in $X$,
+    or a nested sequence of nonempty, bounded, relatively closed subsets of $X$ may have an empty intersection.
+}
+
+\mlemma[relClosedIffClCapX]{}{
+    Let $X$ be a subset of $\RR[n]$ and $C$ be a subset in $X$.
+    Then, $C$ is relatively closed in $X$ if and only if $C$ is the relative closure of $C$.
+}
+\pf{Proof}{
+    The ``if'' part is trivial; we only prove the ``only if'' part.
+
+    ($\subseteq$) It is direct since $C \subseteq \cl C$.
+
+    ($\supseteq$) There exists a closed set $\hat C$ in $\RR[n]$ such that $C = \hat C \cap X$.
+    Since $C \subseteq \hat C$ and $\hat C$ is closed, $\cl C \subseteq \hat C$ by \Cref{th:closureIsIntOfClosedSetsContainS}.
+    Thus, $\cl C \cap X \subseteq \hat C \cap X = C$.
+}
+
+\thm[completeInX]{}{
+    Let $X$ be any nonempty subset of $\RR[n]$. The following statements are equivalent.
+    \begin{enumerate}[nolistsep]
+        \ii Every Cauchy sequence $\{\vec x_k\}$ in $X$ converges to a point of $X$.
+            Thus $X$ inherits Cauchy completeness from $\RR[n]$.
+        \ii If $S$ is a bounded, infinite subset of $X$, then $S$ has a limit point in $X$.
+            Thus $X$ inherits the Bolzano–Weierstrass property from $\RR[n]$.
+        \ii If $\{C_k\}$ is any nested sequence of nonempty, bounded, relatively closed subsets of $X$,
+            then $\bigcap_{k=1}^\infty \neq \varnothing$. Furthermore, if $\lim_{k \to \infty} d(C_k) = 0$,
+            then $\bigcap_{k=1}^\infty$ is a singleton. Thus $X$ inherits Cantor's criterion from $\RR[n]$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    We shall first prove $\text{(i)} \implies \text{(ii)}$.
+    Let $S$ be any bounded and infinite subset of $S$.
+    Since $S$ is a bounded and infinite subset of $\RR[n]$ at the same time,
+    by \Cref{th:BW2}, there is a limit point $\vec x_0$ of $S$ in $\RR[n]$.
+    We may construct a Cauchy sequence in $S$ that converges to $\vec x_0$
+    as we did in the proof of \Cref{th:clusterIffSubseqConv}.
+    Thus, $\vec x_0$, which the Cauchy sequence converges to, is in $S$ by Cauchy completeness of $X$.
+    Therefore, $S$ has a limit point in $X$.
+
+    We next prove $\text{(ii)} \implies \text{(iii)}$.
+    Suppose that $X$ has the Bolzano–Weierstrass property.
+    Take any nested sequence $\{C_k\}$ be bounded, nonempty, and \textit{relatively closed} subsets of $X$.
+    We assume each $C_k$ is infinite since it is trivial otherwise.
+
+    As in the proof of \Cref{th:CantorCriterionRn},
+    recursively choose an infinite set $S = \{\,\vec x_k \mid k \in \NN\,\}$
+    of distinct points such that $\vec x_k \in C_k$ for each $k \in \NN$.
+    By the assumption (ii), there is a limit point $\vec x_0 \in X$ of $S$.
+    Since $\vec x_k \in C_k \subseteq \cl{C_k}$ for each $k \in \NN$ and
+    $\{\cl{C_k}\}_{k \in \NN}$ is a nested sequence of
+    bounded, nonempty, and closed subsets of $\RR[n]$,
+    as in the proof of \Cref{th:CantorCriterionRn},
+    $\vec x_0 \in \cl{C_k}$ for each $k$, also.
+    As $C_k = \cl{C_k} \cap X$ for each $k \in \NN$ by \Cref{lem:relClosedIffClCapX},
+    $\vec x_0 \in C_k$ for each $k \in \NN$. Thus, $\vec x_0 \in \bigcap_{k=1}^\infty C_k$.
+
+    If, in addition, $\lim_{k \to \infty} d(C_k) = 0$,
+    then $\lim_{k \to \infty} d(\cl{C_k}) = 0$ by \Cref{th:closureSameDiam}.
+    By \Cref{th:CantorCriterionRn}, $\bigcap_{k=1}^\infty \cl{C_k} = \{\vec x_0\}$.
+    But since $C_k \subseteq \cl {C_k}$ for each $k \in \NN$,
+    $\varnothing \neq \bigcap_{k=1}^\infty C_k \subseteq \bigcap_{k=1}^\infty \cl{C_k} = \{\vec x_0\}$.
+    Thus, (ii) implies Cantor's criterion holds in $X$.
+
+    Finally, it is left to prove $\text{(iii)} \implies \text{(i)}$.
+    Let $\{\vec x_k\}$ be a Cauchy sequence in $X$. We must show it converges to some point in $X$.
+    By Cauchy completeness of $\RR[n]$, $\{\vec x_k\}$ converges to some point $\vec x_0$ in $\RR[n]$.
+    We shall show that $\vec x_0 \in X$.
+
+    Let $\{\veps_k\}_{k \in \NN}$ be any sequence of positive numbers that converge monotonically to $0$,
+    e.g., $\veps_k = 1/k$.
+    Let $C_k \triangleq \cl{N(\vec x_0; \veps_k)} \cap X$.
+    Then $\{C_k\}$ is a nested sequence of bounded and relatively closed sets in $X$.
+
+    Take any $k_1 \in \NN$. Since $\{\vec x_k\}$ converges to $\vec x_0$,
+    there is some $k_0 \in \NN$ such that $\forall k \in \NN_{\ge k_0},\: \vec x_k \in N(\vec x_k; \veps_{k_1})$.
+    And such $\vec x_k$'s are also in $N(\vec x_k; \veps_{k_1}) \cap X$; hence each $C_k$ is nonempty.
+
+    Moreover, as $d(C_k) \le d\big(N(\vec x_0; \veps_k)\big) = 2\veps_k$, $\lim_{k \to \infty} d(C_k) = 0$.
+    Thus, by assumption (ii), $\bigcap_{k=1}^\infty C_k$ is a singleton in $X$.
+    Then,
+    \[
+        \bigcap_{k=1}^\infty C_k = \bigcap_{k=1}^\infty \left(\cl{N(\vec x_0; \veps_k)} \cap X\right)
+        \subseteq \bigcap_{k=1}^\infty \cl{N(\vec x_0; \veps_k)} = \{\vec x_0\}\text{.}
+    \]
+    Therefore, $\vec x_0 \in \bigcap_{k=1}^\infty C_k \subseteq X$.
+}
+
+\dfn{Completeness of a Subset of $\RR[n]$}{
+    Let $X$ be a nonempty subset of $\RR[n]$.
+    If any of the equivalent properties of \Cref{th:completeInX} hold in the set $X$,
+    then $X$ is said to be \textit{complete}.
+}
+
+\thm[completeIffClosed]{}{
+    A nonempty subset $X$ of $\RR[n]$ is complete if and only if $X$ is closed in $\RR[n]$.
+}
+\pf{Proof}{
+    ($\Rightarrow$) Let $\vec x_0$ be a limit point of $X$.
+    Then, there is a Cauchy sequence $\{\vec x_k\}$ that converges to $\vec x_0$.
+    By Cauchy completeness of $X$, $\vec x_0 \in X$.
+    Since we have proven that $X' \subseteq X$, $X$ is closed by \Cref{th:closedIffContainsLimPts}.
+
+    ($\Leftarrow$)
+    Let $S$ be any bounded, infinite set in $X$.
+    By Bolzano–Weierstrass property of $\RR[n]$, $S$ has a limit point $\vec x_0$ in $\RR[n]$.
+    As $X$ being closed, $\vec x_0 \in X$. Therefore, $X$ has Bolzano–Weierstrass property;
+    $X$ is complete by \Cref{th:completeInX}.
+}
 
 \end{document}

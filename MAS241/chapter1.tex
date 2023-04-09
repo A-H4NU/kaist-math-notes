@@ -560,7 +560,7 @@ Now, we claim that \[
 If $L = 0$, then it is done. Therefore, suppose $L > 0$.
 To prove this, take any $\veps \in \RR_+$ smaller than $L$.
 Then, there is some $k_1 \in \NN$ such that $y_k > L - \veps/2$ for all $k$ not smaller than $k_1$ by \Cref{th:bddSeqLimSup}.
-Then, for all $k \in \NN_{k \ge k_1}$, $x_k > (L - \veps/2)^{k-k_1}x_{k_1}$, which is equivalent to \[
+Then, for all $k \in \NN_{\ge k_1}$, $x_k > (L - \veps/2)^{k-k_1}x_{k_1}$, which is equivalent to \[
 	z_k = x_k^{1/k} > \left(L-\frac{\veps}{2}\right) \left[\left(L-\frac{\veps}{2}\right)^{-k_1} x_{k_1}\right]^{1/k}\text{.}
 \]
 Since $\lim_{k \to \infty} \left[ (L-\veps/2)^{-k_1} x_{k_1} \right]^{1/k} = 1$,
@@ -575,10 +575,10 @@ Thus, for every natural number $k$ not smaller than $\max \{k_1, k_2\}$, \[
 For the main proof, assume that $\liminf z_k < L$ for the sake of contradiction.
 Take $\veps_0 \coloneqq \left(L - \liminf z_k\right)/2$.
 Then, by the previous claim,
-$\exs k_3 \in \NN,\: \forall k \in \NN_{\ge k_3},\: z_k > L - \veps_0 = \left(L + \liminf x_k\right)/2$.
+$\exs k_3 \in \NN,\: \forall k \in \NN_{\ge k_3},\: z_k > L - \veps_0 = \left(L + \liminf z_k\right)/2$.
 
 Nevertheless, by \Cref{th:bddSeqLimSup}, there is some $k_4 \in \NN_{> k_3}$ such that
-$z_{k_4} < \liminf x_k + \veps_0 = \left(L + \liminf x_k\right)/2$, which is a contradiction.
+$z_{k_4} < \liminf z_k + \veps_0 = \left(L + \liminf z_k\right)/2$, which is a contradiction.
 
 $\limsup z_k \le \limsup y_k$ can be proven analogously.
 }
