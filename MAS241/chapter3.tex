@@ -47,10 +47,23 @@
     then $f$ is said to be \textit{continuous}.
 }
 
+\thm[limExsThenLocallyBdd]{}{
+    Let $f \colon S \to \RR$ where $S \subseteq \RR[n]$.
+    Let $\vec c \in \cl S$ where $\lim_{\vec x \to \vec c} f(\vec c) = L$ exists and.
+    Then, $f$ is locally bounded on some deleted neighborhood of $\vec c$,
+    that is, there are $M, \delta \in \RR_+$ such that \[
+        \vec x \in S \cap N'(\vec c; \delta) \implies |f(\vec x)| \le M\text{.}
+    \]
+}
+\pf{Proof}{
+    There exists $\delta \in \RR_+$ such that $S \cap N'(\vec c; \delta) \subseteq f\inv(N(L; 1))$.
+    Then, $|f(\vec x)| \le |L| + 1$ if $\vec x \in S \cap N'(\vec x; \delta)$.
+}
+
 \thm[non0LimThenBddAwayFrom0]{}{
     Let $f \colon S \to \RR$ where $S \subseteq \RR[n]$.
     Let $\vec c \in \cl S$ where $\lim_{\vec x \to \vec c} f(\vec c) = L$ exists and $L \neq 0$.
-    Then, $f$ is locally ounded away from $0$ on some deleted neighborhood of $\vec c$,
+    Then, $f$ is locally bounded away from $0$ on some deleted neighborhood of $\vec c$,
     that is, there are $m, \delta \in \RR_+$ such that \[
         \vec x \in S \cap N'(\vec c; \delta) \implies |f(\vec x)| \ge m\text{.}
     \]
@@ -60,7 +73,7 @@
     Then, $|f(\vec x)| \ge |L|/2$ if $\vec x \in S \cap N'(\vec x; \delta)$.
 }
 
-\thm[limAlgebra]{}{
+\thm[limAlgebraPt]{}{
     Let $f_1 \colon S \to \RR$ and $f_2 \colon S \to \RR$ where $S \subseteq \RR[n]$.
     Let $\vec c \in \cl S$, and suppose $\lim_{\vec x \to \vec c} f_1(\vec x) = L_1$
     and $\lim_{\vec x \to \vec c} f_2(\vec x) = L_2$. Then
@@ -369,6 +382,171 @@
     by the same procedure, we get $x = g(y) = x'$;
     $x = x'$; $x$ is the unique limit point of the set.
     Thus, $\{x_k\}$ converges to $x$, i.e., $\{g(y_k)\}$ converges to $g(y)$.
+}
+
+\subsection{Limiting Behavior at Infinity}
+
+\dfn{Function Space}{
+    Let $S \neq \varnothing$ be a subset of $\RR[n]$.
+    \begin{itemize}[nolistsep]
+        \ii $C(S)$ is the set of real-valued function on $S$ which is bound on $S$.
+        \ii $C_\infty(S)$ is the set of real-valued function on $S$ which is bound and continuous on $S$.
+    \end{itemize}
+}
+
+\nt{
+    In general, $C_\infty(S) \subseteq C(S)$.
+    If $\varnothing \neq S \subseteq \RR[n]$ is compact, then $C(S) = C_\infty(S)$.
+}
+
+\dfn{Neighborhood of $\infty$ and $-\infty$}{
+    In $\RR$,
+    \begin{itemize}[nolistsep]
+        \ii $N(\infty; M) \triangleq (M, \infty) = \{\,x \in \RR \mid x > M\,\}$
+        \ii $N(-\infty, -M) \triangleq (-\infty, -M) = \{\, x \in \RR \mid x < -M \,\}$
+    \end{itemize}
+    In $\RR[n]$,
+    \begin{itemize}[nolistsep]
+        \ii $N(\infty; M) \triangleq \{\,\vec x \in \RR[n] \mid \|\vec x\| > M\,\}$
+    \end{itemize}
+}
+
+\dfn{Limit at Infinity}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Let $S$ be an unbounded set in $\RR$. Let $f \colon S \to \RR$.
+            \begin{itemize}[nolistsep]
+                \ii We say $f$ \textit{has limit} $L$ at $\infty$ if,
+                    for all $\veps \in \RR_+$, there exists $M \in \RR_+$ such that
+                    $S \cap N(\infty; M) \subseteq f\inv(N(L; \veps))$.
+                    We write $\lim_{x \to \infty} f(x) = L$.
+                \ii We say $f$ \textit{has limit} $L$ at $-\infty$ if,
+                    for all $\veps \in \RR_+$, there exists $M \in \RR_+$ such that
+                    $S \cap N(-\infty; -M) \subseteq f\inv(N(L; \veps))$.
+                    We write $\lim_{x \to -\infty} f(x) = L$.
+            \end{itemize}
+        \ii Let $S$ be an unbounded set in $\RR[n]$. Let $f \colon S \to \RR$.
+            We say that $f$ \textit{has limit} $L$ at $\infty$,
+            if, for all $\veps \in \RR_+$, there exists $M \in \RR_+$ such that
+            $S \cap N(\infty; M) \subseteq f\inv(N(L; \veps))$.
+            We write $\lim_{\|\vec x\| \to \infty} f(\vec x) = L$.
+    \end{enumerate}
+}
+
+\thm[squeezeInfty]{The Squeeze Play}{
+    Let $f$, $g$, and $h$ be three real-valued functions
+    sharing a common unbounded domain $S \subseteq \RR[n]$.
+    Suppose $\lim_{\|\vec x\| \to \infty} f(\vec x) = \lim_{\|\vec x\| \to \infty} h(\vec x) = L$.
+    Suppose also that, for some $M \in \RR_+$, \[
+        \vec x \in S \cap N(\infty; M) \implies f(\vec x) \le g(\vec x) \le h(\vec x)
+    \]
+    Then, $\lim_{\|\vec x\| \to \infty} g(\vec x) = L$.
+}
+
+\thm[limExsAtInfWClosedUnbddDomImplBddF]{}{
+    Let $S$ be a closed and unbounded set in $\RR[n]$
+    and let $f \in C(S)$.
+    Suppose $\lim_{\|\vec x\| \to \infty} f(\vec x) = L$ exists.
+    Then $f \in C_\infty(S)$.
+}
+\pf{Proof}{
+    There exists $M \in \RR_+$ such that, for $\vec x \in S \cap N(\infty; M)$,
+    $|f(\vec x) - L| < 1$. Thus, for such $\vec x$, we have $|f(x)| < |L| + 1$.
+
+    Since $S \cap \cl{N(\vec 0; M)}$ is a closed, bounded set in $\RR[n]$,
+    it is compact by \Cref{th:compactIffClAndBdd}.
+    Therefore the continuous $f$ is bounded on $S \cap \cl{N(\vec 0; M)}$
+    by \Cref{th:contiSendsCompToComp}.
+    In other words, there is some $K \in \RR_+$ such that,
+    for $\vec x \in S \cap \cl{N(\vec 0; M)}$, we have $|f(x)| \le K$.
+    Thus, $|f(\vec x)| \le \max \{\,K, |L|+1\,\}$ for all $\vec x \in S$.
+}
+
+\section{The Algebra of Continuous Functions}
+
+\nt{
+    Let $\varnothing \neq S \subseteq \RR[n]$.
+    One can easily find that $C(S)$ is a commutative ring and is a vector space.
+}
+
+\thm[limAlgebraCS]{}{
+    Let $\varnothing \neq S \subseteq \RR[n]$ and $f_1, f_2 \in C(S)$.
+    Then, the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $f_1 + f_2 \in C(S)$.
+        \ii For any $a \in \RR$, $af \in C(S)$.
+        \ii $f_1f_2 \in C(S)$.
+        \ii $1/f_2 \in C(S)$, provided that $\forall \vec x \in S,\: f_2(\vec x) \neq 0$.
+        \ii $f_1/f_2 \in C(S)$, provided that $\forall \vec x \in S,\: f_2(\vec x) \neq 0$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    Directly import \Cref{th:limAlgebraPt}.
+}
+
+\thm[contiThenLocallyBdd]{}{
+    Suppose $f$ is continous at a point $\vec c$ in $\RR[n]$.
+    Then $f$ is locally bounded at $\vec c$.
+    that is, there are $M, \delta \in \RR_+$ such that \[
+        \vec x \in S \cap N(\vec c; \delta) \implies |f(\vec x)| \le M\text{.}
+    \]
+}
+
+\thm[non0LimThenBddAwayFrom0]{}{
+    Suppose $f$ is continous at a point $\vec c$ in $\RR[n]$ and $f(\vec c) \neq 0$.
+    Then $f$ is locally bounded away from $0$ at $\vec c$.
+    that is, there are $m, \delta \in \RR_+$ such that \[
+        \vec x \in S \cap N(\vec c; \delta) \implies |f(\vec x)| \ge m\text{.}
+    \]
+}
+
+\section{Uniform Continuity}
+
+\dfn{Uniform Continuity}{
+    A function $f \colon S \to \RR$ with $S \subseteq \RR[n]$
+    is said to be \textit{uniformly continuous on} $S$ if, \[
+        \forall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \forall \vec c \in S,\: S \cap N(\vec c; \delta) \subseteq f\inv(N(f(\vec c; \veps)))\text{.}
+    \]
+    Or, equivalently, \[
+        \forall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \forall \vec x, \vec y \in S,\:
+        \big( \|\vec x-\vec y\| < \delta \implies |f(x)-f(y)| < \veps \big)\text{.}
+    \]
+}
+
+\exmp{}{
+    $f \colon [0, b] \to \RR$ defined by $f(x) = x^2$ is uniformly continuous on $[0, b]$.
+    Given any $\veps \in \RR_+$, let $\delta \triangleq \veps/2b$. Then,
+    whenever $|x - y| < \delta$ where $x, y \in [0, b]$,
+    $|x^2-y^2| = |x-y|\,|x+y| < \delta \cdot 2b = \veps$.
+}
+
+\exmp{}{
+    $f \colon (0, M) \to \RR$ defined by $f(x) = 1/x$ is not uniformly continuous on $(0, M)$.
+    Let any $\delta \in \RR_+$ is given.
+    Let $a \in (0, \min \{\delta, 1/2, M/2\})$.
+    Then, $|a - (2a)| = a < \delta$ but $|f(a) - f(2a)| = |1/a - 1/(2a)| = 1/(2a) > 1$.
+
+    This is an example in which $f$ is continuous but the domain is not compact.
+}
+
+\exmp{}{
+    $f \colon [-1, 1] \to \RR$ defined by $f(x) = \begin{cases}
+        1 & \text{if } x \ge 0 \\
+        0 & \text{if } x < 0
+    \end{cases}$ is not uniformly continuous on $[-1, 1]$.
+    Let any $\delta \in \RR_+$ is given.
+    Let $a \in (0, \min \{\delta/2, 1\})$.
+    Then, $|a - (-a)| = 2a < \delta$ but $|f(a) - f(-a)| = 1 > 0.5$.
+
+    This is an example in which the domain is compact but $f$ is not continuous.
+}
+
+\thm{}{
+    Suppose that $f$ is continuous on a compact subset $S$ of $\RR[n]$.
+    Then $f$ is uniformly continuous on $S$.
+}
+\pf{Proof}{
 }
 
 \end{document}
