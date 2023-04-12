@@ -36,13 +36,15 @@
 \dfn{Continuity}{
     Let $f \colon S \to \RR$ where $S \subseteq \RR[n]$.
     Let $\vec c \in S$.
-    We say $f$ is \textit{continuous} at $\vec c$ if \[
+    We say $f$ is \textit{continuous at} $\vec c$ if \[
         \lim_{\vec x \to \vec c} f(\vec x) = f(\vec c)\text{.}
     \]
     In other words, for every neighborhood $N(f(\vec c))$,
-    there exists a deleted neighborhood $N(\vec c)$ such that \[
+    there exists a neighborhood $N(\vec c)$ such that \[
         S \cap N(\vec c) \subseteq f\inv \big(N(f(\vec c))\big)\text{.}
     \]
+    If $f$ is continuous at every $\vec c \in S$,
+    then $f$ is said to be \textit{continuous}.
 }
 
 \thm[non0LimThenBddAwayFrom0]{}{
@@ -98,6 +100,275 @@
 }
 \pf{Proof}{
     Proved in MAS102 (Calculus \rom{2}).
+}
+
+\thm[limIffEveryCauchyConv]{}{
+    Let $S$ be a nonempty subset of $\RR[n]$, $\vec c \in S'$, and $f \colon S \to \RR$.
+    $\lim_{\vec x \to \vec c} f(\vec x) = L$ if and only if,
+    for every Cauchy sequence $\{\vec x_k\}$ in $S \setminus \{\vec c\}$
+    such that $\lim_{k \to \infty} \vec x_k = \vec c$,
+    it follows that $\lim_{k \to \infty} f(\vec x_k) = L$.
+}
+\pf{Proof}{
+    ($\Rightarrow$) Let $\{\vec x_k\}$ be any of such Cauchy sequences.
+    Take any $\veps \in \RR_+$.
+    By continuity, there exists $\delta \in \RR_+$ such that
+    $S \cap N'(\vec c; \delta) \subseteq f\inv(N(L; \veps))$.
+    On the other hand, by convergence, there exists $k_0 \in \NN$ such that
+    $\forall k \in \NN,\: (k \ge k_0 \implies \vec x_k \in N(\vec c; \delta))$.
+    Since $\vec x_k \neq \vec c$ for each $k \in \NN$, we may say \[
+        \forall k \in \NN,\: \big( k \ge k_0 \implies \vec x_k \in N'(\vec c; \delta)
+        \implies \vec x_k \in f\inv(N(L; \veps)) \implies f(\vec x_k) \in N(L; \veps) \big)\text{.}
+    \]
+    Thus, $\lim_{k \to \infty} f(\vec x_k) = L$ holds.
+
+    ($\Leftarrow$) Suppose it is not $\lim_{\vec x \to \vec c} f(\vec x) = L$.
+    Then, it is equivalent to say that, there is some neighborhood $N(L; \veps_0)$
+    such that $S \cap N'(\vec c; \delta) \not\subseteq f\inv(N(L; \veps_0))$
+    for every deleted neighborhood $N'(\vec x; \delta)$.
+    Construct a sequence $\{\vec x_k\}$ in $S \setminus \{\vec c\}$ as following.
+    \begin{itemize}[nolistsep]
+        \ii $\vec x_1 \in S \setminus \{\vec c\} \setminus f\inv(N(L; \veps_0))$.
+        \ii For each $k \in \NN$, $\vec x_{k+1} \in S \cap N'(\vec x; |\vec x_k - \vec c|/2) \setminus f\inv(N(L; \veps_0))$.
+    \end{itemize}
+    Then, $\lim_{k \to \infty} \vec x_k = \vec c$ indeed holds,
+    but it is not $\lim_{k \to \infty} f(\vec x_k) = L$
+    since $f(\vec x_k) \notin (N(L; \veps_0))$ for each $k \in \NN$.
+}
+
+\thm[contiIffEveryCauchyConv]{}{
+    Let $S$ be a nonempty subset of $\RR[n]$, $\vec c \in S$, and $f \colon S \to \RR$.
+    $f$ is continuous at $\vec c$ if and only if,
+    for every Cauchy sequence $\{\vec x_k\}$ in $S$
+    such that $\lim_{k \to \infty} \vec x_k = \vec c$,
+    it follows that $\lim_{k \to \infty} f(\vec x_k) = f(\vec c)$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    If at most finitely many $\vec x_k$ are distinct from $\vec c$,
+    then $\exs k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: \vec x_k = \vec c$;
+    $\lim_{k \to \infty} f(\vec x_k) = \vec c$ is evident.
+
+    If there are infinitely many $\vec x_k$ are distinct from $\vec c$,
+    then we may extract a subsequence $\{\vec{x_{k_j}}\}_{j \in \NN}$
+    such that each $\vec x_{k_j}$ is in $S \setminus \{c\}$.
+    By \Cref{th:limIffEveryCauchyConv}, $\lim_{j \to \infty} f(\vec x_{k_j}) = \vec c$.
+    This implies $\lim_{k \to \infty} f(\vec x_k) = \vec c$,
+    regardless of the number of $\vec x_k$'s equal to $\vec c$.
+
+    ($\Leftarrow$)
+    If $\vec c \in S'$, then we may directly apply \Cref{th:limIffEveryCauchyConv}
+    since every Cauchy sequence in $S \setminus \{\vec c\}$
+    is a Cauchy sequence in $S$.
+
+    If $\vec c \notin S'$, then $\vec c$ is an isolated point.
+    Then, $\lim_{\vec x \to \vec c} f(\vec x) = f(\vec c)$ by definition.
+}
+
+\thm[limAlongAxes]{}{
+    Let $S \subseteq \RR[n]$ and $f \colon S \to \RR$.
+    Let $\vec c = (c_1, \cdots, c_n) \in \inter S$.
+    For $j = 1, 2, \cdots, n$, let \[
+        g_j(t) = f(c_1, c_2, \cdots, c_{j-1}, t, c_{j+1}, \cdots, c_n)\text{.}
+    \]
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If $\lim_{\vec x \to \vec c} f(\vec x) = L$, then,
+            for each $j \in [n]$, $\lim_{t \to c_j} g_j(t) = L$.
+        \ii If $f$ is continuous at $\vec c$, then,
+            for each $j \in [n]$, $g_j$ is continuous at $c_j$ and
+            $\lim_{t \to c_j} g_j(t) = f(\vec c)$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    $ $\\[-1em]
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Take any $j \in [n]$ and $\veps \in \RR_+$.
+            By convergence, there exists $\delta_1 \in \RR_+$
+            such that $S \cap N'(\vec c; \delta_1) \subseteq f\inv(N(L; \veps))$.
+            Since $\vec x \in \inter S$, there exists $\delta_2 \in \RR_+$
+            such that $N(\vec c; \delta_2) \subseteq S$.
+            Let $\delta \triangleq \min \{\delta_1, \delta_2\}$.
+            Then, $N'(\vec c; \delta) \subseteq f\inv(N(L; \veps))$ and $N(\vec c; \delta) \subseteq S$ hold.
+            Hence, for any $t \in N'(c_j; \delta)$,
+            \[
+                g_j(t) = f(c_1, \cdots, c_{j-1}, t, c_{j+1}, \cdots, c_n) \in N(L; \veps)
+            \]
+            as $\|(c_1, \cdots, c_{j-1}, t, c_{j+1}, \cdots, c_n) - \vec c\| = |t - c_j| < \delta$.
+        \ii Since $\lim_{\vec x \to \vec c} f(\vec x) = f(\vec c)$,
+            by (a), for each $j \in [n]$, $\lim_{t \to c_j} g(t) = f(\vec c) = g(c_j)$.
+    \end{enumerate}
+}
+
+\nt{
+    The converse of \Cref{th:limAlongAxes} is not true.
+}
+
+\section{The Topological Description of Continuity}
+
+\thm[contiTopDef]{}{
+    A surjective function $f \colon S \to T$ where $S \subseteq \RR[n]$ and $T \subseteq \RR$
+    is continuous if and only if $f\inv(U)$ is relatively open in $S$ for every relatively open set $U$ in $T$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Let $U$ be a relatively open set in $T$ and $\vec c \in f\inv(U)$.
+    Since $U$ is open and $f(\vec c) \in U$, there is a neighborhood $N(f(\vec c))$
+    such that $T \cap N(f(\vec c)) \subseteq U$.
+    By continuity, there is a neighborhood $N(\vec c)$ such that
+    $S \cap N(\vec c) \subseteq f\inv(N(f(\vec c))) \subseteq f\inv(U)$.
+    Therefore, $\vec c$ is a relative interior point of $f\inv(U)$.
+    Since $\vec c$ was arbitrary, $f\inv(U)$ is relatively open in $S$.
+
+    ($\Leftarrow$)
+    Take any $\vec c \in S$ and a neighborhood $N(f(\vec c))$.
+    Then, $f\inv(T \cap N(f(\vec c)))$ is relatively open in $S$.
+    Since $\vec c \in f\inv(T \cap N(f(\vec c)))$,
+    there is a neighborhood $N(\vec c)$ such that $S \cap N(\vec c) \subseteq f\inv(N(f(\vec c)))$.
+}
+
+\thm[contiSendsConToCon]{}{
+    If $S$ is a connected subset of $\RR[n]$ and $f$ is continuous on $S$,
+    then $T = f(S)$ is also connected.
+}
+\pf{Proof}{
+    Suppose $T$ is disconnected for the sake of contradiction.
+    There exists two disjoint open sets $U, V \subseteq \RR$ such that
+    $T \subseteq U \cup V$, $T \cap U \neq \varnothing$, and $T \cap V \neq \varnothing$.
+    Since $T \cap U$ and $T \cap V$ are relatively open in $T$,
+    $U_1 = f\inv(T \cap U)$ and $V_1 = f\inv(T \cap V)$ are relatively open in $S$.
+    Then, $S \subseteq U_1 \cup V_1 = S$, $U_1 \cap V_1 = \varnothing$,
+    $S \cap U_1 \neq \varnothing$, and $S \cap V_1 \neq \varnothing$,
+    which contradicts $S$ is connected, \#.
+}
+
+\thm[contiSendsCompToComp]{}{
+    If $S$ is a compact subset of $\RR[n]$ and $f$ is continuous on $S$,
+    then $T = f(S)$ is also compact.
+}
+\pf{Proof}{
+    Let $\{U_\alpha\}_{\alpha \in J}$ be an open cover of $T$.
+    Then, for each $\alpha \in J$, $f\inv(U_{\alpha})$ is relatively open in $S$
+    since $U_\alpha$ is open and $f$ is continuous.
+    Because \[
+        S = f\inv(T) = f\inv \left(\bigcup_{\alpha \in J} U_\alpha\right)
+        = \bigcup_{\alpha \in J} f\inv(U_\alpha)\text{,}
+    \] $\{f\inv(U_\alpha)\}_{\alpha \in J}$ is a relative open cover of $S$.
+    Since $S$ is compact, there is a finite subcover
+    $\{\,f\inv(U_{\alpha_i}) \mid i \in [p], \alpha_i \in J\,\}$ of $S$.
+    Then, \[
+        T = f(S) = f\left(\bigcup_{i=1}^p f\inv(U_{\alpha_i})\right)
+        = \bigcup_{i=1}^p f\big(f\inv(U_{\alpha_i})\big) \subseteq \bigcup_{i=1}^p U_{\alpha_i}\text{,}
+    \] implying $\{U_{\alpha_i}\}_{i=1}^p$ is a finite subcover of $T$.
+}
+
+\thm[evt]{}{
+    If $S$ is a compact subset of $\RR[n]$ and $f \colon S \to \RR$ is continous on $S$,
+    then $f$ has a minimum and a maximum value on $S$.
+}
+\pf{Proof}{
+    \Cref{th:contiSendsCompToComp} implies $T=f(S) \subseteq \RR$ is compact,
+    and thus bounded and closed.
+    Thus, $m = \inf T = \min T$ and $M = \sup T = \max T$ exist.
+}
+
+\thm[ivt]{The Intermediate Value Theorem}{
+    If $f \colon [a, b] \to \RR$ is continuous
+    and $c$ is any number between $f(a)$ and $f(b)$,
+    then there exists an $x \in [a, b]$ such that $f(x) = c$.
+}
+\pf{Proof}{
+    Since $[a, b]$ is connected and compact,
+    \Cref{th:contiSendsConToCon} and \Cref{th:contiSendsCompToComp} imply
+    that $f([a, b])$ is connected and compact.
+    Thus, $f([a, b]) = [m, M]$ where \[
+        m = \min f([a, b]) \le \min \{f(a), f(b)\}
+    \] and \[
+        M = \max f([a, b]) \ge \max \{f(a), f(b)\}\text{.}
+    \]
+    This implies $c \in [m, M] = f([a, b])$, i.e.,
+    there exists $x \in [a, b]$ such that $f(x) = c$.
+}
+
+\thm[genIVT]{The General Intermediate Value Theorem}{
+    If $S$ is any connected and compact subset of $\RR[n]$
+    and $f \colon S \to \RR$ is continuous,
+    if $f(\vec x_1)$ and $f(\vec x_2)$ are any two values of $f$ on $S$,
+    and if $c$ is any number between them,
+    then there exists a point $\vec x \in S$ such that $f(\vec x) = c$.
+}
+\pf{Proof}{
+    Since $S$ is connected and compact,
+    by \Cref{th:contiSendsConToCon} and \Cref{th:contiSendsCompToComp},
+    $f(S)$ is an closed interval $[m, M]$ as in the proof of \Cref{th:ivt}.
+    Since $m \le \min \{f(\vec x_1), f(\vec x_2)\}$ and
+    $M \ge \max \{f(\vec x_1), f(\vec x_2)\}$,
+    $c \in [m, M] = f(S)$, and thus $\exs \vec x \in S,\: f(\vec x) = c$.
+}
+
+\subsection{The Composition of Continuous Functions}
+
+\thm[compOfContiIsContiPoint]{}{
+    Let $S \subseteq \RR[n]$, $f \colon S \to \RR$, $f(S) \subseteq T \subseteq \RR$,
+    and $g \colon T \to \RR$.
+    If $f$ is continuous at $\vec c \in S$ and if $g$ is continuous at $f(\vec c) \in T$,
+    then $g \circ f$ is continuous at $\vec c$.
+}
+\proof{}{
+    Let $d = (g \circ f)(\vec c)$.
+    Take any neighborhood $N(d)$ of $d$. By continuity of $g$ at $f(\vec c)$,
+    there exists a neighborhood $N(f(\vec c))$ such that \[
+        T \cap N(f(\vec c)) \subseteq g\inv(N(d))\text{.}
+    \]
+    By the continuity of $f$ at $\vec c$,
+    there exists a neighborhood $N(\vec c)$ such that \[
+        S \cap N(\vec c) \subseteq f\inv(N(f(\vec c)))\text{.}
+    \]
+    These imply $S \cap N(\vec c) \subseteq f\inv(g\inv(N(d))) = (g \circ f)\inv(N(d))$.
+}
+
+\cor{}{
+    Let $S \subseteq \RR[n]$, $f \colon S \to \RR$, $f(S) \subseteq T \subseteq \RR$,
+    and $g \colon T \to \RR$.
+    If $f$ and $g$ are continuous, then $g \circ f$ is continuous.
+}
+
+\thm{}{
+    If $f \colon [a, b] \to [c, d]$ is strictly monotone, continuous function,
+    then the inverse function $f\inv$ is also strictly monotone, continuous, and bijective.
+}
+\pf{Proof}{
+    All are immediate except for the continuity. Denote $f\inv$ by $g$.
+    By \Cref{th:contiIffEveryCauchyConv}, it suffices to prove that
+    whenever a Cauchy sequence $\{y_k\}$ in $f(S)$ converges to $y$,
+    then $\{g(y_k)\}$ converges to $g(y)$ in $S$.
+
+    Choose any such sequence and let $x_k \triangleq g(y_k)$ for each $k \in \NN$.
+    Since $g$ is bijective, $\{\,y_k \mid k \in \NN\,\}$ is finite if and only if
+    $\{\, x_k \mid k \in \NN\,\}$ is finite.
+    If they are finite, then $\{y_k\}$ is eventually $y$, this implies
+    $\{x_k\}$ is eventually $g(y)$, and it is done.
+
+    If they are infinite, since domain and codomain are bounded and closed,
+    by \Cref{th:BW}, $\{\, x_k \mid k \in \NN\,\}$ has a limit point $x$.
+    But since $[a, b]$ is complete by \Cref{th:completeIffClosed},
+    $x \in [a, b]$ by (ii) of \Cref{th:completeInX}.
+    $x$ is a cluster point of $\{x_k\}$, thus
+    there is a subsequence $\{x_{k_j}\}$ of $\{x_k\}$ such that
+    $\lim_{j \to \infty} x_{k_j} = x$ by \Cref{th:clusterIffSubseqConv}.
+    Now the continuity of $f$ guarantees that \[
+        \lim_{j \to \infty} f(x_{k_j}) = f(x)\text{.}
+    \]
+    At the same time, since $f(x_{k_j}) = y_{k_j}$,
+    $\{f(x_{k_j})\}$ is a subsequence of $\{y_k\}$.
+    As $\{y_k\}$ converges to $y$, we get \[
+        \lim_{j \to \infty} f(x_{k_j}) = y\text{.}
+    \]
+    By \Cref{th:limDistUnique}, $f(x) = y$, or $x = g(y)$.
+    
+    If there were another limit point $x'$ of $\{\, x_k \mid k \in \NN\,\}$,
+    by the same procedure, we get $x = g(y) = x'$;
+    $x = x'$; $x$ is the unique limit point of the set.
+    Thus, $\{x_k\}$ converges to $x$, i.e., $\{g(y_k)\}$ converges to $g(y)$.
 }
 
 \end{document}
