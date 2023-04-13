@@ -386,11 +386,11 @@
 
 \subsection{Limiting Behavior at Infinity}
 
-\dfn{Function Space}{
+\dfn{Function Space $C(S)$ and $C_\infty(S)$}{
     Let $S \neq \varnothing$ be a subset of $\RR[n]$.
     \begin{itemize}[nolistsep]
-        \ii $C(S)$ is the set of real-valued function on $S$ which is bound on $S$.
-        \ii $C_\infty(S)$ is the set of real-valued function on $S$ which is bound and continuous on $S$.
+        \ii $C(S)$ is the set of real-valued function on $S$ which is continuous on $S$.
+        \ii $C_\infty(S)$ is the set of real-valued function on $S$ which is bounded and continuous on $S$.
     \end{itemize}
 }
 
@@ -547,6 +547,176 @@
     Then $f$ is uniformly continuous on $S$.
 }
 \pf{Proof}{
+    Let $\veps \in \RR_+$ be given.
+    Since $f$ is continuous at each point of $S$,
+    for each $\vec c$ of $S$, we may choose $\delta(\vec c) \in \RR_+$
+    such that \[
+        S \cap N(\vec c; \delta(\vec c)) \subseteq f\inv \left(N \left(f(\vec c); \frac{\veps}{2}\right)\right)\text{.}
+    \] Then the set $\mcal C \triangleq \{\,N(\vec c; \delta(\vec c)/2) \mid \vec c \in S\,)\}$
+    is an open cover of the compact set $S$.
+    Since $S$ is compact, there is a finite subcover \[
+        \mcal C_1 = \left\{ N \left(\vec c_1; \frac{\delta(\vec c_1)}{2}\right),
+        N \left(\vec c_2; \frac{\delta(\vec c_2)}{2}\right), \cdots, N \left(\vec c_k; \frac{\delta(\vec c_k)}{2}\right) \right\}\text{.}
+    \]
+    Let $\delta_0 \triangleq \min_{i=1}^k \delta(\vec c_i)/2$.
+
+    Now, take any $\vec c \in S$. Since $\mcal C_1$ is an open cover, \[
+        \exs i \in [k],\: \vec c \in N \left(\vec c_i; \frac{\delta(\vec c_i)}{2}\right)\text{.}
+    \]
+    Then, for any $\vec x \in N(\vec c; \delta_0)$, \[
+        \|\vec x-\vec c_i\| \le \|\vec x-\vec c\| + \|\vec c-\vec c_i\|
+        < \delta_0 + \frac{\delta(\vec c_i)}{2} \le \delta(\vec c_i)\text{.}
+    \] Thus, $N(\vec c; \delta_0) \subseteq N(\vec c_i; \delta(\vec c_i))$;
+    or \[
+        S \cap N(\vec c; \delta_0) \subseteq S \cap N(\vec c_i; \delta(\vec c_i))
+        \subseteq f\inv\left(N \left(f(\vec c_i); \frac{\veps}{2}\right)\right)\text{.}
+    \]
+    Hence, for any $\vec x \in S \cap N(\vec c; \delta_0)$, \[
+        |f(\vec x) - f(\vec c)| \le |f(\vec x)-f(\vec c_i)| + |f(\vec c_i) - f(\vec c)|
+        < \frac{\veps}{2} + \frac{\veps}{2} = \veps
+    \] as $\vec x, \vec c \in S \cap N(\vec c_i; \delta(\vec c_i))$.
+}
+
+\section{The Uniform Norm: Uniform Convergence}
+
+\dfn{Function Space $B(S)$}{
+    Let $S \neq \varnothing$ be a subset of $\RR[n]$.
+    $B(S)$ denotes the vector space and ring of all bounded, real-valued functions on $S$.
+}
+
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii For each $f \in B(S)$, $\sup \{\,|f(\vec x)| \mid \vec x \in S\,\}$ exists.
+        \ii $C_\infty(S) = C(S) \cap B(S)$
+    \end{itemize}
+}
+
+\dfn{Uniform Norm}{
+    The \textit{uniform norm} of $f \in B(S)$ is defined to be \[
+        \|f\|_\infty = \sup \{\,|f(\vec x)| \mid \vec x \in S\,\}\text{.}
+    \]
+}
+
+\thm{}{
+    The uniform norm is a norm.
+}
+\pf{Proof}{
+    The positive definiteness and the absolute homogeneity is direct.
+
+    Take any $f, g \in f$. Then, for any $\vec x \in S$,
+    \[
+        |(f+g)(\vec x)| \le |f(\vec x)| + |g(\vec x)| \le \|f\|_\infty + \|g\|_\infty\text{.}
+    \]
+    Thus, $\|f+g\|_\infty = \sup \{\,|(f+g)(\vec x)| \mid \vec x \in S\,\} \le \|f\|_\infty + \|g\|_\infty$;
+    $\|\cdot\|_\infty$ satisfies the subadditivity.
+}
+
+\dfn{Uniform Metric}{
+    The \textit{uniform metric} on $B(S)$ is \[
+        d_\infty(f, g) = \|f - g\|_\infty\text{.}
+    \]
+}
+
+\nt{
+    The uniform metric is naturally a metric since the uniform norm is a norm.
+}
+
+\dfn{(Deleted) Uniform Neighborhood}{
+    The \textit{(uniform) neighborhood} $N(f; r)$ of $f$ with radius $r$ is the set \[
+        N(f; r) \triangleq \{\, g \in B(S) \mid d_\infty(f, g) < r \,\}\text{.}
+    \]
+    The \textit{deleted (uniform) neighborhood} $N'(f; r)$ of $f$ with radius $r$ is the set \[
+        N'(f; r) \triangleq \{\, g \in B(S) \mid 0 < d_\infty(f, g) < r \,\}\text{.}
+    \]
+}
+
+\dfn{Limit Point of a Set of Functions}{
+    A function $f_0 \in B(S)$
+    is said to be a \textit{(uniform) limit point} of a set $F \subseteq B(S)$ if
+    \[
+        \forall \veps \in \RR_+,\: F \cap N'(f_0; \veps) \neq \varnothing\text{.}
+    \]
+}
+
+\dfn{Convergence of a Sequence of Functions}{
+    \begin{itemize}[nolistsep]
+        \ii A sequence $\{f_k\}_{k \in \NN}$ in $B(S)$ is said to \textit{converge uniformly}
+            to $f_0 \in S \to \RR$ on $S$ if
+            \[
+                \forall \veps \in \RR_+,\: \exs k_0 \in \NN,\:
+                \forall k \in \NN,\: \big(k \ge k_0 \implies f_k \in N(f_0; \veps)\big)\text{.}
+            \]
+            We write
+            \[
+                \lim_{k \to \infty} f_k = f_0 \text{ [uniformly].}
+            \]
+        \ii A sequence $\{f_k\}_{k \in \NN}$ in $B(S)$ is said to \textit{converge pointwise}
+            to $f_0 \colon S \to \RR$ on $S$ if
+            \[
+                \forall (\vec c, \veps) \in S \times \RR_+,\: \exs k_0 \in \NN,\:
+                \forall k \in \NN,\: \big(k \ge k_0 \implies f_k(\vec c) \in N(f_0(\vec c); \veps)\big)\text{.}
+            \]
+            We write
+            \[
+                \lim_{k \to \infty} f_k = f_0 \text{ [pointwise].}
+            \]
+        \ii A sequence $\{f_k\}_{k \in \NN}$ in $B(S)$ is said to be \textit{(uniformly) Cauchy} if
+            \[
+                \forall \veps \in \RR_+,\: \exs k_0 \in \NN,\:
+                \forall k, m \in \NN,\: \big( k, m \ge k_0 \implies \|f_m - f_k\|_\infty < \veps \big)\text{.}
+            \]
+    \end{itemize}
+}
+
+\nt{
+    A pointwise convergent sequence in $C_\infty(S)$
+    may fail to have a limit that is in $C_\infty(S)$.
+}
+
+\thm[unifConvSeqContiFtnConvToConti]{}{
+    Let $\varnothing \neq S \subseteq \RR[n]$.
+    Suppose that $\{f_k\}$ is a sequence in $C(S)$ and
+    it converges uniformly to $f_0 \colon S \to \RR$ on $S$.
+    Then $f_0 \in C(S)$.
+}
+\pf{Proof}{
+    Take any $\vec c \in S$ and $\veps \in \RR_+$.
+    By uniform convergence, there exists $k \in \NN$ such that
+    \[
+        \|f_k - f_0\|_\infty < \frac{\veps}{4}.
+    \]
+    Since $f_k$ is continuous, there exists $\delta \in \RR_+$ such that
+    \[
+        S \cap N(\vec c; \delta) \subseteq f_k\inv \left(N \left(f_k(\vec c); \frac{\veps}{2}\right)\right)\text{.}
+    \]
+    Thus, for any $\vec x \in S \cap N(\vec c; \delta)$,
+    \[
+        \begin{aligned}[t]
+            |f_0(\vec x) - f_0(\vec c)| &\le |f_0(\vec x) - f_k(\vec x)| + |f_k(\vec x) - f_k(\vec c)| + |f_k(\vec c) - f_0(\vec c)| \\
+                                        &< \frac{\veps}{4} + \frac{\veps}{2} + \frac{\veps}{4} = \veps\text{.}
+        \end{aligned}
+    \]
+    This exactly means that $f_0$ is continuous at $\vec c$.
+    Since $\vec c$ is arbitrary, $f_0$ is continous on $S$.
+}
+
+\thm[cauchyBddFtn]{}{
+    Let $\varnothing \neq S \subseteq \RR[n]$.
+    A Cauchy sequence $\{f_k\}$ in $B(S)$ is bounded.
+    That is, $\exs M \in \RR_+,\: \forall k \in \NN,\: \|f_k\|_\infty \le M$.
+}
+\pf{Proof}{
+    Immitate the proof of \Cref{th:cauchyBdd}.
+}
+
+\thm[CinfIsComplete]{}{
+    $C_\infty(S)$ is complete.
+    That is, given any Cauchy sequence $\{f_k\}$ in $C_\infty(S)$,
+    there exists $f_0 \in C_\infty(S)$ such that
+    $\lim_{k \to \infty} f_k = f_0$ [uniformly] on $S$.
+}
+\pf{Proof}{
+
 }
 
 \end{document}
