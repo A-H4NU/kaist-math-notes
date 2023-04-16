@@ -322,9 +322,9 @@
 \pf{Proof}{
     ($\Rightarrow$) Take any $\vec x \in \cmpl C$. Since $C$ is closed and contains all of its boundary points,
     $\vec x$ is not a boundary point of $C$. Therefore, there is some neighborhood $N(\vec x)$ of $\vec x$
-    such that $N(\vec x) C = \varnothing$ or $N(\vec x) \cap \cmpl C = \varnothing$.
+    such that $N(\vec x) \cap C = \varnothing$ or $N(\vec x) \cap \cmpl C = \varnothing$.
     The second case is not possible since $\vec x \in N(\vec x) \cap \cmpl C$.
-    Therefore, $N(\vec x) = \varnothing$, which implies $N(\vec x) \subseteq \cmpl C$;
+    Therefore, $N(\vec x) \cap C = \varnothing$, which implies $N(\vec x) \subseteq \cmpl C$;
     $\vec x$ is an interior point of $\cmpl C$. Therefore, $\cmpl C$ is open.
 
     ($\Leftarrow$) Take any bounddary point $\vec x$ of $C$. Assume $\vec x \in \cmpl C$ for the sake of contradiction.
@@ -541,7 +541,7 @@
             Then, \[
                 \|\vec z - \vec y\| = \frac{r_0}{2} < r_0\text{,}
             \] thus $\vec z \in N(\vec y; r_0) \subseteq S$. However, \[
-                \|\vec x - \vec y\| = \left| 1 - \frac{r_0}{2\|\vec x-\vec y\|} \right|\,\|\vec x-\vec y\| < \|\vec x - \vec y\|\text{,}
+                \|\vec z - \vec y\| = \left| 1 - \frac{r_0}{2\|\vec x-\vec y\|} \right|\,\|\vec x-\vec y\| < \|\vec x - \vec y\|\text{,}
             \] contradicting the minimality of $\|\vec x- \vec y\|$, \#. \checkmark
     \end{enumerate}
 }
@@ -630,7 +630,8 @@
     Construct a seqeunce $\{\vec x_k\}$ of points in $\RR[n]$ as following.
     \begin{itemize}[nolistsep]
         \ii Take any $\vec x_1$ in $C_1$.
-        \ii For each $k \in \NN$, take any $\vec x_{k+1}$ in $C_{k+1} \setminus \{\,x_1, x_2, \cdots, x_k\,\}$.
+        \ii For each $k \in \NN$, take any $\vec x_{k+1}$ in
+            $C_{k+1} \setminus \{\,\vec x_1, \vec x_2, \cdots, \vec x_k\,\}$.
     \end{itemize}
     Since $S \subseteq C_1$ is bounded and contains infinitely many points,
     by \Cref{th:BW2}, there is a limit point $\vec x_0$ of $S$ in $\RR[n]$.

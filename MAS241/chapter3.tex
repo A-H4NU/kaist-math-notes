@@ -542,7 +542,7 @@
     This is an example in which the domain is compact but $f$ is not continuous.
 }
 
-\thm{}{
+\thm[contiThenUnifContiOnComp]{}{
     Suppose that $f$ is continuous on a compact subset $S$ of $\RR[n]$.
     Then $f$ is uniformly continuous on $S$.
 }
@@ -673,6 +673,11 @@
     may fail to have a limit that is in $C_\infty(S)$.
 }
 
+\nt{
+    If $\{f_k\}$ in $B(S)$ converges uniformly,
+    then it converges pointwise.
+}
+
 \thm[unifConvSeqContiFtnConvToConti]{}{
     Let $\varnothing \neq S \subseteq \RR[n]$.
     Suppose that $\{f_k\}$ is a sequence in $C(S)$ and
@@ -716,7 +721,218 @@
     $\lim_{k \to \infty} f_k = f_0$ [uniformly] on $S$.
 }
 \pf{Proof}{
+    Since, for each $\vec c \in S$, $\{f_k(\vec c)\}_{k \in \NN}$ is Cauchy,
+    by \Cref{th:convIffCauchy}, $\{f_k(\vec c)\}_{k \in \NN}$ converges in $\RR$.
+    Thus we may define $f_0 \colon S \to \RR$ by \[
+        f_0(\vec c) = \lim_{k \to \infty} f_k(\vec c)\text{.}
+    \]
 
+    Now, we first claim that $\lim_{k \to \infty} f_k = f_0$ [uniformly].
+    Take any $\veps \in \RR_+$.
+    Since $\{f_k\}$ is Cauchy,
+    \[
+        \exs k_0 \in \NN,\: \forall k, m \in \NN,\: \big(k, m \ge k_0 \implies \|f_k - f_m\|_\infty < \veps/2\big)\text{.}
+    \]
+    Then, for each $k \in \NN_{\ge k_0}$,
+    \[
+        \forall \vec c \in S,\: |f_k(\vec c) - f_0(\vec c)| = \lim_{m \to \infty} |f_k(\vec c) - f_m(\vec c)| \le \veps/2\text{.}
+    \]
+    This means $\|f_k-f_0\|_\infty \le \veps/2 < \veps$; $\{f_k\}$ converges to $f_0$ uniformly on $S$.
+    It directly follows from \Cref{th:unifConvSeqContiFtnConvToConti} that $f_0$ is continuous on $S$.
+
+    Now, we are left to show $f_0$ is bounded on $S$.
+    Since $\{f_k\}$ uniformly converges to $f_0$,
+    \[
+        \exs k_0 \in \NN,\: \forall k \in \NN,\: \big(k \ge k_0 \implies \|f_k - f_0\|_\infty < 1\big)\text{.}
+    \]
+    This implies $\forall \vec c \in S,\: |f_{k_0}(\vec c) - f_0(\vec c)| < 1$.
+    Hence, $\forall \vec c \in S,\: |f_0(\vec c)| < |f_{k_0}(\vec c)| + 1 \le \|f_{k_0}\|_\infty + 1$.
+    Thus, $\{\,|f_0(\vec c)| \mid \vec c \in S\,\}$ is bounded above by $\|f_{k_0}\|_\infty + 1$.
+}
+
+\cor{}{
+    If $\varnothing \neq S \subseteq \RR[n]$ is compact, then $C(S)$ is complete.
+}
+
+\dfn{Unifrom Denseness}{
+    Let $\varnothing \neq S \subseteq \RR[n]$.
+    A collection $F \subseteq C_\infty(S)$ is \textit{uniformly dense} in $C_\infty(S)$
+    if, for all $f_0 \in C_\infty(S)$ and its neighborhood $N(f_0)$, $F \cap N(f_0) \neq \varnothing$.
+}
+
+\dfn{Polynomial Space}{
+    Let $\varnothing \neq S \subseteq \RR$.
+    Let $P(S)$ denote the set of polynomial functions $f \colon S \to \RR$
+    in the single variable $x$.
+}
+
+\nt{
+    If $S \neq \varnothing$ is a compact subset of $\RR$,
+    then $P(S)$ is certainly a subset of $C_\infty(S) = C(S)$.
+}
+
+\thm[weierApprox]{The Weierstrass Approximation Theorem}{
+    If $S$ is a compact subset of $\RR$,
+    then $P(S)$ is uniformly dense in $C(S)$.
+}
+
+\dfn{Bernstein Polynomial}{
+    Given a continuous function on $[0, 1]$, for each $k \in \NN$,
+    the $k^\text{th}$ Bernstein polynomial for $f$, $B_k(x)$, is defined as follows.
+    \[
+        B_k(x) \triangleq \sum_{j=0}^{k} \binom{k}{j}\, f \left(\frac{j}{k}\right) x^j (1-x)^{k-j}
+    \]
+    where $\displaystyle \binom{k}{j}$ is the binomial coefficient $\dfrac{k!}{j!(k-j)!}$.
+}
+
+\nt{
+    The following lemmas are for the proof of \Cref{th:weierApprox}.
+}
+
+\mlemma[lemBern1]{}{
+    For any $k \in \NN$, $\displaystyle \sum_{j=0}^{k} \binom{k}{j} x^j (1-x)^{k-j} = 1$.
+}
+\pf{Proof}{
+    Expand $1 = \big(x+(1-x)\big)^k$ via the binomial theorem.
+}
+
+\mlemma[lemBern2]{}{
+    For any $k \in \NN$, $\displaystyle \sum_{j=0}^{k} \binom{k}{j} \frac{j}{k} x^j(1-x)^{k-j} = x$.
+}
+\pf{Proof}{
+    Using \Cref{lem:lemBern1}, we get
+    \[
+        \begin{aligned}[t]
+            x & = x \left[ \sum_{j=0}^{k-1} \binom{k-1}{j} x^j(1-x)^{(k-1)-j} \right] \\
+              & = \sum_{j=0}^{k-1} \binom{k-1}{j} x^{j+1}(1-x)^{k-(j+1)}
+                = \sum_{j=1}^{k} \binom{k-1}{j-1} x^{j}(1-x)^{k-j} \\
+              & = \sum_{j=1}^{k} \binom{k}{j} \frac{j}{k} x^{j}(1-x)^{k-j}
+                = \sum_{j=0}^{k} \binom{k}{j} \frac{j}{k} x^{j}(1-x)^{k-j}\text{.}
+        \end{aligned}
+    \]
+}
+
+\mlemma[lemBern3]{}{
+    For any $k \in \NN$, $\displaystyle \sum_{j=0}^{k} \binom{k}{j} (j^2-j) x^j(1-x)^{k-j} = k(k-1)x^2$.
+}
+\pf{Proof}{
+    Note that, for each $j \in \{2, 3, \cdots, k\}$, \[
+        \binom{k}{j} (j^2-j) = \binom{k-2}{j-2} k(k-1)\text{.}
+    \]
+    Therefore, using \Cref{lem:lemBern1}, we get
+    \[
+        \begin{aligned}[t]
+            \sum_{j=0}^{k} \binom{k}{j} (j^2-j) x^j(1-x)^{k-j}
+            &= \sum_{j=2}^{k} \binom{k}{j} (j^2-j) x^j(1-x)^{k-j} \\
+            &= x^2 \sum_{j=2}^{k} \binom{k}{j} (j^2-j) x^{j-2}(1-x)^{(k-2)-(j-2)} \\
+            &= x^2 \sum_{j=2}^{k} \binom{k-2}{j-2} k(k-1) x^{j-2}(1-x)^{(k-2)-(j-2)} \\
+            &= k(k-1)x^2 \sum_{j=0}^{k-2} \binom{k-2}{j} x^j (1-x)^{(k-2)-j} \\
+            &= k(k-1)x^2
+        \end{aligned}
+    \]
+}
+
+\mlemma[lemBern4]{}{
+    For any $k \in \NN$,
+    $\displaystyle \sum_{j=0}^{k} \binom{k}{j} \left(\frac{j}{k}\right)^2 x^j(1-x)^{k-j}
+    = \left(1-\frac{1}{k}\right)x^2 + \frac{x}{k}$.
+}
+\pf{Proof}{
+    Using \Cref{lem:lemBern2} and \Cref{lem:lemBern3}, we get
+    \[
+        \begin{aligned}[t]
+            \left(1-\frac{1}{k}\right)x^2 + \frac{x}{k}
+            & = \frac{k(k-1)x^2}{k^2} + \frac{x}{k} \\
+            & = \frac{1}{k^2} \sum_{j=0}^{k} \binom{k}{j} (j^2-j) x^j(1-x)^{k-j}
+                + \frac{1}{k} \sum_{j=0}^{k} \binom{k}{j} \frac{j}{k} x^j(1-x)^{k-j} \\
+            & = \sum_{j=0}^{k} \binom{k}{j} \left( \frac{j^2-j}{k^2} + \frac{j}{k^2} \right) x^j(1-x)^{k-j} \\
+            & = \sum_{j=0}^{k} \binom{k}{j} \left(\frac{j}{k}\right)^2 x^j(1-x)^{k-j}\text{.}
+        \end{aligned}
+    \]
+}
+
+\mlemma[lemBern5]{}{
+    For any $k \in \NN$ and any $x \in [0, 1]$,
+    $\displaystyle \sum_{j=0}^{k} \binom{k}{j} \left(x-\frac{j}{k}\right)^2 x^j(1-x)^{k-j}
+     = \frac{x(1-x)}{k} \le \frac{1}{4k}$.
+}
+\pf{Proof}{
+    Using \Cref{lem:lemBern1}, \Cref{lem:lemBern2}, and \Cref{lem:lemBern4}, we get
+    \[
+        \begin{aligned}[t]
+            \sum_{j=0}^{k} \binom{k}{j} \left(x-\frac{j}{k}\right)^2 x^j(1-x)^{k-j}
+            & = \sum_{j=0}^{k} \binom{k}{j} \left[ x^2 - 2x \left(\frac{j}{k}\right) - \left(\frac{j}{k}\right)^2 \right] x^j(1-x)^{k-j} \\
+            & = x^2 \sum_{j=0}^{k} \binom{k}{j} x^j(1-x)^{k-j}
+                + 2x\sum_{j=0}^{k} \binom{k}{j} \left(\frac{j}{k}\right) x^j(1-x)^{k-j} \\
+            &\qquad + \sum_{j=0}^{k} \binom{k}{j} \left(\frac{j}{k}\right)^2 x^j(1-x)^{k-j} \\
+            & = x^2 - 2x^2 + \left(1-\frac{1}{k}\right) x^2 + \frac{x}{k} = \frac{x(1-x)}{k}\text{.}
+        \end{aligned}
+    \]
+}
+
+\thm[bernApprox]{Bernstein's Approximation Theorem}{
+    Let $f \in C([0, 1])$.
+    Then, for any $\veps \in \RR_+$,
+    there exists $k_0 \in \NN$ such that, for $k \ge k_0$,
+    $\|f - B_k\|_\infty < \veps$
+    where $B_k$ is the $k^\text{th}$ Bernstein polynomial for $f$.
+}
+\pf{Proof}{
+    Take any $\veps \in \RR_+$.
+    Since $f$ is continuous on a compact set $[0, 1]$,
+    then $f$ is uniformly continuous on $[0, 1]$ by \Cref{th:contiThenUnifContiOnComp}.
+    Therefore,
+    \[
+        \exs \delta \in \RR_+, \forall x, y \in [0, 1],\:
+        \big( |x-y| < \delta \implies |f(x) - f(y)| < \veps/4 \big)\text{.}
+    \]
+    Also, $f$ is bounded on $[0, 1]$ by \Cref{th:contiSendsCompToComp}.
+    Thus, by \Cref{th:archi}, there exists $k_0 \in \NN$ such that $2\|f\|_\infty < \veps \delta^2 k_0$.
+    Now, suppose $k \ge k_0$.
+
+    Fix some $x \in [0, 1]$ and let $A_1 \triangleq \{\, j \in \ZZ \mid 0 \le j \le k \text{ and } |x-j/k| < \delta \,\}$
+    and $A_2 \triangleq \{\, j \in \ZZ \mid 0 \le j \le k \text{ and } |x-j/k| \ge \delta \,\}$.
+    Now, we are ready to prove $\|f - B_k\|_\infty < \veps$.
+
+    Using \Cref{lem:lemBern1} at the first step, we get
+    \[
+        \begin{aligned}[t]
+            |f(x) - B_k(x)| & = \left| \sum_{j=0}^{k} \binom{k}{j}\,f(x) x^j(1-x)^{k-j}
+                                       - \sum_{j=0}^{k} \binom{k}{j}\, f \left(\frac{j}{k}\right) x^j (1-x)^{k-j} \right| \\
+                            & = \left| \sum_{j=0}^{k} \binom{k}{j} \left[f(x) - f\left(\frac{j}{k}\right)\right]
+                                                      x^j (1-x)^{k-j} \right| \\
+                            &\le \sum_{j=0}^{k} \binom{k}{j} \left|f(x) - f\left(\frac{j}{k}\right)\right|
+                                                x^j (1-x)^{k-j} \\
+                            & = \sum_{j \in A_1} \binom{k}{j} \left|f(x) - f\left(\frac{j}{k}\right)\right|x^j (1-x)^{k-j}
+                                + \sum_{j \in A_2} \binom{k}{j} \left|f(x) - f\left(\frac{j}{k}\right)\right|x^j (1-x)^{k-j} \\
+                            & = S_1 + S_2
+        \end{aligned}
+    \]
+    where $S_1$ and $S_2$ are the sums over $A_1$ and $A_2$, respectively.
+
+    Since $\left|x - \dfrac{j}{k}\right| < \delta$ for $j \in A_1$, the following holds.
+    \[
+        \begin{aligned}[t]
+            S_1 & \triangleq \sum_{j \in A_1} \binom{k}{j} \left|f(x) - f\left(\frac{j}{k}\right)\right|x^j (1-x)^{k-j} \\
+                & < \sum_{j \in A_1} \binom{k}{j} \left(\frac{\veps}{4}\right)x^j (1-x)^{k-j}
+                  \le \frac{\veps}{4} \sum_{j=0}^k \binom{k}{j} x^j (1-x)^{k-j} = \frac{\veps}{2}
+        \end{aligned}
+    \]
+
+    We now investigate $S_2$. Note that $\dfrac{1}{ |x-j/k| } \le \dfrac{1}{\delta}$ for $j \in A_2$.
+    Using \Cref{lem:lemBern5}, we get
+    \[
+        \begin{aligned}[t]
+            S_2 & \triangleq \sum_{j \in A_2} \binom{k}{j} \left|f(x) - f\left(\frac{j}{k}\right)\right|x^j (1-x)^{k-j} \\
+                & \le 2 \|f\|_\infty \sum_{j \in A_2} \binom{k}{j} \left(x-\frac{j}{k}\right)^2 \frac{1}{\left(x-\frac{j}{k}\right)^2} x^j (1-x)^{k-j} \\
+                & \le \frac{2\|f\|_\infty}{\delta^2} \sum_{j \in A_2} \binom{k}{j} \left(x-\frac{j}{k}\right)^2 x^j (1-x)^{k-j} \\
+                & \le \frac{2\|f\|_\infty}{\delta^2} \sum_{j=0}^k \binom{k}{j} \left(x-\frac{j}{k}\right)^2 x^j (1-x)^{k-j} \\
+                & \le \frac{2\|f\|_\infty}{\delta^2} \frac{1}{4k} \le \frac{\|f\|_\infty}{2k\delta^2} \le \frac{\|f\|_\infty}{2k_0\delta^2} < \frac{\veps}{4}\text{.}
+        \end{aligned}
+    \]
+
+    Thus, we have $|f(x) - B_k(x)| \le S_1 + S_2 < \veps/4 + \veps/4 = \veps/2$.
+    Since $x$ is arbitrary, $\|f-B_k\|_\infty \le \veps/2 < \veps$.
 }
 
 \end{document}

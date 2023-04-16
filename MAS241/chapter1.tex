@@ -27,7 +27,7 @@ if $\|x_n - x_m\| \to 0$ as $n, m \to \infty$.
 	\end{enumerate}
 }
 \thm[archi]{Archimedes' Principle}{
-	Let $\veps$ and $M$ be any two possible real numbers.
+	Let $\veps$ and $M$ be any two positive real numbers.
 	Then, there exists a $k$ in $\NN$ such that $M < k \veps$.
 }
 \noindent
@@ -139,7 +139,7 @@ The proof of \Cref{th:archi} can be done by integrating \Cref{th:completeR} and 
 	There are three cases: $0 < c < d$, $c \le 0 < d$, or $c < d \le 0$.
 
 	Case 1) By Archimedes' principle, $\exists\: q \in \NN,\: 1 < (d-c)q$, which implies $cq + 1 < dq$.
-	By \Cref{th:archi2}, $\exists\: q \in \NN,\: p - 1 \le cq < p$ since $cq > 0$.
+	By \Cref{th:archi2}, $\exists\: p \in \NN,\: p - 1 \le cq < p$ since $cq > 0$.
 	To sum up, $p - 1 \le cq < p \le cq + 1 < dq$, which implies $c < p/q < d$.
 
 	Case 2) By Archimedes' principle, $\exists\: q \in \NN,\: 1 < dq$. Then, $c \le 0 < 1/q < d$ holds.
