@@ -240,7 +240,7 @@
 }
 
 \thm[contiSendsConToCon]{}{
-    If $S$ is a connected subset of $\RR[n]$ and $f$ is continuous on $S$,
+    If $S$ is a connected subset of $\RR[n]$ and $f \colon S \to \RR$ is continuous on $S$,
     then $T = f(S)$ is also connected.
 }
 \pf{Proof}{
@@ -255,7 +255,7 @@
 }
 
 \thm[contiSendsCompToComp]{}{
-    If $S$ is a compact subset of $\RR[n]$ and $f$ is continuous on $S$,
+    If $S$ is a compact subset of $\RR[n]$ and $f \colon S \to \RR$ is continuous on $S$,
     then $T = f(S)$ is also compact.
 }
 \pf{Proof}{
@@ -345,7 +345,7 @@
     If $f$ and $g$ are continuous, then $g \circ f$ is continuous.
 }
 
-\thm{}{
+\thm[contiBijOnCompSetHasContiBijInv]{}{
     If $f \colon [a, b] \to [c, d]$ is strictly monotone, continuous function,
     then the inverse function $f\inv$ is also strictly monotone, continuous, and bijective.
 }
@@ -543,7 +543,7 @@
 }
 
 \thm[contiThenUnifContiOnComp]{}{
-    Suppose that $f$ is continuous on a compact subset $S$ of $\RR[n]$.
+    Suppose that $f \colon S \to \RR$ is continuous on a compact subset $S$ of $\RR[n]$.
     Then $f$ is uniformly continuous on $S$.
 }
 \pf{Proof}{
@@ -933,6 +933,179 @@
 
     Thus, we have $|f(x) - B_k(x)| \le S_1 + S_2 < \veps/4 + \veps/4 = \veps/2$.
     Since $x$ is arbitrary, $\|f-B_k\|_\infty \le \veps/2 < \veps$.
+}
+
+\section{Vector-Valued Functions on $\mathbb R^n$}
+
+\dfn{Component Function}{
+    Let $\vec f$ be a function with domain $S \subseteq \RR[n]$ and codomain $T \subseteq \RR[m]$.
+    For $\vec x \in S$, we write
+    \[
+        \vec f(\vec x) = \vec y = (y_1, y_2, \cdots, y_m)\text{.}
+    \]
+    Then, for each $j \in [m]$, there is a real-valued function $f_i \colon S \to \RR$ defined by
+    $f_j(\vec x) = y_j$.
+    The functions $f_1, f_2, \cdots, f_m$ are called \textit{component functions} of $\vec f$.
+    We write \[
+        \vec f = (f_1, f_2, \cdots, f_m)\text{.}
+    \]
+}
+
+\dfn{Limit and Continuity of Vector-Valued Functions}{
+    Let $\varnothing \neq S \subseteq \RR[n]$ and $\vec f \colon S \to \RR[m]$.
+    \begin{itemize}[nolistsep]
+        \ii Let $\vec c \in \cl S$.
+            We say that $\vec f$ has \textit{limit} $\vec v$ as $\vec x$ approaches $\vec c$,
+            and we write \[
+                \lim_{\vec x \to \vec c} \vec f(\vec x) = \vec v
+            \] if,
+            for every neighborhood $N(\vec v)$, there exists a deleted neighborhood $N'(\vec c)$
+            such that \[
+                S \cap N'(\vec c) \subseteq \vec f\inv(N(\vec v))\text{.}
+            \]
+        \ii Let $\vec c \in S$.
+            We say that $\vec f$ is \textit{continuous at} $\vec c$ if \[
+                \lim_{\vec x \to \vec c} \vec f(\vec x) = \vec f(\vec c)\text{.}
+            \]
+        \ii We say that $\vec f$ is \textit{continuous on} $S$ if
+            $\vec f$ is contiuous at every point of $S$.
+    \end{itemize}
+}
+
+\thm[vecLimAndComponentFtns]{}{
+    Let $\varnothing \neq S \subseteq \RR[n]$,
+    $\vec f \colon S \to \RR[m]$, and $\vec f = (f_1, f_2, \cdots, f_m)$.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Let $\vec c \in \cl S$.
+            Then $\lim_{\vec x \to \vec c} \vec f(\vec x) = \vec v = (v_1, v_2, \cdots, v_m)$
+            if and only if, for each $j \in [m]$, $\lim_{\vec x \to \vec c} f_j(\vec x) = v_j$.
+        \ii Let $\vec c \in S$.
+            Then $\vec f$ is continuous at $\vec c$ if and only if,
+            for each $j \in [m]$, $f_j$ is continuous at $\vec c$.
+        \ii $\vec f$ is continuous on $S$ if and only if,
+            for each $j \in [m]$, $f_j$ is continuous on $S$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    (ii) and (iii) directly follows from (i). So, we only need to prove (i).
+
+    ($\Rightarrow$) Take any $\veps \in \RR_+$.
+    Then, there exists $\delta \in \RR_+$ such that
+    \[
+        \forall \vec x \in S,\:
+        \big(0 < \|\vec x - \vec c\| < \delta \implies \|\vec f(\vec x) - \vec v\| < \veps\big)\text{.}
+    \]
+    Then, for each $j \in [m]$,
+    whenever $\vec x \in S \cap N'(\vec c; \delta)$,
+    \[
+        |f_j(\vec x) - v_j|^2 \le \sum_{i=1}^{m} |f_j(\vec x)-v_i|^2 = \|\vec f(\vec x) - \vec v\|^2 < \veps^2\text{,}
+    \]
+    which implies $S \cap N'(\vec c; \delta) \subseteq f_j\inv(N(v_j; \veps))$;
+    $\lim_{\vec x \to \vec c} f_j(\vec x) = v_j$.
+
+    ($\Leftarrow$) Take any $\veps \in \RR_+$.
+    Then, for each $j \in [m]$, there exists $\delta_j \in \RR_+$ such that
+    \[
+        \forall \vec x \in S,\:
+        \big( 0 < \|\vec x - \vec c\| < \delta_j \implies |f_j(\vec x) - v_j| < \veps / \sqrt{m} \big)\text{.}
+    \]
+    Then, whenever $\vec x \in S \cap N'(\vec c; \delta_0)$
+    where $\delta_0 \triangleq\min_{j=1}^m \delta_j$,
+    \[
+        \|\vec f(\vec x) - \vec v\|^2 = \sum_{i=1}^{m} |f_j(\vec x) - v_j|^2
+        < \sum_{i=1}^{m} \left(\frac{\veps}{\sqrt{m}}\right)^2 = \veps^2\text{,}
+    \]
+    which implies $S \cap N'(\vec c; \delta_0) \subseteq \vec f\inv(N(\vec v; \veps))$;
+    $\lim_{\vec x \to \vec c} \vec f(\vec x) = \vec v$.
+}
+
+\thm[vecLimIffEveryCauchyConv]{}{
+    Let $\varnothing \neq S \subseteq \RR[n]$ and $\vec f \colon S \to \RR[m]$.
+
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Let $\vec c$ be a point in $\cl S$.
+            Then $\lim_{\vec x \to \vec c} \vec f(\vec x) = \vec v$
+            if and only if, for every sequence $\{\vec x_k\}$ in $S \setminus \{\vec c\}$ such that
+            $\lim_{k \to \infty} \vec x_k = \vec c$,
+            we have $\lim_{k \to \infty} \vec f(\vec x_k) = \vec v$.
+        \ii Let $\vec c$ be a point in $S$.
+            Then $\vec f$ is continuous at $\vec c$
+            if and only if, for every sequence $\{\vec x_k\}$ in $S$ such that
+            $\lim_{k \to \infty} \vec x_k = \vec c$,
+            we have $\lim_{k \to \infty} \vec f(\vec x_k) = \vec f(\vec c)$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    By \Cref{th:vecLimAndComponentFtns},
+    \[
+        \lim_{\vec x \to \vec c} \vec f(\vec x) = \vec v
+        \iff \forall j \in [m], \lim_{\vec x \to \vec c} f_j(\vec x) = v_j
+    \]
+    where $\vec v = (v_1, v_2, \cdots, v_m)$.
+    By \Cref{th:limIffEveryCauchyConv}, for each $j \in [m]$,
+    \[
+        \lim_{\vec x \to \vec c} f_j(\vec x) = v_j
+        \iff \forall \{\vec x_k\} \in (S \setminus \{\vec c\})^\omega,\:
+        \big(\lim_{k \to \infty} \vec x_k = \vec c
+             \implies \lim_{k \to \infty} f_j(\vec x_k) = v_j\big)\text{.}
+    \]
+    By \Cref{th:seqConvIffCoordsConv},
+    \[
+        \lim_{k \to \infty} \vec f(\vec x_k) = \vec v \iff
+        \forall j \in [m], \lim_{k \to \infty} f_j(\vec x_k) = v_j\text{.}
+    \]
+    Thus, (i) is proven,
+    and (ii) can be proven similarly with the aid of \Cref{th:contiIffEveryCauchyConv}.
+}
+
+\thm[vecContiTopDef]{}{
+    Let $\vec \vec f \colon S \to T$ where $S \subseteq \RR[n]$ and $T \subseteq \RR[m]$.
+    Suppose $f$ is surjective.
+    Then $\vec f$ is continuous on $S$ if and only if the inverse image of
+    every relatively open set in $T$ is relatively open in $S$.
+}
+\pf{Proof}{
+    Repeat the proof of \Cref{th:contiTopDef} verbatim.
+}
+
+\thm[vecContiSendsConToCon]{}{
+    If $S$ is a connected subset of $\RR[n]$ and $\vec f \colon S \to \RR[m]$ is continuous on $S$,
+    then $T = \vec f(S)$ is also connected.
+}
+\pf{Proof}{
+    Repeat the proof of \Cref{th:contiSendsConToCon} verbatim.
+}
+
+\thm[vecContiSendsCompToComp]{}{
+    If $S$ is a compact subset of $\RR[n]$ and $\vec f \colon S \to \RR[m]$ is continuous on $S$,
+    then $T = \vec f(S)$ is also compact.
+}
+\pf{Proof}{
+    Repeat the proof of \Cref{th:contiSendsCompToComp} verbatim.
+}
+
+\thm[vecCompOfContiIsContiPoint]{}{
+    Let $S \subseteq \RR[n]$, $f \colon S \to \RR[m]$, $f(S) \subseteq T \subseteq \RR[m]$,
+    and $g \colon T \to \RR[p]$.
+    If $f$ is continuous at $\vec c \in S$ and if $g$ is continuous at $f(\vec c) \in T$,
+    then $g \circ f$ is continuous at $\vec c$.
+}
+\pf{Proof}{
+    Repeat the proof of \Cref{th:compOfContiIsContiPoint} verbatim.
+}
+
+\thm[vecContiBijOnCompSetHasContiBijInv]{}{
+    Let $\varnothing \neq S \subseteq \RR[n]$ is compact and $\varnothing \neq T \subseteq \RR[m]$.
+    Let $\vec f \colon S \to T$ is continuous on $S$ and bijective.
+    Then, $\vec f\inv$ is also continuous on $\vec f(S)$.
+}
+\pf{Proof}{
+    Repeat the proof of \Cref{th:contiBijOnCompSetHasContiBijInv} verbatim.
+}
+
+\thm[vecContiThenUnifContiOnComp]{}{
+    Suppose that $f \colon S \to \RR[m]$ is continuous on a compact subset $S$ of $\RR[n]$.
+    Then $f$ is uniformly continuous on $S$.
 }
 
 \end{document}
