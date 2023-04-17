@@ -491,7 +491,7 @@
     \end{itemize}
 }
 
-\thm{}{
+\thm[closeIsDualOfOpen]{}{
     Let $X$ be a topological space. Then the following conditions hold.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii $\varnothing$ and $X$ are closed.
@@ -570,7 +570,7 @@
     \end{itemize}
 }
 
-\thm[closureIffNeighCapA]{}{
+\thm[inClosureIffNeighCapANonempty]{}{
     Let $A \subseteq X$ where $X$ is a topological space. The following hold.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii $x \in \cl A$ if and only if every neighborhood of $x$ intersects $A$.
@@ -612,7 +612,7 @@
 }
 
 \nt{
-    Equivalently, $x$ is a limit point of $A$ if $x \in \cl{A \setminus \{x\}}$ thanks to \Cref{th:closureIffNeighCapA}.
+    Equivalently, $x$ is a limit point of $A$ if $x \in \cl{A \setminus \{x\}}$ thanks to \Cref{th:inClosureIffNeighCapANonempty}.
 }
 
 \thm[closureIsAcupAprime]{}{
@@ -622,14 +622,14 @@
 }
 \pf{Proof}{
     ($\supseteq$) We only need to show $A' \subseteq \cl A$.
-    For every $x \in A'$, $x \in \cl A$ due to \Cref{th:closureIffNeighCapA}. \checkmark
+    For every $x \in A'$, $x \in \cl A$ due to \Cref{th:inClosureIffNeighCapANonempty}. \checkmark
 
     ($\subseteq$) Let $x \in \cl A \setminus A$.
     By definition, every neighborhood of $x$ intersects $A$ while $x$ cannot be in the intersection
     since $x \notin A$. Thus, $x \in A'$. \checkmark
 }
 
-\cor[closedIffAprimeSubA]{}{
+\cor[closedIffContainsLimPts]{}{
     Let $A \subseteq X$ where $X$ is a topological space.
     Then $A$ is closed if and only if $A' \subseteq A$.
 }
@@ -638,14 +638,435 @@
     \par ($\Leftarrow$) $\cl A = A \cup A' = A$ and $\cl A$ is closed. \checkmark
 }
 
+\dfn{Convergence of a Sequence}{
+    Let $X$ be a topological space.
+    Then, a sequence $\{x_n\}$ in $X$ converges to $x \in X$
+    if, for every neighborhood $U$ of $x$,
+    there exists $N \in \ZZ_+$
+    such that $x_n \in U$ for all $n \ge N$.
+}
+
+\nt{
+    The point to which a sequence converges may not be unique in general.
+    If $X = \{a, b, c\}$ and $\mcal T = \{\varnothing, X, \{b\}, \{a, b\}, \{b, c\}\}$,
+    the sequence $x_n = b$ may converge to $a$, $b$, or $c$
+    as any neighborhood of $a$ or $c$ contains $b$.
+}
+
 \subsection{Hausdorff Spaces}
+
 \dfn{Housdorff Space}{
-    A topological space $X$ is called a \textit{Hausdorff space} if for each pair $x_1$ and $x_2$
+    A topological space $(X, \mcal T)$ is called a \textit{Hausdorff space} if for each pair $x_1$ and $x_2$
     of distinct points of $X$, there exist neighborhoods $U_1$ and $U_2$ of $x_1$ and $x_2$, respectively,
     that are disjoint. In other words, \[
         \forall x_1, x_2 \in X,\: \big(x_1 \neq x_2 \implies
         \exs U_1, U_2 \in \mcal T,\: x_1 \in U_1 \land x_2 \in U_2 \land U_1 \cap U_2 = \varnothing\big)\text{.}
     \]
+}
+
+\thm[finiteSetIsClosedInHaus]{}{
+    Every finite point set in a Hausdorff space $X$ is closed.
+}
+\pf{Proof}{
+    It suffices to prove that every singleton of $X$ is closed
+    since closedness of finite point set will be naturally driven by \Cref{th:closeIsDualOfOpen}.
+
+    If $|X| \le 1$, then it is done.
+    Now, let $x$ and $y$ be distinct elements in $X$.
+    Then, there are disjoint open sets $U$ and $V$ such that
+    $x \in U$ and $y \in V$.
+    Therefore, $x$ and $y$ are not limit points of each other.
+    Thus, there are at most one limit point of $\{x\}$. (If it exists, it must be $x$.)
+    Thus, $\{x\}' \subseteq \{x\}$; $\{x\}$ is closed by \Cref{cor:closedIffContainsLimPts}.
+}
+
+\dfn{$T_1$ Axiom}{
+    A topological space $X$ is said to satisfy $T_1$ \textit{axiom} if
+    every singleton in $X$ is closed.
+}
+\nt{
+    \Cref{th:finiteSetIsClosedInHaus} implies that
+    every Hausdorff space satisfies $T_1$ axiom.
+}
+
+\nt{
+    $T_1$ axiom is strictly weaker than being a Hausdorff space.
+    \begin{itemize}[nolistsep]
+        \ii $\RR$ in the finite complement topology satisfies $T_1$ axiom.
+            Every singleton $\{x\}$ is closed since $\RR \setminus \{x\}$ is open.
+        \ii However, it is not a Hausdorff space.
+            Suppose $x, y \in \RR$ with $x \neq y$
+            and there are disjoint open set $U$ and $V$
+            such that $x \in U$ and $y \in V$.
+            Then, since $U \cap V = \varnothing$,
+            $\RR = \RR \setminus (U \cap V) = (X \setminus U) \cup (X \setminus V)$,
+            which is impossible siunce $X \setminus U$ and $X \setminus V$ are finite.
+    \end{itemize}
+}
+
+\thm[t1LimPtIffDelNeiIntersectsInf]{}{
+    Let $X$ be a space satisfying the $T_1$ axiom; let $A \subseteq X$.
+    Then $x \in A'$ if and only if every neighborhood of $x$
+    contains infinitely many points of $A$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Let $x \in A'$ and suppose some neighborhood $U$ of $x$ intersects $A$
+    in finitely many points.
+    Then, it also intersects $A \setminus \{x\}$ in finitely many points;
+    let us denote them $x_1, x_2, \cdots, x_m$.
+    Noting that $\{x_1, x_2, \cdots, x_m\}$ is closed as $X$ satisfies $T_1$ axiom,
+    $X \setminus \{x_1, x_2, \cdots, x_m\}$ is a neighborhood of $x$
+    but does not intersect $A \setminus \{x\}$,
+    contradicting that $x$ is a limit point of $A$.
+
+    ($\Leftarrow$)
+    Let $U$ be any neighborhood of $x$.
+    Then, $U$ intersects $A$ in infinitely many points by assumption, and thus
+    it intersects $A \setminus \{x\}$ in infinitely many points.
+    Therefore, $x$ is a limit point of $A$.
+}
+
+\thm{}{
+    If $X$ is a Hausdorff space,
+    then there is at most one point of $X$ to which a sequence of points of $X$ converges.
+}
+\pf{Proof}{
+    Suppose $\{x_n\}$ is a sequence in $X$ that converges to $x$.
+    If $y \neq x$, we may find disjoint neighborhoods $U$ and $V$ of $x$ and $y$, respectively.
+    Then, $U$ has all but finitely many points of $x_n$, but $V$ cannot.
+    Therefore, $y$ cannot be a point that $\{x_n\}$ converges to.
+}
+
+\nt{
+    The finite complement topology on $\RR$ is not a Hausdorff.
+
+    Let $\{x_n\}$ be a sequence that has
+    no points infinitely repeated in $\{x_n\}$.
+    Then, $\{x_n\}$ converges to every point in $\RR[n]$.
+}
+
+\section{Continuous Functions}
+\subsection{Continuity of a Function}
+
+\dfn{Continuity of a Function}{
+    Let $X$ and $Y$ be topological spaces.
+    A function $f \colon X \to Y$ is said to be \textit{continuous}
+    if for each open subset $V$ of $Y$, $f\inv(V)$ is open in $X$.
+}
+
+\nt{
+    To prove a function $f \colon X \to Y$ is continuous,
+    it is enough to prove that every basis of $Y$
+    has an open preimage in $X$.
+    Then, for every open $V = \bigcup_{\alpha \in J} B_{\alpha} \subseteq Y$,
+    it follows that
+    \[
+        f\inv(V) = \bigcup_{\alpha \in J}f\inv(B_\alpha)
+    \] is open in $X$.
+
+    If the toplogy on $Y$ is given by a subbasis,
+    it is even sufficient to prove every preimage of subbasis element is open.
+    Then, for every basis $B = \bigcap_{i=1}^n S_i$, it follows that
+    \[
+        f\inv(B) = \bigcap_{i=1}^n f\inv(S_i)
+    \] is open in $X$.
+}
+
+\thm[contiEquiv]{}{
+    Let $X$ and $Y$ be topological spaces. \textsf{TFAE}
+    \begin{enumerate}[noitemsep, label=(\roman*)]
+        \ii $f$ is continuous.
+        \ii For every subset $A$ of $X$, $f(\cl A) \subseteq \cl{f(A)}$.
+        \ii For every closed set $B$ of $Y$, the set $f\inv(B)$ is closed in $X$.
+        \ii For each $x \in X$ and each neighborhood $V$ of $f(x)$,
+            there is a neighborhood $U$ of $x$ such that $f(U) \subseteq V$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    ((i) $\Longrightarrow$ (ii))
+    Take any $x \in \cl A$.
+    Let $V$ be any neighborhood of $f(x)$.
+    Then, $f\inv(V)$ is a neighborhood of $x$.
+    Since $x \in \cl A$, by \Cref{th:inClosureIffNeighCapANonempty},
+    $f\inv(V)$ intersects $A$; $A \cap f\inv(V) \neq \varnothing$.
+    Therefore, since $\varnothing \neq f(A \cap f\inv(V)) = f(A) \cap f(f\inv(V)) \subseteq f(A) \cap V$,
+    $V$ intersects $f(A)$; by \Cref{th:inClosureIffNeighCapANonempty},
+    $f(x) \in \cl{f(A)}$ as $V$ was arbitrary.
+    Therefore, $f(\cl A) \subseteq \cl{f(A)}$.
+
+    ((ii) $\Longrightarrow$ (iii))
+    Let $B$ be closed in $Y$ and let $A \triangleq f\inv(B)$.
+    Then, $f(A) = f(f\inv(B)) \subseteq B$.
+    Therefore, if $x \in \cl A$,
+    $f(x) \in f(\cl A) \subseteq \cl{f(A)} \subseteq \cl B = B$;
+    which implies $x \in f\inv(B) = A$.
+    This means $\cl A \subseteq A$, thus $A$ is closed.
+
+    ((iii) $\Longrightarrow$ (i))
+    Let $V$ be an open set of $Y$. Let $B \triangleq Y \setminus B$. Then
+    \[
+        f\inv(B) = f\inv(Y) \setminus f\inv(V) = X \setminus f\inv(V)
+    \]
+    is closed as $B$ is closed. Thus, $f\inv(V) = X \setminus f\inv(B)$ is open.
+
+    ((i) $\Longrightarrow$ (iv))
+    For every neighborhood $V$ of $f(x)$,
+    $U=f\inv(V)$ is the neighborhood of $x$ that satisfies $f(U) \subseteq V$.
+
+    ((iv) $\Longrightarrow$ (i))
+    Let $V$ be an open set of $Y$. Then, for each $x \in f\inv(V)$,
+    since $V$ is a neighborhood of $f(x)$,
+    there exists a neighborhood $U_x$ of $x$ that satisfies $f(U_x) \subseteq V$.
+    Then, $U_x \subseteq f\inv(f(U_x)) \subseteq f\inv(V)$.
+    Therfore, $f\inv(V) = \bigcup_{x \in f\inv(V)} U_x$ is open in $X$.
+}
+
+\subsection{Homeomorphisms}
+
+\dfn{Homeomorphism}{
+    Let $X$ and $Y$ be topological spaces $f \colon X \to Y$ be a bijection.
+    $f$ is called a \textit{homeomorphism} if both $f$ and $f\inv$ are continuous.
+}
+
+\nt{
+    Since the inverse image under $f\inv$ is exactly the image under $f$,
+    ``$f\inv$ is continuous'' implies ``$f(U)$ is open for all open $U$ in $X$.''
+    So, $f$ is a homeomorphism if and only if
+    it is a bijection such that $U \subseteq X$ is open in $X$
+    if and only if $f(U)$ is open in $Y$.
+}
+
+\nt{
+    If $f$ is a homeomorphism between $X$ and $Y$,
+    then $\mcal T_Y = \{\,f(U) \mid U \in \mcal T_X\,\}$ and
+    $\mcal T_X = \{\,f\inv(V) \mid V \in \mcal T_X\,\}$.
+
+    Therefore, any property of $X$ that is entirely expressed
+    in terms of the topology of $X$ yields,
+    via the correspondence $f$,
+    the corresponding property for the space $Y$.
+    Such a property of $X$ is called \textit{topological property} of $X$.\\[1em]
+    \centerline{\fbox{\textit{Homeomorphism preserves topological properties.}}}
+}
+
+\dfn{Open Map and Closed Map}{
+    Let $X$ and $Y$ be topological spaces $f \colon X \to Y$ be a function.
+    \begin{itemize}[nolistsep]
+        \ii $f$ is said to be an \textit{open map}
+            if $f(U)$ is open for all open $U \subseteq X$ in $X$.
+        \ii $f$ is said to be a \textit{closed map}
+            if $f(U)$ is closed for all closed $U \subseteq X$ in $X$.
+    \end{itemize}
+}
+
+\dfn{Topological Imbedding}{
+    Let $X$ and $Y$ be topological spaces $f \colon X \hookrightarrow Y$ be an injection.
+    Then, $f' \colon X \to f(X)$ obtained by restriction is a bijection.
+    If $f'$ is a homeomorphism in which the topology of $\Img f$ is given as the subspace topology,
+    $f$ is said to be a \textit{topological imbedding}, or simply an \textit{imbedding}, of $X$ in $Y$.
+}
+
+\subsection{Constructing Continuous Functions}
+
+\thm[constructConti]{Rules for Constructing Continuous Functions}{
+    Let $X$, $Y$, and $Z$ be topological spaces.
+    \begin{enumerate}[label=(\roman*)]
+        \ii (\textit{Constant Function})
+            If $f \colon X \to Y$ has a singleton $f(X)$,
+            $f$ is continuous.
+        \ii (\textit{Inclusion})
+            If $A$ is a subspace of $X$,
+            the inclusion function $j \colon A \to X$ is continuous.
+        \ii (\textit{Composites})
+            If $f \colon X \to Y$ and $g \colon Y \to Z$ are continuous,
+            then the map $g \circ f$ is continuous.
+        \ii (\textit{Restricting the Domain})
+            If $f \colon X \to Y$ is continuous,
+            and if $A$ is a subspace of $X$,
+            then the restricted function $f \big|_A \colon A \to Y$ is continuous.
+        \ii (\textit{Restricting or Expanding the Codomain})
+            Let $f \colon X \to Y$ be continuous.
+            If $Z$ is a subspace of $Y$ and $f(X) \subseteq Z$,
+            then the function $g \colon X \to Z$ obtained by restricting the range of $f$ is continuous.
+            If $Z$ is a space having $Y$ as a subspace,
+            then the function $h \colon X \to Z$ obtained by expanding the range of $f$ is continuous.
+        \ii (\textit{Local Formulation of Continuity})
+            The map $f \colon X \to Y$ is continuous
+            if $X$ is a union of open sets $U_\alpha$
+            such that $f \big|_{U_\alpha}$ is continuous for each $\alpha$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    $ $\\[-1em]
+    \begin{enumerate}[label=(\roman*)]
+        \ii Let $f(x) = y_0$ for every $x \in X$ for some fixed $y_0 \in Y$.
+            Then, for each (open) set $V \subseteq Y$,
+            \[
+                f\inv(V) = \begin{cases}
+                    X           & \text{if } y_0 \in V    \\
+                    \varnothing & \text{if } y_0 \notin V
+                \end{cases}
+            \]
+            is always open in $X$.
+        \ii If $U$is open in $X$, then $f\inv(U) = U \cap A$ is open in $A$ (by definition).
+        \ii If $U$ is open in $Z$, then $g\inv(U)$ is open in $Y$,
+            and thus $(g \circ f)\inv(U) = f\inv(g\inv(U))$ is open in $X$.
+        \ii $f \big|_A = f \circ j$ where $j \colon A \to X$ is the inclusion function.
+            Therefore, $f \big|_A$ is continuous by (ii) and (iii).
+        \ii First, suppose $f(X) \subseteq Z \subseteq Y$.
+            Take any open set $W \subseteq Z$ of $Z$.
+            Then, $W = V \cap Z$ for some open set $V$ in $Y$.
+            Because $f(X) \subseteq Z$ and $f(x) = g(x)$ for all $x \in X$,
+            \[
+                f\inv(V) = f\inv(V \cap Z) = f\inv(W) = g\inv(W)\text{.}
+            \] Thus, $g\inv(W)$ is open in $X$ as $f$ is continuous.
+
+            We get $h$ is continuous from noting that
+            $h = j \circ f$ where $j \colon Y \to Z$ is the inclusion function.
+        \ii Let $X = \bigcup_{\alpha \in J} U_\alpha$ in which,
+            for each $\alpha \in J$, $U_\alpha$ is an open set in $X$
+            such that $f \big|_{U_\alpha}$ is continuous.
+            Let $V$ be an open set in $Y$. Then
+            \[
+                f\inv(V) \cap U_\alpha = \big(f\big|_{U_\alpha}\big)\inv(V)
+            \] for each $\alpha \in J$;
+            $f\inv(V) \cap U_\alpha$ is open in $X$
+            since $f \big|_{U_\alpha}$ is continuous.
+            Therefore,
+            \[
+                f\inv(V) = f\inv(V) \cap X
+                = f\inv(V) \cap \left(\bigcup_{\alpha \in J} U_\alpha\right)
+                = \bigcup_{\alpha \in J} \big(f\inv(V) \cap U_\alpha\big)
+            \] is open in $X$.
+        
+    \end{enumerate}
+}
+
+\thm[pasting]{The Pasting Lemma}{
+    Let $X = A \cup B$ be a topological space, where $A$ and $B$ are closed in $B$.
+    Let $f \colon A \to Y$ and $g \colon B \to Y$ be continuous.
+    If $f(x) = g(x)$ for every $x \in A \cap B$,
+    then the function $h \colon X \to Y$ defined by
+    \[
+        h(x) \triangleq \begin{cases}
+            f(x) & \text{if } x \in A \\
+            g(x) & \text{if } x \in B
+        \end{cases}
+    \] is continuous.
+}
+\pf{Proof}{
+    Let $C$ be a closed subset of $Y$. Now
+    \[
+        f\inv(C) = f\inv(C) \cup g\inv(C)\text{.}
+    \] Since $f$ and $g$ are continuous and $C$ is closed,
+    $f\inv(C)$ and $g\inv(C)$ are closed by \Cref{th:contiEquiv}.
+    Thus, $h\inv(C)$ is closed.
+}
+
+\nt{
+    \Cref{th:pasting} holds if $A$ and $B$ are both open.
+    It is, nonetheless, a special case of (vi) of \Cref{th:constructConti}.
+}
+
+\nt{
+    \Cref{th:pasting} does not hold if $A$ is open and $B$ is closed.
+    For instance, the function $h \colon A \cup B \to \RR$,
+    where $A = (-\infty, 0)$ and $B = [0, \infty)$,
+    defined by \[
+        h(x) \triangleq \begin{cases}
+            x - 2 & \text{if } x \in A \\
+            x + 2 & \text{if } x \in B
+        \end{cases}
+    \] is not continuous
+    since $h\inv((1, 3)) = [0, 1)$ is not open.
+}
+
+\thm[contiIffCoordsConti]{Maps Into Products}{
+    Let $f \colon A \to X \times Y$ be given by
+    \[
+        f(a) = f_1(a) \times f_2(b)\text{.}
+    \]
+    Then $f$ is continuous if and only if the functions
+    \[
+        f_1 \colon A \to X \quad \text{and} \quad f_2 \colon A \to Y
+    \]
+    are continuous.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    We first show that the projections
+    $\pi_1 \colon X \times Y \to X$ and $\pi_2 \colon X \times Y \to Y$
+    are continuous.
+    For each open sets $U \subseteq X$ and $V \subseteq Y$,
+    $\pi_1\inv(U) = U \times Y$ and $\pi_2\inv(V) = X \times V$
+    are open; $\pi_1$ and $\pi_2$ are continuous.
+
+    Then, noting that $f_1 = \pi_1 \circ f$ and $f_2 = \pi_2 \circ f$,
+    we conlcude $f_1$ and $f_2$ are continuous.
+
+    ($\Leftarrow$)
+    For any basis element $U \times V$ in $X \times Y$,
+    \[
+        \begin{aligned}[t]
+            f\inv(U \times V) &= \{\,a \in A \mid f(a) \in U \times V\,\} \\
+                              &= \{\,a \in A \mid f_1(a) \in U \text{ and } f_2(a) \in V\,\} \\
+                              &= f_1\inv(U) \cap f_2\inv(V)\text{.}
+        \end{aligned}
+    \]
+    Thus, $f\inv(U \times V)$ is open since $f_1\inv(U)$ and $f_2\inv(V)$ are open.
+}
+
+\section{The Product Topology}
+
+\dfn{Box Topology}{
+    Let $\{X_{\alpha}\}_{\alpha \in J}$ be an indexed family of topological spaces.
+    The topology generated by the basis
+    \[
+        \mcal B = \left\{\,\prod_{\alpha \in J} U_\alpha \:\bigg|\:
+                           \forall \alpha \in J,\: U_\alpha \text{ is open in } X_\alpha \,\right\}
+    \]
+    for the product $\prod_{\alpha \in J} X_\alpha$
+    is called the \textit{box topology}.
+}
+\nt{
+    The collection $\mcal B$ is indeed a basis for $\prod_{\alpha \in J} X_\alpha$.
+    $\bigcup \mcal B = \prod_{\alpha \in J} X_\alpha$ holds since
+    $\prod_{\alpha \in J} X_\alpha \in \mcal B$.
+    Also, an intersection of two basis elements is another basis element.
+    This can be shown by
+    \[
+        \left(\prod_{\alpha \in J} U_\alpha\right) \cap \left(\prod_{\alpha \in J} V_\alpha\right)
+        = \prod_{\alpha \in J} \big(U_\alpha \cap V_\alpha\big)\text{.}
+    \]
+}
+
+\dfn{Projection}{
+    Let $\{X_{\alpha}\}_{\alpha \in J}$ be an indexed family of sets. Let
+    \[
+        \pi_{\beta} \colon \prod_{\alpha \in J} X_\alpha \to X_\beta
+    \]
+    be defined by
+    \[
+        (x_\alpha)_{\alpha \in J} \mapsto x_\beta
+    \]
+    for each $\beta \in J$.
+    Then, $\pi_\beta$ is called the \textit{projection mapping}
+    associated with the index $\beta$.
+}
+
+\dfn{Product Topology}{
+    Let $\{X_{\alpha}\}_{\alpha \in J}$ be an indexed family of topological spaces.
+    Let $\mcal S_\beta$ denote the collection
+    \[
+        \mcal S_\beta = \{\,\pi_\beta\inv(U_\beta) \mid U_\beta \text{ is open in } X_\beta\,\}
+    \] and let
+    \[
+        \mcal S = \bigcup_{\alpha \in J} S_\alpha\text{.}
+    \]
+    The topology generated by the subbasis $\mcal S$ for $\prod_{\alpha \in J} X_\alpha$
+    is called the \textit{product topology}.
+    In this topology, $\prod_{\alpha \in J} X_\alpha$ is called a \textit{product space}.
 }
 
 \end{document}
