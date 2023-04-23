@@ -1370,8 +1370,34 @@
     \[
         \ol d(x, y) = \min \{d(x, y), 1\}\text{.}
     \]
-    Then $\ol d$, the standard bounded metric corresponding to $d$,
-    is a metric on $X$ that induces the same topology as $d$.
+    Then $\ol d$ is a metric on $X$ that induces the same topology as $d$.
+}
+\pf{Proof}{
+    The positive definiteness and the symmetry is direct.
+    Let us check the triangle inequality.
+
+    Take any $x, y, z \in X$.
+    Since $\ol d(x, z) \le 1$ always holds,
+    we get the triangle inequality
+    in the case of $\ol d(x, y) \ge 1$ or $\ol d(y, z) \ge 1$.
+    
+    In the other case, i.e., $\ol d(x, y) < 1$ and $\ol d(y, z) < 1$,
+    it holds that $\ol d(x, y) = d(x, y)$ and $\ol d(y, z) = d(y, z)$.
+    This implies
+    \[
+        \ol d(x, z) \le d(x, z) \le d(x, y) + d(y, z) = \ol d(x, y) + \ol d(y, z)\text{,}
+    \]
+    which completes the proof that $\ol d$ is a metric on $X$.
+
+    Now, note that, in any metric space,
+    \[
+        \{\,B_d(x, \veps) \mid x \in X \text{ and } \veps \in \RR_+\:\}
+    \] and \[
+        \{\,B_d(x, \veps) \mid x \in X \text{ and } \veps \in (0, 1)\:\}
+    \] generates the same topology.
+    Therefore, it follows that $d$ and $\ol d$ generates the same opology on $X$,
+    because the collections of $\veps$-balls with $\veps < 1$ under
+    these two metrics are the same.
 }
 
 \dfn{Standard Bounded Metric}{
@@ -1383,5 +1409,147 @@
     Then, $\ol d$ is a metric on $X$ and is called
     the \textit{standard bounded metric corresponding to} $d$.
 }
+
+\dfn{Norm, Euclidean Metric and Square Metric}{
+    Given $\vec x = (x_1, x_2, \cdots, x_n) \in \RR[n]$,
+    we define the \textit{norm} of $\vec x$ by the equation.
+    \[
+        \|\vec x\| = (x_1^2 + x_2^2 + \cdots + x_n^2)^{1/2}\text{;}
+    \]
+    and we define the \textit{euclidean metric} $d$ on $\RR[n]$ by the equation
+    \[
+        d(\vec x, \vec y) = \|\vec x - \vec y\| = \big[(x_1-y_1)^2+\cdots+(x_n-y_n)^2\big]^{1/2}\text{.}
+    \]
+    We define the \textit{square metric} $\rho$ on $\RR[n]$ by the equation
+    \[
+        \rho(\vec x, \vec y) = \max \{\,|x_1-y_1|, \cdots, |x_n-y_n|\,\}\text{.}
+    \]
+}
+
+\nt{
+    The proof that $\rho$ is a metric is trivial but for the triangle inequality.
+
+    Since, for each $i \in [n]$,
+    \[
+        |x_i - z_i| \le |x_i - y_i| + |y_i - z_i| \le \rho(\vec x, \vec y) + \rho(\vec y, \vec z)\text{,}
+    \]
+    it holds that
+    \[
+        \rho(\vec x, \vec z) \le \rho(\vec x, \vec y) + \rho(\vec y, \vec z)\text{.}
+    \]
+}
+
+\mlemma[metricFinerIff]{}{
+    Let $d$ and $d'$ be two metrics on the set $X$;
+    let $\mcal T$ and $\mcal T'$ be the toplogies they induce, respectively.
+    Then,
+    \[
+        \mcal T \subseteq \mcal T' \iff
+        \forall (x, \veps) \in X \times \RR_+,\: \exs \delta \in \RR_+,\:
+        B_{d'}(x, \delta) \subseteq B_d(x, \veps)\text{.}
+    \]
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Take any $x \in X$ and $\veps \in \RR_+$
+    Since $B_d(x, \veps)$ is a basis element of $\mcal T$,
+    by \Cref{lem:finerIff}, there is a basis element $B'$ of $\mcal T'$
+    such that $x \in B' \subseteq B_d(x, \veps)$.
+    By \Cref{lem:smallerBall}, there is some $B_{d'}(x, \delta)$
+    such that $x \in B_{d'}(x, \delta) \subseteq B'$.
+
+    ($\Leftarrow$)
+    Let $x \in X$; let $B$ be any basis element of $\mcal T$ that contains $x$.
+    By \Cref{lem:smallerBall}, there is some $B_d(x, \veps)$
+    such that $B_d(x, \veps) \subseteq B$.
+    By supposition, there exists $\delta \in \RR_+$
+    such that $x \in B_{d'}(x, \delta) \subseteq B_d(x, \veps)$.
+    Thus, by \Cref{lem:finerIff}, $\mcal T'$ is finer than $\mcal T$.
+}
+
+\thm{}{
+    The topologies on $\RR[n]$ induced by $d$ and $\rho$ are the same
+    as the product topology on $\RR[n]$.
+}
+\pf{Proof}{
+    Let $\mcal T_d$ and $\mcal T_{\rho}$ be the topologies
+    induced by $d$ and $\rho$, respectively.
+    Let $\mcal T_{\RR[n]}$ be the product topology on $\RR[n]$.
+
+    ($\mcal T_d = \mcal T_{\rho}$)
+    Let $\vec x = (x_1, \cdots, x_n)$ and $\vec y = (y_1, \cdots, y_n)$.
+    Let $M \in [n]$ such that $|x_M - y_M| = \rho(\vec x, \vec y)$.
+
+    Then,
+    \[
+        \begin{aligned}[t]
+            \rho(\vec x, \vec y)^2 = |x_M - y_M|^2 &\le \sum_{i=1}^{n} (x_i - y_i)^2 = d(\vec x, \vec y)^2 \\
+                                                   &\le \sum_{i=1}^{n} (x_M-y_M)^2 = n \rho(\vec x, \vec y)^2\text{;}
+        \end{aligned}
+    \]
+    thus
+    \[
+        \rho(\vec x, \vec y) \le d(\vec x, \vec y) \le \sqrt{n} \rho(\vec x, \vec y)\text{.}
+    \]
+
+    Therefore, we get, for every $\vec x \in \RR[n]$ and $\veps \in \RR_+$,
+    \[
+        B_d(\vec x, \veps) \subseteq B_{\rho}(\vec x, \veps) \quad \text{and} \quad
+        B_{\rho}(\vec x, \veps/ \sqrt{n}) \subseteq B_d(\vec x, \veps)\text{.}
+    \]
+    By \Cref{lem:metricFinerIff}, one is finer than the other; $\mcal T_d = \mcal T_\rho$.
+    
+    ($\mcal T_{\rho} = \mcal T_{\RR[n]}$)
+    $\mcal T_{\rho} \subseteq \mcal T_{\RR[n]}$ is direct since
+    every basis element
+    \[
+        B_{\rho}(\vec x, \veps)
+        = (x_1 - \veps, x_1 + \veps) \times \cdots \times (x_n - \veps, x_n + \veps)
+    \]
+    of $\mcal T_\rho$ is a basis element of $\mcal T_{\RR[n]}$, by \Cref{lem:finerIff},
+    $\mcal T_{\rho} \subseteq \mcal T_{\RR[n]}$.
+
+    To prove the other containment, take any $\vec x \in \RR[n]$
+    and let $B = \prod_{i=i}^n (a_i, b_i)$ be a basis element of $\mcal T_{\RR[n]}$
+    that contains $x$.
+    For each $i \in [n]$, let $\veps_i = \min \{\,x_i - a_i, b_i - x_i\,\}$.
+    Then, $(x_i - \veps_i, x_i + \veps_i) \subseteq (a_i, b_i)$ for all $i \in [n]$.
+    Thus, it follows that $\vec x \in B_{\rho}(\vec x, \min_{i=1}^n \veps_i) \subseteq B$;
+    $\mcal T_{\RR[n]} \subseteq \mcal T_{\rho}$ by \Cref{lem:finerIff}.
+}
+
+\cor{}{
+    The product topology on $\RR[n]$ is metrizable.
+}
+
+\thm[unifMetric]{}{
+    Given an index set $J$ and given points $\vec x = (x_\alpha)_{\alpha \in J}$
+    and $\vec y = (y_\alpha)_{\alpha \in J}$ of $\RR[J]$,
+    let us define $\ol \rho \colon \RR[J] \times \RR[J] \to \RR$ by
+    \[
+        \ol \rho(\vec x, \vec y) = \sup \{\,\ol d(x_\alpha, y_\alpha) \mid \alpha \in J \,\}
+    \]
+    where $\ol d$ is the standard bounded metric on $\RR$.
+    Then, $\ol \rho$ is a metric on $\RR[J]$.
+}
+\pf{Proof}{
+    The positive definiteness and the symmetry is direct.
+    Let us check the triangle inequality.
+
+    Let $\vec x, \vec y, \vec z \in \RR[J]$.
+    For each $\alpha \in J$, it holds that
+    \[
+        \ol d(x_\alpha, z_\alpha) \le \ol d(x_\alpha, y_\alpha) + \ol d(y_\alpha, z_\alpha)
+        \le \ol \rho(\vec x, \vec y) + \ol \rho(\vec y, \vec z)\text{.}
+    \]
+    Therefore, $\ol \rho(\vec x, \vec z) \le \ol \rho(\vec x, \vec y) + \ol \rho(\vec y, \vec z)$.
+}
+
+\dfn{Uniform Metric and Uniform Topology}{
+    Given an index set $J$, $\ol \rho$ in the \Cref{th:unifMetric}
+    is called the \textit{unifrom metric} on $\RR[J]$,
+    and the topology it induces is called the \textit{uniform topology}.
+}
+
 
 \end{document}
