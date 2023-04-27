@@ -544,7 +544,7 @@
     \begin{itemize}[noitemsep]
         \ii $\inter A \subseteq A \subseteq \cl A$
         \ii $\inter A$ is open, and $\cl A$ is closed.
-        \ii $\inter A$ is the largest open set contained $A$, and $\cl A$ is the smallest closed set containing $A$.
+        \ii $\inter A$ is the largest open set contained in $A$, and $\cl A$ is the smallest closed set containing $A$.
     \end{itemize}
 }
 
@@ -1551,5 +1551,175 @@
     and the topology it induces is called the \textit{uniform topology}.
 }
 
+\thm{}{
+    The uniform topology on $\RR[J]$ is finer than the product topology
+    and coarser than the box topology.
+    Moreover, they are all strict when $J$ is infinite. In other words,
+    \[
+        \mcal T_\text{product} \subseteq \mcal T_\text{uniform} \subseteq \mcal T_\text{box}
+    \]
+    They are strict if $J$ is infinite.
+}
+\pf{Proof}{
+    ($\mcal T_\text{product} \subseteq \mcal T_\text{uniform}$)
+    Let $B = \prod_{\alpha \in J} U_\alpha$ be a basis element of the product topology
+    and $\vec x \in B$.
+    Let $\alpha_1, \alpha_2, \cdots, \alpha_n$ be the indices
+    such that $U_{\alpha_i} \neq \RR$.
+    Then, for each $i \in [n]$, there exists $\veps_i \in \RR_+$
+    such that $B_{\ol d}(x_{\alpha_i}, \veps_i) \subseteq U_{\alpha_i}$.
+    Let $\veps \triangleq \min_{i=1}^n \veps_i$.
+    Then, $B_{\ol \rho}(\vec x, \veps) \subseteq B$.
+    The result follows from \Cref{lem:finerIff}. \checkmark
+
+    ($\mcal T_\text{uniform} \subseteq \mcal T_\text{box}$)
+    Let $B$ be any basis element of the uniform topoloy and $\vec x \in B$.
+    Then, \Cref{lem:smallerBall} implies that there is some $\veps$-ball centered at $\vec x$
+    such that $B_{\ol \rho}(\vec x, \veps) \subseteq B$.
+    Then, $\prod_{\alpha \in J} (x_\alpha - \veps/2, x_\alpha + \veps/2)$
+    is an open neighborhood of $\vec x$ which is contained in $B$. \checkmark
+
+    ($\mcal T_\text{product} \nsupseteq \mcal T_\text{uniform}$ if $J$ is infinite)
+    Let $0 < \veps < 1$ and $\vec x \in \RR[J]$.
+    Then, $\vec x \in B_{\ol \rho}(\vec x, \veps)$ but
+    there is no basis element of the product topology that is contained in $B_{\ol \rho}(\vec x, \veps)$.
+    By \Cref{lem:finerIff}, the product topology is not finer than the uniform topology. \checkmark
+
+    ($\mcal T_\text{uniform} \nsupseteq \mcal T_\text{box}$ if $J$ is infinite.)
+    Let $U \triangleq \prod_{\alpha \in J} (0, 2)$,
+    which is a basis element of the box topology
+    There is an injective function $f \colon \ZZ_+ \hookrightarrow J$ by \Cref{th:InfSetTFAE}.
+    Let $\vec x \in U$ where
+    \[
+        x_\alpha = \begin{cases}
+            1/n & \text{if } \exs n \in \NN_+,\: f(n) = \alpha \\
+            1   & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, no basis element that contains $\vec x$ can be contained in $U$.
+    If otherwise, there is an $B_{\ol \rho}(\vec x, \veps') \subseteq U$ by \Cref{lem:smallerBall}.
+    However, there exists $\alpha_0 \in J$ such that $f(n) = \alpha_0$
+    where $n \veps' > 2$, which implies $x_{\alpha_0} = 1/n < \veps'/2$. \checkmark
+
+    Let $\vec x' \in \RR[J]$ defined by
+    \[
+        x'_\alpha = \begin{cases}
+            x_{\alpha_0} - \veps'/2 & \text{if } \alpha = \alpha_0 \\
+            x_\alpha & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, $\vec x' \in B_{\ol \rho}(\vec x, \veps')$
+    but $x'_{\alpha_0} - \veps'/2 < 0$; $\vec x' \notin U$.
+    This contradicts $B_{\ol \rho}(\vec x, \veps') \subseteq U$. \checkmark
+}
+
+\thm{$\RR[\omega]$ Is Metrizable}{
+    Let $\ol d$ be the standard bounded metric on $\RR$.
+    If $\vec x, \vec y \in \RR[\omega]$, define
+    \[
+        D(\vec x, \vec y) = \sup \left\{\,\frac{\ol d(x_i, y_i)}{i} \:\bigg|\: i \in \ZZ_+\,\right\}\text{.}
+    \]
+    Then $D$ is a metric that induces the product topology on $\RR[\omega]$.
+}
+\pf{Proof}{
+    ($D$ is a metric on $\RR[\omega]$.)
+    The positive definiteness and the symmetry of $D$ is direct.
+    Note that, for each $i \in \ZZ_+$,
+    \[
+        \frac{\ol d(x_i, z_i)}{i} \le \frac{\ol d(x_i, y_i)}{i} + \frac{\ol d(y_i, z_i)}{i}
+        \le D(\vec x, \vec y) + D(\vec y, \vec z)\text{.}
+    \]
+    Thus,
+    \[
+        D(\vec x, \vec z) = \sup \left\{\,\frac{\ol d(x_i, z_i)}{i} \:\bigg|\: i \in \ZZ_+\,\right\}
+        \le D(\vec x, \vec y) + D(\vec y, \vec z)\text{. \checkmark}
+    \]
+
+    ($\mcal T_\text{metric} \subseteq \mcal T_\text{product}$)
+    Let $B$ be any $\veps'$-ball in the metric topology and let $\vec x \in B$.
+    Then, by \Cref{lem:smallerBall}, there exists $\veps \in \RR_+$ such that
+    $B_D(\vec x, \veps) \subseteq B$.
+    Take $N \in \ZZ_+$ such that $\veps N > 1$.
+    Let $V$ be the basis element for the product topology defined by
+    \[
+        V \triangleq (x_1 - \veps, x_1 + \veps) \times \cdots \times (x_N - \veps, x_N + \veps)
+        \times \RR \times \RR \times \cdots\text{.}
+    \]
+    Note that, given any $\vec y \in \RR[\omega]$ and $i \ge N$,
+    $\displaystyle \frac{\ol d(x_i, y_i)}{i} \le \frac{1}{N}$.
+    Thus, when $\vec y \in V$,
+    \[
+        D(\vec x, \vec y) \le \max \left\{\,\frac{\ol d(x_1, y_1)}{1}, \frac{\ol d(x_2, y_2)}{2}, \cdots
+        \frac{\ol d(x_{N}, y_{N})}{N}, \frac{1}{N}\right\} < \veps\text{.}
+    \]
+    Thus, $\vec x \in V \subseteq B_D(\vec x, \veps) \subseteq B$.
+    Now, \Cref{lem:finerIff} tells the result. \checkmark
+
+    ($\mcal T_\text{metric} \supseteq \mcal T_\text{product}$)
+    Let $B = \prod_{i \in \ZZ_+} U_i$ be a basis element of the product topology and $\vec x \in B$.
+    Let $i_1, i_2, \cdots, i_n$ be the indices such that $U_{i_k} \neq \RR$ for each $k \in [n]$.
+
+    For each $k \in [n]$, since $U_{i_k}$ is open,
+    there exists $\veps_k \in (0,1)$ such that $(x_{i_k} - \veps_k, x_{i_k} + \veps_k) \subseteq U_{i_k}$.
+    Let $\veps \triangleq \min_{k=1}^n (\veps_k/i_k)$.
+
+    Now we claim that $B_D(\vec x, \veps) \subseteq U$.
+    Let $\vec y \in B_D(\vec x, \veps)$.
+    Then, for all $k \in [n]$,
+    \[
+        \ol d(x_{i_k}, y_{i_k}) \le i_k \cdot D(\vec x, \vec y) < i_k \veps \le \veps_k < 1\text{.}
+    \]
+    It follows that $|x_{i_k} - y_{i_k}| < \veps_k$; therefore $\vec y \in B$. \checkmark
+}
+
+\section{The Metric Topology (continued)}
+
+\thm[contiIffED]{The $\veps$-$\delta$ Definition of Continuity}{
+    Let $f \colon X \to Y$; let $X$ and $Y$ be metrizable with metrics $d_X$ and $d_Y$, respectively.
+    Then, $f$ is continuous if and only if
+    \[
+        \forall x \in X,\: \forall \veps \in \RR_+, \exs \delta \in \RR_+,\:
+        \forall y \in Y,\: \big(d_X(x, y) < \delta \implies d_Y(f(x), f(y)) < \veps\big)\text{.}
+    \]
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Given $x \in X$ and $\veps \in \RR_+$,
+    the set $f\inv\big(B(f(x), \veps)\big)$ is open and contains $x$.
+    Thus, there is some $\delta$-ball $B(x, \delta)$ centered at $x$
+    such that $x \in B(x, \delta) \subseteq f\inv\big(B(f(x), \veps)\big)$. \checkmark
+    
+    ($\Leftarrow$)
+    Let $V$ be open in $Y$; we claim that $f\inv(V)$ is open in $X$.
+    Let $x \in f\inv(V)$. Since $f(x) \in V$, there is some $\veps$-ball
+    $B(f(x), \veps)$ such that $B(f(x), \veps) \subseteq V$.
+    By the supposition, there is some $\delta \in \RR_+$
+    such that $f\big(B(x, \delta)\big) \subseteq B(f(x), \veps)$.
+    Thus, $x \in B(x, \delta) \subseteq f\inv(B(f(x), \veps)) \subseteq f\inv(V)$.
+    This implies $f\inv(V)$ is open by definition. \checkmark
+}
+
+\mlemma[seqLemma]{The Sequence Lemma}{
+    Let $X$ be a topologicalspace; let $A \subseteq X$.
+    If there is a sequence of points in $A$ converging to $x$, then $x \in \cl A$.
+    Moreover, the converse holds if $X$ is metrizable.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Suppose $x_n \to x$ and $x_n \in A$. This means every neighborhood $U$ of $x$
+    intersects $A$, so $x \in \cl A$ by \Cref{th:inClosureIffNeighCapANonempty}. \checkmark
+
+    ($\Leftarrow$)
+    For each $n \in \ZZ_+$, choose $x_n$ in $B_d(x, 1/n) \cap A$.
+    This is possible since \Cref{th:inClosureIffNeighCapANonempty}
+    ensures that the intersections are not empty.
+    
+    We now claim that $x_n \to x$.
+    Let $V$ be any neighborhood of $x$.
+    Then, there is some $\veps$-ball centered at $x$ which is contained in $V$.
+    There exists $N \in \ZZ_+$ such that $\veps N > 1$.
+    Thus, for all $n \in \ZZ_+$ not smaller than $N$,
+    $x_n \in B(x, 1/n) \subseteq B(x, \veps) \subseteq V$. \checkmark
+}
 
 \end{document}
