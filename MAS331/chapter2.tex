@@ -773,7 +773,7 @@
     \] is open in $X$.
 }
 
-\thm[contiEquiv]{}{
+\thm[contiTFAE]{}{
     Let $X$ and $Y$ be topological spaces. \textsf{TFAE}
     \begin{enumerate}[noitemsep, label=(\roman*)]
         \ii $f$ is continuous.
@@ -960,7 +960,7 @@
     \[
         f\inv(C) = f\inv(C) \cup g\inv(C)\text{.}
     \] Since $f$ and $g$ are continuous and $C$ is closed,
-    $f\inv(C)$ and $g\inv(C)$ are closed by \Cref{th:contiEquiv}.
+    $f\inv(C)$ and $g\inv(C)$ are closed by \Cref{th:contiTFAE}.
     Thus, $h\inv(C)$ is closed.
 }
 
@@ -1699,10 +1699,21 @@
     This implies $f\inv(V)$ is open by definition. \checkmark
 }
 
+\dfn{Local Basis}{
+    A space $X$ is said to have a \textit{countable basis at the point} $x \in X$
+    if there is a countable collection $\mcal U$ of open neighborhoods of $x$ such that
+    any neighborhood $U$ of $x$ contains at least one of element of $\mcal U$.
+}
+
+\dfn{First Countable Axiom}{
+    A space $X$ satisfies the \textit{first countable axiom}
+    if it has countable local basis at each point.
+}
+
 \mlemma[seqLemma]{The Sequence Lemma}{
-    Let $X$ be a topologicalspace; let $A \subseteq X$.
+    Let $X$ be a topological space; let $A \subseteq X$.
     If there is a sequence of points in $A$ converging to $x$, then $x \in \cl A$.
-    Moreover, the converse holds if $X$ is metrizable.
+    Moreover, the converse holds if $X$ satisfies the first countable axiom.
 }
 \pf{Proof}{
     ($\Rightarrow$)
@@ -1710,16 +1721,41 @@
     intersects $A$, so $x \in \cl A$ by \Cref{th:inClosureIffNeighCapANonempty}. \checkmark
 
     ($\Leftarrow$)
-    For each $n \in \ZZ_+$, choose $x_n$ in $B_d(x, 1/n) \cap A$.
-    This is possible since \Cref{th:inClosureIffNeighCapANonempty}
-    ensures that the intersections are not empty.
-    
-    We now claim that $x_n \to x$.
-    Let $V$ be any neighborhood of $x$.
-    Then, there is some $\veps$-ball centered at $x$ which is contained in $V$.
-    There exists $N \in \ZZ_+$ such that $\veps N > 1$.
-    Thus, for all $n \in \ZZ_+$ not smaller than $N$,
-    $x_n \in B(x, 1/n) \subseteq B(x, \veps) \subseteq V$. \checkmark
+    Let $\{U_n\}_{n \in \ZZ_+}$ be a local basis for $x$.
+    Set $B_n \triangleq \bigcap_{i=1}^n U_i$
+    so that $B_1 \supseteq B_2 \supseteq \cdots$.
+    Since $x \in \cl A$ and $x \in B_n$ is open,
+    we may take $x_n \in A \cap B_n$.
+
+    We want to show that $x_n \to x$.
+    Take any neighborhood $U$ of $x$.
+    Then, it contains $U_{n_0}$ for some $n_0 \in \ZZ_+$.
+    Then, for all $n \ge n_0$, $x_n \in U_{n_0} \in U$. \checkmark
+}
+
+\mlemma[seqConvIffImgConv]{}{
+    Let $X$ and $Y$ be topological spaces.
+    If $f \colon X \to Y$ is continuous,
+    then for every convergent sequence $x_n \to x$,
+    the sequence $f(x_n)$ converges to $f(x)$.
+    The converse also holds if $X$ satisfies the first countable axiom.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Let $V$ be a neighborhood of $f(x)$ in $Y$.
+    Then, $f\inv(V)$ is a neighborhood of $x$ in $X$
+    since $f$ is continuous.
+    Since $x_n \to x$, there is some $n_0 \in \ZZ_+$
+    such that $x_n \in f\inv(V)$ whenever $n \ge n_0$,
+    i.e., $f(x_n) \in V$ whenever $n \ge n_0$. \checkmark
+
+    ($\Leftarrow$)
+    We claim that $f(\cl A) \subseteq \cl{f(A)}$ for any $A \subseteq X$,
+    and thus $f$ is continuous by \Cref{th:contiTFAE}.
+    Let $x \in \cl A$. Then, by \Cref{lem:seqLemma},
+    there is a sequence $\{x_n\}_{n \in \ZZ_+} \subseteq A$ that converges to $x$.
+    Then, by assumption, the sequence $\{f(x_n)\}_{n \in \ZZ_+}$ in $f(A)$ converges to $f(x)$.
+    By \Cref{lem:seqLemma}, $f(x) \in \cl{f(A)}$. \checkmark
 }
 
 \end{document}
