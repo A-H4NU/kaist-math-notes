@@ -1,0 +1,90 @@
+\documentclass[MAS331_Note.tex]{subfiles}
+
+\begin{document}
+\chapter{Connectedness and Compactness}
+
+\section{Connected Space}
+\dfn{Separation and Connectedness}{
+    Let $X$ be a topological space.
+    A \textit{separation} of $X$ is a pair $U$ and $V$
+    of subsets of $X$ which satisfy the following.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $U$ and $V$ are open in $X$.
+        \ii $U \cap V = \varnothing$.
+        \ii $U \cup V = X$.
+    \end{enumerate}
+    The space $X$ is said to be \textit{connected}
+    if there does not exist a separation of $X$.
+}
+\nt{
+    Connectedness ia a topological property.
+}
+\nt{
+    A space $X$ is connected if and only if the only subsets of $X$
+    that are both open and closed in $X$ are the empty sets and $X$ itself.
+}
+
+\mlemma[sepIffNotContainLimPts]{}{
+    If $Y$ is a subspace of $X$,
+    $A, B \subseteq Y$ is a separation of $Y$
+    if and only if $A \cap B = \varnothing$, $A \cup B = Y$,
+    and neither $A$ nor $B$ contains a limit point of the other.
+}
+\pf{Proof}{
+    Suppose $A$ and $B$ form a separation of $Y$.
+    Then, $A$ is both open and closed in $Y$; thus
+    the closure of $A$ in $Y$ is $\cl A \cap Y = A$
+    by \Cref{th:closureSubspace}.
+    In other words, $\cl A \cap B = \varnothing$.
+    Similarly, $A \cap \cl B = \varnothing$. \checkmark
+
+    Suppose $A$ and $B$ are disjoint subsets of $Y$ whose union is $Y$
+    and $A \cap B' = A' \cap B = \varnothing$.
+    Thus, $A \cap \cl B = \cl A \cap B = \varnothing$.
+    This implies $\cl A \cap Y = A$ and $\cl B \cap Y = B$; $A$ and $B$ are closed in $Y$,
+    and thus they are open in $Y$ as well.
+}
+
+\mlemma[connInDisconn]{}{
+    If the sets $C$ and $D$ form a separation of a space $X$,
+    and if $Y$ is a connected subspace of $X$,
+    then $Y$ lies entirely within $C$ or $D$.
+}
+\pf{Proof}{
+    $C \cap Y$ and $D \cap Y$ are open in $Y$.
+    Also, $(C \cap Y) \cup (D \cap Y) = (C \cup D) \cap Y = Y$.
+    If they were both unempty, they would form a separation of $Y$.
+    Thus, one of them is empty; $Y$ is entirely in the other.
+}
+
+\thm[UconnIfHaveCommonPt]{}{
+    Let $X$ be a topological space.
+    Let $\{A_\alpha\}_{\alpha \in J}$ be a family of connected subspaces of $X$.
+    If $\bigcap_{\alpha \in J} A_\alpha \neq \varnothing$,
+    then $\bigcup_{\alpha \in J} A_\alpha$ is connected.
+}
+\pf{Proof}{
+    Take any $p \in \bigcap_{\alpha \in J} A_\alpha$.
+    Suppose $C$ and $D$ form a separation of $Y = \bigcup_{\alpha \in J} A_\alpha$.
+    \textsf{WLOG}, $p \in C$.
+    For each $\alpha \in J$, since $p \in C \cap A_\alpha$,
+    by \Cref{lem:connInDisconn}, $A_\alpha \subseteq C$.
+    Thus, $\bigcup_{\alpha \in J} A_\alpha \subseteq C$,
+    contradicting that $D \cap Y \neq \varnothing$.
+}
+
+\thm[connIfBtwAandClA]{}{
+    Let $A$ be a connected subspace of $X$.
+    If $A \subseteq B \subseteq \cl A$,
+    then $B$ is also connected.
+}
+\pf{Proof}{
+    Suppose $B = C \cup D$ is a separation of $B$
+    for the sake of contradiction.
+    By \Cref{lem:connInDisconn}, \textsf{WLOG}, $A \subseteq C$.
+    Then, $B \subseteq \cl A \subseteq \cl C$.
+    Since $\cl C \cap D = \varnothing$ by \Cref{lem:sepIffNotContainLimPts},
+    $B \cap D = \varnothing$, which makes $C$ and $D$ not form a separation, \#.
+}
+
+\end{document}

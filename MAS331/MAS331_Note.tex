@@ -5,6 +5,25 @@
 \input{macros}
 \input{letterfonts}
 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\iftrue
+\pgfplotsset{
+    axis lines=middle,
+    xlabel=$x$,
+    ylabel=$y$,
+    no markers,
+    samples=200,
+    trig format plots=rad,
+    every axis plot/.append style={
+        line width=.7pt,
+        smooth,
+    },
+}
+\fi
+\usepgfplotslibrary{fillbetween}
+\pgfmathsetmacro{\PI}{3.141592654}
+
 \pdfsuppresswarningpagegroup=1
 
 \hypersetup{
@@ -12,7 +31,7 @@
     linkcolor=black,
     filecolor=black,
     urlcolor=black,
-    pdftitle={},
+    pdftitle={MAS331 Topology Notes},
     pdfpagemode=FullScreen,
 }
 
@@ -28,4 +47,5 @@
 \pagebreak
 \subfile{chapter1.tex} 
 \subfile{chapter2.tex}
+\subfile{chapter3.tex}
 \end{document}

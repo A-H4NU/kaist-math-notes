@@ -349,7 +349,7 @@ Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
 }
 \solve{
 (i) Suppose there are $n$ finite sets $A_1$, $A_2$, $\cdots$, $A_n$ to union.
-WLOG, $A_i \neq \varnothing$ for each $i \in [n]$.
+\textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
 Let $M \coloneqq \max_{i \in [n]} |\,A_i\,|$ and $g_i \colon [|\,A_i\,|] \to A_i$ be a bijective function for each $i \in [n]$.
 Extend each $g_i$ to $g_i' \colon [M] \to A_i$ by \[
 	g_i'(k) = \begin{cases}
@@ -362,7 +362,7 @@ Extend each $g_i$ to $g_i' \colon [M] \to A_i$ by \[
 Therefore, $\bigcup_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 
 (ii) Suppose there are $n$ finite sets $A_1$, $A_2$, $\cdots$, $A_n$ to construct a Cartesian product with.
-WLOG, $A_i \neq \varnothing$ for each $i \in [n]$.
+\textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
 Let $M \coloneqq \max_{i \in [n]} |\,A_i\,|$ and $h_i \colon A_i \to [|\,A_i\,|]$ be a bijective function for each $i \in [n]$.
 Let $p_i$ be the $i^{\text{th}}$ prime. (i.e., $p_1 = 2$, $p_2 = 3$, $p_3 = 5$.)
 Define a function $f \colon \prod_{i \in [n]} A_i \to \left[ \left( \prod_{i=1}^n p_i \right)^M \right]$ by \[
@@ -457,7 +457,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 
 \solve{
     Let $\{A_i\}_{i \in J}$ be an indexed family of sets where $J$ and $A_i$'s are countable.
-    WLOG, $A_i \neq \varnothing$ for each $i \in J$.
+    \textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in J$.
     For each $i \in J$, since $A_i$ is countable, by \Cref{th:countSetFTAE},
     there is a surjection $g_i \colon \ZZ_+ \twoheadrightarrow A_i$.
     Similarly, since $J$ is countable, there is a surjection $h \colon \ZZ_+ \twoheadrightarrow J$.
@@ -472,7 +472,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 }
 \solve{
     Suppose there are $n \in \ZZ_+$ sets $A_1$, $A_2$, $\cdots$, $A_n$ to make Cartesian product with
-    and each $A_i$ is countable. WLOG, $A_i \neq \varnothing$ for each $i \in [n]$.
+    and each $A_i$ is countable. \textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
     For each $i \in [n]$, there is a injection $g_i \colon A_i \to \ZZ_+$ by \Cref{th:countSetFTAE}.
 
     Now, construct a fuction $f \colon \prod_{i=1}^n A_i \to \ZZ_+$ by \[
