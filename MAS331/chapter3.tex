@@ -87,4 +87,87 @@
     $B \cap D = \varnothing$, which makes $C$ and $D$ not form a separation, \#.
 }
 
+\thm[contiSendsContiToConti]{Connected Space and Continuous Map}{
+    Let $f \colon X \to Y$ be a continuous map.
+    If $X$ is connected, then $\Img f$ is connected.
+}
+\pf{Proof}{
+    Note that the surjective map $g \colon X \to \Img f$ obtained by
+    restricting the codomain of $f$ is also continuous by \Cref{th:constructConti}.
+    Suppose $\Img f = A \cup B$ is a separation of $\Img f$.
+    Then, $g\inv(A)$ and $g\inv(B)$ are open and disjoint sets in $X$
+    whose union is $X$, which is a contradiction to the connectedness of $X$.
+}
+
+\thm[finProdConnIsConn]{Connected Space and Finite Product}{
+    Let $\{X_i\}_{i=1}^n$ be a finite family of connected spaces.
+    then,
+    \[
+        X = \prod_{i=1}^n X_i
+    \] is connected.
+}
+\pf{Proof}{
+    It is enough to prove for two connected spaces $X$ and $Y$;
+    extension to finite products can be done inductively.
+    We may assume $X$ and $Y$ are nonempty.
+    Take any $a \times b \in X \times Y$.
+    Let $x \in X$.
+    $X \times \{b\}$ and $\{x\} \times Y$ as subspaces of $X \times Y$
+    are connected since they are homeomorphic with $X$ and $Y$, respectively.
+    Thus,
+    \[
+        T_x = (X \times \{b\}) \cup (\{x\} \times Y)
+    \] is connected by \Cref{th:UconnIfHaveCommonPt}, having
+    $x \times b$ as a common point of two spaces.
+    Thus, \[
+        X \times Y = \bigcup_{x \in X} T_x
+    \] is connected as they have a point $a \times b$ in common.
+}
+
+\thm[arbProdConnIsConn]{Connected Space and Product Topology}{
+    Let $\{X_\alpha\}_{\alpha \in J}$ be a family of connected spaces.
+    Then,
+    \[
+        X = \prod_{\alpha \in J} X_{\alpha}
+    \] is connected in the product topology.
+}
+\pf{Proof}{
+    We may assume that $X_\alpha \neq \varnothing$ for each $\alpha \in J$.
+    Let $\vec a = (a_\alpha)_{\alpha \in J}$ be a fixed point of $X$.
+
+    We first note that, given any finite subset $K$ of $J$,
+    $X_K \triangleq \{\,(x_\alpha)_{\alpha \in J} \mid
+    \forall \alpha \in J \setminus K,\: x_\alpha = a_\alpha\,\}$
+    is a connected subspace of $X$ as $X_K$ is homeomorphic with $\prod_{\alpha \in K} X_\alpha$,
+    which is connected by \Cref{th:finProdConnIsConn}.
+    Note that $Y \triangleq \bigcup \{\,X_K \mid K \subseteq J \text{ and } K \text{ is finite}\,\}$
+    as a subspace of $X$ is connected since $\vec a \in X_K$ for every finite $K \subseteq J$.
+
+    Let $\vec x \in X$ and $B = \bigcap_{i=1}^n \pi_{\alpha_i}\inv(U_{\alpha_i})$ be
+    any basis that contains $\vec x$ where $\alpha_i \in J$ for each $i \in [n]$.
+    Define $\vec x' \in X$ be
+    \[
+        (\vec x')_{\alpha} \triangleq \begin{cases}
+            x_\alpha & \text{if } \alpha = \alpha_i \text{ for some } i \in [n] \\
+            a_\alpha & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, $\vec x' \in B \cap Y$. Thus, by \Cref{th:inClosureIffNeighCapANonempty},
+    $\cl Y = X$. By \Cref{th:connIfBtwAandClA}, $X$ is connected.
+}
+
+\exmp{$\RR[\omega]$ in the Box Topology is Disconnected}{
+    Let
+    \[
+        \begin{aligned}[t]
+            A &= \{\,\vec x \in \RR[\omega] \mid \vec x \text{ is bounded}\,\}\text{ and} \\
+            B &= \{\,\vec x \in \RR[\omega] \mid \vec x \text{ is unbounded}\,\}\text{.}  \\
+        \end{aligned}
+    \]
+    If $\vec a$ is in either $A$ or $B$, $\prod_{i \in \ZZ_+} (a_i - 1, a_i + 1)$
+    is an open set that is contained in either $A$ or $B$.
+    Thus, each $A$ and $B$ are disjoint open sets in $\RR[\omega]$
+    whose union is $\RR[\omega]$.
+}
+
 \end{document}
