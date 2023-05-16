@@ -87,7 +87,7 @@
     $B \cap D = \varnothing$, which makes $C$ and $D$ not form a separation, \#.
 }
 
-\thm[contiSendsContiToConti]{Connected Space and Continuous Map}{
+\thm[contiSendsConnToConn]{Connected Space and Continuous Map}{
     Let $f \colon X \to Y$ be a continuous map.
     If $X$ is connected, then $\Img f$ is connected.
 }
@@ -168,6 +168,457 @@
     is an open set that is contained in either $A$ or $B$.
     Thus, each $A$ and $B$ are disjoint open sets in $\RR[\omega]$
     whose union is $\RR[\omega]$.
+}
+
+\section{Connected Subspaces of the Real Line}
+
+\dfn[defLinConti]{Linear Continuum}{
+    A simply ordered set $L$ having more than one element
+    is called \textit{linear continuum} if the following hold:
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $L$ has the least upper bound property.
+        \ii $\forall x, y \in L,\: (x < y \implies \exs z \in L,\: x < z < y)$.
+    \end{enumerate}
+}
+
+\nt{
+    $\RR$ is a linear continuum.
+}
+
+\exmp[orderSqIsLinConti]{The Ordered Square is a Linear Continuum}{
+    Let $I = [0, 1]$ and $I_0^2 = I \times I$ be the ordered square
+    with the dictionary ordering.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Let $\varnothing \neq A \subseteq I_0^2$ and $\pi_1 \colon I_0^2 \to I$
+            be the projection onto its first factor.
+            Then, $\pi_1(A)$ is bounded above by $1$.
+            Let $b \triangleq \sup \pi_1(A)$. ($[0, 1]$ has l.u.b. property.)
+            
+            If $b \in A$, it implies that $A \cap (\{b\} \times I) \neq \varnothing$
+            and is bounded above by $1$.
+            Thus, we may let $c \triangleq \sup \big(A \cap (\{b\} \times I)\big)$.
+            One may readily check that $\sup A_0 = b \times c$.
+
+            If $b \neq A_0$, then $b \times 0$ is
+            the trivial least upper bound of $A_0$. \checkmark
+
+        \ii Suppose $x_1 \times y_1 < x_2 \times y_2$.
+            If $x_1 < x_2$, then
+            $x_1 \times y_1 < (x_1+x_2)/2 \times 0 < x_2 \times y_2$.
+            If $x_1 = x_2$, then, 
+            $x_1 \times y_1 < x_1 \times (y_1 + y_2) / 2 < x_2 \times y_2$. \checkmark
+    \end{enumerate}
+}
+
+\thm[linContiIsConn]{}{
+    If $L$ is a linear continuum in the order topology,
+    any convex subspace of $L$ is connected.
+}
+\pf{Proof}{
+    Let $Y$ be a convex subspace of $L$.
+    Suppose $Y = A \cup B$ is a separation of $Y$ for the sake of contradiction.
+    Take any $a \in A$ and $b \in B$. \textsf{WLOG}, $a < b$.
+    $[a, b] \subseteq Y$ as $Y$ is convex,
+    and $[a, b]$ as a subspace of $Y$ is exactly $[a, b]$ in the order topology
+    by \Cref{th:convexThenSubspaceIsOrder}.
+    Hence,
+    \[
+        A_0 \triangleq A \cap [a, b] \quad\text{and}\quad
+        B_0 \triangleq B \cap [a, b]
+    \]
+    form a separation of $[a, b]$.
+
+    Let $c \triangleq \sup A_0$. Then, $c \ge a$ as $a \in A_0$, and
+    $c \le b$ as, if $c$ were larger than $b$,
+    there would be $z \in L$ such that $b < z < c$,
+    which is an upper bound of $A_0$ smaller than $c$.
+    However, we claim that $c \notin A_0 \cup B_0 = [a, b]$,
+    which leads to a contradiction.
+
+    ($c \notin A_0$) Suppose $c \in A_0$ for the sake of contradiction.
+    Since $A_0$ is open in $[a, b]$,
+    there must exist $e \in (c, b]$ such that $[c, e) \subseteq A_0$.
+    ($e$ cannot be larger than $b$ as $b \notin A_0$.)
+    As the existence of $e' \in (c, e) \cap L$ is guaranteed
+    and such $e'$ is in $A_0$, $c$ is no longer an upper bound of $A_0$, \#.
+
+    ($c \notin B_0$) Suppose $c \in B_0$ for the sake of contradiction.
+    Since $B_0$ is open in $[a, b]$,
+    there exists $e \in [a, c)$ such that $(e, c] \subseteq B_0$.
+    ($e$ cannot be smaller than $a$ as $a \notin B_0$.)
+    Since, $(c, \infty) \cap A_0 = \varnothing$ as $c$ is the supremum of $A_0$,
+    $e$ is an upper bound of $A_0$ that is smaller than $c$, \#.
+}
+
+\cor[RisConn]{}{
+    $\RR$ and intervals and rays in $\RR$ are connected.
+}
+
+\thm[ivt]{Intermediate Value Theorem}{
+    Let $X$ be a connected space and $Y$ has an order topology.
+    Let $f \colon X \to Y$ be a continuous map.
+    Then, if $a, b \in X$ and $r \in Y$ satisfy $f(a) \le r \le f(b)$,
+    there exists $c \in X$ such that $f(c) = r$.
+}
+\pf{Proof}{
+    If $f(a) = r$ or $f(b) = r$, then done.
+    So suppose $f(a) < r < f(b)$.
+    $\Img f$ is connected by \Cref{th:contiSendsConnToConn}.
+    Let
+    \[
+        A \triangleq \Img f \cap (-\infty, r) \quad\text{ and }\quad
+        B \triangleq \Img f \cap (r, \infty)\text{.}
+    \]   
+    Then, $A$ and $B$ are open in $\Img f$ and $f(a) \in A$ and $f(b) \in B$.
+    Thus, it cannot happen that $\Img f \setminus \{r\} = A \cup B = \Img f$ since $\Img f$ is connected.
+    Therefore, $r \in \Img f$.
+}
+
+\dfn{Path and Path Connectedness}{
+    Let $X$ be a space.
+    Given $x, y \in X$, a \textit{path} in $X$
+    from $x$ to $y$ is a continuous map
+    $f \colon [a, b] \to X$ where $[a, b]$ is a subspace of $\RR$,
+    $f(a) = x$, and $f(b) = y$.
+    The space $X$ is \textit{path connected}
+    if there exists a path in $X$ from $x$ to $y$
+    for every $x, y \in X$.
+}
+
+\exmp[puncturedEuclIsPathConn]{Punctured Euclidean Space}{
+    Define \textit{punctured Euclidean space} to be the space $\RR[n] \setminus \{\vec 0\}$,
+    where $\vec 0$ is the origin in $\RR[n]$.
+    If $n > 1$, the space is path connected.
+    We can join $\vec x$ and $\vec y$ by the line segment that has $x$ and $y$ as endpoints
+    if the segment does not go through $\vec 0$.
+    Otherwise, we may choose a point $\vec x'$
+    by flipping the sign of a coordiate of $\vec x$.
+    We have a line that connects $\vec x$ and $\vec x'$
+    and other line that connects $\vec x'$ and $\vec y$.
+}
+
+\thm[pathConnIsConn]{}{
+    Every path connected space is connected.
+}
+\pf{Proof}{
+    Let $X$ be a path connected space.
+    If $X = \varnothing$, it is done; let $X \neq \varnothing$.
+    Take $x \in X$.
+    For each $y \in X$, let $f_y \colon [0, 1] \to X$
+    be a path from $x$ to $y$.
+    Since $[0, 1]$ is connected (\Cref{cor:RisConn}),
+    $\Img f_y$ is connected by \Cref{th:contiSendsConnToConn}.
+    As $x \in \bigcap_{y \in X} \Img f_y$,
+    $X = \bigcup_{y \in X} \Img f_y$ is connected by \Cref{th:UconnIfHaveCommonPt}.
+}
+
+\exmp{Connectedness Does Not Imply Path Connectedness}{
+    By \Cref{exmp:orderSqIsLinConti}, $I_0^2$ is connected.
+    Suppose $I_0^2$ is path connected for the sake of contradiction.
+    Then, there is a path $f \colon [0, 1] \to I_0^2$ from $0 \times 0$ to $1 \times 1$.
+    \Cref{th:ivt} says that $\Img f = I_0^2$.
+    For each $x \in I$, let $U_x = f\inv(\{x\} \times I)$.
+    Note that $U_x \neq \varnothing$.
+    Since each $U_x$ is open as $f$ is continuous,
+    by the denseness of $\QQ$ in $\RR$, there exists
+    $q_x \in U_x \cap \QQ$ for each $x \in X$.
+    This implies the existence of a injection $g \colon I \to \QQ$
+    defined by $x \mapsto q_x$,
+    which is a contradiction as $I$ is uncountable. (\Cref{th:countSetTFAE})
+}
+
+\thm[contiSendsPathConnToPathConn]{Path Connected Space and Continuous Map}{
+    Let $f \colon X \to Y$ be a continuous map.
+    If $X$ is path connected, then $\Img f$ is path connected.
+}
+\pf{Proof}{
+    Take $y_1, y_2 \in \Img f$.
+    There exist $x_1, x_2 \in X$ such that $f(x_1) = y_1$ and $f(x_2) = y_2$.
+    Since $X$ is connected, there exists a continuous map
+    $g \colon [0, 1] \to X$ such that $g(0) = x_1$ and $g(1) = x_2$.
+    Then, $f \circ g \colon [0, 1] \to \Img f$ is
+    a continuous map such that $(f \circ g)(0) = y_1$ and $(f \circ g)(1) = y_2$
+    by \Cref{th:constructConti}.
+}
+\exmp{Unit Sphere}{
+    Define the \textit{unit sphere} $S^{n-1}$ in $\RR[n]$ by the equation
+    \[
+        S^{n-1} \triangleq \{\,\vec x \in \RR[n] \mid \|\vec x\| = 1\,\}\text{.}
+    \]
+    Then, the map $g \colon \RR[n] \setminus \{\vec 0\} \to S^{n-1}$ defined by
+    $\vec x \mapsto \vec x / \|\vec x\|$ is a continuous surjective map.
+    Moreover, if $n > 1$, since $\RR[n] \setminus \{0\}$
+    is path connected (\Cref{exmp:puncturedEuclIsPathConn}),
+    $S^{n-1} = \Img g$ is also path connected by \Cref{th:contiSendsPathConnToPathConn}.
+}
+
+\exmp[topSineCurve]{Topologist's Sine Curve}{
+    Let
+    \[
+        S \triangleq \left\{\, x \times \sin \frac{1}{x} \in \RR[2] \:\bigg|\: x \in (0, 1] \right\}\text{.}
+    \]
+    Since $S$ is a image of $(0, 1]$ under a continuous map $x \mapsto x \times \sin (1/x)$,
+    $S$ is (path) connected.
+    Thus, $\cl S$ is connected by \Cref{th:connIfBtwAandClA}.
+    Note that $S_0 \triangleq \cl S \setminus S = \{0\} \times [-1, 1]$.
+    ($S_0$ is also closed.)
+
+    Suppose $\cl S$ is path connected for the sake of contradiction.
+    Then, there is a path $f \colon [0, 1] \to \cl S$ from $0 \times 0$ to $f(1) \in S$.
+    $f\inv(S_0)$ is closed in $[0, 1]$ by \Cref{th:contiTFAE}.
+    Hence $b \triangleq \sup f\inv(S_0) \in f\inv(S_0)$ and $b \neq 1$.
+    $f(b) \in S_0$ and $f((b, 1]) \subseteq S$.
+
+    Reparametrize $f \colon [0, 1] \to \cl S$ so that
+    $t \mapsto x(t) \times y(t)$; $f(0) \in S_0$ and $f((0, 1]) \subseteq S$.
+    ($y(t) = \sin (1/x(t))$)
+    Since $x(t) > 0$ for $t \in (0, 1]$, $x$ is continuous, and $x(0) = 0$,
+    we may construct a sequence $\{t_n\}_{n \in \ZZ_+}$ such that
+    \[
+        \lim_{n \to \infty} t_n = 0\text{,} \quad
+        x(t_n) = \frac{1}{(n+1/2)\pi}\text{,} \quad\text{and thus}
+    \]\[
+        y(t_n) = \sin (1/x(t_n)) = \sin \big((n+1/2)\pi\big) = (-1)^n\text{.}
+    \]
+    However, $\{y(t_n)\}_{n \in \ZZ_+}$ diverges
+    although $y$ is continuous and $t_n \to 0$.
+    Thus, $\cl S$ is not path connected.
+}
+
+\section{Components and Local Connectedness}
+
+\dfn{Component}{
+    Given a space $X$, let $\sim$ be a equivalent relation defined by
+    \[
+        x \sim y \text{ if there is a connected subspace of } X
+        \text{ containing } x \text{ and } y\text{.}
+    \]
+    The equivalence classes of $\sim$ is called \textit{(connected) components} of $X$.
+}
+\nt{
+    Reflexivity follows from the fact that $\{x\}$ is a connected subspace of $X$
+    that contains $x$.
+    Symmetry is direct.
+
+    Let $x, y, z \in X$ and suppose $x \sim y$ and $y \sim z$.
+    There are connected subspaces $U$ and $V$ such that $x, y \in U$ and $y, z \in V$.
+    Then, $U \cup V$ is a connected subspace of $X$ that contains both $x$ and $z$
+    by \Cref{th:UconnIfHaveCommonPt}.
+}
+\nt{
+    Let $\{C_{\alpha}\}_{\alpha \in J}$ be the set of components of $X$.
+    Then, it is a partition of $X$ (indeed).
+}
+
+\thm[connSubsIsInSomeComp]{}{
+    Let $\{C_{\alpha}\}_{\alpha \in J}$ be the set of components of $X$.
+    If $A \subseteq X$ is a connected subspace of $X$,
+    then $A \subseteq C_\alpha$ for some $\alpha \in J$.
+}
+\pf{Proof}{
+    If $A = \varnothing$, it is done; suppose $A \neq \varnothing$.
+
+    Let $C_\alpha$ and $C_\beta$ be connected components.
+    If $A \cap C_\alpha \neq \varnothing$ and $A \cap C_\beta \neq \varnothing$,
+    we may take $x \in A \cap C_\alpha$ and $y \in A \cap C_\beta$,
+    which makes $x \sim y$.
+    This implies $x_\alpha \sim x_\beta$
+    for all $x_\alpha \in C_\alpha$ and $x_\beta \in C_\beta$;
+    thus $C_\alpha = C_\beta$.
+
+    Now, take any $\alpha \in A$.
+    Since $\{C_\alpha\}_{\alpha \in J}$ is a partition of $X$,
+    there exists some $\alpha \in J$ such that $a \in C_\alpha$.
+    By the previous result, $A \cap C_\beta = \varnothing$
+    for all $\beta \in J \setminus \{\alpha\}$.
+    Hence, $A \subseteq C_\alpha$
+}
+
+\thm[componentIsConn]{}{
+    Let $\{C_{\alpha}\}_{\alpha \in J}$ be the set of components of $X$.
+    Then, for each $\alpha \in J$, $C_\alpha$ is connected.
+}
+\pf{Proof}{
+    Take any $x_0 \in C_\alpha$.
+    Then, for each $x \in C_\alpha$,
+    there exists a connected subspace $A_x$
+    that contains both $x_0$ and $x$.
+    By \Cref{th:connSubsIsInSomeComp}, $A_x \subseteq C_\alpha$.
+    Thus, $C_\alpha = \bigcup_{x \in C_\alpha} A_x$,
+    which is connected by \Cref{th:UconnIfHaveCommonPt}.
+}
+
+\dfn{Path Component}{
+    Given a space $X$, let $\sim$ be a equivalent relation defined by
+    \[
+        x \sim y \text{ if there is a path in } X
+        \text{ from } x \text{ to } y\text{.}
+    \]
+    The equivalence classes of $\sim$ is called \textit{path components} of $X$.
+}
+
+\nt{
+    The relation is reflexive since
+    $f \colon [0, 1] \to X$ defined by $f(t) = x$ is a path from $x$ to $x$.
+
+    The relation is symmetric since,
+    if $f \colon [a, b] \to X$ is a path from $x$ to $y$,
+    then $g \colon [a, b] \to X$ defined by $g(t) = f(a + b - t)$
+    is a path from $y$ to $x$.
+
+    The relation is transitive since,
+    if $f \colon [a, b] \to X$ and $g \colon [c, d] \to X$ are
+    paths from $x$ to $y$ and from $y$ to $z$, respectively,
+    then $h \colon [a, b + d - c]$ defined by
+    \[
+        h(t) = \begin{cases}
+            f(t)         & \text{if } a \le t \le b \\
+            g(t - b + c) & \text{otherwise.}
+        \end{cases}
+    \]
+    is a path from $x$ to $z$.
+    $h$ is continuous by \Cref{th:pasting}.
+}
+
+\thm[pathConnSubsIsInSomePathComp]{}{
+    Let $\{P_{\alpha}\}_{\alpha \in J}$ be the set of path components of $X$.
+    If $A \subseteq X$ is a path connected subspace of $X$,
+    then $A \subseteq P_\alpha$ for some $\alpha \in J$.
+}
+\pf{Proof}{
+    Analogous to the proof of \Cref{th:connSubsIsInSomeComp}.
+}
+
+\thm[pathComponentIsPathConn]{}{
+    Let $\{P_{\alpha}\}_{\alpha \in J}$ be the set of path components of $X$.
+    Then, for each $\alpha \in J$, $P_\alpha$ is path connected.
+}
+\pf{Proof}{
+    Analogous to the proof of \Cref{th:componentIsConn}.
+}
+
+\cor[pathCompIsInSomeComp]{}{
+    Every path component is entirely contained in a connected component.
+}
+\pf{Proof}{
+    Every path component is path connected by \Cref{th:pathComponentIsPathConn},
+    and thus connected by \Cref{th:pathConnIsConn}.
+    By \Cref{th:connSubsIsInSomeComp}, it is contained in some connected component.
+}
+
+\cor[compIsClosed]{}{
+    Every component is closed.
+}
+\pf{Proof}{
+    Let $C_\alpha$ be a connected component of $X$.
+    Since $\cl{C_\alpha}$ is connected by \Cref{th:connIfBtwAandClA},
+    and since $\cl{C_\alpha} \cap C_\alpha \neq \varnothing$,
+    $\cl{C_\alpha} \subseteq C_\alpha$ by \Cref{th:connSubsIsInSomeComp}.
+}
+
+\cor[compIsOpenIfFiniteNumComps]{}{
+    If there are a finite number of components,
+    then each component is open.
+}
+\pf{Proof}{
+    Let $X = \bigcup_{i=1}^n C_i$ where each $C_i$ is a component.
+    Then, for each $i \in [n]$, $C_i = X \setminus \bigcup_{j \in [n] \setminus \{i\}} C_j$.
+    $C_i$ is open as $\bigcup_{j \in [n] \setminus \{i\}} C_j$ is closed by \Cref{cor:compIsClosed}.
+}
+
+\exmp{Path Component Is Not Necessarily Open or Closed}{
+    Let $\cl S$ be the topologist's sine curve discussed in \Cref{exmp:topSineCurve}.
+    Then, $S$ and $S_0$ are the two path components of $\cl S$.
+    $S$ is not closed and $S_0$ is not open.
+}
+
+\exmp{}{
+    Let $A \triangleq S \cup (S_0 \setminus \{0\} \times \QQ)$.
+    Since $S \subseteq A \subseteq \cl S$, $A$ is connected by \Cref{th:connIfBtwAandClA}.
+    However, $\{0 \times r\}$ for every  $r \in [0, 1] \setminus \QQ$
+    is a path component. Thus, $A$ has uncountably many path components.
+}
+
+\dfn{Locally Connected Space}{
+    Let $X$ be a topological space.
+    $X$ is \textit{locally connected at} $x$
+    if, for any neighborhood $U$ of $x$,
+    there exists a connected neighborhood $V$ of $x$
+    such that $x \in V \subseteq U$.
+    $X$ is \textit{locally connected}
+    if $X$ is locally connected at every point of $X$.
+}
+
+\dfn{Locally Path Connected Space}{
+    Let $X$ be a topological space.
+    $X$ is \textit{locally path connected at} $x$
+    if, for any neighborhood $U$ of $x$,
+    there exists a path connected neighborhood $V$ of $x$
+    such that $x \in V \subseteq U$.
+    $X$ is \textit{locally path connected}
+    if $X$ is locally path connected at every point of $X$.
+}
+
+\nt{
+    If a topological space $X$ is locally path connected,
+    then it is locally connected as well.
+}
+
+\thm[localConnIff]{}{
+    A topological space $X$ is locally connected
+    if and only if, for every open set $U$ in $X$,
+    each connected component of $U$ is open.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Let $U$ be open in $X$ and let $\{C_\alpha\}_{\alpha \in J}$
+    be the set of components of $U$.
+    Take any $C_\alpha$ and let $x \in C_\alpha$.
+    Since $X$ is locally connected at $x$,
+    there exists a connected neighborhood $V$ of $x$
+    such that $x \in V \subseteq U$.
+    By \Cref{th:connSubsIsInSomeComp},
+    $x \in V \subseteq C_\alpha$.
+    This proves that $C_\alpha$ is open.
+
+    ($\Leftarrow$)
+    Let $x \in X$ and $U$ be a neighborhood of $x$.
+    Let $\{C_\alpha\}_{\alpha \in J}$ be the components of $U$.
+    There exists some $\alpha_0 \in J$ such that $x \in C_{\alpha_0}$.
+    Since $C_{\alpha_0}$ is open by assumption,
+    $C_{\alpha_0}$ is a connected neighborhood of $x$
+    and satisfies $x \in C_{\alpha_0} \subseteq U$.
+}
+
+\thm[localPathConnIff]{}{
+    A topological space $X$ is locally path connected
+    if and only if, for every open set $U$ in $X$,
+    each path component of $U$ is open.
+}
+\pf{Proof}{
+    Analogous to \Cref{th:localConnIff}.
+}
+
+\thm[localPathConnThenPathCompIsComp]{}{
+    Let $X$ be a locally path connected space.
+    Then, the connected components and the path components are the same.
+}
+\pf{Proof}{
+    Let $C$ be a connected component of $X$.
+    $C$ is open by \Cref{th:localConnIff} as $X$ is locally connected.
+    Let $x \in C$ and let $P$ be the path component which $x$ is contained in.
+    Then, $P \subseteq C$ by \Cref{cor:pathCompIsInSomeComp}.
+    
+    Suppose $P \subsetneq C$ for the sake of contradiction.
+    Let
+    \[
+        Q \triangleq \bigcup \{\, \hat P \subseteq C \mid \hat P \text{ is a path component of }X
+        \text{ and } \hat P \neq P\,\}\text{.}
+    \]
+    Since path component of an open set, especially, $C$, is open by \Cref{th:localPathConnIff},
+    $P$ and $Q$ are open.
+    Moreover, since $C = P \cup Q$, they form a separation of $C$,
+    which is a contradiction, \#.
 }
 
 \end{document}

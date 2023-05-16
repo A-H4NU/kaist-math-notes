@@ -410,7 +410,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 	Together with $h(m) = \min \big(C \setminus h([m-1])\big)$, we get $h(m) \le c \le h(m)$, which implies $c = h(m)$.
 }
 
-\thm[countSetFTAE]{}{
+\thm[countSetTFAE]{}{
 	Let $A \neq \varnothing$. {\sf TFAE}
 	\begin{enumerate}[noitemsep, label=(\roman*)]
 		\item $A$ is countable.
@@ -433,7 +433,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 	If $A \subseteq B$ and $B$ is countable, then $A$ is countable.
 }
 \pf{Proof}{
-	$A \xhookrightarrow{\text{trivial injection}} B \xhookrightarrow{\text{injection}} \ZZ_+$ and \Cref{th:countSetFTAE}.
+	$A \xhookrightarrow{\text{trivial injection}} B \xhookrightarrow{\text{injection}} \ZZ_+$ and \Cref{th:countSetTFAE}.
 }
 
 \cor[ZsqIsCount]{}{
@@ -458,7 +458,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 \solve{
     Let $\{A_i\}_{i \in J}$ be an indexed family of sets where $J$ and $A_i$'s are countable.
     \textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in J$.
-    For each $i \in J$, since $A_i$ is countable, by \Cref{th:countSetFTAE},
+    For each $i \in J$, since $A_i$ is countable, by \Cref{th:countSetTFAE},
     there is a surjection $g_i \colon \ZZ_+ \twoheadrightarrow A_i$.
     Similarly, since $J$ is countable, there is a surjection $h \colon \ZZ_+ \twoheadrightarrow J$.
 
@@ -473,7 +473,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 \solve{
     Suppose there are $n \in \ZZ_+$ sets $A_1$, $A_2$, $\cdots$, $A_n$ to make Cartesian product with
     and each $A_i$ is countable. \textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
-    For each $i \in [n]$, there is a injection $g_i \colon A_i \to \ZZ_+$ by \Cref{th:countSetFTAE}.
+    For each $i \in [n]$, there is a injection $g_i \colon A_i \to \ZZ_+$ by \Cref{th:countSetTFAE}.
 
     Now, construct a fuction $f \colon \prod_{i=1}^n A_i \to \ZZ_+$ by \[
         f(a_1, a_2, \cdots, a_n) \coloneqq \prod_{i=1}^n p_i^{g_i(a_i)}\text{,}
