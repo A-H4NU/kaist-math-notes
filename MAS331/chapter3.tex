@@ -621,4 +621,474 @@
     which is a contradiction, \#.
 }
 
+\section{Compact Spaces}
+
+\dfn{Open Cover}{
+    A collection $\mcal A$ of subsets of a space $X$ is said to \textit{cover} $X$,
+    or to be a \textit{covering} of $X$, if $\bigcup \mcal A = X$.
+    It is called an \textit{open covering} if $A$ is open in $X$ for each $A \in \mcal A$.
+}
+
+\dfn{Compactness}{
+    A space $X$ is said to be \textit{compact} if every open covering $\mcal A$ of $X$
+    contains a finite subcollection that also covers $X$.
+}
+
+\exmp{$\RR$ Is Not Compact}{
+    The open cover $\mcal A \triangleq \{\,(n, n+2) \mid n \in \ZZ\,\}$
+    does not have a finite subcollection that covers $\RR$.
+    Thus, $\RR$ is not compact.
+}
+
+\mlemma[subsCompIff]{}{
+    Let $Y$ be a subspace of $X$.
+    Then $Y$ is compact if and only if
+    every covering of $Y$ by sets open in $X$
+    contains a finite subcollection covering $Y$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Let $\mcal A = \{A_\alpha\}_{\alpha \in J}$
+    is a covering of $Y$ by open sets in $X$.
+    Then, the collection
+    \[
+        \{\,A_\alpha \cap Y \mid \alpha \in J\,\}
+    \]
+    is an open covering of $Y$.
+    Thus, there exists a finite subcollection
+    \[
+        \{\,A_{\alpha_1} \cap Y, \cdots, A_{\alpha_n} \cap Y\,\}
+    \]
+    that covers $Y$.
+    Then, $\{\,A_{\alpha_1}, \cdots, A_{\alpha_n}\,\}$
+    is a finite subcollection of $\mcal A$ that covers $Y$.
+
+    ($\Leftarrow$)
+    Let $\mcal A = \{A_{\alpha}\}_{\alpha \in J}$
+    be an open covering of $Y$.
+    For each $\alpha \in J$, there is an open set $\hat A_\alpha$ in $X$
+    such that $A_\alpha = \hat A_\alpha \cap Y$.
+    Then, the collection $\{\hat A_\alpha\}_{\alpha \in J}$
+    composed of open sets in $X$ that covers $Y$;
+    by the assumption, there exists a fintie subcollection
+    \[
+        \{\,\hat A_{\alpha_1}, \cdots, \hat A_{\alpha_n}\,\}
+    \]
+    that covers $Y$.
+    Then, $\{\,A_{\alpha_1}, \cdots, A_{\alpha_n}\,\}$
+    is a finite subcollection of $\mcal A$ that covers $Y$.
+}
+
+\thm[cldInCptIsCpt]{}{
+    Let $X$ be a compact space.
+    If $Y$ is a closed subset of $X$,
+    then $Y$ as a subspace of $X$ is compact.
+}
+\pf{Proof}{
+    If $Y = \varnothing$, then it is done. So, suppose $Y \neq \varnothing$.
+    Let $\mcal A$ be a covering of $Y$ composed of sets open in $X$.
+    \[
+        \mcal B \triangleq \mcal A \cup \{X \setminus Y\}
+    \]
+    is an open covering of $X$.
+    Thus, it has a finite subcollection
+    \[
+        \{\,A_1, A_2, \cdots, A_n, X \setminus Y\,\}
+    \]
+    that covers $X$ where $A_i \in \mcal A$ for each $i \in [n]$.
+    (\textsf{WLOG}, $X \setminus Y$ is in the subcollection
+    since we may just add $X \setminus Y$ and does not affect its finiteness.)
+    Then, $\{A_i\}_{i \in [n]}$ is a finite subcollection of $\mcal A$
+    that covers $Y$.
+}
+
+\thm[cptInHausIsCld]{}{
+    Let $X$ be a Hausdorff space.
+    If $Y \subseteq X$ is a compact subspace of $X$,
+    then $Y$ is closed in $X$.
+}
+\pf{Proof}{
+    If $Y = \varnothing$ or $Y = X$, then it is done; suppose $\varnothing \neq Y \subsetneq X$.
+    Let $x_0 \in X \setminus Y$.
+    For each $y \in Y$, there are disjoint neighborhoods $U_y$ and $V_y$
+    of $x_0$ and $y$ in $X$.
+    Then, $\{V_y\}_{y \in Y}$ is an open covering of $Y$.
+    Thus there exists a finite subcollection of it
+    \[
+        \{\,V_{y_1}, V_{y_2}, \cdots, V_{y_n}\,\}
+    \]
+    that covers $Y$.
+
+    Let
+    \[
+        V \triangleq \bigcup_{i=1}^n V_{y_i} \quad\text{and}\quad
+        U \triangleq \bigcap_{i=1}^n U_{y_i}\text{.}
+    \]
+    Then, $U$ is a neighborhood of $x_0$ and does not intersect $V$,
+    which covers $Y$. Thus, $U \subseteq X \setminus Y$.
+    Hence, $X \setminus Y$ is open; $Y$ is closed.
+}
+
+\exmp{Being Hausdorff Is Needed}{
+    Let $X = \RR$ be endowed with the finite complement topology.
+    Then, every subset of $X$ is compact.
+    To see this, suppose $\mcal A$ is a collection of open sets
+    in $X$ that covers $Y \subseteq X$.
+    Then, take any $A \in \mcal A$ and
+    it will cover all but finitely many points in $Y$.
+    For each remaining point, choose an open set in $\mcal A$
+    that contains the point.
+    Thus, we get a finite collection of $\mcal A$
+    that covers $Y$.
+    However, only closed sets are finite subsets of $X$ and $\RR$.
+}
+
+\cor[cptAndPntOutside]{}{
+    Let $X$ be a Hausdorff space.
+    If $Y \subseteq X$ is a compact subspace of $X$,
+    then, given any $x_0 \in X \setminus Y$,
+    there are disjoint open sets $U$ and $V$ in $X$
+    containing $x_0$ and $Y$, respectively.
+}
+\pf{Proof}{
+    $U$ and $V$ defined in the proof of \Cref{th:cptInHausIsCld}
+    are those.
+}
+
+\thm[contiSendsCptToCpt]{}{
+    Let $X$ be a compact space.
+    Let $f \colon X \to Y$ be a continuous map.
+    Then, $\Img f$ as a subspace of $Y$ is compact.
+}
+\pf{Proof}{
+    Let $\mcal A$ be a covering of the set $\Img f$
+    by sets open in $Y$. Then, the collection
+    \[
+        \{\,f\inv(A) \mid A \in \mcal A\,\}
+    \]
+    is an open covering of $X$ as $f$ is continuous.
+    Hence, there are a finite subcollection $\{\,A_1,\cdots,A_n\,\}$ of $\mcal A$
+    such that $\{\,f\inv(A_i)\,\}_{i \in [n]}$ covers $X$.
+    The sets $\{\,A_1, \cdots, A_n\,\}$ covers $\Img f$.
+}
+
+\thm[bijContiFromCompToHausIsHomeo]{}{
+    Let $f \colon X \to Y$ be a bijective continuous function.
+    If $X$ is compact and $Y$ is Hausdorff, then $f$ is a homeomorphism.
+}
+\pf{Proof}{
+    We only need to prove $f\inv$ is continuous.
+    Let $A \subseteq X$ is closed in $X$.
+    Then, $A$ is compact by \Cref{th:cldInCptIsCpt}.
+    Thus, since $f \big\vert_A \colon A \to Y$ is continuous (\Cref{th:constructConti}),
+    $f(A)$ is compact by \Cref{th:contiSendsCptToCpt}.
+    By \Cref{th:cptInHausIsCld}, $f(A)$ is closed.
+    Hence, we proved that $f(A)$ is closed for each closed subset $A$ of $X$;
+    $f\inv$ is continuous by \Cref{th:contiTFAE}.
+}
+
+\mlemma[tube]{The Tube Lemma}{
+    Let $X$ and $Y$ be topological spaces and $Y$ is compact.
+    Given any $x_0 \in X$ and an open set $N$ in $X \times Y$
+    that contains $\{x_0\} \times Y$,
+    there exists a neighborhood $W$ of $x_0$ in $X$
+    such that $W \times Y \subseteq N$.
+}
+\pf{Proof}{
+    For each $y \in Y$,
+    there exists a basis element $U_y \times V_y$
+    in the product topology such that
+    $x_0 \times y \in U_y \times V_y \subseteq N$.
+    Then, $\mcal A \triangleq \{\,U_y \times V_y \mid y \in Y\,\}$
+    is a covering of $\{x_0\} \times Y$ by
+    open sets in $X \times Y$.
+    Since $\{x_0\} \times Y$,
+    being homeomorphic with $Y$, is compact,
+    there is a finite subcollection
+    \[
+        \mcal A' = \{\,U_{y_1} \times V_{y_1}, \cdots, U_{y_n} \times V_{y_n}\,\}
+    \]
+    of $\mcal A$ that covers $\{x_0\} \times Y$.
+    Note that $\{x_0\} \times Y \subseteq \bigcup_{i=1}^n (U_{y_i} \times V_{y_i}) \subseteq N$.
+    Let
+    \[
+        W \triangleq \bigcap_{i=1}^n U_{y_i}\text{.}
+    \]
+    Then, $W$ is a neighborhood of $x_0$ in $X$.
+
+    Now, take $x \times y \in W \times Y$.
+    There exists some $i \in [n]$ such that $y \in V_{y_i}$;
+    $x \times y \in U_{y_i} \times V_{y_i} \subseteq N$.
+    This shows $W \times Y \subseteq N$.
+}
+
+\nt{
+    The set $W \times Y$ is often called a \textit{tube} about $x_0 \times Y$.
+}
+
+\nt{
+    \Cref{lem:tube} may not hold if $Y$ is not compact.
+    If $X = Y = \RR$, the open set
+    \[
+        N \triangleq \left\{\,x \times y \in \RR[2] \:\left|\: |x| < \frac{1}{y^2+1} \right.\,\right\}
+    \]
+    does contain $\{0\} \times Y$ but there is no open neighborhood $W$ of $0$ in $X$
+    such that $W \times Y \subseteq N$.
+}
+
+\thm[prodCptIffEachCpt]{}{
+    Let $X_1, X_2, \cdots, X_n$ be topological spaces.
+    Then, $\prod_{i=1}^n X_i$ is compact if and only if $X_i$ is compact for each $i \in [n]$.
+}
+\pf{Proof}{
+    It is enough to prove for two topological spaces $X$ and $Y$.
+
+    ($\Rightarrow$)
+    It is enough to prove $X$ is compact.
+    Let $\mcal A$ be an open covering of $X$.
+    Then, $\{\,A \times Y \mid A \in \mcal A\,\}$
+    is an open covering of $X \times Y$;
+    there exists a finite subcollection
+    \[
+        \{\,A_1 \times Y, A_2 \times Y, \cdots, A_n \times Y\,\}
+    \]
+    that covers $X \times Y$.
+    Thus, $\{\,A_i \mid i \in [n]\,\}$ is a finite subcollection of $\mcal A$
+    that covers $X$.
+
+    ($\Leftarrow$)
+    Let $\mcal A$ be an open covering of $X \times Y$.
+    For each $x \in X$, since $\{x\} \times Y$ is compact,
+    there are finite subcollection $\{\,A_1, A_2, \cdots, A_{n_x}\,\} \subseteq \mcal A$
+    that covers $\{x\} \times Y$.
+    Then, $N_x \triangleq \bigcup_{i=1}^{n_x} A_i$ is an open set in $X \times Y$
+    that contains $\{x\} \times Y$.
+    Thus, by \Cref{lem:tube}, there exists a tube $W_x \times Y$
+    such that $\{x\} \times Y \subseteq W_x \times Y \subseteq N_x$.
+    
+    Noting that $\{\,W_x \mid x \in X\,\}$ is an open covering of $X$,
+    there are finite subcover $\{\,W_{x_1}, W_{x_2}, \cdots, W_{x_k}\,\}$
+    that covers $X$.
+    Hence, $\{\,W_{x_i} \times Y \mid i \in [k]\,\}$ covers $X \times Y$
+    and each element of it is covered by finite elements in $\mcal A$.
+}
+
+\nt{
+    \Cref{th:prodCptIffEachCpt} holds for an arbitrary product
+    but is is slightly technical.
+}
+
+\dfn{Finite Intersection Property}{
+    A collection $\mcal C$ of subsets of $X$
+    is said to have \textit{finite intersection property}
+    if, for any finite subcollection
+    \[
+        \{\,C_1, C_2, \cdots, C_n\,\} \subseteq \mcal C
+    \]
+    of $\mcal C$, we have
+    \[
+        \bigcap_{i=1}^n C_i \neq \varnothing\text{.}
+    \]
+
+    In other words,
+    \[
+        \forall n \in \ZZ_+,\: \forall \mcal C' \in \binom{\mcal C}{n},\:
+        \bigcap \mcal C' \neq \varnothing\text{.}
+    \]
+}
+
+\thm[cptIff]{}{
+    Let $X$ be a topological space.
+    Then $X$ is compact if and only if,
+    for every collection $\mcal C$ of closed sets in $X$
+    having the finite intersection property,
+    the intersection $\bigcap \mcal C$ is nonempty.
+}
+\pf{Proof}{
+    Given a collection $\mcal A$ of subsets of $X$, let
+    \[
+        \mcal C \triangleq \{\,X \setminus A \mid A \in \mcal A\,\}\text{.}
+    \]
+    Then the following hold.
+    \begin{itemize}[nolistsep]
+        \ii $\mcal A$ is a collection of open sets if and only if $\mcal C$ is a collection of closed sets.
+        \ii $\bigcup \mcal A = X$ if and only if $\bigcap \mcal C = \varnothing$.
+        \ii The finite subcollection $\{\,A_1, \cdots, A_n\,\}$ covers $X$
+            if and only if $\bigcap_{i=1}^n (X \setminus A_i) = \varnothing$.
+    \end{itemize}
+    Therefore, these are equivalent.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Every open covering of $X$ allows a finite subcover.
+        \ii A collection of open sets in $X$ that does not allow a finite subcover does not cover $X$.
+            - contrapositive of (i)
+        \ii A collection of closed sets in $X$ that does not allow a nonempty intersection of finite subcollection
+            does not have a nonempty intersection.
+    \end{enumerate}
+}
+
+\dfn{Nested Sequence}{
+    A sequence of sets $\{C_n\}_{n \in \ZZ_+}$ is called a \textit{nested sequence} if
+    $C_n \supseteq C_{n+1}$ for each $n \in \ZZ_+$.
+}
+
+\cor[cldNestInCpt]{}{
+    Let $X$ be a compact space.
+    Let $\{C_n\}_{n \in \ZZ_+}$ be a nested sequence of nonempty closed sets in $X$.
+    Then, \[
+        \bigcap_{n \in \ZZ_+} C_n \neq \varnothing\text{.}
+    \]
+}
+\pf{Proof}{
+    Let $\mcal C \triangleq \{\,C_n \mid n \in \ZZ_+\,\}$.
+    Then, $\mcal C$ satisfies the finite intersection property as
+    \[
+        C_{n_1} \cap C_{n_2} \cap \cdots \cap C_{n_k}
+        = C_{\max_{i=1}^k n_i} \neq \varnothing\text{.}
+    \]
+    The result follows from \Cref{th:cptIff}.
+}
+
+\section{Compact Subspaces of the Real Line}
+
+\thm[cldIntvIsCpt]{}{
+    Let $X$ be a simply ordered set having the least upper bound property.
+    In the order topology, every closed interval $[a, b]$ in $X$ is compact.
+}
+\pf{Proof}{
+    Let $\mcal A$ be an open covering of $[a, b]$.
+
+    We claim that, given any $x \in [a, b)$,
+    there exists $y \in (x, b]$ such that $[x, y]$ can be covered by
+    at most two elements of $\mcal A$.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If there exists an immediate successor $y \in (x, b]$ of $x$,
+            then $[x, y] = \{x, y\}$.
+            Pick two open sets in $\mcal A$ that contain $x$ and $y$, respectively.
+        \ii Otherwise, let $A \in \mcal A$ with $x \in A$.
+            Then, $[x, c) \subseteq A$ for some $c \in (x, b]$ and $|[x, c)| = \infty$.
+            Take any $y \in (x, c) \subseteq (x, b]$, then $[x, y] \subseteq [x, c) \subseteq A$. \checkmark
+    \end{enumerate}
+    Let
+    \[
+        C \triangleq \big\{\, y \in (a, b] \:\big|\: [a, y] \text{ can be
+        covered by finitely many elements of } \mcal A\,\big\}\text{.}
+    \]
+    By the previous claim, $C \neq \varnothing$, and $C$ is bounded above by $b$.
+    Thus, we may let $c \triangleq \sup C$. ($a \le c \le b$, indeed.) \checkmark
+
+    Suppose $c \notin C$ for the sake of contradiction.
+    Choose $A \in \mcal A$ that contains $c$.
+    Then, there exists $d \in [a, c)$ such that $(d, c] \subseteq A$.
+    Hence, there exists $z \in C \cap (d, c]$.
+    Since $z \in C$, the interval $[a, z]$ can be covered by finitely many,
+    say $n$, elements of $\mcal A$,
+    then, since $[a, c] = [a, z] \cup [z, c]$ and $[z, c] \subseteq (d, c] \subseteq A$,
+    $[a, c]$ can be covered by at most $n + 1$ elements of $\mcal A$,
+    which is contradicting to $c \notin C$, \#. \checkmark
+
+    Suppose $c < b$ for the sake of contradiction.
+    Then, there exists $y \in (c, b]$ such that
+    $[c, y]$ can be covered by finitely many elements of $\mcal A$
+    by the previous claim.
+    Hence, $[a, y] = [a, c] \cup [c, y]$ can be covered by
+    finitely many elements of $\mcal A$ since $c \in C$.
+    This implies $y \in C$, contradicting that
+    $c$ is an upper bound of $C$, \#. \checkmark
+}
+
+\cor[cldIntvInRIsCpt]{}{
+    Every closed interval in $\RR$ is compact.
+}
+
+\thm[cptInRnIffCldAndBdd]{}{
+    A subspace $A$ of $\RR[n]$ is compact if and only if
+    it is closed and it is bounded in the Euclidean metrid $d$
+    or the square metric $\rho$.
+}
+\pf{Proof}{
+    It suffices to prove only for $\rho$
+    as $A$ is bounded in $d$ if and only if $A$ is bounded in $\rho$.
+    (See the proof of \Cref{th:eucliAndSqareMetricAreProduct}.)
+
+    ($\Rightarrow$)
+    By \Cref{th:cptInHausIsCld}, $A$ is closed. \checkmark
+
+    The collection
+    \[
+        \{\,B_{\rho}(\vec 0, m) \mid m \in \ZZ_+\,\}
+    \]
+    is an open covering of $A$.
+    Thus, $A \subseteq B_{\rho}(\vec 0, M)$ for some $M$.
+    Therefore, $\rho(\vec x, \vec y) \le 2M$ for each $\vec x, \vec y \in A$.
+    Thus, $A$ is bounded. \checkmark
+
+    ($\Leftarrow$)
+    There exists $M \in \RR_+$ such that
+    $\rho(\vec x, \vec y) \le M$ for each $\vec x, \vec y \in A$.
+    Choose a point $\vec x_0 \in A$, and let $b \triangleq \rho(\vec x_0, \vec 0)$.
+    Then, $\rho(\vec x, \vec 0) \le P \triangleq N + b$ for every $\vec x \in A$.
+    Thus, $A \subseteq [-P, P]^n$.
+    $[-P, P]^n$ is compact by
+    \Cref{cor:cldIntvInRIsCpt}, \Cref{th:prodCptIffEachCpt}, and \Cref{th:subOfProdIsProdOfSub}.
+    Since $A$ is closed in $[-P, P]^n$ and $[-P, P]^n$ is compact,
+    $A$ is compact by \Cref{th:cldInCptIsCpt}.
+}
+
+\thm[evt]{Extreme Value Theorem}{
+    Let $X$ be a compact set and
+    $Y$ be an ordered set endowed by the order topology.
+    Let $f \colon X \to y$ be a continuous map.
+    Then, there exist $c, d \in X$ such that
+    $f(c) \le f(x) \le f(d)$ for all $x \in X$.
+}
+\pf{Proof}{
+    Suppose $\Img f$ does not have a maximum.
+    Then,
+    \[
+        \{\, (-\infty, a) \subseteq \RR \mid a \in \Img f\,\}
+    \]
+    is an open covering of $\Img f$.
+    Since $\Img f$ is compact by \Cref{th:contiSendsCptToCpt},
+    $\Img f \subseteq (-\infty, a)$ for some $a \in \Img f$, \#.
+}
+
+\dfn{Distance From a Point to a Set}{
+    Let $(X, d)$ be a metric space and let $\varnothing \neq A \subseteq X$.
+    For each $x \in X$, we define the
+    \textit{distance from $x$ to $A$} by the equation
+    \[
+        d(x, A) \triangleq \inf \{\,d(x, a) \mid a \in A\,\}\text{.}
+    \]
+}
+
+\thm[distFtnIsConti]{}{
+    Let $(X, d)$ be a metric space and let $\varnothing \neq A \subseteq X$.
+    Then, $f \colon X \to \RR$ defined by
+    \[
+        f(x) \triangleq d(x, A)
+    \]
+    is uniformly continuous.
+}
+\pf{Proof}{
+    Take any $\veps \in \RR_+$ and let $\delta \triangleq \veps$.
+    For any $x, y \in X$ and $a \in A$ with $d(x, y) < \veps$,
+    we have $d(x, A) \le (x, a) \le d(x, y) + d(y, a)$.
+    Thus,
+    \[
+        d(x, A) - d(x, y) \le \inf_{a \in A} d(y, a) = d(y, A)\text{,}
+    \]
+    which implies $|d(x, A) - d(y, A)| \le d(x, y) < \veps = \delta$.
+}
+
+\mlemma[lebesgueN]{The Lebesgue Number Lemma}{
+    Let $\mcal A$ be an open covering of the metric space $(X, d)$.
+    If $X$ is compact, there exists $\delta \in \RR_+$
+    such that, for each $\varnothing \neq B \subseteq X$ with $\diam B < \delta$,
+    there exists $A \in \mcal A$ such that $B \subseteq A$.
+    The number $\delta$ is called a \textit{Lebesgue number} for the covering $\mcal A$.
+}
+\pf{Proof}{
+    
+}
+
 \end{document}

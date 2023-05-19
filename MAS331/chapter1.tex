@@ -5,21 +5,22 @@
 \section{Basic Notation}
 \nt{
 	\begin{itemize}[nolistsep]
-		\item Sets: $A, B, C, \cdots, \RR, \QQ, \ZZ$
-		\item Elements: $a, b, c, \cdots, 3, 3/4, \pi$
-		\item $a \in A$, $3 \in \ZZ$, $3/4 \notin \ZZ$
-		\item $A \subseteq B$, $A \subsetneq B$         , $A \not\subseteq B$
-		\item $\varnothing$: empty set
-		\item $A \times B \coloneqq \{(a, b) \mid a \in A \text{ and } b \in B\}$ (Cartesian product)
+		\ii Sets: $A, B, C, \cdots, \RR, \QQ, \ZZ$
+		\ii Elements: $a, b, c, \cdots, 3, 3/4, \pi$
+		\ii $a \in A$, $3 \in \ZZ$, $3/4 \notin \ZZ$
+		\ii $A \subseteq B$, $A \subsetneq B$         , $A \not\subseteq B$
+		\ii $\varnothing$: empty set
+		\ii $A \times B \coloneqq \{(a, b) \mid a \in A \text{ and } b \in B\}$ (Cartesian product)
+        \ii $\displaystyle \binom{A}{n} \triangleq \big\{\, A' \subseteq A \:\big|\: |A'| = n\,\big\}$
 	\end{itemize}
 }
 \dfn{Function, Restriction, and Composition}{
 A \textit{function} $f$ from a set $A$ to a set $B$ is an assignment of an element of $B$
 to each element of $A$.
 \begin{itemize}[noitemsep]
-	\item $A$: Domain
-	\item $B$: Range or Codomain
-	\item $\Img f \coloneqq \{ f(a) \mid a \in A \}$: Image; $\Img f \subseteq B$
+	\ii $A$: Domain
+	\ii $B$: Range or Codomain
+	\ii $\Img f \coloneqq \{ f(a) \mid a \in A \}$: Image; $\Img f \subseteq B$
 \end{itemize}
 If $A_0 \subseteq A$ and $f \colon A \to B$ is a function,
 then the \textit{restriction} of $f$ to $A_0$ is denoted by $f \big|_{A_0}$ and is defined as \[
@@ -34,9 +35,9 @@ for each $a \in A$.
 \dfn{Injectivity, Surjectivity and Bijectivity}{
 	A function $f \colon A \to B$ is
 	\begin{enumerate}[noitemsep,label=\roman*)]
-		\item \textit{injective} (or \textit{one-to-one}, 1-1) if $\forall a, a' \in A,\: f(a) = f(a') \implies a = a'$,
-		\item \textit{surjective} (or \textit{onto}) if $\forall b \in B,\: \exists a \in A,\: b = f(a)$, and
-		\item \textit{bijective} if $f$ is both injective and surjective.
+		\ii \textit{injective} (or \textit{one-to-one}, 1-1) if $\forall a, a' \in A,\: f(a) = f(a') \implies a = a'$,
+		\ii \textit{surjective} (or \textit{onto}) if $\forall b \in B,\: \exists a \in A,\: b = f(a)$, and
+		\ii \textit{bijective} if $f$ is both injective and surjective.
 	\end{enumerate}
 }
 \dfn{Inverse Function}{
@@ -49,8 +50,8 @@ for each $a \in A$.
 }
 \exmp{}{
 	\begin{enumerate}[nolistsep, label=\alph*)]
-		\item $f$ is bijective $\iff$ $f^{-1}$ is bijective.
-		\item The inverse is unique.
+		\ii $f$ is bijective $\iff$ $f^{-1}$ is bijective.
+		\ii The inverse is unique.
 	\end{enumerate}
 }
 \solve{
@@ -78,16 +79,16 @@ for each $a \in A$.
 \dfn{Image and Preimage of a Set}{
 	Let $f \colon A \to B$ and $A_0 \subseteq A$, $B_0 \subseteq B$.
 	\begin{itemize}
-		\item $f(A_0) \coloneqq \{b \mid b = f(a_0) \text{ and } a_0 \in A \}$
-		\item $f^{-1}(B_0) \coloneqq \{a \mid f(a) \in B_0 \}$
+		\ii $f(A_0) \coloneqq \{b \mid b = f(a_0) \text{ and } a_0 \in A \}$
+		\ii $f^{-1}(B_0) \coloneqq \{a \mid f(a) \in B_0 \}$
 	\end{itemize}
 }
 \exmp[compFandFinvAndSurjInj]{}{
 	\begin{enumerate}[nolistsep, label=\alph*)]
-		\item $A_0 \subseteq f^{-1} \big(f(A_0)\big)$
-		\item $f$ is injective if and only if $\forall A_0 \subseteq A,\: A_0 = f^{-1}\big(f(A_0)\big)$.
-		\item $f\big(f^{-1}(B_0)\big) \subseteq B_0$
-		\item $f$ is surjective if and only if $\forall B_0 \subseteq B,\: B_0 = f \big(f^{-1}(B_0)\big)$.
+		\ii $A_0 \subseteq f^{-1} \big(f(A_0)\big)$
+		\ii $f$ is injective if and only if $\forall A_0 \subseteq A,\: A_0 = f^{-1}\big(f(A_0)\big)$.
+		\ii $f\big(f^{-1}(B_0)\big) \subseteq B_0$
+		\ii $f$ is surjective if and only if $\forall B_0 \subseteq B,\: B_0 = f \big(f^{-1}(B_0)\big)$.
 	\end{enumerate}
 }
 \solve{
@@ -124,9 +125,9 @@ for each $a \in A$.
 \dfn{Equivalence Relation and Equivalence Class}{
 	A relation $\sim$ on a set $A$ is an \textit{equivalence relation} if
 	\begin{enumerate}[noitemsep, label=(\arabic*)]
-		\item $x \sim x$ for each $x \in A$ (reflexive)
-		\item $x \sim y \implies y \sim x$ (symmetric)
-		\item $x \sim y \land y \sim z \implies x \sim z$. (transitive)
+		\ii $x \sim x$ for each $x \in A$ (reflexive)
+		\ii $x \sim y \implies y \sim x$ (symmetric)
+		\ii $x \sim y \land y \sim z \implies x \sim z$. (transitive)
 	\end{enumerate}
 	Moreover, the \textit{equivalence class} of $x$ is defined as \[
 		\big\{ y \in A \:\big|\: y \sim x \big\}\text{.}
@@ -148,9 +149,9 @@ for each $a \in A$.
 \dfn{Order Relation}{
 	A relation $<$ on a set $A$ is an \textit{order relation} if
 	\begin{enumerate}[noitemsep, label=(\arabic*)]
-		\item $x < y$ or $y < x$ for each $x \neq y \in A$
-		\item $x \not< x$ for each $x \in A$
-		\item $x < y \land y < z \implies x < z$.
+		\ii $x < y$ or $y < x$ for each $x \neq y \in A$
+		\ii $x \not< x$ for each $x \in A$
+		\ii $x < y \land y < z \implies x < z$.
 	\end{enumerate}
 	Also, we define \[
 		(a, b) \coloneqq \big\{ x \in X \:\big|\: a < x < b \big\}\text{.}
@@ -172,23 +173,23 @@ for each $a \in A$.
 \dfn{Boundedness} {
 	Let $A_0 \subseteq A$ with an order relation $<_A$.
 	\begin{itemize}[noitemsep]
-		\item The \textit{largest element} of $A_0$ is $b \in A_0$ if $x \in A_0 \implies x \le b$.
-		\item The \textit{smallest element} of $A_0$ is $b \in A_0$ if $x \in A_0 \implies x \ge b$.
+		\ii The \textit{largest element} of $A_0$ is $b \in A_0$ if $x \in A_0 \implies x \le b$.
+		\ii The \textit{smallest element} of $A_0$ is $b \in A_0$ if $x \in A_0 \implies x \ge b$.
 	\end{itemize}
 	\begin{itemize}[noitemsep]
-		\item $A_0$ is \textit{bounded above} by $b \in A$ if $x \in A_0 \implies x \le b$.
+		\ii $A_0$ is \textit{bounded above} by $b \in A$ if $x \in A_0 \implies x \le b$.
 		      \begin{itemize}[nolistsep]
-			      \item The smallest such $b$ is called the \textit{least uppder bound} or the \textit{supremum} of $A_0$.
+			      \ii The smallest such $b$ is called the \textit{least uppder bound} or the \textit{supremum} of $A_0$.
 		      \end{itemize}
-		\item $A_0$ is \textit{bounded below} by $b \in A$ if $x \in A_0 \implies x \ge b$.
+		\ii $A_0$ is \textit{bounded below} by $b \in A$ if $x \in A_0 \implies x \ge b$.
 		      \begin{itemize}[nolistsep]
-			      \item The largest such $b$ is called the \textit{greatest lower bound} or the \textit{infimum} of $A_0$.
+			      \ii The largest such $b$ is called the \textit{greatest lower bound} or the \textit{infimum} of $A_0$.
 		      \end{itemize}
 	\end{itemize}
 	\begin{itemize}[noitemsep]
-		\item $A$ has \textit{least upper bound property} if every bounded above nonempty set $A_0 \subseteq A$
+		\ii $A$ has \textit{least upper bound property} if every bounded above nonempty set $A_0 \subseteq A$
 		      has a least upper bound.
-		\item $A$ has \textit{greatest lower bound property} if every bounded below nonempty set $A_0 \subseteq A$
+		\ii $A$ has \textit{greatest lower bound property} if every bounded below nonempty set $A_0 \subseteq A$
 		      has a greatest lower bound.
 	\end{itemize}
 }
@@ -253,8 +254,8 @@ Now, we define \[
 \dfn{Finite Set and Cardinality}{
 	A set $A$ is \textit{finite} if there is a bijective $f \colon A \to [n]$ for some $n \in \ZZ_+$ or $A = \varnothing$.
 	\begin{itemize}[nolistsep]
-		\item In the former case, we say \textit{cardinality} $n$ or $|A| = n$.
-		\item In the latter case, we say \textit{cardinality} $0$ or $|A| = 0$.
+		\ii In the former case, we say \textit{cardinality} $n$ or $|A| = n$.
+		\ii In the latter case, we say \textit{cardinality} $0$ or $|A| = 0$.
 	\end{itemize}
 }
 \nt{
@@ -294,8 +295,8 @@ Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
 	Since $B \setminus \{a_0\} \subsetneq A \setminus \{a_0\}$, by induction hypothesis,
 	we have two things.
 	\begin{itemize}[nolistsep]
-		\item There is no bijection between $B \setminus \{a_0\}$ and $[n]$.
-		\item As long as $B \neq \{a_0\}$, there is a bijection from $B \setminus \{a_0\}$ to $[m]$ for some $m < n$.
+		\ii There is no bijection between $B \setminus \{a_0\}$ and $[n]$.
+		\ii As long as $B \neq \{a_0\}$, there is a bijection from $B \setminus \{a_0\}$ to $[m]$ for some $m < n$.
 	\end{itemize}
 	We conclude that there is no bijection from $B$ and $[n+1]$ since, if there were, there would be a
 	trivial bijection from $B \setminus \{a_0\}$ to $[n]$.
@@ -324,9 +325,9 @@ Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
 \thm[finSetTFAE]{}{
 	Let $A$ be a set. {\sf TFAE}
 	\begin{enumerate}[noitemsep, label=(\roman*)]
-		\item $|A| = n$
-		\item $\exists$ surjective $[m] \twoheadrightarrow A$ for some $m \in \ZZ_+$.
-		\item $\exists$ injective $A \hookrightarrow [m]$ for some $m \in \ZZ_+$.
+		\ii $|A| = n$
+		\ii $\exists$ surjective $[m] \twoheadrightarrow A$ for some $m \in \ZZ_+$.
+		\ii $\exists$ injective $A \hookrightarrow [m]$ for some $m \in \ZZ_+$.
 	\end{enumerate}
 }
 \pf{Proof}{
@@ -343,8 +344,8 @@ Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
 
 \exer[finUandCOfFinSetIsFin]{}{
 	\begin{enumerate}[label=(\roman*), nolistsep]
-		\item Finite unions of finite sets are finite.
-		\item Finite Cartesian products of finite sets are finite.
+		\ii Finite unions of finite sets are finite.
+		\ii Finite Cartesian products of finite sets are finite.
 	\end{enumerate}
 }
 \solve{
@@ -396,8 +397,8 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 
 	Define $h \colon \ZZ_+ \to C$ by the following.
 	\begin{enumerate}[nolistsep, label=(\alph*)]
-		\item $h(1) \coloneqq \min C$
-		\item $h(n+1) \coloneqq \min \big(C \setminus h([n])\big)$ for each $n \in \ZZ_+$
+		\ii $h(1) \coloneqq \min C$
+		\ii $h(n+1) \coloneqq \min \big(C \setminus h([n])\big)$ for each $n \in \ZZ_+$
 	\end{enumerate}
 	$h$ is well defined because $C \setminus h([n])$ is always nonempty.
 	Morever, $h$ is injective since it is $h(m) < h(n)$ whenever $m < n$.
@@ -413,9 +414,9 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 \thm[countSetTFAE]{}{
 	Let $A \neq \varnothing$. {\sf TFAE}
 	\begin{enumerate}[noitemsep, label=(\roman*)]
-		\item $A$ is countable.
-		\item $\exists$ surjective $\ZZ_+ \twoheadrightarrow A$.
-		\item $\exists$ injective $A \hookrightarrow \ZZ_+$.
+		\ii $A$ is countable.
+		\ii $\exists$ surjective $\ZZ_+ \twoheadrightarrow A$.
+		\ii $\exists$ injective $A \hookrightarrow \ZZ_+$.
 	\end{enumerate}
 }
 \pf{Proof}{
@@ -527,9 +528,9 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 \thm[InfSetTFAE]{}{
 	Let $A$ be a set. {\sf TFAE}
 	\begin{enumerate}[noitemsep, label=(\roman*)]
-		\item $A$ is infinite.
-		\item $\exists$ injection $f \colon \ZZ_+ \hookrightarrow A$.
-		\item $\exists$ bijection $g \colon A \to B$ where $B \subsetneq A$.
+		\ii $A$ is infinite.
+		\ii $\exists$ injection $f \colon \ZZ_+ \hookrightarrow A$.
+		\ii $\exists$ bijection $g \colon A \to B$ where $B \subsetneq A$.
 	\end{enumerate}
 }
 \pf{Proof}{
@@ -538,8 +539,8 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
     such that $c(A') \in A'$ for every $\varnothing \neq A' \subseteq A$.
     Its existence is guaranteed by \Cref{lem:choiceFtnExs}.
 	\begin{enumerate}[nolistsep, label=(\arabic*)]
-		\item $f(1) \coloneqq c(A)$
-        \item $f(n+1) \coloneqq c(A \setminus f([n]))$ for each $n \in \ZZ_+$.
+		\ii $f(1) \coloneqq c(A)$
+        \ii $f(n+1) \coloneqq c(A \setminus f([n]))$ for each $n \in \ZZ_+$.
 	\end{enumerate}
 	\par Suppose $A \setminus f([n]) = \varnothing$ for some $n \in \ZZ_+$.
 	Then, $A \subseteq f([n])$, and $f([n])$ is finite by \Cref{th:finSetTFAE};
@@ -582,8 +583,8 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 }
 \exmp{}{
 	\begin{itemize}[nolistsep]
-		\item $\ZZ_+$ is well-ordered.
-		\item $\{1, 2\} \times \ZZ_+$ is well ordered with respect to the dictionary ordering.
+		\ii $\ZZ_+$ is well-ordered.
+		\ii $\{1, 2\} \times \ZZ_+$ is well ordered with respect to the dictionary ordering.
 	\end{itemize}
 }
 
@@ -659,8 +660,8 @@ The proof of \Cref{th:wot} involves the Axiom of Choice.
 \mlemma[onlySOmegaUncount]{}{
 	There exists a well-ordered set $A$ with the largest element $\Omega$, such that
 	\begin{itemize}[nolistsep]
-		\item section $S_{\Omega}$ of $A$ is uncountable, and,
-		\item for every $\alpha \in A \setminus \{\,\Omega\,\}$, section $S_{\alpha}$ of $A$ is countable.
+		\ii section $S_{\Omega}$ of $A$ is uncountable, and,
+		\ii for every $\alpha \in A \setminus \{\,\Omega\,\}$, section $S_{\alpha}$ of $A$ is countable.
 	\end{itemize}
 }
 \pf{Proof}{
