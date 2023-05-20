@@ -1061,6 +1061,16 @@
     \]
 }
 
+\dfn{Uniform Continuity}{
+    A function $f \colon X \to Y$ from the metrix space $(X, d_X)$
+    to the metric space $(Y, d_Y)$ is said to be \textit{uniformly continuous} if
+    \[
+        \forall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \forall x_1, x_2 \in X,\:
+        \big( d_X(x_1, x_2) < \delta \implies d_Y(f(x_1), f(x_2)) \big)\text{.}
+    \]
+}
+
 \thm[distFtnIsConti]{}{
     Let $(X, d)$ be a metric space and let $\varnothing \neq A \subseteq X$.
     Then, $f \colon X \to \RR$ defined by
@@ -1077,15 +1087,79 @@
     \[
         d(x, A) - d(x, y) \le \inf_{a \in A} d(y, a) = d(y, A)\text{,}
     \]
-    which implies $|d(x, A) - d(y, A)| \le d(x, y) < \veps = \delta$.
+    which implies $|d(x, A) - d(y, A)| \le d(x, y) < \delta = \veps$.
 }
 
 \mlemma[lebesgueN]{The Lebesgue Number Lemma}{
-    Let $\mcal A$ be an open covering of the metric space $(X, d)$.
-    If $X$ is compact, there exists $\delta \in \RR_+$
-    such that, for each $\varnothing \neq B \subseteq X$ with $\diam B < \delta$,
-    there exists $A \in \mcal A$ such that $B \subseteq A$.
+    Let $(X, d)$ be a compact metric space.
+    Then, for each open covering $\mcal A$ of $X$,
+    \[
+        \exs \delta \in \RR_+,\: \forall B \in \mcal P(X) \setminus \{\varnothing\},\:
+        \big( \diam B < \delta \implies
+        \exs A \in \mcal A,\: B \subseteq A\big)\text{.}
+    \]
     The number $\delta$ is called a \textit{Lebesgue number} for the covering $\mcal A$.
+}
+\pf{Proof}{
+    If $X \in \mcal A$, then every $\delta \in \RR_+$ satisfies the condition.
+    Therefore, we may suppose $X \notin \mcal A$.
+
+    Choose a finite subcollection $\{\,A_1, A_2, \cdots, A_n\,\}$ of $\mcal A$
+    that covers $X$.
+    For each $i \in [n]$, let $C_i \triangleq X \setminus A_i$.
+    We define $f \colon X \to \RR$ by
+    \[
+        f(x) = \frac{1}{n} \sum_{i=1}^{n} d(x, C_i)\text{.}
+    \]
+    
+    Take any $x \in X$. Then, there exists some $i \in [n]$
+    such that $x \in A_i$.
+    Since $A_i$ is open, there exists some $\veps \in \RR_+$
+    such that $B(x, \veps) \subseteq A_i$; $d(x, C_i) \ge \veps$.
+    Hence, $f(x) \ge \veps/n$.
+    We just showed that $f(x) > 0$ for all $x \in X$.
+
+    Since $f$ is continuous,
+    there exists a minimum of $\Img f$, say $\delta$, by
+    \Cref{th:evt}.
+    We claim that $\delta$ is a Lebesgue number for $\mcal A$.
+    Let $\neq \varnothing B \subseteq X$ with $\diam B < \delta$.
+    Take $x_0 \in B$. Then $B \subseteq B(x_0, \delta)$.
+    Then,
+    \[
+        \delta \le f(x_0) \le \max_{i \in [n]} d(x_0, C_i) = d(x_0, C_m)\text{.}
+    \]
+    where $m \in [n]$.
+    Then, $B \subseteq B(x_0, \delta) \subseteq A_m$.
+}
+
+\thm[unifContiThm]{Uniform Continuity Theorem}{
+    Let $(X, d_X)$ be a compact metric space; let $(Y, d_Y)$ be a metric space.
+    If $f \colon X \to Y$ is a continuous map,
+    then $f$ is uniformly continuous.
+}
+\pf{Proof}{
+    Take any $\veps \in \RR_+$.
+    Let
+    \[
+        \mcal A \triangleq \big\{\,f\inv\big(B(y, \veps/2)\big) \:\big|\: y \in Y\,\big\}
+    \]
+    be an open covering of $X$.
+    Let $\delta$ be a Lebesgue number for $\mcal A$.
+    Then, for each $x_1, x_2 \in X$ such that $d_X(x_1, x_2) < \delta$,
+    since $\diam \{x_1, x_2\} = d_X(x_1, x_2) < \delta$,
+    there exists $y \in Y$ such that $\{f(x_1),f(x_2)\} \subseteq B(y, \veps/2)$.
+    Then, $d_Y(f(x_1), f(x_2)) < \veps$.
+}
+
+\dfn{Isolated Point}{
+    If $X$ is a topological space, a point $x \in X$ is said to be an
+    \textit{isolated point} of $X$ if $\{x\}$ is open in $X$.
+}
+
+\thm[]{}{
+    Let $X$ be nonempty compact Hausdorff space.
+    If $X$ has no isolated points, then $X$ is uncountable.
 }
 \pf{Proof}{
     
