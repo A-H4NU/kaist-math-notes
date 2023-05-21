@@ -1123,7 +1123,7 @@
     there exists a minimum of $\Img f$, say $\delta$, by
     \Cref{th:evt}.
     We claim that $\delta$ is a Lebesgue number for $\mcal A$.
-    Let $\neq \varnothing B \subseteq X$ with $\diam B < \delta$.
+    Let $\varnothing \neq B \subseteq X$ with $\diam B < \delta$.
     Take $x_0 \in B$. Then $B \subseteq B(x_0, \delta)$.
     Then,
     \[
@@ -1157,12 +1157,181 @@
     \textit{isolated point} of $X$ if $\{x\}$ is open in $X$.
 }
 
-\thm[]{}{
+\mlemma[cptHausNoIsolatedIsUncountLem]{}{
+    Let $X$ be a nonempty Hausdorff space
+    which has no isolated points.
+    Then, for any nonempty open set $U$ of $X$
+    and $x \in X$, there exists a nonempty open set $V$ contained in $U$
+    such that $x \notin \cl V$.
+}
+\pf{Proof}{
+    Take any $y \in U \setminus \{x\}$.
+    (This is possible since $U \neq \{x\}$.)
+    Choose disjoint neighborhoods $W_1$ and $W_2$ of $x$ and $y$, respectively.
+    Then, $V = W_2 \cap U$ is the open set we are looking for.
+    $V$ is empty, nonempty as $y \in V$, and its closure does not contain $x$
+    by \Cref{th:inClosureIffNeighCapANonempty}.
+}
+
+\thm[cptHausNoIsolatedIsUncount]{}{
     Let $X$ be nonempty compact Hausdorff space.
     If $X$ has no isolated points, then $X$ is uncountable.
 }
 \pf{Proof}{
+    Now let $f \colon \ZZ_+ \to X$ be any function.
+    Let $V_0 = X$. Construct $V_1, V_2, \cdots$ as following.
+    \begin{itemize}[nolistsep]
+        \ii For each $n \in \ZZ_+$, choose $V_n$ to be a nonempty set such that $V_n \subseteq V_{n-1}$
+            and $f(n) \notin \cl{V_n}$.
+    \end{itemize}
+    This is possible thanks to \Cref{lem:cptHausNoIsolatedIsUncountLem}.
+
+    Now, we have a nested sequence $\{\cl{V_n}\}_{n \in \ZZ_+}$ of closed sets in $X$.
+    By \Cref{cor:cldNestInCpt}, there exists $x \in \bigcap_{n \in \ZZ_+} \cl{V_n}$.
+    Then, $x \neq f(n)$ for all $n \in \ZZ_+$
+    as $x \in \cl{V_n}$ and $f(n) \notin \cl{V_n}$.
+}
+
+\cor{}{
+    Every closed interval in $\RR$ is uncountable.
+}
+
+\section{Limit Point Compactness}
+
+\dfn{Limit Point Compactness}{
+    A topological space $X$ is said to be \textit{limit point compact}
+    if every infinite subset $A$ of $X$ has $A' \neq \varnothing$.
+}
+
+\thm[cptThenLimPtCpt]{}{
+    If a topological space $X$ is compact, then it is limit point compact.
+}
+\pf{Proof}{
+    Suppose $A$ has no limit point.
+    Then, by \Cref{cor:closedIffContainsLimPts}, $A$ is closed in $X$.
+    Moreover, for each $a \in A$, there exists a neighborhood $U_a$ of $a$
+    such that $U_a \cap A = \{a\}$ by the definition of limit point.
+    Then,
+    \[
+        \mcal A \triangleq \{\,X \setminus A\,\} \cup \{\,U_a \mid a \in A\,\}
+    \]
+    is an open covering of $X$.
+    Since $X$ is compact, there is a finite subcollection of $\mcal A$
+    that covers $X$.
+    As $X \setminus A$ does not intersect $A$,
+    only finite number of open sets of the form $U_a$ covers $A$,
+    which means $A$ is finite.
+}
+
+\exmp{Limit Point Compactness Does Not Imply Compactness}{
+    Let $Y = \{a, b\}$ and give $Y$ the trivial topology.
+    Any nonempty subset $A$ of $X$ has a limit point, for if
+    $(n, a) \in A$ or $(n, b) \in A$, $(n, b)$ or $(n, a)$ is a limit point of $A$.
+    Thus, the space $X \triangleq \ZZ_+ \times Y$ is limit point compact.
+    However, it is not compact as the open covering
+    \[
+        \mcal A \triangleq \{\,\{n\} \times Y \mid n \in \ZZ_+\,\}
+    \]
+    does not have a finite subcover.
+}
+
+\dfn{Sequentially Compact}{
+    A topological space $X$ is said to be \textit{sequentially compact}
+    if any sequence $\{x_n\}_{n \in \ZZ_+}$ in $X$
+    has a convergent subsequence.
+}
+
+\mlemma[lebesgueNForSeqCpt]{The Lebesgue Number Lemma For Sequentially Compact Spaces}{
+    Let $(X, d)$ be a sequentially compact metric space.
+    Then, for each open covering $\mcal A$ of $X$,
+    \[
+        \exs \delta \in \RR_+,\: \forall B \in \mcal P(X) \setminus \{\varnothing\},\:
+        \big( \diam B < \delta \implies
+        \exs A \in \mcal A,\: B \subseteq A\big)\text{.}
+    \]
+}
+\pf{Proof}{
+    Suppose to the contrary that there does not exist such $\delta$.
+    Let $\mcal A$ be an open covering of $X$.
+    Therefore, for each $n \in \ZZ_+$,
+    there exists a nonempty subset $C_n$ of $X$ such that
+    $\diam C_n < 1/n$ and there is no $A \in \mcal A$
+    such that $C_n \subseteq A$.
+
+    Choose a point $x_n \in C_n$.
+    Since $X$ is sequentially compact,
+    $\{x_n\}$ has a convergent subsequence $\{x_{n_i}\}_{i \in \ZZ_+}$.
+    Let $x$ be a point to which the subsequence converges.
+    (Such point is unique by \Cref{th:seqConvUniqueInHaus}.)
+
+    Then, $x \in A$ for some $A \in \mcal A$.
+    Thus, there exists $\veps \in \RR_+$ such that
+    $x \in B(x, \veps) \subseteq A$.
+    By the convergence, there exists $i \in \ZZ_+$
+    such that $x_{n_{i}} \in B(x, \veps/2)$ and $1/n_i < \veps/2$.
+    Then, $\diam C_{n_i} < 1/n_i < \veps/2$; hence
+    $C_{n_i} \subseteq B(x_{n_i}, \veps/2) \subseteq B(x, \veps) \subseteq A$, \#.
+}
+
+\mlemma[seqCptCoverByFinEpsBalls]{}{
+    Let $(X, d)$ be a sequentially compact metric space.
+    Then, for each $\veps \in \RR_+$,
+    there exists a finite subset $A$ of $X$
+    such that $\{\,B(a, \veps) \mid a \in A\,\}$ covers $X$.
+}
+\pf{Proof}{
+    Suppose there does not exist such finite cover for the sake of contradiction.
+    Construct a sequence $\{x_n\}_{n \in \ZZ_+}$ in $X$ as following.
+    \begin{itemize}[nolistsep]
+        \ii $x_1 \in X$
+        \ii For each $n \in \ZZ_+$, $x_{n+1} \in X \setminus \bigcup_{i=1}^n B(x_i, \veps)$.
+    \end{itemize}
+    This is possible as $\bigcup_{i=1}^n B(x_i, \veps) \subsetneq X$ for every $n \in \ZZ_+$.
+    However, since $d(x_m, x_n) \ge \veps$ for every distinct $n, m \in \ZZ_+$ by construction,
+    every $\veps/2$-ball may contain at most one $x_n$.
+    Hence, $\{x_n\}$ has no convergent subsequence.
+}
+
+\thm[cptTFAE]{}{
+    Let $X$ be a metrizable space. \textsf{TFAE}
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $X$ is compact.
+        \ii $X$ is limit point compact.
+        \ii $X$ is sequentially compact.
+    \end{enumerate}
+}
+\pf{Proof}{
+    (i) $\Rightarrow$ (ii) is already proved by \Cref{th:cptThenLimPtCpt}. \checkmark
+
+    ((ii) $\Rightarrow$ (iii))
+    Let $\{x_n\}_{n \in \ZZ_+}$ be a sequence in $X$.
+    Consider the set $A \triangleq \{\,x_n \mid n \in \ZZ_+\,\}$.
+
+    If $A$ is finite, there exists $x \in X$ such that
+    $x_n = x$ for infinitely many $n \in \ZZ_+$.
+    In this case, $\{x_n\}_{n \in \ZZ_+}$ has a constant, thus convergent, subsequence.
     
+    If $A$ is infinite, by the limit point compactness,
+    $A$ has a limit point $x$.
+    Let $n_0 = 1$. Construct $\{n_i\}_{i \in \ZZ_+}$ as following.
+    \begin{itemize}[nolistsep]
+        \ii For each $i \in \ZZ_+$, choose $n_i \in \ZZ_+$ so that
+            $x_{n_i} \in B(x, 1/i)$ and $n_i > n_{i-1}$.
+    \end{itemize}
+    This is possible since $B(x, \veps) \cap A$ is infinite
+    for every $\veps \in \RR_+$ by \Cref{th:t1LimPtIffDelNeiIntersectsInf}.
+    The sequence $\{x_{n_i}\}_{i \in \ZZ_+}$ converges to $x$. \checkmark
+
+    ((iii) $\Rightarrow$ (i))
+    Let $\mcal A$ be an open covering of $X$.
+    By \Cref{lem:lebesgueNForSeqCpt}, there exists a Lebesgue number $\delta$ for $\mcal A$.
+    Let $\veps \triangleq \delta/3$.
+    By \Cref{lem:seqCptCoverByFinEpsBalls},
+    there exists a finite open covering $\mcal A'$ by $\veps$-balls.
+    Since every $A' \in \mcal A'$ has $\diam A \le 2\delta/3 < \veps$,
+    $A' \subseteq A$ for some $A \in \mcal A$.
+    The collection of such $A$ consists of a finite subcollection of $\mcal A$
+    that covers $X$. \checkmark
 }
 
 \end{document}
