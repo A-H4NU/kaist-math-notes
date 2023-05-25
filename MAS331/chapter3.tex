@@ -996,6 +996,10 @@
     $c$ is an upper bound of $C$, \#. \checkmark
 }
 
+\exmp[orderedSqIsCpt]{}{
+    The ordered square $I_o^2 = [0 \times 0, 1 \times 1]$ is compact.
+}
+
 \cor[cldIntvInRIsCpt]{}{
     Every closed interval in $\RR$ is compact.
 }
@@ -1332,6 +1336,228 @@
     $A' \subseteq A$ for some $A \in \mcal A$.
     The collection of such $A$ consists of a finite subcollection of $\mcal A$
     that covers $X$. \checkmark
+}
+
+\section{Local Compactness}
+
+\dfn{Local Compactness}{
+    Let $X$ be a topological space.
+    $X$ is said to be \textit{locally compact at} $x$ if there exist a compact
+    subspace $C$ and an open set $U$ of $X$ such that $x \in U \subseteq C$.
+    $X$ is said to be \textit{locally compact} if it is locally compact at
+    every point.
+}
+
+\nt{
+    If $X$ is a compact space, $X$ is locally compact.
+}
+
+\thm[compactify]{}{
+    Let $X$ be a topological space.
+    Then $X$ is locally compact Hausdorff if and only if
+    there exists a space $Y$ which satisfies the following.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $X$ is a subspace of $Y$.
+        \ii $|Y \setminus X| = 1$.
+        \ii $Y$ is a compact Hausdorff space.
+    \end{enumerate}
+    Moreover, such $Y$ is unique up to homeomorphism.
+    (In other words, if $Y$ and $Y'$ satisfy the three conditions,
+    then they are homeomorphic with each other.)
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Let $Y = X \cup \{\infty\}$ where $\infty \notin X$ is a new point.
+    Give $Y$ the topology $\mcal T_Y \triangleq \mcal T_X \cup \mcal T'$
+    where
+    \[
+        \mcal T' \triangleq \{\,Y \setminus C \mid
+        C \subseteq X \text{ is compact subspace of } X\,\}
+    \]
+    $\mcal T_Y$ is actually a topology:
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii For intersections,
+            \[
+                \begin{aligned}[t]
+                    U_1 \cap U_2 &\in \mcal T_X \\
+                    (Y \setminus C_1) \cap (Y \setminus C_2)
+                                 &= Y \setminus (C_1 \cup C_2) \in \mcal T' \\
+                    U_1 \cap (Y \setminus C_1)
+                                 &= U_1 \cap (X \setminus C_1) \in \mcal T_X
+                                 \text{. \checkmark}
+                \end{aligned}
+            \]
+        \ii For unions,
+            \[
+                \begin{aligned}[t]
+                    \textstyle \bigcup_{\alpha \in J} U_\alpha
+                    &\in \mcal T_X \\
+                    \textstyle \bigcup_{\beta \in I} (Y \setminus C_\beta)
+                    &= Y \setminus \textstyle \bigcap_{\beta \in I} C_\beta
+                    \in \mcal T' \\
+                    \textstyle \left(\bigcup_{\alpha \in J} U_\alpha\right)
+                    \cup \left(\bigcup_{\beta \in I} (Y \setminus C_\beta)\right)
+                    &= U \cup (Y \setminus C) = Y \setminus (C \setminus U)
+                    \in \mcal T'\text{.}
+                \end{aligned}
+            \]
+            $C \setminus U$ is compact since it is a closed subspace
+            of a compact space $C$. \checkmark
+    \end{enumerate}
+    $X$ is a subspace of $Y$ since $X \cap (Y \setminus C) = X \setminus C \in
+    \mcal T_X$.
+
+    Now, we claim that $Y$ endowed with $\mcal T_Y$ is \textbf{compact}.
+    Let $\mcal A$ be an open covering of $Y$.
+    It must be $\mcal A \cap \mcal T' \neq \varnothing$
+    since $\infty \notin X = \bigcup \mcal T_X$.
+    Take any $Y \setminus C \in \mcal A \cap \mcal T'$.
+    Then, consider
+    \[
+        \mcal A' \triangleq \big\{\,A \cap X \:\big|\:
+        A \in \mcal A \setminus \{\,Y \setminus C\,\}\,\big\}\text{,}
+    \]
+    which is a covering of $C$ by open sets in $X$.
+    Hence, there is a finite subcollection
+    \[
+        \{\,A_1 \cap X, A_2 \cap X, \cdots, A_n \cap X\,\}
+    \]
+    of $\mcal A'$ that covers $C$.
+    Then,
+    \[
+        \{\,Y \setminus C, A_1, A_2, \cdots, A_n\,\}
+    \]
+    is a finite subcover of $\mcal A$.
+
+    To show $Y$ is \textbf{Hausdorff}, let $x$ and $y$ be
+    two different points of $Y$.
+    If $x, y \in X$, then it is done by
+    $X$ being a Hausdorff space.
+    If $x \in X$ and $y = \infty$,
+    then since $X$ is locally compact,
+    there exists a compact subspace $C$ of $X$
+    that contains a neighborhood $U$ of $x$ in $X$.
+    Then, $U$ and $Y \setminus C$
+    are disjoint neighborhoods of $x$ and $y$, respectively.
+
+    We now prove the \textbf{uniqueness}.
+    Let $Y$ and $Y'$ be the spaces that satisfy the conditions.
+    Let $\{p\} = Y \setminus X$ and $\{q\} = Y' \setminus X$.
+    Note that $X$ is open in both $Y$ and $Y'$
+    as $\{p\}$ and $\{q\}$ are closed in $Y$ and $Y'$, respectively,
+    by \Cref{th:finiteSetIsClosedInHaus}.
+    Define a map $f \colon Y \to Y'$ by
+    \[
+        x \mapsto \begin{cases}
+            x & \text{if } x \in X \\
+            q & \text{if } x = p\text{.}
+        \end{cases}
+    \]
+    $f$ is naturally a bijection, and we only need to prove
+    $f$ is an open map thanks to the symmetry.
+
+    If $U$ is an open set in $Y$ that does not contain $p$,
+    $U$ is open in $X$ and thus $f(U) = U$ is open in $Y'$.
+    If $U$ is an open set in $Y$ that contains $p$,
+    then $C = Y \setminus U$ is closed in a compact space $Y$;
+    $C$ is compact by \Cref{th:cldInCptIsCpt}.
+    $C$, being a compact subspace of $X$,
+    is also a compact subspace of $Y'$, which is Hausdorff.
+    Hence $C$ is closed in $Y'$ as well by \Cref{th:cptInHausIsCld}.
+    Hence, $h(U) = Y' \setminus C$ is open in $Y'$.
+    
+    ($\Leftarrow$)
+    $X$ is Hausdorff because it is a subspace of a Hausdorff space.
+    To show $X$ is locally compact, take any $x \in X$.
+    Choose disjoint neighborhoods $U$ and $V$ of $x$ and the single point in
+    $Y \setminus X$, respectively, in $Y$. Then, the set $C = Y \setminus V$ is
+    closed in $Y$, so it is a compact subspace of $Y$.
+    Since $C \subseteq X$, it is a compact subspace of $X$ that contains the
+    neighborhood $U$ of $x$.
+}
+
+\nt{
+    In \Cref{th:compactify}, if $X$ is already compact, then $\mcal T'$
+    contains the singleton $\{\infty\}$, which makes $\infty$ an isolated
+    point. Therefore, $\cl X = X$; $X$ is closed in $Y$.
+
+    However, if $X$ is not compact, then every neighborhood of $\infty$
+    intersects $X$, which means $\infty$ is a limit point of $X$.
+    Hence, $\cl X = Y$.
+}
+
+\nt{
+    In either case, every open set in $X$ is still open in $Y$.
+    Moreover, every open set in $Y$ that does not contain $\infty$
+    is open in $X$.
+}
+
+\dfn{One-point Compactification}{
+    If $Y$ is a compact Hausdorff space and $X \subsetneq Y$ is a proper
+    subspace of $Y$ such that $\cl X = Y$, then $Y$ is said to be a
+    \textit{compactification} of $X$. If $|Y \setminus X| = 1$, then $Y$ is
+    called the \textit{one-point compactification} of $X$.
+}
+
+\cor{}{
+    A topological space $X$ has a one-point compactification if and only if $X$
+    is a locally compact Hausdorff space that is not itself compact.
+}
+
+\thm[HausLocalCptIff]{}{
+    Let $X$ be a Hausdorff space. Then $X$ is locally compact if and only if,
+    for any given $x \in X$ and neighborhood $U$ of $x$, there exists a
+    neighborhood $V$ of $x$ such that $\cl V$ is compact and $\cl V \subseteq U$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Take the one-point compactification $Y$ of $X$, and let $C \triangleq Y
+    \setminus U$. Since $C$ is closed in $Y$, it is compact by
+    \Cref{th:cldInCptIsCpt}. By \Cref{cor:cptAndPntOutside}, there are disjoint
+    open sets $V$ and $W$ in $Y$ such that $x \in V$ and $C \subseteq W$.
+    Then, $\cl V$, being closed in a compact set $Y$, is compact by
+    \Cref{th:cldInCptIsCpt}. Furthermore, $\cl V \cap W = \varnothing$;
+    otherwise, \Cref{th:inClosureIffNeighCapANonempty} ensures the nonempty
+    intersection of $V$ and $W$. This implies $\cl V \subseteq Y \setminus W
+    \subseteq Y \setminus C = U$, as desired. Hence, $V$ is an open set in $X$.
+
+    ($\Leftarrow$)
+    $C = \cl V$ is a compact subspace of $X$ that contains a neighborhood $V$
+    of $x$ in $X$.
+}
+
+\cor[subspLocalCptIf]{}{
+    Let $X$ be a topological space and $A$ be a subspace of $X$.
+    \begin{itemize}[nolistsep]
+        \ii If $X$ is locally compact and $A$ is closed in $X$, then $A$ is
+            locally compact.
+        \ii If $X$ is locally compact \textit{Hausdorff} and $A$ is open in
+            $X$, then $A$ is locally compact.
+    \end{itemize}
+}
+\pf{Proof}{
+    \hfill
+    \begin{itemize}[nolistsep]
+        \ii Suppose $A$ is closed in $X$. Given $x \in A$, let $U$ be an open
+            set and $C$ be a compact subspace such that $x \in U \subseteq C$.
+            Then, $C \cap A$ is closed in $C$ and thus compact by
+            \Cref{th:cldInCptIsCpt}, and it contains a neighborhood $U \cap A$
+            of $x$ in $A$. \checkmark
+        \ii Suppose $A$ is open in $X$. Given $x \in A$, by
+            \Cref{th:HausLocalCptIff}, there exists a neighborhood $V$ of $x$
+            in $X$ such that $\cl V$ is compact and $\cl V \subseteq A$.
+            Then, $\cl V$ is a compact subspace of $A$ containing the
+            neighborhood $V$ of $x$ in $A$. \checkmark
+    \end{itemize}
+}
+
+\cor[]{}{
+    A topological space $X$ is homeomorphic to an open subspace of a compact
+    Hausdorff space if and only if $X$ is locally compact Hausdorff.
+}
+\pf{Proof}{
+    ($\Rightarrow$) \Cref{th:compactify}. \quad
+    ($\Leftarrow$) \Cref{cor:subspLocalCptIf}.
 }
 
 \end{document}
