@@ -484,4 +484,116 @@
         T_1 \supsetneq T_2 \supsetneq T_3 \supsetneq T_4
     \]
 }
+
+\section{Normal Spaces}
+
+\thm[2ndCtT3IsT4]{}{
+    Every second-countable $T_3$ space is $T_4$.
+}
+\pf{Proof}{
+    Let $X$ be a regular space with a countable basis $\mcal B$. Let $A$ and
+    $B$ be disjoint closed subsets of $X$. For each $x \in
+    A$, there exists a neighborhood $U$ of $x$ that does not intersect $B$.
+    By \Cref{lem:T34Iff}, there exists a neighborhood $V$ of $x$ such that
+    $\cl V \subseteq U$. Finally, choose an element of $\mcal B$ such that
+    $x \in B \subseteq V$. Collecting such basis elements, we obtain a
+    countable covering of $A$ by open sets whose closures do not intersect $B$.
+    Let us denote it by $\{U_n\}_{n \in \ZZ_+}$. Similarly, choose a countable
+    collection $\{V_n\}_{n \in \ZZ_+}$ of open sets covering $B$ whose closures
+    do not intersect $A$.
+
+    For each $n \in \ZZ_+$ define
+    \[
+        U_n' \triangleq U_n \setminus \left(\bigcup_{i=1}^n \cl{V_i}\right)
+        \quad\text{and}\quad
+        V_n' \triangleq V_n \setminus \left(\bigcup_{i=1}^n \cl{U_i}\right)\text{.}
+    \]
+    Each $U_n'$ and $V_n'$ is open. Moreover, $\{U_n'\}_{n \in \ZZ_+}$ and
+    $\{V_n'\}_{n \in \ZZ_+}$ cover $A$ and $B$, respectively, since
+    $\cl{V_i}$ and $\cl{U_i}$ does not intersect $A$ and $B$, respectively.
+
+    Let
+    \[
+        U' \triangleq \bigcup_{n \in \ZZ_+} U_n' \quad\text{and}\quad
+        V' \triangleq \bigcup_{n \in \ZZ_+} V_n'\text{.}
+    \]
+    If there exists $x \in U' \cap V'$, then $x \in U_j' \cap V_k'$ for some
+    $j$ and $k$. \textsf{WLOG}, $j \le k$. $x \in U_j' \subseteq U_j$
+    but $x \in X \setminus \cl{U_k} \subseteq X \setminus \cl{U_j} \subseteq X
+    \setminus  U_j$, \#. Hence, $U'$ and $V'$ are disjoint open sets that
+    contain $A$ and $B$, respectively.
+}
+
+\thm[metIsT4]{}{
+    Every metrizable space is $T_4$.
+}
+\pf{Proof}{
+    Let $X$ be a metrizable space with metric $d$.
+    Let $A$ and $B$ be disjoint closed subsets of $X$. For each $a \in A$,
+    choose $\veps_a$ so that $B(a, \veps_a) \cap B = \varnothing$. Similarly,
+    for each $b \in B$ choose $\veps_b$ so chat $B(b, \veps_b) \cap A = \varnothing$.
+    Let
+    \[
+        U \triangleq \bigcup_{a \in A} B(a, \veps_a/2) \quad\text{and}\quad
+        V \triangleq \bigcup_{b \in B} B(b, \veps_b/2)\text{.}
+    \]
+    Then, they are open sets that contain $A$ and $B$, respectively.
+    To show they are disjoint, suppose there is $x \in U \cap V$ for the sake
+    of contradiction. Then, there are $a \in A$ and $b \in B$ such that
+    $x \in B(a, \veps_a/2) \cap B(b, \veps_b/2)$. \textsf{WLOG}, $\veps_a \le \veps_b$.
+    From the triangle inequality, we get $d(a, b) < (\veps_a + \veps_b) / 2
+    \le \veps_b$; $a \in B(b, \veps_b) \cap A$, which contradicts out construction.
+}
+
+\thm[cptHausIsT4]{}{
+    Every compact Hausdorff space is $T_4$.
+}
+\pf{Proof}{
+    Let $X$ be a compact Hausdorff space. Let $A$ and $B$ be disjoint closed
+    sets in $X$. $A$ and $B$ are compact by \Cref{th:cldInCptIsCpt}. Therefore,
+    by \Cref{cor:cptAndPntOutside}, for each $a \in A$, there are disjoint open
+    sets $U_a$ and $V_a$ in $X$ such that $a \in U_a$ and $B \subseteq V_a$.
+    Since $\{U_a\}_{a \in A}$ covers $A$, $A$ may be covered by finitely many
+    sets $U_{a_1}, U_{a_2}, \cdots, U_{a_n}$. Then, let
+    \[
+        U \triangleq U_{a_1} \cup U_{a_2} \cup \cdots \cup U_{a_n} \quad\text{and}\quad
+        V \triangleq V_{a_1} \cap V_{a_2} \cap \cdots \cap V_{a_n}\text{.}
+    \]
+    They are disjoint open sets containing $A$ and $B$, respectively.
+}
+
+\thm[wellOrdIsT4]{}{
+    Every well-ordered set $X$ is $T_4$ in the order topology.
+}
+\pf{Proof}{
+    Consider an interval of the form $(x, y]$. If $y$ is the largest element,
+    then $(x, y]$ is a basis element. If $y$ is not the largest element, then
+    $(x, y] = (x, y')$ where $y'$ is the immediate successor of $y$. Hence,
+    $(x, y]$ is always open. \checkmark
+
+    Now let $A$ and $B$ be disjoint closed sets in $X$. First consider the case
+    that neither contains the least element. For each $a \in A$, there exists
+    a basis element about $a$ disjoint from $B$; it contains some interval
+    of the form $(x_a, a]$. Similarly, choose $(y_b, b]$ disjoint from $A$.
+    The sets
+    \[
+        U \triangleq \bigcup_{a \in A} (x_a, a] \quad\text{and}\quad
+        V \triangleq \bigcup_{b \in B} (y_b, b]
+    \]
+    are open sets containing $A$ and $B$, respectively. Suppose $z \in U \cap V$
+    for the sake of contradiction. Then $z \in (x_a, a] \cap (y_b, b]$ for some
+    $a \in A$ and $b \in B$. \textsf{WLOG}, $a < b$. Then, $a \in (y_b, b]$
+    while $(y_b, b] \cap A = \varnothing$, \#. Hence $U \cap V = \varnothing$.
+
+    Now consider the case, \textsf{WLOG}, $a_0$, the least element, is
+    contained in $A$. Then, since $\{a_0\}$ is both open and closed in $X$,
+    we may find $U$ and $V$ for $A \setminus \{a_0\}$ and $B$ like above
+    and conclude $U \cup \{a_0\}$ and $V$ are disjoint open sets that
+    contain $A$ and $B$, respectively.
+}
+
+\nt{
+    Actually, \textit{every} order topology is normal.
+}
+
 \end{document}
