@@ -725,7 +725,7 @@
 
     \ii Let $X = \prod_{\alpha \in J} X_{\alpha}$ be a product of
         $T_{3 \frac{1}{2}}$ spaces. Let $\vec b$ be a point of $X$ and let
-        $A$ be a closed set of $X$ disjoint from $B$.
+        $A$ be a closed set of $X$ disjoint from $\vec b$.
         Choose a basis element $\prod_{\alpha \in J} U_\alpha$ containing $\vec b$
         that does not intersect $A$. Let $\alpha_1, \alpha_2, \cdots, \alpha_n$
         be indices such that $U_\alpha \neq X_\alpha$.
@@ -741,6 +741,119 @@
             \prod_{i=1}^n (f_i \circ \pi_{\alpha_i})(\vec x)\text{.}
         \]
 \end{enumerate}
+}
+
+\section{The Urysohn Metrization Theorem}
+
+\thm[urysohnMet]{Urysohn Metrization Theorem}{
+    Every second-countable $T_3$ space is metrizable.
+}
+\pf{Proof}{
+    Suppose $X$ is a second-countable $T_3$ space. Our goal is to imbed
+    $X$ in a metrizable space $\RR[\omega]$.
+
+    Let $\mcal B = \{B_n\}_{n \in \ZZ_+}$ be a countable basis for $X$.
+    For each $n, m \in \ZZ_+$ such that $\cl{B_n} \subseteq B_m$, let
+    $g_{n,m} \colon X \to [0, 1]$ be a continuous function such that
+    \[
+        g_{n,m}(\cl{B_n}) = \{1\} \quad\text{and}\quad
+        g_{n,m}(X \setminus B_m) = \{0\}\text{,}
+    \]
+    whose existence is guaranteed by \Cref{th:urysohnLem} (Urysohn lemma).
+
+    We now claim that:
+    \begin{center}
+    \fbox{
+    \begin{minipage}{.9\linewidth}
+        Given any $x_0 \in X$ and any neighborhood $U$ of $x_0$,
+        there exists some (defined) $g_{n, m}$ such that
+        $g_{n, m}(x_0) > 0$ and $g_{n, m}(X \setminus U) = \{0\}$.
+    \end{minipage}
+    }
+    \end{center}
+    Let $x_0 \in X$ and $U$ be any neighborhood of $x_0$. Then, choose some
+    $B_m \in \mcal B$ such that $x_0 \in B_m \subseteq U$. By \Cref{lem:T34Iff},
+    we may find another $B_n \in \mcal B$ such that $x_0 \in \cl{B_n} \subseteq B_m$.
+    For such $n$ and $m$, $g_{n, m}$ is defined, $g_{n,m}(x_0) = 1$, and
+    $g_{n,m}(X \setminus U) = \{0\}$.
+    We may reindex the family of functions $\{g_{n,m}\}$ to get the following
+    fact.
+    \begin{center}
+    \fbox{
+    \begin{minipage}{.9\linewidth}
+        There exists a countable family $\{f_n\}_{n \in \ZZ_+} \subseteq
+        X \to [0, 1]$
+        such that, given any $x_0 \in X$ and any neighborhood $U$ of $x_0$,
+        there exists $n \in \ZZ_+$ such that
+        $f_n(x_0) > 0$ and $f_n(X \setminus U) = \{0\}$.
+    \end{minipage}
+    }
+    \end{center}
+
+    Now, we are ready to imbed $X$ in $\RR[\omega]$ (product topology), which
+    is metrizable by \Cref{cor:prodRIsMetrizable}. Given such countable
+    family of functions $\{f_n\}$, define a map $F \colon X \to \RR[\omega]$ by
+    \[
+        F(x) \triangleq (f_1(x), f_2(x), \cdots)\text{.}
+    \]
+    We immediately know that:
+    \begin{itemize}[nolistsep]
+        \ii $F$ is continuous by \Cref{th:contiIffCoordsContiGen}.
+        \ii $F$ is injective since, if $x \neq y$, then there is some neighborhood
+            $U$ of $x$ that does not contain $y$ as $X$ is $T_1$. So, there is some $n \in \ZZ_+$
+            such that $f_n(x) > 0$ and $f_n(y) = 0$. Hence, $F(x) \neq F(y)$.
+    \end{itemize}
+
+    Therefore, we only need to show that, for each open set $U$ in $X$, the
+    set $F(U)$ is open in $F(X)$ to show $F$ is an imbedding.
+    Let $z_0 \in F(U)$. Let $x_0 = F\inv(z_0)$. Let $N \in \ZZ_+$ be a number
+    such that $f_N(x_0) = 1$ and $f_N(X \setminus U) = \{0\}$.
+    Let $W$ be the open set
+    \[
+        W \triangleq \pi_N\inv \big((0, \infty)\big) \cap F(U)
+    \]
+    in $F(U)$ as a subspace of $\RR[\omega]$
+    Then, $z_0 \in W$ as $\pi_N(z_0) = \pi_N(F(x_0)) = f_N(x_0) > 0$.
+    Also, for each $z \in W$, since $0 < \pi_N(z) = \pi_N(F(F\inv(z))) = f_N(F\inv(z))$ an
+    $f_N(X \setminus U) = \{0\}$,
+    $F\inv(z)$ must be in $U$, i.e., $z \in F(U)$; $z_0 \in W \subseteq F(U)$.
+
+    Hence, $X$, being homeomorphic with a subspace of a metrizable space,
+    is metrizable.
+}
+
+\thm[imbed]{The Imbedding Theorem}{
+    Let $X$ be a $T_1$ space. Suppose $\{f_{\alpha}\}_{\alpha \in J}$ is a 
+    family of continuous functions $f_{\alpha} \colon X \to \RR$ such that
+    for each $x_0 \in X$ and each neighborhood $U$ of $x_0$, there exists
+    $\alpha \in J$ such that $f_{\alpha}(x_0) > 0$ and $f_{\alpha}(X \setminus U) = \{0\}$.
+    Then the function $F \colon X \to \RR[J]$ defined by
+    \[
+        F(x) \triangleq \big(f_{\alpha}(x)\big)_{\alpha \in J}
+    \]
+    is an imbedding of $X$ in $\RR[J]$. If $f_{\alpha}$ maps $X$ into $[0, 1]$
+    for each $\alpha$, then $F$ imbeds $X$ in $[0, 1]^J$.
+}
+\pf{Proof}{
+    Analogous to the proof of \Cref{th:urysohnMet} after finding a countable
+    collection of such functions.
+}
+
+\thm[T3halfIff]{}{
+    A topological space $X$ is $T_{3 \frac{1}{2}}$ if and only if it is
+    homeomorphic to a subspace of $[0, 1]^J$ for some $J$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    For each $x \in X$ and each neighborhood $U$ of $x$, let $f_{x, U} \colon
+    X \to [0, 1]$ be a continuous function that separates $x$ and $X \setminus U$.
+    Then, the collection $\{f_{x, U}\}$ of such functions obviously satisfy the
+    property mentioned in \Cref{th:imbed}. Therefore, there is an imbedding
+    of $X$ in $\RR[J]$ for some $J$.
+
+    ($\Leftarrow$)
+    $[0, 1]^J$ is $T_{3 \frac{1}{2}}$ by \Cref{th:metIsT4} and \Cref{th:subspT3half} (ii).
+    Therefore, by \Cref{th:subspT3half} (i), $X$ is $T_{3 \frac{1}{2}}$.
 }
 
 \end{document}
