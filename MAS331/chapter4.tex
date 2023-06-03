@@ -1,7 +1,9 @@
 \documentclass[MAS331_Note.tex]{subfiles}
 
 \begin{document}
+
 \chapter{Countability and Separation Axioms}
+
 \section{The Countability Axioms}
 
 \dfn{First Countability Axiom}{
@@ -233,7 +235,7 @@
     Counterexamples:
     \begin{itemize}[nolistsep]
         \ii ({\color{green}$\dashrightarrow$}) $X = \{0, 1\}$ with $\mcal T =
-            \{\varnothing, X, \{0\}\}$ is second-countable but not Hausdorff,
+            \{\OO, X, \{0\}\}$ is second-countable but not Hausdorff,
             thus not metrizable.
         \ii ({\color{red}$\dashrightarrow$})
             $\RR[\omega]$ with the uniform topology is metrizable but not
@@ -321,7 +323,7 @@
 
         \ii ($\Rightarrow$)
             $B \triangleq X \setminus U$ is a closed set and $A \cap B =
-            \varnothing$; there exist disjoint open sets $V$ and $W$ such that
+            \OO$; there exist disjoint open sets $V$ and $W$ such that
             $A \subseteq V$ and $B \subseteq W$. Then, $\cl V$ does not
             intersect $B$, i.e., $\cl V \subseteq U$. \checkmark
 
@@ -443,20 +445,20 @@
         \ii $L$ is closed in $\RR_\ell^2$ as it is closed in $\RR^2$, which is
             coarser than $\RR_\ell^2$.
         \ii Every subset $A$ of $L$ is closed in $\RR_\ell^2$.
-        \ii For every $\varnothing \neq A \subsetneq L$, there are disjoint
+        \ii For every $\OO \neq A \subsetneq L$, there are disjoint
             open sets $U_A$ and $V_A$ in $\RR_\ell^2$ containing $A$ and $L
             \setminus A$, respectively.
     \end{itemize}
     Here, we define a function $\theta \colon \mcal P(L) \to \mcal P(\QQ^2)$ by
     \[
         A \mapsto \begin{cases}
-            \QQ^2 \cap U_A & \text{if } \varnothing \subsetneq A \subsetneq L \\
-            \varnothing    & \text{if } A = \varnothing \\
+            \QQ^2 \cap U_A & \text{if } \OO \subsetneq A \subsetneq L \\
+            \OO    & \text{if } A = \OO \\
             \QQ^2          & \text{if } A = L\text{.}
         \end{cases}
     \]
 
-    To show $\theta$ is injective, let $\varnothing \subsetneq A, B \subsetneq
+    To show $\theta$ is injective, let $\OO \subsetneq A, B \subsetneq
     L$ with $A \neq B$. \textsf{WLOG}, $A \not\subseteq B$; let $x \in A
     \setminus B$. Then, since $x \in L \setminus B$, $x \in U_A \cap V_B$.
     Since $\QQ^2$ is dense in $\RR_\ell^2$ and $U_A \cap V_B$ is open and
@@ -530,8 +532,8 @@
 \pf{Proof}{
     Let $X$ be a metrizable space with metric $d$.
     Let $A$ and $B$ be disjoint closed subsets of $X$. For each $a \in A$,
-    choose $\veps_a$ so that $B(a, \veps_a) \cap B = \varnothing$. Similarly,
-    for each $b \in B$ choose $\veps_b$ so chat $B(b, \veps_b) \cap A = \varnothing$.
+    choose $\veps_a$ so that $B(a, \veps_a) \cap B = \OO$. Similarly,
+    for each $b \in B$ choose $\veps_b$ so chat $B(b, \veps_b) \cap A = \OO$.
     Let
     \[
         U \triangleq \bigcup_{a \in A} B(a, \veps_a/2) \quad\text{and}\quad
@@ -583,7 +585,7 @@
     are open sets containing $A$ and $B$, respectively. Suppose $z \in U \cap V$
     for the sake of contradiction. Then $z \in (x_a, a] \cap (y_b, b]$ for some
     $a \in A$ and $b \in B$. \textsf{WLOG}, $a < b$. Then, $a \in (y_b, b]$
-    while $(y_b, b] \cap A = \varnothing$, \#. Hence $U \cap V = \varnothing$.
+    while $(y_b, b] \cap A = \OO$, \#. Hence $U \cap V = \OO$.
 
     Now consider the case, \textsf{WLOG}, $a_0$, the least element, is
     contained in $A$. Then, since $\{a_0\}$ is both open and closed in $X$,
@@ -594,6 +596,151 @@
 
 \nt{
     Actually, \textit{every} order topology is normal.
+}
+
+\section{The Urysohn Lemma}
+
+\dfn{Separation by a Continuous Function}{
+    If $A$ and $B$ are two subsets of the topological space $X$, and if there
+    is a continuous function $f \colon X \to [0, 1]$ such that $f(A) = \{0\}$
+    and $f(B) = \{1\}$, we say that $A$ and $B$ \textit{can be separated by
+    a continuous function}.
+}
+
+\thm[urysohnLem]{Urysohn Lemma}{
+    Let $X$ be a normal space. Then, for every disjoint closed subsets $A$ and
+    $B$ of $X$, $A$ and $B$ can be separated by a continuous function.
+}
+\pf{Proof}{
+    Let $P \triangleq [0, 1] \cap \QQ$. Let $\{\,p_1, p_2, \cdots\,\} = P$.
+    For convenience, let $p_1 = 1$ and $p_2 = 0$. Let $P_n = \{\,p_1, p_2,
+    \cdots, p_n\,\}$.
+    Inductively define $\{U_p\}_{p \in P}$ as follows.
+    \begin{itemize}[nolistsep]
+        \ii $U_{p_1} = U_1 \triangleq X \setminus B$.
+        \ii Since $A \subseteq U_1$, by \Cref{lem:T34Iff}, there is an open set
+            $U_0$ in $X$ such that $A \subseteq U_0$ and $\cl{U_0}
+            \subseteq U_1$.
+        \ii Suppose $U_p$ is defined for each $p \in P_n$ where $n > 1$, and
+            $\forall p, q \in P_n,\: (p < q \implies \cl{U_p} \subseteq U_q)$ (*).        
+            then $p_{n+1}$ has  its immediate predecessor $q_1$ and an immediate
+            successor $q_2$ in $P_n$. By \Cref{lem:T34Iff}, we may find an open
+            set $U_{p+1}$ such that $\cl{U_{q_1}} \subseteq U_{p+1}$ and
+            $\cl{U_{p+1}} \subseteq U_{q_2}$. Note that (*) still holds for
+            $P_{n+1}$.
+    \end{itemize}
+    Hence, by mathematcial induction, we may find a collection of open sets
+    $\{U_p\}_{p \in P}$ such that
+    \[
+        \forall p, q \in P,\: \big(p < q \implies \cl{U_p} \subseteq U_q\big)
+        \text{.} \qquad(\ast)
+    \]
+    Now, extend $\{U_p\}_{p \in P}$ to $\{U_p\}_{p \in \QQ}$ by defining
+    \[
+        \begin{aligned}[t]
+            U_p &= \OO &\quad \text{if } p < 0\phantom{.}\\
+            U_p &= X   &\quad \text{if } p > 0\text{.}
+        \end{aligned}
+    \]
+    Note that still ($\ast$) holds for $\QQ$.
+
+    Now, define $\QQ(x)$ for each $x \in X$ as following.
+    \[
+        \QQ(x) \triangleq \{\,p \in \QQ \mid x \in U_p \,\}
+    \]
+    Note that $\QQ(x) \cap (-\infty, 0) = \OO$ for all $x \in X$ and
+    $\QQ \cap (1, \infty) \subseteq \QQ(x)$. Since $\QQ(x)$
+    is bounded below and nonempty, we may define $f \colon X \to \RR$ by
+    \[
+        f(x) \triangleq \inf \QQ(x)
+        = \inf\{\,p \in \QQ \mid x \in U_p \,\}\text{.}
+    \]
+    Note that $\Img f = [0, 1]$ by the argument above.
+    Then, the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $x \in \cl{U_r} \implies f(x) \le r$.
+            \begin{itemize}[nolistsep]
+                \ii \textit{Proof}. For every $s > r$, $x \in U_s$. Therefore,
+                    $(r, \infty) \cap \QQ \subseteq \QQ(x)$. By definition,
+                    we have $f(x) \le r$.
+            \end{itemize}
+        \ii $x \notin U_r \implies f(x) \ge r$.
+            \begin{itemize}[nolistsep]
+                \ii \textit{Proof}. For every $s < r$, $x \notin U_s$. Therefore,
+                    $(\infty, r) \cap \QQ(x) = \OO$. By definition,
+                    we have $f(x) \ge r$.
+            \end{itemize}
+    \end{enumerate}
+    Moreover, if $x \in A$, then $\QQ(x) = [0, \infty) \cap \QQ$; $f(A) = \{0\}$.
+    Also, if $x \in B$, then $\QQ(x) = (1, \infty) \cap \QQ$; $f(B) = \{1\}$.
+
+    Now, we prove that $f$ is continuous. Let $(c, d)$ be any open interval
+    in $\RR$. To prove $f\inv \big((c, d)\big)$ is open, let $x_0$ be any
+    element in the set. We may choose $p, q \in \QQ$ such that
+    $c < p < f(x_0) < q < d$ by denseness of $\QQ$ in $\RR$.
+    We now assert that $U \triangleq U_q \setminus \cl{U_p}$ is a neighborhood
+    of $x$ that is contained in $f\inv \big((c, d)\big)$. If $x \in U$, then
+    $f(x) \le q$ by (i) and $f(x) \ge p$ by (2). Hence, $f(U) \subseteq (c, d)$;
+    $f$ is continuous.
+    Hence, $f' \colon X \to [0, 1]$ obtained by restricting the codomain of $f$
+    to $[0, 1]$ is continuous by \Cref{th:constructConti}.
+}
+
+\cor{}{
+    A topological space $X$ is $T_4$ if and only if every pair $A$, $B$ of
+    disjoint closed sets in $X$ can be separated by a continuous function.
+}
+\pf{Proof}{
+    ($\Rightarrow$) \Cref{th:urysohnLem}
+
+    ($\Leftarrow$) If $f$ separates $A$ and $B$, then $f\inv\big([0, 1/2)\big)$
+    and $f\inv \big((1/2, 1]\big)$ are disjoint open sets that contain $A$ and
+    $B$, respectively.
+}
+
+\dfn{Completely Regular Space}{
+    A topological space $X$ is \textit{completely regular}, or
+    $T_{3 \frac{1}{2}}$, if it is $T_1$ and if each point $x_0$ and each closed
+    set $A$ not containing $x_0$, $\{x_0\}$ and $A$ can be separated by a
+    continuous function.
+}
+
+\thm[subspT3half]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii A subspace of a $T_{3 \frac{1}{2}}$ space is $T_{3 \frac{1}{2}}$.
+        \ii Let $\{X_\alpha\}_{\alpha \in J}$ be a family of topological
+            spaces. Then, $X = \prod_{\alpha \in J} X_\alpha$ is $T_{3 \frac{1}{2}}$
+            if and only if each $X_\alpha$ is $T_{3 \frac{1}{2}}$.
+    \end{enumerate}
+}
+\pf{Proof}{
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii Let $X$ be $T_{3 \frac{1}{2}}$. Let $Y$ be a subspace of $X$. Let $x_0
+        \in Y$ and $A$ be a closed set not containing $x_0$. Then, $A = \cl A
+        \cap Y$; $a \notin \cl A$.
+        Since $X$ is $T_{3 \frac{1}{2}}$, we have a continuous
+        function $f \colon X \to [0, 1]$ such that $f(x_0) = 0$ and $f(\cl A)
+        = \{1\}$. $f\big|_Y$ is the desired continuous (\Cref{th:constructConti})
+        function.
+
+    \ii Let $X = \prod_{\alpha \in J} X_{\alpha}$ be a product of
+        $T_{3 \frac{1}{2}}$ spaces. Let $\vec b$ be a point of $X$ and let
+        $A$ be a closed set of $X$ disjoint from $B$.
+        Choose a basis element $\prod_{\alpha \in J} U_\alpha$ containing $\vec b$
+        that does not intersect $A$. Let $\alpha_1, \alpha_2, \cdots, \alpha_n$
+        be indices such that $U_\alpha \neq X_\alpha$.
+
+        For each $i \in [n]$, there exists a continuous function
+        \[
+            f_i \colon X_{\alpha_i} \to [0, 1]
+        \]
+        such that $f_i(b_{\alpha_i}) = 1$ and $f_i(X \setminus U_{\alpha_i}) = \{0\}$.
+        Define $f \colon X \to [0, 1]$ be defined by
+        \[
+            f(\vec x) \triangleq
+            \prod_{i=1}^n (f_i \circ \pi_{\alpha_i})(\vec x)\text{.}
+        \]
+\end{enumerate}
 }
 
 \end{document}
