@@ -812,7 +812,7 @@
     \[
         W \triangleq \pi_N\inv \big((0, \infty)\big) \cap F(U)
     \]
-    in $F(U)$ as a subspace of $\RR[\omega]$
+    in $F(U)$ as a subspace of $\RR[\omega]$.
     Then, $z_0 \in W$ as $\pi_N(z_0) = \pi_N(F(x_0)) = f_N(x_0) > 0$.
     Also, for each $z \in W$, since $0 < \pi_N(z) = \pi_N(F(F\inv(z))) = f_N(F\inv(z))$ an
     $f_N(X \setminus U) = \{0\}$,
@@ -854,6 +854,128 @@
     ($\Leftarrow$)
     $[0, 1]^J$ is $T_{3 \frac{1}{2}}$ by \Cref{th:metIsT4} and \Cref{th:subspT3half} (ii).
     Therefore, by \Cref{th:subspT3half} (i), $X$ is $T_{3 \frac{1}{2}}$.
+}
+
+\section{The Tietze Extension Theorem}
+
+\thm[tietzeExt]{Tietze Extension Theorem}{
+    Let $X$ be a $T_4$ space; let $A$ be a closed subspace of $X$.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Any continuous map from $A$ to $[a, b]$ of $\RR$ may be extended to
+            a continuous map from $X$ to $[a, b]$.
+        \ii Any continuous map from $A$ to $\RR$ may be extended to
+            a continuous map from $X$ to $\RR$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    We first prove the following claim:
+    \begin{center}
+    \fbox{
+    \begin{minipage}{.9\linewidth}
+        \textbf{Claim.}
+        If $f \colon A \to [-r, r]$ is a continuous function, then there is
+        a continuous function $g \colon X \to \RR$ such that
+        \begin{itemize}[nolistsep]
+            \ii $|g(x)| \le \frac{1}{3}r$ for all $x \in X$.
+            \ii $|g(a) - f(a)| \le \frac{2}{3}r$ for all $a \in A$.
+        \end{itemize}
+    \end{minipage}
+    }
+    \end{center}
+
+    The function $f$ can be constructed as follows.
+    First, let
+    \[
+        I_1 \triangleq \left[-r, -\frac{1}{3}r\right], \quad
+        I_2 \triangleq \left[-\frac{1}{3}r, \frac{1}{3}r\right], \quad
+        I_3 \triangleq \left[\frac{1}{3}r, r\right]\text{,}
+    \]
+    and let
+    \[
+        B_1 \triangleq f\inv(I_1) \quad\text{and}\quad
+        B_3 \triangleq f\inv(I_3)\text{.}
+    \]
+    Since $B_1$ and $B_3$ are disjoint closed sets in $A$
+    (\Cref{th:contiTFAE}), they are also
+    disjoint closed sets in $X$. Hence, by \Cref{th:urysohnLem}. There is a
+    continuous function $g \colon X \to [-r/3, r/3]$ such that
+    $g(B_1) = \{-r/3\}$ and $g(B_3) = \{r/3\}$.
+    One might easily check $g$ satisfies the conditions. \checkmark
+
+    Now, with the help of the claim, we prove (i). It is enough to show for
+    $f \colon A \to [-1, 1]$. Construct a sequence of continuous functions
+    $\{g_n\}_{n \in \ZZ_+}$ as follows.
+    \begin{itemize}[nolistsep]
+        \ii By the claim, let $g_1 \colon X \to [-1/3, 1/3]$ be a continuous
+            function such that $|f(a) - g_1(a)| \le 2/3$.
+        \ii Suppose continuous $g_1, g_2, \cdots, g_n \colon X \to \RR$ are defined and
+            \[
+                \forall a \in A,\: \left|f(a) - \sum_{i=1}^{n} g_i(a)\right|
+                \le \left(\frac{2}{3}\right)^n\text{.}
+            \]
+            Now, apply the claim for $f - \sum_{i=1}^{n} g_i \colon X \to
+            [-(2/3)^n, (2/3)^n]$ and get $g_{n+1} \colon X \to \RR$
+            such that
+            \begin{itemize}[nolistsep]
+                \ii $\displaystyle |g_{n+1}(x)|
+                \le \frac{1}{3} \left(\frac{2}{3}\right)^n$
+                    for all $x \in X$ and
+                    \ii $\displaystyle \left|f(a) - \sum_{i=1}^{n+1} g_i(a)\right|
+                    \le \left(\frac{2}{3}\right)^{n+1}$ for all $a \in A$.
+            \end{itemize}
+    \end{itemize}
+    
+    Now, define $g \colon X \to [-1, 1]$ by
+    \[
+        g(x) \triangleq \sum_{n=1}^{\infty} g_n(x)\text{.}
+    \]
+    We may see the sum converges absolutely by comparing it with
+    $\frac{1}{3} \sum_{n=1}^{\infty} \big(\frac{2}{3}\big)^{n-1}$, and thus
+    $g$ is well-defined.
+
+    Let $s_n \triangleq \sum_{i=1}^{n} g_i$ for each $n \in \ZZ_+$. We want
+    to show $\{s_n\}_{n \in \ZZ_+}$ converges uniformly to $g$, and thus
+    $g$ is continuous by \Cref{th:unifLimThm}.
+    If $k > n$, then
+    \[
+        \begin{aligned}[t]
+            |s_k(x) - s_n(x)| &= \left|\sum_{i=n+1}^{k} g_i(x)\right| \\
+                              &\le \frac{1}{3} \sum_{i=n+1}^{k} \left(\frac{2}{3}\right)^{i-1} \\
+                              &< \frac{1}{3} \sum_{i=n+1}^{\infty} \left(\frac{2}{3}\right)^{i-1}
+                              = \left(\frac{2}{3}\right)^n\text{.}
+        \end{aligned}
+    \]
+
+    Hence, we get $|g(x) - s_n(x)| < (2/3)^n$ by taking $k \to \infty$ on both
+    sides. At the same time, $(2/3)^n$ is independent from $x$; making $\{s_n\}$
+    converges uniformly to $g$.
+
+    Now, we show that $g(a) = f(a)$ for each $a \in A$. Since
+    \[
+        \left|f(a) - \sum_{i=1}^{n} g_i(a)\right| = |f(a) - s_n(a)| \le
+        \left(\frac{2}{3}\right)^n
+    \]
+    for all $a \in A$ and $n \in \ZZ_+$, we show that $\lim_{n \to \infty} s_n(a)
+    = f(a)$ for all $a \in A$. Hence, we have $g(a) = f(a)$. \checkmark
+
+    We now prove (ii) of the theorem.
+    Since $(-1, 1)$ is homeomorphic with $\RR$, we may only consider
+    $f \colon A \to (-1, 1)$. By (i), we already have a extension $g \colon
+    X \to [-1, 1]$ of $f$. Let
+    \[
+        D \triangleq g\inv(\{-1\}) \cup g\inv(\{1\})\text{.}
+    \]
+    Since $g$ is continuous, $D$ is a closed subset of $X$ since $g(A) = f(A)
+    \subseteq (-1, 1)$, $A$ is disjoint from $D$. By \Cref{lem:urysohnLem},
+    there is a continuous function $\phi \colon X \to [0, 1]$ such that
+    $\phi(D) = \{0\}$ and $\phi(A) = \{1\}$. Define $h \colon X \to \RR$ by
+    \[
+        h(x) \triangleq \phi(x) \cdot g(x)\text{.}
+    \]
+    Then, $h$ is continuous, and $h$ is an extension of $f$.
+    Moreover, $h(X) \subseteq (-1, 1)$ as,
+    $h(x) = 0 \cdot g(x) = 0$ for $x \in D$ and $|h(x)| \le 1 \cdot g(x) < 1$
+    for $x \in X \setminus D$.
 }
 
 \end{document}
