@@ -879,28 +879,30 @@
             \ii $|g(x)| \le \frac{1}{3}r$ for all $x \in X$.
             \ii $|g(a) - f(a)| \le \frac{2}{3}r$ for all $a \in A$.
         \end{itemize}
+        \pf{Proof}{
+            The function $f$ can be constructed as follows.
+            First, let
+            \[
+                I_1 \triangleq \left[-r, -\frac{1}{3}r\right], \quad
+                I_2 \triangleq \left[-\frac{1}{3}r, \frac{1}{3}r\right], \quad
+                I_3 \triangleq \left[\frac{1}{3}r, r\right]\text{,}
+            \]
+            and let
+            \[
+                B_1 \triangleq f\inv(I_1) \quad\text{and}\quad
+                B_3 \triangleq f\inv(I_3)\text{.}
+            \]
+            Since $B_1$ and $B_3$ are disjoint closed sets in $A$
+            (\Cref{th:contiTFAE}), they are also
+            disjoint closed sets in $X$. Hence, by \Cref{th:urysohnLem}. There is a
+            continuous function $g \colon X \to [-r/3, r/3]$ such that
+            $g(B_1) = \{-r/3\}$ and $g(B_3) = \{r/3\}$.
+            One might easily check $g$ satisfies the conditions.
+        }
     \end{minipage}
     }
     \end{center}
 
-    The function $f$ can be constructed as follows.
-    First, let
-    \[
-        I_1 \triangleq \left[-r, -\frac{1}{3}r\right], \quad
-        I_2 \triangleq \left[-\frac{1}{3}r, \frac{1}{3}r\right], \quad
-        I_3 \triangleq \left[\frac{1}{3}r, r\right]\text{,}
-    \]
-    and let
-    \[
-        B_1 \triangleq f\inv(I_1) \quad\text{and}\quad
-        B_3 \triangleq f\inv(I_3)\text{.}
-    \]
-    Since $B_1$ and $B_3$ are disjoint closed sets in $A$
-    (\Cref{th:contiTFAE}), they are also
-    disjoint closed sets in $X$. Hence, by \Cref{th:urysohnLem}. There is a
-    continuous function $g \colon X \to [-r/3, r/3]$ such that
-    $g(B_1) = \{-r/3\}$ and $g(B_3) = \{r/3\}$.
-    One might easily check $g$ satisfies the conditions. \checkmark
 
     Now, with the help of the claim, we prove (i). It is enough to show for
     $f \colon A \to [-1, 1]$. Construct a sequence of continuous functions
@@ -966,7 +968,7 @@
         D \triangleq g\inv(\{-1\}) \cup g\inv(\{1\})\text{.}
     \]
     Since $g$ is continuous, $D$ is a closed subset of $X$ since $g(A) = f(A)
-    \subseteq (-1, 1)$, $A$ is disjoint from $D$. By \Cref{lem:urysohnLem},
+    \subseteq (-1, 1)$, $A$ is disjoint from $D$. By \Cref{th:urysohnLem},
     there is a continuous function $\phi \colon X \to [0, 1]$ such that
     $\phi(D) = \{0\}$ and $\phi(A) = \{1\}$. Define $h \colon X \to \RR$ by
     \[
@@ -976,6 +978,112 @@
     Moreover, $h(X) \subseteq (-1, 1)$ as,
     $h(x) = 0 \cdot g(x) = 0$ for $x \in D$ and $|h(x)| \le 1 \cdot g(x) < 1$
     for $x \in X \setminus D$.
+}
+
+\section{Imbeddings of Manifolds}
+
+\dfn{$m$-Manifold}{
+    A topological space $X$ is a \textit{$m$-manifold} if
+    \begin{itemize}[nolistsep]
+        \ii $X$ is Hausdorff,
+        \ii $X$ is second-countable, and
+        \ii for each $x \in X$, there is a neighborhood of $x$ that is
+            homeomorphic with an open subspace of $\RR[m]$.
+    \end{itemize}
+}
+
+\dfn{Support}{
+    Let $X$ be a topological space.
+    If $\phi \colon X \to \RR$, then the \textit{support} of $\phi$ is the
+    set $\cl{\phi\inv(\RR \setminus \{0\})}$.
+}
+
+\dfn{Parition of Unity}{
+    Let $\{\,U_1, U_2, \cdots, U_n\,\}$ b a finite open covering of a space
+    $X$. A faimly $\{\phi_i\}_{i \in [n]} \subseteq [0, 1]^X$ of continuous
+    functions is said to be a \textit{partition of unity} dominated by
+    $\{U_i\}_{i \in [n]}$ if
+    \begin{itemize}[nolistsep]
+        \ii $\forall i \in [n],\: (\text{support of } \phi_i) \subseteq U_i$ and
+        \ii $\forall x \in X,\: \sum_{i=1}^{n} \phi_i(x) = 1$.
+    \end{itemize}
+}
+
+\thm[partOfUnityExists]{Existence of Finite Paritions of Unity}{
+    Let $\{U_1, U_2, \cdots, U_n\}$ be a finite open covering of a $T_4$ space.
+    Then, there is a partition of unity dominated by $\{U_i\}_{i \in [n]}$.
+}
+\pf{Proof}{
+    We first prove the claim:
+    \begin{center}
+    \fbox{
+    \begin{minipage}{.9\linewidth}
+        \textbf{Claim 1.} 
+        If $\{U_1, U_2, \cdots, U_n\}$ is a finite open covering of a $T_4$ space $X$,
+        then there exists some open set $V$ in $X$ such that
+        \begin{itemize}[nolistsep]
+            \ii $\cl{V} \subseteq U_1$ and
+            \ii $\{V, U_2, U_3, \cdots, U_n\}$ covers $X$.
+        \end{itemize}
+        \pf{Proof}{
+            $A \triangleq X \setminus \bigcup_{i=2}^n U_i$
+            is a closed subset of $X$. Also, $A \subseteq U_1$. Hence, by
+            \Cref{lem:T34Iff}, there exists an open set $V$ of $X$ such that
+            $A \subseteq V$ and $\cl V \subseteq U_1$.
+            Moreover, $X = A \cup \bigcup_{i=2}^n U_i \subseteq
+            V \cup \bigcup_{i=2}^n U_i$, implying that
+            $\{V, U_2, U_3, \cdots, U_n\}$ covers $X$.
+        }
+    \end{minipage}
+    }
+    \end{center}
+
+    \noindent This immediately gives us the following result.
+    \begin{center}
+    \fbox{
+    \begin{minipage}{.9\linewidth}
+        \textbf{Claim 2.} 
+        If $\{U_1, U_2, \cdots, U_n\}$ is a finite open covering of a $T_4$ space $X$,
+        then there exists a finite open covering $\{V_1, V_2, \cdots, V_n\}$ of
+        $X$ such that $\forall i \in [n],\: \cl{V_i} \subseteq U_i$.
+        \pf{Proof}{
+            Apply \textbf{Claim 1} $n$ times.
+        }
+    \end{minipage}
+    }
+    \end{center}
+
+    \noindent
+    Choose finite open coverings $\{V_i\}_{i \in [n]}$ and $\{W_i\}_{i \in [n]}$
+    of $X$ such that:
+    \begin{itemize}[nolistsep]
+        \ii For each $i \in [n]$, $\cl{V_i} \subseteq U_i$.
+        \ii For each $i \in [n]$, $\cl{W_i} \subseteq V_i$.
+    \end{itemize}
+    This is possible thanks to \textbf{Claim 2}.
+
+    By \Cref{th:urysohnLem}, for each $i \in [n]$, there exists
+    \[
+        \psi_i \colon X \to [0, 1]
+    \]
+    such that $\psi_i(\cl{W_i}) = \{1\}$ and $\psi_i(X \setminus V_i) = \{0\}$.
+    Since $\psi_i\inv(\RR \setminus \{0\}) \subseteq V_i$, we have
+    \[
+        (\text{support of } \psi_i) \subseteq \cl{V_i} \subseteq U_i\text{.}
+    \]
+    Also, since $\{W_i\}_{i \in [n]}$ covers $X$, $\sum_{i=1}^{n} \psi_i(x)$
+    is positive for each $x \in X$. Hence, we may define, for each $i \in [n]$,
+    $\phi_i \colon X \to [0, 1]$ by
+    \[
+        \phi_i(x) = \frac{\psi_i(x)}{\sum_{j=1}^{n} \psi_j(x)}\text{.}
+    \]
+    One may readily check that $\{\phi_i\}_{i \in [n]}$ is a partition of unity
+    dominated by $\{U_i\}_{i \in [n]}$.
+}
+
+\thm[maniImbed]{}{
+    If $X$ is a compact $m$-manifold, then $X$ can be imbedded in $\RR[N]$
+    for some $N \in \ZZ_+$.
 }
 
 \end{document}
