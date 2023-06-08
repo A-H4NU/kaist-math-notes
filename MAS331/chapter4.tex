@@ -52,7 +52,7 @@
     \Cref{exmp:metIs1stCt}. Let $\mcal B$ be a basis of $\RR[\omega]$. Let
     \[
         A \triangleq \big\{\,(x_i)_{i \in \ZZ_+} \in \RR[\omega] \:\big|\:
-        \forall i \in \ZZ_+,\: x_i \in \{\,0, 1\,\}\,\big\}\text{.}
+        \fall i \in \ZZ_+,\: x_i \in \{\,0, 1\,\}\,\big\}\text{.}
     \]
     Then, $A$ has the discrete topology but $A$ is uncountable. Therefore,
     $\RR[\omega]$ with the uniform topology is not second-countable.
@@ -94,11 +94,11 @@
             Then, for each $\alpha \in J$, there exists a countable basis
             $\mcal B_\alpha$ of $X_\alpha$ at $x_\alpha$.
             Then, $\big\{\, \prod_{\alpha \in J} B_\alpha \:\big|\:
-            \forall \alpha \in J,\: B_\alpha \in \mcal B_\alpha\,\big\}$ is a
+            \fall \alpha \in J,\: B_\alpha \in \mcal B_\alpha\,\big\}$ is a
             countable basis at $(x_\alpha)_{\alpha \in J}$.
         \ii For each $\alpha \in J$, there exists a countable basis $\mcal
             B_\alpha$ of $X_\alpha$. Then, $\big\{\,\prod_{\alpha \in J}
-            B_\alpha \:\big|\: \forall \alpha \in J,\: B_\alpha \in \mcal
+            B_\alpha \:\big|\: \fall \alpha \in J,\: B_\alpha \in \mcal
             B_\alpha\,\big\}$ is a countable basis of $\prod_{\alpha \in J}
             X_\alpha$.
     \end{itemize}
@@ -376,7 +376,7 @@
     Supopse $X$ is $T_1$(, $T_2$, or $T_3$). Then, For each $\alpha_0 \in J$,
     $X_{\alpha_0}$ is homeomorphic with the subspace
     \[
-        Y \triangleq \{\,\vec y \in X \mid \forall \alpha \in J \setminus \{
+        Y \triangleq \{\,\vec y \in X \mid \fall \alpha \in J \setminus \{
         \alpha_0\},\: y_\alpha = x_\alpha\,\}\text{.}
     \]
     Hence, $X_{\alpha_0}$ is $T_1$(, $T_2$, or $T_3$).
@@ -622,7 +622,7 @@
             $U_0$ in $X$ such that $A \subseteq U_0$ and $\cl{U_0}
             \subseteq U_1$.
         \ii Suppose $U_p$ is defined for each $p \in P_n$ where $n > 1$, and
-            $\forall p, q \in P_n,\: (p < q \implies \cl{U_p} \subseteq U_q)$ (*).        
+            $\fall p, q \in P_n,\: (p < q \implies \cl{U_p} \subseteq U_q)$ (*).        
             then $p_{n+1}$ has  its immediate predecessor $q_1$ and an immediate
             successor $q_2$ in $P_n$. By \Cref{lem:T34Iff}, we may find an open
             set $U_{p+1}$ such that $\cl{U_{q_1}} \subseteq U_{p+1}$ and
@@ -632,7 +632,7 @@
     Hence, by mathematcial induction, we may find a collection of open sets
     $\{U_p\}_{p \in P}$ such that
     \[
-        \forall p, q \in P,\: \big(p < q \implies \cl{U_p} \subseteq U_q\big)
+        \fall p, q \in P,\: \big(p < q \implies \cl{U_p} \subseteq U_q\big)
         \text{.} \qquad(\ast)
     \]
     Now, extend $\{U_p\}_{p \in P}$ to $\{U_p\}_{p \in \QQ}$ by defining
@@ -912,7 +912,7 @@
             function such that $|f(a) - g_1(a)| \le 2/3$.
         \ii Suppose continuous $g_1, g_2, \cdots, g_n \colon X \to \RR$ are defined and
             \[
-                \forall a \in A,\: \left|f(a) - \sum_{i=1}^{n} g_i(a)\right|
+                \fall a \in A,\: \left|f(a) - \sum_{i=1}^{n} g_i(a)\right|
                 \le \left(\frac{2}{3}\right)^n\text{.}
             \]
             Now, apply the claim for $f - \sum_{i=1}^{n} g_i \colon X \to
@@ -1004,8 +1004,8 @@
     functions is said to be a \textit{partition of unity} dominated by
     $\{U_i\}_{i \in [n]}$ if
     \begin{itemize}[nolistsep]
-        \ii $\forall i \in [n],\: (\text{support of } \phi_i) \subseteq U_i$ and
-        \ii $\forall x \in X,\: \sum_{i=1}^{n} \phi_i(x) = 1$.
+        \ii $\fall i \in [n],\: (\text{support of } \phi_i) \subseteq U_i$ and
+        \ii $\fall x \in X,\: \sum_{i=1}^{n} \phi_i(x) = 1$.
     \end{itemize}
 }
 
@@ -1045,7 +1045,7 @@
         \textbf{Claim 2.} 
         If $\{U_1, U_2, \cdots, U_n\}$ is a finite open covering of a $T_4$ space $X$,
         then there exists a finite open covering $\{V_1, V_2, \cdots, V_n\}$ of
-        $X$ such that $\forall i \in [n],\: \cl{V_i} \subseteq U_i$.
+        $X$ such that $\fall i \in [n],\: \cl{V_i} \subseteq U_i$.
         \pf{Proof}{
             Apply \textbf{Claim 1} $n$ times.
         }

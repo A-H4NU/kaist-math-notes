@@ -128,9 +128,9 @@
     By continuity, there exists $\delta \in \RR_+$ such that
     $S \cap N'(\vec c; \delta) \subseteq f\inv(N(L; \veps))$.
     On the other hand, by convergence, there exists $k_0 \in \NN$ such that
-    $\forall k \in \NN,\: (k \ge k_0 \implies \vec x_k \in N(\vec c; \delta))$.
+    $\fall k \in \NN,\: (k \ge k_0 \implies \vec x_k \in N(\vec c; \delta))$.
     Since $\vec x_k \neq \vec c$ for each $k \in \NN$, we may say \[
-        \forall k \in \NN,\: \big( k \ge k_0 \implies \vec x_k \in N'(\vec c; \delta)
+        \fall k \in \NN,\: \big( k \ge k_0 \implies \vec x_k \in N'(\vec c; \delta)
         \implies \vec x_k \in f\inv(N(L; \veps)) \implies f(\vec x_k) \in N(L; \veps) \big)\text{.}
     \]
     Thus, $\lim_{k \to \infty} f(\vec x_k) = L$ holds.
@@ -159,7 +159,7 @@
 \pf{Proof}{
     ($\Rightarrow$)
     If at most finitely many $\vec x_k$ are distinct from $\vec c$,
-    then $\exs k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: \vec x_k = \vec c$;
+    then $\exs k_0 \in \NN,\: \fall k \in \NN_{\ge k_0},\: \vec x_k = \vec c$;
     $\lim_{k \to \infty} f(\vec x_k) = \vec c$ is evident.
 
     If there are infinitely many $\vec x_k$ are distinct from $\vec c$,
@@ -475,8 +475,8 @@
         \ii $f_1 + f_2 \in C(S)$.
         \ii For any $a \in \RR$, $af \in C(S)$.
         \ii $f_1f_2 \in C(S)$.
-        \ii $1/f_2 \in C(S)$, provided that $\forall \vec x \in S,\: f_2(\vec x) \neq 0$.
-        \ii $f_1/f_2 \in C(S)$, provided that $\forall \vec x \in S,\: f_2(\vec x) \neq 0$.
+        \ii $1/f_2 \in C(S)$, provided that $\fall \vec x \in S,\: f_2(\vec x) \neq 0$.
+        \ii $f_1/f_2 \in C(S)$, provided that $\fall \vec x \in S,\: f_2(\vec x) \neq 0$.
     \end{enumerate}
 }
 \pf{Proof}{
@@ -504,12 +504,12 @@
 \dfn{Uniform Continuity}{
     A function $f \colon S \to \RR$ with $S \subseteq \RR[n]$
     is said to be \textit{uniformly continuous on} $S$ if, \[
-        \forall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
-        \forall \vec c \in S,\: S \cap N(\vec c; \delta) \subseteq f\inv(N(f(\vec c; \veps)))\text{.}
+        \fall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \fall \vec c \in S,\: S \cap N(\vec c; \delta) \subseteq f\inv(N(f(\vec c); \veps))\text{.}
     \]
     Or, equivalently, \[
-        \forall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
-        \forall \vec x, \vec y \in S,\:
+        \fall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \fall \vec x, \vec y \in S,\:
         \big( \|\vec x-\vec y\| < \delta \implies |f(x)-f(y)| < \veps \big)\text{.}
     \]
 }
@@ -634,7 +634,7 @@
     A function $f_0 \in B(S)$
     is said to be a \textit{(uniform) limit point} of a set $F \subseteq B(S)$ if
     \[
-        \forall \veps \in \RR_+,\: F \cap N'(f_0; \veps) \neq \varnothing\text{.}
+        \fall \veps \in \RR_+,\: F \cap N'(f_0; \veps) \neq \varnothing\text{.}
     \]
 }
 
@@ -643,8 +643,8 @@
         \ii A sequence $\{f_k\}_{k \in \NN}$ in $B(S)$ is said to \textit{converge uniformly}
             to $f_0 \in S \to \RR$ on $S$ if
             \[
-                \forall \veps \in \RR_+,\: \exs k_0 \in \NN,\:
-                \forall k \in \NN,\: \big(k \ge k_0 \implies f_k \in N(f_0; \veps)\big)\text{.}
+                \fall \veps \in \RR_+,\: \exs k_0 \in \NN,\:
+                \fall k \in \NN,\: \big(k \ge k_0 \implies f_k \in N(f_0; \veps)\big)\text{.}
             \]
             We write
             \[
@@ -653,8 +653,8 @@
         \ii A sequence $\{f_k\}_{k \in \NN}$ in $B(S)$ is said to \textit{converge pointwise}
             to $f_0 \colon S \to \RR$ on $S$ if
             \[
-                \forall (\vec c, \veps) \in S \times \RR_+,\: \exs k_0 \in \NN,\:
-                \forall k \in \NN,\: \big(k \ge k_0 \implies f_k(\vec c) \in N(f_0(\vec c); \veps)\big)\text{.}
+                \fall (\vec c, \veps) \in S \times \RR_+,\: \exs k_0 \in \NN,\:
+                \fall k \in \NN,\: \big(k \ge k_0 \implies f_k(\vec c) \in N(f_0(\vec c); \veps)\big)\text{.}
             \]
             We write
             \[
@@ -662,8 +662,8 @@
             \]
         \ii A sequence $\{f_k\}_{k \in \NN}$ in $B(S)$ is said to be \textit{(uniformly) Cauchy} if
             \[
-                \forall \veps \in \RR_+,\: \exs k_0 \in \NN,\:
-                \forall k, m \in \NN,\: \big( k, m \ge k_0 \implies \|f_m - f_k\|_\infty < \veps \big)\text{.}
+                \fall \veps \in \RR_+,\: \exs k_0 \in \NN,\:
+                \fall k, m \in \NN,\: \big( k, m \ge k_0 \implies \|f_m - f_k\|_\infty < \veps \big)\text{.}
             \]
     \end{itemize}
 }
@@ -708,7 +708,7 @@
 \thm[cauchyBddFtn]{}{
     Let $\varnothing \neq S \subseteq \RR[n]$.
     A Cauchy sequence $\{f_k\}$ in $B(S)$ is bounded.
-    That is, $\exs M \in \RR_+,\: \forall k \in \NN,\: \|f_k\|_\infty \le M$.
+    That is, $\exs M \in \RR_+,\: \fall k \in \NN,\: \|f_k\|_\infty \le M$.
 }
 \pf{Proof}{
     Immitate the proof of \Cref{th:cauchyBdd}.
@@ -731,11 +731,11 @@
     Take any $\veps \in \RR_+$.
     Since $\{f_k\}$ is Cauchy,
     \[
-        \exs k_0 \in \NN,\: \forall k, m \in \NN,\: \big(k, m \ge k_0 \implies \|f_k - f_m\|_\infty < \veps/2\big)\text{.}
+        \exs k_0 \in \NN,\: \fall k, m \in \NN,\: \big(k, m \ge k_0 \implies \|f_k - f_m\|_\infty < \veps/2\big)\text{.}
     \]
     Then, for each $k \in \NN_{\ge k_0}$,
     \[
-        \forall \vec c \in S,\: |f_k(\vec c) - f_0(\vec c)| = \lim_{m \to \infty} |f_k(\vec c) - f_m(\vec c)| \le \veps/2\text{.}
+        \fall \vec c \in S,\: |f_k(\vec c) - f_0(\vec c)| = \lim_{m \to \infty} |f_k(\vec c) - f_m(\vec c)| \le \veps/2\text{.}
     \]
     This means $\|f_k-f_0\|_\infty \le \veps/2 < \veps$; $\{f_k\}$ converges to $f_0$ uniformly on $S$.
     It directly follows from \Cref{th:unifConvSeqContiFtnConvToConti} that $f_0$ is continuous on $S$.
@@ -743,10 +743,10 @@
     Now, we are left to show $f_0$ is bounded on $S$.
     Since $\{f_k\}$ uniformly converges to $f_0$,
     \[
-        \exs k_0 \in \NN,\: \forall k \in \NN,\: \big(k \ge k_0 \implies \|f_k - f_0\|_\infty < 1\big)\text{.}
+        \exs k_0 \in \NN,\: \fall k \in \NN,\: \big(k \ge k_0 \implies \|f_k - f_0\|_\infty < 1\big)\text{.}
     \]
-    This implies $\forall \vec c \in S,\: |f_{k_0}(\vec c) - f_0(\vec c)| < 1$.
-    Hence, $\forall \vec c \in S,\: |f_0(\vec c)| < |f_{k_0}(\vec c)| + 1 \le \|f_{k_0}\|_\infty + 1$.
+    This implies $\fall \vec c \in S,\: |f_{k_0}(\vec c) - f_0(\vec c)| < 1$.
+    Hence, $\fall \vec c \in S,\: |f_0(\vec c)| < |f_{k_0}(\vec c)| + 1 \le \|f_{k_0}\|_\infty + 1$.
     Thus, $\{\,|f_0(\vec c)| \mid \vec c \in S\,\}$ is bounded above by $\|f_{k_0}\|_\infty + 1$.
 }
 
@@ -883,7 +883,7 @@
     then $f$ is uniformly continuous on $[0, 1]$ by \Cref{th:contiThenUnifContiOnComp}.
     Therefore,
     \[
-        \exs \delta \in \RR_+, \forall x, y \in [0, 1],\:
+        \exs \delta \in \RR_+, \fall x, y \in [0, 1],\:
         \big( |x-y| < \delta \implies |f(x) - f(y)| < \veps/4 \big)\text{.}
     \]
     Also, $f$ is bounded on $[0, 1]$ by \Cref{th:contiSendsCompToComp}.
@@ -992,7 +992,7 @@
     ($\Rightarrow$) Take any $\veps \in \RR_+$.
     Then, there exists $\delta \in \RR_+$ such that
     \[
-        \forall \vec x \in S,\:
+        \fall \vec x \in S,\:
         \big(0 < \|\vec x - \vec c\| < \delta \implies \|\vec f(\vec x) - \vec v\| < \veps\big)\text{.}
     \]
     Then, for each $j \in [m]$,
@@ -1006,7 +1006,7 @@
     ($\Leftarrow$) Take any $\veps \in \RR_+$.
     Then, for each $j \in [m]$, there exists $\delta_j \in \RR_+$ such that
     \[
-        \forall \vec x \in S,\:
+        \fall \vec x \in S,\:
         \big( 0 < \|\vec x - \vec c\| < \delta_j \implies |f_j(\vec x) - v_j| < \veps / \sqrt{m} \big)\text{.}
     \]
     Then, whenever $\vec x \in S \cap N'(\vec c; \delta_0)$
@@ -1039,20 +1039,20 @@
     By \Cref{th:vecLimAndComponentFtns},
     \[
         \lim_{\vec x \to \vec c} \vec f(\vec x) = \vec v
-        \iff \forall j \in [m], \lim_{\vec x \to \vec c} f_j(\vec x) = v_j
+        \iff \fall j \in [m], \lim_{\vec x \to \vec c} f_j(\vec x) = v_j
     \]
     where $\vec v = (v_1, v_2, \cdots, v_m)$.
     By \Cref{th:limIffEveryCauchyConv}, for each $j \in [m]$,
     \[
         \lim_{\vec x \to \vec c} f_j(\vec x) = v_j
-        \iff \forall \{\vec x_k\} \in (S \setminus \{\vec c\})^\omega,\:
+        \iff \fall \{\vec x_k\} \in (S \setminus \{\vec c\})^\omega,\:
         \big(\lim_{k \to \infty} \vec x_k = \vec c
              \implies \lim_{k \to \infty} f_j(\vec x_k) = v_j\big)\text{.}
     \]
     By \Cref{th:seqConvIffCoordsConv},
     \[
         \lim_{k \to \infty} \vec f(\vec x_k) = \vec v \iff
-        \forall j \in [m], \lim_{k \to \infty} f_j(\vec x_k) = v_j\text{.}
+        \fall j \in [m], \lim_{k \to \infty} f_j(\vec x_k) = v_j\text{.}
     \]
     Thus, (i) is proven,
     and (ii) can be proven similarly with the aid of \Cref{th:contiIffEveryCauchyConv}.
@@ -1103,9 +1103,53 @@
     Repeat the proof of \Cref{th:contiBijOnCompSetHasContiBijInv} verbatim.
 }
 
+\dfn{Uniform Continuity}{
+    A function $\vec f \colon S \to \RR[m]$ with $S \subseteq \RR[n]$
+    is said to be \textit{uniformly continuous on} $S$ if, \[
+        \fall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \fall \vec c \in S,\: S \cap N(\vec c; \delta) \subseteq \vec f\inv(N(\vec f(\vec c); \veps))\text{.}
+    \]
+    Or, equivalently, \[
+        \fall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \fall \vec x, \vec y \in S,\:
+        \big( \|\vec x-\vec y\| < \delta \implies \|\vec f(x)-\vec f(y)\| < \veps \big)\text{.}
+    \]
+}
+
+\thm[]{}{
+    Let $\vec f = (f_1, f_2, \cdots, f_m)$ be a function $\vec f \colon S \to
+    \RR[m]$ where $S \subseteq \RR[n]$. Then, $\vec f$ is uniformly continuous
+    if and only if $f_j$ is uniformly continuous on $S$ for each $j \in [m]$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Take any $j \in [m]$ and $\veps \in \RR_+$. Then, there exist $\delta \in
+    \RR_+$ such that, \[
+        \fall \vec x, \vec y \in S,\: \big(\|\vec x-\vec y\| < \delta
+        \implies \|\vec f(\vec x) - \vec f(\vec y)\| < \veps\big)\text{.}
+    \]
+    Since $|f_j(\vec x) - f_j(\vec y)| \le \|\vec f(\vec x) - \vec f(\vec y)\|$,
+    $f_j$ is uniformly continuous.
+
+    ($\Leftarrow$)
+    Take any $\veps \in \RR_+$. Then, for each $j \in [m]$, there exists
+    $\delta_j \in \RR_+$ such that \[
+        \fall \vec x, \vec y \in S,\: \big(\|\vec x-\vec y\| < \delta_j
+        \implies |f_j(\vec x) - f_j(\vec y)| < \veps/\sqrt{m}\big)\text{.}
+    \]
+    Let $\delta \triangleq \min_{j \in [m]} \delta_j$. Then,
+    \[
+        \fall \vec x, \vec y \in S,\: \big(\|\vec x-\vec y\| < \delta
+        \implies \|\vec f(\vec x) - \vec f(\vec y)\| < \veps\big)\text{.}
+    \]
+}
+
 \thm[vecContiThenUnifContiOnComp]{}{
     Suppose that $f \colon S \to \RR[m]$ is continuous on a compact subset $S$ of $\RR[n]$.
     Then $f$ is uniformly continuous on $S$.
+}
+\pf{Proof}{
+    Repeat the proof of \Cref{th:contiThenUnifContiOnComp} verbatim.
 }
 
 \end{document}

@@ -137,7 +137,7 @@
 
     We first note that, given any finite subset $K$ of $J$,
     $X_K \triangleq \{\,(x_\alpha)_{\alpha \in J} \mid
-    \forall \alpha \in J \setminus K,\: x_\alpha = a_\alpha\,\}$
+    \fall \alpha \in J \setminus K,\: x_\alpha = a_\alpha\,\}$
     is a connected subspace of $X$ as $X_K$ is homeomorphic with $\prod_{\alpha \in K} X_\alpha$,
     which is connected by \Cref{th:finProdConnIsConn}.
     Note that $Y \triangleq \bigcup \{\,X_K \mid K \subseteq J \text{ and } K \text{ is finite}\,\}$
@@ -177,7 +177,7 @@
     is called \textit{linear continuum} if the following hold:
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii $L$ has the least upper bound property.
-        \ii $\forall x, y \in L,\: (x < y \implies \exs z \in L,\: x < z < y)$.
+        \ii $\fall x, y \in L,\: (x < y \implies \exs z \in L,\: x < z < y)$.
     \end{enumerate}
 }
 
@@ -892,7 +892,7 @@
 
     In other words,
     \[
-        \forall n \in \ZZ_+,\: \forall \mcal C' \in \binom{\mcal C}{n},\:
+        \fall n \in \ZZ_+,\: \fall \mcal C' \in \binom{\mcal C}{n},\:
         \bigcap \mcal C' \neq \varnothing\text{.}
     \]
 }
@@ -1069,8 +1069,8 @@
     A function $f \colon X \to Y$ from the metrix space $(X, d_X)$
     to the metric space $(Y, d_Y)$ is said to be \textit{uniformly continuous} if
     \[
-        \forall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
-        \forall x_1, x_2 \in X,\:
+        \fall \veps \in \RR_+,\: \exs \delta \in \RR_+,\:
+        \fall x_1, x_2 \in X,\:
         \big( d_X(x_1, x_2) < \delta \implies d_Y(f(x_1), f(x_2)) \big)\text{.}
     \]
 }
@@ -1098,7 +1098,7 @@
     Let $(X, d)$ be a compact metric space.
     Then, for each open covering $\mcal A$ of $X$,
     \[
-        \exs \delta \in \RR_+,\: \forall B \in \mcal P(X) \setminus \{\varnothing\},\:
+        \exs \delta \in \RR_+,\: \fall B \in \mcal P(X) \setminus \{\varnothing\},\:
         \big( \diam B < \delta \implies
         \exs A \in \mcal A,\: B \subseteq A\big)\text{.}
     \]
@@ -1249,7 +1249,7 @@
     Let $(X, d)$ be a sequentially compact metric space.
     Then, for each open covering $\mcal A$ of $X$,
     \[
-        \exs \delta \in \RR_+,\: \forall B \in \mcal P(X) \setminus \{\varnothing\},\:
+        \exs \delta \in \RR_+,\: \fall B \in \mcal P(X) \setminus \{\varnothing\},\:
         \big( \diam B < \delta \implies
         \exs A \in \mcal A,\: B \subseteq A\big)\text{.}
     \]

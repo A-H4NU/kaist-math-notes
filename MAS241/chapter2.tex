@@ -68,10 +68,10 @@
 	A \textit{metric} on $\RR[n]$ is a function from $\RR[n] \times \RR[n] \to \RR$
 	having the following properties.
 	\begin{enumerate}[label=(\roman*), nolistsep]
-		\ii $\forall \vec x, \vec y \in \RR[n],\: d(\vec x, \vec y) \ge 0$; $d(\vec x, \vec y) = 0 \iff \vec x = \vec y$.
+		\ii $\fall \vec x, \vec y \in \RR[n],\: d(\vec x, \vec y) \ge 0$; $d(\vec x, \vec y) = 0 \iff \vec x = \vec y$.
 		      (\textit{Positive Definiteness})
-		\ii $\forall \vec x, \vec y \in \RR[n],\: d(\vec x, \vec y) = d(\vec y, \vec y)$. (\textit{Symmetry})
-		\ii $\forall \vec x, \vec y, \vec z \in \RR[n],\: d(\vec x, \vec z) \le d(\vec x, \vec y) + d(\vec y, \vec z)$.
+		\ii $\fall \vec x, \vec y \in \RR[n],\: d(\vec x, \vec y) = d(\vec y, \vec y)$. (\textit{Symmetry})
+		\ii $\fall \vec x, \vec y, \vec z \in \RR[n],\: d(\vec x, \vec z) \le d(\vec x, \vec y) + d(\vec y, \vec z)$.
 		      (\textit{The Triangle Inequality})
 	\end{enumerate}
 }
@@ -100,7 +100,7 @@
 \dfn{Limit Point}{
 	Let $S$ be nonempty subset of $\RR[n]$.
 	We say that $\vec x$ is a \textit{limit point} of $S$ if \[
-		\forall \veps \in \RR_+,\: N'(\vec x; \veps) \cap S \neq \varnothing\text{.}
+		\fall \veps \in \RR_+,\: N'(\vec x; \veps) \cap S \neq \varnothing\text{.}
 	\]
 }
 
@@ -117,7 +117,7 @@
 
 \dfn{Boundedness}{
 	A subset $S$ of $\RR[n]$ is said to be \textit{bounded} if \[
-		\exs M \in \RR_+,\: \forall\vec x \in S,\: \|\vec x\| \le M\text{.}
+		\exs M \in \RR_+,\: \fall\vec x \in S,\: \|\vec x\| \le M\text{.}
 	\]
 }
 
@@ -125,13 +125,13 @@
 
 \dfn{Cluster Point}{
 	$\vec c \in \RR[n]$ is a \textit{cluster point} of the sequence $\{\vec x_k\}$ if, \[
-		\forall (\veps, k) \in \RR_+ \times \NN,\: \exists k_1 \in \NN_{>k},\: \vec x_{k_1} \in N(\vec c; \veps)\text{.}
+		\fall (\veps, k) \in \RR_+ \times \NN,\: \exists k_1 \in \NN_{>k},\: \vec x_{k_1} \in N(\vec c; \veps)\text{.}
 	\]
 }
 
 \dfn{Convergence and Divergence of a Sequence}{
 	The sequnce $\{\vec x_k\}$ \textit{converges} to $\vec x_0$ and $\vec x_0$ is the \textit{limit} of $\{\vec x_k\}$ if, \[
-		\forall \veps \in \RR_+,\: \exists k_0 \in \NN,\: \forall k \in \NN_{\ge k_0},\: \vec x_k \in N(\vec x_0; \veps)\text{.}
+		\fall \veps \in \RR_+,\: \exists k_0 \in \NN,\: \fall k \in \NN_{\ge k_0},\: \vec x_k \in N(\vec x_0; \veps)\text{.}
 	\] We write $\displaystyle \lim_{k \to \infty} \vec x_k = \vec x_0$.
 	If there is no such $\vec x_0$, then $\{\vec x_k\}$ \textit{diverges}.
 }
@@ -145,14 +145,14 @@
 \pf{Proof}{
     ($\Rightarrow$) Take any $\veps \in \RR_+$.
     There there is $k_0 \in \NN$ such that \[
-        \forall k \in \NN_{\ge k_0}, \vec x_k \in N(\vec x_0; \veps)\text{.}
+        \fall k \in \NN_{\ge k_0}, \vec x_k \in N(\vec x_0; \veps)\text{.}
     \]
     Then, for each $j \in [n]$, \[
         \left(x_j^{(k)} - x_0^{(k)}\right)^2 \le \sum_{i=1}^{n} \left(x_i^{(k)}-x_0^{(k)}\right)^2 = \|\vec x_k - \vec x_0\|^2 < \veps\text{.}
     \]
     ($\Leftarrow$) Take any $\veps \in \RR_+$. Then, for each $j \in [n]$,
     there is some $k_j \in \NN$ such that \[
-        \forall k \in \NN_{\ge k_j},\: x_j^{(k)} \in N(x_0^{(k)}; \veps/\sqrt{n})\text{.}
+        \fall k \in \NN_{\ge k_j},\: x_j^{(k)} \in N(x_0^{(k)}; \veps/\sqrt{n})\text{.}
     \] Then, for all natural number $k$ not smaller than $\max_{j \in [n]} k_j$, \[
         \|\vec x_k - \vec x_0\|^2 = \sum_{j=1}^{n} \left(x_j^{(k)}-x_0^{(k)}\right)^2 < n(\veps/\sqrt{n})^2 = \veps^2\text{.}
     \]
@@ -160,7 +160,7 @@
 
 \dfn{Cauchy Seqeunce}{
 	A seqeunce $\{\vec x_k\}$ in $\RR[n]$ is called a \textit{Cauchy sequence} if \[
-		\forall \veps \in \RR_+,\: \exs k_0 \in \NN,\: \forall k, m \in \NN_{\ge k_0},\: \|\vec x_k-\vec x_m\| < \veps\text{.}
+		\fall \veps \in \RR_+,\: \exs k_0 \in \NN,\: \fall k, m \in \NN_{\ge k_0},\: \|\vec x_k-\vec x_m\| < \veps\text{.}
 	\]
 }
 
@@ -265,7 +265,7 @@
         \ii $\vec x$ is an \textit{interior point} of $S$ if $\exs r \in \RR_+,\: N(\vec x; r) \subseteq S$.
         \ii If every point of $S$ is an interior point of $S$, then $S$ is said to be \textit{open}.
         \ii We call $\vec x$ is a \textit{boundary point} of $S$ if
-              $\forall r \in \RR_+,\: N(\vec x; r) \cap S \neq \varnothing \land N(\vec x; r) \setminus S \neq \varnothing$.
+              $\fall r \in \RR_+,\: N(\vec x; r) \cap S \neq \varnothing \land N(\vec x; r) \setminus S \neq \varnothing$.
         \ii If $S$ continas all its boundary points, then $S$ is said to be \textit{closed}.
     \end{enumerate}
 }
@@ -395,7 +395,7 @@
 \pf{Proof}{
     Let $\mcal C \triangleq \{\, C \subseteq \RR[n] \mid S \subseteq C \text{ and } C \text{ is closed}\,\}$. \par
     ($\subseteq$) Since $S \subseteq \bigcap \mcal C$ is obvious, we only need to show $S' \subseteq \bigcap \mcal C$.
-    Let $\vec x \in S'$. Then, it is direct that $\forall C \in \mcal C,\: \vec x \in C'$ since each $C \in \mcal C$
+    Let $\vec x \in S'$. Then, it is direct that $\fall C \in \mcal C,\: \vec x \in C'$ since each $C \in \mcal C$
     satisfies $S \subseteq C$.
     As $C$ is closed and thus $\vec x \in C' \subseteq C$ by \Cref{th:closedIffContainsLimPts},
     Consequently, $\vec x \in \bigcap \mcal C$; $\cl S \subseteq \bigcap \mcal C$. \par
@@ -591,7 +591,7 @@
     Then, for each $k \in \NN$, $a_k \le \alpha \le x \le \beta \le b_k$, which means $x \in I_k$.
     Thus, $[\alpha, \beta] \subseteq \bigcap_{k=1}^\infty I_k$.
     Now, to prove the reverse containment, take any $x \in \bigcap_{k=1}^\infty I_k$.
-    This means $\forall k \in \NN,\: a_k \le x \le b_k$;
+    This means $\fall k \in \NN,\: a_k \le x \le b_k$;
     $x$ is an upper bound of $A$ and is a lower bound of $B$ at the same time.
     Therefore, $\alpha \le x \le \beta$, hence $\bigcap_{k=1}^\infty I_k \subseteq [\alpha, \beta]$.
 }
@@ -858,7 +858,7 @@
     Then $\{C_k\}$ is a nested sequence of bounded and relatively closed sets in $X$.
 
     Take any $k_1 \in \NN$. Since $\{\vec x_k\}$ converges to $\vec x_0$,
-    there is some $k_0 \in \NN$ such that $\forall k \in \NN_{\ge k_0},\: \vec x_k \in N(\vec x_k; \veps_{k_1})$.
+    there is some $k_0 \in \NN$ such that $\fall k \in \NN_{\ge k_0},\: \vec x_k \in N(\vec x_k; \veps_{k_1})$.
     And such $\vec x_k$'s are also in $N(\vec x_k; \veps_{k_1}) \cap X$; hence each $C_k$ is nonempty.
 
     Moreover, as $d(C_k) \le d\big(N(\vec x_0; \veps_k)\big) = 2\veps_k$, $\lim_{k \to \infty} d(C_k) = 0$.
