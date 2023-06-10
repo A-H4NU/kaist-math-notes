@@ -1,0 +1,318 @@
+\documentclass[MAS241_Note.tex]{subfiles}
+
+
+\begin{document}
+\chapter{Differentiation}
+
+\section{The Derivative}
+
+\dfn{Derivative}{
+    Let $f$ be defined on an interval $I$ on $\RR$. 
+    Let $c$ be a point in $I$. The \textit{derivative} of $f$ at $c$ is defined
+    to be
+    \[
+        \lim_{h \to 0} \frac{f(c + h) - f(c)}{h}
+    \]
+    provided this limit exists. The derivative of $f$ at $c$ is denoted by
+    $f'(c)$. We say that $f$ is \textit{differentiable at} $c$ if $f'(c)$
+    exists. We say that $f$ is \textit{differentiable on} $I$ if
+    $f'(x)$ exists for each $x \in I$.
+}
+
+\dfn{Differential}{
+    Let $f$ be a real-valued function defined on an interval $I$ in $\RR$.
+    Suppose that $f$ is differentiable at a $c \in I$. The function
+    $\mrm df(c; \cdot) \colon \RR \to \RR$ defined by
+    \[
+        \mrm df(c; t) = f'(c)t
+    \]
+    is called the \textit{differential} of $f$ at $c$.
+}
+
+\thm[]{}{
+    Suppose $f$ is differentiable at $c$ in its domain.
+    Then, for any $\veps \in \RR_+$, there exists a deleted neighborhood
+    $N'(0)$ such that,
+    \[
+        |f(c+t)-f(c)-\mrm df(c; t)| < \veps|t|\text{,}
+    \]
+    for all $t \in N'(0)$.
+}
+\pf{Proof}{
+    There is a deleted neighborhood $N'(0)$ such that
+    \[
+        \left|\frac{f(c+t)-f(c)}{t} - f'(c)\right| < \veps
+    \]
+    for all $t \in N'(0)$.
+}
+
+\thm[]{}{
+    If $f$ is differentiable at $c$, then $f$ is continuous at $c$.
+}
+\pf{Proof}{
+    \[
+        \lim_{x \to c} \big(f(x) - f(c)\big) =
+        \lim_{x \to c} \frac{f(x)-f(c)}{x-c} \cdot (x - c) = f'(c) \cdot 0 = 0
+    \]
+    Hence, $\lim_{x \to c} f(x) = f(c)$; $f$ is continuous at $c$.
+}
+
+\cor{}{
+    If $f$ is differentiable on $I$, then $f \in C(I)$.
+}
+
+\thm[]{}{
+    Suppose that $f$ and $g$ are two functions each differentiable at $c$
+    and that $a \in \RR$.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $f + g$ is differentiable at $c$ and
+            \[
+                (f+g)'(c) = f'(c) + g'(c)\text{.}
+            \]
+        \ii $af$ is differentiable at $c$ and
+            \[
+                (af)'(c) = af'(c)\text{.}
+            \]
+        \ii $fg$ is differentiable at $c$ and
+            \[
+                (fg)'(c) = f'(c)g(c) + f(c)g'(c)\text{.}
+            \]
+        \ii If $g(c) \neq 0$, then $1/g$ is differentiable at $c$ and
+            \[
+                \left(\frac{1}{g}\right)'(c) = -\frac{g'(c)}{g(c)^2}\text{.}
+            \]
+        \ii If $g(c) \neq 0$, then $f/g$ is differentiable at $c$ and
+            \[
+                \left(\frac{f}{g}\right)'(c)
+                = \frac{f'(c)g(c) - f(c)g'(c)}{g(c)^2}\text{.}
+            \]
+    \end{enumerate}
+}
+\pf{Proof}{
+    \hfill
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii $\displaystyle \lim_{x \to c} \frac{(f+g)(x) - (f+g)(c)}{x-c}
+        = \lim_{x \to c} \left[\frac{f(x)-f(c)}{x-c} + \frac{g(x)-g(c)}{x-c}\right]
+        = f'(c) + g'(c)$.
+    \ii $\displaystyle \lim_{x \to c} \frac{(af)(x) - (af)(c)}{x-c}
+        = \lim_{x \to c} a \cdot \frac{f(x)-f(c)}{x-c} = af'(c)$.
+    \ii First, note that
+        \[\begin{aligned}[t]
+            (fg)(x) - (fg)(c) &= f(x)g(x)-f(c)g(x)+f(c)g(x)-f(c)g(c) \\
+                              &= \big(f(x)-f(c)\big)g(x) +
+                                 \big(g(x)-g(c)\big)f(c)\text{.}
+        \end{aligned}\]
+        Since $g$ is continuous at $c$,
+        \[\begin{aligned}[t]
+            \lim_{x \to c} \frac{(fg)(x)-(fg)(c)}{x-c}
+            &= \lim_{x \to c} \left[\frac{f(x)-f(c)}{x-c} g(x) +
+                                   \frac{g(x)-g(c)}{x-c} f(c) \right] \\
+            &= f'(c)g(c) + f(c)g'(c)\text{.}
+        \end{aligned}\]
+    \ii \[
+        \lim_{x \to c} \frac{1/g(x)-1/g(c)}{x-c}
+        = \lim_{x \to c} \left[\frac{g(x)-g(c)}{(x-c)} \cdot \frac{1}{g(x)g(c)}\right]
+        = -\frac{g'(c)}{g(c)^2}\text{.}
+        \]
+    \ii \[
+        \left(\frac{f}{g}\right)'(c)
+        = f'(c)\left(\frac{1}{g}\right)(c) + f(c) \left(\frac{1}{g}\right)'(c)
+        = \frac{f'(c)g(c)-f(c)g'(c)}{g(c)^2}\text{.}
+        \]
+    \end{enumerate}
+}
+
+\dfn{$k$th Derivative}{
+    Suppose $f' = f^{(1)}$, $f'' = f^{(2)}$, $\cdots$, $f^{(k)}$ is defined
+    on a neighborhood of $c$ and if
+    \[
+        f^{(k+1)}(c) \triangleq \lim_{h \to 0} \frac{f^{(k)}(c+h)-f^{(k)}(c)}{h}
+    \]
+    exists, then $f^{(k)}(c)$ is called the $k$th derivative of $f$ at $c$ and
+    $f$ is said to be $k$ \textit{times differentiable} at $c$.
+
+    If $f^{(k)}(c)$ exists for all $k \in \NN$, then $f$ is said to have
+    \textit{derivatives of all orders} at $c$.
+    If $f^{(k)}$ exists for all $k \in \NN$ and at all $x \in I$,
+    then $f$ is said to have \textit{derivatives of all orders} on $I$.
+}
+
+\section{Composition of Functions: The Chain Rule}
+
+\thm[chain]{The Chain Rule}{
+    Suppose the following.
+    \begin{itemize}[nolistsep]
+        \ii $c$ is an interior point of an interval $I$.
+        \ii $g$ is differentiable at $c$.
+        \ii $d = g(c)$ is an interior point of $g(I)$.
+        \ii $f$ is defined on $g(I)$.
+        \ii $f$ is differentiable at $d$.
+    \end{itemize}
+    Then, $f \circ g$ is differentiable at $c$ and $(f \circ g)'(c) =
+    f'(g(c))g'(c)$.
+}
+\pf{Proof}{
+    For $y$ in $g(I)$, define
+    \[
+        h(y) = \begin{cases} \displaystyle
+            \frac{f(y)-f(d)}{y-d} - f'(d) & \text{if } y \neq d \\
+            0 & \text{if } y = d\text{.}
+        \end{cases}
+    \]
+    Since $\lim_{y \to d} h(y) = 0 = h(d)$, $h$ is continuous at $d$.
+    Also, since $h$ is defined on $g(I)$, we may composite it with $g$;
+    \[
+        (h \circ g)(x) = \begin{cases} \displaystyle
+            \frac{f(g(x))-f(g(c))}{g(x)-g(c)}-f'(g(c)) & \text{if } g(x) \neq g(c) \\
+            0 & \text{if } g(x) = g(c) = d\text{.}
+        \end{cases}
+    \]
+    Multiplying by $g(x) - g(c)$, we get
+    \[
+        f(g(x)) - f(g(c))
+        = \big\{(h \circ g)(x) + f'(g(c))\big\}
+            \big\{g(x)-g(c)\big\}\text{.}
+    \]
+    Hence,
+    \[\begin{aligned}[t]
+        \lim_{x \to c} \frac{f(g(x))-f(g(c))}{x-c}
+        &= \lim_{x \to c} \big\{(h \circ g)(x) + f'(g(c))\big\} \frac{g(x)-g(c)}{x-c}\\
+        &= \big\{0+f'(g(c))\big\}g'(c) = f'(g(c))g'(c)\text{.}
+    \end{aligned}\]
+}
+
+\section{The Mean Value Theorem}
+
+\dfn{Local Minimum and Maximum}{
+    Let $f$ be a real-valued function defined on the interval $I$ and $c$ is
+    an interior point of $I$.
+    \begin{itemize}[nolistsep]
+        \ii $f$ has a \textit{local maximum} at $c$ if there exists a neighborhood
+            $N(c)$ such that $\fall x \in N(c),\: f(x) \le f(c)$.
+        \ii $f$ has a \textit{local minimum} at $c$ if there exists a neighborhood
+            $N(c)$ such that $\fall x \in N(c),\: f(x) \ge f(c)$.
+    \end{itemize}
+}
+
+\thm[locMinMaxZeroDeriv]{}{
+    If $f$ has either a local maximum or a local minimum at an interior point
+    $c$ of $I$ and if $f$ is differentiable at $c$, then $f'(c) = 0$.
+}
+\pf{Proof}{
+    Let $N(c)$ be a neighborhood of $c$ such that $\fall x \in N(c),\: f(x) \ge f(c)$.
+    Then, since
+    \[
+        \frac{f(x) - f(c)}{x-c} \ge 0 \quad\text{on } N(c) \cap (c, \infty)
+        \text{ and}
+    \]
+    \[
+        \frac{f(x) - f(c)}{x-c} \le 0 \quad\text{on } N(c) \cap (-\infty, c)\text{,}
+    \]
+    It follows that
+    \[
+        f'(c) = \lim_{x \to c^+} \frac{f(x)-f(c)}{x-c} \ge 0
+        \quad{\text{and}}\quad
+        f'(c) = \lim_{x \to c^-} \frac{f(x)-f(c)}{x-c} \le 0\text{.}
+    \]
+    Hence, $f'(c) = 0$.
+}
+
+\dfn{Critical Point}{
+    If  a function $f$ is differentiable at a point $c$ and if $f'(c) = 0$,
+    then $c$ is called a \textit{critical point} of $f$.
+}
+
+\thm[rolle]{Rolle's Theorem}{
+    Suppose that $f$ is continuous on $[a, b]$ and is differentiable on $(a, b)$.
+    Suppose further that $f(a) = f(b)$. Then there exists $c \in (a, b)$ such
+    that $f'(c) = 0$.
+}
+\pf{Proof}{
+    If $f(x) = f(a)$ for all $x \in [a, b]$, then $f' = 0$ on $[a, b]$, and
+    it is done.
+
+    Otherwise, $f$ has a maximum value or a minimum value at some point $c$
+    in $(a, b)$ by \Cref{th:evt}. $c$ is either a local maximum or a local minimum of $f$
+    as well. Hence, by \Cref{th:locMinMaxZeroDeriv}, $f'(c) = 0$.
+}
+
+\thm[mvt]{The Mean Value Theorem}{
+    Suppose $f$ is continuous on $[a, b]$ and and is differentiable on $(a, b)$.
+    Then,
+    \[
+        \exs c \in (a, b),\: \frac{f(b)-f(a)}{b-a} = f'(c)\text{.}
+    \]
+}
+\pf{Proof}{
+    Let
+    \[
+        h(x) = f(x) - \left[\frac{f(b)-f(a)}{b-a} (x-a) + f(a)\right]\text{.}
+    \]
+    Then, $h$ is continuous on $[a, b]$, differentiable on $(a, b)$, and
+    $h(a) = h(b) = 0$.
+    Hence, by \Cref{th:rolle}, there exists $c \in (a, b)$ such that
+    \[
+        h'(c) = f'(c) - \frac{f(b)-f(a)}{b-a} = 0\text{.}
+    \]
+}
+
+\cor[zeroDerivThenConst]{}{
+    Suppose $f$ is continuous on $[a, b]$ and is differentiable on $(a, b)$.
+    If $f'(x) = 0$ for each $x \in (a, b)$, then $f$ is constant on $[a, b]$.
+}
+\pf{Proof}{
+    Take any $x \in (a, b]$. By \Cref{th:mvt}, there exists $c \in (a, x)$
+    such that
+    \[
+        f'(c) = \frac{f(x) - f(a)}{x-a}\text{.}
+    \]
+    Since $f'(c) = 0$, it follows that $f(x) = f(a)$. Since $x$ was arbitrary,
+    $f$ is constant on $[a, b]$.
+}
+
+\cor[sameDerivThenDiffByConst]{}{
+    Suppose $f$ and $g$ are continuous on $[a, b]$ and are differentiable
+    on $(a, b)$. If $f'(x) = g'(x)$ for each $x \in (a, b)$, then
+    $f$ and $g$ differ by a constant.
+}
+\pf{Proof}{
+    Let $h(x) = f(x) - g(x)$ and apply \Cref{cor:zeroDerivThenConst}.
+}
+
+\cor[posDerivIncr]{}{
+    Suppose $f$ is continuous on $[a, b]$ and is differentiable on $(a, b)$.
+    \begin{itemize}[nolistsep]
+        \ii If $f'(x) > 0$ for all $x \in (a, b)$, then $f$ is strictly increasing.
+        \ii If $f'(x) < 0$ for all $x \in (a, b)$, then $f$ is strictly decreasing.
+    \end{itemize}
+}
+\pf{Proof}{
+    Suppose $f'$ is positive on $(a, b)$.
+    Take any $x_1, x_2 \in [a, b]$ with $x_1 < x_2$. By \Cref{th:mvt},
+    there exists $c \in (x_1, x_2)$ such that
+    \[
+        f'(c) = \frac{f(x_2)-f(x_1)}{x_2-x_1} > 0\text{.}
+    \]
+    Hence, $f(x_2) > f(x_1)$; $f$ is strictly increasing.
+    It is analogous to show for negative $f'$.
+}
+
+\thm[mvtCauchy]{Cauchy's Generalized Mean Value Theorem}{
+    Suppose $f$ and $g$ are continuous on $[a, b]$ and are differentiable
+    on $(a, b)$. Then, there exists $c \in (a, b)$ such that
+    \[
+        f'(c) \big\{g(b)-g(a)\big\} = g'(c) \big\{f(b) - f(a)\big\}\text{.}
+    \]
+}
+\pf{Proof}{
+    Let $h(x) = f(x)\left\{g(b)-g(a)\right\} - g(x)\left\{f(b)-f(a)\right\}$.
+    Then $h$ is continuous on $[a, b]$ and is differentiable on $(a, b)$.
+    A calculation will verify that $h(a) = h(b)$.
+    Hence, by \Cref{th:rolle}, there exists $c \in (a, b)$ such that
+    \[
+        h'(c) = f'(c)\left\{g(b)-g(a)\right\} - g'(c)\left\{f(b)-f(a)\right\}
+        = 0\text{.}
+    \]
+}
+
+\end{document}
