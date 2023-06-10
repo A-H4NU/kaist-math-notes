@@ -1,0 +1,301 @@
+\documentclass[MAS241_Note.tex]{subfiles}
+
+\begin{document}
+\chapter{Functions of Bounded Variation}
+\section{Partitions}
+
+\dfn{Partition}{
+    A (finite) \textit{partition} $\pi$ of the interval $[a, b]$ is a finite
+    collection of points $\{x_0, x_1, \cdots, x_p\}$, called
+    \textit{parition points}, such that
+    \[
+        a = x_0 < x_1 < \cdots < x_p = b\text{.}
+    \]
+    The partition $\pi$ \textit{partitions} the interval $[a, b]$ into
+    \textit{subintervals} $[x_{j-1}, x_j]$, for $j \in [p]$. The length of
+    the interval $[x_{j-1}, x_j]$ is denoted $\Delta x_j = x_j - x_{j-1}$.
+    The collection of all finite partitions of $[a, b]$ is denoted
+    $\Pi[a, b]$.
+}
+
+\dfn{Refinement}{
+    Let $\pi_1, \pi_2 \in \Pi[a, b]$. If every parition point in $\pi_2$ also
+    belongs to $\pi_1$, we say $\pi_1$ is a \textit{refinement} of $\pi_2$.
+    We also say that $\pi_1$ is \textit{finer} than $\pi_2$ or that
+    $\pi_2$ is \textit{coarser} than $\pi_1$. If $\pi_1$ is a refinement of
+    $\pi_2$, we write $\pi_2 \preceq \pi_1$.
+}
+
+\nt{
+    \noindent $\preceq$ is a partial order on $\Pi[a, b]$. 
+}
+
+\dfn{Least Common Refinement}{
+    Given any $\pi_1, \pi_2 \in \Pi[a, b]$, the \textit{least common refinement}
+    of $\pi_1$ and $\pi_2$ is formed by taking the union of the partition points
+    in $\pi_1$ and in $\pi_2$. It is written as $\pi_1 \lor \pi_2$.
+}
+
+\nt{
+    \noindent $\lor$ is a commutative and associative binary operation
+    on $\Pi[a, b]$.
+}
+
+\nt{ \noindent
+    Let $\pi_1, \pi_2 \in \Pi[a, b]$. $\pi_1 \preceq \pi_2$ if and only if
+    $\pi_1 \lor \pi_2 = \pi_2$.
+}
+
+\dfn{Guage}{
+    Let $\pi = \{x_0, x_1, \cdots, x_p\}$ be any partition in $\Pi[a, b]$.
+    The \textit{guage}of the partition $\pi$, denoted $\|\pi\|$, is
+    \[
+        \|\pi\| \triangleq \max_{j \in [p]} \Delta x_j\text{.}
+    \]
+}
+
+\section{Monotone Functions on $[a, b]$}
+
+\dfn{Monotone Function}{
+    Let $f$ be a real-valued function defined on the closed interval $[a, b]$.
+    \begin{itemize}[nolistsep]
+        \ii $f$ is said to be \textit{increasing} on $[a, b]$ if
+            $a \le x_1 < x_2 \le b \implies f(x_1) \le f(x_2)$.
+        \ii $f$ is said to be \textit{decreasing} on $[a, b]$ if
+            $a \le x_1 < x_2 \le b \implies f(x_1) \ge f(x_2)$.
+        \ii $f$ is said to be \textit{stringly increasing} on $[a, b]$ if
+            $a \le x_1 < x_2 \le b \implies f(x_1) < f(x_2)$.
+        \ii $f$ is said to be \textit{stringly decreasing} on $[a, b]$ if
+            $a \le x_1 < x_2 \le b \implies f(x_1) > f(x_2)$.
+    \end{itemize}
+    $f$ is said to be \textit{(strictly) monotone} on $[a, b]$ if
+    it is either \textit{(strictly) increasing} or
+}
+
+\thm[finJumpDiscontiFinite]{}{
+    Let $f$ be increasing on $[a, b]$ and let $\pi = \{x_0, x_1, \cdots, x_p\}$
+    be any partition on $\Pi[a, b]$. Then,
+    \[
+        \sum_{j=0}^{p} \big(f(x_j^+) - f(x_j^-)\big) \le f(b) - f(a)
+    \]
+    where $f(a^-) = f(a)$ and $f(b^+) = f(b)$.
+}
+\pf{Proof}{
+    For each $j \in [p]$. Select $y_j \in (x_{j-1}, x_j)$.
+    Since $f$ is increasing, we have
+    \[
+        f(y_j) \le f(x_j^-) \le f(x_j^+) \le f(y_{j+1})
+    \]
+    for each $j \in [p-1]$. Hence, for each $j \in [p-1]$,
+    \[
+        f(x_j^+) - f(x_j^-) \le f(y_{j+1}) - f(y_j)\text{.}
+    \]
+    Hence,
+    \[\begin{aligned}[t]
+        \sum_{j=0}^{p} \big(f(x_j^+) - f(x_j^-)\big)
+        &= f(a^+) - f(a) + \sum_{j=1}^{p-1} \big(f(x_j^+) - f(x_j^-)\big)
+         + f(b) - f(b^-) \\
+        &\le f(y_0) - f(a) + \sum_{j=1}^{p-1} \big(f(y_{j+1}) - f(y_j)\big)
+         + f(b) - f(y_p) \\
+        &= f(b) - f(a)\text{.}
+    \end{aligned}\]
+}
+
+\thm[discontiCount]{}{
+    If $f$ is monotone on $[a, b]$, then the set of discontinuites of $f$
+    is countable.
+}
+\pf{Proof}{
+    \textsf{WLOG}, $f$ is increasing.
+    Hence, $f$ is discontinuous at $c$ if and only if
+    $f(c^+) - f(c^-) > 0$.
+    Therefore, the set of discontinuites is $\bigcup_{k=1}^\infty D_k$
+    where
+    \[
+        D_k \triangleq \{\,x \in [a, b] \mid f(x^+) - f(x^-) > 1/k\,\}\text{.}
+    \]
+    If $x_1 < x_2 < \cdots < x_p$ are $p$ points in $D_k$, then
+    \Cref{th:finJumpDiscontiFinite} implies $p/k \le f(b) - f(a)$. Hence,
+    $D_k$ is finite. Therefore, $\bigcup_{k=1}^\infty D_k$ is countable.
+}
+
+\subsection{Saltus Functions}
+
+\dfn{Saltus Function}{
+    Given a monotone increasing function $f$ on $[a, b]$, we define following.
+    \[
+        u(x) \triangleq \begin{cases}
+            0 & \text{if } x = a \\
+            f(x) - f(x^-) & \text{if } x \in (a, b]
+        \end{cases} \quad\text{and}\quad
+        v(x) \triangleq \begin{cases}
+            f(x^+) - f(x) & \text{if } x \in [a, b) \\
+            0 & \text{if } x = b\text{.}
+        \end{cases}
+    \]
+    Let $S = \{x_1, x_2, \cdots\}$ be the set of discontinuites, which is
+    countable by \Cref{th:discontiCount}.
+    If $T$ is any subset of $\RR$, $\sum_{x_j \in S \cap T} u(x_j)$ and 
+    $\sum_{x_j \in S \cap T} v(x_j)$ are defined to be
+    \[
+        \sum_{x_j \in S \cap T} u(x_j) \triangleq \sup
+        \left\{\, \left.\sum_{x_j \in F} u(x_j) \:\right|\: F \subseteq S \cap T
+        \text{ and } F \text{ is finite}\,\right\}
+    \]
+    and
+    \[
+        \sum_{x_j \in S \cap T} v(x_j) \triangleq \sup
+        \left\{\, \left.\sum_{x_j \in F} v(x_j) \:\right|\: F \subseteq S \cap T
+        \text{ and } F \text{ is finite}\,\right\}\text{.}
+    \]
+    It can be easily shown that
+    \[
+        \sum_{x_j \in S \cap T} u(x_j) + \sum_{x_j \in S \cap T} v(x_j)
+        = \sum_{x_j \in S \cap T} \big(u(x_j) + v(x_j)\big)
+        = \sum_{x_j \in S \cap T} \big(f(x^+) - f(x^-)\big)
+        \le f(b) - f(a)\text{.}
+    \]
+    To simplify the notation, let
+    \[\begin{aligned}[t]
+        S[x, y] \triangleq S \cap [x, y] &\qquad S(x, y] = S \cap (x, y] \\
+        S[x, y) \triangleq S \cap [x, y) &\qquad S(x, y) = S \cap (x, y)\text{.}
+    \end{aligned}\]
+    The \textit{saltus function} $s_f$ associated with $f$ is defined by
+    \[
+        s_f(x) = \begin{cases}
+            f(a) & \text{if } x = a \\
+            f(a) + \displaystyle \sum_{x_j \in S(a, x]} u(x_j)
+                               + \sum_{x_j \in S[a, x)} v(x_j)
+                 & \text{if } x \in (a, b]\text{.}
+        \end{cases}
+    \]
+}
+
+\mlemma[saltusLem]{}{
+    Let $f$ be a monotone increasing function on $[a, b]$.
+    Then, the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $s_f$ is monotone increasing on $[a, b]$.
+        \ii For any $x, y \in [a, b]$ such that $x < y$, we have
+            \[
+                0 \le s_f(y) - s_f(x) \le f(y) - f(x)\text{.}
+            \]
+        \ii Let $S$ denote the set of all discontinuites of $f$. Then
+            $s_f$ is continuous on $[a, b] \setminus S$.
+        
+    \end{enumerate}
+}
+
+\thm{}{
+    Let $f$ be a monotone function on $[a, b]$ and let
+    $s_f$ be the saltus function associated with $f$. Then, $f_c \triangleq
+    f - s_f$ is continuous.
+    If $f$ is increasing (decreasing), then $s_f$ and $f_c$ are also
+    increasing (decreasing) on $[a, b]$.
+}
+
+\section{Functions of Bounded Variation}
+
+\dfn{Bounded Variation and Total Variation}{
+    Let $f$ be a real-valued function defined on $[a, b]$ and let
+    $\pi = \{x_0, x_1, \cdots, x_p\} \in \Pi[a, b]$. Let
+    \[
+        \Delta f_j \triangleq f(x_j) - f(x_{j-1})
+    \] for each $j \in [p]$.
+    If the set
+    \[
+        \left\{\,\left.\sum_{j=1}^{p} |\Delta f_j| \:\right|\:
+        \pi = \{x_0, \cdots, x_p\} \in \Pi[a, b] \:\right\}
+    \]
+    is bounded, then $f$ is said to be of \textit{bounded variation} on $[a, b]$.
+    $BV(a, b)$ is the set of all functions of bounded variation on $[a, b]$.
+
+    For $f \in BV(a, b)$, the number
+    \[
+        V(f; a, b) \triangleq \sup \left\{\,\left.\sum_{j=1}^{p} |\Delta f_j| \:\right|\:
+        \pi = \{x_0, \cdots, x_p\} \in \Pi[a, b] \:\right\}
+    \]
+    is called the \textit{total variation} of $f$ on $[a, b]$.
+}
+
+\thm[bvBdd]{}{
+    If $f \in BV(a, b)$, then $f$ is bounded on $[a, b]$, i.e.,
+    $BV(a, b) \subseteq B([a, b])$.
+}
+
+\thm[]{}{
+    If $f$ is monotone on $[a, b]$, then $f \in BV(a, b)$.
+}
+
+\thm{}{
+    Suppose $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$.
+    If $f' \in B\big((a, b)\big)$, then $f \in BV(a, b)$.
+}
+
+\thm[bvAlgebra]{}{
+    Let $f, g \in BV(a, b)$. Then the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii $f \pm g \in BV(a, b)$ and
+            \[
+                V(f \pm g; a, b) \le V(f; a, b) + V(g; a, b)\text{.}
+            \]
+        \ii $fg \in BV(a, b)$ and
+            \[
+                V(fg; a, b) \le \|g\|_\infty V(f; a, b) + \|f\|_\infty V(g; a, b)\text{.}
+            \]
+        \ii If there exists some $m \in \RR_+$ such that $|f(x)| \ge m$ for all
+            $x \in [a, b]$, then $1/f \in BV(a, b)$ and
+            \[
+                V\left(\frac{1}{f}; a, b\right) \le \frac{V(f; a, b)}{m^2}\text{.}
+            \]
+    \end{enumerate}
+}
+
+\section{Total Variation as a Function}
+
+\thm[]{}{
+    Suppose $f \in BV(a, b)$. Let $c \in (a, b)$.
+    Then, $f \in BV(a, c)$ and $f \in BV(c, b)$. Furthermore,
+    \[
+        V(f; a, b) = V(f; a, c) + V(f; c, b)\text{.}
+    \]
+}
+
+\dfn{Variation}{
+    Let $f \in BV(a, b)$. The \textit{variation} of $f$ is the function
+    $V_f$ on $[a, b]$ defined by
+    \[
+        V_f(x) \triangleq \begin{cases}
+            0 & \text{if } x = a\\
+            V(f; a, x) & \text{if } x \in (a, b]\text{.}
+        \end{cases}
+    \]
+}
+
+\thm[]{}{
+    If $f \in BV(a, b)$, then $V_f$ is an increasing function on $[a, b]$.
+}
+
+\thm[]{}{
+    If $f \in BV(a, b)$, then $V_f - f$ is an increasing function on $[a, b]$.
+}
+
+\thm[]{}{
+    Let $f$ be a real-valued function on $[a, b]$. $f \in BV(a, b)$ if and only if 
+    there exists two increasing functions $g$ and $h$ on $[a, b]$ such that
+    $f = g - h$.
+}
+
+\section{Continuous Functions of Bounded Variation}
+
+\thm{}{
+    Let $f \in BV(a, b)$. Then $f(x^+)$ exists at every $x \in [a, b)$ and
+    $f(x^-)$ exists at every $x \in (a, b]$.
+}
+
+\thm[]{}{
+    Let $f \in BV(a, b)$. Then $f$ is continuous at $c \in [a, b]$ if and only
+    if $V_f$ is continuous at $c$.
+}
+
+\end{document}
