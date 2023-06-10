@@ -315,4 +315,191 @@
     \]
 }
 
+\section{L'Hôpital's Rule}
+
+\thm[lopital1]{L'Hôpital's Rule, Form I}{
+    Suppose that $f$ and $g$ are continuous on $[a, b]$ and are differentiable
+    on $(a, b)$. Suppose $c \in [a, b]$ and $f(c) = g(c) = 0$. Suppose also
+    that, for some deleted neighborhood $N'(c)$,
+    $g'(x) \neq 0$ for each $x \in N'(c)$. Then,
+    \[
+        \lim_{x \to c} \frac{f'(x)}{g'(x)} = L
+        \implies \lim_{x \to c} \frac{f(x)}{g(x)} = L\text{.}
+    \]
+}
+\pf{Proof}{
+    Take any $\veps \in \RR_+$. Then, there exists some $\delta \in \RR_+$
+    such that
+    \[
+        \forall x \in [a, b],\: \left(0 < |x-c| < \delta
+        \implies \left|\frac{f'(x)}{g'(x)} - L\right| < \veps\right).
+    \]
+    Take any $x \in [a, b]$ such that $0 < |x-c| < \delta$.
+    Then, by \Cref{th:mvtCauchy}, there exists $d$ between $x$ and $c$
+    such that
+    \[
+        f'(d)g(x) = f'(d)\big\{g(x) - g(c)\big\}
+        = g'(d)\big\{f(x) - f(c)\big\} = g'(d)f(x)\text{.}
+    \]
+    Hence, $f(x)/g(x) = f'(d)/g'(d)$. (Note that $g(x) \neq 0$ on
+    $N'(c)$ since $g'(x) \neq 0$.) Therefore,
+    \[
+        \left|\frac{f(x)}{g(x)} - L\right|
+        = \left|\frac{f'(d)}{g'(d)} - L\right| < \veps\text{.}
+    \]
+}
+
+\thm[lopital2]{L'Hôpital's Rule, Form II}{
+    Suppose $f$ and $g$ are differentiable on some neighborhood $N(\infty, M)$.
+    Suppose $g'(x) \neq 0$ for each $x \in N(\infty, M)$ and
+    $\lim_{x \to \infty} f(x) = \lim_{x \to \infty} g(x) = \infty$.
+    Then,
+    \[
+        \lim_{x \to \infty} \frac{f'(x)}{g'(x)} = L
+        \implies \lim_{x \to \infty} \frac{f(x)}{g(x)} = L\text{.}
+    \]
+}
+\pf{Proof}{
+    Take any $\veps \in (0, 1)$. Let $\veps' \triangleq \veps/(2+|L|)$.
+    There exists $M_1 \ge M$ such that,
+    \[
+        \fall x \in N(\infty, M_1),\: \left|\frac{f'(x)}{g'(x)}-L\right| < \veps'\text{.}
+    \]
+    There exists $M_2 \ge M_1$ such that,
+    \[
+        \fall x \in N(\infty, M_2),\: f(x) > \max \{f(M_1), 1\} \text{ and } g(x) > g(M_1)\text{.}
+    \]
+    For each $x \in N(\infty, M_2)$, By \Cref{th:mvtCauchy}, there exists
+    $c_x \in (M_1, x)$ such that
+    \[
+        \frac{f'(c_x)}{g'(c_x)} = \frac{f(x) - f(M_1)}{g(x) - g(M_1)}
+        = \frac{f(x) \left(1 - \dfrac{f(M_1)}{f(x)}\right)}{g(x) \left(1 - \dfrac{g(M_1)}{g(x)}\right)}
+    \]
+    Let $\displaystyle h(x) = \frac{1-g(M_1)/g(x)}{1-f(M_1)/f(x)}$. Then,
+    \[
+        \frac{f(x)}{g(x)} = \frac{f'(c_x)}{g'(c_x)}h(x)\text{.}
+    \]
+    Since $\lim_{x \to \infty} h(x) = 1$, there exists $M_3 \ge M_2$ such that
+    $\fall  x \in N(\infty, M_3),\: |h(x)-1| < \veps'$.
+    Then, for any $x \in N(\infty, M_3)$,
+    \[\begin{aligned}[t]
+        \left|\frac{f(x)}{g(x)}-L\right|
+        &= \left|\frac{f'(c_x)}{g'(c_x)}h(x) - L\right| \\
+        &= \left|\frac{f'(c_x)}{g'(c_x)}h(x) - Lh(x) + Lh(x) - L\right| \\
+        &\le \left|\frac{f'(c_x)}{g'(c_x)}-L\right| |h(x)| + |L| |h(x) - 1| \\
+        &< \veps' (1+\veps') + |L| \veps' = (1 + |L|) \veps' + \veps'^2
+        < (2 + |L|) \veps' = \veps\text{.}
+    \end{aligned}\]
+}
+
+\section{Taylor's Theorem}
+
+\dfn{$k^\text{th}$-degree Taylor Polynomial}{
+    % Suppose that $f$ and its first $k$ derivatives exist and are continuous on
+    % $[a, b]$ and that $f^{(k+1)}$ exists on $(a, b)$. Let $x_0 \in [a, b]$.
+    Suppose $f$ is $k$ times differentiable at $x = x_0$.
+    Then, a polynomial $p_k$ defined by
+    \[
+        p_k(x) \triangleq \sum_{j=0}^{k} \frac{f^{(j)}(x_0)}{j!}(x-x_0)^j
+    \]
+    is called the $k^\text{th}$-\textit{degree Taylor polynomial} of $f$
+    at $x = x_0$.
+}
+
+\nt{
+    \noindent
+    $p_k$ is the only $k^\text{th}$ degre polynomial such that
+    $p_k^{(j)}(x_0) = f^{(j)}(x_0)$ for each $j = 0, 1, \cdots, k$.
+}
+
+\thm[mvtCauchyGen]{}{
+    Let $f$ and $g$ be continuous and $k$ times continuously differentiable on $[a, b]$.
+    Suppose $f$ and $g$ also have $(k+1)$ times differentiable on $(a, b)$.
+    Let $x_0 \in [a, b]$. Then, for every $x \in [a, b] \setminus \{x_0\}$,
+    there exists $c$ between $x$ and $x_0$ such that
+    \[
+        f^{(k+1)}(c) \big\{g(x) - q_k(x)\big\} =
+        g^{(k+1)}(c) \big\{f(x) - p_k(x)\big\}
+    \]
+    where $p_k$ and $q_k$ are $k^\text{th}$-degree Taylor polynomial at $x_0$
+    of $f$ and $g$, respectively.
+}
+\pf{Proof}{
+    \textsf{WLOG}, suppose $x_0 < x$. For each $t \in [x_0, x]$, define
+    \[
+        F(t) \triangleq f(t) + \sum_{j=1}^{k} \frac{f^{(j)}(t)}{j!} (x-t)^j
+    \] and \[
+        G(t) \triangleq g(t) + \sum_{j=1}^{k} \frac{g^{(j)}(t)}{j!} (x-t)^j
+    \]
+    Since $f^{(j)}$ and $g^{(j)}$ are continuous on $[x_0, x]$ for each
+    $j = 0, 1, \cdots, k$, $F$ and $G$ are continuous on $[x_0, x]$.
+    Since $f^{(j)}$ and $g^{(j)}$ are differentiable on $(x_0, x)$ for each
+    $j = 0, 1, \cdots, k$, $F$ and $G$ are differentiable on $(x_0, x)$.
+
+    Hence, by \Cref{th:mvtCauchy}, there exists $c \in (x_0, x)$ such that
+    \[
+        F'(c) \big\{G(x) - G(x_0)\big\} = G'(c)\left\{F(x) - F(x_0)\right\}\text{.}
+    \]
+    Note that $F(x) = f(x)$, $G(x) = g(x)$, $F(x_0) = p_k(x)$, and $G(x_0) = q_k(x)$.
+    Moreover, \[
+        F'(t) = \frac{f^{(k+1)}(t)}{k!}(x-t)^k \quad\text{and}\quad
+        G'(t) = \frac{g^{(k+1)}(t)}{k!}(x-t)^k\text{.}
+    \]
+    Therefore, the result follows.
+}
+
+\thm[taylorThm]{Taylor's Theorem}{
+    Suppose that $f$ is $k$ times continuously differentiable on $[a, b]$ 
+    and is $(k+1)$ times differentiable on $(a, b)$. Let $x_0 \in [a, b]$.
+    Then, for each $x \in [a, b] \setminus \{x_0\}$, there exists $c$
+    between $x$ and $x_0$ such that
+    \[
+        f(x) = p_k(x) + \frac{f^{(k+1)}(c)}{(k+1)!} (x-x_0)^{k+1}\text{.}
+    \]
+    where $p_k$ is the $k^\text{th}$-degree Taylor polynomial of $f$ at $x_0$.
+}
+\pf{Proof}{
+    Let $g(x) = (x-x_0)^{k+1}$. Apply \Cref{th:mvtCauchyGen} to $f$ and $g$.
+    There exists $c$ between $x_0$ and $x$ such that
+    \[
+        f^{(k+1)}(c) \big\{g(x) - q_k(x)\big\} =
+        g^{(k+1)}(c) \big\{f(x) - p_k(x)\big\}
+    \]
+    where $q_k$ is the $k^\text{th}$-degree Taylor polynomial of $g$ at $x_0$.
+    Since $g^{(j)}(x_0) = 0$ for each $j = 0, 1, \cdots, k$, $q_k = 0$.
+    Also, $g^{(k+1)}(x) = (k+1)!$. Hence, we get
+    \[
+        f^{(k+1)}(c) (x-x_0)^{k+1} = (k+1)!\big\{f(x) - p_k(x)\big\}\text{.}
+    \]
+    The result follows.
+}
+
+\thm{}{
+    Let $f$ has derivatives of all orders on $[a, b]$. Suppose that there
+    exists $M \in \RR_+$ such that $\|f^{(k)}\|_\infty^{1/k} \le M$ for all
+    $k \in \NN$. Then, for any $x_0 \in [a, b]$,
+    \[
+        \lim_{k \to \infty} p_k = f \quad\text{[uniformly]}
+    \]
+    where $p_k$ is the $k^\text{th}$-degree Taylor polynomial of $f$ at $x_0$.
+}
+\pf{Proof}{
+    Since $f^{(k)}$ is continuous on $[a, b]$ for each $k \in \NN$,
+    $f^{(k)}$ is bounded on $[a, b]$ and thus $\|f^{(k)}\|_\infty$ is finite.
+    Fix any $x_0 \in [a, b]$ and take $x \in [a, b]$. Then, for each $k \in \NN$,
+    there exists some $c \in [a, b]$ such that
+    \[
+        f(x) - p_k(x) = \frac{f^{(k+1)}(c)}{(k+1)!} (x-x_0)^{k+1}\text{.}
+    \]
+    Hence,
+    \[
+        0 \le |f(x) - p_k(x)|
+        \le \frac{\|f^{(k+1)}\|_\infty}{(k+1)!}|b-a|^{k+1}
+        \le \frac{(M|b-a|)^{k+1}}{(k+1)!}\text{.}
+    \]
+    Since $\displaystyle \lim_{k \to \infty} \frac{(M|b-a|)^{k+1}}{(k+1)!} = 0$
+    and the terms do not depend on $x$, $p_k$ uniformly converges to $f$ on
+    $[a, b]$.
+}
+
 \end{document}
