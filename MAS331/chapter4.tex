@@ -1000,7 +1000,7 @@
 
 \dfn{Parition of Unity}{
     Let $\{\,U_1, U_2, \cdots, U_n\,\}$ b a finite open covering of a space
-    $X$. A faimly $\{\phi_i\}_{i \in [n]} \subseteq [0, 1]^X$ of continuous
+    $X$. A family $\{\phi_i\}_{i \in [n]} \subseteq [0, 1]^X$ of continuous
     functions is said to be a \textit{partition of unity} dominated by
     $\{U_i\}_{i \in [n]}$ if
     \begin{itemize}[nolistsep]
@@ -1084,6 +1084,57 @@
 \thm[maniImbed]{}{
     If $X$ is a compact $m$-manifold, then $X$ can be imbedded in $\RR[N]$
     for some $N \in \ZZ_+$.
+}
+\pf{Proof}{
+    Cover $X$ by finitely many open sets $\{U_1, U_2, \cdots, U_n\}$, each of
+    which may be imbedded in $\RR[m]$. Choose imbeddings $g_i \colon U_i \to
+    \RR[m]$ for each $i \in [n]$. By \Cref{th:cptHausIsT4}, $X$ is $T_4$.
+    Let $\{\phi_{i} \colon X \to [0, 1]\}_{i \in [n]}$ be a parition of unity
+    dominated by $\{U_i\}$, whose existence is guaranteed by
+    \Cref{th:partOfUnityExists}. Let $A_i \triangleq (\text{support of } \phi_i)
+    = \cl{\phi_i\inv(\RR \setminus \{0\})}$
+    for each $i \in [n]$. Define a function $h_i \colon X \to \RR[m]$ by
+    \[
+        h_i(x) \triangleq \begin{cases}
+            \phi_i(x) \cdot g_i(x) & \text{if } x \in U_i \\
+            \vec 0 & \text{if } x \in X \setminus A_i\text{.}
+        \end{cases}
+    \]
+    $h_i$ is well-defined by the following reasons.
+    \begin{itemize}[nolistsep]
+        \ii $A_i \subseteq U_i$; thus $U_i \cup (X \setminus A_i) = X$.
+        \ii If $x \in U_i \cap (X \setminus A_i) = U_i \setminus A_i$,
+            then $x \in X \setminus \phi_i\inv((0, 1]) = \phi\inv(\{0\})$; thus $\phi_i(x) = 0$.
+    \end{itemize}
+    By \Cref{th:constructConti}$, h_i$ is continuous since $h_i \big|_{U_i}$
+    and $h_i\big|_{X \setminus A_i}$ are continuous.
+    
+    Now define
+    \[
+        F \colon X \longrightarrow
+        \underbrace{\RR \times \cdots \times \RR}_{n\text{ times}} \times
+        \underbrace{\RR[m] \times \cdots \times \RR[m]}_{n\text{ times}}
+    \]
+    by
+    \[
+        F(x) \triangleq \phi_1(x) \times  \cdots \times \phi_n(x) \times
+        h_1(x) \times \cdots \times h_n(x)\text{.}
+    \]
+    By \Cref{th:contiIffCoordsContiGen}, $F$ is continuous.
+
+    We now claim that $F$ is injective. Suppose that $F(x) = F(y)$ for some
+    $x, y \in X$. Then, $\phi_i(x) = \phi_i(y)$ and $h_i(x) = h_i(y)$ for all
+    $i \in [n]$. There exists some $i \in [n]$ such that $\phi_i(x) > 0$ since
+    $\sum_{i=1}^n \phi_i(x) = 1$. Therefore, $\phi_i(y) > 0$; hence
+    $x, y \in U_i$. Then,
+    \[
+        \phi_i(x) \cdot g_i(x) = h_i(x) = h_i(y) = \phi_i(y) \cdots g_i(y)\text{.}
+    \]
+    Since $\phi_i(x) = \phi_i(y) > 0$, it concludes that $g_i(x) = g_i(y)$.
+    As $g_i$ is an imbedding, $x = y$ is implied.
+
+    $F$ is an imbedding
+    by \Cref{th:bijContiFromCompToHausIsHomeo}.
 }
 
 \end{document}
