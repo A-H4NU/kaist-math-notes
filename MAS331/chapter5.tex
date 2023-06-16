@@ -1,0 +1,145 @@
+\documentclass[MAS331_Note.tex]{subfiles}
+
+\begin{document}
+
+\chapter{The Tychonoff Theorem}
+
+\section{The Tychonoff Theorem}
+
+\dfn{Maximal Element}{
+    Let $(A, \preceq)$ be a poset. If $B \subseteq A$, an \textit{upper bound}
+    of $B$ is an element $a$ of $A$ that $b \preceq a$ for each $b \in B$.
+    A \textit{maximal element} of $A$ is an element $m \in A$ such that
+    $m \not\prec a$ for all $a \in A$.
+}
+
+\dfn{Chain}{
+    Let $(A, \preceq)$ be a poset. A \textit{chain} $C$ is a subset of $A$
+    such that every two elements of $C$ are comparable, i.e., $C$ is
+    ordered by $\prec$.
+}
+
+\thm[zorn]{Zorn's Lemma}{
+    Let $(A, \preceq)$ be a poset. If every chain of $A$ has an upper bound in
+    $A$, then $A$ has an maximal element.
+}
+
+\mlemma[addToMaximalFIP]{}{
+    Let $X$ be a set; let $\mcal A \subseteq \mcal P(X)$ have the finite
+    intersection property. Then, there exists $\mcal D \subseteq \mcal P(X)$
+    such that $\mcal A \subseteq \mcal D$ and $\mcal D$ is \textit{maximal
+    with respect to the finite intersection property}. In other words, there
+    exists $\mcal D \subseteq \mcal P(X)$ that satisfies the following.
+    \begin{itemize}[nolistsep]
+        \ii $\mcal A \subseteq \mcal D$.
+        \ii $\mcal D$ has the finite intersection property.
+        \ii If $\mcal D \subsetneq \mcal D' \subseteq \mcal P(X)$, then
+            $\mcal D'$ does not have the finite intersection property.
+    \end{itemize}
+}
+\pf{Proof}{
+    Let
+    \[
+        \mbb A \triangleq \big\{\, \mcal B \:\big|\: \mcal A \subseteq \mcal B
+        \subseteq \mcal P(X) \text{ and } \mcal B \text{ has the finite
+        intersection property}\,\big\}\text{.}
+    \]
+    We should show $\mbb A$ has a maximal element.
+
+    Let $\mbb B$ be a chain of $(\mbb A, \subseteq)$. Then, we shall show
+    \[
+        \mcal C \triangleq \bigcup \mbb B
+    \]
+    is an element of $\mbb A$; thus $\mcal C$ is an upper bound of $\mbb B$.
+    To show that $\mcal C$ has the finite intersection property, let
+    $C_1, C_2, \cdots, C_n$ be elements of $\mcal C$.
+    For each $i \in [n]$, there exists $\mcal B_i \in \mbb B$ such that
+    $C_i \in \mcal B_i$. Since $\mbb B$ is ordered, there exists $k \in [n]$
+    such that $\mcal B_i \subseteq \mcal B_k$ for each $i \in [n]$;
+    thus $C_i \in \mcal B_k$ for all $i \in [n]$. Since $\mcal B_k$ has the
+    finite intersection property, $\bigcap_{i=1}^n C_i \neq \OO$;
+    $\mbb B$ has an upper bound $C$ in $A$.
+
+    Hence, we may apply \Cref{th:zorn}; $\mbb A$ has a maximal element.
+}
+
+\mlemma[maximalFIPLem]{}{
+    Let $X$ be a set; let $\mcal D \subseteq \mcal P(X)$ is maximal with respect
+    to the finite intersection property. Then,
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If $D_1, D_2 \cdots, D_n \in \mcal D$,
+            then $\bigcap_{i=1}^n D_i \in \mcal D$.
+        \ii If $A \subseteq X$ and $A \cap D \neq \OO$ for each $D \in \mcal D$,
+            then $A \in \mcal D$.
+    \end{enumerate}
+}
+\pf{Proof}{
+    \hfill
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Let $D \triangleq \bigcap_{i=1}^n D_i$. Let $\mcal E \triangleq
+            \mcal D \cup \{D\}$.
+            We show $\mcal E$ has the finite intersection property.
+            Let $E_1, E_2, \cdots, E_m \in \mcal E$. If each of them is in
+            $\mcal D$, then they have nonempty intersection.
+            Otherwise, \textsf{WLOG}, $E_1 = D$. Then,
+            \[
+                E_1 \cap E_2 \cap \cdots \cap E_m =
+                D_1 \cap D_2 \cap \cdots \cap D_n \cap E_2
+                \cap \cdots \cap E_m \neq \OO\text{.}
+            \]
+            Hence, $\mcal E$ has the finite intersection property but it is
+            $\mcal D \subseteq \mcal E$; hence $\mcal E = \mcal D$ by the
+            maximality of $\mcal D$.
+
+        \ii Let $\mcal E \triangleq \mcal D \cup \{A\}$. Take finitely many
+            element of $\mcal E$. If none of them is the set $A$, then their
+            intersection is automatically empty. Otherwise, it is of the form
+            \[
+                D_1 \cap \cdots \cap D_n \cap A\text{.}
+            \]
+            Now $D_1 \cap \cdots \cap D_n \in \mcal D$ by (a); therefore,
+            the intersection is nonempty.
+    \end{enumerate}
+}
+
+\thm[tychonoff]{Tychonoff Theorem}{
+    Let $\{X_\alpha\}_{\alpha \in J}$ be a family of compact spaces.
+    Then, $X \triangleq \prod_{\alpha \in J} X_\alpha$ is compact.
+}
+\pf{Proof}{
+    Let $\mcal A$ be a collection of close sets of $X$ having the finite
+    intersection property.
+    By \Cref{lem:addToMaximalFIP}, there exists $\mcal D \subseteq \mcal P(X)$
+    such that $\mcal A \subseteq \mcal D$ and $\mcal D$ is maximal with
+    respect to the finite intersection property.
+
+    For given $\alpha \in J$, consider the following set
+    \[
+        \{\,\cl{\pi_\alpha(D)} \mid D \in \mcal D\,\}\text{.}
+    \]
+    Since $\mcal D$ has the finite intersection property, so does the set.
+    Hence, since $X_\alpha$ is compact, we may choose
+    \[
+        x_\alpha \in \bigcap_{D \in \mcal D} \cl{\pi_\alpha(D)}
+    \]
+    by \Cref{th:cptIff}.
+    Let $\vec x = (x_\alpha)_{\alpha \in J} \in X$.
+
+    Let $\pi_\beta\inv(U_\beta)$ be any subbasis element containing $\vec x$
+    and $D$ be any element of $\mcal D$.
+    The set $U_\beta$ is a neighborhood of $x_\beta$. Then, since
+    $x_\beta \in \cl{\pi_\beta(D)}$, $U_\beta \cap \pi(D) \neq \OO$.
+    Therefore, $\pi_\beta\inv(U_\beta) \cap D \neq \OO$.
+    This implies $\pi_\beta\inv(U_\beta)$ intersects every $D \in \mcal D$;
+    by (b) of \Cref{lem:maximalFIPLem}, $\pi_\beta\inv(U_\beta) \in \mcal D$.
+    Moreover, by (a) of \Cref{lem:maximalFIPLem}, every basis element of
+    $X$ containing $\vec x$ is in $\mcal D$. Hence, every basis element of $X$
+    intersects every element of $\mcal D$. Thus, $\vec x \in \cl D$ for every $D \in \mcal D$.
+    Therefore,
+    \[
+        \OO \neq \bigcap_{D \in \mcal D} \cl D \subseteq \bigcap_{A \in \mcal A} \cl A\text{.}
+    \]
+    $X$ is compact by \Cref{th:cptIff}.
+}
+
+\end{document}
