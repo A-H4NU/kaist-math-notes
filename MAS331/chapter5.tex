@@ -2,8 +2,6 @@
 
 \begin{document}
 
-\chapter{The Tychonoff Theorem}
-
 \section{The Tychonoff Theorem}
 
 \dfn{Maximal Element}{
@@ -134,10 +132,12 @@
     by (b) of \Cref{lem:maximalFIPLem}, $\pi_\beta\inv(U_\beta) \in \mcal D$.
     Moreover, by (a) of \Cref{lem:maximalFIPLem}, every basis element of
     $X$ containing $\vec x$ is in $\mcal D$. Hence, every basis element of $X$
+    containing $\vec x$
     intersects every element of $\mcal D$. Thus, $\vec x \in \cl D$ for every $D \in \mcal D$.
     Therefore,
     \[
-        \OO \neq \bigcap_{D \in \mcal D} \cl D \subseteq \bigcap_{A \in \mcal A} \cl A\text{.}
+        \OO \neq \bigcap_{D \in \mcal D} \cl D \subseteq \bigcap_{A \in \mcal A} \cl A
+        = \bigcap \mcal A\text{.}
     \]
     $X$ is compact by \Cref{th:cptIff}.
 }
