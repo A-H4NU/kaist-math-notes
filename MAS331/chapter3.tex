@@ -873,8 +873,8 @@
 }
 
 \nt{
-    \Cref{th:prodCptIffEachCpt} holds for an arbitrary product
-    but is is slightly technical.
+    \Cref{th:prodCptIffEachCpt} holds for an arbitrary product.
+    See \Cref{th:tychonoff}.
 }
 
 \dfn{Finite Intersection Property}{
@@ -945,6 +945,27 @@
         = C_{\max_{i=1}^k n_i} \neq \varnothing\text{.}
     \]
     The result follows from \Cref{th:cptIff}.
+}
+
+\thm[cptMetIsBdd]{}{
+    Let $(X, d)$ be a compact metric space.
+    Then, $X$ is bounded with respect to $d$.
+}
+\pf{Proof}{
+    Let $\{B(x_1, 1), B(x_2, 1), \cdots, B(x_n, 1)\}$ be a finite open covering
+    of $X$ by $1$-balls. Let
+    \[
+        M \triangleq \max_{i, j \in [n]} d(x_i, x_j)\text{.}
+    \]
+    Take any $x, y \in X$.
+    Then, there are $i, j \in [n]$ such that $x \in B(x_i, 1)$ and
+    $y \in B(x_j, 1)$.
+    Then,
+    \[
+        d(x, y) \le d(x, x_i) + d(x_i, x_j) + d(x_j, y)
+        < M + 2\text{.}
+    \]
+    Hence, $X$ is bounded with respect to $d$.
 }
 
 \section{Compact Subspaces of the Real Line}

@@ -1,0 +1,331 @@
+\documentclass[MAS331_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Complete Metric Spaces}
+
+\dfn{Cauchy Sequence}{
+    Let $(X, d)$ be a metric space. A sequence $\{x_n\}_{n \in \ZZ_+}$
+    of points of $X$ is said to be \textit{Cauchy} in $(X, d)$ if
+    \[
+        \fall \veps \in \RR_+,\: \exs N \in \ZZ_+,\:
+        \fall n, m \in \ZZ_+,\: \big(n,m\ge N \implies d(x_n, x_m) < \veps\big)\text{.}
+    \]
+}
+
+\dfn{Complete Metric Space}{
+    Let $(X, d)$ be a metric space. $(X, d)$ is said to be \textit{complete}
+    if every Cauchy sequence in converges.
+}
+
+\nt{
+    \noindent Here are some immediate facts.
+    \begin{itemize}[nolistsep]
+        \ii Every convergent sequence in $(X, d)$ is a Cauchy sequence.
+        \ii $\{x_n\}_{n \in \ZZ_+}$ is Cauchy in $(X, d)$ if and only if
+            it is Cauchy in $(X, \ol d)$.
+        \ii $(X, d)$ is complete if and only if $(X, \ol d)$ is Cauchy.
+    \end{itemize}
+}
+
+\mlemma[complIfHasConvSubseq]{}{
+    A metric space $(X, d)$ is complete if every Cauchy sequence in $X$ has a
+    convergent subsequence.
+}
+\pf{Proof}{
+    Let $\{x_n\}_{n \in \ZZ_+}$ be a Cauchy sequence in $(X, d)$. Let
+    $\{x_{n_i}\}_{i \in \ZZ_+}$ be a subsequence that converges to $x \in X$.
+
+    Given $\veps \in \RR_+$, there exists $N \in \ZZ_+$ such that
+    $d(x_n, x_m) < \veps/2$ for all $n, m \ge N$. Then choose $i \in \ZZ_+$
+    such that $n_i \ge N$ and $d(x_{n_i}, x) < \veps/2$. Then,
+    for every $n \in \ZZ_+$ not smaller than $N$,
+    \[
+        d(x_n, x) \le d(x_n, d_{n_i}) + d(x_{n_i}, x) < \veps\text{.}
+    \]
+}
+
+\thm[RkisCompl]{}{
+    Euclidean space $\RR[k]$ is complete in either of its usual metrics,
+    the euclidean metric $d$ of the square metric $\rho$.
+}
+\pf{Proof}{
+    To show the metric space $(\RR[k], \rho)$ is complete, let $\{\vec x_n\}_{n \in \ZZ_+}$
+    be a Cauchy
+    sequence in $(\RR[k], \rho)$. There exists $N \in \ZZ_+$ such that
+    \[
+        \rho(\vec x_n, \vec x_m) \le 1
+    \]
+    for all $n, m \ge N$. Then
+    \[
+        M \triangleq \max \{\,\rho(\vec x_1, \vec 0), \cdots, \rho(\vec x_N, \vec 0),
+        \rho(\vec x_N, \vec 0) + 1\,\}
+    \]
+    is an upper bound of $\{\rho(\vec x_n, \vec 0)\}_{n \in \ZZ_+}$.
+
+    Thus, $\{x_n\}_{n \in \ZZ_+}$ is a sequence in $[-M, M]^k$ (product),
+    which is compact by \Cref{th:cldIntvIsCpt} and \Cref{th:prodCptIffEachCpt}.
+    ($[-M, M]^k$ as a subspace of $(\RR[k], \rho)$ is also a metric space
+    and is compact by \Cref{th:subOfProdIsProdOfSub}.)
+    As $[-M, M]^k$ is sequentially compact by \Cref{th:cptTFAE}, $\{x_n\}_{n \in \ZZ_+}$
+    has a convergent subsequence in $[-M, M]^k$ (product). The subsequence converges
+    in $(\RR[k], \rho)$ as well. By \Cref{lem:complIfHasConvSubseq}, $(\RR[k], \rho)$
+    is complete.
+
+    For $(\RR[k], d)$, note the following.
+    \begin{itemize}[nolistsep]
+        \ii $\{\vec x_n\}_{n \in \ZZ_+}$ is Cauchy in $(\RR[k], d)$ if and
+            only if it is Cauchy in $(\RR[k], \rho)$.
+        \ii $\{\vec x_n\}_{n \in \ZZ_+}$ converges in $(\RR[k], d)$ if and
+            only if it converges in $(\RR[k], \rho)$.
+    \end{itemize}
+}
+
+\mlemma[convInProdIff]{}{
+    Let $X$ be the product space $X \triangleq \prod_{\alpha \in J} X_\alpha$;
+    let $\{\vec x_n\}$ be a sequence of points of $X$. Then
+    $\vec x_n \to \vec x$ if and only if $\pi_\alpha(\vec x_n) \to \pi_\alpha(\vec x)$
+    for each $\alpha \in J$.
+}
+\pf{Proof}{
+    ($\Rightarrow$) For each $\alpha \in J$, $\pi_\alpha$ is continuous.
+    Hence, by \Cref{lem:seqConvIffImgConv}, $\pi_\alpha(\vec x_n) \to
+    \pi_\alpha(\vec x)$.
+
+    ($\Leftarrow$) Let $\bigcap_{i=1}^k\pi_{\alpha_i}\inv(U_{\alpha_i})$ be a
+    basis element that contains $\vec x$.
+    For each $i \in [k]$, there exists $N_i \in \ZZ_+$ such that
+    $\pi_{\alpha_i}(\vec x_n) \in U_{\alpha_i}$ for all $n \ge N_i$.
+    Then, for every $n \ge \max_{i=1}^k N_i$, $\vec x \in
+    \bigcap_{i=1}^k\pi_{\alpha_i}\inv(U_{\alpha_i})$.
+}
+
+\thm{}{
+    Suppose $(X_i, d_i)$ is a complete metric space for each $i \in \ZZ_+$.
+    Let $X \triangleq \prod_{i \in \ZZ_+} X_i$ be a product space.
+    Then, let $D \colon X \times X \to \RR$ be defined by
+    \[
+        D(\vec x, \vec y) \triangleq \sup \left\{\,\frac{\ol d_i(x_i, y_i)}{i} \:\bigg|\: i \in \ZZ_+\,\right\}\text{.}
+    \]
+    Then, the metric space $(X, D)$ is complete.
+}
+\pf{Proof}{
+    $D$ induces the product topology by \Cref{th:ctMetIsMet}.
+    Let $\{\vec x_n\}_{n \in \ZZ_+}$ be a Cauchy sequence in $(X, D)$.
+    Since
+    \[
+        \ol d_i(\pi_i(\vec x), \pi_i(\vec y)) \le i \cdot D(\vec x, \vec y)
+    \]
+    for each $i \in \ZZ_+$ and $x, y \in X$,
+    $\{\pi_i(\vec x_n)\}_{n \in \ZZ_+}$ is a Cauchy sequence in $(X_i, d_i)$;
+    it converges. Hence, $\{\vec x_n\}$ converges in $X$ by \Cref{lem:convInProdIff}.
+}
+
+\thm[complThenFtnSpaceCompl]{}{
+    If $(Y, d)$ is a complete metric space, then the metric space
+    $(Y^J, \ol \rho)$ is complete. ($\ol\rho$ is the uniform metric.)
+}
+\pf{Proof}{
+    Suppose $\{f_n\}_{n \in \ZZ_+}$ is Cauchy
+    in $\ol \rho$. Take any $\alpha \in J$. Since
+    \[
+        \ol d(f_n(\alpha), f_m(\alpha)) \le \ol \rho(f_n, f_m)
+    \]
+    for each $n, m \in \ZZ_+$, the sequence $\{f_n(\alpha)\}_{n \in \ZZ_+}$
+    is Cauchy in $(Y, \ol d)$, and thus converges.
+    Let $y_\alpha$ be the point to which
+    it converges. Let $f \colon J \to Y$ be defined by
+    \[
+        \alpha \mapsto y_\alpha\text{.}
+    \]
+    
+    We now claim that $f_n \to f$. Let $\veps \in \RR_+$ be given.
+    There exists $N \in \ZZ_+$ such that $\ol\rho(f_n, f_m) < \veps/2$
+    whenever $n, m \ge N$.
+
+    Take any $\alpha \in J$ and $\veps' \in \RR_+$.
+    There exists $M \in \ZZ_+$ such that
+    $\ol d(f_m(\alpha), f(\alpha)) < \veps$ for each $m \ge M$.
+    Then, for $n \ge N$ and $m \ge \max \{N, M\}$,
+    \[
+        \ol d(f_n(\alpha), f(\alpha)) \le \ol d(f_n(\alpha), f_m(\alpha))
+        + \ol d(f_m(\alpha), f(\alpha)) < \veps/2 + \veps'\text{.}
+    \]
+    Since $\veps'$ was arbitrary, $\ol d(f_n(\alpha), f(\alpha)) \le \veps/2$
+    for each $n \ge N$. Since $\alpha$ was arbitrary, $\ol \rho(f_n, f) \le \veps/2 < \veps$
+    for all $n \ge N$.
+}
+
+\dfn{Space of Countinuous/Bounded Function}{
+    Let $X$ be a topological space and let $(Y, d)$ be a metric space.
+    Then, define $\mcal C(X, Y), \mcal B(X, Y) \subseteq Y^X$ by
+    \[
+        \mcal C(X, Y) \triangleq \{\,f \in Y^X \mid f \text{ is continuous}\,\}
+    \]
+    and
+    \[
+        \mcal B(X, Y) \triangleq \{\,f \in Y^X \mid f \text{ is bounded
+        with respect to }d\,\}\text{.}
+    \]
+}
+
+\thm[CandBCld]{}{
+    Let $X$ be a topological space and let $(Y, d)$ be a metric space.
+    The set $\mcal C(X, Y)$ and $\mcal B(X, Y)$ are closed in $(Y^X, \ol\rho)$.
+}
+\pf{Proof}{
+    ($\mcal C(X, Y)$ is closed.)
+    Let $f \in Y^X$ be a limit point of $\mcal C(X, Y)$. Then, there exists
+    a sequence $\{f_n\}_{n \in \ZZ_+}$ in $\mcal C(X, Y)$ converging to $f$
+    in the metric $\ol\rho$ by \Cref{lem:seqLemma}.
+
+    Now, we claim that $\{f_n\}_{n \in \ZZ_+}$ converges to $f$ uniformly.
+    Take any $\veps \in \RR_+$. Then, there exists some $N \in \ZZ_+$ such that
+    $\ol\rho(f_n, f) < \veps$ for each $n \ge N$.
+    Then, for every $x \in X$ and $n \ge N$,
+    \[
+        \ol d(f_n(x), f(x)) \le \ol\rho(f_n, f) < \veps\text{,}
+    \]
+    which implies $\{f_n\}_{n \in \ZZ_+}$ uniformly converges to $f$.
+    Then, by \Cref{th:unifLimThm}, $f \in \mcal C(X, Y)$.
+    Hence, $\mcal C(X, Y)$ is closed by \Cref{cor:closedIffContainsLimPts}.
+
+    ($\mcal B(X, Y)$ is closed.)
+    Let $f \in Y^X$ be a limit point of $\mcal B(X, Y)$.
+    Then, there exists
+    a sequence $\{f_n\}_{n \in \ZZ_+}$ in $\mcal B(X, Y)$ converging to $f$
+    in the metric $\ol\rho$ by \Cref{lem:seqLemma}.
+
+    There exists $N \in \ZZ_+$ such that $\ol\rho(f_N, f) < 1$.
+    Let $x, y \in X$. Then,
+    \[
+        d(f(x), f(y)) \le d(f(x), f_N(x)) + d(f_N(x), f_N(y))
+        + d(f_N(y), f(y)) < \diam \Img f_N + 2\text{.}
+    \]
+    Hence, $f \in \mcal B(X, Y)$. Therefore, $\mcal B(X, Y)$ is closed by
+    \Cref{cor:closedIffContainsLimPts}.
+}
+
+\cor[CandBCompl]{}{
+    Let $X$ be a topological space and let $(Y, d)$ be a complete metric space.
+    The set $\mcal C(X, Y)$ and $\mcal B(X, Y)$ are complete in $(Y^X, \ol\rho)$.
+}
+\pf{Proof}{
+    $(Y^X, \ol\rho)$ is complete by \Cref{th:complThenFtnSpaceCompl}.
+    Any Cauchy sequence in $\mcal C(X, Y)$ is Cauchy in $Y^X$, and thus
+    converges, say, to $f$. Then, since $\mcal C(X, Y)$ is closed by
+    \Cref{th:CandBCld},
+    $f \in \mcal C(X, Y)$. Hence, $\mcal C(X, Y)$ is complete.
+    $\mcal B(X, Y)$ is, similarly, complete.
+}
+
+\mlemma{}{
+    Let $X$ be a compact space and let $(Y, d)$ be a metric space.
+    Then, $\mcal C(X, Y) \subseteq \mcal B(X, Y)$, i.e., every continuous
+    function from $X$ to $Y$ is bounded.
+}
+\pf{Proof}{
+    Let $f \in \mcal C(X, Y)$. Then, $\Img f$ is compact by
+    \Cref{th:contiSendsCptToCpt}. Thus, it is bounded by \Cref{th:cptMetIsBdd}.
+}
+
+\dfn{Sup Metric}{
+    Let $(Y, d)$ be a metric space. We may define another metric $\rho$ on
+    the set $\mcal B(X, Y)$ by the equation
+    \[
+        \rho(f, g) \triangleq \sup \{\,d(f(x), g(x)) \mid x \in X\,\}\text{.}
+    \]
+    The metric $\rho$ is called the \textit{sup metric}.
+}
+
+\nt{
+    Let $\rho$ and $\ol \rho$ be the sup metric and the uniform metric,
+    respectively, on $\mcal B(X, Y)$.
+    Then, the following holds.
+    \[
+        \ol \rho(f, g) = \min \{\rho(f, g), 1\}
+    \]
+    This means that $\ol \rho$ is just the standard bonded metric
+    derived from $\rho$.
+}
+
+\nt{
+    Let $X$ be a topological space and let $(Y, d)$ be a complete metric space.
+    $\mcal B(X, Y)$ is complete in $(Y^X, \rho)$.
+    If $X$ is compact, $\mcal C(X, Y)$ is complete in $(Y^X, \rho)$.
+}
+
+\dfn{Isometric Imbedding}{
+    Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces.
+    If $f \colon X \to Y$ has the property such that
+    \[
+        \fall x_1, x_2 \in X\,\:
+        d_Y(f(x_1), f(x_2)) = d_X(x_1, x_2)\text{,}
+    \]
+    $f$ is called an \textit{isometric imbedding} of $X$ in $Y$.
+}
+
+\nt{
+    Let $(X, d_X)$ and $(Y, d_Y)$ be metric spaces.
+    If $f \colon X \to Y$ is an isometric imbedding of $X$ in $Y$,
+    then it is an imbedding of $X$ in $Y$.
+    \pf{Proof}{
+        If $f(x_1) = f(x_2)$, then $d_X(x_1, x_2) = d_Y(f(x_1), f(x_2)) = 0$,
+        and thus $x_1 = x_2$. This shows that $f$ is an injection.
+        Moreover, for each $x \in X$ and $\veps \in \RR_+$,
+        \begin{itemize}[nolistsep]
+            \ii $f(B_{d_X}(x, \veps)) = B_{d_Y}(f(x), \veps) \cap \Img f$ and
+            \ii $f\inv(B_{d_Y}(f(x), \veps)) = B_{d_X}(x, \veps)$.
+        \end{itemize}
+        Hence, $f$ is an imbedding of $X$ in $Y$.
+    }
+}
+
+\thm[isoImbed]{}{
+    Let $(X, d)$ be a metric space. Then, there is an isometric imbedding of
+    $X$ in a complete metric space.
+}
+\pf{Proof}{
+    Consider $\mcal B(X, \RR)$. Let $x_0 \in X$ be fixed.
+    For each $a \in X$, define $\phi_a \colon X \to \RR$ by the equation
+    \[
+        \phi_a(x) \triangleq d(x, a) - d(x, x_0)\text{.}
+    \]
+    From the triangle inequality, we get
+    \[
+        |\phi_a(x)| = |d(x, a) - d(x, x_0)|
+        \le d(a, x_0)
+    \]
+    for each $x \in X$. Hence, $\phi_a \in \mcal B(X, \RR)$.
+    Define $\Phi \colon X \to \mcal B(X, \RR)$ by letting $a \mapsto \phi_a$.
+
+    We now claim that $\Phi$ is an isometric imbedding of $X$ in the
+    complete metric space $(\mcal B(X, \RR), \rho)$.
+    By definition, for each $a, b \in X$,
+    \[\begin{aligned}[t]
+        \rho(\phi_a, \phi_b)
+        &= \sup \big\{\, |\phi_a(x) - \phi_b(x)| \:\big|\: x \in X\,\big\} \\
+        &= \sup \big\{\, |d(x, a) - d(x, b)| \:\big|\: x \in X\,\big\}
+        \le d(a, b)\text{.}
+    \end{aligned}\]
+    Moreover,
+    \[
+        d(a, b) = |d(a, a) - d(a, b)|
+        \le \sup \big\{\, |d(x, a) - d(x, b)| \:\big|\: x \in X\,\big\}
+        = \rho(\phi_a, \phi_b)\text{.}
+    \]
+    Hence, $d(a, b) = \rho(\phi_a, \phi_b)$; $\Phi$ is an isometric imbedding.
+}
+
+\dfn{Completion}{
+    Let $X$ be a metric space. If $h \colon X \to Y$ is an isometric imbedding
+    of $X$ into a complete metric space $Y$, then the space
+    $\cl{h(X)}$ of $Y$ is a complete metric space. It is called the
+    \textit{completion} of $X$.
+}
+
+\nt{
+    \noindent The completion of $X$ is uniquely determined up to an isometry.
+}
+
+\end{document}
