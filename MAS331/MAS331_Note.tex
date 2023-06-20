@@ -17,11 +17,14 @@
     trig format plots=rad,
     every axis plot/.append style={
         line width=.7pt,
-        smooth,
+        % smooth,
     },
 }
 \fi
 \usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{external} 
+\tikzexternalize%[optimize=false]
+\tcbset{shield externalize}
 \pgfmathsetmacro{\PI}{3.141592654}
 
 \pdfsuppresswarningpagegroup=1
@@ -45,7 +48,9 @@
 \maketitle
 \newpage
 \pdfbookmark[section]{\contentsname}{toc}
+\tikzexternaldisable
 \tableofcontents
+\tikzexternalenable
 \pagebreak
 
 \chapter{Set Theory and Logic}
