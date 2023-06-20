@@ -330,7 +330,7 @@
 
 \section{A Space-Filling Curve}
 
-\thm{}{
+\thm[spaceFill]{}{
     Let $I = [0, 1]$. There exists a surjective continuous map $f \colon I \to I^2$
     where $I^2$ is a subspace of $\RR^2$.
 }
@@ -573,6 +573,50 @@
     Therefore, $\veps$-neighborhood of $\vec x$ intersects $f(I)$;
     this implies $\vec x \in \cl{f(I)}$ by \Cref{th:inClosureIffNeighCapANonempty}.
     Since $f(I)$ is closed, $\vec x \in f(I)$.
+}
+
+\cor{}{
+    Let $I = [0, 1]$. There exists a surjective continuous map $f \colon I \to I^n$
+    where $I^n$ is a subspace of $\RR[n]$.
+}
+\pf{Proof}{
+    \hfill
+    \begin{center}
+    \fbox{
+    \begin{minipage}{.9\linewidth}
+        \textbf{Claim.} 
+        For each $k \in \ZZ_+$, there exists a surjective continuous map
+        $f \colon I \to I^{2^k}$.
+        \pf{Proof}{
+            (Induction on $k$) The base case $f \colon I \to I^2$ is proven
+            in \Cref{th:spaceFill}.
+
+            Suppose we have surjective continuous map
+            $g \colon I \to I^{2^k}$.
+            We already have surjective and continuous $h \colon I \to I^2$.
+            Then, $p \colon I \times I \to I^{2^k} \times I^{2^k}$
+            defined by
+            \[
+                p(s, t) \triangleq g(s) \times g(t)
+            \]
+            is continuous since $p(x) = g(\pi_1(x)) \times g(\pi_2(x))$.
+            (See \Cref{th:constructConti}.)
+            Then, $f \colon I \to I^{2^k} \times I^{2^k}$
+            defined by $f \triangleq p \circ h$ is continuous.
+            $f$ is surjective, indeed.
+            Since $I^{2^k} \times I^{2^k}$ is homeomorphic with $I^{2^{k+1}}$,
+            there exists a surjective continuous map from $I$ to $I^{2^{k+1}}$.
+        }
+    \end{minipage}
+    }
+    \end{center}
+
+    Let $k \in \ZZ_+$ be an integer such that $n < 2^k$.
+    Since $I^{2^k}$ is homeomorphic with $I^{n} \times I^{2^k-n}$,
+    by the claim, there exists a surjective continuous map
+    $g \colon I \to I^n \times I^{2^k-n}$.
+    Then, $f \colon I \to I^n$ defined by $f = \pi_1 \circ g$ is
+    surjective and continuous.
 }
 
 \end{document}
