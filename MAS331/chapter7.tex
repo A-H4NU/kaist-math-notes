@@ -99,7 +99,7 @@
     basis element that contains $\vec x$.
     For each $i \in [k]$, there exists $N_i \in \ZZ_+$ such that
     $\pi_{\alpha_i}(\vec x_n) \in U_{\alpha_i}$ for all $n \ge N_i$.
-    Then, for every $n \ge \max_{i=1}^k N_i$, $\vec x \in
+    Then, for every $n \ge \max_{i=1}^k N_i$, $\vec x_n \in
     \bigcap_{i=1}^k\pi_{\alpha_i}\inv(U_{\alpha_i})$.
 }
 
@@ -575,7 +575,7 @@
     Since $f(I)$ is closed, $\vec x \in f(I)$.
 }
 
-\cor{}{
+\cor[spaceFillIn]{}{
     Let $I = [0, 1]$. There exists a surjective continuous map $f \colon I \to I^n$
     where $I^n$ is a subspace of $\RR[n]$.
 }
@@ -617,6 +617,396 @@
     $g \colon I \to I^n \times I^{2^k-n}$.
     Then, $f \colon I \to I^n$ defined by $f = \pi_1 \circ g$ is
     surjective and continuous.
+}
+
+\cor{}{
+    There exists a surjective continuous map from $\RR$ to $\RR[n]$.
+}
+\pf{Proof}{
+    Let $g \colon \ZZ \to \ZZ \times \ZZ$ be a surjection.
+    For each $n \in \ZZ$, we have a surjective continuous map $f_n$
+    from $[2n, 2n+1]$ to $[(\pi_1 \circ g)(n), (\pi_1 \circ g)(n) + 1]
+    \times [(\pi_2 \circ g)(n), (\pi_2 \circ g)(n) + 1]$ by \Cref{th:spaceFill}.
+    If we define $f \colon \RR \to \RR[2]$ be the function that equals
+    $f_n$ on $[2n, 2n+1]$ and connects $f_n(2n+1)$ and $f_{n+1}(2n+2)$
+    on $[2n+1, 2n+2]$ by a line segment for each $n \in \ZZ_+$ is a surjective
+    and continuous map. The map $f \colon \RR \to \RR[2]$ is
+    \[
+        f(t) \triangleq \begin{cases}
+            f_n(t) & \text{if } 2n \le t < 2n+1 \\
+            (f_{n+1}(2n+2)-f_n(2n+1))(t-2n-1) + f_n(2n+1)
+                   & \text{if } 2n+1 \le t < 2n+2\text{.}
+        \end{cases}
+    \]
+
+    Similarly (\Cref{cor:spaceFillIn}), there exists a surjective continuous
+    map from $\RR$ to $\RR[n]$.
+}
+
+\section{Compactness in Metric Spaces}
+
+\nt{
+    We know that a subspace $A$ of $\RR[n]$ is compact
+    if and only if $A$ is closed and bounded under either the square metric
+    or the Euclidean metric.
+    In this chapter, we want to generalize this into $\mcal C(X, \RR[n])$
+    where $X$ is a topological space.
+    Which subspace $\mcal F \subseteq (\mcal C(X, \RR[n]), \ol\rho)$
+    would be compact?
+    Note that $(\RR[n], d) \cong (\mcal C(X, \RR[n]), \ol\rho)$ when $X$ is
+    a singleton.
+}
+
+\dfn{Totally Bounded Metric Space}{
+    A metric space $(X, d)$ is said to be \textit{totally bounded} if,
+    for every $\veps \in \RR_+$, there exists a finite covering of $X$
+    by $\veps$-balls.
+}
+
+\nt{
+    \noindent
+    Total boundedness implies boundedness.
+    Copy the proof of \Cref{th:cptMetIsBdd}.
+}
+
+\nt{
+    \noindent
+    $(X, d)$ is totally bounded if and only if $(X, \ol d)$ is totally bounded
+    where $\ol d$ is the standard bounded metric corresponding to $d$.
+}
+
+\nt{
+    Total boundedness and completeness are independent.
+    Under the metric $d(a, b) = |a, b|$, $\RR$ is complete but
+    not totally bounded.
+    The subspace $(-1, 1)$ is totally bounded but not complete.
+}
+
+\thm[metCptIffComplAndTotBdd]{}{
+    A metric space $(X, d)$ is compact if and only if
+    it is complete and totally bounded.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    $X$ is sequentially compact by \Cref{th:cptTFAE}, and thus
+    every sequence has a convergent subsequence. Therefore,
+    $(X, d)$ is complete by \Cref{lem:complIfHasConvSubseq}.
+
+    Moreover, $(X, d)$ is totally bounded since the open covering
+    \[
+        \{\,B(x, \veps) \mid x \in X\,\}
+    \]
+    will give a finite subcover of $X$ for any $\veps \in \RR_+$.
+
+    ($\Leftarrow$)
+    We claim that $X$ is sequentially compact, and thus compact by \Cref{th:cptTFAE}.
+    Let $\{x_n\}_{n \in \ZZ_+}$ be a sequence of points of $X$.
+    
+    Let $J_0 \triangleq \ZZ_+$.
+    Construct nested infinite subsets $J_1, J_2, \cdots$ of $\ZZ_+$
+    as following.
+    \begin{itemize}[nolistsep]
+        \ii Given $J_{k-1}$, cover $X$ by finitely many $1/k$-balls.
+            Then, there exists a $1/k$-ball $B_k$ among them such that
+            there are infinitely many $n \in J_{k-1}$ such that
+            $x_n \in B_k$. Let $J_k \triangleq
+            \{\,n \in J_{k-1} \mid x_n \in B_k\,\}$.
+    \end{itemize}
+    Now, construct $\{n_i\}_{i \in \ZZ_+}$ as following.
+    \begin{itemize}[nolistsep]
+        \ii Take any $n_1 \in J_1$.
+        \ii Given $n_i$, choose $n_{i+1} \in J_{i+1}$ such that $n_{i+1} > n_i$.
+    \end{itemize}
+    For all $i, j \ge k$, $x_{n_i}, x_{n_j} \in B_k$ so that
+    $d(x_{n_i}, x_{n_j}) < 2/k$. Hence, the subsequence $\{x_{n_i}\}_{i \in \ZZ_+}$
+    of $\{x_n\}_{n \in \ZZ_+}$ is a Cauchy sequence, and thus converges
+    since $(X, d)$ is complete. This shows that $X$ is sequentially compact.
+}
+
+\dfn{Equicontinuity}{
+    Let $X$ be a topological space and let $(Y, d)$ be a metric space.
+    Let $\mcal F \subseteq \mcal C(X, Y)$.
+    Given $x_0 \in X$, $\mcal F$ is said to be \textit{equicontinuous at} $x_0$
+    if, for each $\veps \in \RR_+$, there exists a neighborhood $U$ of $x_0$
+    such that
+    \[
+        d(f(x), f(x_0)) < \veps
+    \]
+    for all $x \in U$ and $f \in \mcal F$.
+    If $\mcal F$ is equicontinuous at every $x_0 \in X$, $\mcal F$ is simply
+    said to be \textit{equicontinuous}.
+}
+
+\nt{
+    \noindent
+    Let $X$ be a topological space and $(Y, d)$ be a metric space,
+    If $\mcal F \subseteq \mcal G \subseteq \mcal C(X, Y)$ and
+    $\mcal G$ is equicontinuous under $d$, then so is $\mcal F$.
+}
+
+\nt{
+    \noindent
+    Equicontinuity depends on the specific metric $d$ rather than
+    merely on the topology of $Y$.
+}
+
+\mlemma[totBddThenEquiconti]{}{
+    Let $X$ be a topological space and let $(Y, d)$ be a metric space.
+    If $\mcal F \subseteq \mcal C(X, Y)$ is totally bounded under the
+    uniform metric $\ol\rho$ corresponding to $d$, then $\mcal F$
+    is equicontinuous under $d$.
+}
+\pf{Proof}{
+    Take any $\veps \in \RR_+$ and $x_0 \in X$.
+    Let $\delta \triangleq \veps/3$; cover $\mcal F$ by finitely many
+    $\delta$-balls
+    \[
+        B(f_1, \delta), \cdots, B(f_n, \delta)
+    \]
+    in $(\mcal C(X, Y), \ol\rho)$.
+    For each $i \in [n]$, since $f_i$ is continuous,
+    $U_i \triangleq f_i\inv\big(B_d(f_i(x_0), \delta)\big)$
+    is a neighborhood of $x_0$.
+    Let $U \triangleq \bigcap_{i=1}^n U_i$.
+    Then,
+    \[
+        \fall x \in U,\: \fall i \in [n],\:
+        d(f_i(x), f_i(x_0)) < \delta\text{.}
+    \]
+
+    Take any $f \in \mcal F$. Then $f \in B(f_i, \delta)$ for some $i \in [n]$.
+    Then, for any $x \in U$, we have
+    \[\begin{aligned}[t]
+        \ol d(f(x), f_i(x)) &< \delta\text{,} \\
+        d(f_i(x), f_i(x_0)) &< \delta\text{, and} \\
+        \ol d(f_i(x_0), f(x_0)) &< \delta\text{.}
+    \end{aligned}\]
+    Since $\delta = \veps/3 < 1$, we may replace $\ol d$ with $d$ in the
+    inequalities above. Hence, the triangle inequality gives
+    \[
+        \fall x \in U,\: d(f(x_0), f(x)) < 3\delta = \veps\text{.}
+    \]
+}
+
+\mlemma[cptEquicontiThenTotBdd]{}{
+    Let $X$ be a compact space; let $(Y, d)$ be a compact metric space.
+    If $\mcal F \subseteq \mcal C(X, Y)$ is equicontinuous under $d$,
+    then $\mcal F$ is totally bounded under $\ol\rho$ and $\rho$.
+}
+\pf{Proof}{
+    Take any $\veps \in \RR_+$. Let $\delta \triangleq \veps/3$.
+    Given any $a \in X$, there exists a neighborhood $U_a$ of $a$
+    such that
+    \[
+        \fall x \in U_a,\: \fall f \in \mcal F,\:
+        d(f(x), f(a)) < \delta
+    \]
+    as $\mcal F$ is equicontinuous under $d$.
+    Since $X$ is compact, we may take
+    $a_1, a_2, \cdots, a_k \in X$ such that $\{U_{a_i}\}_{i \in [k]}$ covers $X$.
+    Since $(Y, d)$ is totally bounded, we may cover $Y$
+    with finitely many $\delta$-balls $V_1, V_2, \cdots, V_m$.
+
+    \centerbox{
+        \mclm{Claim}{
+            For each $f \in \mcal F$, there exists $\alpha \colon [k] \to [m]$
+            such that, for each $i \in [k]$, $f(a_i) \in V_{\alpha(i)}$.
+        }
+        \pf{Proof}{
+            For each $i \in [k]$, $f(a_i) \in V_j$ for some $j \in [m]$.
+            Let $\alpha(i) \coloneqq j$. The function $\alpha \colon [k] \to [m]$
+            satisfies the desired condition.
+        }
+    }
+
+    Let
+    \[
+        J \triangleq \big\{\,\alpha \colon [k] \to [m] \:\big|\:
+        \exs f \in \mcal F,\:\forall i \in [k],\: f(a_i) \in V_{\alpha(i)}\,\big\}\text{.}
+    \]
+    Note that $J$ is finite, and $J \neq \OO$ by \textbf{\textit{Claim}}.
+
+    For each $\alpha \in J$, choose $f_\alpha \in \mcal F$ such that
+    $\fall i \in [k],\: f(a_i) \in V_{\alpha(i)}$.
+    We now claim that $\big\{\,B_\rho(f_\alpha, \veps)\:\big|\:\alpha \in J\,\big\}$
+    covers $\mcal F$.
+
+    Take any $f \in \mcal F$.
+    By \textbf{\textit{Claim}}, there exists some $\alpha \in J$ such that
+    $f(a_i) \in V_{\alpha(i)}$ for all $i \in [k]$.
+    Let $x \in X$. Choose $i \in [k]$ such that $x \in U_{a_i}$.
+    Then, since $x \in U_{a_i}$,
+    \[\begin{aligned}[t]
+        d(f(x), f(a_i)) &< \delta\text{ and} \\
+        d(f_\alpha(x), f_\alpha(a_i)) &< \delta
+    \end{aligned}\]
+    hold.
+    Moreover, because $f(a_i), f_{\alpha}(a_i) \in V_{\alpha(i)}$, we have
+    \[
+        d(f(a_i), f_\alpha(a_i)) < \delta\text{.}
+    \]
+    Combining all the inequalities, we get
+    \[
+        d(f(x), f_{\alpha}(x)) < 3\delta = \veps\text{.}
+    \]
+    As $x$ is arbitrary, we have
+    \[
+        \rho(f, f_\alpha) = \max_{x \in X} d(f(x), f_\alpha(x)) < \veps\text{,}
+    \]
+    which implies $f \in B_{\rho}(f_\alpha, \veps)$.
+    (We may take $\max$ since $X$ is compact. See \Cref{th:evt}.
+    Is $(x_1 \times x_2) \mapsto d(x_1, x_2)$ continuous?
+    One may begin the proof with $\delta = \veps/4$ to avoid this
+    additional argument.)
+
+    $\mcal F$ is totally bounded under $\ol\rho$ as $\ol\rho$ is just a
+    standard bounded metric of $\rho$.
+}
+
+\dfn{Pointwise Boundedness}{
+    Let $X$ be a topological space and let $(Y, d)$ be a metric space.
+    Let $\mcal F \subseteq \mcal C(X, Y)$.
+    $\mcal F$ is said to be \textit{pointwise bounded} under $d$ if,
+    for each $a \in X$, the subset
+    \[
+        \mcal F_a \triangleq \{\,f(a) \mid f \in \mcal F\,\}
+    \]
+    of $Y$ is bounded under $d$.
+}
+
+\thm[ascoliClassic]{Ascoli's Theorem (Classical Version)}{
+    \begin{itemize}[nolistsep]
+        \ii Let $X$ be a compact space and let $(\RR[n], d)$ be the Euclidean space
+            in either the square metric or the Euclidean metric.
+        \ii Let $\mcal F$ be a subspace of $(\mcal C(X, \RR[n]), \ol\rho)$.
+    \end{itemize}
+    Then, $\cl{\mcal F}$ is compact if and only if $\mcal F$
+    is equicontinuous and pointwise bounded under $d$.
+}
+\pf{Proof}{
+    Let $\mcal G \triangleq \cl{\mcal F}$.
+
+    ($\Rightarrow$)
+    Since $\mcal G$ is compact, $\mcal G$ is totally bounded
+    under $\rho$ and $\ol \rho$ by \Cref{th:metCptIffComplAndTotBdd}.
+    $\mcal G$ is equicontinuous under $d$ by (i) and
+    \Cref{lem:totBddThenEquiconti}.
+    Since $\mcal F \subseteq \mcal G$, $\mcal F$ is also equicontinuous
+    under $d$. \checkmark
+
+    Since $\mcal G$ is compact, $\mcal G$ is bounded under $d$.
+    Hence, for all $a \in X$ and $f, g \in \mcal G$,
+    $d(f(a), g(a)) \le \rho(f, g) \le \diam G$; $\mcal G$ is pointwise bounded
+    under $d$.
+    Since $\mcal F \subseteq \mcal G$, $\mcal F$ is also pointwise
+    bounded under $d$. \checkmark
+
+    ($\Leftarrow$)
+    \centerbox{
+    \mclm{Claim 1}{
+        $\mcal G$ is equicontinuous.
+    }
+    \pf{Proof}{
+        Take any $x_0 \in X$ and $\veps \in \RR_+$.
+        By equicontinuity of $\mcal F$, there exists a neighborhood $U$
+        of $x_0$ such that
+        \[
+            \fall x \in U,\: \fall f \in \mcal F,\: d(f(x), f(x_0)) < \veps/3\text{.}
+        \]
+        Now, take any $g \in \mcal G$.
+        There exists $f \in \mcal F$ such that $\rho(f, g) < \veps/3$
+        by \Cref{th:inClosureIffNeighCapANonempty}.
+        Hence, for every $x \in U$,
+        \[
+            d(g(x), g(x_0)) \le d(g(x), f(x)) + d(f(x), f(x_0)) + d(f(x_0), g(x_0))
+            < \veps\text{.}
+        \]
+        Since $g$ was arbitrary, $\mcal G$ is equicontinuous.
+    }
+    }
+
+    \centerbox{
+    \mclm{Claim 2}{
+        $\mcal G$ is pointwise bounded under $d$.
+    }
+    \pf{Proof}{
+        Take any $a \in X$. By pointwise boundedness of $\mcal F$,
+        $\diam \mcal F_a$ is finite.
+        Take any $g, g' \in \mcal G$. There are $f, f' \in \mcal F$
+        such that $\rho(f, g) < 1$ and $\rho(g, g') < 1$ by
+        \Cref{th:inClosureIffNeighCapANonempty}.
+        \[
+            d(g(a), g'(a)) \le d(g(a), f(a)) + d(f(a), f'(a)) + d(f'(a), g'(a))
+            < \diam \mcal F_a + 2\text{,}
+        \]
+        which implies $\mcal G$ is pointwise bounded under $d$.
+    }
+    }
+
+    \centerbox{
+    \mclm{Claim 3}{
+        There exists a compact subspace $Y$ of $\RR[n]$ such that
+        \[
+            \bigcup_{g \in \mcal G} g(X) \subseteq Y\text{.}
+        \]
+    }
+    \pf{Proof}{
+        For each $a \in X$, there exists a neighborhood $U_a$ of $a$
+        such that $\fall x \in U_a,\: \fall g \in \mcal G,\:
+        d(g(x), g(a)) < 1$ by \textbf{\textit{Claim 1}}.
+        Since $X$ is compact, we may cover $X$ with finitely many $U_a$'s.
+        Let us say
+        \[
+            U_{a_1}, U_{a_2}, \cdots, U_{a_k}
+        \]
+        cover $X$.
+        As $\mcal G_{a_i}$ are bounded by \textbf{\textit{Claim 2}}, their union is also bounded.
+        Hence, there exists $N \in \RR_+$ such that $\bigcup_{i=1}^k
+        \mcal G_{a_i} \subseteq B_d(\vec 0, N)$.
+        Now, take any $g \in \mcal G$ and $x \in X$. Then, $x \in U_{a_i}$
+        for some $i \in [k]$. Hence,
+        \[
+            d(\vec 0, g(x)) \le d(\vec 0, g(a_i)) + d(g(a_i), g(x))
+            < N + 1\text{;}
+        \]
+        $\bigcup_{g \in \mcal G} g(X) \subseteq \cl{B_d(\vec 0, N+1)}$.
+    }
+    }
+
+    $\mcal G$, being a closed subspace of the complete metric space
+    $(\mcal C(X, \RR[n]), \rho)$, is complete. \checkmark
+
+    Moreover, from \textbf{\textit{Claim 3}}, we have a compact subspace
+    $Y$ of $\RR[n]$ such that $\mcal G \subseteq \mcal C(X, Y)$.
+    Therefore, since $\mcal G$ is equicontinuous by \textbf{\textit{Claim 1}},
+    by \Cref{lem:cptEquicontiThenTotBdd}, $\mcal G$ is totally bounded
+    under $\rho$. \checkmark
+
+    $\mcal G$, being complete and totally bounded under $\rho$, is
+    in turn compact by \Cref{th:metCptIffComplAndTotBdd}.
+}
+
+\cor{}{
+    \begin{itemize}[nolistsep]
+        \ii Let $X$ be a compact space and let $(\RR[n], d)$ be the Euclidean space
+            in either the square metric or the Euclidean metric.
+        \ii Let $\mcal F$ be a subspace of $(\mcal C(X, \RR[n]), \ol\rho)$.
+    \end{itemize}
+    Then, $\mcal F$ is compact
+    if and only if it is closed, bounded under $\rho$, and equicontinuous
+    under $d$.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    $\mcal F$ is closed (\Cref{th:cptInHausIsCld}) and bounded under $\rho$ (\Cref{th:cptMetIsBdd}).
+    Closedness of $\mcal F$ implies $\mcal F = \cl{\mcal F}$,
+    and thus $\mcal F$ is equicontinuous by \Cref{th:ascoliClassic}.
+
+    ($\Leftarrow$)
+    Boundedness under $\rho$ implies pointwise boundedness under $d$.
+    Since $\mcal F$ is equicontinuous and pointwise bounded under $d$,
+    $\cl{\mcal F}$ is compact by \Cref{th:ascoliClassic}.
+    $\mcal F = \cl{\mcal F}$ as $\mcal F$ is closed.
 }
 
 \end{document}

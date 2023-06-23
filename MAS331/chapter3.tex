@@ -951,7 +951,7 @@
     Let $(X, d)$ be a compact metric space.
     Then, $X$ is bounded with respect to $d$.
 }
-\pf{Proof}{
+\pf{Proof 1}{
     Let $\{B(x_1, 1), B(x_2, 1), \cdots, B(x_n, 1)\}$ be a finite open covering
     of $X$ by $1$-balls. Let
     \[
@@ -966,6 +966,12 @@
         < M + 2\text{.}
     \]
     Hence, $X$ is bounded with respect to $d$.
+}
+\pf{Proof 2}{
+    Suppose $X$ is unbounded under $d$.
+    Choose any $x_0 \in X$.
+    Then, $\{B(x_0, n)\}_{n \in \ZZ_+}$ is an open covering of $X$
+    but it does not allow a finite subcover.
 }
 
 \section{Compact Subspaces of the Real Line}
@@ -1061,7 +1067,7 @@
 \thm[evt]{Extreme Value Theorem}{
     Let $X$ be a compact set and
     $Y$ be an ordered set endowed by the order topology.
-    Let $f \colon X \to y$ be a continuous map.
+    Let $f \colon X \to Y$ be a continuous map.
     Then, there exist $c, d \in X$ such that
     $f(c) \le f(x) \le f(d)$ for all $x \in X$.
 }
