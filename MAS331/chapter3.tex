@@ -9,7 +9,7 @@
     of subsets of $X$ which satisfy the following.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii $U$ and $V$ are open in $X$.
-        \ii $U \cap V = \varnothing$.
+        \ii $U \cap V = \OO$.
         \ii $U \cup V = X$.
     \end{enumerate}
     The space $X$ is said to be \textit{connected}
@@ -26,7 +26,7 @@
 \mlemma[sepIffNotContainLimPts]{}{
     If $Y$ is a subspace of $X$,
     $A, B \subseteq Y$ is a separation of $Y$
-    if and only if $A \cap B = \varnothing$, $A \cup B = Y$,
+    if and only if $A \cap B = \OO$, $A \cup B = Y$,
     and neither $A$ nor $B$ contains a limit point of the other.
 }
 \pf{Proof}{
@@ -34,12 +34,12 @@
     Then, $A$ is both open and closed in $Y$; thus
     the closure of $A$ in $Y$ is $\cl A \cap Y = A$
     by \Cref{th:closureSubspace}.
-    In other words, $\cl A \cap B = \varnothing$.
-    Similarly, $A \cap \cl B = \varnothing$. \checkmark
+    In other words, $\cl A \cap B = \OO$.
+    Similarly, $A \cap \cl B = \OO$. \checkmark
 
     Suppose $A$ and $B$ are disjoint subsets of $Y$ whose union is $Y$
-    and $A \cap B' = A' \cap B = \varnothing$.
-    Thus, $A \cap \cl B = \cl A \cap B = \varnothing$.
+    and $A \cap B' = A' \cap B = \OO$.
+    Thus, $A \cap \cl B = \cl A \cap B = \OO$.
     This implies $\cl A \cap Y = A$ and $\cl B \cap Y = B$; $A$ and $B$ are closed in $Y$,
     and thus they are open in $Y$ as well.
 }
@@ -59,7 +59,7 @@
 \thm[UconnIfHaveCommonPt]{}{
     Let $X$ be a topological space.
     Let $\{A_\alpha\}_{\alpha \in J}$ be a family of connected subspaces of $X$.
-    If $\bigcap_{\alpha \in J} A_\alpha \neq \varnothing$,
+    If $\bigcap_{\alpha \in J} A_\alpha \neq \OO$,
     then $\bigcup_{\alpha \in J} A_\alpha$ is connected.
 }
 \pf{Proof}{
@@ -69,7 +69,7 @@
     For each $\alpha \in J$, since $p \in C \cap A_\alpha$,
     by \Cref{lem:connInDisconn}, $A_\alpha \subseteq C$.
     Thus, $\bigcup_{\alpha \in J} A_\alpha \subseteq C$,
-    contradicting that $D \cap Y \neq \varnothing$.
+    contradicting that $D \cap Y \neq \OO$.
 }
 
 \thm[connIfBtwAandClA]{}{
@@ -82,8 +82,8 @@
     for the sake of contradiction.
     By \Cref{lem:connInDisconn}, \textsf{WLOG}, $A \subseteq C$.
     Then, $B \subseteq \cl A \subseteq \cl C$.
-    Since $\cl C \cap D = \varnothing$ by \Cref{lem:sepIffNotContainLimPts},
-    $B \cap D = \varnothing$, which makes $C$ and $D$ not form a separation, \#.
+    Since $\cl C \cap D = \OO$ by \Cref{lem:sepIffNotContainLimPts},
+    $B \cap D = \OO$, which makes $C$ and $D$ not form a separation, \#.
 }
 
 \thm[contiSendsConnToConn]{Connected Space and Continuous Map}{
@@ -131,7 +131,7 @@
     \] is connected in the product topology.
 }
 \pf{Proof}{
-    We may assume that $X_\alpha \neq \varnothing$ for each $\alpha \in J$.
+    We may assume that $X_\alpha \neq \OO$ for each $\alpha \in J$.
     Let $\vec a = (a_\alpha)_{\alpha \in J}$ be a fixed point of $X$.
 
     We first note that, given any finite subset $K$ of $J$,
@@ -188,12 +188,12 @@
     Let $I = [0, 1]$ and $I_0^2 = I \times I$ be the ordered square
     with the dictionary ordering.
     \begin{enumerate}[nolistsep, label=(\roman*)]
-        \ii Let $\varnothing \neq A \subseteq I_0^2$ and $\pi_1 \colon I_0^2 \to I$
+        \ii Let $\OO \neq A \subseteq I_0^2$ and $\pi_1 \colon I_0^2 \to I$
             be the projection onto its first factor.
             Then, $\pi_1(A)$ is bounded above by $1$.
             Let $b \triangleq \sup \pi_1(A)$. ($[0, 1]$ has l.u.b. property.)
             
-            If $b \in A$, it implies that $A \cap (\{b\} \times I) \neq \varnothing$
+            If $b \in A$, it implies that $A \cap (\{b\} \times I) \neq \OO$
             and is bounded above by $1$.
             Thus, we may let $c \triangleq \sup \big(A \cap (\{b\} \times I)\big)$.
             One may readily check that $\sup A_0 = b \times c$.
@@ -245,7 +245,7 @@
     Since $B_0$ is open in $[a, b]$,
     there exists $e \in [a, c)$ such that $(e, c] \subseteq B_0$.
     ($e$ cannot be smaller than $a$ as $a \notin B_0$.)
-    Since, $(c, \infty) \cap A_0 = \varnothing$ as $c$ is the supremum of $A_0$,
+    Since, $(c, \infty) \cap A_0 = \OO$ as $c$ is the supremum of $A_0$,
     $e$ is an upper bound of $A_0$ that is smaller than $c$, \#.
 }
 
@@ -301,7 +301,7 @@
 }
 \pf{Proof}{
     Let $X$ be a path connected space.
-    If $X = \varnothing$, it is done; let $X \neq \varnothing$.
+    If $X = \OO$, it is done; let $X \neq \OO$.
     Take $x \in X$.
     For each $y \in X$, let $f_y \colon [0, 1] \to X$
     be a path from $x$ to $y$.
@@ -317,7 +317,7 @@
     Then, there is a path $f \colon [0, 1] \to I_0^2$ from $0 \times 0$ to $1 \times 1$.
     \Cref{th:ivt} says that $\Img f = I_0^2$.
     For each $x \in I$, let $U_x = f\inv(\{x\} \times I)$.
-    Note that $U_x \neq \varnothing$.
+    Note that $U_x \neq \OO$.
     Since each $U_x$ is open as $f$ is continuous,
     by the denseness of $\QQ$ in $\RR$, there exists
     $q_x \in U_x \cap \QQ$ for each $x \in X$.
@@ -415,10 +415,10 @@
     then $A \subseteq C_\alpha$ for some $\alpha \in J$.
 }
 \pf{Proof}{
-    If $A = \varnothing$, it is done; suppose $A \neq \varnothing$.
+    If $A = \OO$, it is done; suppose $A \neq \OO$.
 
     Let $C_\alpha$ and $C_\beta$ be connected components.
-    If $A \cap C_\alpha \neq \varnothing$ and $A \cap C_\beta \neq \varnothing$,
+    If $A \cap C_\alpha \neq \OO$ and $A \cap C_\beta \neq \OO$,
     we may take $x \in A \cap C_\alpha$ and $y \in A \cap C_\beta$,
     which makes $x \sim y$.
     This implies $x_\alpha \sim x_\beta$
@@ -428,7 +428,7 @@
     Now, take any $\alpha \in A$.
     Since $\{C_\alpha\}_{\alpha \in J}$ is a partition of $X$,
     there exists some $\alpha \in J$ such that $a \in C_\alpha$.
-    By the previous result, $A \cap C_\beta = \varnothing$
+    By the previous result, $A \cap C_\beta = \OO$
     for all $\beta \in J \setminus \{\alpha\}$.
     Hence, $A \subseteq C_\alpha$
 }
@@ -511,7 +511,7 @@
 \pf{Proof}{
     Let $C_\alpha$ be a connected component of $X$.
     Since $\cl{C_\alpha}$ is connected by \Cref{th:connIfBtwAandClA},
-    and since $\cl{C_\alpha} \cap C_\alpha \neq \varnothing$,
+    and since $\cl{C_\alpha} \cap C_\alpha \neq \OO$,
     $\cl{C_\alpha} \subseteq C_\alpha$ by \Cref{th:connSubsIsInSomeComp}.
 }
 
@@ -684,7 +684,7 @@
     then $Y$ as a subspace of $X$ is compact.
 }
 \pf{Proof}{
-    If $Y = \varnothing$, then it is done. So, suppose $Y \neq \varnothing$.
+    If $Y = \OO$, then it is done. So, suppose $Y \neq \OO$.
     Let $\mcal A$ be a covering of $Y$ composed of sets open in $X$.
     \[
         \mcal B \triangleq \mcal A \cup \{X \setminus Y\}
@@ -707,7 +707,7 @@
     then $Y$ is closed in $X$.
 }
 \pf{Proof}{
-    If $Y = \varnothing$ or $Y = X$, then it is done; suppose $\varnothing \neq Y \subsetneq X$.
+    If $Y = \OO$ or $Y = X$, then it is done; suppose $\OO \neq Y \subsetneq X$.
     Let $x_0 \in X \setminus Y$.
     For each $y \in Y$, there are disjoint neighborhoods $U_y$ and $V_y$
     of $x_0$ and $y$ in $X$.
@@ -886,13 +886,13 @@
     \]
     of $\mcal C$, we have
     \[
-        \bigcap_{i=1}^n C_i \neq \varnothing\text{.}
+        \bigcap_{i=1}^n C_i \neq \OO\text{.}
     \]
 
     In other words,
     \[
         \fall n \in \ZZ_+,\: \fall \mcal C' \in \binom{\mcal C}{n},\:
-        \bigcap \mcal C' \neq \varnothing\text{.}
+        \bigcap \mcal C' \neq \OO\text{.}
     \]
 }
 
@@ -911,9 +911,9 @@
     Then the following hold.
     \begin{itemize}[nolistsep]
         \ii $\mcal A$ is a collection of open sets if and only if $\mcal C$ is a collection of closed sets.
-        \ii $\bigcup \mcal A = X$ if and only if $\bigcap \mcal C = \varnothing$.
+        \ii $\bigcup \mcal A = X$ if and only if $\bigcap \mcal C = \OO$.
         \ii The finite subcollection $\{\,A_1, \cdots, A_n\,\}$ covers $X$
-            if and only if $\bigcap_{i=1}^n (X \setminus A_i) = \varnothing$.
+            if and only if $\bigcap_{i=1}^n (X \setminus A_i) = \OO$.
     \end{itemize}
     Therefore, these are equivalent.
     \begin{enumerate}[nolistsep, label=(\roman*)]
@@ -934,7 +934,7 @@
     Let $X$ be a compact space.
     Let $\{C_n\}_{n \in \ZZ_+}$ be a nested sequence of nonempty closed sets in $X$.
     Then, \[
-        \bigcap_{n \in \ZZ_+} C_n \neq \varnothing\text{.}
+        \bigcap_{n \in \ZZ_+} C_n \neq \OO\text{.}
     \]
 }
 \pf{Proof}{
@@ -942,7 +942,7 @@
     Then, $\mcal C$ satisfies the finite intersection property as
     \[
         C_{n_1} \cap C_{n_2} \cap \cdots \cap C_{n_k}
-        = C_{\max_{i=1}^k n_i} \neq \varnothing\text{.}
+        = C_{\max_{i=1}^k n_i} \neq \OO\text{.}
     \]
     The result follows from \Cref{th:cptIff}.
 }
@@ -999,7 +999,7 @@
         C \triangleq \big\{\, y \in (a, b] \:\big|\: [a, y] \text{ can be
         covered by finitely many elements of } \mcal A\,\big\}\text{.}
     \]
-    By the previous claim, $C \neq \varnothing$, and $C$ is bounded above by $b$.
+    By the previous claim, $C \neq \OO$, and $C$ is bounded above by $b$.
     Thus, we may let $c \triangleq \sup C$. ($a \le c \le b$, indeed.) \checkmark
 
     Suppose $c \notin C$ for the sake of contradiction.
@@ -1083,7 +1083,7 @@
 }
 
 \dfn{Distance From a Point to a Set}{
-    Let $(X, d)$ be a metric space and let $\varnothing \neq A \subseteq X$.
+    Let $(X, d)$ be a metric space and let $\OO \neq A \subseteq X$.
     For each $x \in X$, we define the
     \textit{distance from $x$ to $A$} by the equation
     \[
@@ -1102,7 +1102,7 @@
 }
 
 \thm[distFtnIsConti]{}{
-    Let $(X, d)$ be a metric space and let $\varnothing \neq A \subseteq X$.
+    Let $(X, d)$ be a metric space and let $\OO \neq A \subseteq X$.
     Then, $f \colon X \to \RR$ defined by
     \[
         f(x) \triangleq d(x, A)
@@ -1124,7 +1124,7 @@
     Let $(X, d)$ be a compact metric space.
     Then, for each open covering $\mcal A$ of $X$,
     \[
-        \exs \delta \in \RR_+,\: \fall B \in \mcal P(X) \setminus \{\varnothing\},\:
+        \exs \delta \in \RR_+,\: \fall B \in \mcal P(X) \setminus \{\OO\},\:
         \big( \diam B < \delta \implies
         \exs A \in \mcal A,\: B \subseteq A\big)\text{.}
     \]
@@ -1153,7 +1153,7 @@
     there exists a minimum of $\Img f$, say $\delta$, by
     \Cref{th:evt}.
     We claim that $\delta$ is a Lebesgue number for $\mcal A$.
-    Let $\varnothing \neq B \subseteq X$ with $\diam B < \delta$.
+    Let $\OO \neq B \subseteq X$ with $\diam B < \delta$.
     Take $x_0 \in B$. Then $B \subseteq B(x_0, \delta)$.
     Then,
     \[
@@ -1230,7 +1230,7 @@
 
 \dfn{Limit Point Compactness}{
     A topological space $X$ is said to be \textit{limit point compact}
-    if every infinite subset $A$ of $X$ has $A' \neq \varnothing$.
+    if every infinite subset $A$ of $X$ has $A' \neq \OO$.
 }
 
 \thm[cptThenLimPtCpt]{}{
@@ -1275,7 +1275,7 @@
     Let $(X, d)$ be a sequentially compact metric space.
     Then, for each open covering $\mcal A$ of $X$,
     \[
-        \exs \delta \in \RR_+,\: \fall B \in \mcal P(X) \setminus \{\varnothing\},\:
+        \exs \delta \in \RR_+,\: \fall B \in \mcal P(X) \setminus \{\OO\},\:
         \big( \diam B < \delta \implies
         \exs A \in \mcal A,\: B \subseteq A\big)\text{.}
     \]
@@ -1435,7 +1435,7 @@
 
     Now, we claim that $Y$ endowed with $\mcal T_Y$ is \textbf{compact}.
     Let $\mcal A$ be an open covering of $Y$.
-    It must be $\mcal A \cap \mcal T' \neq \varnothing$
+    It must be $\mcal A \cap \mcal T' \neq \OO$
     since $\infty \notin X = \bigcup \mcal T_X$.
     Take any $Y \setminus C \in \mcal A \cap \mcal T'$.
     Then, consider
@@ -1542,7 +1542,7 @@
     \Cref{th:cldInCptIsCpt}. By \Cref{cor:cptAndPntOutside}, there are disjoint
     open sets $V$ and $W$ in $Y$ such that $x \in V$ and $C \subseteq W$.
     Then, $\cl V$, being closed in a compact set $Y$, is compact by
-    \Cref{th:cldInCptIsCpt}. Furthermore, $\cl V \cap W = \varnothing$;
+    \Cref{th:cldInCptIsCpt}. Furthermore, $\cl V \cap W = \OO$;
     otherwise, \Cref{th:inClosureIffNeighCapANonempty} ensures the nonempty
     intersection of $V$ and $W$. This implies $\cl V \subseteq Y \setminus W
     \subseteq Y \setminus C = U$, as desired. Hence, $V$ is an open set in $X$.

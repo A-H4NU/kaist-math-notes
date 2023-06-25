@@ -8,7 +8,7 @@
 		\ii Elements: $a, b, c, \cdots, 3, 3/4, \pi$
 		\ii $a \in A$, $3 \in \ZZ$, $3/4 \notin \ZZ$
 		\ii $A \subseteq B$, $A \subsetneq B$         , $A \not\subseteq B$
-		\ii $\varnothing$: empty set
+		\ii $\OO$: empty set
 		\ii $A \times B \coloneqq \{(a, b) \mid a \in A \text{ and } b \in B\}$ (Cartesian product)
         \ii $\displaystyle \binom{A}{n} \triangleq \big\{\, A' \subseteq A \:\big|\: |A'| = n\,\big\}$
         \ii $[n] \coloneqq \{1, 2, \cdots, n\}$ where $n \in \ZZ_+$.
@@ -137,12 +137,12 @@ for each $a \in A$.
 	\]
 }
 \exmp{Partition}{
-	If there are equivalence classes $E$ and $E'$, then they are either $E = E'$ or $E \cap E' = \varnothing$.
+	If there are equivalence classes $E$ and $E'$, then they are either $E = E'$ or $E \cap E' = \OO$.
 	This implies, if we let $\mcal{E} \coloneqq \{ E \mid E \text{ is an equivalence class of } x \text{ where } x \in A \}$,
 	$A = \bigcup_{E \in \mcal{E}} E$.
 }
 \solve{
-	Since if $E \cap E' = \varnothing$ it is done, suppose $E \cap E' \neq \varnothing$. There are $a$ and $a'$ such that
+	Since if $E \cap E' = \OO$ it is done, suppose $E \cap E' \neq \OO$. There are $a$ and $a'$ such that
 	$E$ and $E'$ are equivalence classes of $a$ and $a'$ respectively.
 	We may take $a_0 \in E \cap E'$. By definition and transitivity, $a \sim a_0 \sim a'$.
 	Therefore, for all $x \in E$, $x \in E'$ since $x \sim a \sim a'$, which implies $E \subseteq E'$.
@@ -232,7 +232,7 @@ for each $a \in A$.
 	Otherwise, $S \setminus \{k+1\}$ is nonempty and is a subset of $[k]$; we may let $\mu \coloneqq \min S$ by the induction hypothesis.
 	Then, $\mu$ is also a smallest element of $S$, regardless of whether it is $k + 1 \in S$ or $k + 1 \notin S$.
 
-	Now, take any $\varnothing \neq T \subseteq \ZZ_+$ and $m \in T$.
+	Now, take any $\OO \neq T \subseteq \ZZ_+$ and $m \in T$.
 	Then, by our previous result, since $T \cap [m]$ is a nonempty subset of $[m]$, it has a smallest element, which is also a smallest element of $T$.
 }
 
@@ -255,7 +255,7 @@ Now, we define \[
 
 \section{Finite Sets}
 \dfn{Finite Set and Cardinality}{
-	A set $A$ is \textit{finite} if there is a bijective $f \colon A \to [n]$ for some $n \in \ZZ_+$ or $A = \varnothing$.
+	A set $A$ is \textit{finite} if there is a bijective $f \colon A \to [n]$ for some $n \in \ZZ_+$ or $A = \OO$.
 	\begin{itemize}[nolistsep]
 		\ii In the former case, we say \textit{cardinality} $n$ or $|A| = n$.
 		\ii In the latter case, we say \textit{cardinality} $0$ or $|A| = 0$.
@@ -286,13 +286,13 @@ Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
 
 \thm[cardPropSubset]{}{
 	Let $A$ be a set with $|A| = n$ and $B \subsetneq A$.
-	Then, there is no bijection between $B$ and $[n]$, but (provided $B \neq \varnothing$)
+	Then, there is no bijection between $B$ and $[n]$, but (provided $B \neq \OO$)
 	there is a bijection between $B$ and $[m]$ for some $m < n$.
 }
 \pf{Proof by Induction}{
 	(Base case) It is trivial for $n = 1$.
 	\par (Induction) Suppose it is true for $n \ge 1$.
-	WTS for the case $|A| = n+1$. Suppose $B \neq \varnothing$ because we have nothing to talk about then.
+	WTS for the case $|A| = n+1$. Suppose $B \neq \OO$ because we have nothing to talk about then.
 	Let $a_0 \in B$.
 	By \Cref{lem:cardOneMinus}, there is a bijection $g \colon A \setminus \{a_0\} \to [n]$.
 	Since $B \setminus \{a_0\} \subsetneq A \setminus \{a_0\}$, by induction hypothesis,
@@ -336,9 +336,9 @@ Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
 \pf{Proof}{
 	((i) $\to$ (ii)) There is a bijective function from $A$ to $[n]$, and it is also surjective.
 	\par ((ii) $\to$ (iii)) Let $f$ be a surjective function from $[m]$ to $A$.
-	Since $f$ is surjective, $f^{-1}(\{a\}) \neq \varnothing$ for every $a \in A$.
+	Since $f$ is surjective, $f^{-1}(\{a\}) \neq \OO$ for every $a \in A$.
 	Let $M \coloneqq \max \{\, \min f^{-1}(\{a\}) \mid a \in A \,\}$.
-	$M$ is well defined thanks to \Cref{th:wop} and the fact that $\varnothing \neq f^{-1}(\{a\}) \subseteq [m]$.
+	$M$ is well defined thanks to \Cref{th:wop} and the fact that $\OO \neq f^{-1}(\{a\}) \subseteq [m]$.
 	Then the function $g \colon A \to [M]$ defined by $a \mapsto \min f^{-1}(\{a\})$ is injective.
 	\par ((iii) $\to$ (i)) Let $f$ be an injective function from $A$ to $[m]$.
 	Then, $g \colon A \to \Img f$ defined by $a \mapsto f(a)$ is bijective.
@@ -353,7 +353,7 @@ Otherwise, let $a_1 \coloneqq f^{-1}(n)$. Define $g \colon A \to A$ by \[
 }
 \solve{
 (i) Suppose there are $n$ finite sets $A_1$, $A_2$, $\cdots$, $A_n$ to union.
-\textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
+\textsf{WLOG}, $A_i \neq \OO$ for each $i \in [n]$.
 Let $M \coloneqq \max_{i \in [n]} |\,A_i\,|$ and $g_i \colon [|\,A_i\,|] \to A_i$ be a bijective function for each $i \in [n]$.
 Extend each $g_i$ to $g_i' \colon [M] \to A_i$ by \[
 	g_i'(k) = \begin{cases}
@@ -366,7 +366,7 @@ Extend each $g_i$ to $g_i' \colon [M] \to A_i$ by \[
 Therefore, $\bigcup_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 
 (ii) Suppose there are $n$ finite sets $A_1$, $A_2$, $\cdots$, $A_n$ to construct a Cartesian product with.
-\textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
+\textsf{WLOG}, $A_i \neq \OO$ for each $i \in [n]$.
 Let $M \coloneqq \max_{i \in [n]} |\,A_i\,|$ and $h_i \colon A_i \to [|\,A_i\,|]$ be a bijective function for each $i \in [n]$.
 Let $p_i$ be the $i^{\text{th}}$ prime. (i.e., $p_1 = 2$, $p_2 = 3$, $p_3 = 5$.)
 Define a function $f \colon \prod_{i \in [n]} A_i \to \left[ \left( \prod_{i=1}^n p_i \right)^M \right]$ by \[
@@ -415,7 +415,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 }
 
 \thm[countSetTFAE]{}{
-	Let $A \neq \varnothing$. {\sf TFAE}
+	Let $A \neq \OO$. {\sf TFAE}
 	\begin{enumerate}[noitemsep, label=(\roman*)]
 		\ii $A$ is countable.
 		\ii $\exists$ surjective $\ZZ_+ \twoheadrightarrow A$.
@@ -426,8 +426,8 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 	((i) $\to$ (ii)) Trivial.
 	\par ((ii) $\to$ (iii)) Let $f \colon \ZZ_+ \twoheadrightarrow A$.
 	Define $g \colon A \to \ZZ_+$ by $a \mapsto \min f^{-1}(\{a\})$.
-	$g$ is well-defined because $f^{-1}(\{a\}) \neq \varnothing$ for every $a \in A$ and \Cref{th:wop} holds.
-	$g$ is also injective since $f^{-1}(\{a_1\}) \cap f^{-1}(\{a_2\}) = \varnothing$ if $a_1 \neq a_2 \in A$.
+	$g$ is well-defined because $f^{-1}(\{a\}) \neq \OO$ for every $a \in A$ and \Cref{th:wop} holds.
+	$g$ is also injective since $f^{-1}(\{a_1\}) \cap f^{-1}(\{a_2\}) = \OO$ if $a_1 \neq a_2 \in A$.
 	\par ((iii) $\to$ (i)) Let $f$ be an injection from $A$ to $\ZZ_+$.
 	If we define $g \colon A \to \Img f$ by $a \mapsto f(a)$, $g$ is a bijection.
 	Since $\Img f \subseteq \ZZ_+$, $A$ is countable by \Cref{lem:ZsubsCount}.
@@ -461,7 +461,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 
 \solve{
     Let $\{A_i\}_{i \in J}$ be an indexed family of sets where $J$ and $A_i$'s are countable.
-    \textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in J$.
+    \textsf{WLOG}, $A_i \neq \OO$ for each $i \in J$.
     For each $i \in J$, since $A_i$ is countable, by \Cref{th:countSetTFAE},
     there is a surjection $g_i \colon \ZZ_+ \twoheadrightarrow A_i$.
     Similarly, since $J$ is countable, there is a surjection $h \colon \ZZ_+ \twoheadrightarrow J$.
@@ -476,7 +476,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 }
 \solve{
     Suppose there are $n \in \ZZ_+$ sets $A_1$, $A_2$, $\cdots$, $A_n$ to make Cartesian product with
-    and each $A_i$ is countable. \textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
+    and each $A_i$ is countable. \textsf{WLOG}, $A_i \neq \OO$ for each $i \in [n]$.
     For each $i \in [n]$, there is a injection $g_i \colon A_i \to \ZZ_+$ by \Cref{th:countSetTFAE}.
 
     Now, construct a function $f \colon \prod_{i=1}^n A_i \to \ZZ_+$ by \[
@@ -538,14 +538,14 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 }
 \pf{Proof}{
 	((i) $\to$ (ii)) Construct $f \colon \ZZ_+ \to A$ recursively as following.
-    Let $c \colon \mcal{P}(A) \setminus \{\varnothing\} \to A$ be a function
-    such that $c(A') \in A'$ for every $\varnothing \neq A' \subseteq A$.
+    Let $c \colon \mcal{P}(A) \setminus \{\OO\} \to A$ be a function
+    such that $c(A') \in A'$ for every $\OO \neq A' \subseteq A$.
     Its existence is guaranteed by \Cref{lem:choiceFtnExs}.
 	\begin{enumerate}[nolistsep, label=(\arabic*)]
 		\ii $f(1) \coloneqq c(A)$
         \ii $f(n+1) \coloneqq c(A \setminus f([n]))$ for each $n \in \ZZ_+$.
 	\end{enumerate}
-	\par Suppose $A \setminus f([n]) = \varnothing$ for some $n \in \ZZ_+$.
+	\par Suppose $A \setminus f([n]) = \OO$ for some $n \in \ZZ_+$.
 	Then, $A \subseteq f([n])$, and $f([n])$ is finite by \Cref{th:finSetTFAE};
 	therefore $A$ is finite by \Cref{th:cardPropSubset}.
 	Thus, $f$ is well-defined and it is injective by definition.
@@ -627,7 +627,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 	Since $\left(A_1 \times \prod_{i=2}^{n+1} A_i, <_2\right)$ and $\left(\prod_{i=1}^{n+1} A_i, <_3\right)$ has the same order type,
 	we only need to prove that $\left(A_1 \times \prod_{i=2}^{n+1} A_i, <_2\right)$ is well-ordered.
 
-	Let $\varnothing \neq S \subseteq A_1 \times \prod_{i=2}^{n+1} A_i$.
+	Let $\OO \neq S \subseteq A_1 \times \prod_{i=2}^{n+1} A_i$.
 	If we define $S' \coloneqq \{\, a_1 \mid (a_1, b) \in S \,\} \subseteq A_1$,
 	$S'$ is a nonempty subset of $A_1$, and therefore has $a_1' \coloneqq \min S'$.
 	Similarly, if we define $S'' \coloneqq \{\, b_1 \mid (a_1', b_1) \in S \,\} \subseteq \prod_{i=2}^{n+1} A_i$,
