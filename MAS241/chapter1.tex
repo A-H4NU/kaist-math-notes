@@ -13,7 +13,7 @@ if $\|x_n - x_m\| \to 0$ as $n, m \to \infty$.
 	\]
 }
 \dfn{Boundedness}{
-	Let $\varnothing \neq S \subseteq \RR$.
+	Let $\OO \neq S \subseteq \RR$.
 	\begin{enumerate}[noitemsep,label=\alph*)]
 		\ii $S$ is \textit{bounded above} if $\exists M \in \RR,\: \fall x \in S,\: x \le M$.
 		      \begin{itemize}
@@ -47,10 +47,10 @@ The proof of \Cref{th:archi} can be done by integrating \Cref{th:completeR} and 
 	It can be similarly shown that $\inf S = -1$.
 }
 \thm[completeR]{Completeness Axiom for $\RR$}{
-	If $\varnothing \neq S \subseteq \RR$ and $S$ is bounded above, then $\sup S$ exists in $\RR$.
+	If $\OO \neq S \subseteq \RR$ and $S$ is bounded above, then $\sup S$ exists in $\RR$.
 }
 \cor{}{
-	If $\varnothing \neq S \subseteq \RR$ and $S$ is bounded below, then $\inf S$ exists in $\RR$.
+	If $\OO \neq S \subseteq \RR$ and $S$ is bounded below, then $\inf S$ exists in $\RR$.
 }
 \pf{Proof}{
 	Let $B \coloneqq \{-x \:|\: x \in S\}$. Then, $M = \sup S \in \RR$ by \Cref{th:completeR}.
@@ -89,7 +89,7 @@ The proof of \Cref{th:archi} can be done by integrating \Cref{th:completeR} and 
 }
 
 \thm[sup1]{}{
-	Let $\varnothing \neq S \subseteq \RR$.
+	Let $\OO \neq S \subseteq \RR$.
 	\begin{itemize}
 		\ii If $S$ is bounded above, then ``$\mu = \sup S$ if and only if
 		      $\mu \text{ is an upper bound and }\fall\: \veps \in \RR_+,\: \exists\: x \in S,\: \mu-\veps < x \le \mu$''.
@@ -157,32 +157,32 @@ The proof of \Cref{th:archi} can be done by integrating \Cref{th:completeR} and 
 	\] is called the \textit{deleted neighborhood} of $x$ with radius $r$.
 }
 \dfn{Limit Point and Isolated Point}{
-	For $\varnothing \neq S \subseteq \RR$, $x \in \RR$ is a \textit{limit point} of $S$ if \[
-		\fall \veps \in \RR_+,\: N'(x, \veps) \cap S \neq \varnothing\text{.}
+	For $\OO \neq S \subseteq \RR$, $x \in \RR$ is a \textit{limit point} of $S$ if \[
+		\fall \veps \in \RR_+,\: N'(x, \veps) \cap S \neq \OO\text{.}
 	\]
 	If $x \in \RR$ is not a limit point of $S$, then it is called an \textit{isolated point} of $S$.
 }
 \dfn{Discrete Set}{
-	If $\varnothing \neq S \subseteq \RR$ has no limit points, then $S$ is said to be \textit{discrete}.
+	If $\OO \neq S \subseteq \RR$ has no limit points, then $S$ is said to be \textit{discrete}.
 }
 
 \exmp{}{
 	Let $S \coloneqq \big\{(-1)^k (1 + 1/k) \:\big|\: k \in \NN \big\}$. Then, $1$ and $-1$ are limit points of $S$.
 
 	To see $1$ is a limit point, take any $\veps \in \RR_+$ and, using \Cref{th:archi}, choose a $k \in \NN$ such that $1 < (2\veps)k$.
-	Then, $1 < 1 + \frac{1}{2k} = (-1)^{2k} \left(1 + \frac{1}{2k}\right) < 1 + \veps$; $N'(1, \veps) \cap S \neq \varnothing$.
+	Then, $1 < 1 + \frac{1}{2k} = (-1)^{2k} \left(1 + \frac{1}{2k}\right) < 1 + \veps$; $N'(1, \veps) \cap S \neq \OO$.
 	Therefore, $1$ is a limit point.
 }
 
 \thm[limPointWeak]{}{
-	Let $\varnothing \neq S \subseteq \RR$. Then, $x \in \RR$ is a limit point of $S$ if and only if \[
-		\exists \veps_0 \in \RR_+,\: \fall \veps \in (0, \veps_0),\: N'(x, \veps) \cap S \neq \varnothing\text{.}
+	Let $\OO \neq S \subseteq \RR$. Then, $x \in \RR$ is a limit point of $S$ if and only if \[
+		\exists \veps_0 \in \RR_+,\: \fall \veps \in (0, \veps_0),\: N'(x, \veps) \cap S \neq \OO\text{.}
 	\]
 }
 \pf{Proof}{Trivial; $0 < \veps_1 < \veps_2$ implies $N'(x, \veps_1) \subsetneq N'(x, \veps_2)$.}
 
 \thm[limPointInf]{}{
-	Let $\varnothing \neq S \subseteq \RR$ and $x \in \RR$ be a limit point of $S$.
+	Let $\OO \neq S \subseteq \RR$ and $x \in \RR$ be a limit point of $S$.
 	Then, every deleted neighborhood of $x$ must contain infinitely many points of $S$.
 }
 \pf{Proof}{
@@ -191,7 +191,7 @@ The proof of \Cref{th:archi} can be done by integrating \Cref{th:completeR} and 
 	Let $S_1 \coloneqq \big\{ |x-x_i| \:\colon\: i \in [k] \big\}$.
 	Since $S_1$ is finite, we may let $x_j$ be an element of $N'(x; \veps) \cap S$
 	that satisfies $|x-x_j| = \min S_1 = \inf S_1 > 0$.
-	If we let $\veps_0 \coloneqq |x-x_j|/2$, $N'(x; \veps_0) \cap S = \varnothing$, \#.
+	If we let $\veps_0 \coloneqq |x-x_j|/2$, $N'(x; \veps_0) \cap S = \OO$, \#.
 }
 \cor[noLimPointFinite]{}{
 	If $S$ is a finite subset of $\RR$, then $S$ has no limit point.
@@ -384,7 +384,7 @@ Define $\{k_j\}_{j=1}^\infty$ by the inductive definition below.
 	\ii $k_0 \coloneqq 0$
 	\ii For each $j \in \NN$, $k_j \in \{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps_j) \,\}$.
 \end{itemize}
-Since $c$ is a cluster point, $\{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps_j) \,\} \neq \varnothing$
+Since $c$ is a cluster point, $\{\, k \in \NN \mid k > k_{j-1} \text{ and } x_k \in N(c; \veps_j) \,\} \neq \OO$
 for all $j \in \NN$. Therefore, $\{k_j\}$ is well-defined.
 It is immediate that $\lim_{j \to \infty} x_{k_j} = c$.
 
@@ -456,14 +456,14 @@ Since $k_i \ge i$ for all natural number $i$, $\fall i \in \NN_{\ge i_0},\: |x_{
 		\ii $\limsup x_k \triangleq \begin{cases}
 				      \sup C  & \text{if } \{x_k\} \text{ is bounded}                                                   \\
 				      \infty  & \text{if } \{x_k\} \text{ is unbounded above}                                           \\
-				      \sup C  & \text{if } \{x_k\} \text{ is bounded above but unbounded below and } C \neq \varnothing \\
-				      -\infty & \text{if } \{x_k\} \text{ is bounded above but unbounded below and } C = \varnothing    \\
+				      \sup C  & \text{if } \{x_k\} \text{ is bounded above but unbounded below and } C \neq \OO \\
+				      -\infty & \text{if } \{x_k\} \text{ is bounded above but unbounded below and } C = \OO    \\
 			      \end{cases}$\\ is called \textit{limit superior} of $\{x_k\}$.
 		\ii $\liminf x_k \triangleq \begin{cases}
 				      \inf C  & \text{if } \{x_k\} \text{ is bounded}                                                   \\
 				      -\infty & \text{if } \{x_k\} \text{ is unbounded below}                                           \\
-				      \inf C  & \text{if } \{x_k\} \text{ is bounded below but unbounded above and } C \neq \varnothing \\
-				      \infty  & \text{if } \{x_k\} \text{ is bounded below but unbounded above and } C = \varnothing    \\
+				      \inf C  & \text{if } \{x_k\} \text{ is bounded below but unbounded above and } C \neq \OO \\
+				      \infty  & \text{if } \{x_k\} \text{ is bounded below but unbounded above and } C = \OO    \\
 			      \end{cases}$\\ is called \textit{limit inferior} of $\{x_k\}$.
 	\end{itemize}
 }

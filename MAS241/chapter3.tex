@@ -20,7 +20,7 @@
 }
 
 \nt{
-    Note that $S \cap N'(\vec c; \delta) = \varnothing$ for sufficiently small $\delta$
+    Note that $S \cap N'(\vec c; \delta) = \OO$ for sufficiently small $\delta$
     if $\vec c$ is an isolated point of $S$.
     This implies any real number can be a limit of $f$ as $\vec x$ approaches $\vec c$.
     Somehow, Douglass defined that $\lim_{\vec x \to \vec c} f(\vec x) = f(\vec c)$
@@ -246,11 +246,11 @@
 \pf{Proof}{
     Suppose $T$ is disconnected for the sake of contradiction.
     There exists two disjoint open sets $U, V \subseteq \RR$ such that
-    $T \subseteq U \cup V$, $T \cap U \neq \varnothing$, and $T \cap V \neq \varnothing$.
+    $T \subseteq U \cup V$, $T \cap U \neq \OO$, and $T \cap V \neq \OO$.
     Since $T \cap U$ and $T \cap V$ are relatively open in $T$,
     $U_1 = f\inv(T \cap U)$ and $V_1 = f\inv(T \cap V)$ are relatively open in $S$.
-    Then, $S \subseteq U_1 \cup V_1 = S$, $U_1 \cap V_1 = \varnothing$,
-    $S \cap U_1 \neq \varnothing$, and $S \cap V_1 \neq \varnothing$,
+    Then, $S \subseteq U_1 \cup V_1 = S$, $U_1 \cap V_1 = \OO$,
+    $S \cap U_1 \neq \OO$, and $S \cap V_1 \neq \OO$,
     which contradicts $S$ is connected, \#.
 }
 
@@ -387,7 +387,7 @@
 \subsection{Limiting Behavior at Infinity}
 
 \dfn{Function Space $C(S)$ and $C_\infty(S)$}{
-    Let $S \neq \varnothing$ be a subset of $\RR[n]$.
+    Let $S \neq \OO$ be a subset of $\RR[n]$.
     \begin{itemize}[nolistsep]
         \ii $C(S)$ is the set of real-valued function on $S$ which is continuous on $S$.
         \ii $C_\infty(S)$ is the set of real-valued function on $S$ which is bounded and continuous on $S$.
@@ -396,7 +396,7 @@
 
 \nt{
     In general, $C_\infty(S) \subseteq C(S)$.
-    If $\varnothing \neq S \subseteq \RR[n]$ is compact, then $C(S) = C_\infty(S)$.
+    If $\OO \neq S \subseteq \RR[n]$ is compact, then $C(S) = C_\infty(S)$.
 }
 
 \dfn{Neighborhood of $\infty$ and $-\infty$}{
@@ -464,12 +464,12 @@
 \section{The Algebra of Continuous Functions}
 
 \nt{
-    Let $\varnothing \neq S \subseteq \RR[n]$.
+    Let $\OO \neq S \subseteq \RR[n]$.
     One can easily find that $C(S)$ is a commutative ring and is a vector space.
 }
 
 \thm[limAlgebraCS]{}{
-    Let $\varnothing \neq S \subseteq \RR[n]$ and $f_1, f_2 \in C(S)$.
+    Let $\OO \neq S \subseteq \RR[n]$ and $f_1, f_2 \in C(S)$.
     Then, the following hold.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii $f_1 + f_2 \in C(S)$.
@@ -580,7 +580,7 @@
 \section{The Uniform Norm: Uniform Convergence}
 
 \dfn{Function Space $B(S)$}{
-    Let $S \neq \varnothing$ be a subset of $\RR[n]$.
+    Let $S \neq \OO$ be a subset of $\RR[n]$.
     $B(S)$ denotes the vector space and ring of all bounded, real-valued functions on $S$.
 }
 
@@ -634,7 +634,7 @@
     A function $f_0 \in B(S)$
     is said to be a \textit{(uniform) limit point} of a set $F \subseteq B(S)$ if
     \[
-        \fall \veps \in \RR_+,\: F \cap N'(f_0; \veps) \neq \varnothing\text{.}
+        \fall \veps \in \RR_+,\: F \cap N'(f_0; \veps) \neq \OO\text{.}
     \]
 }
 
@@ -679,7 +679,7 @@
 }
 
 \thm[unifConvSeqContiFtnConvToConti]{}{
-    Let $\varnothing \neq S \subseteq \RR[n]$.
+    Let $\OO \neq S \subseteq \RR[n]$.
     Suppose that $\{f_k\}$ is a sequence in $C(S)$ and
     it converges uniformly to $f_0 \colon S \to \RR$ on $S$.
     Then $f_0 \in C(S)$.
@@ -706,7 +706,7 @@
 }
 
 \thm[cauchyBddFtn]{}{
-    Let $\varnothing \neq S \subseteq \RR[n]$.
+    Let $\OO \neq S \subseteq \RR[n]$.
     A Cauchy sequence $\{f_k\}$ in $B(S)$ is bounded.
     That is, $\exs M \in \RR_+,\: \fall k \in \NN,\: \|f_k\|_\infty \le M$.
 }
@@ -751,23 +751,23 @@
 }
 
 \cor{}{
-    If $\varnothing \neq S \subseteq \RR[n]$ is compact, then $C(S)$ is complete.
+    If $\OO \neq S \subseteq \RR[n]$ is compact, then $C(S)$ is complete.
 }
 
 \dfn{Unifrom Denseness}{
-    Let $\varnothing \neq S \subseteq \RR[n]$.
+    Let $\OO \neq S \subseteq \RR[n]$.
     A collection $F \subseteq C_\infty(S)$ is \textit{uniformly dense} in $C_\infty(S)$
-    if, for all $f_0 \in C_\infty(S)$ and its neighborhood $N(f_0)$, $F \cap N(f_0) \neq \varnothing$.
+    if, for all $f_0 \in C_\infty(S)$ and its neighborhood $N(f_0)$, $F \cap N(f_0) \neq \OO$.
 }
 
 \dfn{Polynomial Space}{
-    Let $\varnothing \neq S \subseteq \RR$.
+    Let $\OO \neq S \subseteq \RR$.
     Let $P(S)$ denote the set of polynomial functions $f \colon S \to \RR$
     in the single variable $x$.
 }
 
 \nt{
-    If $S \neq \varnothing$ is a compact subset of $\RR$,
+    If $S \neq \OO$ is a compact subset of $\RR$,
     then $P(S)$ is certainly a subset of $C_\infty(S) = C(S)$.
 }
 
@@ -952,7 +952,7 @@
 }
 
 \dfn{Limit and Continuity of Vector-Valued Functions}{
-    Let $\varnothing \neq S \subseteq \RR[n]$ and $\vec f \colon S \to \RR[m]$.
+    Let $\OO \neq S \subseteq \RR[n]$ and $\vec f \colon S \to \RR[m]$.
     \begin{itemize}[nolistsep]
         \ii Let $\vec c \in \cl S$.
             We say that $\vec f$ has \textit{limit} $\vec v$ as $\vec x$ approaches $\vec c$,
@@ -973,7 +973,7 @@
 }
 
 \thm[vecLimAndComponentFtns]{}{
-    Let $\varnothing \neq S \subseteq \RR[n]$,
+    Let $\OO \neq S \subseteq \RR[n]$,
     $\vec f \colon S \to \RR[m]$, and $\vec f = (f_1, f_2, \cdots, f_m)$.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii Let $\vec c \in \cl S$.
@@ -1020,7 +1020,7 @@
 }
 
 \thm[vecLimIffEveryCauchyConv]{}{
-    Let $\varnothing \neq S \subseteq \RR[n]$ and $\vec f \colon S \to \RR[m]$.
+    Let $\OO \neq S \subseteq \RR[n]$ and $\vec f \colon S \to \RR[m]$.
 
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii Let $\vec c$ be a point in $\cl S$.
@@ -1095,7 +1095,7 @@
 }
 
 \thm[vecContiBijOnCompSetHasContiBijInv]{}{
-    Let $\varnothing \neq S \subseteq \RR[n]$ is compact and $\varnothing \neq T \subseteq \RR[m]$.
+    Let $\OO \neq S \subseteq \RR[n]$ is compact and $\OO \neq T \subseteq \RR[m]$.
     Let $\vec f \colon S \to T$ is continuous on $S$ and bijective.
     Then, $\vec f\inv$ is also continuous on $\vec f(S)$.
 }

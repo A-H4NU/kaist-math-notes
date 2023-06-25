@@ -100,7 +100,7 @@
 \dfn{Limit Point}{
 	Let $S$ be nonempty subset of $\RR[n]$.
 	We say that $\vec x$ is a \textit{limit point} of $S$ if \[
-		\fall \veps \in \RR_+,\: N'(\vec x; \veps) \cap S \neq \varnothing\text{.}
+		\fall \veps \in \RR_+,\: N'(\vec x; \veps) \cap S \neq \OO\text{.}
 	\]
 }
 
@@ -265,7 +265,7 @@
         \ii $\vec x$ is an \textit{interior point} of $S$ if $\exs r \in \RR_+,\: N(\vec x; r) \subseteq S$.
         \ii If every point of $S$ is an interior point of $S$, then $S$ is said to be \textit{open}.
         \ii We call $\vec x$ is a \textit{boundary point} of $S$ if
-              $\fall r \in \RR_+,\: N(\vec x; r) \cap S \neq \varnothing \land N(\vec x; r) \setminus S \neq \varnothing$.
+              $\fall r \in \RR_+,\: N(\vec x; r) \cap S \neq \OO \land N(\vec x; r) \setminus S \neq \OO$.
         \ii If $S$ continas all its boundary points, then $S$ is said to be \textit{closed}.
     \end{enumerate}
 }
@@ -322,14 +322,14 @@
 \pf{Proof}{
     ($\Rightarrow$) Take any $\vec x \in \cmpl C$. Since $C$ is closed and contains all of its boundary points,
     $\vec x$ is not a boundary point of $C$. Therefore, there is some neighborhood $N(\vec x)$ of $\vec x$
-    such that $N(\vec x) \cap C = \varnothing$ or $N(\vec x) \cap \cmpl C = \varnothing$.
+    such that $N(\vec x) \cap C = \OO$ or $N(\vec x) \cap \cmpl C = \OO$.
     The second case is not possible since $\vec x \in N(\vec x) \cap \cmpl C$.
-    Therefore, $N(\vec x) \cap C = \varnothing$, which implies $N(\vec x) \subseteq \cmpl C$;
+    Therefore, $N(\vec x) \cap C = \OO$, which implies $N(\vec x) \subseteq \cmpl C$;
     $\vec x$ is an interior point of $\cmpl C$. Therefore, $\cmpl C$ is open.
 
     ($\Leftarrow$) Take any bounddary point $\vec x$ of $C$. Assume $\vec x \in \cmpl C$ for the sake of contradiction.
     Since $\cmpl C$ is open, there is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq \cmpl C$.
-    However, that implies $N(\vec x) \cap C = \varnothing$, which contradicts $\vec x$ is a boundary point of $C$.
+    However, that implies $N(\vec x) \cap C = \OO$, which contradicts $\vec x$ is a boundary point of $C$.
     Therefore, $\vec x \in C$; $C$ contains all of its boundary points.
 }
 
@@ -360,12 +360,12 @@
     ($\Rightarrow$) Let $\vec x \in C'$. Assume $\vec x \in \cmpl C$ for the sake of contradiction.
     Since $\cmpl C$ is open by \Cref{th:closedIffCmplOpen},
     there is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq \cmpl C$.
-    Such $N(\vec x)$ satisfies $N(\vec x) \cap C = \varnothing$, which contradicts $\vec x \in C'$.
+    Such $N(\vec x)$ satisfies $N(\vec x) \cap C = \OO$, which contradicts $\vec x \in C'$.
     Therefore, $\vec x \in C$; $C$ contains all its limit points.
 
     ($\Leftarrow$) It is enough to prove $\cmpl C$ is open by \Cref{th:closedIffCmplOpen}.
     Take any $\vec x \in \cmpl C$. $\vec x$ is not a limit point of $C$ by the hypothesis.
-    Therefore, there is a deleted neighborhood $N'(\vec x)$ of $\vec x$ such that $N'(\vec x) \cap C = \varnothing$.
+    Therefore, there is a deleted neighborhood $N'(\vec x)$ of $\vec x$ such that $N'(\vec x) \cap C = \OO$.
     Then, $N'(\vec x) \subseteq \cmpl C$, and thus $N(\vec x) \subseteq \cmpl C$,
     which implies $\vec x$ is an interior point of $\cmpl C$. Thus, $\cmpl C$ is open.
 }
@@ -404,13 +404,13 @@
     Let $\vec y \in (\cl S)'$ and take any deleted neighborhood $N'(\vec y; \veps)$ of $\vec y$.
     Then, there is some element $\vec z$ in $N'(\vec y; \veps) \cap \cl S$. Then, $\vec z \in S$ or $\vec z \in S'$.
 
-    If $\vec z \in S$, then $\vec z \in N'(\vec y; \veps) \cap S \neq \varnothing$.
+    If $\vec z \in S$, then $\vec z \in N'(\vec y; \veps) \cap S \neq \OO$.
     If $\vec z \in S'$, take $\veps' \triangleq \min \{\,\|\vec z - \vec y\|, \veps - \|\vec z - \vec y\|\}$.
     Then, $N(\vec z; \veps') \subseteq N'(\vec y; \veps)$.
     Since $\vec z \in S'$, there is some $\vec x$ in $N'(\vec z; \veps') \cap S$.
-    Thus, $\vec x \in N'(\vec z; \veps') \cap S \subseteq N'(\vec y; \veps) \cap S \neq \varnothing$.
+    Thus, $\vec x \in N'(\vec z; \veps') \cap S \subseteq N'(\vec y; \veps) \cap S \neq \OO$.
     
-    In both cases, $N'(\vec y; \veps) \cap S \neq \varnothing$. Thus, we proved that $\vec y \in S' \subseteq \cl S$;
+    In both cases, $N'(\vec y; \veps) \cap S \neq \OO$. Thus, we proved that $\vec y \in S' \subseteq \cl S$;
     $(\cl S)' \subseteq \cl S$.
 }
 
@@ -427,7 +427,7 @@
     \begin{enumerate}[label=(\roman*), nolistsep]
         \ii $\inter{\inter S}= \inter S$
         \ii $\cl{(\cl S)} = \cl S$
-        \ii $\inter S \cap \bd S = \varnothing$
+        \ii $\inter S \cap \bd S = \OO$
         \ii $\inter S \cup \bd S = \cl S$
         \ii $\cl S \cap \cl{\cmpl S} = \bd S$
     \end{enumerate}
@@ -440,20 +440,20 @@
             (See \Cref{cor:closureIsClosed} and \Cref{cor:closedIffClosureOfItself}).
         \ii Suppose there is some $\vec x \in \inter S \cap \bd S$.
             There is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq S$.
-            Then, $N(\vec x) \cap \cmpl C = \varnothing$, which contradicts $\vec x \in \bd S$.
+            Then, $N(\vec x) \cap \cmpl C = \OO$, which contradicts $\vec x \in \bd S$.
         \ii ($\subseteq$) Since it is already $\inter S \subseteq S \subseteq \cl S$, we only need to show $\bd S \subseteq \cl S$.
             Let $\vec x \in \bd S$. If $\vec x \in S$, then it is done; so suppose $\vec x \in \cmpl S$.
-            Take any neighborhood $N(\vec x; \veps)$ of $\vec x$. Then, $N(\vec x; \veps) \cap S \neq \varnothing$.
-            Noting that $N'(\vec x; \veps) \cap S = N(\vec x; \veps) \cap S \neq \varnothing$,
+            Take any neighborhood $N(\vec x; \veps)$ of $\vec x$. Then, $N(\vec x; \veps) \cap S \neq \OO$.
+            Noting that $N'(\vec x; \veps) \cap S = N(\vec x; \veps) \cap S \neq \OO$,
             $\vec x \in S'$. \par
             ($\supseteq$) Let $\vec x \in \cl S$. If $\vec x \in S$, then it is either
             ``There is a neighborhood $N(\vec x)$ of $\vec x$ such that $N(\vec x) \subseteq S$.''
-            or ``Every neighborhood $N(\vec x)$ of $\vec x$ satisfies $N(\vec x) \cap \cmpl S \neq \varnothing$.''
+            or ``Every neighborhood $N(\vec x)$ of $\vec x$ satisfies $N(\vec x) \cap \cmpl S \neq \OO$.''
             The first case is $\vec x \in \inter S$ and the latter case is $\vec x \in \bd S$.
 
             Now the only left case if $\vec x \in S' \setminus S$.
             Take any deleted neighborhood $N'(\vec x)$ of $\vec x$.
-            Then, $N(\vec x) \cap S = N'(\vec x) \cap S \neq \varnothing$.
+            Then, $N(\vec x) \cap S = N'(\vec x) \cap S \neq \OO$.
             Also, $\vec x \in N(\vec x) \cap \cmpl S$. Thus, $\vec x \in \bd S$.
         \ii Using $\cl S = \inter S \cup \bd S$, we get \[
                 \begin{aligned}[t]
@@ -462,12 +462,12 @@
                                                 (\bd S \cap \inter{(\cmpl S)}) \cup (\bd S \cap \bd{\cmpl S})
                 \end{aligned}
             \]
-            $\inter S \cap \inter{(\cmpl S)} = \varnothing$ since
-            $S \cap \cmpl S = \varnothing$ and $\inter S \subseteq S$ and $\inter{\cmpl S} \subseteq \cmpl S$.\par
+            $\inter S \cap \inter{(\cmpl S)} = \OO$ since
+            $S \cap \cmpl S = \OO$ and $\inter S \subseteq S$ and $\inter{\cmpl S} \subseteq \cmpl S$.\par
             $\bd S = \bd \cmpl S$ is direct from their definitions. Thus, \[
                 \begin{aligned}[t]
-                    \inter S \cap \bd{\cmpl S}   & = \inter S \cap \bd S = \varnothing \\
-                    \bd S \cap \inter{(\cmpl S)} & = \bd \cmpl S \cap \inter{(\cmpl S)} = \varnothing
+                    \inter S \cap \bd{\cmpl S}   & = \inter S \cap \bd S = \OO \\
+                    \bd S \cap \inter{(\cmpl S)} & = \bd \cmpl S \cap \inter{(\cmpl S)} = \OO
                 \end{aligned}
             \]
             by (iv). Therefore, $\cl S \cap \cl{\cmpl S} = \bd S \cap \bd{\cmpl S} = \bd S$.
@@ -475,14 +475,14 @@
 }
 
 \dfn{Diameter}{
-    Let $\varnothing \neq S \subseteq \RR[n]$ be a bounded set.
+    Let $\OO \neq S \subseteq \RR[n]$ be a bounded set.
     The \textit{diameter} of $S$ is defined to be \[
         d(S) \triangleq \sup \{\, \|\vec x - \vec y\| \mid \vec x, \vec y \in S \,\}\text{.}
     \]
 }
 
 \dfn{Distance}{
-    Let $\varnothing \neq S \subseteq \RR[n]$ and $\vec x \in \RR[n]$.
+    Let $\OO \neq S \subseteq \RR[n]$ and $\vec x \in \RR[n]$.
     The distance from $\vec x$ to $S$ is defined to be \[
         d(\vec x, S) \triangleq \inf \{\, \|\vec x - \vec y\| \mid \vec y \in S \,\}\text{.}
     \]
@@ -621,7 +621,7 @@
 
 \thm[CantorCriterionRn]{Cartor's Criterion}{
     If $\{C_k\}$ is a nested sequence of closed, bounded, nonempty subsets of $\RR[n]$, then \[
-        \bigcap_{k=1}^\infty C_k \neq \varnothing\text{.}
+        \bigcap_{k=1}^\infty C_k \neq \OO\text{.}
     \]
     Furthermore, if $\lim_{k \to \infty} d(C_k) = 0$, then $\bigcap_{k=1}^\infty C_k$ is a singleton.
 }
@@ -663,15 +663,15 @@
 \pf{Proof}{
     Let $S$ be a nonempty, bounded above set in $\RR$.
     Let $B$ denote the set of upper bounds of $S$ and let $A = \cmpl B$.
-    Since $x - 1 \in A$ for all $x \in S$, $A \neq \varnothing$.
+    Since $x - 1 \in A$ for all $x \in S$, $A \neq \OO$.
     
     We first show that for all $a \in A$ and $b \in B$, $a < b$.
     If otherwise, i.e., $a \ge b$, $x \le b \le a$ for each $x \in S$,
     which implies $a \in B$, which is a contradiction.
 
-    Moreover, $S \cap [a, b] \neq \varnothing$ for each $a \in A$ and $b \in B$.
-    Assume $S \cap [a, b] = \varnothing$ for the sake of contradiction.
-    Since $S \cap (b, \infty) = \varnothing$ as $b$ is an upper bound of $S$,
+    Moreover, $S \cap [a, b] \neq \OO$ for each $a \in A$ and $b \in B$.
+    Assume $S \cap [a, b] = \OO$ for the sake of contradiction.
+    Since $S \cap (b, \infty) = \OO$ as $b$ is an upper bound of $S$,
     then it follows $S \subseteq (-\infty, a)$, which implies $a$
     is an upper bound of $S$, which is a contradiction.
 
@@ -809,7 +809,7 @@
         \ii If $S$ is a bounded, infinite subset of $X$, then $S$ has a limit point in $X$.
             Thus $X$ inherits the Bolzano–Weierstrass property from $\RR[n]$.
         \ii If $\{C_k\}$ is any nested sequence of nonempty, bounded, relatively closed subsets of $X$,
-            then $\bigcap_{k=1}^\infty \neq \varnothing$. Furthermore, if $\lim_{k \to \infty} d(C_k) = 0$,
+            then $\bigcap_{k=1}^\infty \neq \OO$. Furthermore, if $\lim_{k \to \infty} d(C_k) = 0$,
             then $\bigcap_{k=1}^\infty$ is a singleton. Thus $X$ inherits Cantor's criterion from $\RR[n]$.
     \end{enumerate}
 }
@@ -844,7 +844,7 @@
     then $\lim_{k \to \infty} d(\cl{C_k}) = 0$ by \Cref{exer:closureSameDiam}.
     By \Cref{th:CantorCriterionRn}, $\bigcap_{k=1}^\infty \cl{C_k} = \{\vec x_0\}$.
     But since $C_k \subseteq \cl {C_k}$ for each $k \in \NN$,
-    $\varnothing \neq \bigcap_{k=1}^\infty C_k \subseteq \bigcap_{k=1}^\infty \cl{C_k} = \{\vec x_0\}$.
+    $\OO \neq \bigcap_{k=1}^\infty C_k \subseteq \bigcap_{k=1}^\infty \cl{C_k} = \{\vec x_0\}$.
     Thus, (ii) implies Cantor's criterion holds in $X$.
 
     Finally, it is left to prove $\text{(iii)} \implies \text{(i)}$.
@@ -896,9 +896,9 @@
 \dfn{Connectedness}{
     A set $S$ is \textit{disconnected} if there are two open sets $U, V$ such that
     \begin{enumerate}[nolistsep, label=(\roman*)]
-        \ii $U \cap V = \varnothing$,
+        \ii $U \cap V = \OO$,
         \ii $S \subseteq U \cup V$, and
-        \ii $S \cap U \neq \varnothing$ and $S \cap V \neq \varnothing$.
+        \ii $S \cap U \neq \OO$ and $S \cap V \neq \OO$.
     \end{enumerate}
     $S$ is \textit{connected} if $S$ is not disconected.
 }
@@ -918,7 +918,7 @@
     The only fact needed for this proof is that $(u, v) \subseteq I$ for any $u < v$ in $I$.
 
     Suppose $I$ is disconnected. Then, there are disjoint open sets $U, V \subseteq \RR$ such that
-    $I \subseteq U \cup V$, $I \cap U \neq \varnothing$, and $I \cap V \neq \varnothing$.
+    $I \subseteq U \cup V$, $I \cap U \neq \OO$, and $I \cap V \neq \OO$.
     Take any $u \in I \cap U$ and $v \in I \cap V$. WLOG, $u < v$.
     
     Construct sequences $\{u_k\}$ in $I \cap U$ and $\{v_k\}$ in $I \cap V$ as following.
@@ -936,7 +936,7 @@
     ($u_k < v$ and $v_k > u$ for each $k \in \NN$);
     hence they converge by \Cref{th:bddMonotoneSeqConv}.
     
-    Since $(u_k + v_k)/2 \in I \subseteq U \cup V$ for each $k \in \NN$ and $U \cap V = \varnothing$,
+    Since $(u_k + v_k)/2 \in I \subseteq U \cup V$ for each $k \in \NN$ and $U \cap V = \OO$,
     $v_{k+1} - u_{k+1} = (v_k - u_k) / 2 = (v - u)/2^k$.
     They converge to the same point $x_0$ since $\lim_{k \to \infty} (v_k - u_k) = 0$.
 
@@ -949,7 +949,7 @@
     Since $I \cap U = I \cap \cmpl V$ and $\cmpl V$ is closed, $I \cap U$ is closed and thus
     any relative limit point of $I \cap U$ in $I$, $x_0$, in particular, is in $I \cap U$
     by \Cref{lem:relClosedIffContainsRelLimPts}.
-    Similarly, $x_0 \in I \cap V$, which contradicts $U \cap V = \varnothing$.
+    Similarly, $x_0 \in I \cap V$, which contradicts $U \cap V = \OO$.
 }
 
 \section{Compactness}
