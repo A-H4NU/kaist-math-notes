@@ -180,7 +180,7 @@
     subcollection $\{\,(a_{\alpha_1}, b_{\alpha_1}), \cdots, (a_{\alpha_n},
     b_{\alpha_n})\,\}$ covers $C$. Let $\mcal A'' \triangleq \{\,[a_{\alpha_1},
     b_{\alpha_1}), \cdots, [a_{\alpha_n}, b_{\alpha_n})\}$.
-    Then, $\mcal A' \cup \mcal A''$ is a countble subcovering of $\RR_\ell$.
+    Then, $\mcal A' \cup \mcal A''$ is a countable subcovering of $\RR_\ell$.
 }
 
 \exmp[sorgenfrey]{The Product of Two Lindelöf Spaces Need Not Be Lindelöf}{
@@ -362,7 +362,7 @@
 \thm[prodSep]{}{
     Let $\{X_\alpha\}_{\alpha \in J}$ be a family of topological spaces.
     Let $X \triangleq \prod_{\alpha \in J} X_\alpha$ be endowed with either
-    box or product toplogy.
+    box or product topology.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii $X$ is $T_1$ if and only if each $X_\alpha$ is $T_1$.
         \ii $X$ is $T_2$ if and only if each $X_\alpha$ is $T_2$.
@@ -371,7 +371,7 @@
 }
 \pf{Proof}{
     Let $\vec x = (x_\alpha)_{\alpha \in J} \in X$.
-    Supopse $X$ is $T_1$(, $T_2$, or $T_3$). Then, For each $\alpha_0 \in J$,
+    Suppose $X$ is $T_1$(, $T_2$, or $T_3$). Then, For each $\alpha_0 \in J$,
     $X_{\alpha_0}$ is homeomorphic with the subspace
     \[
         Y \triangleq \{\,\vec y \in X \mid \fall \alpha \in J \setminus \{
@@ -620,14 +620,14 @@
             $U_0$ in $X$ such that $A \subseteq U_0$ and $\cl{U_0}
             \subseteq U_1$.
         \ii Suppose $U_p$ is defined for each $p \in P_n$ where $n > 1$, and
-            $\fall p, q \in P_n,\: (p < q \implies \cl{U_p} \subseteq U_q)$ (*).        
-            then $p_{n+1}$ has  its immediate predecessor $q_1$ and an immediate
+            $\fall p, q \in P_n,\: (p < q \implies \cl{U_p} \subseteq U_q)$ ($\ast$).        
+            Then $p_{n+1}$ has  its immediate predecessor $q_1$ and an immediate
             successor $q_2$ in $P_n$. By \Cref{lem:T34Iff}, we may find an open
             set $U_{p+1}$ such that $\cl{U_{q_1}} \subseteq U_{p+1}$ and
             $\cl{U_{p+1}} \subseteq U_{q_2}$. Note that (*) still holds for
             $P_{n+1}$.
     \end{itemize}
-    Hence, by mathematcial induction, we may find a collection of open sets
+    Hence, by mathematical induction, we may find a collection of open sets
     $\{U_p\}_{p \in P}$ such that
     \[
         \fall p, q \in P,\: \big(p < q \implies \cl{U_p} \subseteq U_q\big)
@@ -996,7 +996,7 @@
     set $\cl{\phi\inv(\RR \setminus \{0\})}$.
 }
 
-\dfn{Parition of Unity}{
+\dfn{Partition of Unity}{
     Let $\{\,U_1, U_2, \cdots, U_n\,\}$ b a finite open covering of a space
     $X$. A family $\{\phi_i\}_{i \in [n]} \subseteq [0, 1]^X$ of continuous
     functions is said to be a \textit{partition of unity} dominated by
@@ -1087,7 +1087,7 @@
     Cover $X$ by finitely many open sets $\{U_1, U_2, \cdots, U_n\}$, each of
     which may be imbedded in $\RR[m]$. Choose imbeddings $g_i \colon U_i \to
     \RR[m]$ for each $i \in [n]$. By \Cref{th:cptHausIsT4}, $X$ is $T_4$.
-    Let $\{\phi_{i} \colon X \to [0, 1]\}_{i \in [n]}$ be a parition of unity
+    Let $\{\phi_{i} \colon X \to [0, 1]\}_{i \in [n]}$ be a partition of unity
     dominated by $\{U_i\}$, whose existence is guaranteed by
     \Cref{th:partOfUnityExists}. Let $A_i \triangleq (\text{support of } \phi_i)
     = \cl{\phi_i\inv(\RR \setminus \{0\})}$

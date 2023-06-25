@@ -182,7 +182,7 @@ for each $a \in A$.
 	\begin{itemize}[noitemsep]
 		\ii $A_0$ is \textit{bounded above} by $b \in A$ if $x \in A_0 \implies x \le b$.
 		      \begin{itemize}[nolistsep]
-			      \ii The smallest such $b$ is called the \textit{least uppder bound} or the \textit{supremum} of $A_0$.
+			      \ii The smallest such $b$ is called the \textit{least upper bound} or the \textit{supremum} of $A_0$.
 		      \end{itemize}
 		\ii $A_0$ is \textit{bounded below} by $b \in A$ if $x \in A_0 \implies x \ge b$.
 		      \begin{itemize}[nolistsep]
@@ -225,7 +225,7 @@ for each $a \in A$.
 }
 \pf{Proof}{
 	We first prove that, for each $n \in \ZZ_+$, every nonempty subset of $[n] \coloneqq \{1, 2, \cdots, n\}$ has a smallest element,
-	using induction. For the base case, it is known the the only nonempty subset of $[1]$, $\{1\}$, has $1$ as its smallest element.
+	using induction. For the base case, it is known the only nonempty subset of $[1]$, $\{1\}$, has $1$ as its smallest element.
 
 	Suppose the statement holds for $n = k$. Now take any nonempty subset $S$ of $[k + 1]$.
 	If $S = \{k+1\}$, $k+1$, the only element of $S$, is a smallest element of $S$.
@@ -404,7 +404,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 		\ii $h(n+1) \coloneqq \min \big(C \setminus h([n])\big)$ for each $n \in \ZZ_+$
 	\end{enumerate}
 	$h$ is well defined because $C \setminus h([n])$ is always nonempty.
-	Morever, $h$ is injective since it is $h(m) < h(n)$ whenever $m < n$.
+	Moreover, $h$ is injective since it is $h(m) < h(n)$ whenever $m < n$.
 
 	Now, we are going to show $h$ is surjective. To do this, first take any $c \in C$.
 	Since $C$ is infinite and $h$ is injective, $\Img h \not\subseteq [c]$, which means $\exists n \in \ZZ_+,\: h(n) > c$.
@@ -468,7 +468,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 
     Now, construct a function $f \colon \ZZ_+ \times \ZZ_+ \to \bigcup_{i \in J} A_i$ by \[
         f(i, j) \coloneqq g_{h(i)}(j)\text{.}
-    \] $f$ is naturally surjective by the contruction. Therefore, $\bigcup_{i \in J} A_i$ is countable.
+    \] $f$ is naturally surjective by the construction. Therefore, $\bigcup_{i \in J} A_i$ is countable.
 }
 
 \exer[ProductOfCountSets]{}{
@@ -479,7 +479,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
     and each $A_i$ is countable. \textsf{WLOG}, $A_i \neq \varnothing$ for each $i \in [n]$.
     For each $i \in [n]$, there is a injection $g_i \colon A_i \to \ZZ_+$ by \Cref{th:countSetTFAE}.
 
-    Now, construct a fuction $f \colon \prod_{i=1}^n A_i \to \ZZ_+$ by \[
+    Now, construct a function $f \colon \prod_{i=1}^n A_i \to \ZZ_+$ by \[
         f(a_1, a_2, \cdots, a_n) \coloneqq \prod_{i=1}^n p_i^{g_i(a_i)}\text{,}
     \] where $p_i$ is the $i^{\text{th}}$ prime.
     Since prime factorization of a natural number is unique, $f$ is injective; therefore $\prod_{i=1}^{n} A_i$ is countable.
@@ -551,7 +551,7 @@ Therefore, $\prod_{i \in [n]} A_i$ is finite by \Cref{th:finSetTFAE}.
 	Thus, $f$ is well-defined and it is injective by definition.
 
 	((ii) $\to$ (iii))
-	Let $f \colon \ZZ_+ \hookrightarrow A$ be an injectiion.
+	Let $f \colon \ZZ_+ \hookrightarrow A$ be an injection.
 	Define $g \colon A \to A \setminus \{\,f(1)\,\}$ by \[
 		g(a) \coloneqq \begin{cases}
 			f(n+1) & \text{if } a = f(n) \text{ for some } n \in \NN_+ \\
