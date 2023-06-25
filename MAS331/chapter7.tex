@@ -1220,6 +1220,25 @@
         (\text{point-open}) \subseteq (\text{compact convergence}) \subseteq (\text{uniform})\text{.}
     \]
 }
+\pf{Proof}{
+    ($(\text{point-open}) \subseteq (\text{compact convergence})$)
+    Let $S(x, U)$ be any subbasis element of the point-open topology and let $f \in S(x, U)$.
+    Since $f(x) \in U$, there exists $\veps \in \RR_+$ such that
+    $B_d(f(x), \veps) \subseteq U$.
+    Then, we have
+    \[
+        f \in B_{\{x\}}(f, \veps) \subseteq S(x, U)\text{.}
+    \]
+
+    ($(\text{compact convergence}) \subseteq (\text{uniform})$)
+    Let $B_C(g, \veps)$ be any basis element of the topology of compact convergence
+    and let $f \in B_C(g, \veps)$. Then, there exists $\delta \in \RR_+$
+    such that $f \in B_C(f, \delta) \subseteq B_C(g, \veps)$.
+    Then, we have
+    \[
+        f \in B_{\ol\rho}(f, \delta) \subseteq B_C(g, \veps)\text{.}
+    \]
+}
 
 \nt{
     The topology of compact convergence is pretty satisfying---in a sense that
@@ -1326,6 +1345,102 @@ Let $X$ be a topological space and let $Y$ be a metric space.
         \ii The uniform topology coincides the topology of compact convergence,
             which does not depend on the metric by (i).
     \end{enumerate}
+}
+
+\thm[evalIsConti]{}{
+    Let $X$ and $Y$ be topological spaces.
+    If $X$ is locally compact Hausdorff and $\mcal C(X, Y)$ is endowed with
+    compact-open topology, then the map
+    \[
+        e \colon X \times \mcal C(X, Y) \to Y
+    \]
+    defined by
+    \[
+        x \times f \mapsto f(x)
+    \]
+    is continuous.
+    The map $e$ is called the \textit{evaluation map}.
+}
+\pf{Proof}{
+    Let $V$ be open in $Y$ and let $e(x, f) \in V$, i.e., $f(x) \in V$.
+    By \Cref{th:HausLocalCptIff}, there exists a neighborhood $U$ of $x$
+    in $X$ such that $\cl U$ is compact and $\cl U \subseteq f\inv(V)$.
+
+    Now, take any $x' \times f' \in U \times S(\cl U, V)$.
+    $U \times S(\cl U, V)$ is an open set in $X \times \mcal C(X, Y)$.
+    Then, $e(x', f') = f'(x') \in V$. Therefore,
+    \[
+        x \times f \in U \times S(\cl U, V) \subseteq e\inv(V)\text{,}
+    \]
+    which implies $e$ is continuous.
+}
+
+\dfn{Natural Bijection Between $Y^{X \times Z}$ and $(Y^X)^Z$}{
+    Given a function $f \colon X \times Z \to Y$, there is a corresponding
+    function $F \colon Z \to Y^X$, defined by the equation
+    \[
+        (F(z))(x) = f(x, z)\text{.}
+    \]
+    Conversely, given $F \colon Z \to Y^X$, this equation defines
+    a corresponding function $f \colon Z \times Z \to Y$.
+    We say that $F$ is the map of $Z$ into $Y^X$ that is
+    \textit{induced} by $f$.
+}
+
+\nt{
+    \mclm{Claim}{
+        If $f \colon X \times Z \to Y$ is continuous, then the induced function
+        $F \colon Z \to Y^X$ has $\Img F \subseteq \mcal C(X, Y)$.
+    }
+    \pf{Proof}{
+        Let $g = F(z) \in Y^X$. Then, $g\inv(V) \times \{z\} = f\inv(V) \cap (X \times \{z\})$
+        is open in $X \times \{z\}$, while $X \cong X \times \{z\}$.
+        Hence, $g$ is continuous.
+    }
+}
+
+\thm{}{
+    Let $X$, $Y$, and $Z$ be topological spaces.
+    Give $\mcal C(X, Y)$ the compact-open topology.
+    If $f \colon X \times Z \to Y$ is continuous, then the
+    induced function $F \colon Z \to \mcal C(X, Y)$ is continuous as well.
+    The converse holds if $X$ is locally compact Hausdorff.
+}
+\pf{Proof}{
+    ($\Rightarrow$)
+    Let $S(C, U)$ be any subbasis element of $\mcal C(X, Y)$ and let
+    $z_0 \in F\inv(S(C, U))$.
+    $F(z_0) \in S(C, U)$ simply means that,
+    $f(C \times \{z_0\}) = (F(z_0))(C) \subseteq U$.
+
+    From the continuity of $f$, $f\inv(U)$ is open in $X \times Z$
+    and \[
+        C \times \{z_0\} \subseteq f\inv(U) \cap (C \times Z)\text{.}
+    \]
+    $f\inv(U) \cap (C \times Z)$ is an open set in $C \times Z$.
+    Therefore, by \Cref{lem:tube}, there exists a neighborhood $W$ of $z_0$
+    in $Z$ such that 
+    \[
+        C \times W \subseteq f\inv(U) \cap (C \times Z) \subseteq f\inv(U)\text{.}
+    \]
+    In other words, for each $z \in W$,
+    we have $\fall x \in C,\: (F(z))(x) = f(x, z) \in U$;
+    \[
+        F(z) \in S(C, U)\text{.}
+    \]
+    Since $z$ was arbitrary, $F(W) \subseteq S(C, U)$, i.e,
+    $z_0 \in W \subseteq F\inv(S(C, U))$. Hence, $F$ is continuous.
+
+    ($\Leftarrow$)
+    By \Cref{th:evalIsConti}, the evaluation map $e \colon X \times \mcal C(X, Y) \to Y$
+    is continuous.
+    Since $f = e \circ (i_X \times F)$ where $i_X$ is the identity map,
+    $f$ is continuous by \Cref{th:constructConti}.
+    \[
+        X \times Z
+        \xrightarrow{\makebox[1.5cm]{\footnotesize$i_X \times F$}} X \times \mcal C(X, Y)
+        \xrightarrow{\makebox[1.5cm]{\footnotesize$e$}} Y
+    \]
 }
 
 \end{document}
