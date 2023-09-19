@@ -1,0 +1,129 @@
+\documentclass[../MAS242_Note.tex]{subfiles}
+
+\begin{document}
+\section{Higher order partial derivatives}
+
+\dfn{}{
+    Given $f \colon U \to \RR$ where $U$ is an open set in $\RR[m]$,
+    define $\partial_{ij} \triangleq \partial_i(\partial_j f)(x)$
+    for each $i, j \in [m]$ to be \textit{2nd order partial derivatives}.
+    Any higher order partial derivatives can be defined inductively.
+}
+
+\dfn{$C^k$-regularity}{
+    $f \colon U \to \RR$ is $C^k$-regular if
+    all partial derivatives up to order $k$ and they are continuous.
+}
+
+\thm[]{}{
+    $f \colon U (\subseteq \RR[2]) \to \RR$ is $C^2$ at a point $c \in U$,
+    i.e., $\exs \delta > 0$, $f$ is $C^2$ in $B_\delta(c)$.
+    Then, $\partial_{12}f(c) = \partial_{21}f(c)$.
+}
+
+\pf{Proof}{
+    Let $|h| < \delta$.
+    Define $A(h) \triangleq f(c_1+h_1, c_2+h_2) - f(c_1+h_1, c_2) - f(c_1, c_2+h_2) + f(c_1, c_2)$.
+    Define $u(x_1) \triangleq f(x_1, c_2+h_2) - f(x_1, c_2)$ and
+    $v(x_2) \triangleq f(c_1 + h_1, x_2) - f(c_1, x_2)$.
+    Note that $u$ and $v$ are differentiable.
+
+    Then, $A(h) = u(c_1 + h_1) - u(c_1)$ and $A(h) = v(c_2+h) - v(c_2)$.
+    By MVT, $\exs c_1^\ast \in (c_1, c_1+h_1)$ and $c_2^\ast \in (c_2, c_2+h_2)$ s.t. $A(h) = u'(c_1^\ast) h_1
+    = h_1 \big( \partial_1f(c_1^\ast, c_2+h) - \partial_1 f(c_1^\ast, c_2) \big)
+    = h_1h_2 \partial_{21}f(c_1^\ast, c_2^\ast)$
+
+    Similarly, $\exs c_1^{\ast\ast}, c_2^{\ast\ast}$ such that $A(h) = h_1h_2 \partial_{12}f(c_1^{\ast\ast}, c_2^{\ast\ast})$.
+    $\partial_{21}f(c_1^\ast, c_2^\ast) = \partial_{12}f(c_1^{\ast\ast}, c_2^{\ast\ast})$.
+    Hence, as $|h| \to 0$, due to the continuity, $\partial_{21}(c) = \partial_{12}(c)$.
+}
+
+\cor{}{
+    Suppose $f \colon U (\subseteq \RR[m]) \to \RR$ is $C^k$ at $c \in U$.
+    Then $\partial_{j_1j_2\cdots j_k} f(c) = \partial_{j_1'j_2'\cdots j_k'}$
+    where $j_1'\cdots$ are a permutation of $j_1\cdots$.
+}
+
+\section{Extreme Values of differentiable Functions}
+
+\dfn{Hessian}{
+    Let $f \colon U (\subseteq \RR[m]) \to \RR$ be $C_2$ in $U$.
+    Suppose $p \in U$ is a critical point of $f$, i.e., $\nabla f(p) = 0$.
+    Define \[
+        \mcal H f(x) \triangleq \begin{pmatrix}
+            \partial_{11} f(x) & \partial_{21}f(x) & \cdots & \partial_{m1}f(x)\\
+            \partial_{12} f(x) & \partial_{22}f(x) & \cdots & \partial_{m2}f(x)\\
+            \vdots & \vdots & \ddots & \vdots \\
+            \partial_{1m} f(x) & \partial_{2m}f(x) & \cdots & \partial_{mm}f(x)\\
+        \end{pmatrix}.
+    \]
+    (Sometimes $\mcal Hf(x) = D^2f(x)$.)
+
+    Define $D(x) = \det \mcal Hf(x)$.
+    (Note that $\mcal Hf(x)$ is symmetric when \(f\) is \(C^{2}\) by the theorem above.)
+}
+
+\thm[]{2nd-order derivative test for two variable functions.}{
+    When \(m = 2\) and \(f\) is \(C^2\), a critical point $p$ is
+    \begin{itemize}[nolistsep]
+        \ii a local maximum if $D(p) > 0$ and $\partial_{11}f(p) > 0$ (or $\partial_{22}f(p) > 0$).
+        \ii a local minimum if $D(p) > 0$ and $\partial_{11}f(p) < 0$ (or $\partial_{22}f(p) < 0$).
+        \ii a saddle point if $D(p) < 0$.
+    \end{itemize}
+    The test fails when \(D(p) = 0\).
+}
+\pf{Proof}{
+    Given a unit vector \(\vec u = (u_1, u_2) \in \RR[2]\),
+    \(D_{\vec u} f = \nabla f \cdot \vec u = u_1 \partial_1 f + u_2 \partial_2 f\), and thus
+    \[
+        D^2_{\vec u} f = (u_1 \partial_1 + u_2 \partial_2) (u_1 \partial_1 f + u_2 \partial_2 f)
+        = u_1^2 \partial_{11} f + u_1u_2 (2\partial_{12} f) + u_2^2 \partial_{22}f\text{.}
+    \]
+
+    \textsf{WLOG}, \(u_1 \neq 0\). Set \(z = u_2 / u_1\).
+    Then,
+    \[
+        D^2_{\vec u} f(p) = u_1^2 \big(\partial_{11}f(p) +
+        2\partial_{12} f(p) z + \partial_{22} f(p)z^2\big)\text{.}
+    \]
+    Note that, if \(D(p) > 0\), \(D^2_{\vec u} f(p)\) has no real root.
+    \begin{itemize}[nolistsep]
+        \ii If \(D(p) > 0\) and \(\partial_{11}f(p) < 0\),
+            Then, \(D^2{\vec u} < 0\) for all unit vector \(\vec u\).
+        \ii If \(D(p) > 0\) and \(\partial_{11}f(p) > 0\),
+            Then, \(D^2{\vec u} > 0\) for all unit vector \(\vec u\).
+        \ii If \(D(p) < 0\), \(D^2_{\vec u} f(p)\) has different signs depending on \(\vec u\).
+    \end{itemize}
+
+    For general \(m\)?
+    \[\begin{aligned}[t]
+        D_{\vec u} (D_{\vec u} f) = D_{\vec u} \sum_{j = 1}^{m} \partial_j f u_j
+                                  = \sum_{j=1}^m \big((\nabla \partial_j f) \cdot \vec u\big) u_j
+                                  = \sum_{j=1}^{m} \sum_{k=1}^{m} u_ku_j \partial_{kj}f\text{.}
+    \end{aligned}\]
+    Hence, \[
+        D^2_{\vec u} f(p) = \vec u^\mrm{T} \cdot D^2f(p) \cdot \vec u
+    \]
+    Since \(D^2f(p)\) is symmetric, its eigenvalues \(\lambda_1, \cdots, \lambda_m\) exists
+    and they are real numbers.
+    Also, there exists an \(m \times m\) orthogonal matrix \(\mcal O\) such that
+    \(D^2f(p) = \mcal O \Lambda(p) \mcal O^\mrm{T}\) where \(\Lambda(p)\) is the diagonal
+    matrix with entries are the eigenvalues.
+    
+    Then, we can write \(D^2_{\vec u}f(p) = \vec u \mcal O \Lambda(p) \mcal O^\mrm{T} \vec u^\mrm{T}
+    = (\vec u \mcal O) \Lambda(p) = (\vec u \mcal O) ^\mrm{T}\).
+    Since \(\mcal O\) is orthogonal, \(\vec u \mcal O\) is another arbitrary unit vector.
+}
+
+\thm[]{Generalized 2nd order partial derivatives test}{
+    When \(f\) is \(C^2\), a critical point $p$ is
+    \begin{itemize}[nolistsep]
+        \ii a local maximum if all eigenvalues of \(D^2f(p)\) are negative.
+        \ii a local minimum if all eigenvalues of \(D^2f(p)\) are positive.
+        \ii a saddle point if there are both negative eigenvalues and positive eigenvalues.
+    \end{itemize}
+    The test fails when there are zero eigenvalues.
+}
+
+
+\end{document}

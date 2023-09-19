@@ -1,0 +1,288 @@
+\documentclass[MAS212_Note.tex]{subfiles}
+
+\begin{document}
+\section{Linear Transformations}
+\dfn{Linear Transformation}{
+    Let $V_1$ and $V_2$ be vector spaces over $F$.
+    $T \colon V_1 \to V_2$ is said to be a \textit{linear transformation} if
+    \begin{itemize}[nolistsep]
+        \ii $\forall x_1, x_2 \in V_1,\: T(x_1 + x_2) = T(x_1) + T(x_2)$
+        \ii $\forall x \in V_1,\:\forall c \in F,\: T(cx) = cT(x)$.
+    \end{itemize}
+}
+
+\thm[]{}{
+    Let \(V\) and \(W\) be finite-dimensional vector spaces over \(F\).
+    where \(\{\alpha_1,\cdots,\alpha_n\}\) is a basis of \(V\).
+    Let \(\{\beta_1,\cdots,\beta_n\}\) be any given set of vectors of \(W\).
+    Then, there exists a unique transformation \(T \colon V \to W\)
+    such that \(T(\alpha_i) = \beta_i\).
+}
+\pf{Proof}{
+    Let \(T_0 \colon V \to W\) be defined by
+    \[
+        \textstyle T_0 \big(\sum_{i=1}^{n} x_i \alpha_i\big)
+        = \sum_{i=1}^{n} x_i \beta_i\text{.}
+    \]
+    This is a linear transformation indeed.
+
+    \textit{(Uniqueness)}
+    If there is another such \(U \colon V \to W\),
+    Then, \(U \big(\sum_{i=1}^{n} x_i \alpha_i\big) = \sum_{i=1}^{n} x_i U(\alpha_i)\).
+    Hence, \(U = T_0\).
+}
+
+\dfn{Null Space and Range Space}{
+    Let \(T \colon V \to W\) be a linear transformation between vector spaces over \(F\).
+    \begin{itemize}[nolistsep]
+        \ii \(\mrm{null}\,T \triangleq \ker T \triangleq \{\,v \in V \mid T(v) = 0\,\}\)
+        \ii \(\mrm{range}\,T \triangleq \Img T \triangleq \{\,w \in W \mid \exs v \in V,\:w = T(v)\,\}\)
+    \end{itemize}
+}
+
+\nt{
+    \noindent
+    \(\ker T\) and \(\Img T\) are subspaces of \(V\) and \(W\) respectively.
+}
+
+\dfn{}{
+    Let \(T \colon V \to W\) be a linear transformation between vector spaces over \(F\).
+    \[
+        \mrm{nullity}\,(T) \triangleq \dim \ker(T) \quad\text{and}\quad
+        \mrm{rank}\,(T) \triangleq \dim \Img(T)
+    \]
+}
+
+\thm[rankNullity]{Rank-Nullity Theorem}{
+    Let \(T \colon V \to W\) be a linear transformation between vector spaces over \(F\).
+    Then, \(\mrm{rank}\,(T) + \mrm{nullity}\,(T) = \dim V\).
+}
+\pf{Proof}{
+    Let \(\{v_1, \cdots, v_k\}\) be a basis for \(\ker T\) where \(k = \mrm{nullity}\,T\).
+    Choose \(v_{k+1}, \cdots, v_n \in V\) such that \(\{v_i\}_{i=1}^n\) is a basis of \(V\).
+    We claim that \(\{T(v_{k+1}), \cdots, T(v_n)\}\) is a basis of \(\Img T\).
+
+    Suppose \(\sum_{i=k+1}^{n} c_iT(v_i) = 0\) for some \(c_i \in F\).
+    Then, we have \(T \big(\sum_{i=k+1}^n c_i v_i\big) = 0\); hence
+    \(\sum_{i=k+1}^{n} c_iv_i \in \ker T\).
+    Since \(\{v_1,\cdots,v_k\}\) is a basis of \(\ker T\), we have
+    \(\sum_{i=k+1}^{n} c_iv_i = \sum_{i=1}^{k} a_iv_i\) for some \(a_i\)'s.
+    Therefore, since \(\{v_1, \cdots, v_n\}\) is linearly independent,
+    all \(c_i\)'s and \(a_i\)'s are zero.
+    This implies that \(\{T(v_i)\}_{i=k+1}^n\) is linearly independent.
+
+    Take any \(T(v) \in \Img T\). Then, \(v = \sum_{i=1}^{n} c_iv_i\) for some \(c_i \in F\).
+    Then, \(T(v) = \sum_{i=k+1}^{n} c_i T(v_i)\).
+    Hence, \(\Img T \subseteq \mrm{span}\, \{T(v_{k+1}), \cdots, T(v_n)\}\)
+
+    The two paragraphs imply that \(\mrm{rank}\,T = n-k\).
+}
+
+\thm[]{}{
+    Let \(A\) be a \(m \times n\) matrix.
+    Then \(\dim \mrm{span}(\text{rows}) = \dim \mrm{span}(\text{columns})\).
+}
+\pf{Proof}{
+    \(V = F^n\), \(W = F^m\).
+    Then, \(\dim \mrm{span}(\text{columns}) = \dim \Img T = \mrm{rank}\,T\),
+    so \(\mrm{nullity}\,T = n - \mrm{rank}\,T = n - \mrm{colrank}\,T\).
+
+    The number of rows with leading one's in \(\mrm{rref}\,A\) equals
+    the dimension of the row space of \(A\),
+    which is simply the number of columns with the leading ones.
+    It is equal to the dimension of the column space.
+    Hence, \(\mrm{nullity}\,T = n - \mrm{colrank}\,T\)
+}
+
+\dfn{}{
+    Let \(T \colon V \to W\) be a linear transformation between vector spaces over \(F\).
+    \(L(V, W) \triangleq \{\,T \colon V \to W \mid T \text{ is a linear transformation}\,\}\)
+}
+
+\thm[]{}{
+    Let \(T \colon V \to W\) be a linear transformation between vector spaces over \(F\).
+    Then, \(L(V, W)\) is a vector space over \(F\) under usual addition and multiplication.
+}
+
+\thm[]{}{
+    Let \(V\) and \(W\) be \(n\)- and \(m\)-dimensional vector spaces over \(F\), respectively.
+    Then, \(\dim L(V, W) = mn\).
+}
+\pf{Proof}{
+    Let \(\mcal B = \{\alpha_1,\cdots,\alpha_n\}\) and \(\mcal B' = \{\beta_1, \cdots, \beta_m\}\)
+    be bases for \(V\) and \(W\), respectively.
+    For each \(p \in [n]\) and \(q \in [m]\),
+    Define \[
+        E^{p,q}(\alpha_i) = \begin{cases}
+            0 & \text{if } i \neq q \\
+            \beta_p & \text{if } i = q \\
+        \end{cases}.
+    \]
+    Then,
+    \begin{itemize}[nolistsep]
+        \ii These \(E^{p,q}\) are linear transformations
+        \ii These are linearly independent.
+        \ii They span \(L(V, W)\).
+    \end{itemize}
+}
+
+\mlemma{}{
+    Let \(T \colon V \to W\) and \(U \colon W \to Z\) be linear transformations between vector spaces over \(F\).
+    Then, \(U \circ T \in L(V, Z)\).
+}
+
+\dfn{Linear Operator (Endomorphism)}{
+    Let \(T \colon V \to V\) be a linear transformation from a vector space \(V\) to itself.
+    Then, \(T\) is called a \textit{linear operator}. (Or an \textit{endomorphism}.)
+}
+
+\nt{
+    \noindent
+    For each \(T, U \in L(V, V)\), \(T \circ U \in L(V, V)\).
+    \((T_1 + T_2) \circ U = T_1 \circ U + T_2 \circ U\).
+    And many more... \((L(V, V), +, \circ)\) is a non-commutative ring.
+}
+
+\dfn{Injectivity and Surjectivity}{
+    A linear transform \(T \colon V \to W\) is
+    \begin{itemize}[nolistsep]
+        \ii \textit{injective} (or, nonsingular) if \(T(v) = 0 \implies v = 0\).
+        \ii \textit{surjective} if \(T(V) = W\).
+        \ii \textit{invertible} if \(\exs \text{linear transform } U \colon W \to V,\: U \circ T = \mrm{id}_V \land T \circ U = \mrm{id}_W\).
+    \end{itemize}
+}
+
+\exer{}{
+    \noindent
+    \(T \colon V \to W\) is injective and surjective if and only if \(T\) is invertible.
+}
+
+\exer{}{
+    \noindent
+    If \(T \colon V \to W\) is a nonsingular linear transformation,
+    then, for any linearly independent subset \(S \subseteq V\),
+    \(T(S)\) is linearly independent.
+}
+
+\exer{}{
+    \noindent
+    Suppose \(V\) and \(W\) are finite-dimensional vector spaces.
+    If \(T \colon V \to W\) is invertible, then \(\dim V = \dim W\).
+}
+
+\thm[finDimTFAE]{}{
+    Let \(V\) and \(W\) be finite-dimensional vector spaces over \(F\) with \(\dim V = \dim W\).
+    Let \(T \colon V \to W\) be a linear transform.
+    \textsf{TFAE}
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(T\) is invertible.
+        \ii \(T\) is injective.
+        \ii \(T\) is surjective.
+    \end{enumerate}
+}
+\pf{Proof}{
+    \(
+        T \text{ is injective} \iff \mrm{nullity}\,T = 0
+        \iff \mrm{rank}\,T = n \iff \Img T = W \iff T \text{ is onto}
+    \)
+}
+
+\dfn{General Linear Group}{
+    Let \(\mrm{GL}(V) \triangleq \{\,T \in L(V, V) \mid T \text{ is invertible}\,\}\).
+    Then, \((\mrm{GL}(V), \circ)\) is called the \textit{general linear group of} \(V\).
+}
+
+\nt{
+    \noindent
+    The general linear group is actually a group.
+}
+
+\dfn{Isomorphism}{
+    Let \(V\) and \(W\) be vector spaces over \(F\).
+    We say that a linear transformation \(T \colon V \to W\) is an \textit{isomorphism}
+    if \(T\) is an invertible linear transformation.
+
+    We say \(V\) and \(W\) are \textit{isomorphic} if
+    there exists an isomorphism \(T \colon V \to W\),
+    if \(V\) and \(W\) are isomorphic, then we write \(V \simeq W\).
+}
+
+\thm[]{}{
+    Let \(V\) be a vector spaces over \(F\) of dimension \(n\).
+    Then, \(V \simeq F^n\).
+}
+\pf{Proof}{
+    Let \(B = \{\alpha_1; \cdots; \alpha_n\}\) be a basis of \(V\).
+    Define \(T \colon V \to F^n\) by \(v \mapsto [v]_B\).
+
+    Suppose \(T(v) = 0\). Then, \(v = 0 \cdot \alpha_1 + \cdots 0 \cdot \alpha_n = 0\).
+    Hence, \(T\) is injective. By \Cref{th:finDimTFAE}, \(T\) is isomorphism.
+}
+
+\thm[]{}{
+    Let \(V\) and \(W\) be vector spaces over \(F\) with \(\dim V = n\) and \(\dim W = m\).
+    Let \(B\) and \(B'\) be bases of \(V\) and \(W\), respectively.
+    If \(T \colon V \to W\) is a linear transformation,
+    then there uniquely exists \(m \times n\) matrix \(A\) such that
+    \([T(v)]_{B'} = A[v]_{B}\).
+    We write \([T]_{B,B'} \triangleq A\).
+}
+\pf{Proof}{
+    \(A = \begin{bmatrix}
+        [T(v_1)]_{B'} & [T(v_2)]_{B'} & \cdots & [T(v_n)]_{B'}
+    \end{bmatrix}\)
+    where \(v_i\) is the \(i^{\text{th}}\) basis vector of \(B\).
+}   
+
+\thm[]{}{
+    Let \(V \xrightarrow{T} W \xrightarrow{U} Z\) be linear transformations.
+    Let \(A_1 = [T]_{B,B'}\) and \(A_2 = [U]_{B',B''}\).
+    Then, \([U \circ T]_{B, B''} = A_2A_1\).
+}
+
+\thm[]{}{
+    Let \(V\) be finite-dimensional vector space over \(F\)
+    with two (possibly different) bases \(B_1\) and \(B_2\).
+    Let \(T \in L(V, V)\).
+    Let \(P\) be the matrix such that \([v]_{B_1} = P[v]_{B_2}\).
+    Then, \([T]_{B_i} \triangleq [T]_{B_i,B_i}\) are related by
+    \[
+        [T]_{B_2} = P\inv [T]_{B_1} P\text{.}
+    \]
+}
+
+\dfn{Similar Matrices}{
+    Suppose \(M\) and \(N\) are \(n \times n\) matrices.
+    \(M\) and \(N\) are \textit{similar}
+    if there exists an invertible \(P\) such that \(N = P\inv M P\).
+}
+\pf{Proof}{
+    \([T(v)]_{B_1} = [T]_{B_1} [v]_{B_1} = [T]_{B_1} P [v]_{B_2}\).
+    \([T(v)]_{B_1} = P[T(v)]_{B_2} = P[T]_{B_2}[v]_{B_2}\).
+
+    Since \(v\) was arbitrary, \(P[T]_{B_2} = [T]_{B_1}P\).
+}
+
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii A linear transformation \(T \colon V \to V\) gives varying matrices \([T]_B\) that are all similar
+            when the basis \(B\) is changed.
+        \ii On linear operators, we will have various definitions.
+        \ii Characteristic (eigen) polynomial has \((-1)^\text{deg} \text{(constant term)}\) as \(\det T\)
+            and \(-(n-1\text{ deg term})\) as \(\mrm{tr}\,T\).
+    \end{itemize}
+}
+
+\dfn{Linear Functional}{
+    Let \(V\) be a vector space over \(F\).
+    A linear transformation  \(T \colon V \to F\)
+    is called a \textit{(linear) functional}.
+}
+
+\dfn{Dual Vector Space}{
+    Let \(V\) be a vector space over \(F\).
+    We normally write \(V^\ast \triangleq L(V, F)\)
+    and call it the \textit{dual vector space} of \(V\).
+}
+
+\end{document}

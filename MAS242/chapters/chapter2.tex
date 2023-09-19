@@ -1,0 +1,124 @@
+\documentclass[../MAS242_Note.tex]{subfiles}
+
+\begin{document}
+\section{Jacobian}
+
+\dfn{Jacobian}{
+    Let \(\vec f \colon U (\subseteq \RR[m]) \to \RR[n]\) be differentiable.
+    The function \(J_f \colon U \to \RR\) defined by \[
+        J_{\vec f}(\vec x) = \det \begin{bmatrix}
+            \partial_1 f_1(\vec x) & \cdots & \partial_n f_1(\vec x) \\ 
+            \vdots & \ddots & \vdots \\ 
+            \partial_1 f_n(\vec x) & \cdots & \partial_n f_n(\vec x)
+        \end{bmatrix}
+    \]
+    is called the \textit{Jacobian} of \(\vec f\) at \(\vec x\).
+}
+
+\mlemma{}{
+    If \(f \colon V (\subseteq \RR[n]) - \RR\) and \(\vec g \colon U \to V\)
+    are differentiable, then \[
+        J_{f \circ \vec g}(\vec x) = J_f \big(\vec g(\vec x)\big) \cdot J_{\vec g}(\vec x)\text{.}
+    \]
+}
+
+\nt{
+    The linear mapping \(\d\vec f(c)\) is invertible if and only if \(J_{\vec f}(c)\) is nonzero.
+}
+
+\section{The Inverse Function Theorem}
+
+\mlemma[contractionMappingP]{Contraction Mapping Principle}{
+    Let \((X, d)\) be a complete metric space.
+    Let \(\varphi \colon X \to X\). Suppose that there exists \(M \in [0, 1)\) such that
+    \(d\big(\varphi(x_1), \varphi(x_2)\big) \le M d(x_1, x_2)\).
+    (We call it a \textit{contraction mapping}.)
+
+    Then, there uniquely exists \(x_{\ast} \in X\) such that
+    \(\varphi(x_\ast) = x_\ast\).
+}
+\pf{Proof}{
+    Fix any \(x_0 \in X\). Since \(\{x_j\}_{j \in \ZZ_+}\), where \(x_{j} = \varphi(x_{j-1})\)
+    for each \(j \in \ZZ_+\), is continuous. It converges to some \(x_\ast\).
+    As \(\varphi\) is continuous, we have \(\varphi(x_\ast) = x_\ast\).
+    The uniqueness follows trivially.
+}
+
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii For each \(v \in \RR[n] \setminus \{0\}\),
+            \(|Av| = |v|\cdot \big|A \frac{v}{|v|}\big| \le \|A\|_{L} \cdot |v|\).
+            The result is trivial when \(v = 0\).
+        \ii For each \(u \in \RR[n]\) with \(|u| = 1\),
+            \(|ABu| \le \|A\|_L |Bu| \le \|A\|_L \|B\|_L\).
+            Hence, \(\|AB\|_L = \|A\| \|B\|\).
+        \ii Given invertible \(A \in L(\RR[n]. \RR[n])\), \(A\inv \colon \RR[n] \to \RR[n]\)
+            is linear. Moreover, \(\|A\|_L > 0\).
+    \end{itemize}
+}
+
+\mlemma{}{
+    Given two linear mappings \(A, B \colon \RR[n] \to \RR[n]\) with invertibility of \(A\),
+    \[
+        \|A-B\|_L \|A\inv\|_L < 1 \implies B \text{ is invertible.}
+    \]
+}
+\pf{Proof}{
+    (Hint: show that \(B\vec x = 0\) has only the trivial solution, i.e.,
+    if \(\vec x \neq 0\), then \(B\vec x \neq 0\).)
+}
+
+\thm[]{Inverse Function Theorem}{
+    Let \(\vec f \colon U (\subseteq \RR[n]) \to \RR[n]\) be \(C^1\) in \(U\),
+    \(\vec a \in U\), and \(\vec b = f(a)\).
+    Suppose that \(J_{\vec f}(a) \neq 0\). Then,
+    \[
+        \exs \delta \in \RR_+,\: \vec f \big|_{B_{\delta}(a)} \colon B_{\delta}(a) \to \vec f\big(B_{\delta}(a)\big) \text{ is invertible.}
+    \]
+    Moreover, \(\vec f \big(B_{\delta}(a)\big)\) is an open set, and
+    \(\big(\vec f \big|_{B_{\delta}(a)}\big)\inv\) is \(C^1\).
+}
+\pf{Proof}{
+    Let \(A \triangleq \d\vec f(\vec c)\).
+    Define \(\lambda\) by
+    \(\lambda \triangleq \dfrac{1}{2 \| A\inv \|_L} > 0\)
+    so \(2 \lambda \big\|A\inv\big\|_L = 1\).
+    Since \(\d\vec f\) is continuous, there exists \(\delta \in \RR_+\) such that
+    \(\|\d\vec f(\vec x) - \d\vec f(\vec c)\|_L < \lambda\) for each \(B_{\delta}(\vec c)\).
+
+    Given a point \(\vec y \in \RR[n]\), we define \(\varphi(\cdot; \vec y)\) by
+    \begin{align*}
+        \varphi(\cdot; \vec y): B_\delta(\vec c) &\longrightarrow \RR[n] \\
+        \vec x &\longmapsto \varphi(\vec x; \vec y) = \vec x + A\inv(\vec y - \vec f(\vec x))
+    \end{align*}
+    Note that \(\vec x\) is a fixed point of \(\varphi(\cdot; \vec y)\) if and only if
+    \(A\inv (\vec y - \vec f(\vec x)) = 0\), i.e., \(\vec y = \vec f(\vec x)\).
+    Note also that \(\varphi\) is differentiable and
+    \(\d\varphi(\vec x; \vec y) = \mrm{Id} - A\inv \d\vec f(\vec x) = A\inv \big(A - \d\vec f(\vec x)\big)\)
+    for each \(x \in B_{\delta}(\vec c)\).
+
+    Hence, for all \(x \in B_{\delta}(\vec c)\),
+    \[
+        \|\d\varphi(\vec x; \vec y)\|_L
+        = \big\|A\inv \big(A - \d\vec f(\vec x)\big)\big\|_L
+        \le \|A\inv\|_L \cdot \|A - \d\vec f(\vec x)\|_L 
+        < 1/(2\lambda) \cdot \lambda = 1/2\text{.}
+    \]
+
+    Now, fix any \(\vec y \in \RR[n]\).
+    Fix \(\vec x_1, \vec x_2 \in B_{\delta}(\vec c)\). Define \(\Psi \colon [0, 1] \to \RR\) by
+    \(t \mapsto \varphi(t\vec x_1 + (1-t)\vec x_2; \vec y)\).
+    \(\Psi(0) = \varphi(\vec x_2; \vec y)\) and \(\Psi(1) = \varphi(\vec x_1; \vec y)\).
+    Note that \(\Psi\) is differentiable on \((0, 1)\).
+    By MVT, there exists \(t_\ast \in (0, 1)\) such that
+    \(\Psi(1) - \Psi(0) = \Psi'(t_\ast)\).
+    The chain rule gives \[\Psi'(t_\ast) = \d \varphi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2) (\vec x_1 - \vec x_2)\].
+    Hence,
+    \[
+        |\varphi(\vec x_1) - \varphi(\vec x_2)|
+        = |\d \Psi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2)| \cdot |(\vec x_1 - \vec x_2)|
+        < |\vec x_1 - \vec x_2| / 2.
+    \]
+}
+
+\end{document}

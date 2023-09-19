@@ -1,0 +1,66 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{subfiles}
+\usepackage{calc}
+
+\usepackage{preamble}
+\usepackage{macros}
+\usepackage{letterfonts}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\iftrue
+\pgfplotsset{
+    axis lines=middle,
+    xlabel=$x$,
+    ylabel=$y$,
+    no markers,
+    samples=200,
+    trig format plots=rad,
+    every axis plot/.append style={
+        line width=.7pt,
+        % smooth,
+    },
+}
+\fi
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{external} 
+\tikzexternalize%[optimize=false]
+\tcbset{shield externalize}
+\pgfmathsetmacro{\PI}{3.141592654}
+
+\pdfsuppresswarningpagegroup=1
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdftitle={MAS242 Analysis II Notes},
+    pdfpagemode=FullScreen,
+}
+
+\usetikzlibrary{arrows.meta, positioning, decorations, decorations.markings}
+
+\title{\Huge{MAS242 해석학 II}\\Notes}
+\author{\huge{한승우}}
+\date{\today}
+
+\begin{document}
+\maketitle
+\newpage
+\pdfbookmark[section]{\contentsname}{toc}
+\tikzexternaldisable
+\tableofcontents
+\tikzexternalenable
+\pagebreak
+
+\chapter{Differentiation}
+\subfile{chapters/chapter1.tex} 
+\chapter{Inverse Function Theorem}
+\subfile{chapters/chapter2.tex} 
+\vfill
+\begin{center}
+    \textbf{\textit{End.}}
+\end{center}
+
+\end{document}

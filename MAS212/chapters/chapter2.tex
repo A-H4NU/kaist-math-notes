@@ -1,0 +1,143 @@
+\documentclass[MAS212_Note.tex]{subfiles}
+
+\begin{document}
+\section{Bases and Dimension}
+\thm[]{}{
+    Any subset that is linearly independent can be extended to a basis of $V$.
+}
+
+\mlemma{}{
+    If $W$ is a subspace of $V$ and $W \subsetneq V$,
+    then $\dim W < \dim V$ provided that $V$ is finite-dimensional.
+}
+\pf{Proof}{
+    Let $S_0$ be a basis of $W$. $S_0$ is linearly independent, so we can enlarge it to a get
+    a basis of $V$.
+    $S' \triangleq S_0 \cup \{\,v_1, v_2, \cdots, v_r\,\}$ is a basis of $V$.
+    $|S'| \ge |S_0| + 1$; otherwise $\mrm{span}\,S_0 = V$.
+}
+
+\thm[]{Inclusion/Exclusion Principle for Vector Spaces}{
+    If $W_1$ and $W_2$ are finite-dimensional subspaces of $V$,
+    then $W_1 + W_2$ is a finite-dimensional vector space
+    and $\dim W_1 + \dim W_2 = \dim (W_1 + W_2) + \dim (W_1 \cap W_2)$.
+}
+\pf{Proof}{
+    Let $a \triangleq \dim W_1$, $b \triangleq \dim W_2$, $c \triangleq \dim (W_1+W_2)$,
+    and $d \triangleq \dim(W_1 \cap W_2)$.
+    Choose $\{\,\alpha_1, \alpha_2, \cdots, \alpha_d\,\}$ as a basis for $W_1 \cap W_2$.
+    We may extend this into bases of $W_1$ and $W_2$.
+    Let $\{\,\alpha_1, \cdots, \alpha_d, \beta_{d+1}, \beta_{d+2}, \cdots, \beta_a\,\}$ and 
+    $\{\,\alpha_1, \cdots, \alpha_d, \gamma_{d+1}, \gamma_{d+2}, \cdots, \gamma_a\,\}$
+    be bases for $W_1$ and $W_2$ respectively.
+
+    We now claim that
+    \[
+        B \triangleq \big\{\,\alpha_1, \cdots, \alpha_d, \beta_{d+1}, \cdots, \beta_a, \gamma_{d+1}, \cdots, \gamma_b\,\big\}
+    \]
+    is a basis of $W_1 + W_2$.
+    \begin{itemize}[nolistsep]
+        \ii Let $x \in W_1 + W_2$. Then, $x = w_1 + w_1$ where $w_i \in W_i$.
+            Since $w_1 \in \mrm{span}\,\{\,\alpha_1, \cdots, \alpha_d, \beta_{d+1}, \cdots, \beta_a\}$
+            and $w_1 \in \mrm{span}\,\{\,\alpha_1, \cdots, \alpha_d, \gamma_{d+1}, \cdots, \gamma_b\}$,
+            On the other hand, $B \subseteq W_1 + W_2$.
+            Hence, $\mrm{span}\,B = W_1 + W_2$.
+
+        \ii Suppose we have $\sum a_i\alpha_i + \sum b_j\beta_j + \sum c_k\gamma_k = 0$
+            for some $a_i, b_j, c_k \in F$.
+            Rearranging the terms, we get
+            $\sum a_i\alpha_i + \sum b_j\beta_j = -\sum c_k\gamma_k$,
+            which implies that $\sum c_k \gamma_k \in W_1 \cap W_2$.
+            The fact that $\gamma_k$'s are linearly independent from $\{\alpha_i\}$
+            implies that $c_k = 0$ for all $k$.
+            Similarly, $b_j = 0$ for all $j$.
+            Hence, we are left with $\sum a_i\alpha_i = 0$,
+            in which $\alpha_i$'s are linearly independent; $a_i = 0$.
+            Hence, $B$ is linearly independent.
+    \end{itemize}
+
+    \noindent
+    Therefore, $\dim(W_1 + W_2) = a + b - d$.
+}
+
+\dfn{Ordered Basis}{
+    Let $V$ be a finite-dimensional vector space over $F$.
+    An \textit{ordered basis} of $V$ is a sequence of vectors that forms a basis.
+}
+
+\nt{
+    \noindent
+    Usually, we emphasize the ordered basis with semicolons like $\{\beta_1;\beta_2\}$.
+}
+
+\mlemma{}{
+    Let $V$ be a finite-dimensional vector space over $F$.
+    Suppose $B = \{\,v_1;v_2;\cdots;v_n\,\}$ is an ordered basis of $V$.
+    Then, for each $x \in V$, there uniquely exists an expression of the form
+    \[
+        x = x_1v_2 + x_2v_2 + \cdots + x_nv_n
+    \]
+    for some $x_i \in F$.
+}
+\pf{Proof}{
+    The existence of the form is obvious since $x \in V = \mrm{span}\, B$.
+
+    (Uniqueness)
+    Suppose we have two such expressions:
+    \[
+        \textstyle x = \sum x_iv_i = \sum y_iv_i
+    \]
+    where $x_i, y_i \in F$.
+    Then, we have $\sum (x_i - y_i) v_i = 0$.
+    The linear independence of $B$ gives that $x_i - y_i = 0$ for all $i$.
+    Hence, $x_i = y_i$.
+}
+
+\dfn{Coordinate Matrix}{
+    Let $V$ be a finite-dimensional vector space over $F$.
+    Let $B$ be an ordered basis of $V$.
+    Let $x \in V$ and write it as $x = \sum_{i=1}^n x_iv_i$
+    with $x_i \in F$, $v_i \in B$. Define
+    \[
+        [x]_B \triangleq \begin{bmatrix}
+            x_1 \\ x_2 \\ \vdots \\ x_n
+        \end{bmatrix}
+    \]
+    be the \textit{coordinate matrix of} $x$ \textit{with respect to the basis} $B$
+}
+
+\thm{}{
+    Let $V$ be a finite-dimensional vector space over $F$.
+    Let $B$ and $B'$ be two ordered bases of $V$.
+    Then, there uniquely exists an invertible matrix $P$ such that
+    $\forall x \in V,\: [x]_B = P[x]_{B'} \text{ and }[x]_{B'} = P\inv[x]_{B}$.
+}
+\pf{Proof}{
+    Let $B \triangleq \{\alpha_1; \cdots; \alpha_n\}$ and $B' \triangleq \{\alpha'_1; \cdots; \alpha'_n\}$
+    For $\alpha'_j \in B'$, since $B$ is a basis, there are unique $P_{ij} \in F$ ($i \in [n]$)
+    such that $\alpha'_j = \sum_{i=1}^n P_{ij}\alpha_i$.
+
+    Let $x \in V$. Write $[x]_B = \begin{pmatrix}
+        x_1 \\ \vdots \\ v_n
+    \end{pmatrix}$ and $[x]_{B'} = \begin{bmatrix}
+        x'_1 \\ \vdots \\ v'_n
+    \end{bmatrix}$.
+    Then, $x = \sum_{j=1}^n x'_j \alpha_j = \sum_{i=1}^n \big(\sum_{j=1}^n x'_j P_{ij}\big) \alpha_i$.
+    By the uniqueness, we have $x_i = \sum_{j=1}^n x'_j P_{ij}$ for each $i$.
+    In other words, we have \[
+        \begin{bmatrix}
+            x_1 \\ \vdots \\ x_n
+        \end{bmatrix} = \begin{bmatrix}
+            P_{11} & \cdots && P_{1n} \\
+            \vdots & \cdots && \vdots \\
+            P_{n1} & \cdots && P_{nn}
+        \end{bmatrix} \begin{bmatrix}
+            x'_1 \\ \vdots \\ x'_n
+        \end{bmatrix}
+    \]
+
+    Since $B$ and $B'$ are linearly independent,
+    $x = 0 \iff [x]_B = 0 \iff [x]_{B'} = 0$. Hence, $P$ is invertible.
+}
+
+\end{document}
