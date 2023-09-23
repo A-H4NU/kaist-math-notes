@@ -69,8 +69,8 @@
 }
 
 \thm[]{Inverse Function Theorem}{
-    Let \(\vec f \colon U (\subseteq \RR[n]) \to \RR[n]\) be \(C^1\) in \(U\),
-    \(\vec a \in U\), and \(\vec b = f(a)\).
+    Let \(\vec f \colon E (\subseteq \RR[n]) \to \RR[n]\) be \(C^1\) in \(U\),
+    \(\vec a \in E\), and \(\vec b = f(a)\).
     Suppose that \(J_{\vec f}(a) \neq 0\). Then,
     \[
         \exs \delta \in \RR_+,\: \vec f \big|_{B_{\delta}(a)} \colon B_{\delta}(a) \to \vec f\big(B_{\delta}(a)\big) \text{ is invertible.}
@@ -95,9 +95,10 @@
     \(A\inv (\vec y - \vec f(\vec x)) = 0\), i.e., \(\vec y = \vec f(\vec x)\).
     Note also that \(\varphi\) is differentiable and
     \(\d\varphi(\vec x; \vec y) = \mrm{Id} - A\inv \d\vec f(\vec x) = A\inv \big(A - \d\vec f(\vec x)\big)\)
-    for each \(x \in B_{\delta}(\vec c)\).
+    for each \(x \in B_{\delta}(\vec c)\). Let \(U \triangleq B_{\delta}(\vec c)\) and
+    \(V \triangleq \vec f(U)\).
 
-    Hence, for all \(x \in B_{\delta}(\vec c)\),
+    Hence, for all \(x \in U\),
     \[
         \|\d\varphi(\vec x; \vec y)\|_L
         = \big\|A\inv \big(A - \d\vec f(\vec x)\big)\big\|_L
@@ -105,19 +106,57 @@
         < 1/(2\lambda) \cdot \lambda = 1/2\text{.}
     \]
 
-    Now, fix any \(\vec y \in \RR[n]\).
-    Fix \(\vec x_1, \vec x_2 \in B_{\delta}(\vec c)\). Define \(\Psi \colon [0, 1] \to \RR\) by
+    Now, fix any \(\vec y \in V\).
+    Fix \(\vec x_1, \vec x_2 \in U\). Define \(\Psi \colon [0, 1] \to \RR\) by
     \(t \mapsto \varphi(t\vec x_1 + (1-t)\vec x_2; \vec y)\).
     \(\Psi(0) = \varphi(\vec x_2; \vec y)\) and \(\Psi(1) = \varphi(\vec x_1; \vec y)\).
     Note that \(\Psi\) is differentiable on \((0, 1)\).
     By MVT, there exists \(t_\ast \in (0, 1)\) such that
     \(\Psi(1) - \Psi(0) = \Psi'(t_\ast)\).
-    The chain rule gives \[\Psi'(t_\ast) = \d \varphi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2) (\vec x_1 - \vec x_2)\].
+    The chain rule gives \[\Psi'(t_\ast) = \d \varphi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2) (\vec x_1 - \vec x_2).\]
     Hence,
     \[
         |\varphi(\vec x_1) - \varphi(\vec x_2)|
-        = |\d \Psi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2)| \cdot |(\vec x_1 - \vec x_2)|
-        < |\vec x_1 - \vec x_2| / 2.
+        = |\d \varphi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2)| \cdot |(\vec x_1 - \vec x_2)|
+        \le |\vec x_1 - \vec x_2| / 2.
+    \]
+
+    We want to show that \(\vec f\) is locally invertible.
+    It suffices to show that it is injective.
+    Hence, \(\varphi\) has at most one fixed point,
+    i.e., there exists at most one \(\vec x\) such that \(\vec y = \vec f(\vec x)\);
+    thus \(\vec f\) is injective on \(U\).
+
+    Let \(\vec x_0 \in U\) and \(\vec y_0 = \vec f (\vec x_0)\).
+    Fix any \(r \in \RR_+\) such that \(\cl{B_r(\vec x_0)} \subseteq U\).
+    Let \(B = B_r(\vec x_0)\).
+    Take any \(\vec y \in B_{\lambda r}(\vec y_0)\).
+    Then, \[
+        |\varphi(\vec x_0; \vec y) - \vec x_0|
+        = |A\inv(\vec y - \vec y_0)| < \|A\inv\|_L \lambda r = \frac{r}{2}\text{.}
+    \]
+    Moreover, for any \(\vec x \in \cl B\), \[
+        |\varphi(\vec x; \vec y) - \vec x_0|
+        \le |\varphi(\vec x; \vec y) - \varphi(\vec x_0; \vec y)| + |\varphi(\vec x_0) - \vec x_0|
+        \le \frac{1}{2} |\vec x - \vec x_0| + \frac{r}{2} < r\text{.}
+    \]
+
+    This directly implies that \(\varphi(\cl B) \subseteq B \subseteq \cl B\).
+    Hence, \(\varphi\) is a contraction mapping on a complete metric space \(\cl B\).
+    By \Cref{lem:contractionMappingP}, there exists a fixed point \(\vec x \in \cl B\),
+    which satisfies \(\vec y = \vec f(\vec x)\).
+    Thus, \(\vec y \in f(\cl B) \subseteq f(U) = V\). Hence, \(B_{\lambda r}(\vec y_0) \subseteq V\), \(V\) is open.
+
+    Now, let \(\vec g \colon V \to U\) be the local inverse of \(\vec f\).
+    Take any \(\vec y \in V\) and \(\vec y + \vec k \in V\).
+    There are unique \(\vec x \in U\) and \(\vec x + \vec h \in U\) such that
+    \(\vec y = \vec f(\vec x)\) and \(\vec y + \vec k = \vec f(\vec x + \vec h)\).
+
+    By \Cref{lem}
+    Let \(T \triangleq \d\vec f(\vec x)\inv\).
+    Then,
+    \[
+        
     \]
 }
 

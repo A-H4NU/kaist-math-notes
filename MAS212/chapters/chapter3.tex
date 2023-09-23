@@ -94,6 +94,8 @@
     Hence, \(\mrm{nullity}\,T = n - \mrm{colrank}\,T\)
 }
 
+\section{The Algebra of Linear Transformations}
+
 \dfn{}{
     Let \(T \colon V \to W\) be a linear transformation between vector spaces over \(F\).
     \(L(V, W) \triangleq \{\,T \colon V \to W \mid T \text{ is a linear transformation}\,\}\)
@@ -104,7 +106,7 @@
     Then, \(L(V, W)\) is a vector space over \(F\) under usual addition and multiplication.
 }
 
-\thm[]{}{
+\thm[dimLinTranf]{}{
     Let \(V\) and \(W\) be \(n\)- and \(m\)-dimensional vector spaces over \(F\), respectively.
     Then, \(\dim L(V, W) = mn\).
 }
@@ -197,6 +199,8 @@
     The general linear group is actually a group.
 }
 
+\section{Isomorphism}
+
 \dfn{Isomorphism}{
     Let \(V\) and \(W\) be vector spaces over \(F\).
     We say that a linear transformation \(T \colon V \to W\) is an \textit{isomorphism}
@@ -218,6 +222,8 @@
     Suppose \(T(v) = 0\). Then, \(v = 0 \cdot \alpha_1 + \cdots 0 \cdot \alpha_n = 0\).
     Hence, \(T\) is injective. By \Cref{th:finDimTFAE}, \(T\) is isomorphism.
 }
+
+\section{Representation of Transformation by Matrices}
 
 \thm[]{}{
     Let \(V\) and \(W\) be vector spaces over \(F\) with \(\dim V = n\) and \(\dim W = m\).
@@ -273,6 +279,8 @@
     \end{itemize}
 }
 
+\section{Linear Functionals}
+
 \dfn{Linear Functional}{
     Let \(V\) be a vector space over \(F\).
     A linear transformation  \(T \colon V \to F\)
@@ -283,6 +291,281 @@
     Let \(V\) be a vector space over \(F\).
     We normally write \(V^\ast \triangleq L(V, F)\)
     and call it the \textit{dual vector space} of \(V\).
+}
+
+\nt{
+    \noindent
+    By \Cref{th:dimLinTranf}, we know that \(\dim V^\ast = \dim V\)
+    if \(V\) is a finite-dimensional vector space.
+}
+
+\mlemma[dualBasisIsBasis]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) and let \(n = \dim V\).
+    Let \(\{\alpha_1, \alpha_2, \cdots, \alpha_n\}\) be a basis for \(V\).
+    Define \(f_i \in V^\ast\) by declaring \(f_i(\alpha_j) = \delta_{ij}\).
+    Then, \(\{f_1, \cdots, f_n\}\) is a basis for \(V^\ast\).
+}
+\pf{Proof}{
+    Since \(\dim V^\ast = \dim V = n\), we only need to show that the set is
+    linearly independent.
+
+    Suppose \(\sum_{i=1}^{n} c_if_i = 0\) for some \(c_i \in F\).
+    Then, for each \(j \in [n]\), as \(f_i(\alpha_j) = \delta_{ij}\),
+    \(0 = \big(\sum_{i=1}^{n} c_if_i\big)(\alpha_j) = c_jf_j(\alpha_j) = c_j\).
+    Hence, they are linearly independent.
+}
+
+\dfn{Dual Basis}{
+    The set \(\{f_1, f_2, \cdots, f_n\} \subseteq V^\ast\) in \Cref{lem:dualBasisIsBasis}
+    is called the \textit{dual basis} of the basis \(\{\alpha_1, \cdots, \alpha_n\}\) for \(V\).
+}
+
+\mlemma{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) and let \(n = \dim V\).
+    Let \(\{\alpha_1, \alpha_2, \cdots, \alpha_n\}\) be a basis for \(V\).
+    Let \(\{f_1, \cdots, f_n\} \subseteq V^\ast\) be the dual basis of it.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii For each \(f \in V^\ast\), \(f = \sum_{i=1}^{n} f(\alpha_i) f_i\).
+        \ii For each \(v \in V\), \(v = \sum_{i=1}^{n} f_i(v) \alpha_i\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    \hfill
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii There exists \(x_i \in F\) such that \(f = \sum_{i=1}^{n} x_i f_i\).
+            Evaluating at \(\alpha_j\) for each \(j \in [n]\),
+            we get \(f(\alpha_j) = x_j\).
+        \ii There exists \(y_i \in F\) such that \(v = \sum_{i=1}^{n} y_i \alpha_i\).
+            Applying \(f_j\) for each \(j \in [n]\),
+            we get \(f_j(v) = y_j\).
+    \end{enumerate}
+}
+
+\dfn{Hyperspace}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) and let \(n = \dim V\).
+    A subspace \(W\) of \(V\) which has the dimension \(n - 1\) is called a
+    \textit{hyperspace} in \(V\).
+}
+
+\exmp{}{
+    \noindent
+    If \(f \colon V \to F\) is a nonzero functional,
+    then \(\ker f\) is an example of a hyperspace in \(V\).
+}
+
+\dfn{Annihilator}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) with dimension \(n\).
+    Let \(\OO \subsetneq S \subseteq V\).
+    The \textit{annihilator} of \(S\), \(S^\circ = \mrm{Ann}\,S\)
+    is defined to be
+    \[
+        S^\circ = \{\,f \in V^\ast \mid \fall \alpha \in S,\: f(\alpha) = 0\,\}.
+    \]
+}
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii \(S^\circ\) is a subspace of \(V^\ast\)
+        \ii \(\mrm{Ann}\,\{0\} = V^\ast\).
+        \ii \(\mrm{Ann}\,V = \{0\}\).
+    \end{itemize}
+}
+
+\thm[dimAnn]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) with dimension \(n\).
+    Let \(W\) be a subspace of \(V\). Then,
+    \[
+        \dim W + \dim W^\circ = \dim V.
+    \]
+}
+\pf{Proof}{
+    Let \(k \triangleq \dim W\) and \(\{\alpha_1, \cdots, \alpha_k\} \subseteq W\)
+    be a basis for \(W\). We may extend it to the basis for \(V\)
+    so that \(\{\alpha_1, \cdots, \alpha_k, \alpha_{k+1}, \cdots, \alpha_n\}\)
+    is a basis for \(V\).
+    Let \(\{f_1, \cdots, f_k, f_{k+1}, \cdots, f_n\}\) be the
+    dual basis of \(\{\alpha_1, \cdots, \alpha_n\}\).
+
+    For each \(i \in \{k+1, \cdots, n\}\), by the construction of
+    the dual basis, \(f_i(\alpha_j) = 0\) for each \(j \in [k]\).
+    Hence, \(f_{k+1}, \cdots, f_n \in W^\circ\).
+
+    Take any \(f \in W^\circ\). Then, \(f = \sum_{i=1}^{n} f(\alpha_i) f_i\).
+    For each \(i \in [k]\), \(f(a_i) = 0\).
+    Hence, \(f = \sum_{i=k+1}^{n} f(\alpha_i) f_i\);
+    \(\{f_{k+1}, \cdots, f_n\}\) spans \(W^\circ\).
+    Therefore, \(\{f_{k+1}, \cdots, f_n\}\) is a basis for \(W^\circ\).
+}
+
+\cor{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) with dimension \(n\).
+    Let \(W\) be a \(k\)-dimensional subspace of \(V\).
+    Then, \(W\) is the intersection of \(n-k\) hyperspaces in \(V\) of the form
+    \(\ker f_i\) for some \(f_i \in V^\ast \setminus \{0\}\).
+}
+\pf{Proof}{
+    Let \(\{\alpha_1, \cdots, \alpha_k\}\) be a basis for \(W\) and
+    extend it to \(\{\alpha_1, \cdots, \alpha_n\}\) so that it becomes a 
+    basis for \(V\).
+    Let \(\{f_1, \cdots, f_n\} \subseteq V^\ast\) be the dual basis of
+    \(\{\alpha_1, \cdots, \alpha_n\}\).
+    Then, \(W = \cap_{i=k+1}^n \ker f_i\).
+}
+
+\cor{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) with dimension \(n\).
+    Let \(W\) be a hyperspace in \(V\).
+    Then, \(W = \ker f\) for some \(f \in V^\ast \setminus \{0\}\).
+}
+
+\section{The Double Dual}
+
+\nt{
+    Take \(\alpha \in V\).
+    Let us define \(L_{\alpha} \in V^{\ast\ast}\) as follows:
+    \begin{align*}
+        L_{\alpha}: V^\ast &\longrightarrow F \\
+        f &\longmapsto f(\alpha)
+    .\end{align*}
+    Then, define \(\mscr L\) by
+    \begin{align*}
+        \mscr L: V &\longrightarrow V^{**} \\
+        \alpha &\longmapsto L_{\alpha}
+    .\end{align*}
+    Then, \(\mcal L\) is an injective linear transformation.
+}
+
+\thm[]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) with dimension \(n\).
+    Then, \(\mscr L \colon V \to V^{\ast\ast}\) is an isomorphism of vector spaces.
+}
+\pf{Proof}{
+    We have \(\dim V = \dim V^\ast = \dim V^{\ast\ast} = n\) by \Cref{th:dimLinTranf}.
+    The result follows from \Cref{th:finDimTFAE}.
+}
+
+\dfn{Proper Subspace}{
+    Let \(V\) be a vector space over \(F\).
+    Then, a subspace \(W\) of \(V\) is a \textit{proper subspace} of \(V\)
+    if \(W \subsetneq V\).
+}
+
+\dfn{Maximal Subspace}{
+    A proper subspace \(W\) of \(V\) is said to be \textit{maximal}
+    if, there exists no subspace \(Z\) of \(V\) such that
+    \(W \subsetneq Z \subsetneq V\).
+}
+
+\dfn{Hyperspace}{
+    Let \(V\) be a vector space over \(F\).
+    A maximal proper subspace \(W\) of \(V\) is called
+    a \textit{hyperspace} in \(V\).
+}
+
+\nt{
+    \noindent
+    In case of \(\dim V = n\), a proper maximal subspace of \(V\) is
+    of dimension \(n - 1\).
+}
+
+\thm[kerIsHyper]{}{
+    Let \(V\) be a vector space over \(F\).
+    Let \(f \in V^\ast \setminus \{0\}\).
+    Then, \(\ker f\) is a hyperspace in \(V\).
+}
+\pf{Proof}{
+    \(\ker f\) is proper, since, otherwise, \(f = 0\).
+
+    It is enough to show that, for each \(\alpha \in V \setminus \ker f\),
+    \(\mrm{span}\,\{\ker f, \alpha\} = V\).
+    Take any \(\beta \in V\).
+    Let \(\alpha \in V \setminus \ker f\).
+    Define \(c \triangleq f(\alpha)\inv f(\beta)\) and \(\gamma \triangleq \beta - c \alpha\).
+    Then, \(f(\gamma) = f(\beta) - c f(\alpha) = 0\); \(\gamma \in \ker f\).
+    Hence, \(\beta = \gamma + c \alpha \in \mrm{span}],\{\ker f, \alpha\}\).
+}
+
+\thm[hyperIsKer]{}{
+    Let \(V\) be a vector space over \(F\).
+    Let \(W\) be a hyperspace in \(V\).
+    Then, there exists \(f \in V^\ast \setminus \{0\}\) such that
+    \(W = \ker f\).
+}
+\pf{Proof}{
+    There exists \(\alpha \in V \setminus W\) such that
+    \(\mrm{span}\,\{W, \alpha\} = V\).
+    Hence, every \(\beta \in V\) can be written as
+    \(\beta = \gamma + c \alpha\) where \(\gamma \in W\) and \(c \in F\).
+    Note that \(\gamma\) and \(c\) are uniquely determined by \(\beta\).
+
+    Define \(g \colon V \to F\) by \(g(\beta) = c\).
+    Then, \(g\) is a linear functional, and \(\ker g = W\) by definition.
+}
+
+\nt{
+    \noindent
+    \Cref{th:kerIsHyper} and \Cref{th:hyperIsKer} together imply that
+    the set of hyperspaces in \(V\) and the set of null spaces of functionals 
+    have a one-to-one correspondence.
+}
+
+\section{The Transpose of a Linear Transformation}
+
+\dfn{Transpose}{
+    Let \(T \colon V \to W\) be a linear transformation.
+    The map \(T^t \colon W^\ast \to V^\ast\) defined by
+    \(g \mapsto g \circ T\) is called the \textit{transpose} of \(T\).
+}
+
+\mlemma{}{
+    Let \(T \colon V \to W\) be a linear transformation.
+    Then, \(T^t\) is a linear transformation.
+}
+
+\thm[classicTrans]{}{
+    Let \(T \colon V \to W\) be a linear transformation between finite-dimensional
+    vector spaces over \(F\).
+    Fix ordered bases \(\mcal B\) and \(\mcal B'\) for \(V\) and \(W\), respectively.
+    Let \(\mcal B^\ast\) and \(\mcal B'^\ast\) be their dual bases.
+    Let \(A \triangleq [T]_{\mcal B, \mcal B'}\) and \(A' \triangleq [T^t]_{\mcal B'^\ast, \mcal B^\ast}\).
+    Then, \(a_{ij} = a'_{ji}\).
+}
+\pf{Proof}{
+    Let \(\mcal B = \{\alpha_1, \cdots, \alpha_n\}\), \(\mcal B' = \{\beta_1, \cdots, \beta_m\}\),
+    \(\mcal B^\ast = \{f_1, \cdots, f_n\}\), and \(\mcal B'^\ast = \{g_1, \cdots, g_m\}\).
+    Then, we have \(T \alpha_j = \sum_{i=1}^{m} a_{ij} \beta_i\) for each \(j \in [n]\)
+    and \(T^t g_j = \sum_{i=1}^{n} b_{ij}f_i\) for each \(j \in [m]\).
+
+    For each \(i \in [n]\) and \(j \in [m]\),
+    \((T^t g_j)(\alpha_i) = g_j T \alpha_i = g_j \big(\sum_{k=1}^{m} a_{ki}\beta_k\big)
+    = \sum_{k=1}^{m} a_{ki} g_j(\beta_k) = \alpha_{ji}\).
+    Hence, since \(T^t g_j\) is a linear functional on \(V\),
+    \(T^tg_j = \sum_{i=1}^{n} (T^t g_j)(\alpha_i) f_i = \sum_{i=1}^{n} \alpha_{ji} f_i\).
+    Therefore, \(a_{ij} = b_{ji}\) for each \(i \in [n]\) and \(j \in [m]\).
+}
+
+\thm[]{}{
+    Let \(T \colon V \to W\) be a linear transformation.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\ker T^t = (\Img T)^\circ\).
+        \ii If \(V\) and \(W\) are finite-dimensional, then \(\mrm{rank}\,T^t = \mrm{rank}\,T\).
+        \ii If \(V\) and \(W\) are finite-dimensional, then \(\Img T^t = (\ker T)^\circ\).
+    \end{enumerate}
+}
+\pf{Proof}{
+\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii \(g \in \ker T^t \iff T^t(g) = 0 \iff g \circ T = 0 \iff g \in (\Img T)^\circ\)
+
+    \ii Let \(n \triangleq \dim V\) and \(m \triangleq \dim W\).
+        Let \(r = \mrm{rank}\,T\). Then, by \Cref{th:dimAnn}, \(\dim (\Img T)^\circ = m - r\).
+        By (i), \((\Img T)^\circ = \ker T^t\); hence \(\mrm{nullity}\,T^t = m - r\).
+        By the rank-nullity theorem, \(\mrm{rank}\,T^t = r = \mrm{rank}\,T\).
+
+    \ii Take any \(f \in \Img T^t\). Then, there exists \(g \in W^\ast\) such that \(f = g \circ T\).
+        Then, for any \(\alpha \in \ker T\), \(f(\alpha) = g(T(\alpha)) = 0\).
+        Hence, \(f \in (\ker T)^\circ\); \(\Img T^t \subseteq (\ker T)^\circ\).
+        But since the two spaces have the same dimension, it must be the equality to hold.
+\end{enumerate}
 }
 
 \end{document}
