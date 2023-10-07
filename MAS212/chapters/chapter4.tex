@@ -1,0 +1,191 @@
+\documentclass[MAS212_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Algebras}
+
+\dfn{\(F\)-algebra}{
+    Let \(F\) be a field.
+    A vector space \(\mcal A\) with a 
+    map \(\mcal A \times \mcal A \to \mcal A\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\forall \alpha, \beta, \gamma \in \mcal A,\: \alpha(\beta \gamma) = (\alpha \beta) \gamma\)
+        \ii \(\forall \alpha, \beta, \gamma \in \mcal A,\: \alpha(\beta + \gamma) = \alpha \beta + \alpha \gamma
+            \text{ and } (\alpha + \beta) \gamma = \alpha \gamma + \beta \gamma\)
+        \ii \(\forall c \in F,\: \forall \alpha, \beta \in \mcal A,\:
+            c(\alpha \beta) = (c \alpha) \beta = \alpha (c \beta)\)
+    \end{enumerate}
+    is called a \textit{\(F\)-algebra}
+    or a \textit{linear algebra} over \(F\).
+
+    \begin{itemize}[nolistsep]
+        \ii If there is an element \(1\) in \(\mcal A\) such that \(1 \alpha = \alpha 1 = \alpha\)
+            for each \(\alpha \in \mcal A\), then we call \(\mcal A\) a
+            \textit{\(F\)-algebra} with identity.
+        \ii The algebra \(\mcal A\) is called \textit{commutative}
+            if \(\alpha \beta = \beta \alpha\) for all \(\alpha, \beta \in \mcal A\).
+    \end{itemize}
+}
+
+\dfn{Polynomial}{
+    Let \(F[x]\) be the subspace of \(F^{\omega}\) spanned by the vectors
+    \(1, x, x^2, \cdots\). An element of \(F[x]\) is called a \textit{polynomial over} \(F\).
+}
+
+\dfn[]{Degree}{
+    For each \(f \in F[x] \setminus \{0\}\),
+    \(\deg f \triangleq \max \{\,k \in \NN \cup \{0\} \mid f_k \neq 0\,\}\).
+}
+
+\thm[]{}{
+    Let \(f, g \in F[x] \setminus \{0\}\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(fg \neq 0\)
+        \ii \(\deg (fg) = \deg f + \deg g\)
+        \ii \(fg\) is monic if \(f\) and \(g\) are monic.
+        \ii \(fg\) is scalar polynomial if \(f\) and \(g\) are scalar polynomials.
+        \ii If \(f + g \neq 0\), then \(\deg (f+g) \le \max \{\,\deg f, \deg g\,\}\).
+    \end{enumerate}
+}
+
+\thm[]{Euclidean Algorithm}{
+    Let \(f, g \in F[x]\) and \(g \neq 0\).
+    Then, there uniquely exists \(q, r \in F[x]\) such that
+    \begin{itemize}[nolistsep]
+        \ii \(f = gq + r\) and
+        \ii either \(r = 0\) or \(\deg r < \deg g\).
+    \end{itemize}
+}
+
+\dfn{Divisibility}{
+    Let \(f, g \in F[x]\).
+    If \(f = gq\) for some \(q \in F[x]\), then we write \(g \mid f\).
+}
+
+\mlemma{}{
+    Let \(f \in F[x] \setminus \{0\}\) and \(c \in F\).
+    Then, \((x - c) \mid f \iff f(c) = 0\).
+}
+\pf{Proof}{
+    There exists \(q, r \in F[x]\) such that \(f = (x-c)q+r\)
+    with either \(r = 0\) or \(\deg r = 0\).
+    Note that \(f(c) = r\).
+    Hence, \(f(c) = 0 \iff  (x-c) \mid f\).
+}
+
+\dfn{Evaluation}{
+    Let \(F\) be a field.
+    Let \(\alpha \in F\) be fixed.
+    Then, the function \(\mrm{ev}_{\alpha} \colon F[x] \to F\) defined by
+    \(f \mapsto f(\alpha)\) is called the \textit{evaluation of} \(\alpha\) in \(f(x)\).
+}
+
+\dfn{Ideal}{
+    An \textit{ideal} \(M \subseteq F[x]\) is an \(F\)-subspace if
+    for every \(f \in F[x]\) and \(g \in M\), we have \(fg \in M\).
+}
+
+\dfn{Principal Ideal}{
+    An ideal of the form
+    \[
+        M = \{\,g_0h \mid h \in F[x]\,\} = (g_0)
+    \]
+    for a fixed \(g_0\) is called a \textit{principal ideal}.
+}
+
+\thm[polyIdealIsPrincipal]{}{
+    Let \(F\) be a field.
+    Let \(M \subseteq F[x]\) be a nonzero ideal.
+    Then, \(M\) is a principal ideal given by a monic polynomial in \(F[x]\).
+}
+\pf{Proof}{
+    \(M\) does contain nonzero polynomials.
+    Hence, we may let \(g_0 \in \argmin_{g \in M \setminus \{0\}} \deg g\)
+    by the well-orderedness of natural numbers.
+    \textsf{WLOG}, \(g_0\) is monic.
+
+    We shall claim that \(M = (g_0)\).
+    Take any \(f \in M\).
+    By the Euclidean algorithm, \(\exs q, r \in F[x],\:
+    f = g_0q + r\) with either \(r=0\) or \(\deg r < \deg g_0\).
+    If \(r \neq 0\), then \(r = f - g_0q \in M\) but
+    \(\deg r < \deg g_0\), which contradicts the minimality of \(\deg g_0\).
+    Hence, \(r = 0\), and thus \(f = g_0q \in (g_0)\).
+}
+
+\nt{
+    \noindent
+    By putting ``monic'' assumption, such \(g_0\) is unique as well.
+}
+
+\cor{}{
+    Let \(p_1, \cdots, p_n \in F[x]\) be
+    a finite number of polynomials where not all of them are zero.
+    Then, there uniquely exists monic \(g_0 \in F[x]\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(p_1 F[x] + p_2 F[x] + \cdots + p_n F[x] = (g_0)\)
+        \ii \(\fall i \in [n], g_0 \mid p_i\)
+        \ii \(\big(\forall i \in [n],\: f \mid p_i\big) \implies f \mid g_0\)
+    \end{enumerate}
+    Such \(g_0\) is called the \textit{greatest common divisor} of \(p_1, \cdots, p_n\).
+    Sometimes this is denoted by \((p_1, \cdots, p_n) = (g_0)\).
+}
+\pf{Proof}{
+    \(p_1 F[x] + p_2 F[x] + \cdots + p_n F[x]\) is an ideal.
+    By \Cref{th:polyIdealIsPrincipal}, there uniquely exists monic \(g_0\) that generates it.
+    (ii) directly follows from (i).
+    \(g_0 = \sum_{j=1}^{n} p_j g_j = f \sum_{j=1}^{n} h_j g_j\).
+}
+
+\dfn{Relatively Prime}{
+    Let \(p_1, \cdots, p_n\) be nonzero polynomials.
+    We say that they are \textit{relatively prime}
+    if \((p_1, \cdots, p_n) = (1)\).
+}
+
+\dfn{Reducibility}{
+    Let \(F\) be a field.
+    We say \(f \in F[x] \setminus \{0\}\) is \textit{reducible}
+    if \(f = gh\) for some \(g, h \in F[x]\) with \(\deg g, \deg h \ge 1\).
+    If \(f\) is not reducible, we say \(f\) is \textit{irreducible}.
+}
+
+\dfn{Prime Element}{
+    Let \(F\) be a field.
+    We say that \(f \in F[x]\) is a \textit{prime element}
+    if, for every \(g, h \in F[x]\), \(f \mid gh \implies (f \mid g \lor f \mid h)\).
+}
+
+\exmp{}{
+    \begin{itemize}[nolistsep]
+        \ii Let \(F\) be a field. Then any polynomial over \(F\) with degree one is irreducible.
+        \ii \(F = \RR\). \(f(x) = x^2 + ax + b\) is irreducible iff \(D < 0\).
+        \ii \(F = \mbb F_p = \ZZ/p\). There are quite many irreduciple polynomial of degree \(d\).
+    \end{itemize}
+}
+
+\thm{}{
+    Let \(p \in F[x] \setminus \{0\}\) be a polynomial.
+    Then, \(p\) is irreducible if and only if \(p\) is prime.
+}
+\pf{Proof}{
+    \hfill\par
+    (\(\Rightarrow\))
+    Suppose \(p \mid gh\) for some \(g, h \in F[x]\).
+    If \(g\) or \(h\) is zero, then it is done. Hence, \textsf{WMA} that \(g, h \neq 0\).
+    Let \((p, g) = (d)\).
+    \(d \mid p\) implies that \(d = 1\) or \(d = p\) since \(p\) is irreducible.
+    If \(d = p\), then \(d \mid g\), i.e., \(p \mid g\).
+    If \(d = 1\), then there exists \(p_0, g_0\) such that
+    \(p p_0 + g g_0 = 1\). Hence, \(php_0 + g h g_0 = h\).
+    Hence, \(p \mid h\).
+
+    (\(\Leftarrow\))
+    Suppose \(p\) is reducible.
+    Then, \(p = gh\) for some \(g, h\) with nonzero degrees.
+    Since \(p\) is prime, \(p \mid g\) or \(p \mid h\).
+    This implies \(\deg p \le \deg g\) or \(\deg p \le \deg h\).
+    This is a contradiction since \(\deg p = \deg g + \deg h \le 2 \deg p\) arises.
+}
+
+\end{document}
