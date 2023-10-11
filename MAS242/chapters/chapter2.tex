@@ -57,48 +57,77 @@
     \end{itemize}
 }
 
-\mlemma{}{
+\mlemma[invertMapsIsOpen]{}{
     Given two linear mappings \(A, B \colon \RR[n] \to \RR[n]\) with invertibility of \(A\),
     \[
-        \|A-B\|_L \|A\inv\|_L < 1 \implies B \text{ is invertible.}
+        \|A-B\|_L \cdot \|A\inv\|_L < 1 \implies B \text{ is invertible.}
     \]
 }
 \pf{Proof}{
-    (Hint: show that \(B\vec x = 0\) has only the trivial solution, i.e.,
-    if \(\vec x \neq 0\), then \(B\vec x \neq 0\).)
+    Let \(\|A\inv\|_L = 1 / \alpha\) and \(\|B - A\|_L = \beta\) so that \(\beta < \alpha\).
+    Then, for every \(\vec x \in \RR[n]\),
+    \[\begin{aligned}[t]
+        \alpha |\vec x| &= \alpha |A\inv A \vec x| \le \alpha \|A\inv\| \cdot |A\vec x| \\
+                        &= |A\vec x| \le |(A-B)\vec x| + |B\vec x| \le \beta|\vec x| + |B\vec x|\text{;}
+    \end{aligned}\]
+    hence \((\alpha - \beta)|\vec x| \le |B\vec x|\) where \(\vec x \in \RR[n]\) is arbitrary.
+    As \(\alpha > \beta\), it holds that \(B\vec x = 0 \implies \vec x = 0\).
 }
 
-\thm[]{Inverse Function Theorem}{
-    Let \(\vec f \colon E (\subseteq \RR[n]) \to \RR[n]\) be \(C^1\) in \(U\),
-    \(\vec a \in E\), and \(\vec b = f(a)\).
-    Suppose that \(J_{\vec f}(a) \neq 0\). Then,
+\cor{}{
+    The set \(\Omega \subseteq L(\RR[n], \RR[n])\) of invertible linear transformations
+    is open.
+}
+
+\mlemma[inverseIsConti]{}{
+    The mapping from \(\Omega\) onto \(\Omega\) defined by \(A \mapsto A\inv\) is continuous.
+}
+\pf{Proof}{
+    Let \(A\) and \(B\) be invertible linear transformations from \(\RR[n]\) to \(\RR[n]\).
+    Let \(\|A\inv\| = 1 / \alpha\) and \(\|B-A\|_L = \beta\).
+    We have \((\alpha - \beta)|\vec x| \le |B\vec x|\) by the same reasoning as in the proof of
+    \Cref{lem:invertMapsIsOpen}.
+    Hence, the following holds.
     \[
-        \exs \delta \in \RR_+,\: \vec f \big|_{B_{\delta}(a)} \colon B_{\delta}(a) \to \vec f\big(B_{\delta}(a)\big) \text{ is invertible.}
+        \fall \vec y \in \RR[n],\: (\alpha - \beta)|B\inv\vec y| \le |BB\inv \vec y| = |\vec y|
     \]
-    Moreover, \(\vec f \big(B_{\delta}(a)\big)\) is an open set, and
-    \(\big(\vec f \big|_{B_{\delta}(a)}\big)\inv\) is \(C^1\).
+    This shows that \(\|B\inv\|_L \le (\alpha - \beta)\inv\).
+    
+    Hence, we have
+    \[
+        \|B\inv - A\inv\|_L \le \|B\inv\|_L \|A - B\|_L \|A\inv\|_L \le \frac{\beta}{\alpha(\alpha-\beta)}.
+    \]
+    This implies that \(\|B\inv - A\inv\|_L \to 0\) as \(B \to A\).
+}
+
+\thm[ift]{Inverse Function Theorem}{
+    Let \(\vec f \colon E (\subseteq \RR[n]) \to \RR[n]\) be \(C^1\) in \(E\) and
+    \(\vec c \in E\).
+    Suppose that \(J_{\vec f}(\vec c) \neq 0\). Then, the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii There exists a neighborhood \(U\) of \(\vec a\) such that
+            \(\vec f \big|_U\) is bijective and \(V \triangleq \vec f(U)\) is open.
+        \ii The inverse map of \(\vec f \big|_U\) is \(C^1\) in \(V\).
+    \end{enumerate}
 }
 \pf{Proof}{
     Let \(A \triangleq \d\vec f(\vec c)\).
-    Define \(\lambda\) by
-    \(\lambda \triangleq \dfrac{1}{2 \| A\inv \|_L} > 0\)
-    so \(2 \lambda \big\|A\inv\big\|_L = 1\).
-    Since \(\d\vec f\) is continuous, there exists \(\delta \in \RR_+\) such that
-    \(\|\d\vec f(\vec x) - \d\vec f(\vec c)\|_L < \lambda\) for each \(B_{\delta}(\vec c)\).
+    Define \(\lambda \in \RR_+\) by \(2 \lambda \big\|A\inv\big\|_L = 1\).
+    Since \(\d\vec f\) is continuous, there exists a neighborhood \(U\) of \(\vec c\) such that
+    \(\|\d\vec f(\vec x) - A\|_L < \lambda\) for each \(\vec x \in U\).
 
     Given a point \(\vec y \in \RR[n]\), we define \(\varphi(\cdot; \vec y)\) by
     \begin{align*}
         \varphi(\cdot; \vec y): B_\delta(\vec c) &\longrightarrow \RR[n] \\
-        \vec x &\longmapsto \varphi(\vec x; \vec y) = \vec x + A\inv(\vec y - \vec f(\vec x))
+        \vec x &\longmapsto \vec x + A\inv(\vec y - \vec f(\vec x))
     \end{align*}
     Note that \(\vec x\) is a fixed point of \(\varphi(\cdot; \vec y)\) if and only if
     \(A\inv (\vec y - \vec f(\vec x)) = 0\), i.e., \(\vec y = \vec f(\vec x)\).
     Note also that \(\varphi\) is differentiable and
     \(\d\varphi(\vec x; \vec y) = \mrm{Id} - A\inv \d\vec f(\vec x) = A\inv \big(A - \d\vec f(\vec x)\big)\)
-    for each \(x \in B_{\delta}(\vec c)\). Let \(U \triangleq B_{\delta}(\vec c)\) and
-    \(V \triangleq \vec f(U)\).
+    for each \(\vec x \in U\).
 
-    Hence, for all \(x \in U\),
+    Hence, for all \(\vec x \in U\),
     \[
         \|\d\varphi(\vec x; \vec y)\|_L
         = \big\|A\inv \big(A - \d\vec f(\vec x)\big)\big\|_L
@@ -106,30 +135,19 @@
         < 1/(2\lambda) \cdot \lambda = 1/2\text{.}
     \]
 
-    Now, fix any \(\vec y \in V\).
-    Fix \(\vec x_1, \vec x_2 \in U\). Define \(\Psi \colon [0, 1] \to \RR\) by
-    \(t \mapsto \varphi(t\vec x_1 + (1-t)\vec x_2; \vec y)\).
-    \(\Psi(0) = \varphi(\vec x_2; \vec y)\) and \(\Psi(1) = \varphi(\vec x_1; \vec y)\).
-    Note that \(\Psi\) is differentiable on \((0, 1)\).
-    By MVT, there exists \(t_\ast \in (0, 1)\) such that
-    \(\Psi(1) - \Psi(0) = \Psi'(t_\ast)\).
-    The chain rule gives \[\Psi'(t_\ast) = \d \varphi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2) (\vec x_1 - \vec x_2).\]
-    Hence,
+    Thus, MVT gives
     \[
-        |\varphi(\vec x_1) - \varphi(\vec x_2)|
-        = |\d \varphi(t_\ast \vec x_1 + (1-t_\ast)\vec x_2)| \cdot |(\vec x_1 - \vec x_2)|
-        \le |\vec x_1 - \vec x_2| / 2.
+        |\varphi(\vec x_1; \vec y) - \varphi(\vec x_2; \vec y)| \le \frac{1}{2} |\vec x_1 - \vec x_2|
     \]
+    whenever \(\vec x_1, \vec x_2 \in U\).
+    Note that this implies there is at most one fixed point of \(\varphi(\cdot; \vec y)\) in \(U\),
+    i.e., \(\vec f \big|_U\) is bijective.
 
-    We want to show that \(\vec f\) is locally invertible.
-    It suffices to show that it is injective.
-    Hence, \(\varphi\) has at most one fixed point,
-    i.e., there exists at most one \(\vec x\) such that \(\vec y = \vec f(\vec x)\);
-    thus \(\vec f\) is injective on \(U\).
-
-    Let \(\vec x_0 \in U\) and \(\vec y_0 = \vec f (\vec x_0)\).
-    Fix any \(r \in \RR_+\) such that \(\cl{B_r(\vec x_0)} \subseteq U\).
-    Let \(B = B_r(\vec x_0)\).
+    Now, we shall show that \(V = \vec f(U)\) is open.
+    Take any \(\vec y_0 \in V\). There (uniquely) exists \(\vec x_0 \in U\)
+    such that \(\vec y_0 = \vec f(\vec x_0)\).
+    Fix any \(r \in \RR_+\) such that \(\cl{B} \subseteq U\)
+    where \(B = B_r(\vec x_0)\).
     Take any \(\vec y \in B_{\lambda r}(\vec y_0)\).
     Then, \[
         |\varphi(\vec x_0; \vec y) - \vec x_0|
@@ -137,27 +155,112 @@
     \]
     Moreover, for any \(\vec x \in \cl B\), \[
         |\varphi(\vec x; \vec y) - \vec x_0|
-        \le |\varphi(\vec x; \vec y) - \varphi(\vec x_0; \vec y)| + |\varphi(\vec x_0) - \vec x_0|
+        \le |\varphi(\vec x; \vec y) - \varphi(\vec x_0; \vec y)| + |\varphi(\vec x_0; \vec y) - \vec x_0|
         \le \frac{1}{2} |\vec x - \vec x_0| + \frac{r}{2} < r\text{.}
     \]
 
-    This directly implies that \(\varphi(\cl B) \subseteq B \subseteq \cl B\).
-    Hence, \(\varphi\) is a contraction mapping on a complete metric space \(\cl B\).
+    This directly implies that \(\varphi(\cl B; \vec y) \subseteq B \subseteq \cl B\).
+    Hence, \(\varphi(\cdot, \vec y)\) is a contraction mapping on a complete metric space \(\cl B\).
     By \Cref{lem:contractionMappingP}, there exists a fixed point \(\vec x \in \cl B\),
     which satisfies \(\vec y = \vec f(\vec x)\).
-    Thus, \(\vec y \in f(\cl B) \subseteq f(U) = V\). Hence, \(B_{\lambda r}(\vec y_0) \subseteq V\), \(V\) is open.
+    Thus, \(\vec y \in f(\cl B) \subseteq f(U) = V\).
+    Hence, \(B \subseteq V\), \(V\) is open. This proves (i).
 
-    Now, let \(\vec g \colon V \to U\) be the local inverse of \(\vec f\).
+    Now, let \(\vec g \colon V \to U\) be the local inverse map of \(\vec f \big|_U\).
     Take any \(\vec y \in V\) and \(\vec y + \vec k \in V\).
     There are unique \(\vec x \in U\) and \(\vec x + \vec h \in U\) such that
     \(\vec y = \vec f(\vec x)\) and \(\vec y + \vec k = \vec f(\vec x + \vec h)\).
-
-    By \Cref{lem}
-    Let \(T \triangleq \d\vec f(\vec x)\inv\).
-    Then,
+    Then, we have
     \[
-        
+        \varphi(\vec x + \vec h; \vec y) - \varphi(\vec x; \vec y)
+        = \vec h + A\inv \big(\vec f(\vec x) - \vec f(\vec x + \vec h)\big)
+        = \vec h - A\inv\vec k\text{,}
     \]
+    which implies \(|\vec h-A\inv\vec k| \le |h| / 2\).
+    Hence, \(|A\inv \vec k| \ge |h| / 2\) is obtained by the triangle inequality;
+    \(|\vec h| \le 2 \|A\inv\|_L |\vec k| = \lambda\inv |\vec k|\).
+
+    Then, since \(\|\d\vec f(\vec x) - A\|_L \|A\inv\|_L < \lambda \cdot 1/(2\lambda) = 1/2\),
+    \Cref{lem:invertMapsIsOpen} implies that \(\d\vec f(\vec x)\) is invertible.
+    Let \(T \triangleq \d\vec f(\vec x)\).
+    Then, we have \[
+        \vec g(\vec y + \vec k) - \vec g(\vec y) - T\inv\vec k
+        = \vec h - T\inv\vec k
+        = -T\inv \big( \vec f(\vec x + \vec h) - \vec f(\vec x) - T\vec h \big),
+    \]
+    and thus
+    \[
+        \frac{|\vec g(\vec y + \vec k) - \vec g(\vec y) - T\inv\vec k|}{|\vec k|}
+        \le \frac{\|T\inv\|_L}{\lambda} \cdot \frac{|\vec f(\vec x + \vec h) - \vec f(\vec x) - T\vec h|}{|\vec h|}.
+    \]
+    The equation implies that \(\vec g\) is differentiable on \(V\),
+    and that \(\d\vec g(\vec y) = T\inv = \mrm d\vec f(\vec g(\vec y))\inv\).
+    Since \(\d\vec g\) is a composition of continuous functions,
+    \(\d\vec g\) itself is continuous.
+}
+
+\cor{}{
+    Let \(\vec f \colon E (\subseteq \RR[n]) \to \RR[n]\) be \(C^1\) in \(E\)
+    and \(J_{\vec f}(\vec x) \neq 0\) for all \(\vec x \in E\).
+    Then, for every open set \(W \subseteq E\),
+    \(\vec f(W)\) is open.
+}
+\pf{Proof}{
+    This directly follows from (i) of \Cref{th:ift}.
+}
+
+\dfn{\(C^1\)-norm}{
+    Suppose \(\varphi \colon \RR[n] \to \RR\) is \(C^1\).
+    Then, \[\begin{aligned}[t]
+        \|\varphi\|_{C^0(\cl\Omega)} &\triangleq \sup_{\vec x \in \Omega} |\varphi(x)| \\
+        \|\varphi\|_{C^1(\cl\Omega)} &\triangleq \|\varphi\|_{C^0(\cl \Omega)}
+            + \sum_{j=1}^{n} \|\partial_j \varphi\|_{C^0(\cl\Omega)}.
+    \end{aligned}\]
+    This is only for \Cref{exmp:lvlSetExmp}.
+}
+
+\exmp[lvlSetExmp]{Level Sets}{
+    Define \(\Omega \triangleq \{\,(x_1, x_2) \in \RR[2] \mid |x_2| \le 1\,\}\).
+    Given two constants, \(a, b \in \RR\) with \(a < b\),
+    define \(\ol\varphi(x_1, x_2) = ax_1\) and \(\ol \psi(x_1, x_2) = bx_1\).
+    Then, \(\Gamma_0 = \{\,\vec x \in \Omega \mid \ol\varphi(\vec x) - \ol\psi(\vec x) = 0\,\}
+    = \{\,\vec x \in \Omega \mid x_1 = 0\,\}\).
+
+    Suppose that \(\varphi, \psi \colon \Omega \to \RR\) satisfy
+    \[
+        \|\varphi-\ol\varphi\|_{C^1(\ol\Omega)} + \|\psi-\ol\psi\|_{C^1(\ol\Omega)}
+        \le \frac{1}{4} |a - b|\text{.}
+    \]
+    Then, what would be the expression for \(\Gamma = \{\,\vec x \in \Omega \mid \varphi(\vec x) - \psi(\vec x) = 0\,\}\)?
+
+    Observe that
+    \((\varphi - \psi) = (\varphi - \ol\varphi) + (\ol\varphi - \ol \psi) + (\ol \psi - \psi)\)
+    and thus
+    \(|(\varphi-\psi)(x_1, x_2) - (a-b)x_1| \le |a-b|/4\).
+    This implies \(\lim_{x_1 \to \pm\infty} (\varphi - \psi)(x_1, x_2) = \mp\infty\).
+    Hence, for every \(x_2 \in [-1, 1]\), there exists \(x_1^\ast \in \RR\)
+    such that \((\varphi-\psi)(x_1^\ast, x_2) = 0\).
+
+    Moreover, 
+    \(\partial_1(\varphi - \psi) = \partial_1(\varphi - \ol\varphi) + (a-b) + \partial_1(\ol \psi - \psi)\),
+    and thus \(|\partial_1(\varphi - \psi)| \ge \frac{3}{4} |a-b| > 0\).
+    Hence, the \(x_1^\ast\) in the previous paragraph is unique.
+    This means that \(\Gamma = \{\,(f(x_2), x_2) \mid x_2 \in \RR\,\}\) for some \(f\).
+
+    \((\varphi - \psi)(f(x_2), x_2) - (\ol\varphi - \ol \psi)(f(x_2), x_2)
+    = - (\ol\varphi - \ol \psi)(f(x_2), x_2) = (b-a)f(x_2)\).
+    Hence,
+    \[
+        f(x_2) = \frac{(\varphi - \ol\varphi)(f(x_2), x_2) - (\psi - \ol \psi)(f(x_2), x_2)}{b-a}.
+    \]
+    This is the implicit representation of \(f\).
+    Moreover, \(|f(x_2)| = \dfrac{|b-a|/4}{|b-a|} = 1/4\).
+}
+
+\exmp{Lagrange's Method}{
+    Given a constant \(r > 0\), find the largest value of
+    \(f(x_1, \cdots, x_n) = (x_1 \cdots x_n)^2\)
+    over the set \(\Omega = \{\,(x_1, \cdots, x_n) \in \RR[n] \mid x_1^2+\cdots+x_n^2 = r^2\}\).
 }
 
 \end{document}
