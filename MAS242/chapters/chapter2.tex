@@ -209,6 +209,105 @@
     This directly follows from (i) of \Cref{th:ift}.
 }
 
+\section{Implicit Function Theorem}
+
+\dfn{}{
+    \begin{itemize}[nolistsep]
+        \ii If \(\vec x = (x_1, \cdots, x_n) \in \RR[n]\) and \(\vec y = (y_1, \cdots, y_m) \in \RR[m]\),
+            let us write \((\vec x, \vec y)\) for the point
+            \((x_1, \cdots, x_n, y_1, \cdots, y_m) \in \RR[n + m]\).
+
+        \ii Every \(A \in L(\RR[n+m], \RR[n])\) can be split into \(A_x \in L(\RR[n])\) and
+            \(A_y \in L(\RR[m], \RR[n])\) where
+            \(A(\vec h, \vec k) = A_x\vec h + A_y\vec k\)
+            for each \(\vec h \in \RR[n]\) and \(\vec k \in \RR[m]\).
+    \end{itemize}
+}
+
+\mlemma[linearImft]{}{
+    If \(A\in L(\RR[n + m], \RR[n])\) and if \(A_x\) is invertible, then
+    \[
+        \fall \vec k \in \RR[m],\: \exs! \vec h \in \RR[n],\: A(\vec h, \vec k) = \vec 0.
+    \]
+}
+\pf{Proof}{
+    \(A(\vec h, \vec k) = A_x \vec h + A_y \vec k = \vec 0\)
+    if and only if \(\vec h = -(A_x)\inv A_y \vec k\).
+}
+
+\thm[imft]{Implicit Function Theorem}{
+    Let \(\vec f \colon E \to \RR[n]\) be a \(C^1\) mapping
+    where \(E\) is an open set in \(\RR[n+m]\).
+    Let \((\vec a, \vec b) \in E\) satisfy \(\vec f(\vec a, \vec b) = \vec 0\).
+    Let \(A = \mrm d\vec f(\vec a, \vec b)\) and suppose \(A_x\) is invertible.
+    Then, there exist open sets \(U \subseteq \RR[n + m]\) and \(W \subseteq \RR[m]\)
+    that satisfy the following.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \((\vec a, \vec b) \in U\) and \(\vec b \in W\).
+        \ii \(\fall \vec y \in W,\: \exs!\vec x \in \RR[n],\:
+            (\vec x, \vec y) \in U \land \vec f(\vec x, \vec y) = 0\).
+        \ii If the unique \(\vec x\) in (ii) is denoted by \(\vec g(\vec y)\),
+            then \(\vec g \colon W \to \RR[n]\) is \(C^1\) on \(W\).
+        \ii Moreover, \(\mrm d\vec g(\vec b) = -(A_x)\inv A_y\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    Define \(\vec F \colon E \to \RR[n+m]\) by
+    \(\vec F(\vec x, \vec y) \triangleq (\vec f(\vec x, \vec y), \vec y)\).
+    Then, \(\vec F\) is \(C^1\).
+    Since \(\vec f(\vec a, \vec b) = \vec 0\),
+    if \(\vec r(\vec h, \vec k) \triangleq \vec{f(a+h,b+k)}-A(\vec h, \vec k)\),
+    we have \(\lim_{\vec h, \vec k \to \vec 0} |\vec r(\vec h, \vec k)| / |(\vec h, \vec k)| = 0\).
+    Hence, from
+    \[
+        \mathbf{F(a+h, b+k) - F(a, b) = (f(a+h, b+k), k)}
+        = (A\mathbf{(h, k), k) + (r(h, k), 0)}\text{,}
+    \]
+    it is obtained that \(\mathrm d\mathbf{F(a, b)(h', k')} = (A\mathbf{(h', k'), k'})\)
+    for each \((\vec{h'}, \vec k') \in \RR[n + m]\).
+    If \(\mrm d\mathbf{F(a, b)(h', k') = 0}\),
+    then \(\vec{k}' = 0\) and \(A(\vec{h', 0}) = \vec{0}\);
+    thus \(\vec{h' = 0}\) as \(A_x\) is invertible.
+    Hence, \(\mrm{d}\vec{F(a, b)}\) is invertible;
+    \Cref{th:ift} can be applied to \(\vec{F}\) at \(\vec{(a, b)}\).
+
+    By \Cref{th:ift}, there exists a neighborhood \(U \subseteq E\)
+    of \(\vec{(a, b)}\) such that \(\vec{F}\big|_U\) is bijective,
+    \(\vec{F}(U)\) is open, and its inverse is \(C^1\).
+    Let \(W \triangleq \{\,\vec{y} \in \RR[m] \mid \vec{(0, y)} \in \vec{F}(U)\,\}\).
+    \(W\) is open as \(\vec{F}(U)\) is open.
+    Noting that \(\vec{b} \in W\), we finish the proof for (i).
+
+    Take any \(\vec{y} \in W\). Then, there exists \((\vec{x, y}) \in U\)
+    such that \(\vec{F(x, y) = (0, y)}\); thus \(\vec{f(x, y) = 0}\).
+    If \(\vec{x, x'}\) are two such point corresponding to \(\vec{y}\),
+    then \[\vec{F(x', y) = (f(x', y), y) = (0, y) = (f(x, y), y) = F(x, y)}.\]
+    However, as \(\vec{F}\) being injective, \(\vec{x = x'}\).
+    This proves (ii).
+
+    Let \(V \triangleq \vec{F}(U)\).
+    Let \(\vec{G} \colon V \to U\) be the inverse of \(\vec{F}\),
+    which is \(C^1\) by \Cref{th:ift}.
+    Hence, for each \(\vec{y} \in W\),
+    from \(\vec{F(g(y), y) = (0, y)}\), we have \(\vec{(g(y), y) = G(0, y)}\).
+    This directly shows that \(\vec{g}\) is \(C^1\) as well. This proves (iii).
+
+    Let \(\vec{\Phi} \colon W \to U\) be defined by
+    \(\vec{\Phi(y) = G(0, y) = (g(y), y)}\), which is \(C^1\), indeed.
+    Then, \(\mrm{d}\vec{\Psi(y)} = (\mrm{d}\vec{g(y)}, I_m)\).
+    Differentiating both sides of the equality \(\vec{f(\Phi(y)) = 0}\),
+    we get
+    \[
+        \mrm{d}\vec{f(\Phi(y))} \d\vec{\Phi(y)} = 0.
+    \]
+    Putting \(\vec{y} \coloneqq \vec{b}\), as \(\vec{\Phi(b) = (a, b)}\),
+    we get \(A \d\vec{\Phi(b)} = 0\), or
+    \[
+        A_x \d \vec{g(b)} + A_y = 0,
+    \]
+    i.e., \(\mrm{d}\vec{g(b)} = -(A_x)\inv A_y\).
+}
+
 \dfn{\(C^1\)-norm}{
     Suppose \(\varphi \colon \RR[n] \to \RR\) is \(C^1\).
     Then, \[\begin{aligned}[t]
