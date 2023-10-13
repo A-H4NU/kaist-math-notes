@@ -356,10 +356,104 @@
     Moreover, \(|f(x_2)| = \dfrac{|b-a|/4}{|b-a|} = 1/4\).
 }
 
-\exmp{Lagrange's Method}{
-    Given a constant \(r > 0\), find the largest value of
-    \(f(x_1, \cdots, x_n) = (x_1 \cdots x_n)^2\)
-    over the set \(\Omega = \{\,(x_1, \cdots, x_n) \in \RR[n] \mid x_1^2+\cdots+x_n^2 = r^2\}\).
+\thm[optim]{Optimization Under Multiple Constraints}{
+    Let \(f, g_1, g_2, \cdots, g_k \colon E \to \RR\)
+    where \(E\) is an open set in \(\RR[n]\) and \(n > k\).
+    Let \(Z \triangleq \cap_{j=1}^k \{\,\vec{z} \in \RR[n] \mid g_j(\vec{z}) = 0\,\}\).
+    Suppose \(\vec{z}_0 \in Z\) is a local maximum point with respect to \(f\)
+    on \(Z\). Suppose also that
+    \[
+        \Delta \triangleq \det \begin{bmatrix}
+            \partial_1 g_1(\vec{z}_0) & \cdots & \partial_1 g_k(\vec{z}_0) \\
+            \vdots & \ddots & \vdots \\
+            \partial_k g_1(\vec{z}_0) & \cdots & \partial_k g_k(\vec{z}_0)
+        \end{bmatrix} \neq 0.
+    \]
+    Then, there exists \(\lambda_1, \lambda_2, \cdots, \lambda_k \in \RR\)
+    such that \(\nabla f(\vec{z}_0) = \sum_{m=1}^{k} \lambda_m \nabla g_m(\vec{z}_0)\).
+}
+\pf{Proof}{
+    Since \(\Delta \neq 0\), there exists a unique solution
+    \((\lambda_1, \cdots, \lambda_k) \in \RR[k]\) for the linear system
+    \[
+        \begin{bmatrix}
+            \partial_1 g_1(\vec{z}_0) & \cdots & \partial_1 g_k(\vec{z}_0) \\
+            \vdots & \ddots & \vdots \\
+            \partial_k g_1(\vec{z}_0) & \cdots & \partial_k g_k(\vec{z}_0)
+        \end{bmatrix} \begin{bmatrix}
+            \lambda_1 \\ \vdots \\ \lambda_k
+        \end{bmatrix} = \begin{bmatrix}
+            \partial_1 f(\vec{z}_0) \\ \vdots \\ \partial_k f(\vec{z}_0)
+        \end{bmatrix}.
+    \]
+
+    For each point \(\vec{z} = (z_1, \cdots, z_n) \in \RR[n]\),
+    let \(\vec{x} = (z_1, \cdots, z_k)\) and \(\vec{y} = (z_{k+1}, \cdots, z_n)\).
+    Let \(\vec{z}_0 = (\vec{x}_0, \vec{y}_0)\).
+    Let \(\vec{g} \colon E \to \RR[k]\) be defined by
+    \(\vec{g}(\vec{z}) = (g_1(\vec{z}), \cdots, g_k(\vec{z}))\).
+
+    Since \(\vec{g}\) is \(C^1\), \(\vec{g}(\vec{z}_0) = 0\),
+    and \(\big(\mrm{d}\vec{g}(\vec{z}_0)\big)_x\) is invertible,
+    by \Cref{th:imft}, there exists an open neighborhood \(W \subseteq \RR[n-k]\)
+    of \(\vec{y}_0\) and a \(C^1\) function \(\vec{s} \colon W \to \RR[k]\)
+    such that \(\vec{g(s(y), y) = 0}\) for each \(\vec{y} \in W\).
+    Note that \(\vec{s}(\vec{y}_0) = \vec{x}_0\).
+
+    Define \(F \colon W \to \RR\) by \(\vec{y} \mapsto f\vec{(s(y), y)}\).
+    As \(\vec{z}_0\) is a local maximum point, so is \(\vec{y}_0\).
+    Hence, \(\nabla F(\vec{y}_0) = \vec{0}\).
+    For each \(j \in [k]\), define \(G_j \colon W \to \RR\) by
+    \(\vec{y} \mapsto g_j(\vec{s(y), y})\).
+    As \((\vec{s(y), y}) \in Z\), we have \(G_j = 0\) for each \(j \in [k]\).
+    Thus, \(\nabla G_j(\vec{y}) = \vec{0}\).
+    
+    Let \(\vec{s} = (s_1, s_2, \cdots, s_k)\) where each \(s_j \colon W \to \RR\).
+    Since
+    \[\begin{aligned}[t]
+        \nabla F(\vec{y}) &= \mrm{d}f(\vec{s}(\vec{y}), \vec{y})\,\mrm{d}(\vec{s}(\vec{y}), \vec{y}) \\
+        &= \begin{bmatrix}
+            \partial_1 f(\vec{s}(\vec{y}), \vec{y}) & \cdots & \partial_n f(\vec{s}(\vec{y}), \vec{y})
+        \end{bmatrix} \begin{bmatrix}
+            \partial_1 s_1(\vec{y}) & \partial_2 s_1(\vec{y}) & \cdots & \partial_{n-k} s_1(\vec{y}) \\
+            \partial_1 s_2(\vec{y}) & \partial_2 s_2(\vec{y}) & \cdots & \partial_{n-k} s_2(\vec{y}) \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \partial_1 s_{k}(\vec{y}) & \partial_2 s_{k}(\vec{y}) & \cdots & \partial_{n-k} s_{k}(\vec{y}) \\
+            1 & 0 & \cdots & 0 \\
+            0 & 1 & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \cdots & 1
+        \end{bmatrix},
+    \end{aligned}\]
+    \(\nabla F(\vec{y}_0) = \vec{0}\) implies
+    \[
+        \partial_{k+j} f(\vec{z}_0)
+        + \sum_{i=1}^{k} \partial_i f(\vec{z}_0) \partial_j s_i(\vec{y}_0) = 0
+    \]
+    for each \(j \in [n-k]\).
+    Similarly, \(\nabla G_m(\vec{y}_0) = \vec{0}\) for each \(m \in [k]\) implies that
+    \[
+        -\lambda_m \left[ \partial_{k+j} g_m(\vec{z}_0)
+        + \sum_{i=1}^{k} \partial_i g_m(\vec{z}_0) \partial_j s_i(\vec{y}_0)\right] = 0
+    \]
+    for each \(j \in [n - k]\) and \(m \in [k]\).
+
+    Adding the \(k + 1\) equations together for each \(j \in [n - k]\),
+    \[\begin{aligned}[t]
+        0 &= \left[ \partial_{k+j} f(\vec{z}_0) - \sum_{m=1}^{k} \lambda_m \partial_{k+j} g_m(\vec{z}_0) \right]
+        + \sum_{i=1}^{k} \left[
+            \partial_i f(\vec{z}_0)
+            - \sum_{m=1}^{k} \lambda_m \partial_i g_m(\vec{z}_0)
+        \right] \partial_j s_i(\vec{y}_0).
+    \end{aligned}\]
+    By the definition of \(\lambda_1, \cdots, \lambda_n\),
+    we are left with only
+    \[
+        \partial_{j} f(\vec{z}_0) = \sum_{m=1}^{k} \lambda_m \partial_{j} g_m(\vec{z}_0)
+    \]
+    for each \(j \in \{k+1, \cdots, n\}\).
+    For \(j \in [k]\), the same equation holds by the definition of \(\lambda_1, \cdots, \lambda_k\).
+    Hence, we have \(\nabla f(\vec{z}_0) = \sum_{m=1}^{k} \lambda_m \nabla g_m(\vec{z}_0)\).
 }
 
 \end{document}
