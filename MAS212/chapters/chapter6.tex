@@ -1,0 +1,81 @@
+\documentclass[MAS212_Note.tex]{subfiles}
+\begin{document}
+
+\section{Eigenvalues}
+
+\dfn{Eigenvalue}{
+    Let \(V\) be a vector space over \(F\).
+    Let \(T \colon V \to V\) be a linear operator.
+    \begin{itemize}[nolistsep]
+        \ii \(c \in F\) is said to be an \textit{eigenvalue} (or a \textit{characteristic value}) of \(T\)
+            if there exists \(v \in V \setminus \{0\}\) such that \(T(v) = cv\).
+            Such \(v\) is called an \textit{eigenvector} (or a \textit{characteristic vector})
+            of \(T\) associated to \(c\).
+
+        \ii For each \(c \in F\), \(E_c \triangleq \{\,v \in V \mid T(v) = cv\,\}\)
+            is called an \textit{eigenspace} (or a \textit{characteristic space})
+            associated to \(c\).
+    \end{itemize}
+}
+
+\thm[eigenTFAE]{}{
+    Let \(V\) be a vector space over \(F\).
+    Let \(T \colon V \to V\) be a linear operator.
+    Then, \textsf{TFAE}.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(c \in F\) is an eigenvalue of \(T\).
+        \ii \(T - cI\) is singular.
+        \ii \(\det (T - cI) = 0\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    The equivalence of (i) and (ii) is trivial.
+    The equivalence of (ii) and (iii) is evident from \Cref{cor:AadjA}.
+}
+
+\dfn{Characteristic Polynomial}{
+    Let \(A\) be an \(n \times n\) matrix over \(F\).
+    Define \(f(x) \triangleq \det (xI - A) \in F[x]\).
+    Then, \(f\) is a monic polynomial in \(x\) of degree \(n = \dim V\).
+
+    If there exists a basis \(\mcal B\) for \(V\) and \(A = [T]_{\mcal B}\),
+    then we call \(f(x) = \det (xI - A)\) the \textit{characteristic polynomial} of \(T\).
+}
+\nt{
+    \noindent
+    The choice of basis does not affect the characteristic polynomial.
+    See \Cref{th:diffBasisSimilar}.
+}
+
+\nt{
+    \noindent
+    If \(f\) is a characteristic polynomial of \(T\),
+    then \(f(c) = 0\) if and only if \(c\) is an eigenvalue of \(T\).
+}
+
+\cor{}{
+    If \(T\) is a linear operator on \(V\),
+    then there are at most \(n\) eigenvalues of \(T\).
+}
+\pf{Proof}{
+    Every polynomial of degree \(n\) has at most \(n\) solutions.
+}
+
+\dfn{Diagonalizability}{
+    Let \(V\) be a finite-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    We say \(T\) is \textit{diagonalizable}
+    if there exists a basis \(\mcal B\) such that it consists of eigenvectors of \(T\).
+}
+
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii If \(\mcal B = \{\,v_1, \cdots, v_n\,\}\) and
+            \(Tv_i = c_iv_i\) for each \(i \in [n]\), then
+            \([T]_{\mcal B} = \mrm{diag}(c_1, c_2, \cdots, c_n)\).
+        \ii If \(T \in L(V)\) is diagonalizable, then the characteristic polynomial
+            can be completely decomposed into a product of linear factors.
+    \end{itemize}
+}
+
+\end{document}

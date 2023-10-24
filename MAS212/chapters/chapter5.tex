@@ -1,8 +1,7 @@
 \documentclass[MAS212_Note.tex]{subfiles}
 
-\begin{document}
-\chapter{Determinants}
 
+\begin{document}
 \section{Determinant Functions}
 
 \dfn{\(n\)-linear and Iterating}{
@@ -146,7 +145,7 @@
 \thm[detIsUnique]{}{
     There exists a unique determinant function \(\mcal D \colon K^{n \times n} \to K\),
     which is equal to \[
-        D(A) = \sum_{\sigma \in S_n} \sign(\sigma)\prod_{j \in [n]} A_{j,\sigma(j)}.
+        \mcal D(A) = \sum_{\sigma \in S_n} \sign(\sigma)\prod_{j \in [n]} A_{j,\sigma(j)}.
     \]
 }
 \pf{Proof}{
@@ -169,9 +168,41 @@
     Note that, if \(\mcal D\) is a \(n\)-linear and alternating, then \(\mcal D(A) = \det A \cdot \mcal D(I_n)\).
 }
 
-\thm[]{}{
-    If \(K\) is a commutative ring with unity.
-    Then, \(\det (AB) = \det A \cdot \det B\).
+\cor[]{}{
+    \(\det (AB) = \det A \cdot \det B\)
 }
 
+\cor[]{}{
+    Any cofactor expansion gives the same value.
+}
+
+\cor[]{}{
+    \(\det A^t = \det A\)
+}
+\pf{Proof}{
+    \Cref{th:classicTrans} and \Cref{th:detIsUnique}.
+}
+
+\exer{}{
+    Let \(A\) be \(r \times r\) matrix and \(C\) be an \(s \times s\) matrix.
+    Then, \[
+        \det \begin{bmatrix}
+            A & B \\ 0 & C
+        \end{bmatrix} = \det A \cdot \det C.
+    \]
+    Hint) Fixing \(A, B\), define \(\mcal D(A, B, C)\).
+}
+
+\dfn{Adjoint Matrix}{
+    Let \(A\) be an \(n \times n\) matrix.
+    \(C_{ij} \triangleq (-1)^{i+j} \det (A(i \mid j))\) for each \(i, j \in [n]\)
+    is called the \textit{\((i, j)\)-cofactor}.
+    Then, \(\adj A \triangleq C^t\) where \((C)_{ij} = C_{ij}\)
+    is called the \textit{adjoint} of \(A\).
+}
+
+\cor[AadjA]{}{
+    \(A \cdot \adj A = (\det A) I_n\).
+    If \(\det A \in K\) is invertible, then \(A\inv = (\det A)\inv \adj A\).
+}
 \end{document}

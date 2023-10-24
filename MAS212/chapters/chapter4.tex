@@ -188,4 +188,85 @@
     This is a contradiction since \(\deg p = \deg g + \deg h \le 2 \deg p\) arises.
 }
 
+\thm[]{Unique Factorization of Polynomials}{
+    Let \(F\) be a field.
+    Every non-constant polynomial \(f \in F[x]\)
+    factors into a product of irreducible polynomials
+    \(f = p_1 p_2 \cdots p_r\).
+    Moreover, the representation is unique up to
+    multiplying nonzero constants and relabeling.
+}
+\pf{Proof}{
+    \textsf{WLOG}, \(f\) is monic.
+
+    (\textit{existence})
+    If \(\deg f = 1\), then \(f(x) = x - a\) for some \(a \in F\),
+    which is itself irreducible.
+
+    Suppose \(\deg f > 1\).
+    Suppose the theorem holds for all \(g \in F[x]\)
+    with \(\deg g < \deg f\).
+    If \(f\) is itself irreducible, then done.
+    Otherwise, there are \(g_1, g_2 \in F[x]\) with \(\deg g_i \ge 1\)
+    such that \(f = g_1g_2\).
+    Then, \(\deg g_1\) and \(\deg g_2\) are less than \(f\).
+    Hence, \(g_1 = p_1 p_2 \cdots p_r\) and \(g_2 = q_1 q_2 \cdots q_s\)
+    where \(p_j\) and \(q_j\) are irreducible,
+    yielding \(f = p_1 \cdots p_r q_1 \cdots q_s\).
+
+    (\textit{uniqueness})
+    Suppose we have two factorization
+    \(f = p_1 \cdots p_r = q_1 \cdots q_s\).
+    \(p_1 \mid q_1 \cdots q_s\).
+    Hence, \(p_1 \mid q_j\) for some \(j \in [s]\).
+    Since \(q_j\) is irreducible, this means \(p_1\) is a nonzero constant multiple of \(q_j\).
+    Relabeling, \(p_1 = q_1\), we have \(p_2 \cdots p_r = q_2 \cdots q_s\).
+    Proceeding in this way, we get \(r = s\) and \(p_j = q_j\) for each \(j\).
+}
+
+\dfn{(Formal) Derivative}{
+    For \(f(x) = a_0 + a_1x + \cdots + a_nx^n \in F[x]\),
+    we define \[
+        f'(x) \triangleq a_1 + 2a_2x + \cdots + n a_n x^{n-1}.
+    \]
+}
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii \((f + g)' = f' + g'\)
+        \ii \((fg)' = f'g + fg'\)
+    \end{itemize}
+}
+
+\thm[]{}{
+    \(f\) is a product of distinct irreducible polynomials
+    if and only if \(f\) and \(f'\) are relatively prime.
+}
+\pf{Proof}{
+    \par
+    (\(\Leftarrow\))
+    Suppose \(f\) and \(f'\) are relatively prime but \(f = p^2 h\) for some
+    irreducible polynomial \(p\) for the sake of contradiction.
+    Then, \(f' = p(2p'h+ph')\), which contradicts \((f, f') = (1)\).
+
+    (\(\Rightarrow\))
+}
+
+\dfn{Algebraically Closed}{
+    A field \(F\) is said to be \textit{algebraically closed}
+    if every irreducible polynomial in \(F[x]\) is of degree \(1\).
+}
+\nt{
+    \noindent
+    \(F\) is algebraically closed.
+    \begin{itemize}[nolistsep, label=\(\Leftrightarrow\)]
+        \ii Every \(f \in F[x]\) with \(\deg g \ge 1\) has precisely \(n\) roots
+            counting multiplicity.
+        \ii Every non-constant \(f \in F[x]\) factors into linear polynomials.
+    \end{itemize}
+}
+\nt{
+    \noindent
+    \(\CC\) is algebraically closed while \(\RR\) is not.
+}
+
 \end{document}
