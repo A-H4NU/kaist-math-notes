@@ -1,0 +1,177 @@
+\documentclass[MAS212_Note.tex]{subfiles}
+
+\begin{document}
+\chapter{Determinants}
+
+\section{Determinant Functions}
+
+\dfn{\(n\)-linear and Iterating}{
+    Let \(K\) be a ring.
+    Let \(\mcal D \to K^{n \times n} \to K\) be a function.
+    This is considered as a function on \(n\) row vectors.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii We say \(\mcal D\) is \(n\)-linear if \(\mcal D\) is a linear function
+            on the \(i^{\text{th}}\) row while fixing all other rows.
+            \[ \footnotesize
+                \mcal D \begin{bmatrix}
+                    \cdots & a_1 + a_1' & \cdots \\ \cdots & a_2 & \cdots \\  & \vdots &  \\ \cdots & a_n & \cdots
+                \end{bmatrix} = \mcal D \begin{bmatrix}
+                    \cdots & a_1 & \cdots \\ \cdots & a_2 & \cdots \\  & \vdots &  \\ \cdots & a_n & \cdots
+                \end{bmatrix} + \mcal D \begin{bmatrix}
+                    \cdots & a_1' & \cdots \\ \cdots & a_2 & \cdots \\  & \vdots &  \\ \cdots & a_n & \cdots
+                \end{bmatrix}
+            \]
+        \ii An \(n\)-linear function \(\mcal D\) is called \textit{iterating}
+            if \(\mcal D(A) = 0\) when two rows are equal.
+    \end{enumerate}
+}
+
+\nt{
+    \noindent
+    If \(\mcal D\) is iterating, and if \(A'\) is obtained by switching \(i^{\text{th}}\) and
+    \(j^{\text{th}}\) rows of \(A\), then \(\mcal D(A') = -\mcal D(A)\).
+}
+
+\dfn{Determinant}{
+    Let \(K\) be a commutative ring with unity.
+    Let \(\mcal D \colon K^{n \times n} \to K\) be a function.
+    We say \(\mcal D\) is a determinant function if
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\mcal D\) is \(n\)-linear,
+        \ii \(\mcal D\) is alternating, and
+        \ii \(\mcal D(I_n) = 1\).
+    \end{enumerate}
+}
+
+\dfn{Minor Matrix}{
+    Let \(K\) be a commutative ring with unity.
+    Let \(A \in K^{n \times n}\) where \(n > 1\).
+    For each \(i, j \in [n]\), define \(A(i\mid j)\)
+    be the \((n-1)\times(n-1)\) matrix with the \(i^{\text{th}}\) row and the \(j^{\text{th}}\)
+    column are removed. \(A(i \mid j)\) is called \((i, j)\)-\textit{minor} of \(A\).
+}
+
+\thm[detExs]{}{
+    There exists a determinant function \(\mcal D \colon K^{n \times n} \to K\).
+}
+\pf{Proof}{
+    We shall prove by exploiting mathematical induction.
+    If \(n=1\), the identity function is a determinant function.
+
+    Suppose we have found a function \(\mcal D \colon K^{(n-1)\times(n-1)}\)
+    which is \((n-1)\)-linear and alternating.
+    We shall denote \(\mcal D(A(i \mid j)) = D_{ij}(A)\).
+    Define \(E_{i}(A) \triangleq \sum_{i=1}^{n} (-1)^{i+j}A_{ij}D_{ij}(A)\)
+    for each \(j \in [n]\).
+    
+    \mclm{Claim}{
+        \(E_j\) is an \(n\)-linear function on \(K^{n \times n}\).
+    } \par
+    \(D_{ij}(A)\) is independent from the entries of the \(i\)-th row and the \(j\)-th column.
+    Hence, \(D_{ij}\) is \(n\)-linear as \(\mcal D\) is \((n-1)\)-linear.
+    Furthermore, \(A \mapsto A_{ij}D_{ij}(A)\) is also \(n\)-linear;
+    thus \(E_j\) is linear combination of \(n\)-linear functions.
+
+    \mclm{Claim}{
+        \(E_j\) is an alternating function on \(K^{n \times n}\).
+    } \par
+    For the sake of simplicity, suppose \(A\) has two equal rows at \(\alpha_k\) and \(\alpha_{k+1}\).
+    Hence, when \(i \neq k\) and \(i \neq k+1\),
+    \(A(i \mid j)\) has two identical rows; thus \(D_{ij}(A) = D(A(i \mid j)) = 0\).
+    Thus, \(E_j(A) = (-1)^{k+j}A_{kj}D_{kj}(A) + (-1)^{k+j+1}A_{(k+1),j}D_{(k+1),j}(A)\).
+    \[\begin{aligned}[t]
+        E_j(A) &= (-1)^{k+j}A_{kj}D_{kj}(A) + (-1)^{k+j+1}A_{(k+1),j}D_{(k+1),j}(A) \\
+               &= (-1)^{k+j} \big(A_{kj}D_{kj}(A) - A_{kj}D_{kj}(A)\big) = 0
+    \end{aligned}\]
+
+    \mclm{Claim}{
+        \(E_j(I_n) = 1\).
+    } \par
+    \(I_n(i \mid j) = I_{n-1}\).
+}
+
+\cor{}{
+    The function defined recursively in the proof of \Cref{th:detExs} is a determinant function.
+}
+
+\dfn{Permutation}{
+    Let \(S\) be a set.
+    A permutation \(\sigma\) of \(S\)
+    is a bijective function \(\sigma \colon S \to S\).
+
+    \(S_n\) is the set of bijective functions from \([n]\) onto \([n]\).
+}
+
+\dfn{Transposition}{
+    \(\tau \in S_n\) is called a \textit{transposition}
+    if it interchanges just the values of two members.
+
+    A transposition that interchanges \(i\) and \(j\) is usually written as \((i, j)\).
+}
+
+\dfn{Cycle}{
+    A cycle is like:
+    \[
+        i_1 \mapsto i_2 \mapsto i_3 \mapsto \cdots \mapsto i_n \mapsto i_1.
+    \]
+    This is written as \((i_1, i_2, \cdots, i_n)\).
+}
+
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii Every permutation can be written as a product of disjoint cycles.
+        \ii Every cycle can be written as a product of transpositions.
+        \ii Every permutation can be written as a product of transpositions.
+    \end{itemize}
+}
+
+\thm{}{
+    For any permutation \(\sigma \in S_n\), the number of transpositions
+    needed to express \(\sigma\) modular \(2\) is an invariant of \(\sigma\).
+}
+
+\dfn{Sign of Permutation}{
+    \[
+        \sign(\sigma) \triangleq \begin{cases}
+            1 & \text{if } \sigma \text{ is even} \\
+            -1 & \text{if } \sigma \text{ is odd}
+        \end{cases}
+    \]
+}
+
+\cor{}{
+    For \(\sigma_1, \sigma_2 \in S_n\), \(\sign(\sigma_1 \sigma_2) = \sign(\sigma_1) \sign(\sigma_2)\).
+}
+
+\thm[detIsUnique]{}{
+    There exists a unique determinant function \(\mcal D \colon K^{n \times n} \to K\),
+    which is equal to \[
+        D(A) = \sum_{\sigma \in S_n} \sign(\sigma)\prod_{j \in [n]} A_{j,\sigma(j)}.
+    \]
+}
+\pf{Proof}{
+    Let \(e_1, \cdots, e_n\) be the rows of \(I_n\).
+    For \(A \in K^{n \times n}\), let \(\alpha_i\) be the \(i\)-th rows of \(A\).
+    Then, \(\alpha_i = \sum_{j=1}^{n} A_{ij}e_j\).
+
+    Note that, if \(j_i = j_{i'}\), then \(\mcal D(e_{j_1}, \cdots, e_{j_n}) = 0\).
+    Also, if \(\sigma \in S_n\), \(\mcal D(e_{\sigma(1)}, \cdots, e_{\sigma(n)})
+    = \sign(\sigma) \mcal D(I_n) = \sign(\sigma)\).
+
+    \[\begin{aligned}[t]
+        \mcal D(A) &= \mcal D(\alpha_1, \alpha_2, \cdots, \alpha_n) \\
+        &= \textstyle \mcal D \big( \sum_{j=1}^{n} A_{1j} e_j, \alpha_2, \cdots, \alpha_n \big) \\
+        &= \textstyle \sum_{j=1}^{n} A_{1j} \mcal D(e_j, \alpha_2, \cdots, \alpha_n) \\
+        &= \cdots \textstyle =\sum_{j_1=1}^{n} \sum_{j_2=1}^{n} \cdots \sum_{j_n=1}^{n} A_{1j_1}A_{2j_2}\cdots A_{n,j_n} \mcal D(e_{j_1}, \cdots, e_{j_n}) \\
+        &= \textstyle \sum_{\sigma \in S_n} \sign(\sigma) \prod_{j \in [n]} A_{j,\sigma(j)}
+    \end{aligned}\]
+
+    Note that, if \(\mcal D\) is a \(n\)-linear and alternating, then \(\mcal D(A) = \det A \cdot \mcal D(I_n)\).
+}
+
+\thm[]{}{
+    If \(K\) is a commutative ring with unity.
+    Then, \(\det (AB) = \det A \cdot \det B\).
+}
+
+\end{document}

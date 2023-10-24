@@ -1,0 +1,138 @@
+\documentclass[../MAS242_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Preliminaries}
+
+\dfn{Normed Vector Space}{
+    Let \(V\) be a (real/complex) vector space
+    equipped with a norm \(\|\cdot\|\), i.e.,
+    the space \((V, \|\cdot\|)\) satisfies the following properties.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(0 \in V\)
+        \ii \(\|\vec{x}\| \ge 0\) for all \(x \in V\) and \(\|\vec{x}\| = 0\) iff \(\vec{x=0}\).
+            (\textit{positive definiteness})
+        \ii \(\|\beta\vec{x}\| = |\beta| \cdot \|\vec{x}\|\) for all \(\vec{x} \in V\) and \(\beta \in \RR\).
+            (\textit{absolute homogeneity})
+        \ii \(\vec{\|x_1 + x_2\| \le \|x_1\| + \|x_2\|}\) for all \(\vec{x_1, x_2} \in V\).
+            (\textit{triangle inequality})
+    \end{enumerate}
+}
+
+\nt{
+    \noindent
+    Note that \((V, \|\cdot\|)\) is naturally a metric space
+    with the metric function \(d(\vec{x}_1, \vec{x}_2) = \|\vec{x}_1 - \vec{x}_2\|\).
+}
+
+\dfn{Banach Space}{
+    A normed vector space \((V, \|\cdot\|)\)
+    is called a \textit{Banach space} if,
+    for every Cauchy sequence \(\{x_j\}_{j \in \NN}\),
+    there exists a unique \(\vec{x_\ast} \in V\)
+    such that \(\lim_{n \to \infty} \|\vec{x}_n - \vec{x}_\ast\| = 0\).
+}
+
+\exmp{}{
+    Let \(A\) be a compact subset of \(\RR[n]\).
+    \((V, \|\cdot\|)\) where
+    \(V = \{\,f \colon A \to \RR \mid f \text{ is continuous}\,\}\)
+    and \(\|f\| = \sup_{x \in A} |f(x)|\)
+    forms a Banach space.
+}
+
+\nt{
+    A Banach space is a normed vector space
+    whose naturally induced metric space is complete.
+}
+
+\dfn{Series}{
+    Let \((V, \|\cdot\|)\) be a normed vector space.
+    Given a sequence \(\{x_j\}_{j \in \NN} \subseteq V\),
+    define \(S_k \triangleq \sum_{j=1}^{k} x_j\) for each \(k \in \NN\).
+    Then, each \(S_k\) is called a \textit{partial sum} of \(\{x_j\}\).
+    If \(\{S_k\}_{k \in \NN}\) converges to \(S_\ast\) with respect to \(\|\cdot\|\),
+    then we write
+    \[
+        S_\ast = \sum_{j=1}^{\infty} x_j.
+    \]
+    If the limit \(S_\ast\) exists, we symbolically say that
+    ``\(\sum_{j=1}^{\infty} x_j\) converges.''
+}
+
+\mlemma{}{
+    Let \((V, \|\cdot\|)\) be a normed vector space.
+    Let \(\{x_j\}_{j \in \NN} \subseteq V\) be a sequence.
+    If a series \(\sum_{j=1}^{\infty} x_j\) converges,
+    then \(\lim_{k \to \infty} \|\vec{x}_k\| = 0\).
+}
+\pf{Proof}{
+    \(\{S_k\}_{k \in \NN}\) is a Cauchy sequence.
+    Hence, \(\lim_{k \to \infty} \|\vec{x}_k\| = \lim_{k \to \infty} \|S_{k+1} - S_k\| = 0\).
+}
+
+\mlemma{}{
+    Let \((V, \|\cdot\|)\) be a Banach space.
+    Let \(\{x_j\}_{j \in \NN} \subseteq V\) be a sequence.
+    A series \(\sum_{j=1}^{\infty} x_j\) converges
+    if and only if \(\{S_k\}_{k \in \NN}\) is Cauchy.
+}
+\pf{Proof}{
+    The definition of Banach spaces.
+} 
+
+\section{Finite Dimensional Banach Spaces}
+
+\exmp{Comparison Test}{
+    \noindent
+    Given two real sequence \(\{a_j\}\) and \(\{b_j\}\),
+    suppose \(0 \le a_j \le b_j\) for all \(j \ge k_0\)
+    where \(k_0 \in \NN\) is a fixed constant.
+    Then, if \(\sum_{j=1}^{\infty} b_j\) converges, then
+    \(\sum_{j=1}^{\infty} a_j\) converges.
+}
+\pf{Proof}{
+    Let \(S_k = \sum_{j=k_0}^{k} a_j\) and \(T_k = \sum_{j=k_0}^{\infty} b_j\).
+    Then, \(0 \le S_n - S_m = \sum_{j=m+1}^{n} a_j \le \sum_{j=m+1}^{n} b_j
+    = T_n - T_m\) whenever \(n \ge m \ge k_0\).
+    As \(\{T_k\}_{k \in \NN}\) is Cauchy, 
+    \(\{S_k\}_{k \in \NN}\) is Cauchy as well.
+    As \((\RR, \|\cdot\|)\) is a Banach space, \(\sum a_j\) converges.
+}
+
+\exmp{Absolute Convergence Test}{
+    \noindent
+    Let \((V, \|\cdot\|)\) be a Banach space.
+    Let \(\{\vec{x}_j\}_{j \in \NN} \subseteq V\) be a sequence.
+    If \(\sum_{j=1}^{\infty} \|\vec{x}_j\|\) converges (in \(\RR\)),
+    then \(\sum_{j=1}^{\infty} \vec{x}_j\) converges.
+}
+\pf{Proof}{
+    Let \(S_k = \sum_{j=1}^{k} \vec{x}_j \in V\)
+    and \(T_k = \sum_{j=1}^{k} \|\vec{x}_j\| \in \RR\).
+    Then, \(\|S_n - S_m\| = \big\| \sum_{j=m+1}^{n} \vec{x}_j \big\|
+    \le \sum_{j=m+1}^{n} \|\vec{x}_j\| = T_n - T_m\)
+    whenever \(n \ge m\).
+    As \(\{T_k\}\) is Cauchy, \(\{S_k\}\) is Cauchy as well.
+    Hence, \(\sum \vec{x}_j\) converges.
+}
+
+\exmp{Summation by Parts}{
+    \noindent
+    Let \(\{a_j\}\) and \(\{b_j\}\) be two real sequences.
+    If \(\sum a_j\) converges and \(\{b_j\}\) is monotonic,
+    then \(\sum_{j=1}^{\infty} a_j b_j\) converges.
+}
+\pf{Proof}{
+    Let \(S_k = \sum_{j=1}^{k} a_j b_j \in V\)
+    and \(A_k = \sum_{j=1}^{k} a_j \in \RR\). (\(A_0 = 0\).)
+    Then, \(S_k = \sum_{j=1}^{k} (A_j - A_{j-1}) b_j
+    = \sum_{j=1}^{k} A_j b_j - \sum_{j=0}^{k} A_{0}b_{j+1} + A_k b_{k+1}
+    = A_k b_{k+1} - \sum_{j=1}^{k} A_j (b_{j+1} - b_j)\).
+
+    We already have \(|A_j| \le M\) for some \(M > 0\),
+    hence \(\big|\sum_{j=1}^{k} A_j(b_{j+1} - b_j)\big| \le M(b_{k+1} - b_1)\).
+    Therefore, \(S_k\) converges.
+}
+
+\end{document}
