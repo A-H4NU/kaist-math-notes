@@ -83,7 +83,7 @@
 
 \section{Finite Dimensional Banach Spaces}
 
-\exmp{Comparison Test}{
+\thm{Comparison Test}{
     \noindent
     Given two real sequence \(\{a_j\}\) and \(\{b_j\}\),
     suppose \(0 \le a_j \le b_j\) for all \(j \ge k_0\)
@@ -100,7 +100,7 @@
     As \((\RR, \|\cdot\|)\) is a Banach space, \(\sum a_j\) converges.
 }
 
-\exmp{Absolute Convergence Test}{
+\thm{Absolute Convergence Test}{
     \noindent
     Let \((V, \|\cdot\|)\) be a Banach space.
     Let \(\{\vec{x}_j\}_{j \in \NN} \subseteq V\) be a sequence.
@@ -117,10 +117,10 @@
     Hence, \(\sum \vec{x}_j\) converges.
 }
 
-\exmp{Summation by Parts}{
+\thm{Summation by Parts}{
     \noindent
     Let \(\{a_j\}\) and \(\{b_j\}\) be two real sequences.
-    If \(\sum a_j\) converges and \(\{b_j\}\) is monotonic,
+    If \(\sum a_j\) converges and \(\{b_j\}\) is monotonic and convergent,
     then \(\sum_{j=1}^{\infty} a_j b_j\) converges.
 }
 \pf{Proof}{
@@ -130,9 +130,96 @@
     = \sum_{j=1}^{k} A_j b_j - \sum_{j=0}^{k} A_{0}b_{j+1} + A_k b_{k+1}
     = A_k b_{k+1} - \sum_{j=1}^{k} A_j (b_{j+1} - b_j)\).
 
-    We already have \(|A_j| \le M\) for some \(M > 0\),
-    hence \(\big|\sum_{j=1}^{k} A_j(b_{j+1} - b_j)\big| \le M(b_{k+1} - b_1)\).
-    Therefore, \(S_k\) converges.
+    % We already have \(|A_j| \le M\) for some \(M > 0\),
+    % hence \(\big|\sum_{j=1}^{k} A_j(b_{j+1} - b_j)\big| \le M(b_{k+1} - b_1)\).
+
+    Let \(T_k = \sum_{j=1}^{k} |A_j(b_{j+1} - b_j)|\).
+    Then, whenever \(n < m\), we have
+    \[
+        0 \le T_m - T_n \le M \textstyle \sum_{j=n+1}^{m} |b_{j+1}-b_j|
+        = M|b_{m+1}-b_{n+1}| \to 0,
+    \]
+    \(\{T_k\}\) is Cauchy, and thus converges; \(\{S_k\}\) converges as well.
+}
+
+\dfn{Conditional Convergence}{
+    Given a real sequence \(\{a_j\}_{j \in \NN} \subseteq \RR\),
+    if \(\sum a_j\) converges, and if \(\sum |a_j|\) does not converge,
+    then we say that \(\sum a_j\) \textit{converges conditionally}.
+}
+
+\thm{Alternating Series Test}{
+    Let \(\{a_j\}_{j \in \NN} \subseteq \RR\) be a real sequence.
+    If \(a_j \ge 0\) for all \(j \in \NN\),
+    and if \(\lim_{j \to \infty} a_j = 0\),
+    then \(\sum (-1)^j a_j\) converges.
+}
+\pf{Proof}{
+    MAS101.
+}
+
+\exmp{}{
+    \noindent
+    \(\sum (-1)^j/j\) conditionally converges.
+}
+
+\nt{
+    \centerline{\fbox{
+    Given, a real sequence \(\{a_j\}\),
+    we shall use the following definition for now.}}
+
+    \vspace*{.5em}
+    For \(j \in \NN\), define
+    \[
+        a_j^+ \triangleq \frac{|a_j| + a_j}{2} = \begin{cases}
+            a_j & \text{if }a_j \ge 0 \\
+            0 & \text{if }a_j < 0
+        \end{cases} \quad\text{and}\quad
+        a_j^- \triangleq \frac{|a_j| - a_j}{2} = \begin{cases}
+            0 & \text{if }a_j \ge 0 \\
+            -a_j & \text{if }a_j < 0
+        \end{cases}\text{.}
+    \]
+    Then, \(a_j^+, a_j^- \ge 0\), \(|a_j| = a_j^+ + a_j^-\), and \(a_j = a_j^+ - a_j^-\).
+}
+
+\mlemma[]{}{
+    Let \(\{a_j\}_{j \in \NN}\) be a real sequence.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If \(\sum a_j\) converges absolutely,
+            then both \(\sum a_j^+\) and \(\sum a_j^-\) converge.
+            Moreover, \(\sum a_j = \sum a_j^+ - \sum a_j^-\).
+        \ii If \(\sum a_j\) converges conditionally,
+            then both \(\sum a_j^+\) and \(\sum a_j^-\) diverge.
+    \end{enumerate}
+}
+\pf{Proof}{
+    \hfill
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii By the definition of \(a_j^+\) and \(a_j^-\).
+        \ii If one of \(\sum a_j^+\) or \(\sum a_j^-\) converges,
+            since \(a_j = a_j^+ - a_j^-\), the other converges as well.
+            If they both converge, as \(|a_j| = a_j^+ + a_j^-\),
+            \(\sum a_j\) converges absolutely.
+    \end{enumerate}
+
+}
+
+\dfn{Rearrangement of Series}{
+    Let \(\phi \colon \NN \to \NN\) be bijective.
+    Given a sequence \(\{a_j\}_{j \in \NN}\),
+    the series \(\sum a_{\phi(j)}\) is called a
+    \textit{rearrangement} of \(\sum a_j\).
+}
+
+\thm[]{Riemann's Rearrangement Theorem}{
+    Let \(\{a_j\}_{j \in \NN}\) be a conditionally convergent real sequence.
+    Then, for any given \(-\infty \le \alpha \le \beta \le \infty\) (\(\pm \infty\)
+    is allowed for \(\alpha\) and \(\beta\)), there exists a rearrangement \(\phi \colon \NN \to \NN\)
+    such that \(\liminf_{k \to \infty} \sum_{j=1}^{k} a_{\phi(j)} = \alpha\)
+    and \(\limsup_{k \to \infty} \sum_{j=1}^{k} a_{\phi(j)} = \beta\).
+}
+\pf{Proof}{
 }
 
 \end{document}
