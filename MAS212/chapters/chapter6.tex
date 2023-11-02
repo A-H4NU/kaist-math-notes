@@ -78,4 +78,292 @@
     \end{itemize}
 }
 
+\mlemma[eigenspaceIndep]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    Suppose \(c_1, \cdots, c_k \in F\) are all the possible distinct
+    characteristic values of \(T\).
+    Let \(W_i\) be the eigenspace of \(c_i\), i.e., \(W_i = \ker (T - c_i I)\).
+    Then, \(\dim \big(\sum W_i\big) = \sum \dim W_i\).
+}
+\pf{Proof}{
+    Suppose \(\sum \beta_i = 0\) where \(\beta_i \in W_i\).
+    Then, applying \(T, T^2, \cdots, T^{k-1}\), we get
+    \[
+        \textstyle \sum_{i=1}^k c_i^j \beta_i = 0
+    \]
+    for each \(j \in \{0,\cdots,k-1\}\). As \[
+        \begin{bmatrix}
+            1 & 1 & \cdots & 1 \\
+            c_1 & c_2 & \cdots & c_k \\
+            \vdots & \vdots & \ddots & \vdots \\
+            c_1^{k-1} & c_2^{k-1} & \cdots & c_k^{k-1}
+        \end{bmatrix}
+    \]
+    is invertible since \(c_i\)'s are distinct, we get \(\beta_i = 0\) for each \(i\).
+}
+
+\thm[diagTFAE]{}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    Suppose \(c_1, \cdots, c_k \in F\) are all the possible distinct
+    characteristic values of \(T\).
+    Let \(W_i\) be the eigenspace of \(c_i\), i.e., \(W_i = \ker (T - c_i I)\).
+    \textsf{TFAE}.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(T\) is diagonalizable.
+        \ii The characteristic polynomial is \(p(x) = \prod_{i=1}^k (x-c_i)^{d_i}\)
+            where \(d_i = \dim W_i\).
+        \ii \(\sum_{i=1}^k d_i = n\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    (\(\text{(i)} \Rightarrow \text{(ii)}\))
+    Let \(\mcal B\) be the basis for \(V\) that consists of eigenvectors of \(T\).
+    If \(\mcal B_i\) is the part of \(\mcal B\) that only consists of eigenvectors
+    corresponding to \(c_i\), we have \(\spn B_i = W_i\).
+    Hence, on rearranging, \([T]_{\mcal B} = \mrm{diag}(\overbrace{c_1, \cdots, c_1}^{d_1},
+    \overbrace{c_2, \cdots, c_2}^{d_2}, \cdots, \overbrace{c_k, \cdots, c_k}^{d_k})\).
+
+    (\(\text{(ii)} \Rightarrow \text{(iii)}\))
+    A direct consequence of \Cref{lem:eigenspaceIndep}.
+
+    (\(\text{(iii)} \Rightarrow \text{(i)}\))
+    \(\dim \sum W_i = \sum \dim W_i = \sum d_i = n\). Hence, \(\sum W_i = V\),
+    i.e., \(V\) has a basis consisting of characteristic vectors.
+}
+
+\section{Annihilating Polynomials}
+
+\nt{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    \(\{\,f \in F[x] \mid f(T) = 0\,\}\) is a nonzero ideal
+    as \(\{\,I, T, T^2, \cdots, T^{n^2}\,\}\) is linearly dependent.
+}
+
+\dfn{Minimal Polynomial}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    The monic generator of the nonzero ideal \(\{\,f \in F[x] \mid f(T) = 0\,\}\)
+    is called the \textit{minimal polynomial} of \(T\).
+}
+
+\thm[charAndMinSameSol]{}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    If \(p(x)\) is the characteristic polynomial of \(T\) and \(m(x)\) is the minimal polynomial of \(T\),
+    then \(p(x)\) and \(m(x)\) has the same solutions in \(F\).
+}
+\pf{Proof}{
+    (\(\Rightarrow\))
+    Suppose \(m(c) = 0\). Then, \(m(x) = (x-c)q(x)\) for some \(q \in F[x]\).
+    As \(m\) is minimal, \(q(T) \neq 0\).
+    This means that \(q(T)(\beta) \neq 0\) for some \(\beta \in V\).
+    However, \(m(T)(\beta) = ((T-cI)q(T))(\beta) = 0\); hence \(q(T)(\beta) \in \ker (T - cI)\),
+    i.e., \(c\) is an eigenvalue. This means that \(p(c) = 0\).
+
+    (\(\Leftarrow\))
+    Suppose \(p(c) = 0\), i.e., \(T(\alpha) = c \alpha\) for some nonzero \(\alpha \in V\).
+    As \(T^{k}(\alpha) = c^k \alpha\) for all \(k \in \NN \cup \{0\}\),
+    for any polynomial \(f \in F[x]\), we have \(f(T)(\alpha) = f(c) \alpha\).
+    In particular, \(0 = m(T) \alpha = m(c) \alpha\), i.e., \(m(c) = 0\).
+}
+
+\cor{}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    Suppose \(c_1, \cdots, c_k \in F\) are all the possible distinct
+    characteristic values of \(T\).
+    If \(p(x)\) is the characteristic polynomial of \(T\) and \(m(x)\) is the minimal polynomial of \(T\),
+    then, \(p(x) = \prod_{i=1}^k (x-c_i)^{d_i}\) and \(p(x) = \prod_{i=1}^k (x-c_i)^{r_i}\)
+    where \(d_i \ge r_i\) for each \(i \in [k]\).
+}
+
+\thm[cayley]{Cayley-Hamilton}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    If \(p(x)\) is the characteristic polynomial of \(T\),
+    then \(p(T) = 0\).
+}
+\pf{Proof}{
+    Let \(K \triangleq \{\,h(T) \mid h \in F[x]\,\}\) be a commutative ring.
+    Let \(\mcal B = \{\alpha_1, \cdots, \alpha_n\}\)
+    be a basis for \(V\).
+    Let \(A \triangleq [T]_{\mcal B}\) so that \(T(\alpha_i) = \sum_{j=1}^{n} A_{ji} \alpha_j\).
+    This is equivalent to \(\sum_{j=1}^{n} (\delta_{ij}T - A_{ji}I) \alpha_j = 0\).
+
+    Let \(B_{ij} \triangleq \delta_{ij}T - A_{ji}I \in K\)
+    and \(B \triangleq [B_{ij}]\).
+    Then, \((\adj B) B = B (\adj B) = (\det B) I\).
+    By construction,
+    \(\sum_{j=1}^{n} (\adj B)_{ki} B_{ij} \alpha_j = 0\)
+    for all \(k, i \in [n]\).
+
+    Taking sum over \(i\), we have
+    \[\begin{aligned}[t]
+        0 &= \sum_{i=1}^{n} \sum_{j=1}^{n} (\adj B)_{ki} B_{ij} \alpha_j \\
+          &= \sum_{j=1}^{n} \left( \sum_{i=1}^{n} (\adj B)_{ki} B_{ij} \right) \alpha_j \\
+          &= \sum_{j=1}^{n} \delta_{kj} (\det B) \alpha_j = (\det B) \alpha_k
+    \end{aligned}\]
+    for each \(k \in [n]\).
+    As \(\{\alpha_1, \cdots, \alpha_n\}\) is a basis of \(V\),
+    we have \(\det B = 0\), i.e., \(p(T) = 0\).
+}
+
+\section{Invariant Subspaces}
+
+\dfn{\(T\)-Invariant Subspace}{
+    Let \(V\) be a finite-dimensional vector space over \(F\)
+    and \(W\) be a subspace of \(V\).
+    Let \(T \in L(V))\).
+    Then, \(W\) is said to be a \textit{\(T\)-invariant subspace}
+    if \(T(W) \subseteq W\).
+}
+\nt{
+    \noindent
+    If \(W\) is a \(T\)-invariant subspace of \(V\),
+    then \(T\big|_W\) is a naturally induced linear operator on \(W\).
+}
+
+\exmp{}{
+    \noindent
+    Let \(V\) be a finite-dimensional vector space over \(F\)
+    and \(T \in L(V)\).
+    \begin{itemize}[nolistsep]
+        \ii \(W = \{0\}\) is a \(T\)-invariant subspace.
+        \ii For every eigenvalue \(c\) of \(T\), \(E_c = \ker (T-cI)\) is a \(T\)-invariant subspace.
+    \end{itemize}
+}
+
+\mlemma{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\)
+    and \(T \in L(V)\).
+    Let \(W\) be a \(T\)-invariant subspace of \(V\).
+    Then, \(m_W \mid m\) and \(f_W \mid f\)
+    where \(m_W\) and \(m\) are minimal polynomials of \(T\big|_W\) and \(T\),
+    and \(f_W\) and \(f\) are characteristic polynomials of \(T\big|_W\) and \(T\).
+}
+\pf{Proof}{
+    Let \(\mcal B' = \{\,\alpha_1, \cdots, \alpha_k\,\}\) be a basis for \(W\),
+    and extend it to \(\mcal B = \{\,\alpha_1, \cdots, \alpha_n\,\}\) so
+    \(\mcal B\) is a basis for \(V\).
+    As \(W\) is \(T\)-invariant, we have
+    \[
+        M \triangleq [T]_{\mcal B} = \begin{bmatrix}
+            A & B \\ 0 & C
+        \end{bmatrix}
+    \]
+    where \(A = \left[T\big|_W\right]_{\mcal B'}\).
+    Hence, \(f(x) = \det (xI - M) = \det (xI - A) \det (xI-C)
+    = f_W(x) \det(xI-C)\).
+
+    Now, noting that \(M^r = \left[\begin{smallmatrix} A^r & \ast \\ 0 & C^r \end{smallmatrix}\right]\),
+    whenever \(p(x) \in F[x]\) satisfies \(p(M) = 0\),
+    we always have \(p(A) = 0\) as \(A\) is invertible; \(m(A) = 0\).
+    By the definition of \(m_W\), we have \(m_W \mid m\).
+}
+
+\dfn{\(T\)-conductor}{
+    Let \(V\) be a finite-dimensional vector space over \(F\)
+    and \(T \in L(V)\).
+    Let \(W\) be a \(T\)-invariant subspace of \(V\).
+    Then, for each \(\alpha \in V\), the set
+    \[
+        S_T(\alpha; W) \triangleq \{\,g \in F[x] \mid g(T)\alpha \in W\,\}
+    \]
+    is called the \textit{\(T\)-conductor of \(\alpha\) to \(W\)}.
+}
+
+\mlemma[conductorNonzeroIdeal]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\)
+    and \(T \in L(V)\).
+    Let \(W\) be a \(T\)-invariant subspace of \(V\).
+    Then, for each \(\alpha \in V\), \(S_T(\alpha; W)\) is a
+    nonzero ideal.
+}
+\pf{Proof}{
+    \(S_T(\alpha, W)\) is nonzero as the characteristic polynomial
+    is contained in the set by \Cref{th:cayley}.
+
+    It is evident that \(S_T(\alpha, W)\) is a subspace of \(F[x]\).
+    Now, take any \(h \in F[x]\) and \(g \in S_T(\alpha; W)\).
+    Then, \((hg)(T)\alpha = h(T) g(T) \alpha \in W\) as \(W\) is \(T\)-invariant and
+    \(g(T)\alpha \in W\).
+}
+
+\dfn{\(T\)-conductor}{
+    Due to \Cref{lem:conductorNonzeroIdeal} and \Cref{th:polyIdealIsPrincipal},
+    there uniquely exists the monic generator \(g_{T,\alpha,W}\) of \(S_T(\alpha, W)\).
+    \(g_{T,\alpha,W}\) is also often called the \textit{\(T\)-conductor of \(\alpha\) to \(W\)}.
+}
+
+\nt{
+    Since \(m(T) = f(T) = 0\) where \(m\) and \(f\) are minimal and characteristic polynomials
+    of \(T\), they are elements of \(S_T(\alpha, W)\) for any \(\alpha, W\).
+    Hence, \[
+        g_{T,\alpha,W} \mid m \mid f\text{.}
+    \]
+}
+
+\dfn{Triangulable Matrix}{
+    Let \(V\) be a finite-dimensional vector space over \(F\)
+    and \(T \in L(V)\).
+    \(T\) is said to be \textit{triangulable} if there exists basis \(\mcal B\) for \(V\)
+    such that \([T]_{\mcal B}\) is upper triangular matrix.
+}
+
+\nt{
+    \noindent
+    If \(T\) is diagonalizable, then \(T\) is triangulable.
+}
+
+\mlemma[TCondIsLinear]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\).
+    Let \(T \colon V \to V\) be a linear operator on \(V\)
+    such that the minimal polynomial \(m\) of \(T\) has the form of
+    \[
+        m(x) = \textstyle \prod_{i=1}^k (x-c_i)^{r_i}.
+    \]
+    If \(W\) is a proper subspace of \(V\), then there exists \(\alpha \in V \setminus W\) and
+    an eigenvalue \(c \in F\) such that \((T-cI)\alpha \in W\).
+    In other words, \(x-c\) is the \(T\)-conductor of \(\alpha\) on \(W\).
+}
+\pf{Proof}{
+    Take \(\beta \in V \setminus W\). Then, \(g \triangleq g_{T,\beta,W} \mid m\), i.e.,
+    \[
+        g(x) = \textstyle \prod_{i=1}^k (x-c_i)^{e_i}.
+    \]
+    By the definition of \(g\), and since \(\beta \notin W\),
+    there exists \(j \in [k]\) such that \(e_j \ge 1\).
+    \(g(x) = (x-c_j) h(x)\) for some \(h \in F[x]\).
+    By the minimality of \(g\), \(\alpha \triangleq h(T)\beta \notin V \setminus W\)
+    but  \((T-c_jI)\alpha = (T-c_jI)h(T)\beta = g(T) \beta \in W\).
+}
+
+\thm[]{}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    Then, \(T\) is diagonalizable if and only if the minimal polynomial is
+    \(m(x) = \prod_{i=1}^k (x-c_i)\) where \(c_1, \cdots, c_k\) are distinct
+    eigenvalues of \(T\).
+}
+\pf{Proof}{
+    (\(\Rightarrow\))
+    By \Cref{th:diagTFAE} and \Cref{th:charAndMinSameSol}, we already have
+    \(m(x) = \prod_{i=1}^k (x-c_i)^{e_i}\) where \(e_i \ge 1\).
+    Now, we claim that \(S \triangleq \prod_{i=1}^k (T-c_iI) = 0\).
+
+    From assumption, there exists a basis \(\{\,\alpha_1, \cdots, \alpha_n\,\}\)
+    for \(V\) which consists of eigenvectors.
+    Let \(\alpha_j\) corresponds to the eigenvalue \(c_{i(j)}\).
+    Then, for each \(j \in [n]\), \((T-c_{i(j)}I) \alpha_j = 0\),
+    i.e., \(S \alpha_j = 0\).
+    Therefore, \(S = 0\).
+
+    (\(\Leftarrow\)) ???
+}
+
+
+
 \end{document}
