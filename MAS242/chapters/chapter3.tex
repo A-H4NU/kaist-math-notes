@@ -142,6 +142,8 @@
     \(\{T_k\}\) is Cauchy, and thus converges; \(\{S_k\}\) converges as well.
 }
 
+\section{Conditional Convergence}
+
 \dfn{Conditional Convergence}{
     Given a real sequence \(\{a_j\}_{j \in \NN} \subseteq \RR\),
     if \(\sum a_j\) converges, and if \(\sum |a_j|\) does not converge,
@@ -183,7 +185,7 @@
     Then, \(a_j^+, a_j^- \ge 0\), \(|a_j| = a_j^+ + a_j^-\), and \(a_j = a_j^+ - a_j^-\).
 }
 
-\mlemma[]{}{
+\mlemma[condConvThenPosDiv]{}{
     Let \(\{a_j\}_{j \in \NN}\) be a real sequence.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii If \(\sum a_j\) converges absolutely,
@@ -212,7 +214,7 @@
     \textit{rearrangement} of \(\sum a_j\).
 }
 
-\thm[]{Riemann's Rearrangement Theorem}{
+\thm[riemannRearrange]{Riemann's Rearrangement Theorem}{
     Let \(\{a_j\}_{j \in \NN}\) be a conditionally convergent real sequence.
     Then, for any given \(-\infty \le \alpha \le \beta \le \infty\) (\(\pm \infty\)
     is allowed for \(\alpha\) and \(\beta\)), there exists a rearrangement \(\phi \colon \NN \to \NN\)
@@ -220,6 +222,104 @@
     and \(\limsup_{k \to \infty} \sum_{j=1}^{k} a_{\phi(j)} = \beta\).
 }
 \pf{Proof}{
+    Let \(\{P_j\}_{j \in \NN}\) and \(\{Q_j\}_{j \in \NN}\) be nonnegative terms and
+    absolute value of negative terms of \(\{a_j\}_{j \in \NN}\).
+    Then, since they differ from \(\{a_j^+\}\) and \(\{a_j^-\}\) by zero terms,
+    they are also divergent by \Cref{lem:condConvThenPosDiv}.
+
+    Let \(\{\alpha_\ell\}_{\ell \in \NN}\) and \(\{\beta_\ell\}_{\ell \in \NN}\) be
+    real sequences such that \(\lim_{\ell \to \infty} \alpha_\ell = \alpha\)
+    and \(\lim_{\ell \to \infty} \beta_\ell = \beta\).
+    Let \(k_1, m_1 \in \NN\) be the smallest integers such that
+    \begin{itemize}[nolistsep]
+        \ii \(S_1 \triangleq P_1 + \cdots + P_{k_1} > \beta_1\) and
+        \ii \(T_1 \triangleq S_1 - (Q_1 + \cdots + Q_{m_1}) < \alpha_1\).
+    \end{itemize}
+    Inductively, define \(\{k_\ell\}_{\ell \in \NN}\) and \(\{m_\ell\}_{\ell \in \NN}\) by
+    \begin{itemize}[nolistsep]
+        \ii \(k_{\ell+1} \triangleq \min \big\{\, k \in \NN_{> k_\ell}
+            \:\big|\: T_{\ell} + \sum_{j=k_\ell+1}^{k} P_j > \beta_{\ell + 1}\,\big\}\)
+        \ii \(S_{\ell+1} \triangleq T_{\ell} + \sum_{j=k_\ell+1}^{k_{\ell+1}} P_j\)
+        \ii \(m_{\ell+1} \triangleq \min \big\{\, m \in \NN_{> m_\ell}
+            \:\big|\: S_{\ell+1} - \sum_{j=m_\ell+1}^{m} Q_j < \alpha_{\ell + 1}\,\big\}\)
+        \ii \(T_{\ell+1} \triangleq S_{\ell+1} - \sum_{j=m_\ell+1}^{m_{\ell+1}} Q_j\)
+    \end{itemize}
+    for each \(\ell \in \NN\).
+    As \(k_\ell \to \infty\) and \(m_\ell \to \infty\) as \(\ell \to \infty\),
+    this construction gives the natural rearrangement \(\phi \colon \NN \to \NN\).
+
+    By the construction, we have \(|S_\ell - \beta_\ell| \le P_{k_\ell}\)
+    and \(|T_\ell - \alpha_\ell| \le Q_{m_\ell}\) for each \(\ell \in \NN\).
+    As \(P_j, Q_j \to 0\) as \(j \to \infty\), we have \(S_\ell \to \beta\) and \(T_\ell \to \alpha\)
+    as \(\ell \to \infty\); \(\alpha\) and \(\beta\) are cluster points of
+    \(\big\{\sum_{j=1}^k a_{\phi(j)}\big\}_{k \in \NN}\) (as long as they are finite).
+
+    Moreover, for every sufficiently large \(n \in \NN\), we have
+    \(k_\ell + m_\ell \le n < k_{\ell+1} + m_{\ell+1}\) for some \(\ell \in \NN\), and thus
+    \(\min \{T_\ell, T_{\ell+1}\} \le \sum_{j=1}^{n} a_{\phi(j)} \le S_{\ell+1}\).
+    This, or some more rigorous explanation using arbitrary \(\veps \in \RR_+\),
+    implies that there do not exist cluster points smaller than \(\alpha\) or greater than \(\beta\).
+}
+
+\section{The Cauchy Product}
+
+\dfn{Cauchy Product}{
+    Given two real sequences \(\{a_j\}_{j=0}^\infty\) and \(\{b_j\}_{j=0}^\infty\),
+    define
+    \[
+        C_k \triangleq \sum_{j=0}^{k} a_j b_{k-j}.
+    \]
+    The series \(\sum_{k=1}^{\infty} C_k\) is called the
+    \textit{Cauchy product} of \(\sum_{j=0}^{\infty} a_j\) and \(\sum_{j=0}^{\infty} b_j\).
+}
+
+\thm[]{}{
+    Let \(\{a_j\}_{j=0}^\infty\) and \(\{b_j\}_{j=0}^\infty\) be two real sequences.
+    Let \(\sum_{k=0}^{\infty} C_k\) be the Cauchy product of them.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If \(\sum a_j\) converges absolutely, and if \(\sum b_j\) converges,
+            then \(\sum C_k\) converges to \(\big(\sum a_j\big)\big(\sum b_j\big)\).
+        \ii If both \(\sum a_j\) and \(\sum b_j\) converges absolutely,
+            \(\sum C_k\) converges absolutely as well.
+    \end{enumerate}
+}
+\pf{Proof}{
+    (ii) directly follows from the inequality
+    \(\sum_{k=0}^{n} |C_k| \le \big(\sum_{j=0}^{n} |a_j|\big) \big(\sum_{j=0}^{n} |b_j|\big)\)
+    as long as (i) is proven.
+
+    Let \(S_n \triangleq \sum_{k=0}^{n} C_k\), \(A_n \triangleq \sum_{j=0}^{n} a_j\),
+    and \(B_n \triangleq \sum_{j=0}^{n} b_j\).
+    Let \(B \triangleq \lim_{n \to \infty} B_n\) and \(\mu_n \triangleq B_n - B\).
+    Then,
+    \[\begin{aligned}[t]
+        S_n &= \sum_{k=0}^{n} C_k = \sum_{k=0}^{n} \sum_{j=0}^{k} b_{k-j}
+            = \sum_{j=0}^{n} a_j \sum_{k=j}^{n} b_{k-j} \\
+            &= \sum_{j=0}^{n} a_j B_{n-j} = \sum_{j=0}^{n} a_j (B + \mu_{n-j})
+            = B \sum_{j=0}^{n} a_j + \sum_{j=0}^{n} a_j \mu_{n-j}.
+    \end{aligned}\]
+
+    \mclm{Claim}{
+        \(\lim_{n \to \infty} \sum_{j=0}^{n} a_j \mu_{n-j} = 0\).
+    }
+
+    Take any \(\veps \in \RR_+\) so there exists \(N \in \NN\) such that
+    \begin{itemize}[nolistsep]
+        \ii \(|\mu_n| < \veps\) for all \(n \ge N\) (by \(\mu_n \to 0\)) and
+        \ii \(\sum_{j=n+1}^{m} |a_j| < \veps\) for all \(m > n \ge N\) (by \(\sum_{j=0}^{k} |a_j|\) being Cauchy).
+    \end{itemize}
+    
+    As \(\mu_n\) converges, there exists \(\mu^\ast \triangleq \sup_{n \in \NN} |\mu_n|\).
+    Let \(K_n \triangleq \sum_{j=0}^{n} a_j \mu_{n-j}\).
+    Whenever \(n > 2N\),
+    \[\begin{aligned}[t]
+        |K_n| &\le \sum_{j=0}^{n} |a_j| \cdot |\mu_{n-j}|
+        = \sum_{j=0}^{N-1} |a_j| \cdot |\mu_{n-j}| + \sum_{j=N}^{n} |a_j| \cdot |\mu_{n-j}| \\
+              &\le \veps \sum_{j=0}^{N-1} |a_j| + \mu^\ast \sum_{j=N}^{n} |a_j|
+              \le \veps \left[\sum |a_j| + \mu^\ast\right].
+    \end{aligned}\]
+    Hence, \(\lim_{n \to \infty} K_n = 0\); thus 
+    \(\lim_{n \to \infty} S_n = \big(\sum a_j\big)\big(\sum b_j\big)\).
 }
 
 \end{document}
