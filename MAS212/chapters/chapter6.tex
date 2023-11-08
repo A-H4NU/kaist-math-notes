@@ -562,4 +562,109 @@
     if the sum is direct.
 }
 
+\dfn{Projection}{
+    Let \(V\) be a vector space over \(F\).
+    A linear operator \(E \in L(V)\) such that \(E^2 = E\)
+    is called a \textit{projection}.
+}
+
+\exmp{}{
+    Suppose \(V = V_1 \oplus V_2\).
+    Then, \(P_1 \in L(V)\) defined by
+    \(v_1 + v_2 \mapsto v_1\) where \(v_1 \in V_1\) and \(v_2 \in V_2\)
+    is a projection.
+}
+
+\mlemma{}{
+    Let \(V\) be a vector space over \(F\).
+    Let \(E \in L(V)\) be a projection.
+    Then, \(V = V_1 \oplus V_2\) for some subspaces \(V_1\) and \(V_2\) of \(V\)
+    such that \(E\) can be represented by \(E(v_1 + v_2) = v_1\)
+    where \(v_1 \in V_1\) and \(v_2 \in V_2\).
+}
+\pf{Proof}{
+    Take \(V_1 = \Img E\) and \(V_2 = \ker E\).
+    Take any \(v \in V\).
+    Then, \(v = Ev + (v - Ev)\)
+    while \(Ev \in V_1\) and \(v - Ev \in \ker E\).
+    Hence, \(V = V_1 + V_2\).
+
+    Take any \(v_1 \in \Img E\)
+    and \(v_2 \in \ker E\) and suppose \(v_1 + v_2 = 0\).
+    Then, there exists \(v_1' \in V\) such that \(v_1 = E(v_1')\).
+    Then, \(0 = E(v_1 + v_2) = E(v_1) = E^2(v_1') = E(v_1') = v_1\).
+    Hence, the sum is direct.
+    It is also shown that \(E(v_1 + v_2) = E(v_1) = v_1\).
+}
+
+\thm[projOnSubsp]{}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Suppose \(V = \oplus_{i=1}^k W_i\) for some subspaces \(W_i\) of \(V\).
+    Then, for each \(i \in [k]\), there exists \(E_i \in L(V)\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(E_i\) is a projection for each \(i \in [k]\),
+        \ii \(E_iE_j = 0\) if \(i \neq j\).
+        \ii \(I = \sum_{i=1}^{k} E_i\).
+        \ii \(\Img E_i = W_i\) for each \(i \in [k]\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    All \(v \in V\) can be uniquely written as
+    \(v = \sum_{i=1}^{k} v_i\) where \(v_i \in W_i\) for each \(i \in [k]\).
+    Hence, define \(E_i \colon V \to V\) by \(v \mapsto v_i\).
+    Then, \(E_i\)'s satisfy the four constraints.
+}
+
+\thm[]{}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    Suppose \(V = \oplus_{i=1}^k W_i\) for some subspaces \(W_i\) of \(V\).
+    Let \(E_1, \cdots, E_k\) be the projections in \Cref{th:projOnSubsp}.
+    Then, \(W_i\) is \(T\)-invariant for all \(i \in [k]\)
+    if and only if \(T\) commutes with all \(E_i\)'s.
+} 
+\pf{Proof}{
+    (\(\Rightarrow\))
+    Suppose \(W_i\) is \(T\)-invariant for each \(i \in [k]\).
+    Take any \(\alpha \in V\) and write \(\alpha = \sum_{i=1}^{k} \alpha_i\)
+    where \(\alpha_i \in W_i\) for each \(i \in [k]\).
+    Then, \(E_i T \alpha = \sum_{j=1}^{k} E_iT \alpha_j
+    = T \alpha_i = TE_i \alpha\).
+
+    (\(\Leftarrow\))
+    Suppose \(TE_i = E_iT\).
+    Take any \(\alpha_i \in W_i\).
+    Then, \(T \alpha_i = TE_i \alpha_i = E_i(T \alpha_i) \in W_i\) by the definition of \(E_i\),
+    Hence, \(W_i\) is \(T\)-invariant.
+}
+
+\thm[eigDecomp]{}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\).
+    If \(T\) is diagonalizable and \(c_1, \cdots, c_k\) are all the distinct eigenvalues,
+    we have projections \(E_i \in L(V)\) for each \(i \in [k]\)
+    on \(W_i = E_{c_i}\) such that
+    \(T = \sum_{i=1}^{k} c_i E_i\) and \(V = \oplus_{i=1}^k W_i\)
+    with \(I = \sum_{i=1}^{k} E_i\) and \(E_iE_j = \delta_{ij}E_i\).
+}
+
+\nt{
+    \noindent
+    The converse of \Cref{th:eigDecomp} also holds.
+}
+
+\thm[pdt]{Primary Decomposition Theorem}{
+    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
+    Let \(T \in L(V)\) and \(m \in F[x]\) be its minimal polynomial.
+    Write \(m(x) = \prod_{i=1}^k p_i^{r_i}\)
+    where \(p_i\)'s are irreducible polynomials in \(F[x]\) and \(r_i \ge 1\).
+    Let \(W_i \triangleq \ker \big(p_i(T)^{r_i}\big)\).
+    Then,
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(V = \oplus_{i=1}^k W_i\).
+        \ii Each \(W_i\) is \(T\)-invariant.
+        \ii The minimal polynomial of \(T_i =  T\big|_{W_i}\) is \(p_i^{r_i}\).
+    \end{enumerate}
+}
+
 \end{document}
