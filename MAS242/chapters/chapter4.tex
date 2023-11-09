@@ -1,0 +1,111 @@
+\documentclass[../MAS242_Note.tex]{subfiles}
+
+\begin{document}
+\section{Calculus of Series Functions}
+
+\thm[]{}{
+    Given a sequence \(\{f_j\}_{j \in \NN} \subseteq \RR[(a,b)]\)
+    of differentiable functions, suppose the following.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\{f_j(x_0)\}_{j \in \NN} \subseteq \RR\) converges for some \(x_0 \in (a, b)\).
+        \ii \(\{f_j'\}_{j \in \NN} \subseteq \RR[(a,b)]\) uniformly converges on \((a, b)\).
+    \end{enumerate}
+    Then, \(f_j \rightrightarrows f\) for some \(f \colon (a, b) \to \RR\) on \((a, b)\).
+    Furthermore, \(f\) is differentiable on \((a, b)\) and
+    \(\fall x \in (a, b),\: f'(x) = \lim_{j \to \infty} f_j'(x)\).
+}
+\pf{Proof}{
+    We shall first show the uniform convergence of \(\{f_j\}\).
+    Take any \(\veps \in \RR_+\).
+    Then, there exists \(N \in \NN\) such that, for all \(j, k \ge N\),
+    \[
+        \big(|f_j(x_0)-f_k(x_0)| < \veps/2\big)
+        \land \big(\fall x \in (a, b),\:|f_j'(x) - f_k'(x)| < \veps/2(b-a)\big).
+    \]
+    By MVT, for all \(x, \tilde{x} \in (a, b)\) with \(x \neq \tilde x\),
+    there exists \(x_\ast \in (a, b)\) such that
+    \[
+        (f_j-f_k)(x)-(f_j-f_k)(\tilde x) = (f_j-f_k)'(x_\ast) \cdot (x-\tilde x)
+    \]
+    Hence, \(|(f_j-f_k)(x)-(f_j-f_k)(\tilde x)| < \veps/2\).
+    Therefore, \(|(f_j-f_k)(x)| < \veps\) by triangle inequality obtained by setting \(\tilde x = x_0\).
+    This directly implies that \(\{f_j\}\) is uniformly Cauchy and thus uniformly converges
+    by \Cref{lem:unifConvIff}. \checkmark
+
+    Let \(f_j \to f\). Fixing \(x \in (a, b)\), define
+    \[
+        \psi_j(t) \triangleq \frac{f_j(t) - f_j(x)}{t-x} \quad\text{and}\quad
+        \psi(t) \triangleq \frac{f(t) - f(x)}{t-x}
+    \]
+    for \(t \in (a, b)\) and \(t \neq x\). Now, we claim that \(\{\psi_j\}_{j \in \NN}\)
+    is uniformly Cauchy. Take any \(\veps \in \RR_+\).
+    Then, for \(j, k \ge N\),
+    \[
+        |\psi_j(t) - \psi_k(t)| = \left|\frac{(f_j-f_k)(t)-(f_j-f_k)(x)}{t-x}\right|
+        < \frac{\veps}{2(b-a)}.
+    \]
+    Hence, \(\{\psi_j\}\) uniformly converges by \Cref{lem:unifConvIff},
+    and \(\psi_j \to \psi\) as \(f_j \to f\).
+
+    Let \(A_j \triangleq \lim_{t \to x} \psi_j(t) = f_j'(x)\).
+    By the supposition (ii), we have convergence of \(\{A_j\}_{j \in \NN}\).
+    Now, we claim that \(\lim_{t \to x} \psi(t) = \lim_{j \to \infty} A_j\).
+    Let \(A_j \to A\). Take any \(\veps \in \RR_+\).
+    There exists \(N' \in \NN\) such that, if \(j \ge N'\),
+    we have \(|\psi(t) - \psi_j(t)| < \veps/3\) for all \(t \in (a, b) \setminus \{x\}\)
+    ana \(|A_j - A| < \veps/3\).
+    In addition, from the definition of \(A_j\), there exists \(\delta \in \RR_+\)
+    such that, whenever \(0 < |t - x| < \delta\), we have \(|\psi_{N'}(t)-A_{N'}| < \veps/3\).
+    Now, we have
+    \[
+        |\psi(t) - A| \le |\psi(t) - \psi_{N'}(t)| + |\psi_{N'}(t) - A_{N'}| + |A_{N'}-A| < \veps
+    \]
+    for \(0 < |t-x| < \delta\).
+    Hence, \(f'(x) = \lim_{t \to x} \psi(t) = \lim_{j \to \infty} f_j'(x)\).
+}
+
+\cor[tbtDiff]{Term-by-Term Differentiation}{
+    Given a sequence \(\{f_j\}_{j \in \NN} \subseteq \RR[(a,b)]\)
+    of differentiable functions, let \(F_n = \sum_{j=1}^{n} f_j\).
+    Suppose the following.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\{F_n(x_0)\}_{n \in \NN} \subseteq \RR\) converges for some \(x_0 \in (a, b)\).
+        \ii \(\{F_n'\}_{n \in \NN} \subseteq \RR[(a,b)]\) uniformly converges on \((a, b)\).
+    \end{enumerate}
+    Then, \(\{F_n\}\) converges uniformly to a function \(F \colon (a, b) \to \RR\)
+    on \((a, b)\).
+    Furthermore, \(F\) is differentiable on \((a, b)\) and
+    \(\fall x \in (a, b),\: F'(x) = \sum_{j=1}^{\infty} f_j'(x)\).
+}
+
+\exmp{}{
+    Let \(f_j(x) = \sin(x/j^2)\) for \(-1 < x < 1\)
+    and \(F_n = \sum_{j=1}^{n} f_j\).
+
+    For \(x_0 = 0\),  the sequence \(\{F_n(x_0)\}_{n \in \NN}\) converges (to zero).
+    Now, we have \(F_n'(x) = \sum_{j=1}^{n} \cos(x/j^2)/j^2\).
+    Then,   for \(n, m \in \NN\) with \(m \ge n\),
+    \(|F_m'(x) - F_n'(x)| \le \sum_{j=n+1}^{m} 1/j^2 \to 0\) as \(n, m \to \infty\).
+    Hence, \(\{F_n'\}\) is uniformly Cauchy; and thus it converges uniformly by \Cref{lem:unifConvIff}.
+    Hence, \Cref{cor:tbtDiff} guarantees the uniform convergence and differentiability of
+    \(\sum_{j=1}^{\infty} f_j\).
+}
+
+\thm[]{}{
+    Given a sequence \(\{f_j\}_{j \in \NN} \subseteq \RR[(a,b)]\)
+    of functions Riemann integrable on \((a, b)\),
+    if \(f_j \rightrightarrows f\) on \((a, b)\), then \(f\) is Riemann integrable on \((a, b)\).
+    Furthermore, \(\int_{a}^{b} f(x) \d x = \lim_{j \to \infty} \int_{a}^{b} f_j(x) \d x\).
+}
+\pf{Proof}{
+    
+}
+
+\cor[tbtInt]{Term-by-Term Integration}{
+    Given a sequence \(\{f_j\}_{j \in \NN} \subseteq \RR[(a,b)]\)
+    of functions Riemann integrable on \((a, b)\),
+    suppose \(\sum f_j \rightrightarrows F\) for some \(F \colon (a, b) \to \RR\).
+    Then, \(\int_{a}^{b} F(x)\d x = \lim_{n \to \infty} \int_{a}^{b} \sum_{j=1}^{n} f_j(x) \d x\).
+}
+
+\end{document}

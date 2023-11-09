@@ -279,7 +279,7 @@
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii If \(\sum a_j\) converges absolutely, and if \(\sum b_j\) converges,
             then \(\sum C_k\) converges to \(\big(\sum a_j\big)\big(\sum b_j\big)\).
-        \ii If both \(\sum a_j\) and \(\sum b_j\) converges absolutely,
+        \ii If both \(\sum a_j\) and \(\sum b_j\) converge absolutely,
             \(\sum C_k\) converges absolutely as well.
     \end{enumerate}
 }
@@ -320,6 +320,85 @@
     \end{aligned}\]
     Hence, \(\lim_{n \to \infty} K_n = 0\); thus 
     \(\lim_{n \to \infty} S_n = \big(\sum a_j\big)\big(\sum b_j\big)\).
+}
+
+\section{Series on Infinite Dimensional Banach Spaces}
+
+\dfn{Uniform Convergence of Series}{
+    Fix a domain \(\Omega \subseteq \RR[n]\).
+    Given a sequence \(\{\,f_j \colon \Omega \to \RR\,\}_{j\in\NN}\),
+    define \(F_n \colon \Omega \to \RR\) by
+    \[
+        F_n(x) \coloneqq \sum_{j=1}^{n} f_j(x)
+    \]
+    for each \(x \in \Omega\) and \(n \in \NN\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If \(\lim_{n \to \infty} F_n(x)\) exists for all \(x \in \Omega\),
+            then the series \(\sum_{j=1}^\infty f_j\) is said to
+            \textit{converge pointwise on} \(\Omega\).
+        \ii Suppose \(\sum_{j=1}^\infty f_j(x)\) converges pointwise on \(\Omega\)
+            and let \(F(x) \triangleq \lim_{n \to \infty} F_n(x)\).
+            The series \(\sum_{j=1}^\infty f_j\) is said to
+            \textit{converge uniformly on} \(\Omega\)
+            if \(\{F_n\}_{n=1}^\infty\) uniformly converges to \(F\) on \(\Omega\).
+    \end{enumerate}
+}
+\thm[]{}{
+    If \(\{f_n\}_{n \in \NN} \subseteq \RR^\Omega\) is a sequence of continuous functions
+    and converges uniformly, then \(\lim_{n \to \infty} f_n\) is continuous as well.
+}
+\pf{Proof}{
+    MAS241.
+}
+
+\dfn{Uniform Cauchy}{
+    A sequence of function \(\{f_n\}_{n \in \NN} \subseteq \RR[\Omega]\) is said to be
+    \textit{uniformly Cauchy on \(\Omega\)} if
+    \[
+        \forall \veps \in \RR_+,\: \exs N_\ast \in \NN,\:\fall n, m \ge N_\ast,\:
+        \fall x \in \Omega,\: |f_n(x) - f_m(x)| < \veps.
+    \]
+}
+
+\mlemma[unifConvIff]{}{
+    A sequence of function \(\{f_n\}_{n \in \NN} \subseteq \RR[\Omega]\)
+    uniformly converges on \(\Omega\) if and only if
+    \(\{f_n\}_{n \in \NN}\) is uniformly Cauchy on \(\Omega\).
+}
+\pf{Proof}{
+    (\(\Rightarrow\))
+    Let \(f(x) = \lim_{n \to \infty} f_n(x)\).
+    Take any \(\veps \in \RR_+\). Then, there exists \(N_\ast \in \NN\)
+    such that, if \(n \ge N_\ast\), then \(|f_n(x) - f(x)| < \veps/2\)
+    for all \(x \in \Omega\).
+    Consequently, whenever \(n, m \ge N_\ast\),
+    \(|f_n(x)-f_m(x)| \le |f_n(x) - f(x)| + |f(x)-f_m(x)| < \veps\).
+
+    (\(\Leftarrow\))
+    For each \(x \in \RR\), the sequence \(\{f_n(x)\}_{n \in \NN} \subseteq \RR\) is Cauchy.
+    As \((\RR, |\cdot|)\) is a Banach space, there uniquely exists the limit
+    \(f \triangleq \lim_{n \to \infty} f_n\).
+    Take any \(\veps \in \RR_+\).
+    Then, there exists \(N_\ast \in \NN\) such that \(|f_m(x) - f_n(x)| < \veps/2\)
+    for all \(n, m \ge N_\ast\) and \(x \in \Omega\).
+    From this, we get \(f_n(x) - \veps/2 \le \lim_{m \to \infty} f_m(x) = f(x) \le f_n(x) + \veps/2\).
+    Hence, \(|f_n(x) - f(x)| \le \veps/2 < \veps\) holds for all \(n \ge N_\ast\) and \(x \in \Omega\).
+
+}
+
+\nt{
+    \noindent
+    \Cref{lem:unifConvIff} holds for arbitrary sequence of functions from \(\Omega\) to
+    any Banach space.
+}
+
+\mlemma{}{
+    Let \(\{f_j\}_{j \in \NN} \subseteq \RR[\Omega]\) be a series of continuous functions.
+    If \(\sum_{j=1}^\infty f_j\) converges uniformly on \(\Omega\),
+    then \(\sum_{j=1}^\infty f_j\) is continuous on \(\Omega\).
+}
+\pf{Proof}{
+    \Cref{lem:unifConvIff}.
 }
 
 \end{document}
