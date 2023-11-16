@@ -615,6 +615,8 @@
     Then, \(E_i\)'s satisfy the four constraints.
 }
 
+\section{Invariant Direct Sums}
+
 \thm[]{}{
     Let \(V\) be a \(n\)-dimensional vector space over \(F\).
     Let \(T \in L(V)\).
@@ -653,18 +655,113 @@
     The converse of \Cref{th:eigDecomp} also holds.
 }
 
+\section{The Primary Decomposition Theorem}
+
 \thm[pdt]{Primary Decomposition Theorem}{
     Let \(V\) be a \(n\)-dimensional vector space over \(F\).
     Let \(T \in L(V)\) and \(m \in F[x]\) be its minimal polynomial.
     Write \(m(x) = \prod_{i=1}^k p_i^{r_i}\)
     where \(p_i\)'s are irreducible polynomials in \(F[x]\) and \(r_i \ge 1\).
     Let \(W_i \triangleq \ker \big(p_i(T)^{r_i}\big)\).
-    Then,
+    Then, the following hold.
     \begin{enumerate}[nolistsep, label=(\roman*)]
         \ii \(V = \oplus_{i=1}^k W_i\).
         \ii Each \(W_i\) is \(T\)-invariant.
-        \ii The minimal polynomial of \(T_i =  T\big|_{W_i}\) is \(p_i^{r_i}\).
+        \ii The minimal polynomial of \(T_i =  T\big|_{W_i}\) is \(p_i^{r_i}\) for each \(i \in [k]\).
     \end{enumerate}
+}
+\pf{Proof}{
+    If \(k = 1\), there is nothing to prove.
+    Hence, we may assume \(k \ge 2\).
+
+    Define for each \(i \in [k]\), \(f_i \triangleq \prod_{j \in [n] \setminus \{i\}} p_j^{r_j}\)
+    so that \((f_i, p_i^{r_i}) = 1\).
+    Since \(f_1, \cdots, f_k\) are also relatively prime,
+    there exists \(g_1, \cdots, g_k \in F[x]\)
+    such that \(f_1g_1 + \cdots + f_kg_k = 1\).
+    Define \(h_i \triangleq f_i g_i\) so \(\sum_{i=1}^{k} h_i(T) = I\).
+    When \(i \neq j\), we have \(m \mid f_if_j\) and \(f_i(T) f_j(T) = 0\).
+
+    Define \(E_i \triangleq h_i(T) \in L(V)\).
+    Then, we have \(\sum_{i=1}^{k} E_i = I\)
+    and \(E_iE_j = f_i(T)f_j(T)g_i(T)g_j(T) = 0\) for each \(i \neq j\).
+    Moreover, \(E_j = E_j \sum_{i=1}^{k} E_i = E_j^2\),
+    i.e., \(E_j\) is a projection for each \(j \in [k]\).
+    Then, \(V = \oplus_{i=1}^{k} \Img E_i\) and each \(\Img E_i\) is \(T\)-invariant.
+
+    Now, we claim that \(\Img E_i = W_i = \ker \big(p_i(T)^{r_i}\big)\).
+    \begin{itemize}[nolistsep]
+        \ii Take any \(\alpha \in \Img E_i\). Then, \(\alpha = E_i \alpha\).
+            This implies \(p_i(T)^{r_i}(\alpha) = p_i(T)^{r_i}f_i(T)g_i(T) \alpha = 0\)
+            as \(p_i^{r_i} f_i = m\). Hence, \(\Img E_i \subseteq W_i\).
+        \ii Take any \(\alpha \in \ker \big(p_i(T)^{r_i}\big)\).
+            If \(j \neq i\), then \(p_i^{r_i} \mid f_j \mid f_jg_j\).
+            This implies that \(f_j(T) g_j(T)\alpha = h_j(T) \alpha = 0\).
+            In other words, \(E_j \alpha = 0\) for each \(j \neq i\),
+            this restricts to the only left option: \(\alpha \in \Img E_i\).
+            Hence, \(W_i \subseteq \Img E_i\).
+    \end{itemize}
+
+    It remains to show that \(T_i = T\big|_{W_i}\) has the minimal polynomial \(p_i^{r_i}\).
+    Let \(m_i\) be the minimal polynomial of \(T_i\)
+    By the definition of \(W_i\), we have \(p_i(T)^{r_i} \big|_{W_i} = 0\).
+    Hence, \(m_i \mid p_i^{r_i}\); we now know \(m_i = p_i^{s_i}\) for some \(1 \le s_i \le r_i\).
+    Let \(g\) be any polynomial in \(F[x]\) such that \(g(T_i) = 0\).
+    We now claim that \(p_i^{r_i} \mid g\).
+    Since \(g(T_i) = 0\), we have \(g(T) f_i(T) = 0\) as well.
+    \(m \mid gf_i\). However, as \((p_i^{r_i}, f_i) = (1)\),
+    \(m = \prod_{j=1}^{k} p_j^{r_j} \mid g \prod_{i \neq j} p_j^{r_j}\)
+    directly implies that \(p_i^{r_i} \mid g\).
+}
+
+\cor{}{
+    If \(E_1, \cdots, E_k\) are projections associated to the primary decomposition
+    of \(V\) with respect to \(T\),
+    then each \(E_i\) is a polynomial in \(T\).
+
+    In particular, if \(U \in L(V)\) commutes with \(T\),
+    then \(U\) commutes with all \(E_i\) so each \(W_i\) is \(U\)-invariant.
+}
+
+\dfn{Nilpotent Linear Operator}{
+    Let \(V\) be a finite-dimensional vector space over \(F\).
+    \(T \in L(V)\) is called a \textit{nilpotent} operator
+    if \(T^N = 0\) for some \(N \in \NN\).
+}
+
+\thm[diagNilDecomp]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\).
+    Let \(T \in L(V)\) be a triangulable linear operator.
+    Then, there \textit{uniquely} exists a diagonalizable \(D \in L(V)\) and a nilpotent \(N \in L(V)\)
+    such that
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(T = D + N\) and
+        \ii \(DN = ND\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    Let \(m(x) = \prod_{i=1}^k (x-c_i)^{r_i}\) be the minimal polynomial of \(T\).
+    As in \Cref{th:pdt}, take \(W_i \triangleq \ker (T-c_iI)^{r_i} = \Img E_i\)
+    where \(E_i\) is the projection to \(W_i\).
+
+    Take \(D = \sum_{i=1}^{k} c_iE_i\) and \(N = T-D\).
+    Then, \(D\) is diagonalizable. Now, we claim that \(N\) is nilpotent.
+    As \(I = \sum_{i=1}^{k} E_i\), \(D = \sum_{i=1}^{k} (T-c_iI)E_i\).
+    Hence, \(N^r = \sum_{i=1}^{k} (T-c_iI)^r E_i\)
+    as \(T\) and \(E_i\) commute, and as \(E_i\)'s are projections onto independent subspaces.
+    Hence, \(N^{\max_{i=1}^k r_i} = 0\); \(N\) is nilpotent.
+    Furthermore, \(D\) and \(N\) are polynomials in \(T\); hence they commute.
+
+    Now, we are left with the proof for uniqueness.
+    Suppose we have another \(D'\) and \(N'\) that satisfy (i) and (ii).
+    \(D+N = T = D'+N'\) implies that \(A = D - D' = N' - N\) is both diagonalizable and nilpotent.
+    In other words, \(A = 0\), i.e., \(D = D'\) and \(N = N'\).
+}
+
+\nt{
+    \noindent
+    \(D\) and \(N\) in \Cref{th:diagNilDecomp} are called
+    \textit{diagonalizable part} and \textit{nilpotent part} of \(T\), respectively.
 }
 
 \end{document}
