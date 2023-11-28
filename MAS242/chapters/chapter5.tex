@@ -1,0 +1,160 @@
+\documentclass[../MAS242_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Functions Defined by Improper Integrals}
+
+\exmp{}{
+    Fix a constantt \(r > 0\). On \(\RR\), define
+    \[
+        F(x) \triangleq \int_{0}^{\infty} e^{-r t} \frac{\sin xt}{t} \d t
+        = \int_{0}^{\infty} f(t, x) \d t
+    \]
+    where \(f(t, x) = e^{-r t} \frac{\sin xt}{t}\).
+
+    (\textit{Is it well-defined?}) We need to check if
+    \(\lim_{R \to \infty} \int_{0}^{R} f(t, x) \d t\) exists for all \(x \in \RR\).
+    As \(f(t, x)\) is continuous with respect to \(t\),
+    we have \(F(x) = \lim_{n \to \infty} F_n(x)\)
+    we may only consider the sequence \(F_n(x) = \int_{0}^{n} f(t, x) \d t\). (Proof?)
+    For \(m, n \in \NN\) for \(m > n\),
+    \[
+        |F_m(x) - F_n(x)| \le \int_{n}^{m} \left|e^{r t} \frac{\sin xt}{t}\right| \d t
+        \le |x| \int_{n}^{m} e^{r t} \d t \to 0
+    \]
+    as \(m, n \to \infty\). Hence, \(\{F_n(x)\}_{n \in \NN}\) is Cauchy, and thus is convergent
+    for all \(x \in \RR\).
+
+    (\textit{Is it continuous?})
+    \[
+        |F(x_1) - F(x_2)| \le \int_{0}^{\infty} \frac{e^{-r t}}{t} |\sin x_1t - \sin x_2t| \d t
+        \le \frac{|x_1 - x_2|}{r}
+    \]
+    Hence, \(F\) is Lipschitz continuous (and thus uniformly continuous).
+
+    (\textit{Is it differentiable?})
+    If we have differentiability and uniform convergence of \(F_n\),
+    by \Cref{th:limDiff}, we have differentiability of \(F\) and \(F' = \lim_{n \to \infty} F_n'\).
+    \[
+        \textstyle
+        F_n'(x) \stackrel{?}{=} \int_{0}^{n} \frac{\partial}{\partial x} f(t, x) \d t
+        = \int_{0}^{n} e^{-r t} \cos xt \d t
+    \]
+
+    Assuming this, we have, for all \(m > n\), \(|F_m'(x) - F_n'(x)| \le \int_n^m e^{-r t} \d t \to 0\),
+    hence \(\{F_n'\}_{n \in \NN}\) is uniformly convergent.
+    Therefore, by \Cref{th:limDiff},
+    \[
+        F'(x) = \lim_{n \to \infty} \left. \frac{-e^{-rt} \cos (xt) / r + x e^{-rt} \sin (xt) / r^2}{1 + (x/r)^2} \right|_{t=0}^n
+            = \frac{r}{r^2 + x^2}.
+    \]
+    Moreover, \(F(0) = 0\); hence \(F(x) = \arctan (x/r)\).
+}
+
+\nt{
+    If \(g_h(t) = \frac{f(t, x+h) - f(t, x)}{h}\) converges to \(\partial_x f(t, x)\)
+    \textit{uniformly} with respect to \(t \in [0, n]\),
+    then \(F'(x) = \int_{0}^{n} \partial_x f(t, x) \d t\).
+}
+
+\exmp{}{
+    Fix \(x \in \RR\) and let \(G(r) = \int_{0}^{\infty} e^{-r t} \frac{\sin xt}{t} \d t\)
+    for \(r > 0\).
+    Then,
+    \[
+        \int_{0}^{\infty} \frac{\sin xt}{t} \d t = G(0) = \lim_{r \to 0^+} \arctan \left(\frac{x}{r}\right)
+        = \begin{cases}
+            \pi/2 & \text{if } x > 0 \\
+            0 & \text{if } x = 0 \\
+            -\pi/2 & \text{if } x < 0
+        \end{cases}.
+    \]
+}
+
+\exmp[gammaIntro]{}{
+    Now, repeat with \(g(t, x) = t^{x-1} e^{-t}\) and \(G(x) = \int_{0}^{1} g(t, x) \d t\).
+    Hence, define \(G_n(x) = \int_{1/n}^{n} g(t, x) \d t\).
+    For \(n \in \NN\) and \(\sigma \in \RR_+\), we have
+    \[
+        \left|G_n(x) - \int_{\sigma}^{1} t^{x-1} e^{-t} \right| \le
+        \left| \int_{1/n}^{\sigma} t^{x-1} e^{-t} \d x \right|
+        = \frac{\sigma^{x}-(1/n)^{x}}{x} \to 0
+    \]
+    as \(n \to \infty\) and \(\sigma \to 0^+\). Hence, \(G(x) = \lim_{n \to \infty} G_n(x)\).
+    \(G(x)\) is well-defined for \(0 < x < 1\).
+    \[
+        G_n'(x) \stackrel{?}{=} \int_{1/n}^{1} \partial_x g(t, x) \d t 
+        = \int_{1/n}^{1} t^{x-1} \ln t e^{-t} \d t
+    \]
+    as \(\partial_x g(t, x)\) is uniformly continuous on \([1/n, 1]\).
+    (The interchange of limit holds since \((g(t, x+h)-g(t,x))/h \rightrightarrows \partial_x g(t, x)\).)
+
+    We claim that, for any fixed \(k \in \NN\) with \(k > 2\), \(\{G_n'(x)\}_{n \in \NN}\) is uniformly Cauchy on
+    \(I_k = [2/k, 1)\).
+    If the claim is proven, then \Cref{th:limDiff}, \(G'(x) = \int_{0}^{1} t^{x-1} \ln t e^{-t} \d t\)
+    for all \(x \in [2/k, 1)\).
+
+    Define an auxiliary function \(H_k(t) \triangleq kt^{-1/k} - |\ln t|\) for \(0 < t < 1\).
+    Then, \(H_k'(t) = t^{-1}(1-1/t^{1/k}) < 0\).
+    As \(H_k(1) = k\), \(H_k(t) > 0\).
+    If \(x \in [2/k, 1)\), we have \(t^{x-1} |\ln t| e^{-t} \le t^{x-1} \cdot k t^{-1/k}
+    = k t^{x-1/k-1} \le k t^{1/k - 1}\).
+    Therefore, for all \(x \in I_k\),
+    \[
+        |G_n'(x) - G_m'(x)| \le \int_{1/n}^{1/m} k t^{1/k-1} \d t
+        = k^2 \big\{ (1/m)^{1/k} - (1/n)^{1/k} \big\} \to 0
+    \]
+    as \(m, n \to \infty\). (\(\{G_n'(x)\}_{n \in \NN}\) is uniformly Cauchy on \(I_k\).)
+}
+
+\dfn{Gamma Function}{
+    The function \(\Gamma \colon \RR_+ \to \RR\) defined by
+    \[
+        \Gamma(x) = \int_{0}^{\infty} t^{x-1} e^{-t} \d t
+    \]
+    is called the \textit{Gamma function}.
+}
+
+\nt{
+    (\textit{Well-defined?})
+    For \(x > 1\),
+    \[
+        |t^{x-1} e^{-t}| = t^{x-1} \cdot \frac{1}{\sum_{j=0}^{\infty} t^j/j!}
+        \le t^{x-1} \cdot \frac{1}{t^{\lceil x \rceil + 1}/(\lceil x \rceil + 1)!}.
+    \]
+}
+
+\thm{Properties of the Gamma Function}{
+    Let \(\Gamma\) be the Gamma function.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\Gamma(x+1) = x \Gamma(x)\) for each \(x \in \RR_+\).
+        \ii \(\Gamma(n+1) = n!\) for each \(n \in \ZZ_{\ge 0}\).
+        \ii \(\ln \Gamma(x)\) is a convex function.
+    \end{enumerate}
+}
+\pf{Proof}{
+\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii \[\begin{aligned}[t]
+        \Gamma(x+1) &= \lim_{R \to \infty} \int_{0}^{R} t^x e^{-t} \d t \\
+            &= \lim_{R \to \infty} \left[-t^x e^{-t} \bigg|_{t=0}^R + \int_{0}^{R} x t^{x-1} e^{-t} \d t\right]
+            = x \Gamma(x)
+        \end{aligned}\]
+    \ii Corollary of (i).
+    \ii H\"{o}lder's Inequality says that
+        \(\int |fg| \d x \le \big(\int |f|^p\big)^{1/p} \big(\int |g|^q\big)^{1/q} \)    
+        whenever \(1/p + 1/q = 1\).
+
+        Now, take any \(x, y > 0\) and \(p, q > 1\) such that \(1/p + 1/p = 1\).
+        \[\begin{aligned}[t]
+            \Gamma \left(\frac{x}{p} + \frac{y}{q}\right)
+            &= \int_{0}^{\infty} t^{\frac{x}{p} + \frac{y}{q} - \left(\frac{1}{p}+\frac{1}{q}\right)} e^{-t} \d t
+            = \int_{0}^{\infty} \big( t^{\frac{x-1}{p}} e^{-t/p} \big)\big( t^{\frac{y-1}{q}} e^{-t/q} \big) \d t \\
+            &\le \left[ \int_{0}^{\infty} t^{x-1} e^{-t} \d t \right]^{1/p}\left[ \int_{0}^{\infty} t^{y-1} e^{-t} \d t \right]^{1/q}
+            = \Gamma(x)^{1/p} \Gamma(y)^{1/q},
+        \end{aligned}\]
+        Hence \(\ln \Gamma(x/p + y/q) \le (1/p) \Gamma(x) + (1/q) \Gamma(y)\).
+\end{enumerate}
+}
+    
+\end{document}

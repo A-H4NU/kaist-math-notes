@@ -3,7 +3,7 @@
 \begin{document}
 \section{Calculus of Series Functions}
 
-\thm[]{}{
+\thm[limDiff]{}{
     Given a sequence \(\{f_j\}_{j \in \NN} \subseteq \RR[(a,b)]\)
     of differentiable functions, suppose the following.
     \begin{enumerate}[nolistsep, label=(\roman*)]
@@ -106,6 +106,111 @@
     of functions Riemann integrable on \((a, b)\),
     suppose \(\sum f_j \rightrightarrows F\) for some \(F \colon (a, b) \to \RR\).
     Then, \(\int_{a}^{b} F(x)\d x = \lim_{n \to \infty} \int_{a}^{b} \sum_{j=1}^{n} f_j(x) \d x\).
+}
+
+\thm[]{}{
+    Given a power series \(\sum_{j=0}^{\infty} c_j x^j\),
+    let
+    \[
+        \alpha \triangleq \limsup_{n \to \infty} \sqrt[n]{|c_n|}, \quad
+        R \triangleq \frac{1}{\alpha}.
+    \]
+    (If \(\alpha = 0\), put \(R = \infty\); if \(\alpha = \infty\), put \(R = 0\).)
+    Then, \(\sum c_j x^j\) converges if \(|x| < R\), and diverges if \(|x| > R\).
+}
+\pf{Proof}{
+    We have
+    \[
+        \limsup_{n \to \infty} \sqrt[n]{|c_n x^n|}
+        = \alpha |x|,
+    \]
+    therefore the result follows from the root test.
+}
+
+\thm[]{}{
+    Given a power series \(P(x) = \sum_{j=0}^{\infty} c_j x^j\),
+    let \(R\) be the radius of convergence.
+    Then, for any \(\veps \in (0, R)\),
+    \(P(x)\) uniformly
+    converges on \([-R+\veps, R-\veps]\).
+}
+
+\nt{
+    TODO: write proofs for
+    \begin{itemize}[nolistsep]
+        \ii Radius of convergence of \(P'(x)\) equals the radius of convergence of \(P(x)\).
+        \ii For all \(|x-x_0| < R\), we have \(P^{(k)}(x) = \sum_{j=k}^{\infty} j(j-1)\cdots(j-k+1)(x-x_0)^{j-k}\).
+    \end{itemize}
+}
+
+\thm[taylorThm]{Taylor's Theorem}{
+    Suppose a function \(f(x)\) is represented as a power series \(f(x) = \sum_{j=0}^{\infty} c_jx^j\)
+    and that the radius of convergence is \(R \in [0, \infty]\).
+    Then, for any \(x \in (-R, R)\),
+    \[
+        |x - a| < R - |a| \implies f(x) = \sum_{j=0}^{\infty} \frac{f^{(j)}(a)}{j!} (x-a)^j.
+    \]
+}
+\pf{Proof}{
+    Fix \(a \in (-R, R)\).
+    Suppose that \(f(x) = \sum_{j=0}^{\infty} \mu_j (x-a)^j\).
+    By corollary, \(f^{(k)}(x) = \sum_{j=k}^{\infty} j(j-1)\cdots(j-k+1) \mu_j(x-x_0)^{j-k}\).
+
+    \[\begin{aligned}[t]
+        f(x) &= \sum_{j=0}^{\infty} c_j \big((x-a)+a\big)^{j} \\
+             &= \sum_{j=0}^{\infty} \sum_{k=0}^{j} c_j \binom{j}{k} a^{j-k}(x-a)^k
+             = \sum_{k=0}^{\infty} \left[\sum_{j=k}^{\infty} c_j \binom{j}{k} a^{j-k}\right](x-a)^k.
+    \end{aligned}\]
+    The rearrangement is valid when \(T(x) = \sum_{j=0}^{\infty} \sum_{k=0}^{j} \big| c_j \binom{j}{k} a^{j-k}(x-a)^k \big|
+    = \sum_{j=0}^{\infty} |c_j| (|x-a|+|a|)^j\) converges, i.e.,
+    when \(\limsup_{j \to \infty} \big\{ |c_j| (|x-a|+|a|)^j \big\}^{1/j} = (|x-a|+|a|) / R < 1\).
+    Hence, \(f(x) = \sum_{j=0}^{\infty} \mu_j (x-a)^j\) converges when \(|x-a| < R - |a|\).
+}
+
+\nt{
+    \noindent
+    \Cref{th:taylorThm} implies that every series function is \(C^\infty\) and analytic.
+}
+
+\nt{
+    We do not have a reliable method to determine the convergence at the boundary points,
+    we have at least a theorem for the situation in which the convergence is given.
+}
+
+\thm{}{
+    Let \(P(x) = \sum_{j=0}^{\infty} c_j(x-x_0)^j\) be a power series and let
+    \(0 < R < \infty\) be its radius of convergence.
+    If \(P(x)\) converges at \(x = x_0 + R\),
+    then, \(P(x)\) uniformly converges on \([x_0, x_0 + R]\).
+}
+\pf{Proof}{
+    For convenience, rescale \(P(x)\) by setting
+    \(Q \big(\frac{x-x_0}{R}\big) = P(x)\),
+    so \(Q(z) = \sum_{j=0}^{\infty} R^{j}c_j z^j\),
+    and the radius of convergence of \(Q\) is \(1\)
+    and \(Q(z)\) converges at \(z = 1\).
+    Hence, we are left to prove the uniform convergence of \(Q(z)\) on \([0, 1]\).
+
+    Let \(\tilde{c}_j = R^jc_j\) so \(Q(z) = \sum_{j=0}^{\infty} \tilde{c}_j z^j\).
+    Let \(Q_n(z) = \sum_{j=0}^{n} \tilde c_j z^j\) and \(S_n = Q_n(1) = \sum_{j=0}^{n} \tilde c_j\).
+    Take any \(\veps \in \RR_+\). Then, there exists \(N \in \NN\) such that
+    \(|S_j - S_k| < \veps/3\) for all \(j, k \ge N\).
+    For \(n, m \in \NN\) with \(m > n\),
+    \[\begin{aligned}[t]
+        Q_m(z) - Q_n(z) &= \textstyle \big( S_m z^{m+1} - \sum_{j=0}^{m} S_j (z^{j+1} - z^j) \big)
+                            - \big( S_n z^{n+1} - \sum_{j=0}^{n} S_j (z^{j+1} - z^j) \big) \\
+                        &= \textstyle \sum_{j=n+1}^{m} S_j(z^j - z^{j+1}) + (S_m z^{m+1} - S_n z^{n+1}) \\
+                        &= \textstyle \sum_{j=n+1}^{m} S_j(z^j - z^{j+1})
+                            - S_n \sum_{j=n+1}^{m} (z^{j} - z^{j+1})
+                            + (S_m - S_n) z^{m+1}\\
+                        &= \textstyle \sum_{j=n+1}^{m} (S_j - S_n)(z^j - z^{j+1}) + (S_m - S_n) z^{m+1}.
+    \end{aligned}\]
+    Hence, for all \(m > n \ge N\) and \(z \in [0, 1]\),
+    \[
+        |Q_m(z) - Q_n(z)| \le \textstyle \sum_{j=n+1}^{m} (\veps/3) (z^j - z^{j+1}) + \veps/3
+                          = (\veps/3) (z^{n+1} - z^{m+1}) + \veps/3 < \veps.
+    \]
+    Hence, \(Q(z)\) uniformly converges on \([0, 1]\) by \Cref{lem:unifConvIff}.
 }
 
 \end{document}
