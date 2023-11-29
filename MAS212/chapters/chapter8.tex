@@ -1,0 +1,217 @@
+\documentclass[MAS212_Note.tex]{subfiles}
+\begin{document}
+
+\section{Inner Products}
+
+\dfn{Inner Product}{
+    Fix the field \(F\) to \(F = \RR\) or \(F = \CC\).
+    An inner product \((-,-)\) on \(V\) is a function
+    \((-,-) \colon V \times V \to F\) satisfying
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \((-,\ )\) is linear over \(F\).
+        \ii \((\beta, \alpha) = \ol{(\alpha, \beta)}\)
+        \ii If \(\alpha \neq 0\), \((\alpha, \alpha) > 0\).
+    \end{enumerate}
+}
+
+\nt{
+    \begin{itemize}[nolistsep]
+        \ii If \(F = \RR\), (i) and (ii) say that \((\ ,-)\) is also linear over \(F\).
+            Thus, an inner product is symmetric and bilinear.
+        \ii If \(F = \CC\), \((a, c \gamma) = \ol{c} (\alpha, \gamma)\),
+            i.e., \((-,-)\) is sesqui-linear.
+        \ii If \(F = \CC\), \((\alpha, \alpha) = \ol{(\alpha, \alpha)}\), i.e., \((\alpha, \alpha) \in \RR\).
+    \end{itemize}
+}
+
+\exmp{}{
+    \begin{itemize}[nolistsep]
+        \ii For \([x_i], [y_i] \in \CC[n]\),
+            the inner product defined by \(([x_i], [y_i]) = \sum_{i=1}^{n} x_i \ol{y_i}\)
+            is called the \textit{standard inner product}.
+        \ii \(F = \RR\), let \(A \in \RR[n \times n]\) such that
+            \(x^T A x > 0\) for all \(x \in \RR[n] \setminus \{0\}\).
+            We say \(A\) is positive definite.
+            The function \((x, y) = x^T A y\) is an inner product.
+    \end{itemize}
+}
+
+\thm{}{
+    \(F = \RR\). Let \(V = \RR[n]\).
+    Let \((-, -) \colon V \times V \to \RR\) be an inner product.
+    Then, there exists a symmetric positive definite matrix \(A \in \RR[n \times n]\)
+    such that \((x, y) = x^TAy\).
+}
+\pf{Proof}{
+    Choose a basis, e.g., the standard basis \(\{e_1, \cdots, e_n\}\).
+    Let \((e_i, e_j) = g_{ij}\) and let \((A)_{ij} = g_{ij}\).
+    Let \(x, y \in \RR[n]\) and write \(x = \sum_{i=1}^{n} x_i e_i\) and \(y = \sum_{j=1}^{n} x_j e_j\).
+    Then,
+    \[\begin{aligned}[t]
+        (x, y) &= \textstyle \sum_{i=1}^{n} x_ie_i\sum_{j=1}^{n} y_je_j \\
+               &= \textstyle \sum_{i=1}^{n} x_i \sum_{j=1}^{n} g_{ij} y_j = [x]_{\mcal B}^T A [y]_{\mcal B}.
+    \end{aligned}\]
+}
+
+\dfn{Hermitian Matrix}{
+    A matrix \(A \in \CC[n \times n]\) is called \textit{Hermitian}
+    if \(A^\ast = A\) where \(A^\ast = \ol{A}^T\).
+}
+
+\thm{}{
+    \(F = \CC\). Let \(V = \CC[n]\).
+    Let \((-, -) \colon V \times V \to \CC\) be an inner product.
+    Then, there exists a Hermitian positive definite matrix \(A \in \RR[n \times n]\)
+    such that \((x, y) = x^\ast Ay\).
+}
+
+\exmp{}{
+    Let \(V = \mcal C([a, b], \CC)\).
+    Define, for \(f, g \in V\), \((f, g) = \int_{a}^{b} f(t) \ol{g(t)} \d t\).
+    That is an inner product on \(V\).
+}
+
+\dfn{Inner Product Space}{
+    A vector space \(V\) over \(F = \RR\) or \(F = \CC\)
+    equipped with a specified inner product
+    is called an \textit{inner product space}.
+}
+
+\notat{Norm}{
+    We write
+    \[
+        \|v\| = \sqrt{(v, v)}.
+    \]
+    This is called a \textit{norm} of \(v\).
+}
+
+\thm[]{}{
+    Let \(V\) be an inner product space.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\|c \alpha\| = |c| \cdot \|\alpha\|\) for all \(c \in F\) and \(\alpha \in V\).
+        \ii \(\|\alpha\| > 0\) for all \(\alpha \in V \setminus \{0\}\).
+        \ii \(|(\alpha, \beta)| \le \|\alpha\| \cdot \|\beta\|\) for all \(\alpha, \beta \in V\). (\textit{Cauchy–Schwarz})
+        \ii \(\|\alpha+\beta\| \le \|\alpha\| + \|\beta\|\) for all \(\alpha, \beta \in V\). (\textit{Triangle Inequality})
+    \end{enumerate}
+}
+\pf{Proof}{ \hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii \checkmark
+    \ii \checkmark
+    \ii If \(\alpha = 0\), we have nothing to prove, so suppose \(\alpha \neq 0\).
+        Let
+        \[
+            \beta^{\parallel} \triangleq \frac{(\beta, \alpha)}{(\alpha, \alpha)} \alpha
+            \quad\text{and}\quad
+            \beta^\perp \triangleq \beta - \frac{(\beta, \alpha)}{(\alpha, \alpha)} \alpha.
+        \]
+        Then, \((\beta^\perp, \alpha) = 0\) and \(\beta^\parallel + \beta^\perp = \beta\).
+        Let \(c = (\beta, \alpha)/(\alpha, \alpha)\).
+        We have \[0 \le \|\beta^\perp\|^2 = (\beta - c \alpha, \beta^\perp)
+        = (\beta, \beta) - |c|^2 (\alpha, \alpha)
+        = \|\beta\|^2 - \frac{|(\alpha, \beta)|^2}{\|\alpha\|^2}.\]
+        Rearranging the inequality gives the result.
+    \ii \(\|\alpha+\beta\|^2 = (\alpha, \alpha) + (\alpha, \beta) + (\beta, \alpha) + (\beta, \beta)
+        \le \|\alpha\|^2 + 2\|\alpha\|\cdot\|\beta\| + \|\beta\|^2 = (\|\alpha\| + \|\beta\|)^2\)
+\end{enumerate}
+}
+
+\nt{
+    For \(\alpha, \beta \in V \setminus \{0\}\),
+    we define the \textit{angle} between \(\alpha\) and \(\beta\) be \(\theta \in \RR\)
+    such that
+    \[
+        \cos \theta = \frac{(\alpha, \beta)}{\|\alpha\| \cdot \|\beta\|}.
+    \]
+}
+
+\dfn{Orthogonality}{
+    Let \(V\) be an inner product space.
+    \begin{itemize}[nolistsep]
+        \ii For \(\alpha, \beta \in V\), we say \(\alpha\) and \(\beta\) are \textit{orthogonal}
+            if \((\alpha, \beta) = 0\).
+        \ii For \(S \subseteq V\), we say \(S\) is \textit{orthogonal}
+            if \(\alpha, \beta \in S\) and \(\alpha \neq \beta\),
+            then \((\alpha, \beta) = 0\).
+        \ii \(\{\alpha_1, \cdots, \alpha_n\} \subseteq V\) is said to be
+            \textit{orthonormal} if it is orthogonal and if \(\|\alpha_i\| = 1\).
+    \end{itemize}
+}
+
+\thm{}{
+    Let \(V\) be an inner product space.
+    Then, every orthogonal subset \(S\) of \(V\) is linearly independent.
+}
+\pf{Proof}{
+    Take any distinct \(\alpha_1, \cdots, \alpha_k \in S\).
+    Suppose \(\sum_{i=1}^{k} c_i \alpha_i = 0\) for some \(c_i\).
+}
+
+\nt{
+    If \(S = \{\alpha_1, \cdots, \alpha_m\} \subseteq V\) is orthogonal,
+    we may explicitly write every \(\beta \in \spn S\) in the form of
+    \[
+        \beta = c_1 \alpha_1 + c_2 \alpha_2 + \cdots + c_m \alpha_m
+    \]
+    by setting \(c_i = \dfrac{(\beta, \alpha_i)}{\|\alpha_i\|^2}\).
+}
+
+\thm[gramSchmidt]{Gram–Schmidt}{
+    Let \(V\) be an inner product space.
+    Suppose \(\{\beta_1, \cdots, \beta_n\}\) is a linearly independent subset of \(V\).
+    Then, there exists an orthogonal set \(\{\alpha_1, \cdots, \alpha_n\}\) of vectors
+    such that, for each \(k \in [n]\),
+    \(\{\alpha_1, \cdots, \alpha_k\}\) is a basis of \(\spn \{\beta_1, \cdots, \beta_k\}\).
+}
+\pf{Proof}{
+    Take \(\alpha_1 = \beta_1\).
+    Then, for each \(k \in \{2, \cdots, n\}\), set
+    \[
+        \alpha_k \triangleq \beta_k - \sum_{i=1}^{k-1} \frac{(\beta_k, \alpha_i)}{\|\alpha_i\|^2} \alpha_i.
+    \]
+    Then, \(\{\alpha_1, \cdots, \alpha_n\}\) satisfies the condition.
+}
+
+\cor{}{
+    Every finite dimensional inner product space has an orthonormal basis.
+}
+\pf{Proof}{
+    Normalize vectors from \Cref{th:gramSchmidt}.
+}
+
+\dfn{Best Approximation}{
+    Let \(V\) be an inner product space.
+    Let \(W\) be a subspace of \(V\) and \(\beta \in V \setminus W\).
+    A \textit{best approximation of \(\beta\) to \(W\)} is a vector \(\alpha \in W\)
+    such that
+    \[
+        \forall \gamma \in W,\: \|\beta - \alpha\| \le \|\beta - \gamma\|.
+    \]
+}
+
+\dfn{Projection}{
+
+}
+
+\dfn{Perpendicular Space}{
+    \(W^\perp = \{\,\beta \in V \mid \fall \alpha \in W,\: \alpha \perp \beta\,\}\).
+}
+
+\notat{Projection}{
+    Let \(\{\alpha_1, \cdots, \alpha_n\}\) be an orthogonal basis of \(W\).
+    Then, we write
+    \[
+        \mrm{proj}_{W} \beta \triangleq \sum_{i=1}^{m} \frac{\beta, \alpha_i}{\|\alpha_i\|^2} \alpha_i.
+    \]
+}
+
+\thm[]{}{
+    If \(\alpha \in W\) is a best approximation of \(\beta\) to \(W\),
+    then
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \((\beta - \alpha) \perp W\) and
+        \ii \(\alpha\) is given by the projection of \(\beta\) to \(W\).
+    \end{enumerate}
+}
+
+\end{document}
