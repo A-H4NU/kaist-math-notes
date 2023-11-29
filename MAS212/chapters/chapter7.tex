@@ -446,13 +446,41 @@
 \end{itemize}
 }
 
+\cor[cycDecompAndPoly]{}{
+    Let \(V\) be a finite-dimensional vector space over \(F\) and let \(T \in L(V)\).
+    Let \(V = \oplus_{i=1}^r Z(\alpha_i; T)\) be the cyclic decomposition
+    obtained by applying \Cref{th:cycDecomp} to \(W_0 = \{0\}\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(p_1\), the \(T\)-annihilator of \(\alpha_1\), is the minimal polynomial of \(T\).
+        \ii The characteristic polynomial of \(T\) equals \(\prod_{i=1}^r p_i\).
+        \ii \(T\) has a cyclic vector if and only if the characteristic polynomial
+            and the minimal polynomial are identical.
+    \end{enumerate}
+}
+\mclm{Proof}{
+    \hfill
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(p_1\) is the monic generator of \(S_T(V; \{0\}) = \{\,g \in F[x] \mid \fall \alpha \in V,\: g \alpha = 0\,\}\)
+            by \textbf{\textit{Claim 6}} in the proof of \Cref{th:cycDecomp}.
+            In other words, \(p_1\) is the minimal polynomial of \(T\).
+
+        \ii Let \(T_i \triangleq T\big|_{Z(\alpha_i; T)}\) be a linear operator on \(Z(\alpha_i ;T)\).
+            By \Cref{th:cycleAndAnnihilator}, \(p_i\) is the characteristic polynomial of \(T_i\).
+            Hence, \(\prod_{i=1}^r p_i\) is the characteristic polynomial of \(T\).
+
+        \ii \(\exs \alpha \in V,\: T = Z(\alpha; T)\) \(\underbrace{\iff}_\text{uniqueness}\)
+            \(r = 1\) \(\underbrace{\iff}_\text{(ii)}\) \(p_1 = (\text{the characteristic polynomial of }T)\)
+            \qed
+    \end{enumerate}
+}
+
 \thm[genCayley]{Generalized Cayley-Hamilton Theorem}{
     Let \(V\) be a finite-dimensional vector space over \(F\) and let \(T \in L(V)\).
     Let \(m\) and \(f\) be the minimal and the characteristic polynomial polynomial, respectively.
     Then,
     \begin{enumerate}[nolistsep, label=(\roman*)]
-        \ii \(m \mid f\) (we already have it)
-        \ii \(m\) and \(f\) have the same prime factors (except multiplicities)
+        \ii \(m \mid f\).
+        \ii \(m\) and \(f\) have the same prime factors except possibly for multiplicities.
         \ii Suppose \(m = \prod_{i=1}^k f_i^{r_i}\) and \(f = \prod_{i=1}^k f_i^{d_i}\)
             are the prime factorizations.
             Then, \(d_i = (\mrm{nullity}\,f_i(T)^{r_i})/(\deg f_i)\).
@@ -461,93 +489,161 @@
 \pf{Proof}{
 \hfill
 \begin{enumerate}[nolistsep, label=(\roman*)]
-    \ii \checkmark
-    \ii By \Cref{th:cycDecomp}, there exist \(\alpha_1, \cdots, \alpha_r\)
-        such that \(V = \oplus_{i=1}^r Z(\alpha_i; T)\)
-        with \(m(x) = p_1(x) = (T\text{-annihilator of }\alpha_1)\),
-        \(p_{i+1} \mid p_i\).
-        Take \(T_i = T \big|_{Z(\alpha_i; T)} \in L(Z(\alpha_i; T))\).
-        As \(Z(\alpha_i; T)\) is a cyclic vector space with \(\alpha_i\)
-        as its cyclic vector, \(p_i\) is also the characteristic polynomial of \(T_i\).
-        Thus, the characteristic polynomial of \(T\) is \(f = \prod_{i=1}^r p_i\).
-
-        If a prime factor divides \(f\), then it divides one of \(p_i\), which divides \(p_1 = m(x)\).
+    \ii \Cref{th:cayley}
+    \ii Apply \Cref{th:cycDecomp} to \(W_0 = \{0\}\).
+        Then, we have \(V = \oplus_{i=1}^r Z(\alpha_i; T)\).
+        and \(p_{i+1} \mid p_i\) for each \(i \in [r-1]\) where
+        \(p_i\) is the \(T\)-annihilator of \(\alpha_i\).
+        (ii) of \Cref{cor:cycDecompAndPoly} says \(f = \prod_{i=1}^r p_i\).
+        If a prime factor divides \(f\), then it divides one of \(p_i\), which divides \(p_1 = m\).
         Hence, \(f\) and \(m\) has the same prime factors.
-    \ii Apply \Cref{th:pdt}. Take \(T_i = T\big|_{W_i}\).
-        Then, \(f_i(x)^{r_i}\) is the minimal polynomial of \(T_i\).
-        Applying (ii) to \(T_i\), its minimal polynomial is a power of \(f_i\).
-        Hence, the characteristic polynomial of \(T_i\) is \(f_i^{d_i}\) where \(d_i \ge r_i\).
-
-        Hence, \(\dim W_i = \deg (\text{characteristic polynomial of } T_i)
-        = d_i \cdot \deg f_i\). Hence, \(d_i = (\dim W_i) / (\deg f_i)\).
+    \ii Apply \Cref{th:pdt} with respect to \(V\) and \(T\).
+        Then, we have \(V = \oplus_{i=1}^k W_i\) where \(W_i = \ker f_i(T)^{r_i}\).
+        Take \(T_i = T\big|_{W_i}\) so \(f_i^{r_i}\) is the minimal polynomial of \(T_i\).
+        By (ii) and the supposition, the characteristic polynomial \(g_i\) of \(T_i\) is \(f_i^{d_i}\)
+        where \(r_i \le d_i\).
+        Hence, \(\dim W_i = \deg g_i = d_i \cdot \deg f_i\).
+        Therefore, \(d_i = (\dim W_i) / (\deg f_i)
+        = (\mrm{nullity}\,f_i(T)^{r_i}) / (\deg f_i)\).
 \end{enumerate}
 }
 
-\cor[]{}{
-    Let \(V\) be a finite-dimensional vector space over \(F\) and let \(T \in L(V)\)
-    be \textit{nilpotent}. Then, the characteristic polynomial of \(T\) is \(x^n\).
+\cor[nilpotCharPoly]{}{
+    Let \(V\) be an \(n\)-dimensional vector space over \(F\) and let \(N \in L(V)\)
+    be nilpotent. Then, the characteristic polynomial of \(N\) is \(x^n\).
 }
 \pf{Proof}{
-    As \(T^N = 0\) for some big \(N \in \NN\),
-    the minimal polynomial is \(m(x) = x^r\) for some \(r\).
+    As \(N^k = 0\) for some \(k \in \NN\),
+    the minimal polynomial is \(x^r\) for some \(r\).
+    Hence, by (ii) of \Cref{th:genCayley}, we have \(x^n\) as the characteristic polynomial of \(N\).
+}
+
+\dfn{Rational Form}{
+    Let \(F\) be a field.
+    A matrix \(A \in F^{n \times n}\) is said to be in a \textit{rational form} if 
+    \[
+        A = \begin{bmatrix}
+            A_1 & \vec{0}_{k_1 \times k_2} & \cdots & \vec{0}_{k_1 \times k_r} \\
+            \vec{0}_{k_2 \times k_1} & A_2 & \cdots & \vec{0}_{k_2 \times k_r} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \vec{0}_{k_r \times k_1} & \vec{0}_{k_r \times k_2} & \cdots & A_r
+        \end{bmatrix}
+    \]
+    where
+    \begin{itemize}[nolistsep]
+        \ii \(A_i\) is a companion matrix of \(p_i \in F[x]\) with \(\deg p_i = k_i\) for each \(i \in [r]\) and
+        \ii \(p_{i+1} \mid p_i\) for each \(i \in [r-1]\).
+    \end{itemize}
+    % Let \(V\) be a finite-dimensional vector space over \(F\) and let \(T \in L(V)\).
+    % Let \(V = \oplus_{i=1}^r Z(\alpha_i; T)\) be a cyclic decomposition
+    % obtained by applying \Cref{th:cycDecomp} to \(W_0 = \{0\}\).
+    % By (i) of \Cref{th:cycleAndAnnihilator}, \(\mcal B_i = \{\,\alpha_1, \cdots, T^{k_i-1} \alpha_i\}\)
+    % is a basis for \(Z(\alpha_i; T)\) where \(k_i = \dim Z(\alpha_i; T)\).
+    % Let \(\mcal B = (\mcal B_1, \cdots, \mcal B_r)\) be a basis for \(V\).
+    % Then,
+    % \[
+    %     [T]_{\mcal B} = \begin{bmatrix}
+    %         [T_1]_{\mcal B_1} & 0 & \cdots & 0 \\
+    %         0 & [T_2]_{\mcal B_2} & \cdots & 0 \\
+    %         \vdots & \vdots & \ddots & \vdots \\
+    %         0 & 0 & \cdots & [T_r]_{\mcal B_r}
+    %     \end{bmatrix}
+    % \]
+    % is called a \textit{rational form} of \(T\).
+    % Note that each submatrix \([T_i]_{\mcal B_i}\) is the companion matrix of \(p_i\),
+    % the \(T\)-annihilator of \(\alpha_i\).
+}
+
+\thm[uniqueRationalForm]{}{
+    Let \(F\) be a field.
+    For any \(B \in F^{n \times n}\), there uniquely exists a matrix in a rational form
+    which is similar to \(B\).
+}
+\pf{Proof}{
+    Let \(F^n = \oplus_{i=1}^r Z(\alpha_i; B)\) be a cyclic decomposition
+    obtained by applying \Cref{th:cycDecomp} to \(W_0 = \{0\}\).
+    By (i) of \Cref{th:cycleAndAnnihilator}, \(\mcal B_i = \{\,\alpha_1, \cdots, T^{k_i-1} \alpha_i\}\)
+    is a basis for \(B_i = Z(\alpha_i; T)\) where \(k_i = \dim Z(\alpha_i; B)\).
+    Let \(\mcal B = (\mcal B_1, \cdots, \mcal B_r)\) be a basis for \(F^n\).
+    Then,
+    \[
+        [B]_{\mcal B} = \begin{bmatrix}
+            [B_1]_{\mcal B_1} & 0 & \cdots & 0 \\
+            0 & [B_2]_{\mcal B_2} & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \cdots & [B_r]_{\mcal B_r}
+        \end{bmatrix}
+    \]
+    is in a rational form since \([B_i]_{\mcal B_i}\) is the companion matrix of \(p_i\),
+    the \(T\)-annihilator of \(\alpha_i\).
+
+    Now, suppose that \(A\) is a \(n \times n\) matrix over \(F\)
+    which is similar to \(B\) and is in a rational form.
+    Let \(A\) be composed of \(r\) companion matrices of
+    \(p_1, \cdots, p_r\) where \(p_{i+1} \mid p_i\) for each \(i \in [r-1]\).
+    Then, we have \(\beta_1, \cdots, \beta_r \in F^n\)
+    where \(p_i\) is the \(A\)-annihilator of \(\beta_i\),
+    which is the \(B\)-annihilator of \(\beta_i\) as well.
+    Hence, \(F^n = \oplus_{i=1}^r Z(\beta_i; B)\).
+    By \Cref{th:cycDecomp}, \(r\) and \(p_1, \cdots, p_r\) are uniquely determined.
 }
 
 \section{The Jordan Form}
 
-\dfn{Rational Canonical Form}{
-
-Let \(V = \oplus_{i=1}^r Z(\alpha_i; T)\) be a cyclic decomposition
-So, \(Z(\alpha_i; T)\) has a basis \(\mcal B_i = \{\,\alpha_1, \cdots, T^{k_i-1} \alpha_i\}\)
-where \(k_i = \dim Z(\alpha_i; T)\).
-\(\mcal B = \mcal B_1 \cup \cdots \cup \mcal B_r\)
-
-\[
-    [T]_{\mcal B} = \begin{bmatrix}
-        [T_1]_{\mcal B_1} & 0 & 0 \\
-        0 & \ddots & 0  \\
-        0 & 0 & [T_r]_{\mcal B_r}
-    \end{bmatrix}
-\]
-(Submatrices are companion matrices)
-This is called a rational canonical form.
+\nt{
+    Let \(V\) be an \(n\)-dimensional vector space over \(F\) and let \(N \in L(V)\) be nilpotent.
+    Applying \Cref{th:cycDecomp} to \(N\), we have \(V = \oplus_{i=1}^r Z(\alpha_i; N)\)
+    and \(p_{i+1} \mid p_i\) for each \(i \in [r-1]\) where \(p_i\) is the \(T\)-annihilator of \(\alpha_i\).
+    \(p_1\), the minimal polynomial of \(N\), is of the form \(x^k\) where
+    \(1 \le k \le n\).
+    Therefore, the divisibility relation simply asserts
+    \(k = k_1 \ge k_2 \ge \cdots \ge k_r\) where \(p_i(x) = x^{k_i}\).
+    So the rational form of \(N\) is
+    \[
+        \begin{bmatrix}
+            A_1 & 0 & \cdots & 0 \\
+            0 & A_2 & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \cdots & A_r
+        \end{bmatrix}
+    \]
+    where \(A_i\) is the companion matrix of \(x^{k_i}\), which is the \(k_i \times k_i\) matrix
+    \[
+        A_i = \begin{bmatrix}
+            0 & 0 & \cdots & 0 & 0 \\
+            1 & 0 & \cdots & 0 & 0 \\
+            0 & 1 & \cdots & 0 & 0 \\
+            \vdots & \vdots & \ddots & \vdots & \vdots \\
+            0 & 0 & \cdots & 1 & 0
+        \end{bmatrix}.
+    \]
+    Hence, there are total \(p(n)\) nilpotent \(n \times n\) linear operators on \(V\)
+    that are not similar to each other where \(p(n)\) denotes the number of partitions of \(n\).
 }
-
-
-Let \(V\) be a finite-dimensional vector space over \(F\) and let \(N \in L(V)\)
-be nilpotent.
-By \Cref{th:cycDecomp}, there exist \(\alpha_1, \cdots, \alpha_r \in V\)
-such that \(V = \oplus_{i=1}^r Z(\alpha_i; N)\)
-with the \(N\)-conductors \(p_1, \cdots, p_r\) with \(p_i \mid p_{i-1}\).
-Since \(N\) is nilpotent, \(N_i \triangleq N\big|_{Z(\alpha_i; T)}\) is nilpotent.
-The minimal polynomial \(m\) of \(N\) is \(m(x) = x^k\) where \(1 \le k \le \dim V\).
-Hence, as \(m(x) = p_1(x)\), \(p_r \mid p_{r-1} \mid \cdots \mid p_1 = m\),
-\(p_i(x) = x^{k_i}\) where \(k = k_1 \ge k_2 \ge \cdots \ge k_r\).
-So the companion matrix of \(N_i\) is
-\[
-    \begin{bmatrix}
-        0 & 0 & \cdots & 0 & 0 \\
-        1 & 0 & \cdots & 0 & 0 \\
-        0 & 1 & \cdots & 0 & 0 \\
-        \vdots & \vdots & \ddots & \vdots & \vdots \\
-        0 & 0 & \cdots & 1 & 0
-    \end{bmatrix}
-\]
 
 \mlemma{}{
-    Let \(V\) be a finite-dimensional vector space over \(F\) and let \(N \in L(V)\)
+    Let \(V\) be an \(n\)-dimensional vector space over \(F\) and let \(N \in L(V)\)
     be nilpotent.
-    Let \(s \triangleq \dim \ker N\).
-    Let \(\alpha_1, \cdots, \alpha_r\) be as in the cyclic decomposition w.r.t. \(N\)
-    and \(k_i = \deg p_i\).
-    \(\ker N\) has a basis
-    \(\mcal B = \{N^{k_1-1} \alpha_1, \cdots, N^{k_r-1} \alpha_r\}\).
+    Let \(V = \oplus_{i=1}^r Z(\alpha_i; T)\) be the cyclic decomposition
+    obtained by applying \Cref{th:cycDecomp} to \(W_0 = \{0\}\).
+    Let \(k_i \triangleq \deg p_i\) where \(p_i\) is the \(T\)-annihilator of \(\alpha_i\).
+    Then, \(\mcal B = \{N^{k_1-1} \alpha_1, \cdots, N^{k_r-1} \alpha_r\}\)
+    is a basis for \(\ker N\).
 }
 \pf{Proof}{
-    \(N^{k_i-1} \alpha_{i} \in \ker N\) is direct.
-    And, certainly, \(\mcal B\) is linearly independent.
-    We now shall show that \(\spn \mcal B = \ker N\).
+    The fact that \(\mcal B \subseteq \ker N\) is evident as \(p_i = x^{k_i}\).
+    Also, \(\mcal B\) is linearly independent as each vector is in independent subspaces (\(Z(\alpha_i; N)\)).
 
-    Let \(v \in \ker N\).
+    Take any \(\alpha \in \ker N\).
+    Then, \(\alpha = \sum_{i=1}^{r} f_i \alpha_i\) for some \(f_i \in F[x]\).
+    \textsf{WLOG}, \(\deg f_i < \deg p_i = k_i\).
+    Then, \(N \alpha = \sum_{i=1}^{r} N f_i(T) \alpha_i = 0\),
+    and thus \(N f_i(T) \alpha_i = 0\) for each \(i \in [r]\).
+    Therefore, \(p_i \mid x f_i\).
+    Moreover, as \(p_i = x^{k_i}\), and as \(\deg f_i < k_i\), we have \(f_i = c_i x^{k_i-1}\)
+    for some \(c_i \in F\).
+    Then, we have \(\alpha = \sum_{i=1}^{r} c_i N^{k_i-1} \alpha_i\);
+    \(\ker N \subseteq \spn \mcal B\).
 }
 
 \nt{
