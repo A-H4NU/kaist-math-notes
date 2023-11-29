@@ -43,10 +43,17 @@
 \SetKwComment{Comment}{\(\triangleright\) }{}
 
 % font
+% \usepackage{unicode-math}
 \usepackage[utf8]{inputenc}
 \usepackage[charter]{mathdesign}
 \usepackage[]{kotex}
-\setmainfont{XCharter}
+\setmainfont{XCharter}[
+  Extension=.otf,
+  UprightFont=*-Roman,
+  ItalicFont=*-Italic,
+  BoldFont=*-Bold,
+  BoldItalicFont=*-BoldItalic,
+]
 \setmainhangulfont{NanumMyeongjo}[BoldFont=* Bold, AutoFakeSlant]
 \setsanshangulfont{NanumSquareRound}[BoldFont=* Bold, AutoFakeSlant]
 \xetexkofontregime{hangul}[parens=latin, alphs=latin, colons=prevfont, hyphens=prevfont, puncts=prevfont]
