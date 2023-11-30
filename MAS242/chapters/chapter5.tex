@@ -156,5 +156,144 @@
         Hence \(\ln \Gamma(x/p + y/q) \le (1/p) \Gamma(x) + (1/q) \Gamma(y)\).
 \end{enumerate}
 }
-    
+
+\section{The Laplace Transform}
+
+\dfn[]{Laplace Transform}{
+    For a function \(f \colon \RR_{\ge 0} \to \RR\) and for \(s \in \RR\),
+    define
+    \[
+        \mcal L f(s) \triangleq \int_{0}^{\infty} e^{-st}f(t) \d t
+        = \lim_{\substack{R \to \infty\\ \sigma \to 0^+}} \int_{\sigma}^{R} e^{-st}f(t)\d t
+    \]
+    be the \textit{Laplace transform of \(f\) evaluated at \(s\)}.
+    The operator \(\mcal L \colon f \mapsto \mcal Lf\) is called the \textit{Laplace transform operator}.
+}
+
+\clearpage
+
+\exmp{}{
+    \noindent
+    Take \(f(t) = 1\) for all \(t \in \RR_+\).
+    Then,
+    \[
+        \mcal Lf(s) = \int_{0}^{\infty} e^{-st} \d t = \begin{cases}
+            1/s & \text{if } s > 0 \\
+            \text{undefined} & \text{if } s \le 0
+        \end{cases}.
+    \]
+}
+
+\exmp[expLaplace]{}{
+    \noindent
+    Take \(f(t) = e^{ct}\) for all \(t \in \RR_+\).
+    Then,
+    \[
+        \mcal Lf(s) = \int_{0}^{\infty} e^{-st} \d t = \begin{cases}
+            1/(s-c) & \text{if } s > c \\
+            \text{undefined} & \text{if } s \le c
+        \end{cases}.
+    \]
+}
+
+\exmp[polyLaplace]{}{
+    \noindent
+    Take \(f(t) = t^x\) for \(x > -1\) and \(t > 0\).
+    Then, for \(s > 0\),
+    \[
+        \mcal Lf(s) = \int_{0}^{\infty} e^{-st}t^x \d t
+        = \frac{1}{s^{x+1}} \int_{0}^{\infty} e^{-u} u^x \d u
+        = \frac{\Gamma(x+1)}{s^{x+1}}.
+    \]
+    \(\mcal Lf(s)\) is undefined for \(s \le 0\).
+}
+
+\notat{Translation}{
+    For \(f \colon \RR_{\ge 0} \to \RR\) and \(c \in \RR_+\),
+    we simply define
+    \[
+        \tilde f(t-c) = \begin{cases}
+            f(t-c) & \text{if }t > c \\
+            0 & \text{otherwise}
+        \end{cases}.
+    \]
+}
+
+\mlemma[]{}{
+    Let \(f \colon \RR_{\ge 0} \to \RR\) be a continuous function.
+    Suppose that \(\mcal Lf(s)\) is well-defined for \(s > r_0\) for some \(r_0 \in \RR\).
+    Fix some \(c \in \RR\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\mcal L \big(e^{ct}f(t)\big)(s) = \mcal Lf(s-c)\) for \(s > r_0 + c\).
+        \ii \(\mcal L\big(\tilde f(t-c)\big)(s) = e^{-cs} \mcal Lf(s)\) for \(s > r_0\).
+        \ii For \(c > 0\), \(\mcal L \big(f(ct)\big)(s) = (1/c) \mcal Lf (s/c)\)
+            for \(s > r_0\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    Simple calculation.
+}
+
+\mlemma[]{}{
+    Given two functions \(f_1, f_2 \in \RR_{\ge 0} \to \RR\),
+    suppose that \(\mcal Lf_1(s)\) and \(\mcal Lf_2(s)\) are well-defined
+    for \(s > r_0\) for some \(r_0 \in \RR\).
+    Then, \(\mcal L \big( c_1f_1 + c_2f_2 \big)(s) = c_1 \mcal Lf_1(s) + c_2 \mcal Lf_2(s)\).
+    That is, \(\mcal L\) is a linear operator.
+}
+
+\nt{
+    Suppose that \(f \colon \RR_{\ge 0} \to \RR\) is \(k\) times differentiable
+    and that \(\fall t \ge 0,\: |f^{(k)}(t)| \le A e^{Rt}\) for some \(A, R > 0\).
+    Then,
+    \[
+        |f^{(k-1)}(t)| \le |f^{(k-1)}(0)| + \int_{0}^{t} A e^{R \tau} \d \tau.
+    \]
+    Thus, there exists \(\tilde A > 0\) such that \(|f^{(k-1)}(t)| \le \tilde{A} e^{Rt}\) for all \(t \ge 0\).
+    By induction, we have, for each \(j \in \{\,0,1,\cdots,k-1\,\}\),
+    there exists \(A_j \in \RR_+\) such that \(|f^{(j)}(t)| \le A_j e^{Rt}\) for all \(t \ge 0\).
+    Hence, \(\mcal L(f^{(j)})(s)\) is well-defined for \(s > R\).
+}
+
+\mlemma[diffLaplaceOne]{}{
+    Suppose that \(f \colon \RR_{\ge 0} \to \RR\) is differentiable
+    and that \(\fall t \ge 0,\: |f'(t)| \le A e^{Rt}\) for some \(A, R > 0\).
+    Then, we have \(\mcal L(f')(s) = s \mcal Lf(s) - f(0)\) for \(s > R\).
+}
+\pf{Proof}{
+    Integration by parts.
+}
+
+\cor[diffLaplace]{}{
+    Suppose that \(f \colon \RR_{\ge 0} \to \RR\) is \(k\) times differentiable
+    and that \(\fall t \ge 0,\: |f^{(k)}(t)| \le A e^{Rt}\) for some \(A, R > 0\).
+    Then, \(\mcal L(f^{(k)})(s) = s^k \mcal Lf(s) - \sum_{j=0}^{k-1} s^{k-1-j} f^{(j)}(0)\)
+    for \(s > R\).
+}
+\pf{Proof}{
+    Induction using \Cref{lem:diffLaplaceOne}.
+}
+
+\exmp{}{
+    \noindent
+    Solve \(y'' - y' - 2y = 0\), \(y(0) = 2\), \(y'(0) = 3\) for \(y\).
+
+    Let \(\eta(s) \triangleq \mcal Ly(s)\).
+    Applying the Laplace transform to the both sides (without justifying the well-definedness), we get
+    \[\begin{aligned}[t]
+        0 &= \mcal L(y'') - \mcal L(y') - 2 \mcal L(y) \\
+          &= s^2 \eta - (2s+3) - (s\eta - 2) - 2\eta.
+    \end{aligned}\]
+    Thus,
+    \[
+        \mcal Ly(s) = \eta(s) = \frac{2s+1}{(s-2)(s+1)}
+        = \frac{5}{3} \cdot \frac{1}{s-2} + \frac{1}{3} \cdot \frac{1}{s+1}
+    \]
+    and it is well-defined for \(s > 2\).
+    From \Cref{exmp:expLaplace},
+    \[
+        \mcal Ly(s) = \mcal L \left(\frac{5}{3}e^{2t} + \frac{1}{3}e^{-t}\right).
+    \]
+}
+
 \end{document}
