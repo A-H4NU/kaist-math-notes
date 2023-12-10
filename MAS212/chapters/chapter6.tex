@@ -176,16 +176,6 @@
     In particular, \(0 = m(T) \alpha = m(c) \alpha\), i.e., \(m(c) = 0\).
 }
 
-\cor{}{
-    Let \(V\) be a \(n\)-dimensional vector space over \(F\).
-    Let \(T \in L(V)\).
-    Suppose \(c_1, \cdots, c_k \in F\) are all the possible distinct
-    characteristic values of \(T\).
-    If \(p(x)\) is the characteristic polynomial of \(T\) and \(m(x)\) is the minimal polynomial of \(T\),
-    then, \(p(x) = \prod_{i=1}^k (x-c_i)^{d_i}\) and \(p(x) = \prod_{i=1}^k (x-c_i)^{r_i}\)
-    where \(d_i \ge r_i\) for each \(i \in [k]\).
-}
-
 \thm[cayley]{Cayley-Hamilton}{
     Let \(V\) be a \(n\)-dimensional vector space over \(F\).
     Let \(T \in L(V)\).
@@ -299,6 +289,9 @@
 }
 
 \dfn{\(T\)-conductor}{
+    Let \(V\) be a finite-dimensional vector space over \(F\)
+    and \(T \in L(V)\).
+    Let \(W\) be a \(T\)-invariant subspace of \(V\).
     Due to \Cref{lem:conductorNonzeroIdeal} and \Cref{th:polyIdealIsPrincipal},
     there uniquely exists the monic generator \(g_{T,\alpha,W}\) of \(S_T(\alpha, W)\).
     \(g_{T,\alpha,W}\) is also often called the \textit{\(T\)-conductor of \(\alpha\) to \(W\)}.
@@ -331,7 +324,7 @@
     \[
         m(x) = \textstyle \prod_{i=1}^k (x-c_i)^{r_i}.
     \]
-    If \(W\) is a proper subspace of \(V\), then there exists \(\alpha \in V \setminus W\) and
+    If \(W\) is a proper \(T\)-invariant subspace of \(V\), then there exists \(\alpha \in V \setminus W\) and
     an eigenvalue \(c \in F\) such that \((T-cI)\alpha \in W\).
     In other words, \(x-c\) is the \(T\)-conductor of \(\alpha\) on \(W\).
 }
@@ -416,11 +409,7 @@
     For the sake of contradiction, suppose \(W \subsetneq V\).
     As \(W\) is \(T\)-invariant, by \Cref{lem:TCondIsLinear},
     there exists \(\alpha \in V \setminus W\) and an eigenvalue \(c_j \in F\)
-    such that \(\beta \triangleq (T-c_j)\,\alpha \in W\).
-    % As \(\alpha\) is not an eigenvector, we have \(\beta \neq 0\).
-    % As \(\beta \in W\), we may write
-    % \(\beta = \sum_{i=1}^k \beta_i\) where \(\beta_i \in E_{c_i}\) for each \(i \in [k]\).
-    % Note that \(f(T)\beta_i = f(c_i) \beta_i\) for each \(f \in F[x]\) and \(i \in [k]\).
+    such that \(\beta \triangleq (T-c_jI)\,\alpha \in W\).
 
     Write \(m(x) = (x-c_j)h(x)\) so \(h\) does not have \(x-c_j\) as a factor of it.
     As \(h(x) - h(c_j)\) has \(x=c_j\) as a root, \(h(x) - h(c_j) = (x-c_j)q(x)\)
@@ -705,10 +694,12 @@
     It remains to show that \(T_i = T\big|_{W_i}\) has the minimal polynomial \(p_i^{r_i}\).
     Let \(m_i\) be the minimal polynomial of \(T_i\)
     By the definition of \(W_i\), we have \(p_i(T)^{r_i} \big|_{W_i} = 0\).
-    Hence, \(m_i \mid p_i^{r_i}\); we now know \(m_i = p_i^{s_i}\) for some \(1 \le s_i \le r_i\).
+    Hence, \(m_i \mid p_i^{r_i}\).
     Let \(g\) be any polynomial in \(F[x]\) such that \(g(T_i) = 0\).
     We now claim that \(p_i^{r_i} \mid g\).
-    Since \(g(T_i) = 0\), we have \(g(T) f_i(T) = 0\) as well.
+    For each \(\alpha_j \in W_j = \ker \big(p_j(T)^{r_i}\big)\) with \(i \neq j\),
+    we have \(f_i(T) \alpha_j = 0\).
+    Hence, \(g(T) f_i(T) = 0\).
     \(m \mid gf_i\). However, as \((p_i^{r_i}, f_i) = (1)\),
     \(m = \prod_{j=1}^{k} p_j^{r_j} \mid g \prod_{i \neq j} p_j^{r_j}\)
     directly implies that \(p_i^{r_i} \mid g\).

@@ -36,32 +36,41 @@
     \end{itemize}
 }
 
+\dfn[]{Conjugate Transpose}{
+    For an \(n \times n\) matrix \(A\) over \(F = \RR\) or \(F = \CC\),
+    the \(n \times n\) matrix \(A^\ast\) over \(F\) defined by
+    \[
+        (A^\ast)_{ij} = \ol{(A)_{ji}}
+    \]
+    for each \(i, j \in [n]\) is called the \textit{conjugate transpose} of \(A\).
+}
+
+\dfn{Self-adjoint Matrix}{
+    A matrix \(A \in \CC[n \times n]\) is said to be \textit{self-adjoint}
+    if \(A^\ast = A\).
+}
+
 \thm{}{
-    \(F = \RR\). Let \(V = \RR[n]\).
-    Let \((-, -) \colon V \times V \to \RR\) be an inner product.
-    Then, there exists a symmetric positive definite matrix \(A \in \RR[n \times n]\)
-    such that \((x, y) = x^TAy\).
+    Let \(V = \CC[n]\).
+    Let \((-, -) \colon V \times V \to \CC\) be an inner product.
+    Then, there exists a self-adjoint positive definite matrix \(A \in \CC[n \times n]\)
+    such that \((x, y) = x^\ast Ay\).
 }
 \pf{Proof}{
     Choose a basis, e.g., the standard basis \(\{e_1, \cdots, e_n\}\).
-    Let \((e_i, e_j) = g_{ij}\) and let \((A)_{ij} = g_{ij}\).
-    Let \(x, y \in \RR[n]\) and write \(x = \sum_{i=1}^{n} x_i e_i\) and \(y = \sum_{j=1}^{n} x_j e_j\).
+    Let \((A)_{ij} = (e_i, e_j)\).
+    Let \(x, y \in \CC[n]\) and write \(x = \sum_{i=1}^{n} x_i e_i\) and \(y = \sum_{j=1}^{n} x_j e_j\).
     Then,
     \[\begin{aligned}[t]
-        (x, y) &= \textstyle \sum_{i=1}^{n} x_ie_i\sum_{j=1}^{n} y_je_j \\
-               &= \textstyle \sum_{i=1}^{n} x_i \sum_{j=1}^{n} g_{ij} y_j = [x]_{\mcal B}^T A [y]_{\mcal B}.
+        (x, y) &= \textstyle \big(\sum_{i=1}^{n} x_ie_i, \sum_{j=1}^{n} y_je_j\big) \\
+               &= \textstyle \sum_{i=1}^{n} \sum_{j=1}^{n} \ol{y_j} (A)_{ij} x_i = y^\ast A x.
     \end{aligned}\]
 }
 
-\dfn{Hermitian Matrix}{
-    A matrix \(A \in \CC[n \times n]\) is called \textit{Hermitian}
-    if \(A^\ast = A\) where \(A^\ast = \ol{A}^T\).
-}
-
-\thm{}{
-    \(F = \CC\). Let \(V = \CC[n]\).
-    Let \((-, -) \colon V \times V \to \CC\) be an inner product.
-    Then, there exists a Hermitian positive definite matrix \(A \in \RR[n \times n]\)
+\cor[]{}{
+    Let \(V = \RR[n]\).
+    Let \((-, -) \colon V \times V \to \RR\) be an inner product.
+    Then, there exists a symmetric positive definite matrix \(A \in \RR[n \times n]\)
     such that \((x, y) = x^\ast Ay\).
 }
 
@@ -70,6 +79,8 @@
     Define, for \(f, g \in V\), \((f, g) = \int_{a}^{b} f(t) \ol{g(t)} \d t\).
     That is an inner product on \(V\).
 }
+
+\section{Inner Product Space}
 
 \dfn{Inner Product Space}{
     A vector space \(V\) over \(F = \RR\) or \(F = \CC\)
@@ -140,11 +151,17 @@
 
 \thm{}{
     Let \(V\) be an inner product space.
-    Then, every orthogonal subset \(S\) of \(V\) is linearly independent.
+    Then, every orthogonal subset \(S\) of \(V \setminus \{0\}\) is linearly independent.
 }
 \pf{Proof}{
     Take any distinct \(\alpha_1, \cdots, \alpha_k \in S\).
     Suppose \(\sum_{i=1}^{k} c_i \alpha_i = 0\) for some \(c_i\).
+    Then, for each \(k \in [n]\),
+    \[ \displaystyle
+        0 = \big(\sum_{i=1}^{k} c_i \alpha_i, \alpha_k\big)
+        = \sum_{i=1}^{k} c_i (\alpha_i, \alpha_k) = c_k (\alpha_k, \alpha_k).
+    \]
+    Since \((\alpha_k, \alpha_k) > 0\), it must be \(c_k = 0\).
 }
 
 \nt{
@@ -179,9 +196,19 @@
     Normalize vectors from \Cref{th:gramSchmidt}.
 }
 
+\dfn{Orthogonal Complement}{
+    Let \(V\) be an inner product space.
+    Let \(W\) be a subset of \(V\) and \(\beta \in V\).
+    The subspace of \(V\)
+    \[
+        W^\perp = \{\,\beta \in V \mid \fall \alpha \in W,\: (\alpha, \beta) = 0\,\}
+    \]
+    is called the \textit{orthogonal complement of} \(W\).
+}
+
 \dfn{Best Approximation}{
     Let \(V\) be an inner product space.
-    Let \(W\) be a subspace of \(V\) and \(\beta \in V \setminus W\).
+    Let \(W\) be a subspace of \(V\) and \(\beta \in V\).
     A \textit{best approximation of \(\beta\) to \(W\)} is a vector \(\alpha \in W\)
     such that
     \[
@@ -189,28 +216,531 @@
     \]
 }
 
-\dfn{Projection}{
+\thm[bestApproxIffProj]{}{
+    Let \(V\) be an inner product space.
+    Let \(W\) be a subspace of \(V\) and \(\beta \in V\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\alpha \in W\) is a best approximation of \(\beta\) to \(W\)
+            if and only if \(\beta - \alpha \in W^\perp\).
+        \ii If a best approximation of \(\beta\) to \(W\) exists, then it is unique.
+        \ii If \(W\) is finite-dimensional and \(\{ \alpha_1, \cdots, \alpha_n\}\)
+            is an orthonormal basis for \(W\), then
+            \(\alpha = \sum_{k=1}^{n} (\beta, \alpha_k) \alpha_k\)
+            is the best approximation of \(\beta\) to \(W\).
+    \end{enumerate}
+}
+\mclm{Proof}{
+    For any \(\gamma \in V\), we have \(\beta - \gamma = (\beta - \alpha) + (\alpha - \gamma)\)
+    and thus
+    \[
+        \|\beta - \gamma\|^2 = \|\beta - \alpha\|^2 + 2 \Re (\beta-\alpha, \alpha-\gamma) + \|\alpha - \gamma\|^2.
+    \]
 
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        (\(\Leftarrow\))
+        Suppose \(\beta - \alpha \in W^\perp\).
+        Then, for any \(\gamma \in W\), as \(\alpha - \gamma \in W\),
+        \[
+            \|\beta - \gamma\|^2 = \|\beta-\alpha\|^2 + \|\alpha - \gamma\|^2
+            \ge \|\beta - \alpha\|^2.
+        \]
+
+        (\(\Rightarrow\))
+        Suppose \(\alpha\) is a best approximation of \(\beta\) to \(W\).
+        For any \(\gamma \in W\), we have
+        \[
+            2 \Re (\beta - \alpha, \alpha - \gamma) + \|\alpha - \gamma\|^2 \ge 0
+        \] by the inequality above and \(\|\beta - \gamma\|^2 \ge \|\beta - \alpha\|^2\).
+        In other words, for any \(\tau \in W\),
+        \[
+            2 \Re (\beta - \alpha, \tau) + \|\tau\|^2 \ge 0.
+        \]
+        Putting \[\tau = -\frac{(\beta - \alpha, \alpha - \gamma)}{\|\alpha - \gamma\|^2} (\alpha - \gamma),\]
+        we have
+        \[
+            -2 \frac{|(\beta - \alpha, \alpha - \gamma)|^2}{\|\alpha - \gamma\|^2}
+            + \frac{|(\beta - \alpha, \alpha - \gamma)|^2}{\|\alpha - \gamma\|^2} \ge 0,
+        \]
+        which holds if and only if \((\beta - \alpha, \alpha - \gamma) = 0\).
+
+        \ii
+        Directly follows from the inequality in the proof of (i)-(\(\Leftarrow\)).
+
+        \ii
+        A calculation shows that \(\beta - \alpha\) is orthogonal to
+        every vector in \(W\). Hence, by (i), \(\alpha\) is the best approximation of \(\beta\) to \(W\).
+        \qed
+    \end{enumerate}
 }
 
-\dfn{Perpendicular Space}{
-    \(W^\perp = \{\,\beta \in V \mid \fall \alpha \in W,\: \alpha \perp \beta\,\}\).
+\dfn{Orthogonal Projection}{
+    Let \(V\) be an inner product space.
+    Let \(W\) be a subspace of \(V\).
+    \begin{itemize}[nolistsep]
+        \ii
+        Let \(\beta \in V\) and \(\alpha \in W\). If \(\beta - \alpha \in W^\perp\),
+        then \(\alpha\) is called the \textit{orthogonal projection of \(\beta\) on \(W\)}.
+
+        \ii 
+        If every vector in \(V\) has an orthogonal projection on \(W\),
+        the mapping that assigns to each vector in \(V\) its orthogonal projection on \(W\)
+        is called the \textit{orthogonal projection of \(V\)} on \(W\).
+    \end{itemize}
+}
+
+\nt{
+    If a subspace \(W\) of \(V\) is finite-dimensional,
+    then there always exists the orthogonal projection of \(V\) on \(W\).
+}
+
+\cor[]{}{
+    Let \(V\) be an inner product space.
+    Let \(W\) be a finite-dimensional subspace of \(V\).
+    Let \(E \colon V \to W\) be the orthogonal projection of \(V\) on \(W\).
+    Then, \(\beta \mapsto \beta - E \beta\)
+    is the orthogonal projection of \(V\) on \(W^\perp\).
+}
+\pf{Proof}{
+    Take any \(\beta \in V\). Then, \(\beta - E \beta \in W^\perp\)
+    by \Cref{th:bestApproxIffProj} (i).
+    Also, for any \(\gamma \in W^\perp\),
+    \(\beta - \gamma = E \beta + (\beta - E \beta - \gamma)\),
+    and thus
+    \[
+        \|\beta - \gamma\|^2 = \|E \beta\|^2 + \|\beta - E \beta - \gamma\|^2
+        \ge \|\beta - (\beta - E \beta)\|^2
+    \]
+    as \(E \beta \in W\) and \(\beta - E \beta - \gamma \in W^\perp\).
+    Hence, \(\beta - E \beta\) is the best approximation of \(\beta\) to \(W^\perp\).
+}
+
+\thm[]{}{
+    Let \(V\) be an inner product space.
+    Let \(W\) be a finite-dimensional subspace of \(V\).
+    Let \(E\) be the orthogonal projection of \(V\) on \(W\).
+    Then \(E\) is an idempotent linear transformation of \(V\) to \(W\),
+    \(\ker E = W^\perp\), and \(V = W \oplus W^\perp\).
+}
+\pf{Proof}{
+    By the definition, we have
+    \[
+        \fall \beta \in W,\: E \beta = \beta,
+    \]
+    which means \(E(E \beta) = E \beta\) for all \(\beta \in V\). \checkmark
+
+    Take any \(\alpha, \beta \in V\).
+    Then, \((c \alpha + \beta) - (c E \alpha + E \beta) = c(\alpha - E \alpha) + (\beta - E \beta) \in W^\perp\).
+    Also, \(c E \alpha + E \beta \in W\). By (ii) of \Cref{th:bestApproxIffProj},
+    \(E (c \alpha + \beta) = c E \alpha + E \beta\). \checkmark
+
+    The equation \(\beta = E \beta + (\beta - E \beta)\)
+    shows that \(V = W + W^\perp\).
+    For independence, for any \(\alpha \in W \cap W^\perp\),
+    it must be \((\alpha, \alpha) = 0\); thus \(\alpha = 0\). \checkmark
 }
 
 \notat{Projection}{
-    Let \(\{\alpha_1, \cdots, \alpha_n\}\) be an orthogonal basis of \(W\).
+    Let \(V\) be an inner product space.
+    Let \(W\) be a finite-dimensional subspace of \(V\).
+    Then, as \(V = W \oplus W^\perp\), we have a unique expression \(v = w + w'\)
+    where \(w \in W\) and \(w' \in W^\perp\).
     Then, we write
     \[
-        \mrm{proj}_{W} \beta \triangleq \sum_{i=1}^{m} \frac{\beta, \alpha_i}{\|\alpha_i\|^2} \alpha_i.
+        w = \mrm{proj}_W v \quad\text{and}\quad
+        w' = \mrm{proj}_{W^\perp} v.
+    \]
+}
+
+\nt{
+    Let \(\{\alpha_1, \cdots, \alpha_k\}\) and \(\{\alpha_{k+1}, \cdots, \alpha_n\}\)
+    be orthogonal bases for \(W\) and \(W^\perp\), repectively.
+    Then,
+    \[
+        \mrm{proj}_{W} \beta \triangleq \sum_{i=1}^{k} \frac{(\beta, \alpha_i)}{\|\alpha_i\|^2} \alpha_i
+        \quad\text{and}\quad
+        \mrm{proj}_{W^\perp} \beta \triangleq \sum_{i=k+1}^{n} \frac{(\beta, \alpha_i)}{\|\alpha_i\|^2} \alpha_i.
+    \]
+}
+
+\section{Linear Functionals and Adjoints}
+
+\thm[VandDualNatIso]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Then,
+    \[
+        \fall f \in V^\ast,\: \exs! \beta \in V,\: f(-) = (-, \beta).
+    \]
+    In other words, the linear transform \(V \to V^\ast\) defined by \(\beta \mapsto (-, \beta)\)
+    is an isomorphism.
+}
+\pf{Proof}{
+    Choose an orthogonal basis \(\{\alpha_1, \cdots, \alpha_n\}\) of \(V\).
+    Let \(\beta = \sum_{i=1}^{n} c_i \alpha_i\).
+    Then,
+    \[
+        f(\alpha_j) = \textstyle \big(\alpha_j, \sum_{i=1}^{n} c_i \alpha_i\big)
+        = \sum_{i=1}^{n} \ol{c_i} (\alpha_j, \alpha_i)
+        = \ol{c_j} \|\alpha_j\|^2.
+    \]
+    Hence, if such \(\beta\) exists, it must be
+    \[
+        \beta = \sum_{i=1}^{n} \frac{\ol{f(\alpha_i)}}{\|\alpha_i\|^2} \alpha_i.
+    \]
+    So, it is only left to check if this \(\beta\) actually works.
+    It can be easily checked by reversing the computation above.
+}
+
+\nt{
+    \Cref{th:VandDualNatIso} essentially says that \(V\) and \(V^\ast\) are naturally related
+    if \(V\) is equipped with an inner product.
+}
+
+\thm[]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    \[
+        \fall T \in L(V),\: \exs! T^\ast \in L(V),\: \fall \alpha, \beta \in V,\:(T \alpha, \beta) = (\alpha, T^\ast \beta).
+    \]
+}
+\pf{Proof}{
+    Fix \(\beta \in V\).
+    For the linear functional \(\alpha \mapsto (T \alpha, \beta)\),
+    \Cref{th:VandDualNatIso} guarantees the unique existence of \(\beta' \in V\)
+    such that \((T(-), \beta) = (-, \beta')\).
+    Hence, we may define \(T^\ast \in L(V)\) by \(\beta \mapsto \beta'\)
+    so we have \((T \alpha, \beta) = (\alpha, T^\ast \beta)\) for all \(\alpha \in V\).
+    (It is a linear operator.)
+}
+
+\nt{
+    Such \(T^\ast\) is called a \textit{(Hermitian) transpose}.
+}
+
+\thm[matrixRepAndInnerProd]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let \(\mcal B = \{\alpha_1, \cdots, \alpha_n\}\) be an orthonormal basis for \(V\).
+    Let \(T \in L(V)\) and \(A = [T]_{\mcal B}\).
+    Then, \((A)_{ij} = (T \alpha_j, \alpha_i)\) for each \(i, j \in [n]\).
+}
+\pf{Proof}{
+    Take any \(\alpha \in V\) and write \(\alpha = \sum_{i=1}^{n} (\alpha, \alpha_i) \alpha_i\).
+    Hence,
+    \[
+        T(\alpha_j) = \textstyle \sum_{i=1}^{n} (T \alpha_j, \alpha_i) \alpha_i.
+    \]
+    By definition, we have \(T(\alpha_j) = \sum_{i=1}^{n} A_{ij} \alpha_i\).
+    Therefore, \(A_{ij} = (T \alpha_j, \alpha_i)\).
+}
+
+\cor[transposeAllSame]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let \(T \in L(V)\). Let \(\mcal B\) be an orthonormal basis for \(V\).
+    Then, \([T^\ast]_{\mcal B} = \big([T]_{\mcal B}\big)^\ast\), i.e.,
+    the matrix representation of \(T^\ast\) equals the Hermitian transpose of the matrix representation of \(T\).
+}
+\pf{Proof}{
+    Let \(A = [T]_{\mcal B}\) and \(B = [T^\ast]_{\mcal B}\).
+    By the \Cref{th:matrixRepAndInnerProd}, we have
+    \[
+        (A)_{ij} = (T \alpha_j, \alpha_i) \quad\text{and}\quad
+        (B)_{ij} = (T^\ast \alpha_j, \alpha_i).
+    \]
+    Then, \(\ol{(B)_{ij}} = (\alpha_i, T^\ast \alpha_j)\), and thus
+    \(\ol{(B)_{ji}} = (\alpha_j, T^\ast \alpha_i)\).
+    However, we have \((T \alpha_j, \alpha_i) = (\alpha_j, T^\ast\alpha_i)\) by the definition of \(T^\ast\), and thus
+    \((A)_{ij} = \ol{(B)_{ji}}\).
+}
+
+\nt{
+    \Cref{cor:transposeAllSame} essentially says that all transposes we discussed
+    represents the same object when orthonormal basis is given.
+}
+
+\dfn[]{Hermitian Operator}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let \(T \in L(V)\).
+    We say \(T\) is \textit{Hermitian} (or, \textit{self-adjoint}) if \(T = T^\ast\).
+    If \(F = \RR\), we sometimes call it \textit{symmetric}.
+}
+
+\dfn[]{Isometry}{
+    Let \(V\) and \(W\) be inner product spaces over \(F = \RR\) or \(F = \CC\).
+    \(T \in L(V, W)\) is said to \textit{preserve the inner products}, or is called an \textit{isometry}, if
+    \[
+        \fall \alpha, \beta \in V,\:
+        (\alpha, \beta) = (T \alpha, T \beta).
+    \]
+}
+
+\dfn[]{Isomorphism of Inner Product Spaces}{
+    Let \(V\) and \(W\) be inner product spaces over \(F = \RR\) or \(F = \CC\).
+    \(T \in L(V, W)\) is called an \textit{isomorphism of inner product spaces} if it is an
+    isomorphism of vector spaces and it preserves the inner products.
+}
+
+\thm[isomorphTFAE]{}{
+    Let \(V\) and \(W\) be finite-dimensional inner product spaces over \(F = \RR\) or \(F = \CC\).
+    Let \(T \in L(V, W)\). \textsf{TFAE}.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(T\) preserves the inner products.
+        \ii \(T\) is an isomorphism of inner product spaces.
+        \ii For any arbitrary orthonormal basis \(\mcal B\) of \(V\),
+            \(T(\mcal B)\) is an orthonormal basis for \(W\).
+        \ii For some orthonormal basis \(\mcal B\) for \(V\),
+            \(T(\mcal B)\) is an orthonormal basis for \(W\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    (\(\text{(i)} \Rightarrow \text{(ii)}\)) We need to show that \(T\) is an isomorphism
+    of vector spaces. Take any \(\alpha \in \ker T\).
+    Then, \(0 = (T \alpha, T \alpha) = (\alpha, \alpha) = \|\alpha\|^2\);
+    hence \(\alpha = 0\). Therefore, \(T\) is injective, and thus is an isomorphism.
+
+    (\(\text{(ii)} \Rightarrow \text{(iii)}\))
+    Let \(\mcal B - \{\alpha_1, \cdots, \alpha_n\}\) be an orthonormal orthonormal basis for \(V\).
+    Hence, \((T \alpha_i, T \alpha_j) = (\alpha_i, \alpha_j) = \delta_{ij}\);
+    and thus \(T(\mcal B) = \{T \alpha_1, \cdots, T \alpha_n\}\) is an orthonormal basis for \(W\).
+
+
+    \(\text{(ii)} \Rightarrow \text{(i)}\) and \(\text{(iii)} \Rightarrow \text{(iv)}\) are obvious.
+
+    
+    (\(\text{(iv)} \Rightarrow \text{(i)}\))
+    Let \(\mcal B = \{\alpha_1, \cdots, \alpha_n\}\) be an orthonormal basis for \(V\)
+    such that \(T(\mcal B)\) is also an orthonormal basis for \(W\).
+    Then, \((T \alpha_i, T \alpha_j) = \delta_{ij} = (\alpha_i, \alpha_j)\).
+}
+
+\thm[]{}{
+    Let \(V\) and \(W\) be inner product spaces over \(F = \RR\) or \(F = \CC\).
+    For \(T \in L(V, W)\),
+    \[
+        T\text{ preserves the inner products} \iff \fall \alpha \in V,\: \|T \alpha\| = \|\alpha\|.
+    \]
+}
+\pf{Proof}{
+    (\(\Rightarrow\)) \(\|T \alpha\|^2 = (T \alpha, T \alpha) = (\alpha, \alpha) = \|\alpha\|^2\).
+
+    (\(\Leftarrow\)) (Polarization identity) \((\alpha, \beta)\) can be expressed in terms of \(\|\alpha \pm \beta\|\)
+    and \(\|\alpha \pm i \beta\|\). (Exercise)
+}
+
+\dfn[]{Unitary Operator}{
+    Let \(V\) be an inner product space over \(F = \RR\) or \(F = \CC\).
+    \(T \in L(V)\) is called a \textit{unitary operator}
+    if it is an isomorphism of inner product spaces.
+}
+
+\thm[unitaryIff]{}{
+    Let \(V\) be an inner product space over \(F = \RR\) or \(F = \CC\).
+    For \(U \in L(V)\),
+    \[
+        U \text{ is unitary} \iff
+        U^\ast \text{ exists and } UU^\ast = U^\ast U = \mrm{Id}.
+    \]
+}
+\pf{Proof}{
+    (\(\Rightarrow\))
+    For \(U\) being an isomorphism, there exists the inverse \(U\inv \in L(V)\) of \(U\).
+    Then, for all \(\alpha, \beta \in V\),
+    \((U \alpha, \beta) = (U \alpha, U U\inv \beta) = (\alpha, U\inv \beta)\).
+    Hence, \(U\inv = U^\ast\).
+
+    (\(\Leftarrow\))
+    \(U\) is invertible and \(U\inv = U^\ast\).
+    Then, for all \(\alpha, \beta \in V\), \((U \alpha, U \beta) = (\alpha, U^\ast U \beta) = (\alpha, \beta)\).
+    Hence, \(U\) preserves the inner product.
+    Moreover, \(U\) is an isomorphism of vector spaces as well.
+    Hence, \(U\) is unitary.
+}
+
+\nt{
+    For finite-dimensional inner product spaces, for any \(T \colon V \to V\),
+    we have \(T^\ast\).
+    If the dimension is infinite, the existence of \(T^\ast\) is not immediate.
+}
+
+
+\dfn[]{Unitary Matrix}{
+    Let \(A\) be an \(n \times n\) matrix over \(F = \RR\) or \(F = \CC\).
+    We say \(A\) is a \textit{unitary matrix} if \[AA^\ast = A^\ast A = I_n.\]
+}
+
+\thm[]{}{
+    Let \(V\) be a finite-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    For \(U \in L(V)\),
+    \[
+        U \text{ is unitary} \iff
+        \exs \text{ orthonormal basis }\mcal B\text{ for }V,\: [U]_{\mcal B}\text{ is a unitary matrix}.
     \]
 }
 
 \thm[]{}{
-    If \(\alpha \in W\) is a best approximation of \(\beta\) to \(W\),
-    then
+    Let \(V\) be a finite-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let \(U_1, U_2 \in L(V)\) be unitary operators.
+    Then, \(U_1 \circ U_2\) is also unitary.
+}
+\pf{Proof}{
+    For all \(\alpha, \beta \in V\),
+    \((U_1 U_2 \alpha, U_1 U_2 \beta) = (U_2 \alpha, U_2 \beta) = (\alpha, \beta)\).
+}
+
+\thm[]{}{
+    Let \(V\) be a finite-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    If \(U \in L(V)\) is unitary, then \(U\inv\) is unitary as well.
+}
+\pf{Proof}{
+    \(U\inv = U^\ast\), and \(UU^\ast = U^\ast U = \mrm{Id}\).
+}
+
+\dfn[]{}{
+    Let \(V\) be an \(n\)--dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let
+    \[
+        U(V) \triangleq \{\,T \in L(V) \mid T \text{ is unitary}\,\}.
+    \]
+    \[
+        O(n) \triangleq\{\,A \in F^{n\times n} \mid A A^t = A^t A = I\,\}. 
+    \]
+    \begin{itemize}[nolistsep]
+        \ii When \(F = \CC\), the group \((U(V), \circ) \simeq (U(\CC^n, \circ))\) is called the \textit{\(n\)-th unitary group}.
+        \ii When \(F = \RR\), the group \((O(n), \cdot)\) is called the \textit{real orthogonal group}.
+        \ii When \(F = \CC\), the group \((O(n, \CC), \cdot)\) is called the \textit{complex orthogonal group}.
+        \ii \(SU(n) = \{\,A \in U(n) \mid \det A = 1\,\}\) is called the special unitary group.
+        \ii \(SO(n) = \{\,A \in O(n) \mid \det A = 1\,\}\) is called the special orthogonal group.
+    \end{itemize}
+}
+
+\section{Normal Operators}
+
+
+\dfn[]{Normal Operator}{
+    Let \(V\) be a finite-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    \(T \in L(V)\) is \textit{normal} if \(T T^\ast = T^\ast T\).
+}
+
+\nt{
+    If we can find an orthonormal basis \(\mcal B\) for \(V\)
+    such that the vectors in \(\mcal B\) are also characteristic vectors of \(T\),
+    then \([T]_{\mcal B}\) is diagonal, and thus \(T T^\ast = T^\ast T\).
+    In other words, \(T\) having an orthonormal basis consisting of characteristic vectors
+    implies \(T\) is normal.
+    In this section, we prove the converse.
+}
+
+\thm[eigvalAdj]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let \(T \in L(V)\) be normal.
+    Then, for a characteristic vector \(\alpha \in V\),
+    \(c \in F\) is a eigenvalue of \(T\) associated to \(\alpha\) 
+    if and only if \(\ol c\) is an eigenvalue of \(T^\ast\) associated to \(\alpha\).
+}
+\pf{Proof}{
+    For any \(\beta \in V\) and any normal \(U \in L(V)\), we have
+    \[
+        \|U \beta\|^2 = (U \beta, U \beta)
+        = (\beta, U^\ast U \beta)
+        = (\beta, U U^\ast \beta) = (U^\ast \beta, U^\ast \beta) = \|U^\ast \beta\|^2.
+    \]
+
+    Also, for any \(c \in F\), \(T - cI\) is normal.
+    Hence, if \(c \in F\) is an eigenvalue and \(\alpha \in V\) is an eigenvector
+    associated to \(c\), we have \(\|(T^\ast - \ol{c}I) \alpha\| = \|(T-cI) \alpha\| = 0\),
+    and thus \(\ol{c}\) is an eigenvalue and \(\alpha\) is an eigenvector associated to \(\ol{c}\).
+}
+
+\thm[]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let \(T \in L(V)\).
+    Suppose \(\mcal B\) is an orthonormal basis for \(V\) such that \([T]_{\mcal B}\)
+    is upper triangular. Then,
+    \[
+        T \text{ is normal} \iff [T]_{\mcal B} \text{ is diagonal.}
+    \]
+}
+\pf{Proof}{
+    Let \(A \triangleq [T]_{\mcal B}\). Then \(A^\ast = [T^\ast]_{\mcal B}\) by \Cref{cor:transposeAllSame}.
+
+    (\(\Leftarrow\))
+    We apparently have \(A A^\ast = A^\ast A\), i.e., \(T T^\ast = T^\ast T\).
+    \(T\) is normal.
+
+    (\(\Rightarrow\))
+    \(A\) is upper triangular. Let \(a_{ij} = (A)_{ij}\) so \(a_{ij} = 0\) if \(i > j\).
+    Let \(\mcal B = \{\alpha_1, \cdots, \alpha_n\}\).
+    We immediately have that \(T \alpha_1 = a_{11} \alpha_1\),
+    and thus \(T^\ast \alpha_1 = \cl{a_{11}} \alpha_1\) by \Cref{th:eigvalAdj}.
+    On the other hand, we have \(T^\ast \alpha_1 = \sum_{j=1}^{n} \cl{a_{1j}} \alpha_j\).
+    Hence, \(\alpha_{1j} = 0\) for \(1 < j \le n\).
+
+    Repeating the argument above, we get \(a_{ij} = 0\) if \(i < j\).
+    Hence, \(A\) is diagonal.
+}
+
+\mlemma[orthoCompAdjInvar]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(F = \RR\) or \(F = \CC\).
+    Let \(T \in L(V)\). Let \(W\) be a \(T\)-invariant subspace of \(V\).
+    Then, \(W^\perp\) is \(T^\ast\)-invariant.
+}
+\pf{Proof}{
+    Take any \(\beta \in W^\ast\).
+    For all \(\alpha \in W\), we have
+    \((\alpha, T^\ast \beta) = (T \alpha, \beta) = 0\) as \(W\) is \(T\)-invariant.
+    Hence, \(T^\ast \beta \in W^\perp\).
+}
+
+\thm[onCOrthoTriangular]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(\CC\).
+    Let \(T \in L(V)\).
+    Then, there exists an orthonormal basis \(\mcal B\) for \(V\) such that
+    \([T]_{\mcal B}\) is upper triangular.
+}
+\pf{Proof}{
+    We prove by induction on \(\dim V\).
+    Suppose that \(n = \dim V > 1\) and that the theorem holds for any inner product space
+    with dimension less than \(n\).
+
+    Since \(\CC\) is algebraically closed,
+    there exists an eigenvalue \(c \in \CC\) and an eigenvector \(\alpha \in V\)
+    such that \(T^\ast \alpha = c \alpha\). \textsf{WLOG}, \(\|\alpha\|=1\).
+    Then, as \(\spn \{\alpha\}\) is \(T^\ast\)-invariant, we have
+    \(W \triangleq \big(\spn \{\alpha\}\big)^\perp\) is \(T\)-invariant by \Cref{lem:orthoCompAdjInvar}.
+    By the induction hypothesis on \(W\) and \(T\big|_W\),
+    there exists an orthonormal basis \(\mcal B' = \{\alpha_1, \cdots, \alpha_{n-1}\}\) for \(W\)
+    such that \(\big[T\big|_W\big]_{\mcal B'}\) is upper triangular.
+    Then, \(\mcal B = \mcal B' \cup \{\alpha\}\) is a basis for \(V\) and
+    \[
+        [T]_{\mcal B} = \begin{bmatrix}
+            \big[T\big|_W\big]_{\mcal B'} & \ast \\
+            0 & \ast
+        \end{bmatrix}
+    \]
+    is upper triangular.
+}
+
+\cor[]{}{
+    Let \(V\) be an \(n\)-dimensional inner product space over \(\CC\).
+    Let \(T \in L(V)\) be normal.
+    Then, there exists an orthonormal basis for \(V\)
+    consisting of eigenvectors of \(T\).
+}
+
+\cor[]{}{
+    Let \(A \in \CC^{n \times n}\).
     \begin{enumerate}[nolistsep, label=(\roman*)]
-        \ii \((\beta - \alpha) \perp W\) and
-        \ii \(\alpha\) is given by the projection of \(\beta\) to \(W\).
+        \ii There exists a unitary matrix \(P \in U(n)\) such that \(P\inv AP\) is upper triangular.
+        \ii If \(A\) is normal, then \(P\inv AP\) is diagonal.
+            In other words, \(A\) is \textit{unitarily diagonalizable}.
+    \end{enumerate}
+}
+
+\exmp{}{
+    \noindent
+    Let \(V\) be an \(n\)-dimensional inner product space over \(\CC\).
+    Let \(T \in L(V)\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If \(T\) is Hermitian, then \(T\) is normal.
+        \ii If \(T\) is unitary, then \(T\) is normal.
     \end{enumerate}
 }
 
