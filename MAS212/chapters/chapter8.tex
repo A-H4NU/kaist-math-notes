@@ -136,6 +136,28 @@
     \]
 }
 
+\mlemma[polarIdentity]{Polarization Identities}{
+    Let \(V\) be an inner product space over \(F = \RR\) or \(F = \CC\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If \(F = \RR\), \[\fall \alpha, \beta \in V,\:
+            (\alpha, \beta) = \frac{1}{4} \|\alpha + \beta\|^2 - \frac{1}{4} \|\alpha - \beta\|^2.\]
+        \ii If \(F = \CC\), \[\fall \alpha, \beta \in V,\:
+            (\alpha, \beta) = \frac{1}{4} \sum_{k=1}^{4} i^k \|\alpha + i^k \beta\|^2.\]
+    \end{enumerate}
+}
+\pf{Proof}{
+    We have the fact that, for every \(\alpha, \beta \in V\),
+    \[
+        \|\alpha + \beta\|^2 = \|\alpha\|^2 + 2 \Re (\alpha, \beta) + \|\beta\|^2.
+    \]
+    Also, we have
+    \[
+        \Im (\alpha, \beta) = \Re \big[-i (\alpha, \beta)\big] = \Re (\alpha, i \beta),
+    \]
+    and thus \((\alpha, \beta) = \Re (\alpha, \beta) + i \Re (\alpha, i \beta)\).
+    They can be shown from these equations.
+}
+
 \dfn{Orthogonality}{
     Let \(V\) be an inner product space.
     \begin{itemize}[nolistsep]
@@ -683,7 +705,7 @@
     Then, \(W^\perp\) is \(T^\ast\)-invariant.
 }
 \pf{Proof}{
-    Take any \(\beta \in W^\ast\).
+    Take any \(\beta \in W^\perp\).
     For all \(\alpha \in W\), we have
     \((\alpha, T^\ast \beta) = (T \alpha, \beta) = 0\) as \(W\) is \(T\)-invariant.
     Hence, \(T^\ast \beta \in W^\perp\).
