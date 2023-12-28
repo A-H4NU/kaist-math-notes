@@ -274,7 +274,7 @@
     Induction using \Cref{lem:diffLaplaceOne}.
 }
 
-\exmp{}{
+\exmp[homOde]{}{
     \noindent
     Solve \(y'' - y' - 2y = 0\), \(y(0) = 2\), \(y'(0) = 3\) for \(y\).
 
@@ -294,6 +294,160 @@
     \[
         \mcal Ly(s) = \mcal L \left(\frac{5}{3}e^{2t} + \frac{1}{3}e^{-t}\right).
     \]
+    Now, we shall discuss the \textit{injectivity} of \(\mcal L\).
+}
+
+\thm[laplaceIsInjective]{}{
+    Given a continuous function \(f \in \RR_{\ge 0} \to \RR\),
+    suppose that \(\mcal Lf(s) = 0\) for all \(s > R\) for some \(R \in \RR\).
+    Then, \(f = 0\).
+}
+\pf{Proof}{
+    The proof is so sophisticated that it is not discussed in MAS242. :(
+}
+
+\nt{
+    Actually, the restrictions on the functions in \Cref{th:laplaceIsInjective}
+    can be relaxed to not requiring continuity.
+}
+
+\dfn[]{Convolution}{
+    \begin{itemize}[nolistsep]
+        \ii Given two functions \(\phi, \psi \colon \RR \to \RR\),
+            we define \(\phi \ast \psi\) by
+            \[
+                (\phi \ast \psi)(t) \triangleq \int_{-\infty}^{\infty} \phi(x) \psi(t-x) \d x.
+            \]
+            \(\phi \ast \psi\) is called the \textit{convolution of \(\phi\) and \(\psi\)}.
+
+        \ii Given two functions \(\Phi, \Psi \colon \RR_{\ge 0} \to \RR\), 
+            we define \(\Phi \ast \Psi \colon \RR_{\ge 0} \to \RR\) by
+            \[
+                (\Phi \ast \Psi)(t) \triangleq = \int_{0}^{t} \Phi(x) \Psi(t-x) \d x.
+            \]
+            \(\Phi \ast \Psi\) is called the \textit{convolution of \(\Phi\) and \(\Psi\)}.
+            
+    \end{itemize}
+}
+
+\nt{
+    \noindent
+    Convolution is commutative, i.e., \(\phi \ast \psi = \psi \ast \phi\).
+}
+
+\thm[convolLaplace]{}{
+    Given two continuous functions \(f, g \colon \RR_{\ge 0} \to \RR\),
+    suppose that \[\exs A, R > 0,\: \fall t \ge 0,\: \max \{\,|\phi(t)|, |\psi(t)|\,\} \le Ae^{Rt}.\]
+    Then,
+    \[
+        \fall s > R,\: \mcal L (\phi \ast \psi)(s) = \mcal L \phi(s) \cdot \mcal L \psi(s).
+    \]
+}
+\pf{Heuristic Proof}{
+    Extend \(\phi, \psi\) to \(\RR\) where \(\phi(t) = \psi(t) = 0\) for \(t < 0\).
+    \[\begin{aligned}[t]
+        \mcal L(\phi \ast \psi)(s)
+        &= \int_{0}^{\infty} e^{-st} (\phi \ast \psi)(t) \d t \\
+        &= \int_{0}^{\infty} e^{-st} \int_{0}^{t} \phi(x) \psi(t-x) \d x\d t
+         = \int_{0}^{\infty} e^{-st} \int_{0}^{\infty} \phi(x) \psi(t-x) \d x\d t \\
+        &= \lim_{\kappa_1 \to \infty} \int_{0}^{\kappa_1} e^{-st} \lim_{\kappa_2 \to \infty} \int_{0}^{\kappa_2} \phi(x) \psi(t-x) \d x \d t \\
+        &\,{\color{red}\stackrel{?}{=}}\, \lim_{\kappa_1 \to \infty} \lim_{\kappa_2 \to \infty} \int_{0}^{\kappa_1} e^{-st} \int_{0}^{\kappa_2} \phi(x) \psi(t-x) \d x \d t \\
+        &=\lim_{\kappa_1 \to \infty} \lim_{\kappa_2 \to \infty} \int_{0}^{\kappa_2} \int_{0}^{\kappa_1} e^{-st} \phi(x) \psi(t-x) \d t \d x \\
+        &=\lim_{\kappa_1 \to \infty} \lim_{\kappa_2 \to \infty} \int_{0}^{\kappa_2} e^{-sx} \phi(x) \int_{0}^{\kappa_1} e^{-s(t-x)} \psi(t-x) \d t \d x \\
+        &=\lim_{\kappa_2 \to \infty} \int_{0}^{\kappa_2} e^{-sx} \phi(x) \lim_{\kappa_1 \to \infty} \int_{{\color{red}x}}^{\kappa_1} e^{-s(t-x)} \psi(t-x) \d t \d x \\
+        &=\lim_{\kappa_2 \to \infty} \int_{0}^{\kappa_2} e^{-sx} \phi(x) \big[\mcal L \psi(s)\big] \d x = \mcal L \phi(s) \cdot \mcal L \psi(s)
+    \end{aligned}\]
+}
+
+\exmp{}{
+    \noindent
+    Solve \(y'' - y' - 2y = f(t)\), \(y(0) = 2\), \(y'(0) = 3\) for \(y\).
+    In the same way as in \Cref{exmp:homOde}, we have
+    \[
+        \mcal Ly(s) = \mcal L \left(\frac{5}{3} e^{2t} + \frac{1}{3} e^{-t}\right)
+                    + \mcal Lf(s) \cdot \mcal L \left(\frac{1}{3} e^{2t} + \frac{1}{3} e^{-t}\right).
+    \]
+    By \Cref{th:convolLaplace}, we get
+    \[
+        y(t) = \frac{5}{3} e^{2t} + \frac{1}{3} e^{-t} + \int_{0}^{t} f(x) \left[\frac{1}{3} e^{2(t-x)} - \frac{1}{3}e^{-(t-x)}\right] \d x.
+    \]
+}
+
+\section{Applications of Laplace Transforms}
+
+\nt{
+    \noindent
+    Reference: \textit{Partial Differential Equations}, Walter Strauss
+}
+
+\dfn[]{Laplace Transform}{
+    Let \(u \colon I \times \RR_{\ge 0} \to \RR\) where \(I\) is an interval on \(\RR\).
+    We define
+    \[
+        \mcal L u(x, s) \triangleq \int_{0}^{\infty} e^{-st}u(x, t) \d t
+    \]
+    be the \textit{Laplace transform of \(u\)}.
+}
+
+\notat{}{
+    \[U(x, s) = \mcal Lu(x, s)\]
+}
+
+\qs{1-D Heat Equation}{
+    Solve the following partial differential equation
+    \[
+        \partial_t u = \partial_{xx} u \quad\text{for } 0<x<1 \text{ and } t > 0
+    \]
+    where
+    \begin{itemize}[nolistsep]
+        \ii \(u(0, t) = u(1, t) = 1\) for all \(t \ge 0\) and
+        \ii \(u(x, 0) = 1 + \sin \pi x\) for all \(0 \le x \le 1\).
+    \end{itemize}
+}
+\sol{
+    By \Cref{lem:diffLaplaceOne},
+    \[
+        \mcal L(\partial_{x x}u)(x,s) = \mcal L(\partial_t u)(x, s) = s \mcal Lu(x, s) - u(x, 0) = sU(x,s) - (1 + \sin \pi x).
+    \]
+    Also,
+    \[
+        \mcal L(\partial_{x x}u)(x,s) = \int_{0}^{\infty} e^{-st} \partial_{xx} u(x, t) \d t
+        \,{\color{red}\stackrel{?}{=}}\, \partial_{xx} \int_{0}^{\infty} e^{-st} u(x, t) \d t
+        = \partial_{xx} U(x, s).
+    \]
+    From the boundary condition, we have \(U(0, s) = U(1, s) = 1/s\).
+    We now notice that we are left with a non-homogeneous second-order ordinary differential equation for \(U(x, s)\)
+    with respect to \(x\):
+    \[
+        U_{x x} - s U = -(1 + \sin \pi x).
+    \]
+
+    Let \(U^h\) be the homogeneous solution and \(U^p\) be the particular solution for the ODE (as usual)
+    so \(U = U^h + U^p\) is the general solution. (Assume \(s > 0\). {\color{gray}\textit{Why?}})
+
+    It is known that \(U^h = c_1 \cosh (\sqrt{s}x) + c_2 \sinh (\sqrt{s}x)\)
+    where \(c_1, c_2 \in \RR\) is the homogeneous solution {\color{gray}from the functional analysis}.
+    And, from some calculation, we get
+    \[
+        U^p = \frac{1}{s} + \frac{1}{\pi^2+s} \sin \pi x.
+    \]
+    Hence,
+    \[
+        U(x,s) = c_1 \cosh (\sqrt{s}x) + c_2 \sinh (\sqrt{s}x) + \frac{1}{s} + \frac{1}{\pi^2+s} \sin \pi x
+    \]
+    is the general solution.
+    From the boundary condition, we have
+    \[\begin{aligned}[t]
+        \frac{1}{s} = U(0, s) &= c_1 + \frac{1}{s} \\
+        \frac{1}{s} = U(1, s) &= c_2 \sinh (\sqrt{s}) + \frac{1}{s};
+    \end{aligned}\]
+    hence \(c_1 = 0\) and \(c_2 = 0\),
+    we get
+    \[
+        U(x, s) = \frac{1}{s} + \frac{1}{\pi^2+s} \sin \pi x
+        = \mcal L \left(1 + e^{-\pi^2 t} \sin \pi x\right)(s),
+    \]
+    i.e., \(u(x, t) = 1 + e^{-\pi^2 t} \sin \pi x\). \checkmark
 }
 
 \end{document}
