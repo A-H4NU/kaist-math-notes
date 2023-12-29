@@ -1,0 +1,78 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{subfiles}
+\usepackage{calc}
+
+\usepackage{preamble}
+\usepackage{macros}
+\usepackage{letterfonts}
+
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.18}
+\iftrue
+\pgfplotsset{
+    axis lines=middle,
+    xlabel=$x$,
+    ylabel=$y$,
+    no markers,
+    samples=200,
+    trig format plots=rad,
+    every axis plot/.append style={
+        line width=.7pt,
+        % smooth,
+    },
+}
+\fi
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{external} 
+\tikzexternalize%[optimize=false]
+\tcbset{shield externalize}
+\pgfmathsetmacro{\PI}{3.141592654}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdftitle={Introduction to Set Theory},
+    pdfpagemode=FullScreen,
+}
+
+\usetikzlibrary{arrows.meta, positioning, decorations, decorations.markings}
+
+\begin{document}
+
+\begin{titlepage}
+	\raggedleft
+	
+	\rule{1pt}{\textheight}
+	\hspace{0.05\textwidth}
+	\parbox[b]{0.75\textwidth}{
+		
+		{\Huge\bfseries Summary for\\[0.5\baselineskip] Introduction to Set Theory}\\[2\baselineskip]
+		\\[4\baselineskip]
+		{\Large\textsc{seungwoo han}}
+		
+		\vspace{0.5\textheight} % Whitespace between the title block and the publisher
+		
+        {\noindent
+        Hrbacek, Karel, and Thomas J. Jech.
+        \textit{Introduction to Set Theory, Revised and Expanded}. 3rd ed.,
+        CRC Press, 1999.}\\[\baselineskip]
+	}
+\end{titlepage}
+\pdfbookmark[section]{\contentsname}{toc}
+\tikzexternaldisable
+\tableofcontents
+\tikzexternalenable
+\pagebreak
+
+\chapter{Sets}
+\subfile{chapters/chapter1.tex}
+
+\vfill
+\begin{center}
+    \textbf{\textit{End.}}
+\end{center}
+
+\end{document}
