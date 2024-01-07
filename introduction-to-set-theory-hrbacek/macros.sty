@@ -1,6 +1,14 @@
-\renewcommand{\comment}[1]{\hfill $\triangleright$ #1}
-\newcommand{\mcomment}[1]{\text{\comment{#1}}}
+\makeatletter
+\renewcommand{\comment}{%
+             \@ifstar
+                  \commentStar%
+                  \commentNoStar%
+}
+\makeatother
+\newcommand{\commentNoStar}[1]{\text{\hfill\(\triangleright\)~#1}}
+\newcommand{\commentStar}[1]{\text{\(\triangleright\)~#1}}
 \renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\WLOG}{\textsf{WLOG}}
 
 \makeatletter
 \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
@@ -107,3 +115,10 @@
 
 \newcommand{\sol}{\setlength{\parindent}{0cm}\textbf{\textit{Solution:}}\setlength{\parindent}{1cm} }
 \newcommand{\solve}[1]{\setlength{\parindent}{0cm}\textbf{\textit{Solution: }}\setlength{\parindent}{1cm}#1 \Qed}
+
+\newcommand\restr[2]{{
+\left.\kern-\nulldelimiterspace%
+#1%
+\vphantom{\big|}%
+\right|_{#2}%
+}}

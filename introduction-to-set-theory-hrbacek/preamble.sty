@@ -87,10 +87,10 @@
 \definecolor{myr}{RGB}{199, 68, 64}
 \definecolor{mytheorembg}{HTML}{F2F2F9}
 \definecolor{mytheoremfr}{HTML}{00007B}
-\definecolor{mycorollarybg}{HTML}{FCF1FB}
-\definecolor{mycorollaryfr}{HTML}{7E1B79}
-\definecolor{mylemmabg}{HTML}{FFF5F5}
-\definecolor{mylemmafr}{HTML}{800000}
+\definecolor{mycorollarybg}{HTML}{F0F5F9}
+\definecolor{mycorollaryfr}{HTML}{325E7D}
+\definecolor{mylemmabg}{HTML}{FEF5FA}
+\definecolor{mylemmafr}{HTML}{7B1054}
 \definecolor{mypropbg}{HTML}{f2fbfc}
 \definecolor{mypropfr}{HTML}{191971}
 \definecolor{myexamplebg}{HTML}{F1F9FB}
@@ -197,7 +197,7 @@
 	,sharp corners
 	,detach title
 	,before upper = \tcbtitle\par\smallskip
-	,coltitle = myp!85!black
+	,coltitle = mycorollaryfr
 	,fonttitle = \bfseries
 	,description font = \mdseries\sffamily
 	,separator sign={\enspace}
@@ -218,7 +218,7 @@
 	,sharp corners
 	,detach title
 	,before upper = \tcbtitle\par\smallskip
-	,coltitle = myp!85!black
+	,coltitle = mycorollaryfr
 	,fonttitle = \bfseries
 	,description font = \mdseries\sffamily
 	,separator sign={\enspace}
@@ -335,7 +335,7 @@
 \makeatletter
 \Crefformat{claim}{Claim~#2#1#3}
 \makeatother
-\newtcbtheorem[use counter=claim]{Claim}{Claim}
+\newtcbtheorem[use counter=claim,Crefname={Claim}{Claims}]{Claim}{Claim}
 {%
 	enhanced
 	,breakable
@@ -354,7 +354,7 @@
     ,bottom=.3em
     ,before upper = \tcbtitle{\bfseries.}\
     ,before lower = \setlength{\parindent}{1cm}\noindent{\bfseries\itshape Proof.}\ 
-    ,after lower =\hfill\qed
+    % ,after lower =\hfill\qed
 	,coltitle = black
 	,fonttitle = \bfseries\itshape
 	,description font = \upshape\mdseries
@@ -731,16 +731,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\newcommand{\thm}[3][]{\begin{Theorem}{#2}{#1}#3\end{Theorem}}
-\newcommand{\cor}[3][]{\begin{Corollary}{#2}{#1}#3\end{Corollary}}
-\newcommand{\mlemma}[3][]{\begin{Lemma}{#2}{#1}#3\end{Lemma}}
-\newcommand{\mprop}[3][]{\begin{Prop}{#2}{#1}#3\end{Prop}}
+\newcommand{\thm}[3][]{\begin{Theorem}{\textsf{#2}}{#1}#3\end{Theorem}}
+\newcommand{\cor}[3][]{\begin{Corollary}{\textsf{#2}}{#1}#3\end{Corollary}}
+\newcommand{\mlemma}[3][]{\begin{Lemma}{\textsf{#2}}{#1}#3\end{Lemma}}
+\newcommand{\mprop}[3][]{\begin{Prop}{\textsf{#2}}{#1}#3\end{Prop}}
 % \newcommand{\clm}[3][]{\begin{claim}{#2}{#1}#3\end{claim}}
 \newcommand{\clm}[3][]{\begin{Claim}{}{#1}#2\tcblower#3\end{Claim}}
 \newcommand{\wc}[2]{\begin{wconc}{#1}{}\setlength{\parindent}{1cm}#2\end{wconc}}
 \newcommand{\thmcon}[1]{\begin{Theoremcon}{#1}\end{Theoremcon}}
-\newcommand{\exmp}[3][]{\begin{Example}{#2}{#1}\setlength{\parindent}{1cm}#3\end{Example}}
-\newcommand{\exer}[3][]{\begin{Exercise}{#2}{#1}#3\end{Exercise}}
+\newcommand{\exmp}[3][]{\begin{Example}{\textsf{#2}}{#1}\setlength{\parindent}{1cm}#3\end{Example}}
+\newcommand{\exer}[3][]{\begin{Exercise}{\textsf{#2}}{#1}#3\end{Exercise}}
 \newcommand{\setexernumber}[1]{\makeatletter\setcounter{tcb@cnt@Exercise}{#1}\makeatother}
 \newcommand{\dfn}[3][]{\begin{Definition}[colbacktitle=red!75!black]{#2}{#1}#3\end{Definition}}
 \newcommand{\dfnc}[2]{\begin{definition}[colbacktitle=red!75!black]{#1}{}#2\end{definition}}
@@ -748,7 +748,7 @@
 \newcommand{\pf}[2]{\stepcounter{proof}\begin{myproof}[#1]#2\end{myproof}}
 \newcommand{\nt}[1]{\begin{note}\setlength{\parindent}{1cm}#1\end{note}}
 \newcommand{\notat}[3][]{\begin{Notation}{#2}{#1}#3\end{Notation}}
-\newcommand{\axiom}[3][]{\begin{Axiom}{#2}{#1}\setlength{\parindent}{1cm}#3\end{Axiom}}
+\newcommand{\axiom}[3][]{\begin{Axiom}{\textsf{#2}}{#1}\setlength{\parindent}{1cm}#3\end{Axiom}}
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
 		\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
@@ -762,7 +762,7 @@
 	\proof[\bfseries #1]%
 }{\endproof}
 
-\newcommand{\mclm}[2]{\begin{myclaim}[#1]#2\end{myclaim}}
+\newcommand{\mclm}[2]{\stepcounter{proof}\begin{myclaim}[#1]#2\end{myclaim}}
 \newenvironment{myclaim}[1][\claimname]{\proof[\bfseries #1]}{}
 
 \makeatletter
@@ -843,6 +843,20 @@
 \DeclareMathOperator{\arsech}{arsech}
 \DeclareMathOperator{\arcsch}{arcsch}
 \DeclareMathOperator{\arcoth}{arcoth}
+
+\newcommand{\hooktwoheadrightarrow}{%
+  \hookrightarrow\mathrel{\mspace{-15mu}}\rightarrow
+}
+
+\makeatletter
+\newcommand{\xhooktwoheadrightarrow}[2][]{%
+  \lhook\joinrel
+  \ext@arrow 0359\rightarrowfill@ {#1}{#2}%
+  \mathrel{\mspace{-15mu}}\rightarrow
+}
+\makeatother
+\newtagform{brackets}{[}{]}
+\usetagform{brackets}
 
 % Since the amsthm package isn't loaded
 

@@ -40,6 +40,17 @@
 
 \usetikzlibrary{arrows.meta, positioning, decorations, decorations.markings}
 
+\let\dom\relax
+\DeclareMathOperator{\dom}{dom}
+\let\ran\relax
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\field}{field}
+\DeclareMathOperator{\Seq}{Seq}
+
+\newenvironment{nospaceflalign*}
+ {\setlength{\abovedisplayskip}{0pt}\setlength{\belowdisplayskip}{0pt}%
+  \csname flalign*\endcsname}
+ {\csname endflalign*\endcsname\ignorespacesafterend}
 \begin{document}
 
 \begin{titlepage}
@@ -65,10 +76,20 @@
 \tikzexternaldisable
 \tableofcontents
 \tikzexternalenable
+\hypersetup{
+    colorlinks=true,
+    linkcolor=magenta!35!black,
+    filecolor=black,
+    urlcolor=red!50!black,
+}
 \pagebreak
 
 \chapter{Sets}
-\subfile{chapters/chapter1.tex}
+\subfile{./chapters/chapter1.tex}
+\chapter{Relations, Function, and Ordering}
+\subfile{./chapters/chapter2.tex}
+\chapter{Natural Numbers}
+\subfile{./chapters/chapter3.tex}
 
 \vfill
 \begin{center}
