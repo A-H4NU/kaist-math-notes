@@ -24,7 +24,7 @@
 }
 
 \dfn[]{Ordered Triples and Quadruples}{
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii \((a, b, c) = ((a, b), c)\)
         \ii \((a, b, c, d) = ((a, b, c), d)\)
     \end{itemize}
@@ -58,7 +58,7 @@
 
 \dfn{Domain, Range, and Field of Binary Relation}{
     Let \(R\) be a binary relation.
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii \(\dom R \triangleq \{\,x \mid \exs y\: xRy\,\}\) is called the \textit{domain} of \(R\).
         \ii \(\ran R \triangleq \{\,y \mid \exs x\: xRy\,\}\) is called the \textit{range} of \(R\).
         \ii \(\field R \triangleq \dom R \cup \ran R\) is called the \textit{field} of \(R\).
@@ -78,7 +78,7 @@
 
 \dfn[]{Image and Inverse Image}{
     Let \(R\) be a binary relation and \(A\) be a set.
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii \(R[A] \triangleq \{\,y \in \ran R \mid \exs x \in A,\: xRy\,\}\)
             is called the \textit{image} of \(A\) under \(R\).
         \ii \(R\inv[A] \triangleq \{\,x \in \dom R \mid \exs y \in A,\: xRy\,\}\)
@@ -110,7 +110,7 @@
 
 \dfn[]{Membership Relation and Identity Relation}{
     Let \(A\) be a set.
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii The \textit{membership relation on \(A\)} is defined by
             \[
                 \in_A\: \triangleq \{\,(a, b) \mid a, b \in A \land a \in b\,\}.
@@ -378,7 +378,7 @@
 
 \notat{}{
     Let \(f \colon A \to B\) be a function.
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii If \(f\) is a function \textit{onto} \(B\), we may write \(f \colon A \twoheadrightarrow B\).
         \ii If \(f\) is one-to-one, we may write \(f \colon A \hookrightarrow B\).
         \ii If \(f\) is one-to-one and onto \(B\), we may write \(f \colon A \hooktwoheadrightarrow B\).
@@ -412,7 +412,7 @@
 }
 
 \dfn[compatible]{Compatible Functions}{
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii Functions \(f\) and \(g\) are called \textit{compatible} if
             \(\fall x \in (\dom f) \cap (\dom g),\: f(x) = g(x)\).
         \ii A set of functions \(F\) is called a \textit{compatible system of functions}
@@ -496,7 +496,7 @@
 }
 
 \dfn[indexedSystemOfSets]{Indexed System of Sets}{
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii 
         Let \(S = \lang S_i \mid i \in I \rang\) be a function with domain \(I\).
         We call the function \(S\) an \textit{indexed system of sets}
@@ -541,6 +541,12 @@
 \nt{
     \noindent
     The existence of \(B^A\) and \(\prod_{i \in I} S_i\) is proved in \Cref{exer:2.3.9}.
+}
+
+\nt{
+    \noindent
+    If \(A = S_i\) for all \(i \in I\),
+    \(\prod_{i \in I} S_i = A^I\).
 }
 
 \subsection*{Selected Problems}
@@ -625,7 +631,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 
 \dfn[equivalence]{Equivalence}{
     Let \(R\) be a binary relation in \(A\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii \(R\) is called \textit{reflexive in} \(A\) if \(\fall a \in A,\: aRa\).
         \ii \(R\) is called \textit{symmetric in} \(A\) if \(\fall a, b \in A,\: (aRb \implies bRa)\).
         \ii \(R\) is called \textit{transitive in} \(A\) if \(\fall a, b, c \in A,\: (aRb \land bRc \implies aRc)\).
@@ -823,7 +829,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 
 \dfn[ordering]{Partial Ordering and Strict Ordering}{
     Let \(R\) be a binary relation in \(A\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii \(R\) is called \textit{antisymmetric in} \(A\) if \(\fall a, b \in A,\: (aRb \land bRa \implies a=b)\).
         \ii \(R\) is called \textit{asymmetric in} \(A\) if \(\fall a, b \in A,\: \lnot (aRb \land bRa)\).
         \ii \(R\) is called a \textit{(partial) ordering} of \(A\) if it is reflexive, antisymmetric, and transitive in \(A\).
@@ -833,7 +839,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 }
 
 \exmp{}{
-\begin{itemize}[nolistsep]
+\begin{itemize}[nolistsep, leftmargin=*]
     \ii 
     Define the relation \(\subseteq_A\) in \(A\) as follows:
     \(x \subseteq_A y\) if and only if \(x, y \in A \land x \subseteq y\).
@@ -891,7 +897,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 }
 
 \notat{}{
-\begin{itemize}[nolistsep]
+\begin{itemize}[nolistsep, leftmargin=*]
     \ii If \(R\) is a partial ordering, we say \(S = R \setminus \mrm{Id}_A\)
         \textit{corresponds to the partial ordering} \(R\).
     \ii If \(S\) is a strict ordering, we say \(R = S \cup \mrm{Id}_A\)
@@ -901,7 +907,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 
 \dfn[comparable]{Comparability}{
     Let \(a, b \in A\) and let \(\le\) be a partial ordering of \(A\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii 
         We say that \(a\) and \(b\) are \textit{comparable} in the ordering \(\le\)
         if \(a \le b\) or \(b \le a\).
@@ -911,7 +917,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
         if neither \(a \le b\) nor \(b \le a\).
     \end{itemize}
     They can be stated equivalently in terms of the corresponding strict ordering \(<\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii 
         We say that \(a\) and \(b\) are \textit{comparable} in the ordering \(<\)
         if \(a = b\) or \(a < b\) or \(b < a\).
@@ -935,7 +941,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 
 \dfn[leastMinimal]{Least/Minimal/Greatest/Maximal Element}{
     Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii
         \(b \in B\) is the \textit{least element} of \(B\) in the ordering \(\le\)
         if \(\fall x \in B,\: b \le x\).
@@ -956,7 +962,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 
 \notat{}{
     Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii The least element of \(B\) is denoted \(\min B\).
         \ii The greatest element of \(B\) is denoted \(\max B\).
     \end{itemize}
@@ -1000,7 +1006,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 
 \dfn[bound]{Lower/Upper Bound and Infimum/Supremum}{
     Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii
         \(a \in A\) is a \textit{lower bound} of \(B\) in the ordered set \((A, \le)\)
         if \(\fall x \in B,\: a \le x\).
@@ -1018,7 +1024,7 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 
 \notat{}{
     Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
-    \begin{itemize}[nolistsep]
+    \begin{itemize}[nolistsep, leftmargin=*]
         \ii The infimum of \(B\) is denoted \(\inf B\).
         \ii The supremum of \(B\) is denoted \(\sup B\).
     \end{itemize}
