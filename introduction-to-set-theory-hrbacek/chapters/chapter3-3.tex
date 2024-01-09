@@ -1,0 +1,312 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\section{Arithmetic of Natural Numbers}
+
+\thm[additionExists]{}{
+    There uniquely exists a function \(\mathord{+} \colon \NN \times \NN \to \NN\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*))]
+        \ii \(\fall m \in \NN,\: \mathord{+}(m, 0) = m\)
+        \ii \(\fall m, n \in \NN,\: \mathord{+}(m, n+1) = S(\mathord{+}(m, n))\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    The result directly follows from exploiting
+    \nameref{th:parametricRecursion} with \(A = P = \NN\), \(a(p) = p\) for all \(p \in \NN\),
+    and \(g(p, x, n) = S(x)\) for all \(p, x, n \in \NN\).
+}
+
+\dfn[addition]{Addition}{
+    The function \(+\) defined in \Cref{th:additionExists}
+    is called the \textit{addition}.
+}
+
+\notat[addition]{}{
+    For all \(m \in \NN\), we have
+    \(\mathord{+}(m, 1) = \mathord{+}(m, 0+1) = \mathord{+}(m, 0) + 1 = m + 1\).
+    Hence, we may write \(m + n\) instead of \(\mathord{+}(m, n)\)
+    without causing any confusion regarding \Cref{not:nPlusOne}.
+    We restate the defining properties of the addition for future reference:
+    \begin{equation}
+        \fall m \in \NN,\: m + 0 = m \label{eq:addition1}\tag{\(1\)}
+    \end{equation}
+    \begin{equation}
+        \fall m, n \in \NN,\: m + (n + 1) = (m + n) + 1 \label{eq:addition2}\tag{\(2\)}
+    \end{equation}
+}
+
+\thm[addIsCommutative]{\(+\) is Commutative}{
+    Addition is commutative; that is to say
+    \[
+        \fall m, n \in \NN,\: m + n = n + m.
+    \]
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m \in \NN,\: m + x = x + m\).''
+    \clm[e3d019c6]{
+        \(\mbf{P}(0)\) holds.
+    }{
+        Since \(m + 0 = m\) already, we only need to prove \(0 + m = m\) for all \(m \in \NN\).
+        We shall make use of induction.
+        First of all \(0 + 0 = 0\) holds by \eqref{eq:addition1}.
+
+        Suppose \(0 + m = m\) where \(m \in \NN\). Then,
+        \begin{alignat*}{2}
+            0 + (m + 1) &= (0 + m) + 1 &\qquad& \comment*{\eqref{eq:addition2}} \\
+                        &= m + 1. &\qquad& \comment*{\(0 + m = m\)}
+        \end{alignat*}
+        Hence, by \nameref{th:induction}, \(0 + m = m\) for all \(m \in \NN\). \qed
+    }
+
+    \clm[688efe85]{
+        \(\fall n \in \NN,\: [\mbf{P}(n) \implies \mbf{P}(n+1)]\)
+    }{
+        Assume \(\mbf{P}(n)\).
+        We shall show \(\mbf{P}(n+1)\) holds by induction.
+        \(0 + (n+1) = (n+1) + 0\) is already shown by \Cref{clm:e3d019c6}.
+        Hence, assume \(m + (n+1) = (n+1) + m\) for fixed \(m \in \NN\).
+        Then,
+        \begin{alignat*}{2}
+            (m+1) + (n+1) &= ((m+1) + n) + 1 &\qquad& \comment*{\eqref{eq:addition2}}\\
+                          &= (n + (m + 1)) + 1 &\qquad& \comment*{\(\mbf{P}(n)\)}\\
+                          &= ((n + m) + 1) + 1 &\qquad& \comment*{\eqref{eq:addition2}}\\
+                          &= ((m + n) + 1) + 1 &\qquad& \comment*{\(\mbf{P}(n)\)}\\
+                          &= (m + (n + 1)) + 1 &\qquad& \comment*{\eqref{eq:addition2}}\\
+                          &= ((n + 1) + m) + 1 &\qquad& \comment*{\(m + (n+1) = (n+1) + m\)}\\ 
+                          &= (n + 1) + (m + 1). &\qquad& \comment*{\eqref{eq:addition2}}
+        \end{alignat*}
+        Hence, by \nameref{th:induction}, \(\mbf{P}(n+1)\) holds. \qed
+    }
+
+    \noindent
+    From \Cref{clm:e3d019c6}, \Cref{clm:688efe85}, and \nameref{th:induction},
+    we get \(\fall m, n \in \NN,\: m + n = n + m\).
+}
+
+\thm[addIsAssociative]{\(+\) is Associative}{
+    Addition is associative; that is to say
+    \[
+        \fall k, m, n \in \NN,\: (k + m) + n = k + (m + n).
+    \]
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall k, m \in \NN,\: (k + m) + x = k + (m + x)\).''
+    \(\mbf{P}(0)\) is direct by \eqref{eq:addition1}.
+
+    Now, fix any \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Then, for all \(k, m \in \NN\),
+    \begin{alignat*}{2}
+        (k + m) + (n + 1) &= ((k + m) + n) + 1 &\qquad& \comment*{\eqref{eq:addition2}}\\
+                          &= (k + (m + n)) + 1 &\qquad& \comment*{\(\mbf{P}(n)\)}\\
+                          &= k + ((m + n) + 1) &\qquad& \comment*{\eqref{eq:addition2}}\\
+                          &= k + (m + (n + 1)). &\qquad& \comment*{\eqref{eq:addition2}}
+    \end{alignat*}
+    Hence, by \nameref{th:induction}, the result follows.
+}
+
+\thm[multiplicationExists]{}{
+    There uniquely exists a function \(\mathord{\cdot} \colon \NN \times \NN \to \NN\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\fall m \in \NN,\: m \cdot 0 = 0\)
+        \ii \(\fall m, n \in \NN,\: m \cdot (n + 1) = m \cdot n + m\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    The result directly follows from exploiting
+    \nameref{th:parametricRecursion} with \(A = P = \NN\), \(a(p) = 0\) for all \(p \in \NN\),
+    and \(g(p, x, n) = x + p\) for all \(p, x, n \in \NN\).
+}
+
+\dfn[multiplication]{Multiplication}{
+    The function \(\cdot\) defined in \Cref{th:multiplicationExists}
+    is called the \textit{multiplication}.
+    \begin{equation}
+        \fall m \in \NN,\: m \cdot 0 = 0 \label{eq:multiplication1}\tag{\(3\)}
+    \end{equation}
+    \begin{equation}
+        \fall m, n \in \NN,\: m \cdot (n+1) = m \cdot n + m \label{eq:multiplication2}\tag{\(4\)}
+    \end{equation}
+}
+
+\thm[multIsCommutative]{\(\cdot\) is Commutative}{
+    Multiplication is commutative, i.e., 
+    \[\fall m, n \in \NN,\: m \cdot n = n \cdot m.\]
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m \in \NN,\: m \cdot x = x \cdot m\).''
+    \clm[30d818bf]{
+        \(\mbf{P}(0)\) holds.
+    }{
+        Since \(m \cdot 0 = 0\) already by \eqref{eq:multiplication1},
+        we only need to prove \(0 \cdot m = 0\) for all \(m \in \NN\).
+        We shall make use of induction.
+        First of all \(0 \cdot 0 = 0\) holds by \eqref{eq:multiplication1}.
+
+        Suppose \(0 \cdot m = 0\) where \(m \in \NN\). Then,
+        \begin{alignat*}{2}
+            0 \cdot (m + 1) &= 0 \cdot m + 0 &\qquad& \comment*{\eqref{eq:multiplication2}} \\
+                        &= 0 + 0 &\qquad& \comment*{\(0 \cdot m = 0\)} \\
+                        &= 0.
+        \end{alignat*}
+        Hence, by \nameref{th:induction}, \(0 \cdot m = 0\) for all \(m \in \NN\). \qed
+    }
+
+    \clm[11595ce5]{
+        \(\fall n \in \NN,\: [\mbf{P}(n) \implies \mbf{P}(n + 1)]\)
+    }{
+        Fix any \(n \in \NN\) and assume \(\mbf{P}(n)\).
+        We shall prove \(\mbf{P}(n + 1)\) by induction.
+        We already have \(0 \cdot (n + 1) = (n + 1) \cdot 0\) by \Cref{clm:30d818bf}.
+
+        Fix any \(m \in \NN\) and assume \(m \cdot (n + 1) = (n + 1) \cdot m\).
+        Then,
+        \begin{alignat*}{2}
+            (m + 1) \cdot (n + 1) &= (m + 1) \cdot n + (m + 1) &\qquad& \comment*{\eqref{eq:multiplication2}}\\
+                                  &= n \cdot (m + 1) + (m + 1) && \comment*{\(\mbf{P}(n)\)}\\
+                                  &= (n \cdot m + n) + (m + 1) && \comment*{\eqref{eq:multiplication2}}\\
+                                  &= (m \cdot n + n) + (m + 1) && \comment*{\(\mbf{P}(n)\)}\\
+                                  &= (m \cdot n + m) + (n + 1) && \comment*{\nameref{th:addIsCommutative}, \nameref{th:addIsAssociative}}\\
+                                  &= m \cdot (n + 1) + (n + 1) && \comment*{\eqref{eq:multiplication2}}\\
+                                  &= (n + 1) \cdot m + (n + 1) && \comment*{\(m \cdot (n + 1) = (n + 1) \cdot m\)}\\
+                                  &= (n + 1) \cdot (m + 1). && \comment*{\eqref{eq:multiplication2}}\\
+        \end{alignat*}
+        Hence, by \nameref{th:induction}, \(\mbf{P}(n + 1)\) holds.
+    }
+
+    \noindent
+    From \Cref{clm:30d818bf}, \Cref{clm:11595ce5}, and \nameref{th:induction},
+    we get \(\fall m, n \in \NN,\: m \cdot n = n \cdot m\).
+}
+
+\thm[multDistrOverAdd]{\(\cdot\) Distributes Over \(+\)}{
+    Multiplication is distributive over addition, i.e.,
+    \begin{alignat*}{1}
+        & \fall k, m, n \in \NN,\: k \cdot (m + n) = k \cdot m + k \cdot n \quad\text{and}\\
+        & \fall k, m, n \in \NN,\: (m + n) \cdot k = m \cdot k + n \cdot k.
+    \end{alignat*}
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall k, m \in \NN,\: k \cdot (m + x) = k \cdot m + k \cdot x\).''
+    \(\mbf{P}(0)\) holds by \eqref{eq:addition1} and \eqref{eq:multiplication1}.
+    
+    Fix any \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Then, for each \(k, m \in \NN\),
+    \begin{alignat*}{2}
+        k \cdot (m + (n + 1)) &= k \cdot ((m + n) + 1) &\qquad& \comment*{\nameref{th:addIsAssociative}}\\
+                              &= k \cdot (m + n) + k && \comment*{\eqref{eq:multiplication2}}\\
+                              &= (k \cdot m + k \cdot n) + k && \comment*{\(\mbf{P}(n)\)}\\
+                              &= k \cdot m + (k \cdot n + k) && \comment*{\nameref{th:addIsAssociative}}\\ 
+                              &= k \cdot m + k \cdot (n + 1). && \comment*{\eqref{eq:multiplication2}}
+    \end{alignat*}
+    Hence, by \nameref{th:induction}, we have \(\fall k, m, n \in \NN,\: k \cdot (m + n) = k \cdot m + k \cdot n\).
+
+    Now, we have, for each \(k, m, n \in \NN\),
+    \begingroup\setlength{\belowdisplayskip}{0pt}
+    \begin{alignat*}{2}
+        (m + n) \cdot k &= k \cdot (m + n) &\qquad& \comment*{\nameref{th:multIsCommutative}}\\
+                        &= k \cdot m + k \cdot n \\
+                        &= m \cdot k + n \cdot k. && \comment*{\nameref{th:multIsCommutative}}
+    \end{alignat*}
+    \endgroup
+}
+
+\thm[multIsAssociative]{\(\cdot\) is Associative}{
+    Multiplication is associative, i.e.,
+    \[
+        \fall k, m, n \in \NN,\: (k \cdot m) \cdot n = k \cdot (m \cdot n).
+    \]
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall k, m \in \NN,\: (k \cdot m) \cdot x = k \cdot (m \cdot x)\).''
+    \(\mbf{P}(0)\) is direct from \eqref{eq:multiplication1}.
+
+    Fix any \(n \in \NN\) and assume \(\mbf{P}(n)\). Then, for each \(k, m \in \NN\),
+    \begin{alignat*}{2}
+        (k \cdot m) \cdot (n + 1)
+          &= (k \cdot m) \cdot n + k \cdot m &\qquad& \comment*{\eqref{eq:multiplication2}} \\
+          &= k \cdot (m \cdot n) + k \cdot m && \comment*{\(\mbf{P}(n)\)} \\
+          &= k \cdot (m \cdot n + m) && \comment*{\nameref{th:multDistrOverAdd}} \\ 
+          &= k \cdot (m \cdot (n + 1)). && \comment*{\eqref{eq:multiplication2}}
+    \end{alignat*}
+    Hence, the result follows by \nameref{th:induction}.
+}
+
+\subsection*{Selected Problems}
+
+\setexernumber{1}
+
+\exer[3.4.2]{}{
+    \(\fall k, m, n \in \NN,\: (m < n \iff m + k < n + k)\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m, n \in \NN,\: (m < n \iff m + x < n + x)\).''
+    \(\mbf{P}(0)\) is evident from \eqref{eq:addition1}.
+
+    Now, fix any \(k \in \NN\) and assume \(\mbf{P}(k)\).
+    Then, for all \(m, n \in \NN\),
+    \begin{alignat*}{2}
+        m < n &\iff m + k < n + k &\qquad& \comment*{\(\mbf{P}(k)\)}\\
+              &\iff (m + k) + 1 < (n + k) + 1 && \comment*{\Cref{exer:3.2.2}}\\
+              &\iff m + (k + 1) < n + (k + 1). && \comment*{\nameref{th:addIsAssociative}}
+    \end{alignat*}
+    By \nameref{th:induction}, the result follows.
+}
+
+\exer[3.4.3]{}{
+    \(\fall m, n \in \NN,\: (m \le n \iff \exs! k \in \NN,\: n = m + k)\)
+}
+\pf{Proof}{
+    (\(\Rightarrow\))
+    Fix any \(m \in \NN\) and let \(\mbf{P}(x)\) be the property ``\(\exs k \in \NN,\: x = m + k\).''
+    \(\mbf{P}(m)\) holds since \(k = 0\) would satisfy by \eqref{eq:addition1}.
+
+    Fix any \(n \in \NN\) such that \(m \le n\) and assume \(\mbf{P}(n)\).
+    Then, there exists \(k\) such that \(n = m + k\),
+    which leads to \(n + 1 = m + (k + 1)\) by \nameref{th:addIsAssociative}.
+    Hence, \(\mbf{P}(n+1)\) holds.
+    Therefore, \(\fall n \ge m,\: \exs k \in \NN,\: n = m + k\) by \Cref{exer:3.2.11}.
+
+    To prove the uniqueness, assume \(m + k = m + \ell\) where \(k, \ell, m \in \NN\).
+    \WLOG, \(k \le \ell\). If it were \(k < \ell\), by \Cref{exer:3.4.2} and \nameref{th:addIsCommutative},
+    we must have \(m + k = k + m < \ell + m = \ell + m\).
+    Hence, \(k = \ell\).
+
+    (\(\Leftarrow\))
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m, n \in \NN,\: (n = m + x \implies m \le n)\).''
+    We have evidently \(\mbf{P}(0)\) by \eqref{eq:addition1}.
+
+    Fix any \(k \in \NN\) and assume \(\mbf{P}(k)\).
+    Then, for each \(m, n \in \NN\) such that \(n = m + (k + 1)\), we have
+    \(n = (m + 1) + k\) thanks to \nameref{th:addIsCommutative} and \nameref{th:addIsAssociative},
+    and thus \(m < m + 1 \le n\) by \(\mbf{P}(k)\).
+    Hence, by \nameref{th:induction}, the result follows.
+}
+
+\setexernumber{5}
+
+\exer[3.4.6]{}{
+    \(\fall k, m, n \in \NN,\: [k \neq 0 \implies (m < n \iff m \cdot k < n \cdot k)]\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m, n \in \NN,\: (m < n \iff m \cdot k < n \cdot k)\).''
+    \(\mbf{P}(1)\) holds since, for all \(n \in \NN\),
+    \begin{alignat*}{2}
+        n \cdot 1 &= n \cdot (0 + 1) &\qquad& \comment*{\eqref{eq:addition1}, \nameref{th:addIsCommutative}}\\
+                  &= n \cdot 0 + n && \comment*{\eqref{eq:multiplication2}}\\
+                  &= 0 + n && \comment*{\eqref{eq:multiplication1}}\\
+                  &= n. && \comment*{\eqref{eq:addition1}, \nameref{th:addIsCommutative}}
+    \end{alignat*}
+
+    Now, fix any \(k \in \NN\) and assume \(\mbf{P}(k)\).
+    Then, for each \(m, n \in \NN\) with \(m < n\),
+    \begin{alignat*}{2}
+        m \cdot (k + 1) &= m \cdot k + m &\qquad& \comment*{\eqref{eq:multiplication2}}\\
+                        &< m \cdot k + n && \comment*{\Cref{exer:3.4.2}}\\
+                        &< n \cdot k + n && \comment*{\(\mbf{P}(k)\), \nameref{th:addIsCommutative}, \Cref{exer:3.4.2}}\\
+                        &= n \cdot (k + 1). && \comment*{\eqref{eq:multiplication2}}
+    \end{alignat*}
+    Therefore, by \Cref{exer:3.2.11}, the result follows.
+}
+
+\end{document}

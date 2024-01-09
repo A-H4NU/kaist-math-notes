@@ -1,0 +1,374 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\section{Introduction to Sets}
+
+\dfn[set]{Set}{
+    Every object in the universe of discourse is called a \textit{set}.
+}
+
+\section{Properties}
+
+\dfn[property]{Property}{
+    Any mathematical sentence\footnote{Refer to mathematical logic textbook for detailed discussion.}
+    is called a \textit{property}.
+    If \(X, Y, \cdots, Z\) are free variables of a property \(\mbf{Q}\),
+    we write \(\mbf{Q}(X, Y, \cdots, Z)\) and say
+    \(\mbf{Q}(X, Y, \cdots, Z)\) is a property of \(X, Y, \cdots, Z\).
+}
+
+\section{Axioms}
+
+\axiom[existence]{The Axiom of Existence}{
+    \noindent
+    There exists a set which has no elements.
+    \[
+        \exs A\:\fall x\: \lnot (x \in A)
+    \]
+}
+
+\nt{
+    \noindent
+    \nameref{ax:existence} guarantees that the universe of discourse is not void.
+}
+
+\axiom[extensionality]{The Axiom of Extensionality}{
+    \noindent
+    If every element of \(X\) is an element of \(Y\) and every element of \(Y\)
+    is an element of \(X\), then \(X = Y\).
+    \[
+        \fall X\: \fall Y\: [\fall x\: (x \in X \iff x \in Y) \implies X = Y]
+    \]
+}
+
+\nt{
+    \noindent
+    \nameref{ax:extensionality} defines the equality relation with the containment relation(\(\in\)).
+}
+
+\mlemma[uniqueEmptySet]{}{
+    There exists only one set with no elements.
+}
+\pf{Proof}{
+    Let \(A\) and \(B\) are sets such that \(\fall x\: \lnot(x \in A)\) and \(\fall x\: \lnot(x \in B)\).
+    Then, we have \(\fall x\: (x \in A \iff x \in B)\).
+    Therefore, by \nameref{ax:extensionality}, \(A = B\) is guaranteed.
+}
+
+\dfn[emptySet]{Empty Set}{
+    The unique set with no elements is called the \textit{empty set} and is denoted \(\OO\).
+}
+
+\nt{
+    \noindent
+    \Cref{dfn:emptySet} is justified by \Cref{lem:uniqueEmptySet}.
+}
+
+\axiom[comprehension]{The Axiom Schema of Comprehension}{
+    Let \(\mbf{P}(x)\) be a property of \(x\).
+    For any set \(A\), there exists a set \(B\) such that \(x \in B\) if and only if \(x \in A\) and \(\mbf{P}(x)\).
+    \[
+        \fall A\: \exs B\: (x \in B \iff x \in A \land \mbf{P}(x))
+    \]
+}
+\nt{
+    \noindent
+    \Cref{ax:comprehension} is a axiom \textit{schema} since
+    it provides unlimited amount of axioms for varying \(\mbf{P}\).
+}
+
+\mlemma[uniqueComprehension]{}{
+    Let \(\mbf{P}(x)\) be a property of \(x\).
+    For any set \(A\), there uniquely exists a set \(B\) such that \(x \in B\) if and only if \(x \in A\) and \(\mbf{P}(x)\).
+}
+\pf{Proof}{
+    Let \(B'\) be another set such that \(x \in B'\) if and only if \(x \in A\) and \(\mbf{P}(x)\).
+    Then, for any \(x\), we have \(x \in B' \iff x \in A \land \mbf{P}(x) \iff x \in B\).
+    Hence, by \nameref{ax:extensionality}, we have \(B = B'\).
+}
+
+\notat[setBuilder]{Set-Builder Notation}{
+    Let \(\mbf{P}(x)\) be a property of \(x\). Let \(A\) be a set.
+    The unique set \(B\) such that \(x \in B\) if and only if \(x \in A\) and \(\mbf{P}(x)\)
+    is denoted \(\{\,x \in A \mid \mbf{P}(x)\,\}\).
+}
+\nt{
+    \noindent
+    \Cref{not:setBuilder} is justified by \Cref{lem:uniqueComprehension}.
+}
+
+\axiom[pair]{The Axiom of Pair}{
+    \noindent
+    For any \(A\) and \(B\), there exists \(C\) such that
+    \(x \in C\) if and only if \(x = A\) or \(x = B\).
+    \[
+        \fall A\: \fall B\: \exs C\: (x \in C \iff x = A \lor x = B)
+    \]
+}
+\nt{
+    \noindent
+    Similarly, the set \(C\) such that \(x \in C \iff x = A \lor x = B\) is unique
+    by \nameref{ax:extensionality}.
+}
+
+\notat[pair]{}{
+    Let \(A\) and \(B\) be sets.
+    The unique set \(C\) such that \(x \in C\) if and only if \(x = A\) or \(x = B\)
+    is denoted \(\{A, B\}\).
+    In particular, if \(A = B\), we write \(\{A\}\) instead of \(\{A, A\}\).
+}
+
+\axiom[union]{The Axiom of Union}{
+    \noindent
+    For any \(S\), there exists \(U\) such that \(x \in U\)
+    if and only if \(x \in A\) for some \(A \in S\).
+    \[
+        \fall S\: \exs U\: (x \in U \iff \exs A\: x \in A \land A \in S)
+    \]
+}
+\dfn[union]{The Union of System of Sets}{
+    Let \(S\) be a set.
+    The unique set \(U\) such that \(x \in U\) if and only if
+    \(x \in A\) for some \(A \in S\)
+    is denoted \(\bigcup S\).
+}
+\dfn[unionTwoSets]{The Union of Two Sets}{
+    Let \(A\) and \(B\) be sets.
+    Then, \(A \cup B\) denotes the unique set \(\bigcup \{A, B\}\).
+}
+
+\dfn[subset]{Subset}{
+    Let \(A\) and \(B\) sets.
+    \(B\) is said to be a \textit{subset} of \(A\)
+    if \(\fall x\: (x \in B \implies x \in A)\).
+    If \(B\) is a subset of \(A\), then we write \(B \subseteq A\).
+}
+
+\axiom[powerSet]{The Axiom of Power Set}{
+    \noindent
+    For any \(S\), there exists \(P\) such that
+    \(X \in P\) if and only if \(X \subseteq S\).
+}
+
+\nt{
+    \noindent
+    Similarly, the set \(P\) is unique by \nameref{ax:extensionality}.
+}
+
+\dfn[powerSet]{Power Set}{
+    Let \(S\) be a set.
+    The unique set \(P\) such that \(X \in P\) if and only if \(X \subseteq S\)
+    is called the \textit{power set} of \(S\) and is denoted \(\mcal P(S)\).
+}
+
+\mlemma[setDefinedByProperty]{}{
+    Let \(\mbf{P}(x)\) be a property of \(x\).
+    Let \(A\) and \(A'\) be sets such that
+    \(\mbf{P}(x) \implies x \in A \land x \in A'\).
+    Then, \(\{\,x \in A \mid \mbf{P}(x)\,\} = \{\,x \in A' \mid \mbf{P}(x)\,\}\).
+}
+\pf{Proof}{
+    For all \(x\), we have \(x \in A \land \mbf{P}(x) \iff \mbf{P}(x) \iff x \in A' \land \mbf{P}(x)\).
+    Therefore, by \nameref{ax:extensionality}, the result follows.
+}
+
+\notat[setDefinedByProperty]{}{
+    Let \(\mbf{P}(x)\) be a property of \(x\).
+    If there exists a set \(A\) such that \(\mbf{P}(x)\) implies \(x \in A\),
+    we write \(\{\,x \mid \mbf{P}(x)\,\} \triangleq \{\,x \in A \mid \mbf{P}(x)\,\}\),
+    and it is called \textit{the set of all \(x\) with the property \(\mbf{P}(x)\)}.
+}
+\nt{
+    \noindent
+    \Cref{not:setDefinedByProperty} is justified by \Cref{lem:setDefinedByProperty}.
+}
+
+\subsection*{Selected Problems}
+
+\exer[1.3.1]{}{
+    The set of all \(x\) such that \(x \in A\) and \(x \notin B\) exists.
+}
+\pf{Proof}{
+    We have \(x \in A \land x \notin B \implies x \in A\).
+    Hence, the set exists and is equal to \(\{\,x \in A \mid x \in A \land x \notin B\,\}\).
+}
+
+\exer[1.3.2]{}{
+    Prove \nameref{ax:existence} only from \nameref{ax:comprehension}
+    and The Weak Axiom of Existence. \\[.3em]
+    \textsf{Weak Axiom of Existence}\; Some set exists.
+}
+\pf{Proof}{
+    Let \(A\) be a set known to exist.
+    Then, there exists \(B = \{\,x \in A \mid x \neq x\,\}\) by \nameref{ax:comprehension}.
+    Since \(\fall x\: (x = x)\), \(\fall x\: (x \notin B)\).
+}
+
+\exer[1.3.3]{}{
+    \begin{enumerate}[nolistsep, label=(\alph*)]
+        \ii Prove that a set of all sets(\(\{\,x \mid \top\,\}\)) does not exist.
+        \ii Prove that \(\fall A\: \exs x\: (x \notin A)\).
+    \end{enumerate}
+}
+\mclm{Proof}{
+\hfill
+\begin{enumerate}[nolistsep, label=(\alph*)]
+    \ii
+    Suppose \(V = \{\,x \mid \top\,\}\) exists.
+    Then, by \nameref{ax:comprehension}, \(R = \{\,x \in V \mid x \notin x\,\}\) exists.
+    However, we have \(R \in R \iff R \notin R\) by definition of \(R\).
+    Hence, \(V\) does not exist.
+
+    \ii
+    Suppose \(\exs A\: \fall x\: (x \in A)\) for the sake of contradiction.
+    Then, \(A\) is the set of all sets, which is impossible by (a). \qed
+\end{enumerate}
+}
+
+\setexernumber{5}
+
+\exer[1.3.6]{}{
+    Prove \(\fall X\: \lnot (\mcal P(X) \subseteq X)\).
+}
+\pf{Proof}{
+    Let \(Y = \{\,u \in X \mid u \notin u\,\}\).
+    Then, by definition, \(Y \subseteq X\), and thus \(Y \in \mcal P(X)\).
+    Now, suppose \(Y \in X\) for the sake of contradiction.
+    Then, \(Y \in Y \iff Y \in X \land Y \notin Y \iff Y \notin Y\),
+    which is a contradiction. Hence, \(Y \notin X\).
+}
+
+\section{Elementary Operations on Sets}
+
+\dfn[properSubset]{Proper Subset}{
+    Let \(A\) and \(B\) sets.
+    \(B\) is said to be a \textit{proper subset} of \(A\)
+    if \(B \subseteq A\) and \(B \neq A\).
+    If \(B\) is a proper subset of \(A\), we write \(B \subsetneq A\).
+}
+
+\dfn[]{Elementary Operations on Sets}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Intersection
+        \begin{itemize}[nolistsep]
+            \ii The \textit{intersection} of \(A\) and \(B\), \(A \cap B\),
+                is the set \(\{\,x \mid x \in A \land x \in B\,\}\).
+        \end{itemize}
+        \ii Union
+        \begin{itemize}[nolistsep]
+            \ii The \textit{union} of \(A\) and \(B\), \(A \cup B\),
+                is the set \(\{\,x \mid x \in A \lor x \in B\,\}\).
+        \end{itemize}
+        \ii Difference
+        \begin{itemize}[nolistsep]
+            \ii The \textit{difference} of \(A\) and \(B\), \(A \setminus B\),
+                is the set \(\{\,x \mid x \in A \land x \notin B\,\}\).
+        \end{itemize}
+        \ii Symmetric Difference
+        \begin{itemize}[nolistsep]
+            \ii The \textit{symmetric difference} of \(A\) and \(B\), \(A \symdif B\),
+                is the set \((A \setminus B) \cup (B \setminus A)\).
+        \end{itemize}
+    \end{enumerate}
+}
+
+\mlemma{Simple Properties of Elementary Operations}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Commutativity
+        \begin{itemize}[nolistsep]
+            \ii \(A \cap B = B \cap A\)
+            \ii \(A \cup B = B \cup A\)
+            \ii \(A \symdif B = B \symdif A\)
+        \end{itemize}
+        \ii Associativity
+        \begin{itemize}[nolistsep]
+            \ii \((A \cap B) \cap C = A \cap (B \cap C)\)
+            \ii \((A \cup B) \cup C = A \cup (B \cup C)\)
+            \ii \((A \symdif B) \symdif C = A \symdif (B \symdif C)\)
+        \end{itemize}
+        \ii Distributivity
+        \begin{itemize}[nolistsep]
+            \ii \(A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\)
+            \ii \(A \cup (B \cap C) = (A \cup B) \cap (A \cup C)\)
+        \end{itemize}
+        \ii De Morgan's Laws
+        \begin{itemize}[nolistsep]
+            \ii \(C \setminus (A \cap B) = (C \setminus A) \cup (C \setminus B)\)
+            \ii \(C \setminus (A \cup B) = (C \setminus A) \cap (C \setminus B)\)
+        \end{itemize}
+        \ii Miscellaneous
+        \begin{itemize}[nolistsep]
+            \ii \(A \cap (B \setminus C) = (A \cap B) \setminus C\)
+            \ii \(A \setminus B = \OO \iff A \subseteq B\)
+            \ii \(A \symdif B = \OO \iff A = B\)
+        \end{itemize}
+    \end{enumerate}
+}
+
+\dfn[intersection]{Intersection of System of Sets}{
+    Let \(S\) be a nonempty set. Then, the \textit{intersection} \(\bigcap S\)
+    is the set \(\{\,x \mid \fall A \in S\: (x \in A)\,\}\).
+}
+\nt{
+    Note that \(\bigcap S\) exists for all nonempty \(S\)
+    since \(\fall A \in S\: (x \in A) \implies x \in A_1\)
+    where \(A_1\) is any set such that \(A_1 \in S\).
+}
+
+\dfn[mutualDisjoint]{System of Mutually Disjoint Sets}{
+    We say the sets \(A\) and \(B\) are \textit{disjoint} if \(A \cap B = \OO\).
+    A set \(S\) is a \textit{system of mutually disjoint sets} if
+    \(\fall A, B \in S,\: (A \neq B \implies A \cap B = \OO)\).
+}
+
+\subsection*{Selected Problems}
+
+\setexernumber{1}
+
+\exer[1.4.2]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:1.4.2} (\roman*)}, leftmargin=*, listparindent=\parindent]
+        \ii \(A \setminus B = (A \cup B) \setminus B = A \setminus (A \cap B)\)
+        \ii \(A \setminus (B \setminus C) = (A \setminus B) \cup (A \cap C)\)
+        \ii\label{itm:1.4.2iii} \(A \cap B = A \setminus (A \setminus B)\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii\mbox{}\vspace*{-\baselineskip}
+    \begin{flalign*}\SwapAboveDisplaySkip
+        x \in A \land x \notin B
+        &\iff x \in A \land x \notin B \lor x \in B \land x \notin B & \comment*{\(\lor\)-intro / \(\lor\)-syllogism} \\
+        &\iff (x \in A \lor x \in B) \land x \notin B & \comment*{Distribution}
+    \end{flalign*}
+    \begin{flalign*}\SwapAboveDisplaySkip
+        x \in A \land x \notin B
+        &\iff x \in A \land x \notin A \lor x \in A \land x \notin B & \comment*{\(\lor\)-intro / \(\lor\)-syllogism} \\
+        &\iff x \in A \land (x \notin A \lor x \notin B) & \comment*{Distribution} \\
+        &\iff x \in A \land \lnot(x \in A \land x \in B) & \comment*{De Morgan's Law}
+    \end{flalign*}
+
+    \ii\mbox{}\vspace*{-\baselineskip}
+    \begin{flalign*}\SwapAboveDisplaySkip
+        x \in A \land \lnot (x \in B \land x \notin C)
+        &\iff x \in A \land (x \notin B \lor x \in C) & \comment*{De Morgan's Law} \\
+        &\iff (x \in A \land x \notin B) \lor (x \in A \land x \in C) & \comment*{Distribution}
+    \end{flalign*}
+
+    \ii
+    By (ii), \(A \setminus (A \setminus B) = (A \setminus A) \cup (A \cap B) = A \cap B\).
+    \qed
+\end{enumerate}
+}
+
+\setexernumber{3}
+
+\exer[1.4.4]{}{
+    For any set \(A\), prove that a ``complement'' of \(A\) (\(\{\,x \mid x \notin A\,\}\)) does not exist.
+}
+\pf{Proof}{
+    Let \(B\) be the complement of \(A\) for the sake of contradiction.
+    Then, \(A \cup B\) is the set of all sets, which is impossible by \Cref{exer:1.3.3}.
+}
+
+\end{document}

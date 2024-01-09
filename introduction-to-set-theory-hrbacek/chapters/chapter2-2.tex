@@ -1,0 +1,443 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+\begin{document}
+    
+\section{Functions}
+
+\dfn[function]{Function}{
+    A binary relation \(F\) is called a \textit{function} (or \textit{mapping})
+    if \[\fall a\: \fall b_1\: \fall b_2\: (aFb_1 \land aFb_2 \implies b_1 = b_2).\]
+
+    For each \(a \in \dom F\), the unique \(b\) such that \(aFb\) is called the \textit{value of \(F\) at \(a\)}
+    and is denoted \(F(a)\) of \(F_a\).
+}
+
+\notat{}{
+    If \(F\) is a function with \(\dom F = A\) and \(\ran F \subseteq B\),
+    we write \(F \colon A \to B\), \(\lang F(a) \mid a \in A\rang\),
+    \(\lang F_a \mid a \in A\rang\), \(\lang F_a\rang_{a \in A}\) for the function \(F\).
+    The range of the function \(F\) can then be denoted \(\{\,F(a) \mid a \in A\,\}\)
+    or \(\{F_a\}_{a \in A}\).
+}
+
+\mlemma[functionEqualsIff]{}{
+    Let \(F\) and \(G\) be functions.
+    \(F = G \iff \dom F = \dom G \land \fall x \in \dom F,\: F(x) = G(x)\).
+}
+\pf{Proof}{
+    (\(\Rightarrow\)) is direct.
+
+    (\(\Leftarrow\))
+    Take any \((x, F(x)) \in F\).
+    Then, we have \((x, F(x)) = (x, G(x)) \in G\).
+    Therefore, \(F \subseteq G\).
+    Similarly, \(G \subseteq F\), and thus \(F = G\).
+}
+
+\dfn[]{}{
+    Let \(F\) be a function and \(A\) and \(B\) be sets.
+    \begin{itemize}[nolistsep]
+        \ii \(F\) is a function \textit{on} \(A\) if \(\dom F = A\).
+        \ii \(F\) is a function \textit{into} \(B\) if \(\ran F \subseteq B\).
+        \ii \(F\) is a function \textit{onto} \(B\) if \(\ran F = B\).
+        \ii The \textit{restriction} of the function \(F\) \textit{to} \(A\)
+            is the function \(\restr{F}{A} \triangleq \{\,(a, b) \in F \mid a \in A\,\}\).
+            If \(G\) is a restriction of \(F\) to some \(A\),
+            we say that \(F\) is an \textit{extension} of \(G\).
+    \end{itemize}
+}
+
+\thm[functionComposite]{}{
+    Let \(f\) and \(g\) be functions.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(g \circ f\) is a function.
+        \ii \(\dom (g \circ f) = (\dom f) \cap f\inv[\dom g]\).
+        \ii \(\fall x \in \dom (g \circ f),\: (g \circ f)(x) = g(f(x))\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    Suppose \(x(g \circ f)z_1\) and \(x(g \circ f)z_2\).
+    There exists \(y_1\) and \(y_2\) such that \(xfy_1\), \(y_1gz_1\), \(xfy_2\), and \(y_2gz_2\).
+    Since \(f\) and \(g\) are functions, we have \(y_1 = y_2\) and \(z_1 = z_2\).
+    Therefore, \(g \circ f\) is a function.
+
+    \ii
+    \(\begin{aligned}[t]
+        x \in \dom (g \circ f) &\iff \exs z\: x(g \circ f)z \\
+                               &\iff \exs z\:\exs y\: x f y \land y g z \\
+                               &\iff x \in \dom f \land f(x) \in \dom g
+                               \iff x \in \dom f \land x \in f\inv[\dom g] \qed
+    \end{aligned}\)
+\end{enumerate}
+}
+
+\dfn[]{Invertible Function}{
+    A function \(f\) is said to be \textit{invertible} if \(f\inv\) is a function.
+}
+
+\dfn[]{Injective Function}{
+    A function \(f\) is said to be \textit{injective} (or \textit{one-to-one}) if
+    \[
+        \fall a_1, a_2 \in \dom f,\: (f(a_1) = f(a_2) \implies a_1 = a_2).
+    \]
+}
+
+\notat{}{
+    Let \(f \colon A \to B\) be a function.
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii If \(f\) is a function \textit{onto} \(B\), we may write \(f \colon A \twoheadrightarrow B\).
+        \ii If \(f\) is one-to-one, we may write \(f \colon A \hookrightarrow B\).
+        \ii If \(f\) is one-to-one and onto \(B\), we may write \(f \colon A \hooktwoheadrightarrow B\).
+    \end{itemize}
+}
+
+\thm[invIffInj]{}{
+    Let \(f\) be a function.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(f\) is invertible if and only if \(f\) is one-to-one.
+        \ii If \(f\) is invertible, then \(f\inv\) is also invertible and \((f\inv)\inv = f\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    (\(\Rightarrow\)) Suppose \(f\inv\) is a function. Then, \(f\inv(f(a)) = a\)
+    for all \(a \in \dom f\).
+    Hence, for all \(a_1, a_2 \in \dom f\) such that \(f(a_1) = f(a_2)\),
+    it follows that \(a_1 = f\inv(f(a_1)) = f\inv(f(a_2)) = a_2\);
+    \(f\) is one-to-one.
+
+    (\(\Leftarrow\)) Suppose \(f\) is one-to-one.
+    If \(yf\inv x_1\) and \(yf\inv x_2\), then \(x_1fy\) and \(x_2fy\),
+    i.e., \(y = f(x_1) = f(x_2)\). Therefore, \(x_1 = x_2\); \(f\inv\) is a function.
+
+    \ii
+    As \(f\) is a relation, by \Cref{exer:2.2.4} (iii), \((f\inv)\inv = f\),
+    and thus \(f\inv\) is invertible. \qed
+\end{enumerate}
+}
+
+\dfn[compatible]{Compatible Functions}{
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii Functions \(f\) and \(g\) are called \textit{compatible} if
+            \(\fall x \in (\dom f) \cap (\dom g),\: f(x) = g(x)\).
+        \ii A set of functions \(F\) is called a \textit{compatible system of functions}
+            if any two functions \(f\) and \(g\) from \(F\) are compatible.
+    \end{itemize}
+}
+
+\mlemma[compatibleIff]{}{
+    Let \(f\) and \(g\) be functions.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(f\) and \(g\) are compatible if and only if \(f \cup g\) is a function.
+        \ii \(f\) and \(g\) are compatible if and only if
+            \(\restr{f}{(\dom f) \cap (\dom g)} = \restr{g}{(\dom f) \cap (\dom g)}\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    (\(\Rightarrow\))
+    Suppose \(x(f \cup g)y_1\) and \(x(f \cup g)y_2\).
+    \WLOG, \((x, y_1) \in f\).
+    If \((x, y_2) \in f\), since \(f\) is a function, \(y_1 = y_2\).
+    If \((x, y_2) \in g\), since \(f\) and \(g\) are compatible, \(y_1 = f(x) = g(x) = y_2\).
+    Therefore, \(f \cup g\) is a function.
+
+    (\(\Leftarrow\))
+    Take any \(x \in (\dom f) \cap (\dom g)\).
+    \((x, f(x)) \in f \cup g\) and \((x, g(x)) \in f \cup g\).
+    Since \(f \cup g\) is a function, we have \(f(x) = g(x)\).
+
+    \ii
+    Let \(A = (\dom f) \cap (\dom g)\).
+
+    (\(\Rightarrow\))
+    By definition, \(\dom \restr{f}{A} = \dom \restr{g}{A}
+    = (\dom f) \cap (\dom g)\).
+    Moreover, for all \(x \in (\dom f) \cap (\dom g)\),
+    \(\restr{f}{A}(x) = f(x) = g(x) = \restr{g}{A}(x)\).
+    Hence, the result follows by \Cref{lem:functionEqualsIff}.
+
+    (\(\Leftarrow\))
+    Take any \(x \in A\).
+    Then, \(f(x) = \restr{f}{A}(x) = \restr{g}{A}(x) = g(x)\). \qed
+\end{enumerate}
+}
+
+\thm[compatibleThenUnionIsFunction]{}{
+    If \(F\) is a compatible system of functions, then \(\bigcup F\)
+    is a function with \(\dom \bigcup F = \bigcup \{\,\dom f \mid f \in F\,\}\).
+    The function \(\bigcup F\) extends all \(f \in F\).
+}
+\pf{Proof}{
+    Note that \(\bigcup F\) is already a relation.
+    If \((a, b_1), (a, b_2) \in \bigcup F\),
+    then there exist \(f_1, f_2 \in F\) such that \((a, b_1) \in f_1\) and \((a, b_2) \in f_2\).
+    Since \(f_1\) and \(f_2\) are compatible and \(a \in (\dom f_1) \cap (\dom f_2)\),
+    we have \(b_1 = f_1(a) = f_2(a) = b_2\). Hence, \(\bigcup F\) is a function.
+
+    \(\dom \bigcup F = \bigcup \{\,\dom f \mid f \in F\,\}\) since
+    \[\begin{aligned}[b]
+        x \in \dom \bigcup F &\iff \exs y,\:(x, y) \in \bigcup F \\
+                             &\iff \exs y,\: \exs f \in F,\: (x, y) \in f \\
+                             &\iff \exs f \in F,\: x \in \dom f \iff x \in \bigcup \{\,\dom f \mid f \in F\,\}.
+    \end{aligned}\]
+
+    Take any \(f \in F\).
+    As \(f \cup \bigcup F = \bigcup F\), \(f\) and \(\bigcup F\) are compatible
+    by \Cref{lem:compatibleIff} (i).
+    Moreover, \(\dom f \cap \dom \bigcup F = \dom f\).
+    Hence, by \Cref{lem:compatibleIff} (ii),
+    \(f = \restr{f}{\dom f} = \restr{\left(\bigcup F\right)}{\dom f}\);
+    \(\bigcup F\) extends each \(f \in F\).
+}
+
+\dfn[setOfFunctions]{}{
+    Let \(A\) and \(B\) be sets.
+    Then, we define
+    \[
+        B^A \triangleq \{\,f \mid f \text{ is a function on }A\text{ into }B\,\}.
+    \]
+}
+
+\dfn[indexedSystemOfSets]{Indexed System of Sets}{
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii 
+        Let \(S = \lang S_i \mid i \in I \rang\) be a function with domain \(I\).
+        We call the function \(S\) an \textit{indexed system of sets}
+        whenever we stress that the values of \(S\) are sets.
+
+        \ii
+        We say that a system of sets \(A\) is \textit{indexed} by \(S\)
+        if \(A = \{\,S_i \mid i \in I\,\} = \ran S\).
+    \end{itemize}
+}
+
+\notat{}{
+    If \(A\) is indexed by \(S = \lang S_i \mid i \in I \rang\),
+    we may write
+    \[
+        \bigcup \{\,S_i \mid i \in I\,\}\quad\text{or}\quad\bigcup_{i \in I} S_i
+    \]
+    instead of \(\bigcup A\).
+    Similarly, we may write \(\bigcap \{\,S_i \mid i \in I\,\}\) or \(\bigcap_{i \in I} S_i\)
+    instead of \(\bigcap A\).
+}
+
+\dfn[productIndexedSystemOfSets]{Product of Indexed System of Sets}{
+    Let \(S = \lang S_i \mid i \in I \rang\) be an indexed system of sets.
+    We call the set
+    \[
+        \prod S \triangleq \{\,f \mid f \text{ is a function on }I\text{ and } \fall i \in I,\: f_i \in S_i\,\}
+    \]
+    the \textit{product} of the indexed system \(S\).
+}
+
+\notat{}{
+    Other notations for the product of the indexed system \(S = \lang S_i \mid i \in I \rang\)
+    are:
+    \[
+        \prod \lang S(i) \mid i \in I \rang, \quad
+        \prod_{i \in I} S(i), \quad
+        \prod_{i \in I} S_i.
+    \]
+}
+
+\nt{
+    \noindent
+    The existence of \(B^A\) and \(\prod_{i \in I} S_i\) is proved in \Cref{exer:2.3.9}.
+}
+
+\nt{
+    \noindent
+    If \(A = S_i\) for all \(i \in I\),
+    \(\prod_{i \in I} S_i = A^I\).
+}
+
+\subsection*{Selected Problems}
+
+\setexernumber{3}
+\exer[2.3.4]{}{
+    Let \(f\) be a function.
+    If there exists a function \(g\) such that \(g \circ f = \mrm{Id}_{\dom f}\),
+    then \(f\) is invertible and \(f\inv = \restr{g}{\ran f}\).
+}
+\pf{Proof}{
+    For \(x_1, x_2 \in \dom f\), suppose \(f(x_1) = f(x_2)\).
+    Then, \(x_1 = (g \circ f)(x_1) = g(f(x_1)) = g(f(x_2)) = (g \circ f)(x_2) = x_2\).
+    Hence, \(f\) is one-to-one and is inverible by \Cref{th:invIffInj}.
+
+    Take any \((y, x) \in f\inv\). Then, as \(x \in \dom f\),
+    we must have \((y, x) \in \mrm{Id}_{\dom f}\). Hence, \(f\inv \subseteq \restr{g}{\ran f}\).
+    Now, take any \((y, x) \in \restr{g}{\ran f}\). Since \(y \in \ran f\),
+    there exists \(x' \in \dom f\) such that \((x', y) \in f\).
+    Since \(g \circ f = \mrm{Id}_{\dom f}\),
+    we have \(x = x'\). Therefore, \((y, x) \in f\inv\); \(\restr{g}{\ran f} \subseteq f\inv\).
+}
+
+\setexernumber{5}
+
+\exer[2.3.6]{}{
+    Let \(f\) be a function.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:2.3.6} (\roman*)}]
+        \ii \(f\inv[A \cap B] = f\inv[A] \cap f\inv[B]\)
+        \ii\label{itm:2.3.6.ii} \(f\inv[A \setminus B] = f\inv[A] \setminus f\inv[B]\)
+    \end{enumerate}
+}
+\mclm{Proof}{
+Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other inclusions.
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii Take any \(x \in f\inv[A] \cap f\inv[B]\).
+        Then, there exists \(a \in A\) and \(b \in B\)
+        such that \(xfa\) and \(xfb\).
+        Since \(f\) is a function, \(a = b\),
+        and thus \(x \in f\inv[A \cap B]\).
+
+    \ii Take any \(x \in f\inv[A \setminus B]\).
+        Then, \(f(x) \in A \setminus B\).
+        If \(x \in f\inv[B]\), we would have \(f(x) \in B\);
+        thus \(x \notin f\inv[B]\). Therefore, \(x \in f\inv[A] \setminus f\inv[B]\). \qed
+\end{enumerate}
+}
+
+\setexernumber{7}
+
+\exer[2.3.8]{}{
+    Every system of sets \(A\) can be indexed by a function.
+}
+\pf{Proof}{
+    Let \(S\) be the function \(\mrm{Id}_A\)
+    so \(S_i = i\) for all \(i \in A\).
+    Then, \(A = \{\,S_i \mid i \in A\,\}\);
+    \(A\) is indexed by \(S\).
+}
+
+\exer[2.3.9]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii Let \(A\) and \(B\) be sets. Prove that \(B^A\) exists.
+        \ii Let \(\lang S_i \mid i \in I\rang\) be an indexed system of sets.
+            Prove that \(\prod_{i \in I} S_i\) exists.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    If \(f\) is a function from \(A\) into \(B\),
+    then \(f \subseteq A \times B\), i.e., \(f \in \mcal P(A \times B)\).
+
+    \ii
+    If \(f\) is a function on \(I\) and \(f_i \in S_i\) for all \(i \in I\),
+    then \(f\) is a function onto \(\bigcup_{i \in I} S_i\).
+    Hence, \(f \in \left(\bigcup_{i \in I} S_i\right)^I\). \qed
+\end{enumerate}
+}
+
+\exer[2.3.10]{}{
+    Let \(\lang\,F_a \mid a \in \bigcup S\,\rang\) be an indexed system of sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii 
+        \(\bigcup_{a \in \bigcup S} F_a = \bigcup_{C \in S} \left[ \bigcup_{a \in C} F_a \right]\)\vspace*{.3em}
+
+        \ii
+        \(\bigcap_{a \in \bigcup S} F_a = \bigcap_{C \in S} \left[ \bigcap_{a \in C} F_a \right]\)
+        if \(S \neq \OO\) and \(\fall C \in S,\:C \neq \OO\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in \bigcup_{a \in \bigcup S} F_a
+        &\iff \textstyle\exs a \in \bigcup S,\: x \in F_a \\
+        &\iff \exs C \in S,\: \exs a \in C,\: x \in F_a \\
+        &\iff \textstyle\exs C \in S,\: x \in \bigcup_{a \in C} F_a
+        \iff \textstyle x \in \bigcup_{C \in S} \left[ \bigcup_{a \in C} F_a \right]
+    \end{aligned}\)\vspace*{.3em}
+
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in \bigcap_{a \in \bigcup S} F_a
+        &\iff \textstyle \fall a \in \bigcup S,\: x \in F_a \\
+        &\iff \fall C \in S,\: \fall a \in C,\: x \in F_a \\
+        &\iff \textstyle \fall C \in S,\: x \in \bigcap_{a \in C} F_a
+        \iff \textstyle x \in \bigcap_{C \in S} \left[ \bigcap_{a \in C} F_a\right]
+    \end{aligned}\)\vspace*{.3em}
+    \qed
+\end{enumerate}
+}
+
+\exer[2.3.11]{}{
+    Let \(\lang\,F_a \mid a \in A\,\rang\) be an nonempty indexed system of sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii \(B \setminus \bigcup_{a \in A} F_a = \bigcap_{a \in A} (B \setminus F_a)\) \vspace*{.3em}
+        \ii \(B \setminus \bigcap_{a \in A} F_a = \bigcup_{a \in A} (B \setminus F_a)\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in B \setminus \bigcup_{a \in A} F_a
+        &\iff x \in B \land \lnot (\exs a \in A,\: x \in F_a) \\
+        &\iff x \in B \land \fall a \in A,\: x \notin F_a \\
+        &\iff \fall a \in A,\: (x \in B \land x \notin F_a)
+        \iff \textstyle x \in \bigcap_{a \in A} (B \setminus F_a)
+    \end{aligned}\)\vspace*{.3em}
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in B \setminus \bigcap_{a \in A} F_a
+        &\iff x \in B \land \lnot (\fall a \in A,\: x \in F_a) \\
+        &\iff x \in B \land \exs a \in A,\: x \notin F_a \\
+        &\iff \exs a \in A,\: (x \in B \land x \notin F_a)
+        \iff \textstyle x \in \bigcup_{a \in A} (B \setminus F_a)
+    \end{aligned}\)
+    \qed
+\end{enumerate}
+}
+
+\exer[2.3.12]{}{
+    Let \(R\) be a relation and let \(\lang\,F_a \mid a \in A\,\rang\) be an indexed system of sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii \(R \left[\bigcup_{a \in A} F_a\right] = \bigcup_{a\in A} R[F_a]\)\vspace*{.3em}
+        \ii \(R \left[\bigcap_{a \in A} F_a\right] \subseteq \bigcap_{a\in A} R[F_a]\) if \(A \neq \OO\).\vspace*{.3em}
+        \ii \(R \left[\bigcap_{a \in A} F_a\right] = \bigcap_{a\in A} R[F_a]\) if \(A \neq \OO\) and \(R\) is an injective function.\vspace*{.3em}
+        \ii \(R\inv \left[\bigcap_{a \in A} F_a\right] = \bigcap_{a\in A} R\inv[F_a]\) if \(A \neq \OO\) and \(R\) is a function.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle y \in R \left[\bigcup_{a \in A} F_a\right]
+        &\iff \textstyle \exs x \in \bigcup_{a \in A} F_a,\: xRy \\
+        &\iff \exs a \in A,\: \exs x \in F_a,\: xRy \\
+        &\iff \textstyle \exs a \in A,\: y \in R[F_a]
+        \iff x \in \bigcup_{a\in A} R[F_a]
+    \end{aligned}\)\vspace*{.3em}
+
+    \ii
+    Take any \(y \in R \left[\bigcap_{a \in A} F_a\right]\).
+    Then, there exists \(x \in \bigcap_{a \in A} F_a\) such that \(xRy\).
+    Hence, for all \(a \in A\), \(y \in R[F_a]\),
+    i.e., \(y \in \bigcap_{a \in A} R[F_a]\).
+
+    \ii
+    If \(R\) is an injective function, then \(R\inv\) is also a function.
+    Hence, the result follows from (iv) and the fact that \(R = (R\inv)\inv\).
+
+    \ii
+    Thanks to (ii), since \(R\inv\) is a relation, we only need to prove the other inclusion.
+    Take any \(x \in \bigcap_{a\in A} R\inv[F_a]\).
+    Fix any \(a^\ast \in A\). Then, there exists \(y^\ast \in F_{a^\ast}\) such that \(xRy^\ast\).
+
+    Now, take any \(a \in A\). Then, \(\exs y \in F_a\) such that \(xRy\).
+    Since \(R\) is a function, \(y = y^\ast\); \(y^\ast \in F_a\),
+    i.e., \(y^\ast \in \bigcap_{a \in A} F_a\).
+    Therefore, \(x \in R\inv\left[\bigcap_{a \in A} F_a\right]\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}

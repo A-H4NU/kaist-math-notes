@@ -1,0 +1,430 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+\begin{document}
+
+\section{Introduction to Natural Numbers}
+
+\nt{
+    We cannot prove an existence of an `infinite' set (in the classical sense) or discuss infinity
+    only from \Crefrange{ax:existence}{ax:powerSet}.
+}
+
+\dfn[successor]{Successor}{
+    The \textit{successor} of a set \(x\) is the set \(S(x) = x \cup \{x\}\).
+}
+
+\notat[nPlusOne]{\(\boldsymbol{n+1}\)}{
+    We write \(n + 1\) to denote \(S(n)\).
+    There is no implication regarding the classic ``addition'' in this notation.
+}
+
+\notat{Natural Numbers}{
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii \(0 = \OO\)
+        \ii \(1 = \{\OO\} = S(0) = 0 + 1\)
+        \ii \(2 = \{\OO, \{\OO\}\} = S(1) = 1 + 1\)
+        \ii \(\cdots\)
+    \end{itemize}
+}
+
+\dfn[inductiveSet]{Inductive Set}{
+    A set \(I\) is called \textit{inductive} if
+    \[
+        0 \in I \land \fall n \in I,\: (n + 1) \in I.
+    \]
+}
+
+\axiom[infinity]{Axiom of Infinity}{
+    \noindent
+    An inductive set exists.
+}
+
+\dfn[]{Set of All Natural Numbers}{
+    The \textit{set of all natural numbers} is the set
+    \[
+        \NN \triangleq \{\,x \mid x \in I \text{ for all inductive set }I\,\}.
+    \]
+}
+
+\nt{
+    \nameref{ax:infinity} guarantees the existence of \(\NN\).
+    For, if \(A\) is any inductive set, then
+    \(\NN = \{\,x \in A \mid x \in I \text{ for all inductive set }I\,\}\).
+}
+
+\mlemma[NisInductive]{}{
+    \(\NN\) is inductive. In addition, if \(I\) is an inductive set, then \(\NN \subseteq I\).
+}
+\pf{Proof}{
+    Since \(0 \in I\) for all inductive set, \(0 \in \NN\).
+    If \(n \in \NN\), then \(n \in I\) for all inductive set,
+    and thus \((n + 1) \in I\) for all inductive set.
+    Therefore, \((n + 1) \in \NN\). Hence, \(\NN\) is inductive.
+
+    \(\NN \subseteq I\) directly follows from the definition of \(\NN\).
+}
+
+\dfn[]{}{
+    The relation \(<\) on \(\NN\) is defined by: \(m < n\) if and only if \(m \in n\).
+}
+
+\notat{}{
+    Although we did not prove \(<\) is a strict ordering of \(\NN\),
+    we shall use \(\le\) to denote the relation on \(\NN\):
+    \[
+        \mathord{\le} \triangleq \mathord{<} \cup \mrm{Id}_{\NN}
+    \]
+}
+
+\subsection*{Selected Problems}
+
+\exer[3.1.1]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*]
+        \ii \(\fall x,\: x \subseteq S(x)\)
+        \ii \(\fall x,\: \lnot(\exs z,\: x \subsetneq z \subsetneq S(x))\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(x \subseteq x \subseteq x \cup \{x\} = S(x)\)
+
+    \ii
+    Take any \(z\) such that such that \(x \subseteq z \subseteq S(x) = x \cup \{x\}\).
+    If \(z \subseteq x\), then we have \(z = x\).
+    If \(z \not\subseteq x\), then there exists \(y\) such that
+    \(y \in z\) and \(y \notin x\).
+    However, \(y \in x \cup \{x\}\), and thus \(y = x\).
+    Therefore, \(S(x) \subseteq z\); \(z = S(x)\).
+    In conclusion, any \(z\) such that \(x \subseteq z \subseteq S(x)\)
+    must satisfy \(z = x\) or \(z = S(x)\).
+    \qed
+\end{enumerate}
+}
+
+\section{Properties of Natural Numbers}
+
+\thm[induction]{The Induction Principle}{
+    Let \(\mbf{P}(x)\) be a property (possibly with parameters).
+    \[
+        \mbf{P}(0) \land \fall n \in \NN,\: (\mbf{P}(n) \implies \mbf{P}(n+1))
+        \implies \fall n \in \NN,\: \mbf{P}(n)
+    \]
+}
+\pf{Proof}{
+    The premise simply says that \(A = \{\,n \in \NN \mid \mbf{P}(n)\,\}\) is inductive.
+    Therefore, \(\NN \subseteq A\) follows.
+}
+
+\mlemma[basicLess]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{lem:basicLess} (\roman*)}]
+        \ii \label{itm:basicLess.i}\(\fall n \in \NN,\: 0 \le n\)
+        \ii \label{itm:basicLess.ii}\(\fall k, n \in \NN,\: (k < n + 1 \iff k < n \lor k = n)\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    Let \(\mbf{P}(x)\) be the property ``\(0 \le x\).''
+    \(\mbf{P}(0)\), i.e., \(0 \le 0\), holds since \(0 = 0\).
+
+    Now, assume \(n \in \NN\) and \(\mbf{P}(n)\).
+    If \(n = 0\), then we have \(0 \in S(0) = n + 1\) by definition (\Cref{dfn:successor}).
+    If \(0 < n\), then \(0 \in n\), and thus \(0 \in n \cup \{n\} = S(n)\).
+    Therefore, by \nameref{th:induction}, the result follows.
+    
+    \ii
+    Note that \(k \in n \cup \{n\}\) if and only if \(k \in n\) or \(k = n\).
+    \qed
+\end{enumerate}
+}
+
+\thm[NisLinearlyOrdered]{\((N, \le)\) is Linearly Ordered}{
+    \((N, \le)\) is a linearly ordered set.
+}
+\pf{Proof}{
+    We first need to prove that \((\NN, \le)\) is an ordered set.
+    \clm[lessIsTransitive]{
+        \(<\) is transitive in \(\NN\).
+    }{
+        Let \(\mbf{P}(x)\) be the property ``\(\fall k, m \in \NN,\: (k < m \land m < x \implies k < x)\).''
+        \(\mbf{P}(0)\) is true because there is no \(m \in \NN\) such that \(m \in 0 = \OO\).
+
+        Now assume \(n \in \NN\) and \(\mbf{P}(n)\).
+        Now, let \(k, m \in \NN\) and \(k < m\) and \(m < n + 1\).
+        By \ref{itm:basicLess.ii}, \(m < n\) or \(m = n\).
+        \begin{itemize}[nolistsep]
+            \ii 
+            If \(m < n\), then we have \(k < n\) as \(\mbf{P}(n)\) holds,
+            \ii
+            If \(m = n\), then we immediately have \(k < n\).
+        \end{itemize}
+        In both cases, we have \(k < n\); thus \(k < n + 1\) by \ref{itm:basicLess.ii}.
+        Therefore, the result follows from \nameref{th:induction}.
+        \qed
+    }
+
+    \clm[lessIsAsymmetric]{
+        \(<\) is asymmetric in \(\NN\).
+    }{
+        Let \(\mbf{P}(x)\) be the property ``\(\lnot(x < x)\).''
+        \(\mbf{P}(0)\) evidently holds since \(\OO \notin \OO\).
+
+        Now, assume \(n \in \NN\) and \(\mbf{P}(n)\).
+        Suppose \((n + 1) < (n + 1)\) for the sake of contradiction.
+        By \ref{itm:basicLess.ii}, we have \((n + 1) = n\) or \((n + 1) < n\).
+        In both cases, we have \(n < n\) by \(n < (n + 1)\) (from \ref{itm:basicLess.ii}) and
+        \Cref{clm:lessIsTransitive}, which contradicts \(\mbf{P}(n)\).
+        Therefore, \(\mbf{P}(n+1)\) holds.
+        The result follows from \nameref{th:induction}. \qed
+    }
+    Hence, \((\NN, \le)\) is an ordered set by \Cref{clm:lessIsTransitive,clm:lessIsAsymmetric,th:partialAndStrictAreSame}.
+    We are left to prove that \(\le\) is a linear ordering of \(\NN\).
+
+    \clm[nPlusOne]{
+        \(\fall n, m \in \NN,\: n < m \implies (n + 1) \le m\)
+    }{
+        Let \(\mbf{P}(x)\) be the property ``\(\fall n \in \NN, (n < x \implies n + 1 \le x)\).''
+        \(\mbf{P}(0)\) holds since there is no \(n \in \NN\) such that \(n < 0\).
+
+        Now, assume \(m \in \NN\) and \(\mbf{P}(m)\).
+        Take any \(n \in \NN\) such that \(n < (m + 1)\).
+        Then, by \Cref{lem:basicLess}, we have \(n = m\) or \(n < m\).
+        If \(n =  m\), then we have \((n + 1) = (m + 1)\), which implies \((n + 1) \le (m + 1)\).
+        If \(n < m\), then \((n + 1) \le m < (m + 1)\).
+        Therefore, the result follows from \nameref{th:induction}. \qed
+    }
+
+    \clm[lessIsLinear]{
+        \(<\) is a linear ordering of \(\NN\).
+    }{
+        Let \(\mbf{P}(x)\) be the property ``\(\fall m \in \NN,\: m = x \lor m < x \lor x < m\).''
+        \(\mbf{P}(0)\) is essentially \ref{itm:basicLess.i}.
+
+        Assume \(n \in \NN\) and \(\mbf{P}(n)\).
+        Take any \(m \in \NN\).
+        If \(m < n\) or \(m = n\), we have \(m < (n+1)\) by \ref{itm:basicLess.ii}.
+        If \(n < m\), by \Cref{clm:nPlusOne}, we have \((n + 1) \le m\).
+        Hence, \(\mbf{P}(n+1)\) holds.
+        Therefore, the result follows from \nameref{th:induction}. \qed
+    }
+}
+
+\notat{}{
+    We may write ``\(\fall k < n, \mbf{P}(k)\)'' instead of ``\(\fall k \in \NN,\: (k < n \implies \mbf{P}(k))\)''
+    or ``\(\exs k < n, \mbf{P}(k)\)'' instead of ``\(\exs k \in \NN,\: k < n \land \mbf{P}(k)\)''
+    when no confusion may arise.
+    We may similarly write \((\fall/\exs) k (\mathord{\le}/\mathord{>}/\mathord{\ge}) n\), \(\mbf{P}(k)\).
+}
+
+\thm[strongInduction]{The Strong Induction Principle}{
+    Let \(\mbf{P}(x)\) be a property (possibly with parameters).
+    If, for all \(n \in \NN\), \(\mbf{P}(k)\) holds for all \(k < n\),
+    then \(\mbf{P}(n)\) holds for all \(n \in \NN\).
+    \[
+        \fall n \in \NN,\: [\fall k < n,\: \implies \mbf{P}(k) \implies \mbf{P}(n)] \implies \fall n \in \NN,\: \mbf{P}(n)
+    \]
+}
+\pf{Proof}{
+    Assume the premise (\(\fall n \in \NN,\: [\fall k < n,\: \implies \mbf{P}(k) \implies \mbf{P}(n)]\)).
+    Let \(\mbf{Q}(n)\) be the property ``\(\fall k < n, \mbf{P}(k)\).''
+    \(\mbf{Q}(0)\) holds since there is no \(k < 0\).
+
+    Now, assume \(n \in \NN\) and \(\mbf{Q}(n)\).
+    Then, by the premise, we have \(\mbf{P}(n)\).
+    \ref{itm:basicLess.ii} enables us to say that \(\fall k \in \NN,\: (k < n + 1 \implies P(k))\).
+    Therefore, \(\fall n \in \NN,\: \mbf{Q}(n)\) holds by \nameref{th:induction}.
+
+    Take any \(k \in \NN\). Then, we have \(k < k + 1\) and thus \(\mbf{P}(k)\) holds
+    by \(\mbf{Q}(k+1)\).
+}
+
+\dfn[wellOrdering]{Well-Ordering}{
+    A linear ordering \(\preceq\) of a set \(A\) is a \textit{well-ordering}
+    if every nonempty subset of \(A\) has a least element.
+    Then, the ordered set \((A, \preceq)\) is called a \textit{well-ordered set}.
+}
+
+\thm[NisWellOrdered]{\(\NN\) is Well-Ordered}{
+    \((\NN, \le)\) is a well-ordered set.
+}
+\pf{Proof}{
+    Let \(X \subseteq \NN\) has no least element.
+    For each \(n \in \NN\), if \(\fall k < n,\: k \in \NN \setminus X\), we must have \(n \in \NN \setminus X\)
+    since otherwise \(n = \min X\).
+    Then, by \nameref{th:strongInduction}, \(\fall n \in \NN,\: n \in \NN \setminus X\),
+    i.e., \(X = \OO\).
+}
+
+\thm[hasUpperBoundThenMaxExists]{}{
+    Let \(\OO \subsetneq X \subseteq \NN\).
+    If \(X\) has an upper bound in the ordering \(\le\), then \(X\) has a greatest element.
+}
+\pf{Proof}{
+    Let \(Y \triangleq \{\,k \in \NN \mid k \text{ is an upper bound of }X\,\}\).
+    The assumption says that \(Y \neq \OO\).
+    By \nameref{th:NisWellOrdered}, \(n \triangleq \min Y = \sup X\) exists.
+
+    Suppose \(n \notin X\) for the sake of contradiction.
+    Then, \(\fall m \in X,\: m < n\), which implies \(n \neq 0\) as \(X \neq \OO\).
+    Therefore, \(n = k + 1\) for some \(k \in \NN\) by \Cref{exer:3.2.4};
+    and thus \(\fall m \in X,\: m \le k\) by \ref{itm:basicLess.ii}.
+    Then, \(k\) is an upper bound of \(A\) and \(k < n\), which is a contradiction to \(n = \sup X\).
+    Therefore, \(n \in X\), and hence \(n = \max X\) by \Cref{th:basicInfimum}.
+}
+
+\subsection*{Selected Problems}
+
+\setexernumber{1}
+
+\exer[3.2.2]{}{
+    \(\fall m, n \in \NN,\: (m < n \implies m + 1 < n + 1)\).
+    Hence, \(S \colon \NN \to \NN\) where \(n \mapsto n+1\) defines a one-to-one function on \(\NN\).
+}
+\pf{Proof}{
+    By \Cref{clm:nPlusOne} in the proof of \nameref{th:NisLinearlyOrdered},
+    we have \(m+1 \le n\). Together with \(n < n + 1\), we have
+    \(m + 1 < n + 1\).
+
+    Now, take any \(m, n \in \NN\) with \(m \neq n\).
+    Then, by \nameref{th:NisLinearlyOrdered}, we have \(m < n\) or \(n < m\),
+    i.e., \(S(m) < S(n)\) or \(S(n) < S(m)\).
+    In both cases, \(S(m) \neq S(n)\).
+    Therefore, \(S\) is one-to-one.
+}
+
+\exer[3.2.3]{}{
+    There exists \(X \subsetneq \NN\) and \(f \colon \NN \to X\)
+    such that \(f\) is injective.
+}
+\pf{Proof}{
+    Let \(S \colon \NN \to \NN\) where \(n \mapsto n + 1\).
+    Then, \(S\) is injective by \Cref{exer:3.2.2}.
+    Since there exists no \(n \in \NN\) such that \(n \cup \{n\} = \OO\),
+    \(0 \notin \ran S\); \(\ran S \subsetneq \NN\).
+    Therefore, \(S \colon \NN \to \ran S\) is the function we are looking for.
+}
+
+\exer[3.2.4]{}{
+    \(\fall n \in \NN \setminus \{0\},\: \exs! k \in \NN,\: n = k + 1\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(x = 0 \lor \exs! k \in \NN,\: x = k + 1\).''
+    \(\mbf{P}(0)\) holds by definition.
+
+    Now, assume \(\mbf{P}(n)\) where \(n \in \NN\).
+    There exists \(k \in \NN\) such that \(n + 1 = k + 1\), namely, \(k = n\).
+    If \(k'\) is another natural number such that \(n + 1 = k' + 1\),
+    then by \Cref{exer:3.2.2}, we have \(k = k'\).
+    Hence, \(\mbf{P}(n+1)\) holds.
+    The result follows from \nameref{th:induction}.
+}
+
+\setexernumber{5}
+
+\exer[3.2.6]{}{
+    \(\fall n \in \NN,\: n = \{\,m \in \NN \mid m < n\,\}\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(x = \{\,m \in \NN \mid m < x\,\}\).''
+    We have \(\mbf{P}(0)\) since there exists no \(m \in \NN\) with \(m < 0\).
+
+    Now, assume \(\mbf{P}(n)\) where \(n \in \NN\).
+    Then, \(n + 1 = \{\,m \in \NN \mid m < n\,\} \cup \{n\}\).
+    By \ref{itm:basicLess.ii}, \(m < n + 1\) if and only if \(m < n\) or \(m = n\).
+    Therefore,
+    \(\{\,m \in \NN \mid m < n\,\} \cup \{n\} = \{\,m \in \NN \mid m < n \lor m = n\,\}
+    = \{\,m \in \NN \mid m < n + 1\,\}\); \(\mbf{P}(n+1)\) holds.
+    The result follows from \nameref{th:induction}.
+}
+
+\setexernumber{7}
+
+\exer[3.2.7]{}{
+    There is no function \(f \colon \NN \to \NN\) such that
+    \(\fall n \in \NN,\: f(n + 1) < f(n)\).
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``there is no function \(f \colon \NN \to \NN\) such that
+    \(f(0) = x\) and \(\fall n \in \NN,\: f(n + 1) < f(n)\).''
+
+    For the sake of induction, assume \(\fall k < n,\: P(k)\) where \(n \in \NN\).
+    Suppose there exists \(f \colon \NN \to \NN\) such that
+    \(f(0) = n\) and \(\fall k \in \NN,\: f(k + 1) < f(k)\).
+    Now, define \(g \colon \NN \to \NN\) by \(g(k) = f(k + 1)\).
+    Then, \(g(0) = f(1) < n\) and \(\fall k \in \NN,\: g(k + 1) = f((k + 1) + 1) < f(k + 1) = g(k)\).
+    However, by \(\mbf{P}(g(0))\), such \(g\) cannot exist;
+    by contradiction, \(\mbf{P}(n)\) holds.
+    Hence, \(\fall m \in \NN,\: \mbf{P}(m)\) by \nameref{th:strongInduction}.
+
+    Finally, suppose there exists \(f \colon \NN \to \NN\) such that \(\fall n \in \NN,\: f(n + 1) < f(n)\).
+    Then, by \(\mbf{P}(f(0))\), such \(f\) may not exist.
+}
+
+\setexernumber{10}
+
+\exer[3.2.11]{}{
+    Let \(\mbf{P}(x)\) be a property and let \(k \in \NN\).
+    \[
+        \mbf{P}(k) \land \fall n \ge k,\: (\mbf{P}(n) \implies \mbf{P}(n+1))
+        \implies \fall n \ge k,\: \mbf{P}(n)
+    \]
+}
+\pf{Proof}{
+    Let \(\mbf{Q}(x)\) be the property ``\(x < k \lor \mbf{P}(x)\).''
+    If \(k = 0\), then \(\mbf{P}(0)\) holds. If \(k > 0\), then \(0 < k\) holds.
+    Hence, in both cases, \(\mbf{Q}(0)\) holds.
+
+    Now assume \(\mbf{Q}(n)\) holds where \(n \in \NN\).
+    Then, by \nameref{th:NisLinearlyOrdered}, we have \(n + 1 < k\), \(n + 1 = k\), or \(n + 1 > k\).
+    If \(n + 1 < k\) or \(n + 1 = k\), we immediately have \(\mbf{Q}(n + 1)\).
+    If \(n + 1 > k\), we have \(n \ge k\) by \ref{itm:basicLess.ii}.
+    Therefore, \(\mbf{P}(n)\) holds, and thus \(\mbf{P}(n+1)\) holds by assumption.
+    Hence, \(\mbf{Q}(n+1)\).
+    By \nameref{th:induction}, \(\fall n \in \NN,\: n < k \lor \mbf{P}(n)\).
+    In other words, \(\fall n \ge k,\: \mbf{P}(n)\).
+}
+
+\exer[3.2.12]{The Finite Induction Principle}{
+    Let \(\mbf{P}(x)\) be a property and let \(k \in \NN\).
+    \[
+        \mbf{P}(0) \land \fall n < k,\: (\mbf{P}(n) \implies \mbf{P}(n+1))
+        \implies \fall n \le k,\: \mbf{P}(n)
+    \]
+}
+\pf{Proof}{
+    Let \(\mbf{Q}(x)\) be the property ``\(x > k \lor \mbf{P}(x)\).''
+    \(\mbf{Q}(0)\) holds as \(\mbf{P}(0)\).
+
+    Now, assume \(\mbf{Q}(n)\) holds where \(n \in \NN\).
+    Then, by \nameref{th:NisLinearlyOrdered}, we have \(n + 1 \le k\) or \(n + 1 > k\).
+    If \(n + 1 > k\), then we immediately have \(\mbf{Q}(n + 1)\).
+    If \(n + 1 \le k\), by \Cref{lem:basicLess}, \(n + 1 < k + 1\).
+    By \Cref{exer:3.2.2} and \nameref{th:NisLinearlyOrdered}, we must have \(n < k\).
+    Hence, \(\mbf{P}(n)\) holds, and therefore \(\mbf{P}(n+1)\) holds by the assumption.
+    By \nameref{th:induction}, \(\fall n \in \NN,\: n > k \lor \mbf{P}(n)\).
+    In other words, \(\fall n \le k,\: \mbf{P}(n)\).
+}
+
+\exer[3.2.13]{The Double Induction Principle}{
+    Let \(\mbf{P}(x, y)\) be a property.
+    \begin{gather}
+        \fall m, n \in \NN,\: [\fall k, \ell \in \NN,\: (k < m \lor k = m \land \ell < n \implies \mbf{P}(k, \ell)) \implies \mbf{P}(m, n)]\tag{\(\ast\)}\label{eq:doubleInduction}\\
+        \implies \fall m, n \in \NN,\: \mbf{P}(m, n)\nonumber
+    \end{gather}
+}
+\pf{Proof}{
+    Let \(\mbf{Q}(x)\) be the property ``\(\fall n \in \NN,\: \mbf{P}(x, n)\).''
+
+    Now, assume \(\fall k < m,\: \mbf{Q}(k)\) where \(m \in \NN\).
+    For the sake of induction, assume again that \(\fall \ell < n,\: \mbf{P}(m, \ell)\) where \(n \in \NN\).
+    Now, we have \(\mbf{P}(k, \ell)\) for all \(k, \ell \in \NN\) such that
+    \(k < m\) or \(k = m\) and \(\ell < n\).
+    Hence, by \eqref{eq:doubleInduction}, \(\mbf{P}(m, n)\).
+    By \nameref{th:strongInduction}, we have \(\fall n \in \NN,\: \mbf{P}(m, n)\).
+    In other words, \(\mbf{Q}(m)\).
+    Again by \nameref{th:strongInduction}, we have \(\fall m \in \NN,\: \mbf{Q}(m)\),
+    that is to say \(\fall m, n \in \NN,\: \mbf{P}(m, n)\).
+}
+
+
+\end{document}

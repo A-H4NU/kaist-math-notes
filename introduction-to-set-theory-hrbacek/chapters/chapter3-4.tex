@@ -1,0 +1,339 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+    
+\section{Operations and Structures}
+
+\dfn[operation]{Operation}{
+    \begin{itemize}[nolistsep]
+        \ii A \textit{unary operation} on \(S\) is a function on a subset of \(S\) into \(S\).
+        \ii A \textit{binary operation} on \(S\) is a function on a subset of \(S^2\) into \(S\).
+    \end{itemize}
+}
+
+\notat{Binary Operation}{
+    Non-letter symbols such as \(+\), \(\times\), \(\ast\), \(\vartriangle\), etc.,
+    are often used to denote operations.
+    The value of the operation \(\ast\) at \((x, y)\) is then denoted
+    \(x \ast y\) rather than \(\ast(x, y)\).
+}
+
+\dfn[closed]{Closedness Under Operation}{
+    Let \(f\) be a binary operation on \(S\) and \(A \subseteq S\).
+    \(A\) is said to be \textit{closed under the operation \(f\)}
+    if \(\fall x, y \in A,\: [(x, y) \in \dom f \implies f(x, y) \in A]\).
+}
+
+\dfn[nTuple]{\(\boldsymbol{n}\)-Tuple}{
+    Let \(n \in \NN\).
+    An \(n\)-tuple is a finite sequence of length \(n\).
+}
+
+\nt{
+    Let \(\lang\,a_0, \cdots, a_{n-1}\,\rang\) and \(\lang\,b_0, \cdots, b_{n-1}\,\rang\) be two \(n\)-tuples.
+    We have, by \Cref{lem:functionEqualsIff},
+    \[
+        \lang\,a_0, \cdots, a_{n-1}\,\rang = \lang\,b_0, \cdots, b_{n-1}\,\rang
+        \iff \fall i < n,\: a_i = b_i.
+    \]
+    This satisfies the usual defining property of \(n\)-tuple.
+}
+
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*]
+    \ii 
+    If \(\lang\, A_i \mid 0 \le i < n\,\rang\) is a finite sequence (of sets),
+    then the product of the indexed system of sets \(\prod_{0 \le i < n} A_i\) (\Cref{dfn:productIndexedSystemOfSets})
+    is just the set of all \(n\)-tuples \(a = \lang\,a_0, \cdots, a_{n-1}\,\rang\) such that
+    \(\fall i < n,\: a_i \in A_i\).
+
+    \ii
+    If \(\fall i < n, A_i = A\), then \(\prod_{0 \le i < n} A_i = A^n\).
+
+    \ii \(A^0 = \{\lang\rang\}\).
+\end{itemize}
+}
+
+\notat{}{
+    \setlength{\parindent}{1.5em}
+    The `ordered pair' (\Cref{dfn:orderedPair}), \((a_0, a_1) = \{\{a_0\}, \{a_0, a_1\}\}\),
+    is different set from the `\(2\)-tuple' (\Cref{dfn:nTuple}), \(\lang a_0, a_1\rang = \{(0, a_0), (1, a_1)\}\).
+    Consequently, \(A_0 \times A_1\) (\Cref{dfn:cartesianProduct}) does not generally
+    equal to \(\prod_{0 \le i < 2} A_i\) (\Cref{dfn:productIndexedSystemOfSets}).
+
+    However, since there is a natural one-to-one correspondence
+    \begin{align*}
+       \delta : A_0 \times A_1 &\longhooktwoheadrightarrow \textstyle\prod_{0 \le i < 2} A_i \\
+       (a_0, a_1) &\longmapsto \lang a_0, a_1 \rang,
+    \end{align*}
+    for almost all practical purposes---when only the defining property of \(n\)-tuple is needed)---%
+    it makes so difference which definition one uses.
+
+    Therefore, we do not distinguish between ordered pairs and \(2\)-tuples now on.
+    That is to say we use notations
+    \[
+        \lang\,a_0, \cdots, a_{n-1}\,\rang \quad\text{and}\quad
+        (a_0, \cdots, a_{n-1})
+    \]
+    interchangeably from now on.
+}
+
+\dfn[nAryOperation]{\(\boldsymbol{n}\)-ary Relation}{
+    An \textit{\(n\)-ary relation} \(R\) in \(A\) is a subset of \(A^n\).
+    We write \(R(a_0, a_1, \cdots, a_{n-1})\) instead of \(\lang a_0, a_1, \cdots, a_{n-1}\rang \in R\).
+}
+
+\dfn[nAryOperation]{\(\boldsymbol{n}\)-ary Operation}{
+    An \textit{\(n\)-ary operation} \(F\) on \(A\) is a function on a subset of \(A^n\) into \(A\).
+    We write \(F(a_0, a_1, \cdots, a_{n-1})\) instead of \(F(\lang a_0, a_1, \cdots, a_{n-1}\,\rang)\).
+}
+
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*]
+    \ii \(1\)-ary relations in \(A\) need not be distinguished from subsets of \(A\).
+    \ii \(1\)-ary operations on \(A\) need not be distinguished from functions on a subset of \(A\) into \(A\).
+    \ii Nonempty \(0\)-ary operations on \(A\) need not be distinguished from \(A\).
+        (A nonempty \(0\)-ary operation is of the form \(\{(\lang\rang, a)\}\) where \(a \in A\);
+        a nonempty \(0\)-ary operation is called a \textit{constant}.)
+\end{itemize}
+}
+
+\dfn[structure]{Structure}{
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii
+        A \textit{type} \(\tau\) is an ordered pair \((\lang\,r_0, \cdots, r_{m-1}\,\rang, \lang\,f_0, \cdots, f_{n-1}\,\rang)\)
+        of finite sequences of natural numbers.
+
+        \ii
+        A \textit{structure of type \(\tau\)} is a triple
+        \[
+            \mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)
+        \]
+        where \(R_i\) is an \(r_i\)-ary relation on \(A\) for each \(i < m\)
+        and \(F_j\) is an \(f_j\)-ary operation on \(A\) for each \(j < n\).
+        In addition, we require \(F_j \neq \OO\) if \(f_j = 0\),
+        i.e., \(F_j\) should be constant.
+        \(A\) is called the \textit{universe} of the structure \(\mfr{A}\).
+    \end{itemize}
+}
+
+\exmp{}{
+    \noindent
+    \(\mfr{N} = (\NN, \lang\le\rang, \lang 0, +, \cdot\rang)\) is a structure of type
+    \((\lang 2 \rang, \lang 0, 2, 2 \rang)\).
+}
+
+\notat{}{
+    We often write the structure of type \((\lang\,r_0, \cdots, r_{m-1}\,\rang, \lang\,f_0, \cdots, f_{n-1}\,\rang)\)
+    as a \((1 + m + n)\)-tuple, for example, \((\NN, \le, 0, +, \cdot)\),
+    when it is understood which symbol represent relations and which operations.
+}
+
+\dfn[]{Isomorphism Between Structures}{
+    Let \(\mfr{A}\) and \(\mfr{A}'\) be structures of the same type \(\tau = (\lang\,r_0, \cdots, r_{m-1}\,\rang, \lang\,f_0, \cdots, f_{n-1}\,\rang)\).
+    Write \(\mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)\)
+    and \(\mfr{A}' = (A', \lang\,R'_0, \cdots, R'_{m-1}\,\rang, \lang\,F'_0, \cdots, F'_{n-1}\,\rang)\).
+    An \textit{isomorphism} between structures \(\mfr{A}\) and \(\mfr{A}'\)
+    is a mapping \(h \colon A \hooktwoheadrightarrow A'\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*]
+        \ii
+        \(\fall i < m,\: \fall a \in A^{r_i},\: [R_i(a_0, \cdots, a_{r_i-1}) \iff R'_i(h(a_0), \cdots, h(a_{r_i}-1))]\)
+        \ii
+        \(
+            \fall j < n,\: \fall a \in A^{f_j},
+            \big[(a_0, \cdots, a_{f_j-1}) \in \dom F_j \iff (h(a_0), \cdots, h(a_{f_j-1})) \in \dom F'_j\big]
+        \)
+        \ii
+        \(\begin{aligned}[t]
+            \fall j < n,\: \fall a \in A^{f_j},
+            \big[&(a_0, \cdots, a_{f_j-1}) \in \dom F_j \\
+             &\implies h(F_j(a_0, \cdots, a_{f_j-1})) = F'_j(h(a_0), \cdots, h(a_{f_j-1}))\big].
+        \end{aligned}\)
+    \end{enumerate}
+}
+
+\dfn[]{Automorphism}{
+    An isomorphism between a structure \(\mfr{A}\) and itself is called an \textit{automorphism}.
+}
+
+\dfn[]{Closed Set}{
+    Fix a structure \(\mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)\).
+    A set \(B \subseteq A\) is called \textit{closed} if
+    \[
+        \fall j < n,\: \fall  a \in B^{f_j},\: [ (a_0, \cdots, a_{f_j-1}) \in \dom F_j \implies F_j(a_0, \cdots, a_{f_j-1}) \in B].
+    \]
+}
+
+\dfn[closure]{Closure}{
+    Fix a structure \(\mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)\).
+    Let \(C \subseteq A\). The \textit{closure} of \(C\),
+    \[
+        \cl{C} \triangleq \bigcap \{\,B \subseteq A \mid C \subseteq B \text{ and }B\text{ is closed}\,\},
+    \]
+    is the least closed set containing all elements of \(C\).
+}
+
+\thm[]{}{
+    Let \(\mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)\)
+    be a structure and let \(C \subseteq A\).
+    If the sequence \(\lang\,C_i \mid i \in \NN\,\rang\) is defined recursively by
+    \begin{align*}
+        C_0 &= C; \\
+        \fall i \in \NN,\: C_{i+1} &= C_i \cup \bigcup_{j=0}^{n-1} F_j[C_i^{f_j}],
+    \end{align*}
+    then \(\cl{C} = \bigcup_{i=0}^\infty C_i\).
+}
+\pf{Proof}{
+    Note the recursive definition is justified by \nameref{th:recursion}.
+    Let \(\tilde{C} \triangleq \bigcup_{i=0}^\infty C_i\).
+
+    \clm[c7dffb1b]{
+        \(\cl C \subseteq \tilde C\)
+    }{
+        Since we have \(C_0 \subseteq \tilde C\), it is enough to show that \(\tilde C\)
+        is closed.
+
+        Take any \(j < n\) and \(a \in \tilde{C}^{f_j}\).
+        By the definition of \(\tilde C\), \(\fall r < f_j,\: \exs i_r \in \NN,\: a_r \in C_{i_{r}}\).
+        We may take \(\bar \imath = \max \{\,i_r \mid r < f_j\,\}\) by \Cref{exer:3.5.13}.
+        Since \(C_i \subseteq C_{i+1}\) for all \(i \in \NN\),
+        we have \(a_r \in C_{i_r} \subseteq C_{\bar \imath}\) for all \(r < f_j\).
+        Hence, if \((a_0, \cdots, a_{f_j-1}) \in \dom F_j\),
+        we have \(F_j(a_0, \cdots, a_{f_j-1}) \in F_j[C_{\bar \imath}^{f_j}] \subseteq C_{\bar \imath + 1} \subseteq \tilde C\).
+        Hence, \(\tilde C\) is closed. \qed
+    }
+
+    \clm[4bb66ea3]{
+        \(\tilde C \subseteq \cl C\)
+    }{
+        Clearly \(C_0 = C \subseteq \cl{C}\).
+        If \(C_i \subseteq \cl{C}\), then, for each \(j < n\), \(F_j[C_i^{f_j}] \subseteq \cl{C}\)
+        since \(\cl{C}\) is closed.
+        Hence, \(C_{i+1} \subseteq \cl{C}\).
+        Therefore, by \nameref{th:induction}, \(\fall i \in \NN,\: C_i \subseteq \cl{C}\);
+        hence \(\tilde C \subseteq \cl{C}\). \qed
+    }
+    \noindent
+    Combining \Cref{clm:c7dffb1b,clm:4bb66ea3} completes the proof.
+}
+
+\thm[generalInduction]{The General Induction Principle}{
+    Let \(\mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)\)
+    be a structure and let \(C \subseteq A\).
+    Let \(\mbf{P}(x)\) be a property.
+    If
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*]
+        \ii \(\fall a \in C,\: \mbf{P}(a)\)
+        \ii \(\fall j < n,\: \fall a \in A^{f_j},\:
+            \big[ (a_0, \cdots, a_{f_j-1}) \in \dom F_j
+            \land \fall i < f_j,\: \mbf{P}(a_i)
+            \implies \mbf{P}(F_j(a_0, \cdots, a_{f_j-1})) \big]\)
+    \end{enumerate}
+    hold, then \(\fall x \in \cl{C},\: \mbf{P}(x)\).
+}
+\pf{Proof}{
+    Let \(B = \{\,x \in A \mid \mbf{P}(x)\,\}\).
+    (i) says \(C \subseteq B\) and (ii) says \(B\) is closed.
+    Therefore, \(\cl{C} \subseteq B\).
+}
+
+\nt{
+    \nameref{th:induction} is a special case of \nameref{th:generalInduction}
+    for the structure \((\NN, S)\) where \(S\) is the successor function.
+}
+
+\subsection*{Selected Problems}
+
+\setexernumber{3}
+
+\exer[3.5.4]{}{
+    Let \(B = \mcal{P}(A)\). Show that \((B, \cup_B, \cap_B)\) and \((B, \cap_B, \cup_B)\)
+    are isomorphic structures.
+}
+\pf{Proof}{
+    Let \(h \colon B \to B\) be defined by \(h(X) = A \setminus X\).
+    If \(A \setminus X = A \setminus Y\), then
+    \(X = A \setminus (A \setminus X) = A \setminus (A \setminus Y) = Y\)
+    by \ref{itm:1.4.2iii}.
+    Moreover, \(h(h(X)) = X\) for all \(X \in B\).
+    Hence, \(h \colon B \hooktwoheadrightarrow B\). 
+}
+
+\setexernumber{6}
+
+\exer[3.5.7]{}{
+    Let \(R\) be a set whose elements are \(n\)-tuples.
+    Then, \(R\) is an \(n\)-ary relation in \(A\) for some \(A\).
+}
+\pf{Proof}{
+    Let \(a \in R\). Then, \(a = \{(0, a_0), \cdots, (n-1, a_{n-1})\}\).
+    For each \(i < n\),
+    \(a_i \in \{i, a_i\} \in (i, a_i) \in a \in R\).
+    Hence, \(a_i \in \bigcup \left[ \bigcup \left( \bigcup R\right)\right]\),
+    i.e., \(R\) is an \(n\)-ary relation in \(A = \bigcup \left[ \bigcup \left( \bigcup R\right)\right]\).
+}
+
+\setexernumber{12}
+
+\exer[3.5.13]{}{
+    Let \(\lang\,k_0, \cdots, k_{n-1}\,\rang\) be a finite sequence of
+    natural numbers of length \(n \ge 1\).
+    Then, its range \(\{\,k_0, \cdots, k_{n-1}\,\}\) has a greatest element.
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property
+    ``the range of a finite sequence of natural numbers of length \(x\)
+    has a greatest element.''
+    
+    Let \(\lang k_0 \rang\) be a sequence of natural numbers of length \(1\).
+    Then, \(k_0 = \max \ran \lang k_0 \rang\).
+    Hence, \(\mbf{P}(1)\).
+
+    Fix any \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Take any \(k \in \Seq(\NN)\) with length \(n + 1\).
+    Let \(k' = \lang\,k_0, \cdots, k_{n-1}\,\rang\) be another sequence.
+    Then, by \(\mbf{P}(n)\), there exists \(m' = \max \{\,k_0, \cdots,k_{n-1}\,\}\).
+    Now, let \(m = \max \{\,m', k_{n}\,\}\).
+    Then, for all \(i < n\), \(k_i \le m' \le m\),
+    and \(k_n \le m\).
+    Hence, \(m\) is an upper bound of \(\ran k\);
+    the result follows by \Cref{th:hasUpperBoundThenMaxExists} and \Cref{exer:3.2.11}.
+}
+
+\setexernumber{14}
+
+\exer[3.4.15]{}{
+    Let \(R \subseteq A^2\) be a binary relation. Define a binary operation \(F_R\) on \(A^2\) by
+    \[
+        F_R((a_1, a_2), (b_1, b_2)) = \begin{cases}
+            (a_1, b_2) & \text{if } a_2 = b_1 \\
+            \text{undefined} & \text{otherwise}.
+        \end{cases}
+    \]
+    Then,
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*]
+        \ii The closure of \(R\) in \((A^2, F_R)\) is a transitive relation.
+        \ii If \(R\) is reflexive and symmetric, \(\cl{R}\) is also an equivalence.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Take any \(a, b, c \in A\) and assume \(a\cl{R}b\) and \(b\cl{R}c\).
+    Then, since \(\cl{R}\) is closed, \(F((a, b), (b, c)) = (a, c) \in \cl{R}\).
+    Hence, \(\cl{R}\) is transitive.
+
+    \ii
+    \(\mrm{Id}_A \subseteq R \subseteq \cl{R}\); \(\cl{R}\) is reflexive.
+
+    Let \(\mbf{P}(x, y)\) be the property ``\(y \cl{R} x\).''
+    As \(R \subseteq \cl{R}\), we have \(\fall (a, b) \in R,\: \mbf{P}(a, b)\).
+    Now, take any \((a, b), (b, c) \in A^2\) such that \(\mbf{P}(a, b)\) and \(\mbf{P}(b, c)\).
+    Then, by (i), we have \(c \cl{R}a\); \(\mbf{P}(F_R((a, b), (b, c)))\) hold.
+    Therefore, by \nameref{th:generalInduction},
+    \(b\cl{R}a\) holds for all \((a, b) \in \cl{R}\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}

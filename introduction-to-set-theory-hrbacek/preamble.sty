@@ -91,8 +91,8 @@
 \definecolor{mycorollaryfr}{HTML}{325E7D}
 \definecolor{mylemmabg}{HTML}{FEF5FA}
 \definecolor{mylemmafr}{HTML}{7B1054}
-\definecolor{mypropbg}{HTML}{f2fbfc}
-\definecolor{mypropfr}{HTML}{191971}
+\definecolor{mypropbg}{HTML}{F0FFF6}
+\definecolor{mypropfr}{HTML}{007D37}
 \definecolor{myexamplebg}{HTML}{F1F9FB}
 \definecolor{myexamplefr}{HTML}{276E7C}
 \definecolor{mydefinitbg}{HTML}{E5E5FF}
@@ -283,7 +283,7 @@
 %================================
 
 \tcbuselibrary{theorems,skins,hooks}
-\newtcbtheorem[number within=section,use counter from=Theorem,Crefname={Proposition}{Propositions}]{Prop}{Proposition}
+\newtcbtheorem[number within=section,use counter from=Theorem,Crefname={Assumption}{Assumptions}]{Assumption}{Assumption}
 {%
 	enhanced,
 	breakable,
@@ -302,10 +302,10 @@
     drop fuzzy shadow,
     label type=theorem,
 }
-{prop}
+{as}
 
 \tcbuselibrary{theorems,skins,hooks}
-\newtcbtheorem[number within=chapter,use counter from=theorem,Crefname={Proposition}{Propositions}]{prop}{Proposition}
+\newtcbtheorem[number within=chapter,use counter from=theorem,Crefname={Assumption}{Assumptions}]{assumption}{Assumption}
 {%
 	enhanced,
 	breakable,
@@ -324,7 +324,7 @@
     drop fuzzy shadow,
     label type=theorem,
 }
-{prop}
+{as}
 
 
 %================================
@@ -732,7 +732,7 @@
 \newcommand{\thm}[3][]{\begin{Theorem}{\textsf{#2}}{#1}#3\end{Theorem}}
 \newcommand{\cor}[3][]{\begin{Corollary}{\textsf{#2}}{#1}#3\end{Corollary}}
 \newcommand{\mlemma}[3][]{\begin{Lemma}{\textsf{#2}}{#1}#3\end{Lemma}}
-\newcommand{\mprop}[3][]{\begin{Prop}{\textsf{#2}}{#1}#3\end{Prop}}
+\newcommand{\assume}[3][]{\begin{Assumption}{\textsf{#2}}{#1}#3\end{Assumption}}
 % \newcommand{\clm}[3][]{\begin{claim}{#2}{#1}#3\end{claim}}
 \newcommand{\clm}[3][]{\begin{Claim}{}{#1}#2\tcblower#3\end{Claim}}
 \newcommand{\wc}[2]{\begin{wconc}{#1}{}\setlength{\parindent}{1.5em}#2\end{wconc}}

@@ -1,0 +1,752 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+    
+\section{Equivalences and Partitions}
+
+\dfn[equivalence]{Equivalence}{
+    Let \(R\) be a binary relation in \(A\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii \(R\) is called \textit{reflexive in} \(A\) if \(\fall a \in A,\: aRa\).
+        \ii \(R\) is called \textit{symmetric in} \(A\) if \(\fall a, b \in A,\: (aRb \implies bRa)\).
+        \ii \(R\) is called \textit{transitive in} \(A\) if \(\fall a, b, c \in A,\: (aRb \land bRc \implies aRc)\).
+        \ii \(R\) is called an \textit{equivalence on} \(A\) if it is reflexive, symmetric, and transitive in \(A\).
+    \end{itemize}
+}
+
+\dfn[equivalenceClass]{Equivalence Class}{
+    Let \(E\) be an equivalence on \(A\) and let \(a \in A\).
+    The \textit{equivalence class of \(a\) modulo} \(E\) is the set
+    \[
+        [a]_E \triangleq \{\,x \in A \mid xEa\,\}.
+    \]
+}
+
+\mlemma[equivIffSameClass]{}{
+    Let \(E\) be an equivalence on \(A\) and let \(a, b \in A\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(aEb \iff [a]_E = [b]_E\)
+        \ii \(\lnot (aEb) \iff [a]_E \cap [b]_E = \OO\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii 
+    (\(\Rightarrow\))
+    Suppose \(aEb\).
+    Take any \(c \in [a]_E\). Then, \(cEa\) and \(aEb\), and thus \(cEb\)
+    by transitivity. Hence, \(c \in [b]_E\); \([a]_E \subseteq [b]_E\).
+    \([b]_E \subseteq [a]_E\) can be shown similarly since \(bEa\) holds as \(E\) is symmetric.
+
+    (\(\Leftarrow\))
+    Suppose \([a]_E = [b]_E\). Since \(aEa\) by reflexivity,
+    we have \(a \in [a]_E = [b]_E\). Therefore, \(aEb\).
+
+    \ii
+    (\(\Rightarrow\))
+    Suppose \([a]_E \cap [b]_E \neq \OO\).
+    Then, there exists \(c \in [a]_E \cap [b]_E\), i.e., \(cEa\) and \(cEb\).
+    Then, as \(E\) is symmetric, we have \(aEc\),
+    and therefore \(aEb\) by transitivity.
+
+    (\(\Leftarrow\))
+    Suppose \(aEb\). Then, since \(aEa\) by reflexivity,
+    we have \(a \in [a]_E\). We can see \(a \in [b]_E\) from (i).
+    Hence, \([a]_E \cap [b]_E \neq \OO\).
+    \qed
+\end{enumerate}
+}
+
+\dfn[partition]{Partition}{
+    A system \(S\) of nonempty sets is called a \textit{partition} of \(A\) if
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(S\) is a system of mutually disjoint sets (\Cref{dfn:mutualDisjoint}) and
+        \ii \(\bigcup S = A\).
+    \end{enumerate}
+}
+
+\dfn[allEquivClasses]{System of All Equivalence Classes}{
+    Let \(E\) be an equivalence on \(A\).
+    The \textit{system of all equivalence classes} modulo \(E\)
+    is the set
+    \[
+        A/E \triangleq \{\,[a]_E \mid a \in A\,\}.
+    \]
+}
+
+\thm[equivDerivesPartition]{}{
+    Let \(E\) be an equivalence on \(A\).
+    Then, \(A/E\) is a partition of \(A\).
+}
+\pf{Proof}{
+    If \([a]_E \neq [b]_E\), then by \Cref{lem:equivIffSameClass},
+    we have \([a]_E \cap [b]_E = \OO\).
+    Since \(E\) is reflexive, \(a \in [a]_E\); each \([a]_E\) is nonempty.
+    Therefore, \(A/E\) is a system of mutually disjoint nonempty sets.
+
+    Take any \(a \in A\).
+    Since \(E\) is reflexive, \(a \in [a]_E \subseteq \bigcup A/E\).
+    Therefore, \(A \subseteq \bigcup A/E\).
+    Conversely, since \([a]_E \subseteq A\), we have \(\bigcup A/E \subseteq A\).
+}
+
+\dfn[equivalenceFromPartition]{}{
+    Let \(S\) be a partition of \(A\). The relation \(E_S\) in \(A\) is defined by
+    \[
+        E_S \triangleq \{\,(a, b) \in A \times A \mid \exs C \in S,\: a \in C \land b \in C\,\}.
+    \]
+}
+
+\thm[partitionDerivesEquiv]{}{
+    Let \(S\) be a partition of \(A\).
+    Then, \(E_S\) is a equivalence on \(A\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep]
+    \ii 
+    Take any \(a \in A\). As \(A = \bigcup S\), there exists \(C \in S\) such that \(a \in C\).
+    Therefore, \(aE_Sa\). \(E_S\) is reflexive.
+
+    \ii
+    Assume \(aE_Sb\). Then, there exists \(C \in S\) such that \(a, b \in C\).
+    Hence, \(b E_S a\). \(E_S\) is symmetric.
+
+    \ii
+    Assume \(aE_Sb\) and \(bE_Sc\).
+    Then, there exist \(C, D \in S\) such that
+    \(a, b \in C\) and \(b, c \in D\).
+    Then, \(C \cap D \neq \OO\) as \(b\) belongs to both sets.
+    Hence, \(C = D\), which implies \(aE_Sc\). \(E_S\) is transitive.
+    \qed
+\end{itemize}
+}
+
+\thm[equivAndPartAreSame]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii If \(E\) is an equivalence on \(A\) and \(S = A/E\), then \(E_S = E\).
+        \ii If \(S\) is a partition of \(A\), then \(A/E_S = S\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii 
+    \(aE_Sb \underbrace{\iff}_{\text{\Cref{dfn:equivalenceFromPartition}}} \exs C \in S,\: a \in C \land b \in C
+    \iff \exs c \in A,\: a \in [c]_E \land b \in [c]_E \underbrace{\iff}_{\text{\Cref{lem:equivIffSameClass}}} aEb \).
+
+    \ii
+    Take any \([a]_{E_S} \in A/E_S\).
+    Since \(S\) is a partition, there (uniquely) exists \(C\) such that \(a \in C\).
+    Then, for all \(b\), we have \(
+        b \in C
+        \iff a E_S b
+        \underbrace{\iff}_{\text{\Cref{lem:equivIffSameClass}}} b \in [a]_{E_S}\);
+    \(C = [a]_{E_S}\). Therefore, \(A/E_S \subseteq S\).
+
+    For the converse, take any \(C \in S\).
+    As \(C\) is nonempty, we may take some \(a \in C\).
+    Similarly, we have \(C = [a]_{E_S}\). Therefore, \(C \subseteq A/E_S\).
+    \qed
+\end{enumerate}
+}
+
+\nt{
+    \Cref{th:equivAndPartAreSame} essentially states that
+    equivalence and partition describe the same ``mathematical reality.''
+}
+
+\dfn[setOfRepresentatives]{Set of Representatives}{
+    A set \(X \subseteq A\) is called a \textit{set of representatives}
+    for the equivalence \(E_S\) (or for the partition \(S\) of \(A\)) if
+    \[
+        \fall C \in S,\: \exs a \in C,\: X \cap C = \{a\}.
+    \]
+}
+
+\subsection*{Selected Problems}
+\setexernumber{1}
+
+\exer[2.4.2]{}{
+    Let \(f\) be a function on \(A\) onto \(B\).
+    Define a relation \(E\) in \(A\) by: \(aEb\) if and only if \(f(a) = f(b)\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        Show that \(E\) is an equivalence on \(A\).
+        \ii
+        Show that \([a]_E = [a']_E\) implies that \(f(a) = f(a')\)
+        so that the function \(\varphi\) on \(A/E\) into \(B\)
+        defined by \(\varphi([a]_E) = f(a)\) is well-defined.
+        Show also that \(\varphi\) is \textit{onto} \(B\).
+        \ii
+        Let \(j\) be the function on \(A\) onto \(A/E\) given by \(j(a) = [a]_E\).
+        Show that \(\varphi \circ j = f\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(E\) can readily be shown to be reflexive, symmetric, and transitive.
+
+    \ii
+    Assume \([a]_E = [a']_E\). Then, \(f(a) = f(a')\) by definition of \(E\). Hence, \(\varphi\) is well-defined.
+    Take any \(b \in B\). Since \(f\) is onto, there exists \(a \in A\) such that \(f(a) = b\).
+    Hence, \(\varphi([a]_E) = f(a) = b\); \(\varphi\) is onto \(B\).
+
+    \ii
+    \(\dom (\varphi \circ j) = (\dom j) \cap j\inv[\dom \varphi] = A = \dom f\)
+    since \(j\) is onto.
+    For all \(a \in A\), \((\varphi \circ j)(a) = \varphi([a]_E) = f(a)\).
+    Hence, by \Cref{lem:functionEqualsIff}, \(\varphi \circ j = f\).
+    \qed
+\end{enumerate}
+}
+
+\section{Orderings}
+
+\dfn[ordering]{Partial Ordering and Strict Ordering}{
+    Let \(R\) be a binary relation in \(A\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii \(R\) is called \textit{antisymmetric in} \(A\) if \(\fall a, b \in A,\: (aRb \land bRa \implies a=b)\).
+        \ii \(R\) is called \textit{asymmetric in} \(A\) if \(\fall a, b \in A,\: \lnot (aRb \land bRa)\).
+        \ii \(R\) is called a \textit{(partial) ordering} of \(A\) if it is reflexive, antisymmetric, and transitive in \(A\).
+        \ii \(R\) is called a \textit{strict ordering} of \(A\) if it is asymmetric and transitive in \(A\).
+        \ii If \(R\) is a partial ordering of \(A\), then the pair \((A, R)\) is called an \textit{ordered set}.
+    \end{itemize}
+}
+
+\exmp{}{
+\begin{itemize}[nolistsep, leftmargin=*]
+    \ii 
+    Define the relation \(\subseteq_A\) in \(A\) as follows:
+    \(x \subseteq_A y\) if and only if \(x, y \in A \land x \subseteq y\).
+    Then, \((A, \subseteq_A)\) is an ordered set.
+    \ii
+    The relation \(\mrm{Id}_A\) is a partial ordering of \(A\).
+\end{itemize}
+}
+
+\thm[partialAndStrictAreSame]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        Let \(R\) be a partial ordering of \(A\). Then the relation \(S\) in \(A\) defined by
+        \[
+            S \triangleq R \setminus \mrm{Id}_A
+        \]
+        is a strict ordering.
+
+        \ii
+        Let \(S\) be a strict ordering of \(A\). Then the relation \(R\) in \(A\) defined by
+        \[
+            R \triangleq S \cup \mrm{Id}_A
+        \]
+        is a partial ordering.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    Suppose \(aSb\) and \(bSa\). 
+    Since \(S \subseteq R\), we have \(aRb\) and \(bRa\).
+    As \(R\) is antisymmetric, we have \(aRa\),
+    which is impossible since \(S \cap \mrm{Id}_S = \OO\).
+    Hence, \(S\) is asymmetric in \(A\).
+
+    Now, assuming \(aSb\) and \(bSc\),
+    we also have \(aRc\) since \(R\) is transitive.
+    Moreover, \(a\) cannot be equal to \(c\) since \(S\) is shown to be asymmetric.
+    Therefore, \(aSc\); \(S\) is transitive in \(A\).
+
+    \ii
+    Assume \(aRb\) and \(bRa\).
+    If \(a \neq b\), then we have \(aSb\) and \(bSa\), which is impossible.
+    Therefore, \(a = b\); \(R\) is antisymmetric.
+
+    Assume \(aRb\) and \(bRc\).
+    If \(a = b\) or \(b = c\), then we immediately have \(aRc\).
+    If \(a \neq b\) and \(b \neq c\), then \(aSb\) and \(bSc\),
+    and thus \(aSc\) as \(S\) is transitive in \(A\);
+    \(R\) is transitive in \(A)\).
+
+    \(R\) is reflexive in \(A\) since \(\mrm{Id}_A \subseteq R\).
+    \qed
+\end{enumerate}
+}
+
+\notat{}{
+\begin{itemize}[nolistsep, leftmargin=*]
+    \ii If \(R\) is a partial ordering, we say \(S = R \setminus \mrm{Id}_A\)
+        \textit{corresponds to the partial ordering} \(R\).
+    \ii If \(S\) is a strict ordering, we say \(R = S \cup \mrm{Id}_A\)
+        \textit{corresponds to the strict ordering} \(S\).
+\end{itemize}
+}
+
+\dfn[comparable]{Comparability}{
+    Let \(a, b \in A\) and let \(\le\) be a partial ordering of \(A\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii 
+        We say that \(a\) and \(b\) are \textit{comparable} in the ordering \(\le\)
+        if \(a \le b\) or \(b \le a\).
+
+        \ii
+        We say that \(a\) and \(b\) are \textit{incomparable} in the ordering \(\le\)
+        if neither \(a \le b\) nor \(b \le a\).
+    \end{itemize}
+    They can be stated equivalently in terms of the corresponding strict ordering \(<\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii 
+        We say that \(a\) and \(b\) are \textit{comparable} in the ordering \(<\)
+        if \(a = b\) or \(a < b\) or \(b < a\).
+
+        \ii
+        We say that \(a\) and \(b\) are \textit{incomparable} in the ordering \(<\)
+        if none of \(a = b\), \(a < b\), and \(b < a\) holds.
+    \end{itemize}
+}
+
+\dfn[totalOrdering]{Total Ordering}{
+    An ordering \(\le\) (or \(<\)) is called \textit{linear} or \textit{total}
+    if any two elements of \(A\) are comparable.
+    The pair \((A, \le)\) is then called a \textit{linearly ordered set}.
+}
+
+\dfn[chain]{Chain}{
+    Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
+    \(B\) is a \textit{chain} in \(A\) if any two elements of \(B\) are comparable.
+}
+
+\dfn[leastMinimal]{Least/Minimal/Greatest/Maximal Element}{
+    Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii
+        \(b \in B\) is the \textit{least element} of \(B\) in the ordering \(\le\)
+        if \(\fall x \in B,\: b \le x\).
+
+        \ii
+        \(b \in B\) is a \textit{minimal element} of \(B\) in the ordering \(\le\)
+        if \(\fall x \in B,\: (x \le b \implies x = b)\).
+
+        \ii
+        \(b \in B\) is the \textit{greatest element} of \(B\) in the ordering \(\le\)
+        if \(\fall x \in B,\: x \le b\).
+
+        \ii
+        \(b \in B\) is a \textit{maximal element} of \(B\) in the ordering \(\le\)
+        if \(\fall x \in B,\: (b \le x \implies x = b)\).
+    \end{itemize}
+}
+
+\notat{}{
+    Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii The least element of \(B\) is denoted \(\min B\).
+        \ii The greatest element of \(B\) is denoted \(\max B\).
+    \end{itemize}
+}
+
+\thm[basicLeastMinimal]{}{
+    Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(B\) has at most one least element.
+        \ii The least element of \(B\)---it it exists---is also minimal.
+        \ii If \(B\) is a chain, then every minimal element of \(B\) is also least.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    If \(b\) and \(b'\) are least elements of \(B\),
+    then \(b \le b'\) and \(b' \le b\) by the definition.
+    As \(\le\) is antisymmetric, we have \(b = b'\).
+
+    \ii
+    Let \(b\) be the least element of \(B\) (assuming its existence).
+    Take any \(x \in B\) and assume \(x \le b\).
+    Then, as \(b\) is the least, we have \(b \le x\).
+    As \(\le\) is antisymmetric, \(x = b\); \(b\) is minimal.
+
+    \ii
+    Let \(b\) be a minimal element of \(B\).
+    Take any \(x \in B\).
+    Since \(b\) and \(x\) are comparable, it is \(x \le b\) or \(b \le x\).
+    If \(x \le b\), then \(x = b\) as \(b\) is minimal.
+    Therefore, \(b\) is the least.
+    \qed
+\end{enumerate}
+}
+
+\nt{
+    \noindent
+    \Cref{th:basicLeastMinimal} still holds when `least' and `minimal' are replaced by `greatest' and `maximal', respectively.
+}
+
+\dfn[bound]{Lower/Upper Bound and Infimum/Supremum}{
+    Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii
+        \(a \in A\) is a \textit{lower bound} of \(B\) in the ordered set \((A, \le)\)
+        if \(\fall x \in B,\: a \le x\).
+        \ii
+        \(a \in A\) is called an \textit{infimum} (or \textit{greatest lower bound}) of \(B\) in the ordered set \((A, \le)\)
+        if \(a = \max \{\,x \in A \mid x \text{ is a lower bound of }B\,\}\).
+        \ii
+        \(a \in A\) is an \textit{upper bound} of \(B\) in the ordered set \((A, \le)\)
+        if \(\fall x \in B,\: x \le a\).
+        \ii
+        \(a \in A\) is called an \textit{supremum} (or \textit{least upper bound}) of \(B\) in the ordered set \((A, \le)\)
+        if \(a = \min \{\,x \in A \mid x \text{ is an upper bound of }B\,\}\).
+    \end{itemize}
+}
+
+\notat{}{
+    Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii The infimum of \(B\) is denoted \(\inf B\).
+        \ii The supremum of \(B\) is denoted \(\sup B\).
+    \end{itemize}
+}
+
+\thm[basicInfimum]{}{
+    Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(B\) has at most one infimum.
+        \ii If \(b\) is the least element of \(B\), then \(b\) is the infimum of \(B\).
+        \ii If \(b \in B\) is the infimum of \(B\), then \(b\) is the least element of \(B\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    The result follows from the definition and \Cref{th:basicLeastMinimal} (i).
+
+    \ii
+    \(b\) is a lower bound of \(B\).
+    If \(x\) is a lower bound of \(B\), since \(b \in B\), we must have \(x \le b\).
+    Therefore, \(b\) is the greatest lower bound.
+
+    \ii
+    \(b \in B\) is a lower bound of \(B\), and thus \(b\) is the least element.
+    \qed
+\end{enumerate}
+}
+
+\nt{
+    \noindent
+    \Cref{th:basicInfimum} still holds when `least' and `infimum' are replaced by `greatest' and `supremum', respectively.
+}
+
+\dfn[]{Isomorphism Between Ordered Sets}{
+    An \textit{isomorphism} between two ordered sets \((P, \le)\) and \((Q, \preceq)\)
+    is a function \(f \colon P \hooktwoheadrightarrow Q\) such that
+    \[
+        \fall p_1, p_2 \in P,\: (p_1 \le p_2 \iff f(p_1) \preceq f(p_2)).
+    \]
+    If an isomorphism exists between \((P, \le)\) and \((Q, \preceq)\),
+    then we say \((P, \le)\) and \((Q, \preceq)\) are \textit{isomorphic}.
+    This is justified by \Cref{exer:2.5.13}.
+}
+
+\mlemma[oneImplicationIsEnough]{}{
+    Let \((P, \le)\) be a linearly ordered set and let \((Q, \preceq)\) be an ordered set.
+    Let \(h \colon P \hooktwoheadrightarrow Q\) be a function such that
+    \[
+        \fall p_1, p_2 \in P,\: (p_1 \le p_2 \implies h(p_1) \preceq h(p_2)).
+    \]
+    Then, \(h\) is an isomorphism between \((P, \le)\) and \((Q, \preceq)\),
+    and \((Q, \le)\) is linearly ordered.
+}
+\pf{Proof}{
+    Take any \(p_1, p_2 \in P\) and assume \(h(p_1) \preceq h(p_2)\).
+    Suppose \(p_2 < p_1\) for the sake of contradiction.
+    Then, since \(h\) is injective, \(h(p_1) \neq h(p_2)\), and thus \(h(p_1) \prec h(p_2)\).
+    Then, we have \(\lnot (p_2 \le p_1)\), which is a contradiction.
+    Hence, \(\lnot(p_2 < p_1)\).
+    Therefore, \(p_1 \le p_2\) since \((P, \le)\) is linearly ordered.
+
+    Take any \(q_1, q_2 \in Q\).
+    Then, since \(h\) is onto \(Q\), there exist \(p_1, p_2 \in P\)
+    such that \(q_1 = h(p_1)\) and \(p_2 = h(p_2)\).
+    Since \(P\) is linearly ordered, it is \(p_1 \le p_2\) or \(p_2 \le p_1\).
+    In either case, we have \(q_1 \preceq q_2\) or \(p_2 \preceq q_1\).
+    Therefore, \((Q, \preceq)\) is linearly ordered.
+}
+
+\subsection*{Selected Problems}
+
+\exer[2.5.1]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        Let \(R\) be a partial ordering of \(A\) and let \(S\) be the strict ordering of \(A\) corresponding to \(R\).
+        Let \(R^\ast\) be the partial ordering of \(A\) corresponding to \(S\). Show that \(R^\ast = R\).
+        \ii
+        Let \(S\) be a strict ordering of \(A\) and let \(R\) be the partial ordering of \(A\) corresponding to \(S\).
+        Let \(S^\ast\) be the partial ordering of \(A\) corresponding to \(R\). Show that \(S^\ast = S\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(R^\ast = S \cup \mrm{Id}_A = (R \setminus \mrm{Id}_A) \cup \mrm{Id}_A = R\)
+    since \(\mrm{Id}_A \subseteq R\).
+
+    \ii
+    \(S^\ast = R \setminus \mrm{Id}_A = (S \cup \mrm{Id}_A) \setminus \mrm{Id}_A = S\)
+    since \(\mrm{Id}_A \cap S = \OO\).
+
+    \qed
+\end{enumerate}
+}
+
+\setexernumber{5}
+
+\exer[2.5.6]{}{
+    Let \((A_1, <_1)\) and \((A_2, <_2)\) be strictly ordered sets and let \(A_1 \cap A_2 = \OO\).
+    Define a relation \(\prec\) on \(B \triangleq A_1 \cup A_2\) as follows:
+    \[
+        x \prec y \iff (x <_1 y) \lor (x <_2 y) \lor (x \in A_1 \land y \in A_2).
+    \]
+    Show that \(\prec\) is a strict ordering of \(B\) and \(\mathord{\prec} \cap A_1^2 = \mathord{<_1}\), \(\mathord{\prec} \cap A_2^2 = \mathord{<_2}\).
+}
+\pf{Proof}{
+    Note that \(\mathord{\prec} = \mathord{<}_1 \cup \mathord{<}_2 \cup A_1 \times A_2\).
+
+    Suppose \(x \prec y\) and \(y \prec x\).
+    By definition, \(x, y \in A_1\) or \(x, y \in A_2\).
+    In both cases, we have (\(x <_1 y\) and \(y <_1 x\))
+    or (\(x <_2 y\) and \(y <_2 x\)), which are impossible as \(<_1\) and \(<_2\) are asymmetric.
+    Hence, \(\prec\) is asymmetric.
+    Transitivity of \(\prec\) can be shown easily.
+
+    Since \(\mathord{<_1} \cap A_2^2 = \mathord{<_2} \cap A_1^2 = (A_1 \times A_2) \cap A_1^2 = (A_1 \times A_2) \cap A_2^2 = \OO\),
+    we get \(\mathord{\prec} \cap A_1^2 = \mathord{<_1}\) and \(\mathord{\prec} \cap A_2^2 = \mathord{<_2}\).
+}
+
+\exer[2.5.7]{}{
+    Let \(R\) be a reflexive and transitive relation in \(A\) (\(R\) is called a \textit{preordering} of \(A\)).
+    Define a relation \(E\) in \(A\) by
+    \[
+        aEb \iff aRb \land bRa.
+    \]
+    Show that \(E\) is an equivalence on \(A\). Define the relation \(R/E\) in \(A/E\) by
+    \[
+        [a]_E R/E [b]_E \iff aRb.
+    \]
+    Show that \(R/E\) is well-defined and that \(R/E\) is a partial ordering of \(A/E\).
+}
+\pf{Proof}{
+    Since \(aEa \equiv aRa\) and \(R\) is reflexive, \(E\) is reflexive as well.
+    Since \(aEb \equiv bEa\), \(E\) is symmetric.
+    Since \(aEb \land bEc \iff (aRb \land bRc) \land (cRb \land bRa) \implies aRc \land cRa \iff aEc\),
+    \(E\) is transitive. \checkmark
+
+    Assume \([a]_E = [a']_E\) and \([b]_E = [b']_E\).
+    Then, we have \(aEa'\) and \(bEb'\) by \Cref{lem:equivIffSameClass},
+    i.e., \(aRa'\), \(a'Ra\), \(bRb'\), and \(b'Rb\).
+    By transitivity of \(R\), it follows that \(aRb \iff a'Rb'\).
+    Therefore, \(R/E\) is well-defined. \checkmark
+
+    It can be shown readily that \(R/E\) is reflexive and transitive.
+    To prove \(R/E\) is antisymmetric, assume \([a]_E R/E [b]_E\) and \([b]_E R/E [a]_E\).
+    Then, \(aRb\) and \(bRa\), which means \(aEb\).
+    Therefore, \([a]_E = [b]_E\) by \Cref{lem:equivIffSameClass}. \checkmark
+}
+
+\exer[2.5.8]{}{
+    Let \(A = \mcal P(X)\) where \(X\) is a set.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        Any \(S \subseteq A\) has a supremum in the ordering \(\subseteq_A\); \(\sup S = \bigcup S\).
+        \ii
+        Any \(S \subseteq A\) has an infimum in the ordering \(\subseteq_A\);
+        \(\inf S = \begin{cases}
+            \bigcap S & \text{if } S \neq \OO \\
+            X & \text{if } S = \OO
+        \end{cases}\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    As \(C \subseteq_A \bigcup S\) for all \(C \in S\), \(\bigcup S\) is an upper bound of \(S\).
+    Let \(U\) be any upper bound of \(S\).
+    Take any \(x \in \bigcup S\). Then, there exists \(C \in S\) such that \(x \in C\).
+    Since \(C \subseteq_A U\), we have \(x \in U\).
+    Therefore, \(\bigcup S \subseteq U\); \(\bigcup S\) is the least upper bound of \(S\).
+
+    \ii
+    If \(S = \OO\), then any \(C \in A\) is an lower bound of \(S\).
+    Since \(\bigcup A = X\)---by (i), the supremum of the set of lower bounds of \(S\)---is a lower bound of \(S\), 
+    \(X\) is the infimum of \(S = \OO\). \checkmark
+
+    If \(S \neq \OO\), as \(\bigcap S \subseteq C\) for all \(C \in S\),
+    \(\bigcap S\) is a lower bound of \(S\).
+    Let \(L\) be any lower bound of \(S\).
+    Take any \(x \in L\). Then, \(\fall C \in L,\: x \in C\), i.e., \(x \in \bigcap S\).
+    Therefore, \(L \subseteq_A \bigcap S\); \(\bigcap S\) is the infimum of \(S\). \checkmark
+    \qed
+\end{enumerate}
+}
+
+\exer[2.5.8]{}{
+    Let \(\mrm{Fn}(X, Y)\) be the set of all functions mapping a subset of \(X\) into \(Y\),
+    i.e., \(\mrm{Fn}(X, Y) = \bigcup_{Z \in \mcal P(X)} Y^Z\).
+    Define a relation \(\le\) in \(\mrm{Fn}(X, Y)\) by
+    \[
+        f \le g \iff f \subseteq g.
+    \]
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\le\) is a partial ordering of \(\mrm{Fn}(X, Y)\).
+        \ii
+        Let \(F \subseteq \mrm{Fn}(X, Y)\).
+        \(\sup F\) exists if and only if \(F\) is a compatible system of functions.
+        Moreover, \(\sup F = \bigcup F\) if it exists.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(\mathord{\le} = \mathord{\subseteq}_{\mrm{Fn}(X, Y)}\) by definition;
+    \(\subseteq_{\mrm{Fn}(X, Y)}\) is already a partial ordering of \(\mrm{Fn}(X, Y)\).
+
+    \ii
+    (\(\Rightarrow\)) Assume \(h \in \mrm{Fn}(X, Y)\) is a supremum of \(F\).
+    Then, \(\fall f \in F,\: f \subseteq s\).
+    Take any \(f, g \in F\).
+    Then, \(f \cup g \subseteq h\), and thus \(f \cup g\) is a function as \(h\) is a function.
+    Therefore, by \Cref{lem:compatibleIff}, \(f\) and \(g\) are compatible.
+    Hence, \(F\) is a compatible system of functions.
+
+    (\(\Leftarrow\))
+    Assume \(F\) is a compatible system of functions.
+    Then, \(\bigcup F \in \mrm{Fn}(X, Y)\) by \Cref{th:compatibleThenUnionIsFunction},
+    and \(f \le \bigcup F\) for all \(f \in F\) by definition; \(\bigcup F\) is an upper bound of \(F\).
+    Let \(U\) be any upper bound of \(S\).
+    Take any \((x, y) \in \bigcup F\). Then, there exists \(f \in S\) such that \((x, y) \in f\).
+    Since \(f \subseteq_A U\), we have \(x \in U\).
+    Therefore, \(\bigcup F \subseteq U\); \(\bigcup F\) is the least upper bound of \(S\).
+    \qed
+\end{enumerate}
+}
+
+\exer[2.5.10]{}{
+    Let \(\mrm{Pt}(A)\) be the set of all partitions of \(A\).
+    Define a relation $\preccurlyeq$ in \(\mrm{Pt}(A)\) by
+    \[
+        S_1 \preccurlyeq S_2 \iff \fall C \in S_1,\: \exs D \in S_2,\: C \subseteq D.
+    \]
+    (We say that the partition \(S_1\) is a \textit{refinement} of the partition \(S_2\) if \(S_1 \preccurlyeq S_2\).)
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        \(\preccurlyeq\) is a partial ordering of \(\mrm{Pt}(A)\).
+        \ii
+        \(\inf T\) exists for all \(T \subseteq \mrm{Pt}(A)\).
+        \ii
+        \(\sup T\) exists for all \(T \subseteq \mrm{Pt}(A)\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    \(\preccurlyeq\) is reflexive since, for all \(S \in \mrm{Pt}(A)\) and \(C \in S\),
+    \(C \subseteq C\), i.e., \(S \preccurlyeq S\). \checkmark
+
+    Assume \(S_1 \preccurlyeq S_2\) and \(S_2 \preccurlyeq S_1\).
+    Take any \(C \in S_1\).
+    Then, there exists \(D \in S_2\) such that \(C \subseteq D\).
+    In addition, there exists \(E \in S_1\) such that \(D \subseteq E\).
+    We have \(C \subseteq E\) but \(C\) is nonempty as \(S_1\) is a partition,
+    which implies \(C \cap E \neq \OO\).
+    Therefore, as \(S_1\) is a partition, we must have \(C = E\) and thus \(C = D\).
+    Hence, \(S_1 \subseteq S_2\). This shows that \(\preccurlyeq\) is antisymmetric. \checkmark
+
+    Assume \(S_1 \preccurlyeq S_2\) and \(S_2 \preccurlyeq S_3\).
+    Take any \(C \in S_1\).
+    There exists \(D \in S_2\) such that \(C \subseteq D\).
+    There exists \(E \in S_3\) such that \(D \subseteq E\).
+    Hence, \(C \subseteq E\); \(S_1 \preceq S_3\).
+    This shows that \(\preccurlyeq\) is transitive. \checkmark
+
+    \ii
+    Define a relation \(E\) in \(A\) by
+    \(E \triangleq \{\,(a, b) \in A^2 \mid \fall S \in T,\: \exs C \in S,\: a \in C \land b \in C\,\}\).
+    It can be easily shown that \(E\) is an equivalence
+    mimicking the proof of \Cref{th:partitionDerivesEquiv}.
+    Then, \(A/E \in \mrm{Pt}(A)\) by \Cref{th:equivDerivesPartition}.
+
+    \clm[AEisLowerBound]{
+        \(A/E\) is a lower bound of \(T\).
+    }{
+        If \(T = \OO\), there is nothing to prove; so assume \(T \neq \OO\).
+        Take any \(S \in T\) and \(a \in A\).
+        Then, there exists \(C \in S\) such that \(a \in S\) since \(S\) is a partition of \(A\).
+        Let \(b \in [a]_E\). Then, there exists \(D \in S\) such that
+        \(a, b \in D\), which implies \(C = D\). Therefore, \([a]_E \subseteq C\).
+        Hence, \(A/E \preccurlyeq S\). \qed
+    }
+
+    \clm[AEisMaxLowerBound]{
+        For each lower bound \(L\) of \(T\), \(L \preccurlyeq A/E\).
+    }{
+        If \(T = \OO\), then \(A/E = \{A^2\}\) and every partition of \(A\) is a lower bound.
+        Since \(S \preccurlyeq \{A^2\}\) for all \(S \in \mrm{Pt}(A)\), the result follows.
+
+        Now, assume \(T \neq \OO\).
+        Let \(L\) be a lower bound of \(T\).
+        Take any \(D \in L\). Fix some \(a \in D\).
+        Then, each \(d \in D\) has the property that
+        \(\fall S \in T,\: \exs C \in S,\: \{a,d\} \subseteq D \subseteq C\)
+        as \(L\) is a lower bound of \(T\).
+        Therefore, \(d \in [a]_E\); \(D \subseteq [a]_E\).
+        Hence, \(L \preccurlyeq A/E\). \qed
+    }
+    \Cref{clm:AEisLowerBound,clm:AEisMaxLowerBound} say that \(\inf T = A/E\).
+    Hence, \(\inf T\) exists.
+
+    \ii
+    Let \(T' \triangleq \{\,S' \in \mrm{Pt}(A) \mid \fall S \in T,\: S \preccurlyeq S'\,\}\).
+    By (ii), \(S^\ast \triangleq \inf T'\) exists.
+    \clm[SastIsUpperBound]{
+        \(S^\ast\) is an upper bound of \(T\).
+    }{
+        In (ii), we showed that \(S^\ast = A/E\)
+        where \(E = \{\,(a, b) \in A^2 \mid \fall S' \in T',\: \exs C' \in S',\: a \in C' \land b \in C'\,\}\).
+        Take any \(S \in T\) and let \(C \in S\).
+        Fix some \(c_0 \in C\).
+
+        Now, take arbitrary \(c \in C\). Then, for all \(S' \in T'\),
+        since \(S \preccurlyeq S'\), there exists \(D' \in S'\)
+        such that \(c \in C \subseteq D'\).
+        Hence, we have \(cEc_0\); \(C \subseteq [c_0]_E\).
+        Therefore, \(S \preccurlyeq S^\ast\). \qed
+    }
+    \Cref{clm:SastIsUpperBound} essentially says that \(S^\ast \in T'\).
+    By \Cref{th:basicInfimum} (iii), \(S^\ast = \min T'\), i.e., \(S^\ast = \sup T\).
+    \qed
+\end{enumerate}
+}
+
+\setexernumber{12}
+
+\exer[2.5.13]{}{
+    If \(h\) is isomorphism between \((P, \le)\) and \((Q, \preceq)\),
+    then \(h\inv\) is an isomorphism between \((Q, \preceq)\) and \((P, \le)\).
+}
+\pf{Proof}{
+    Take any \(q_1, q_2 \in Q\).
+    Then, we have \(q_1 \preceq q_2 \iff h(h\inv(q_1)) \preceq h(h\inv(q_2)) \iff h\inv(q_1) \le h\inv(q_2)\).
+}
+
+\exer[2.5.14]{}{
+    If \(f\) is an isomorphism between \((P_1, \le_1)\) and \((P_2, \le_2)\),
+    and if \(g\) is an isomorphism between \((P_2, \le_2)\) and \(P_3, \le_3\),
+    then \(g \circ f\) is an isomorphism between \((P_1, \le_1)\) and \((P_3, \le_3)\).
+}
+\pf{Proof}{
+    \(\ran (g \circ f) = g[\ran f] = P_3\).
+    Moreover, \(g \circ f\) is one-to-one.
+    Hence, \(g \circ f \colon P_1 \hooktwoheadrightarrow P_3\).
+    For all \(p, q \in P_1\), we have
+    \(p \le_1 q \iff f(p) \le_2 f(q) \iff g(f(p)) \le_3 \iff g(f(q))\).
+    Hence, \(g \circ f\) is an isomorphism between \((P_1, \le_1)\) and \((P_3, \le_3)\).
+}
+
+\end{document}
