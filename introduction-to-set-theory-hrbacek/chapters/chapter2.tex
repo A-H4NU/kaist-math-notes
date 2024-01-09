@@ -627,6 +627,112 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 \end{enumerate}
 }
 
+\exer[2.3.10]{}{
+    Let \(\lang\,F_a \mid a \in \bigcup S\,\rang\) be an indexed system of sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii 
+        \(\bigcup_{a \in \bigcup S} F_a = \bigcup_{C \in S} \left[ \bigcup_{a \in C} F_a \right]\)\vspace*{.3em}
+
+        \ii
+        \(\bigcap_{a \in \bigcup S} F_a = \bigcap_{C \in S} \left[ \bigcap_{a \in C} F_a \right]\)
+        if \(S \neq \OO\) and \(\fall C \in S,\:C \neq \OO\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in \bigcup_{a \in \bigcup S} F_a
+        &\iff \textstyle\exs a \in \bigcup S,\: x \in F_a \\
+        &\iff \exs C \in S,\: \exs a \in C,\: x \in F_a \\
+        &\iff \textstyle\exs C \in S,\: x \in \bigcup_{a \in C} F_a
+        \iff \textstyle x \in \bigcup_{C \in S} \left[ \bigcup_{a \in C} F_a \right]
+    \end{aligned}\)\vspace*{.3em}
+
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in \bigcap_{a \in \bigcup S} F_a
+        &\iff \textstyle \fall a \in \bigcup S,\: x \in F_a \\
+        &\iff \fall C \in S,\: \fall a \in C,\: x \in F_a \\
+        &\iff \textstyle \fall C \in S,\: x \in \bigcap_{a \in C} F_a
+        \iff \textstyle x \in \bigcap_{C \in S} \left[ \bigcap_{a \in C} F_a\right]
+    \end{aligned}\)\vspace*{.3em}
+    \qed
+\end{enumerate}
+}
+
+\exer[2.3.11]{}{
+    Let \(\lang\,F_a \mid a \in A\,\rang\) be an nonempty indexed system of sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii \(B \setminus \bigcup_{a \in A} F_a = \bigcap_{a \in A} (B \setminus F_a)\) \vspace*{.3em}
+        \ii \(B \setminus \bigcap_{a \in A} F_a = \bigcup_{a \in A} (B \setminus F_a)\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in B \setminus \bigcup_{a \in A} F_a
+        &\iff x \in B \land \lnot (\exs a \in A,\: x \in F_a) \\
+        &\iff x \in B \land \fall a \in A,\: x \notin F_a \\
+        &\iff \fall a \in A,\: (x \in B \land x \notin F_a)
+        \iff \textstyle x \in \bigcap_{a \in A} (B \setminus F_a)
+    \end{aligned}\)\vspace*{.3em}
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle x \in B \setminus \bigcap_{a \in A} F_a
+        &\iff x \in B \land \lnot (\fall a \in A,\: x \in F_a) \\
+        &\iff x \in B \land \exs a \in A,\: x \notin F_a \\
+        &\iff \exs a \in A,\: (x \in B \land x \notin F_a)
+        \iff \textstyle x \in \bigcup_{a \in A} (B \setminus F_a)
+    \end{aligned}\)
+    \qed
+\end{enumerate}
+}
+
+\exer[2.3.12]{}{
+    Let \(R\) be a relation and let \(\lang\,F_a \mid a \in A\,\rang\) be an indexed system of sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii \(R \left[\bigcup_{a \in A} F_a\right] = \bigcup_{a\in A} R[F_a]\)\vspace*{.3em}
+        \ii \(R \left[\bigcap_{a \in A} F_a\right] \subseteq \bigcap_{a\in A} R[F_a]\) if \(A \neq \OO\).\vspace*{.3em}
+        \ii \(R \left[\bigcap_{a \in A} F_a\right] = \bigcap_{a\in A} R[F_a]\) if \(A \neq \OO\) and \(R\) is an injective function.\vspace*{.3em}
+        \ii \(R\inv \left[\bigcap_{a \in A} F_a\right] = \bigcap_{a\in A} R\inv[F_a]\) if \(A \neq \OO\) and \(R\) is a function.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\begin{aligned}[t]
+        \textstyle y \in R \left[\bigcup_{a \in A} F_a\right]
+        &\iff \textstyle \exs x \in \bigcup_{a \in A} F_a,\: xRy \\
+        &\iff \exs a \in A,\: \exs x \in F_a,\: xRy \\
+        &\iff \textstyle \exs a \in A,\: y \in R[F_a]
+        \iff x \in \bigcup_{a\in A} R[F_a]
+    \end{aligned}\)\vspace*{.3em}
+
+    \ii
+    Take any \(y \in R \left[\bigcap_{a \in A} F_a\right]\).
+    Then, there exists \(x \in \bigcap_{a \in A} F_a\) such that \(xRy\).
+    Hence, for all \(a \in A\), \(y \in R[F_a]\),
+    i.e., \(y \in \bigcap_{a \in A} R[F_a]\).
+
+    \ii
+    If \(R\) is an injective function, then \(R\inv\) is also a function.
+    Hence, the result follows from (iv) and the fact that \(R = (R\inv)\inv\).
+
+    \ii
+    Thanks to (ii), since \(R\inv\) is a relation, we only need to prove the other inclusion.
+    Take any \(x \in \bigcap_{a\in A} R\inv[F_a]\).
+    Fix any \(a^\ast \in A\). Then, there exists \(y^\ast \in F_{a^\ast}\) such that \(xRy^\ast\).
+
+    Now, take any \(a \in A\). Then, \(\exs y \in F_a\) such that \(xRy\).
+    Since \(R\) is a function, \(y = y^\ast\); \(y^\ast \in F_a\),
+    i.e., \(y^\ast \in \bigcap_{a \in A} F_a\).
+    Therefore, \(x \in R\inv\left[\bigcap_{a \in A} F_a\right]\).
+    \qed
+\end{enumerate}
+}
+
 \section{Equivalences and Partitions}
 
 \dfn[equivalence]{Equivalence}{
