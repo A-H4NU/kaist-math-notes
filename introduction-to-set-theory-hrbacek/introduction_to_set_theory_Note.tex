@@ -47,10 +47,6 @@
 \DeclareMathOperator{\field}{field}
 \DeclareMathOperator{\Seq}{Seq}
 
-\newenvironment{nospaceflalign*}
- {\setlength{\abovedisplayskip}{0pt}\setlength{\belowdisplayskip}{0pt}%
-  \csname flalign*\endcsname}
- {\csname endflalign*\endcsname\ignorespacesafterend}
 \begin{document}
 
 \begin{titlepage}
@@ -78,23 +74,30 @@
 \tikzexternalenable
 \hypersetup{
     colorlinks=true,
-    linkcolor=magenta!35!black,
+    linkcolor=red!50!black,
     filecolor=black,
     urlcolor=red!50!black,
 }
 \pagebreak
 
 \chapter{Sets}\label{chap:sets}
-\subfile{./chapters/chapter1-1.tex}
+% \subfile{./chapters/chapter1-1.tex}
 \chapter{Relations, Function, and Ordering}\label{chap:relFuncOrder}
-\subfile{./chapters/chapter2-1.tex}
-\subfile{./chapters/chapter2-2.tex}
-\subfile{./chapters/chapter2-3.tex}
+% \subfile{./chapters/chapter2-1.tex}
+% \subfile{./chapters/chapter2-2.tex}
+% \subfile{./chapters/chapter2-3.tex}
 \chapter{Natural Numbers}\label{chap:nat}
-\subfile{./chapters/chapter3-1.tex}
-\subfile{./chapters/chapter3-2.tex}
-\subfile{./chapters/chapter3-3.tex}
-\subfile{./chapters/chapter3-4.tex}
+% \subfile{./chapters/chapter3-1.tex}
+% \subfile{./chapters/chapter3-2.tex}
+% \subfile{./chapters/chapter3-3.tex}
+% \subfile{./chapters/chapter3-4.tex}
+\chapter{Finite, Countable, and Uncountable Sets}\label{chap:finite}
+\subfile{./chapters/chapter4-1.tex}
+\subfile{./chapters/chapter4-2.tex}
+% \chapter{Cardinal Numbers}\label{chap:cardinal}
+% \chapter{Ordinal Numbers}\label{chap:ordinal}
+% \chapter{Alephs}\label{chap:aleph}
+% \chapter{Axiom of Choice}\label{chap:aoc}
 
 \vfill
 \begin{center}

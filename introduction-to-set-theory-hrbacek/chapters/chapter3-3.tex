@@ -232,6 +232,196 @@
     Hence, the result follows by \nameref{th:induction}.
 }
 
+\mlemma[timesOne]{}{
+    \(\fall m \in \NN,\: m \cdot 1 = m\)
+}
+\pf{Proof}{
+    \begin{alignat*}{2}
+        m \cdot 1 &= m \cdot (0 + 1) &\qquad& \comment*{\eqref{eq:addition1}, \nameref{th:addIsCommutative}}\\
+                  &= m \cdot 0 + m && \comment*{\eqref{eq:multiplication2}}\\
+                  &= 0 + m && \comment*{\eqref{eq:multiplication1}}\\
+                  &= m && \comment*{\eqref{eq:addition1}, \nameref{th:addIsCommutative}}
+    \end{alignat*}
+}
+
+\thm[exponentiationExists]{}{
+    There uniquely exists a function \(\mathord{\uparrow} \colon \NN \times \NN \to \NN\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\fall m \in \NN,\: m \uparrow 0 = 1\)
+        \ii \(\fall m, n \in \NN,\: m \uparrow (n + 1) = (m \uparrow n) \cdot m\)
+    \end{enumerate}
+}
+\pf{Proof}{
+    The result directly follows from exploiting
+    \nameref{th:parametricRecursion} with \(A = P = \NN\), \(a(p) = 1\) for all \(p \in \NN\),
+    and \(g(p, x, n) = x \cdot p\) for all \(p, x, n \in \NN\).
+}
+
+\dfn[exponentiation]{Exponentiation}{
+    The function \(\uparrow\) defined in \Cref{th:exponentiationExists}
+    is called the \textit{exponentiation}.
+    We write \(m^n\) instead of \(m \uparrow n\).
+    \begin{equation}
+        \fall m \in \NN,\: m^0 = 1 \label{eq:exponentiation1}\tag{\(5\)}
+    \end{equation}
+    \begin{equation}
+        \fall m, n \in \NN,\: m^{n+1} = m^n \cdot m \label{eq:exponentiation2}\tag{\(6\)}
+    \end{equation}
+}
+
+\thm[lawsOfExponents]{Laws of Exponents}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\nameref{th:lawsOfExponents} (\roman*)}, listparindent=\parindent]
+    \ii \(\fall m \in \NN,\: m^1 = m\)
+    \ii\label{itm:lawsOfExponents.ii} \(\fall k, m, n \in \NN,\: k^{m+n} = k^m \cdot k^n\)
+    \ii \(\fall k, m, n \in \NN, (m \cdot n)^k = m^k \cdot n^k\)
+    \ii \(\fall k, m, n \in \NN,\: (k^m)^n = k^{m \cdot n}\)
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii Take any \(m \in \NN\). Then,
+    \begin{alignat*}{2}
+        m^1 &= m^{0 + 1} &\qquad& \comment*{\eqref{eq:addition1}, \nameref{th:addIsCommutative}}\\
+            &= m^0 \cdot m && \comment*{\eqref{eq:exponentiation2}}\\
+            &= 1 \cdot m && \comment*{\eqref{eq:exponentiation1}}\\
+            &= m. && \comment*{\nameref{th:multIsCommutative}, \Cref{lem:timesOne}}
+    \end{alignat*}
+
+    \ii
+    Let \(\mbf{P}(x)\) be the property ``\(\fall k, m \in \NN, k^{m+x} = k^m \cdot k^x\).''
+    \(\mbf{P}(0)\) holds since, for each \(k, m \in \NN\),
+    \begin{alignat*}{2}
+        k^{m + 0} &= k^m &\qquad& \comment*{\eqref{eq:addition1}}\\
+                  &= k^m \cdot 1 && \comment*{\Cref{lem:timesOne}}\\
+                  &= k^m \cdot k^0. && \comment*{\eqref{eq:exponentiation1}}
+    \end{alignat*}
+    Now, fix \(n \in \NN\) and assume \(\mbf{P}(n)\). Then,
+    \begin{alignat*}{2}
+        k^{m + (n + 1)} &= k^{(m + n) + 1} &\qquad& \comment*{\nameref{th:addIsAssociative}}\\
+                        &= k^{m+n} \cdot k && \comment*{\eqref{eq:exponentiation2}}\\
+                        &= (k^m \cdot k^n) \cdot k && \comment*{\(\mbf{P}(x)\)}\\
+                        &= k^m \cdot (k^n \cdot k) && \comment*{\nameref{th:multIsAssociative}}\\
+                        &= k^m \cdot k^{n+1}. && \comment*{\eqref{eq:exponentiation2}}
+    \end{alignat*}
+    Therefore, by \nameref{th:induction}, the result follows.
+
+    \ii
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m, n \in \NN,\: (m \cdot n)^x = m^x \cdot n^x\).''
+    \(\mbf{P}(0)\) holds since, for each \(m, n \in \NN\),
+    \begin{alignat*}{2}
+        (m \cdot n)^0 &= 1 &\qquad& \comment*{\eqref{eq:exponentiation1}}\\
+                      &= 1 \cdot 1 && \comment*{\Cref{lem:timesOne}}\\
+                      &= m^0 \cdot n^0. &&\comment*{\eqref{eq:exponentiation1}}
+    \end{alignat*}
+    Now, fix \(k \in \NN\) and assume \(\mbf{P}(k)\). Then,
+    \begin{alignat*}{2}
+        (m \cdot n)^{k+1} &= (m \cdot n)^k \cdot (m \cdot n) &\qquad& \comment*{\eqref{eq:exponentiation2}}\\
+                          &= (m^k \cdot n^k) \cdot (m \cdot n) && \comment*{\(\mbf{P}(k)\)}\\
+                          &= (m^k \cdot m) \cdot (n^k \cdot n) && \comment*{\nameref{th:multIsCommutative}, \nameref{th:multIsAssociative}}\\
+                          &= m^{k+1} \cdot n^{k+1}. && \comment*{\eqref{eq:exponentiation2}}
+    \end{alignat*}
+    Therefore, by \nameref{th:induction}, the result follows.
+
+    \ii
+    Let \(\mbf{P}(x)\) be the property ``\(\fall k, m \in \NN,\: (k^m)^x = k^{m \cdot x}\).''
+    \(\mbf{P}(0)\) holds since, for each \(k, m \in \NN\),
+    \begin{alignat*}{2}
+        (k^m)^0 &= 1 &\qquad& \comment*{\eqref{eq:exponentiation1}}\\
+                &= k^0 && \comment*{\eqref{eq:exponentiation1}}\\
+                &= k^{m \cdot 0}. && \comment*{\eqref{eq:multiplication1}}
+    \end{alignat*}
+    Now, fix \(n \in \NN\) and assume \(\mbf{P}(n)\). Then,
+    \begin{alignat*}{2}
+        (k^m)^{n+1} &= (k^m)^n \cdot k^m &\qquad& \comment*{\eqref{eq:exponentiation2}}\\
+                    &= k^{m \cdot n} \cdot k^m && \comment*{\(\mbf{P}(n)\)}\\
+                    &= k^{m \cdot n + m} && \comment*{\ref{itm:lawsOfExponents.ii}}\\
+                    &= k^{m \cdot (n+1)}. && \comment*{\eqref{eq:multiplication2}}
+    \end{alignat*}
+    Therefore, by \nameref{th:induction}, the result follows.
+    \qed
+\end{enumerate}
+}
+
+\thm[summationExists]{}{
+    There uniquely exists \(\Sigma \colon \Seq(\NN) \to \NN\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\Sigma (\lang\rang) = 0\).
+        \ii \(\Sigma (k) = \Sigma \left(\restr{k}{n}\right) + k_n\)for all \(k \in \Seq(\NN)\)
+            with length \(n + 1\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    Let \(g \colon \Seq(\NN) \times \NN \times \NN\) be defined by
+    \begin{equation*}
+        g(k, s, n) = \begin{cases}
+            s + k_n & \text{if } n \in \dom k \\
+            s & \text{otherwise}.
+        \end{cases}
+    \end{equation*}
+    Then, by \nameref{th:parametricRecursion},
+    there exists a function \(f \colon \Seq(\NN) \times \NN \to \NN\)
+    such that
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        \(\fall k \in \Seq(\NN), f(k, 0) = 0\)
+        \ii
+        \(\fall n \in \NN,\: \fall k \in \Seq(\NN), f(k, n+1) = g(k, f(k, n), n) = \begin{cases}
+            f(k, n) + k_n & \text{if } n \in \dom k \\
+            f(k, n) & \text{otherwise.}
+        \end{cases}\)
+        \hfill [\(\ast\)]\label{eq:aruAgjmV}\vspace*{.3em}
+    \end{enumerate}
+    Now, define \(\Sigma \colon \Seq(\NN) \to \NN\) by \(\Sigma (k) = f(k, \dom k)\).
+    (i) evidently holds.
+
+    \clm[IktFGrmo]{
+        Let \(k, \ell \in \Seq(\NN)\).
+        If \(k \subseteq \ell\), then \(f(k, \dom k) = f(\ell, \dom k)\).
+    }{
+        Let \(\mbf{P}(x)\) be the property 
+        \[
+            \fall k, \ell \in \Seq(\NN),\:
+            [\dom k = x \land k \subseteq \ell \implies f(k, x) = f(\ell, x)].
+        \]
+        \(\mbf{P}(0)\) is evident.
+        Now, fix \(n \in \NN\) and assume \(\mbf{P}(n)\).
+
+        Fix any \(k \in \Seq(\NN)\) with \(\dom k = n + 1\).
+        Then, for any \(\ell \in \Seq(\NN)\) with \(k \subseteq \ell\),
+        \begin{alignat*}{2}
+            f(\ell, n + 1) &= f(\ell, n) + \ell_n &\qquad& \comment*{[\hyperref[eq:aruAgjmV]{\(\ast\)}]}\\
+                       &= f\left(\restr{\ell}{n}, n\right) + \ell_n && \comment*{\(\mbf{P}(n)\)}\\
+                       &= f\left(\restr{k}{n}, n\right) + k_n && \comment*{\(k \subseteq \ell\)}\\
+                       &= f(k, n) + k_n && \comment*{\(\mbf{P}(n)\)}\\
+                       &= f(k, n + 1). && \comment*{[\hyperref[eq:aruAgjmV]{\(\ast\)}]}
+        \end{alignat*}
+        Hence, by \nameref{th:induction}, the result follows. \qed
+    }
+    
+    Let \(k \in \Seq(\NN)\) with length \(n + 1\).
+    Then, \(\Sigma(k) = f(k, n+1) = f(k, n) + k_n\).
+    \begin{alignat*}{2}
+        \Sigma(k) &= f(k, n+1) \\
+                  &= f(k, n) + k_n &\qquad& \comment*{[\hyperref[eq:aruAgjmV]{\(\ast\)}]}\\
+                  &= f\left(\restr{k}{n}, n\right) + k_n && \comment*{\Cref{clm:IktFGrmo}} \\
+                  &= \Sigma \left(\restr{k}{n}\right) + k_n.
+    \end{alignat*}
+    The uniqueness easily follows.
+}
+
+\notat{Summation}{
+    For the function \(\Sigma\) defined in \Cref{th:summationExists},
+    we write
+    \[
+        \sum_{0 \le i < n} k_i \quad\text{or}\quad \sum_{i=0}^{n-1} k_i
+    \]
+    instead of \(\Sigma(\lang k_0, \cdots, k_{n-1}\rang)\).
+}
+
+% \thm[lawsOfSummation]{}{
+%     
+% }
+
 \subsection*{Selected Problems}
 
 \setexernumber{1}

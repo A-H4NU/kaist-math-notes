@@ -1,0 +1,292 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\section{Cardinality of Sets}
+
+\dfn[equipotent]{Equipotent Sets}{
+    Let \(A\) and \(B\) be sets.
+    \(A\) is \textit{equipotent to} \(B\)
+    if there is a function \(f \colon A \hooktwoheadrightarrow B\).
+    We write \(|A| = |B|\).
+}
+
+\mlemma[basicEquipotent]{}{
+    Let \(A\), \(B\), and \(C\) be sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii \(|A| = |A|\).
+        \ii If \(|A| = |B|\), then \(|B| = |A|\).
+        \ii If \(|A| = |B|\) and \(|B| = |C|\), then \(|A| = |C|\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\mrm{Id}_A\) is an injective function on \(A\) onto \(A\).
+    \ii
+    If \(f \colon A \hooktwoheadrightarrow B\),
+    then \(f\inv \colon B \hooktwoheadrightarrow A\).
+    \ii
+    If \(f \colon A \hooktwoheadrightarrow B\),
+    and if \(g \colon B \hooktwoheadrightarrow C\),
+    then \(f \circ g \colon A \hooktwoheadrightarrow C\).
+    \qed
+\end{enumerate}
+}
+
+\nt{
+    \noindent
+    \Cref{lem:basicEquipotent} essentially says that \(|A| = |B|\) behaves like an equivalence relation.
+}
+
+\dfn[]{}{
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii 
+        We say \textit{the cardinality of \(A\) is less than or equal to the cardinality of \(B\)}
+        if there is a function \(f \colon A \hookrightarrow B\). We write \(|A| \le |B|\).
+        \ii
+        We say \textit{the cardinality of \(A\) is less than the cardinality of \(B\)}
+        if \(|A| \le |B|\) and \(\lnot (|A| = |B|)\).
+        We write \(|A| < |B|\).
+    \end{itemize}
+}
+
+\mlemma[basicLessCard]{}{
+    Let \(A\), \(B\), and \(C\) be sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{lem:basicLessCard} (\roman*)}, leftmargin=*, listparindent=\parindent]
+        \ii If \(|A| = |B|\), then \(|A| \le |B|\).
+        \ii \(|A| \le |A|\)
+        \ii \label{itm:basicLessCardiii}
+        If \(|A| \le |B|\) and \(|B| \le |C|\), then \(|A| \le |C|\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii 
+    If \(f \colon A \hooktwoheadrightarrow B\),
+    then \(f\) is injective as well.
+
+    \ii
+    \(\mrm{Id}_A\) is an injective function on \(A\) into \(A\).
+
+    \ii
+    If \(f \colon A \hookrightarrow B\),
+    and if \(g \colon B \hookrightarrow C\),
+    then \(f \circ g \colon A \hookrightarrow C\).
+    \qed
+\end{enumerate}
+}
+
+\mlemma[cantorBernsteinLem]{}{
+    If \(A_1 \subseteq B \subseteq A\) and \(|A_1| = |A|\), then \(|B| = |A|\).
+}
+\nt{
+    We present two proofs for \Cref{lem:cantorBernsteinLem}.
+    The second proof can be viewed as a more fundamental proof
+    in the sense that it does not depend on \nameref{ax:infinity}.
+}
+\pf{Proof 1}{
+    Let \(f \colon A \hooktwoheadrightarrow A_1\).
+    Define a sequence \(\lang\,A_i \mid i \in \NN\,\rang\) and \(\lang\,B_i \mid i \in \NN\,\rang\) recursively by
+    \begin{alignat}{3}
+        A_0 &= A, &\qquad B_0 &= B, \nonumber\\
+        \fall n \in \NN,\: A_{n+1} &= f[A_n], &\qquad \fall n \in \NN,\:B_{n+1} &= f[B_n] \label{eq:uvGTBFKn}\tag{\(\ast\)}
+    \end{alignat}
+    thanks to \nameref{th:recursion}.
+
+    We clearly have \(A_1 \subseteq B_0 \subseteq A_0\).
+    If \(A_{n+1} \subseteq B_n \subseteq A_n\),
+    then \(A_{n+2} = f[A_{n+1}] \subseteq B_{n+1} = f[B_n] \subseteq A_{n+1} = f[A_n]\)
+    by \eqref{eq:uvGTBFKn}.
+    Hence, by \eqref{eq:uvGTBFKn} and \nameref{th:induction},
+    we have \(A_{n+1} \subseteq B_n \subseteq A_n\) for all \(n \in \NN\).
+
+    Let, for each \(n \in \NN\), \(C_n \triangleq A_n \setminus B_n\).
+    Then, by \ref{itm:2.3.6.ii}, \(C_{n+1} = f[A_n] \setminus f[B_n] = f[A_n \setminus B_n] = f[C_n]\).
+    Let
+    \[
+        C \triangleq \bigcup_{n=0}^\infty C_n \quad\text{and}\quad
+        D \triangleq A \setminus C.
+    \]
+    Hence, \(f[C] = \bigcup_{n=1}^\infty C_n \subseteq C\).
+    Now, define a function \(g \colon A \to A\) by
+    \[
+        g(x) = \begin{cases}
+            f(x) & \text{if } x \in C \\
+            x & \text{if } x \in D.
+        \end{cases}
+    \]
+    We immediately notice that \(\restr{g}{C} = \restr{f}{C}\) and \(\restr{g}{D}\) are injective
+    and their ranges---\(f[C]\) and \(D\)---are disjoint; \(g\) is injective.
+
+    As, \(\fall n \ge 1,\: C_n \subseteq A_n \subseteq B_0 = B\), we have \(f[C] \subseteq B\).
+    If \(x \in D\), then \(x \in A \setminus C_0 = A \setminus (A \setminus B) = B\) by \ref{itm:1.4.2iii}.
+
+    Now, we shall show \(B \subseteq f[C] \cup D\) and thus \(B = \ran g\).
+    Take any \(y \in B\). Then, \(y \in C\) or \(y \in D\).
+    If \(y \in D\), then it is done; so assume \(y \in C\).
+    Then, as \(y \notin A \setminus B = C_0\), \(y \in f[C]\).
+    Hence, \(g \colon A \hooktwoheadrightarrow B\).
+}
+
+\pf{Proof 2}{
+    Let \(f \colon A \hooktwoheadrightarrow A_1\).
+    Let \(F \colon \mcal P(A) \to \mcal P(A)\) be defined by
+    \(F(X) = (A \setminus B) \cup f[X]\).
+    If \(X \subseteq Y \subseteq A\), then \(F(X) = (A \setminus B) \cup f[X] \subseteq (A \setminus B) \cup f[Y] = F(Y)\).
+    Hence, by \Cref{exer:4.1.10}, there exists \(C \subseteq A\)
+    such that \[C = (A \setminus B) \cup f[C].\]
+    Let \(D \triangleq A \setminus C\).
+
+    Now, define a function \(g \colon A \to A\) by
+    \[
+        g(x) = \begin{cases}
+            f(x) & \text{if } x \in C \\
+            x & \text{if } x \in D.
+        \end{cases}
+    \]
+    Then, since \(f[C] \subseteq C\), \(g\) is injective.
+
+    Moreover,
+    \(f[C] \subseteq \ran f = A_1 \subseteq B\) and
+    \(D = A \setminus C = A \setminus ((A \setminus B) \cup f[C]) \subseteq A \setminus (A \setminus B) = B\),
+    and thus \(\ran g \subseteq B\).
+    
+    Now, take any \(y \in B\).
+    If \(y \in C\), then, as \(y \notin A \setminus B\), \(y \in f[C]\).
+    Hence, \(B \subseteq f[C] \cup D\).
+    Therefore, \(g \colon A \hooktwoheadrightarrow B\).
+}
+
+\thm[cantorBernstein]{Cantor--Bernstein Theorem}{
+    If \(|X| \le |Y|\) and \(|Y| \le |X|\), then \(|X| = |Y|\).
+}
+\pf{Proof}{
+    Let \(f \colon X \hookrightarrow Y\) and \(g \colon Y \hookrightarrow X\).
+    Then, \(g \colon Y \hooktwoheadrightarrow g[Y]\), i.e., \(|Y| = |g[Y]|\);
+    and \(g \circ f \colon X \hooktwoheadrightarrow (g \circ f)[X]\), i.e., \(|X| = |(g \circ f)[X]|\).
+    Moreover, \((g \circ f)[X] \subseteq g[Y] \subseteq X\).
+    Hence, by \Cref{lem:cantorBernsteinLem}, \(|g[Y]| = |X|\).
+    We conclude \(|X| = |Y|\) from \Cref{lem:basicEquipotent}.
+}
+
+\assume[cardinalExists]{}{
+    There are sets called \textit{cardinal numbers} (or \textit{cardinals})
+    with the property that for every set \(X\) there is a unique cardinal \(|X|\)
+    (the \textit{cardinal number of} \(X\), the \textit{cardinality of} \(X\))
+    and sets \(X\) and \(Y\) are equipotent if and only if \(|X|\) is equal to \(Y\).
+}
+
+\nt{
+    \Cref{as:cardinalExists} essentially asserts the existence
+    of a unique ``representative'' for each class of mutually equipotent sets.
+    \Cref{as:cardinalExists} is \textit{harmless} in the sense that we only use it for
+    convenience and we could formulate the theorems without it.
+    We prove \Cref{as:cardinalExists} in \Cref{chap:aoc}: \nameref{chap:aoc}.
+    % TODO: change ``The Axiom of Choice'' to reference.
+    However, for certain classes of sets, cardinal numbers can be defined without the Axiom of Choice.
+}
+
+\subsection*{Selected Problems}
+
+\setexernumber{1}
+
+\exer[4.1.2]{}{
+    Let \(A\), \(B\), and \(C\) be sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+        \ii If \(|A| < |B|\) and \(|B| \le |C|\), then \(|A| < |C|\).
+        \ii If \(|A| \le |B|\) and \(|B| < |C|\), then \(|A| < |C|\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    We already have \(|A| \le |C|\) by \ref{itm:basicLessCardiii}.
+    Let \(g \colon B \hookrightarrow C\).
+    Suppose \(f \colon A \hooktwoheadrightarrow C\) for the sake of contradiction.
+    Then, \(f\inv \circ g \colon B \hookrightarrow A\), i.e., \(|B| \le |A|\).
+    By \nameref{th:cantorBernstein}, we get \(|A| = |B|\), which is a contradiction.
+
+    \ii
+    We already have \(|A| \le |C|\) by \ref{itm:basicLessCardiii}.
+    Let \(g \colon A \hookrightarrow B\).
+    Suppose \(f \colon A \hooktwoheadrightarrow C\) for the sake of contradiction.
+    Then, \(g \circ f\inv \colon C \hookrightarrow B\), i.e., \(|C| \le |B|\).
+    By \nameref{th:cantorBernstein}, we get \(|B| = |C|\), which is a contradiction.
+
+    \qed
+\end{enumerate}
+}
+
+\exer[4.1.3]{}{
+    If \(A \subseteq B\), then \(|A| \le |B|\).
+}
+\pf{Proof}{
+    \(\mrm{Id}_A\) is an injective function on \(A\) into \(B\).
+}
+
+\setexernumber{6}
+
+\exer[4.1.7]{}{
+    If \(S \subseteq T\), then \(|A^S| \le |A^T|\). In particular, \(|A^m| \le |A^n|\) if \(m \le n\).
+}
+\pf{Proof}{
+    If \(T = \OO\), then \(A^S = A^T = \{\OO\}\) and it is done.
+
+    Assume \(T \neq \OO\).
+    Fix some \(t \in T\).
+    Now, define \(f \colon A^S \hookrightarrow A^T\) by
+    \(g \mapsto g \cup \{\,(x, t) \mid x \in T \setminus S\,\}\).
+}
+
+\setexernumber{9}
+
+\exer[4.1.10]{}{
+    Let \(F \colon \mcal{P}(A) \to \mcal{P}(A)\) be \textit{monotone},
+    i.e., if \(X \subseteq Y \subseteq A\), then \(F(X) \subseteq F(Y)\).
+    Then, \(F\) has a least \textit{fixed point} \(\ol{X}\),
+    that is to say \(F(\ol{X}) = \ol{X}\) and \(\fall X \subseteq A,\: (F(X) = X \implies \ol{X} \subseteq X)\).
+}
+\pf{Proof}{
+    Let \(T \triangleq \{\,X \subseteq A \mid F(X) \subseteq X\,\}\).
+    Then, as \(A \in T\), \(T \neq \OO\); we may let \(\ol{X} \triangleq \bigcap T\).
+
+    Then, for all \(X \in T\), \(\ol{X} \subseteq X\); and thus \(F(\ol{X}) \subseteq F(X) \subseteq X\).
+    We have \(F(\ol{X}) \subseteq \bigcap T = \ol{X}\), i.e., \(\ol{X} \in T\).
+
+    On the other hand, we have \(F(F(\ol{X})) \subseteq F(\ol{X})\), or \(F(\ol{X}) \in T\),
+    and thus \(\ol{X} = \bigcap T \subseteq F(\ol{X})\). Therefore, \(F(\ol{X}) = \ol{X}\).
+    Moreover, if \(X\) is a fixed point, then \(X \in T\), and thus \(\ol{X} = \bigcap T \subseteq X\).
+}
+
+\setexernumber{13}
+
+\exer[4.1.14]{}{
+    A function \(F \colon \mcal P(A) \to \mcal P(A)\) is \textit{continuous}
+    if, for each sequence \(\lang\,X_i \mid i \in \NN\,\rang\) of subsets of \(A\)
+    such that \(\fall i, j \in \NN,\: (i \le j \implies X_i \subseteq X_j)\),
+    \(F \big(\bigcup_{i \in \NN} X_i\big) = \bigcup_{i \in \NN} F(X_i)\) holds.
+
+    If \(\ol{X}\) is the least fixed point of a monotone continuous function,
+    \(F \colon \mcal P(A) \to \mcal P(A)\),
+    then \(\ol{X} = \bigcup_{i \in \NN} X_i\)
+    where we define recursively \(X_0 = \OO\), \(\fall i \in \NN,\: X_{i+1} = F(X_i)\).
+}
+\pf{Proof}{
+    Let \(\tilde X \triangleq \bigcup_{i \in \NN} X_i\).
+    We have \(X_0 = \OO \subseteq X_1\).
+
+    If \(X_n \subseteq X_{n+1}\), then \(X_{n+1} \subseteq X_{n+2}\) since \(F\) is monotone.
+    Hence, \(\fall n \in \NN,\: X_n \subseteq X_{n+1}\).
+    Therefore, similarly to \Cref{exer:3.3.1},
+    we have \(X_m \subseteq X_n\) whenever \(m \le n\).
+    Hence, \(F(\tilde X) = \bigcup_{i \in \NN} F(X_i) = \bigcup_{i=1}^\infty X_{i} = \tilde X\);
+    \(\tilde X\) is a fixed point of \(F\); hence \(\ol X \subseteq \tilde X\). 
+
+    We have \(X_0 \subseteq \ol X\).
+    If \(X_n \subseteq \ol{X}\) for \(n \in \NN\), then
+    \(X_{n+1} \subseteq F(\ol X)) = \ol X\).
+    Hence, by \nameref{th:induction}, \(\tilde X \subseteq \ol X\).
+}
+
+\end{document}

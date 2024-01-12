@@ -1,0 +1,375 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\section{Finite Sets}
+
+\dfn[finite]{Finite Set and Infinite Set}{
+    A set \(S\) is \textit{finite} if it is equipotent to some natural number \(n \in \NN\).
+    We then define \(|S| = n\) and say \textit{\(S\) has \(n\) elements.}
+    A set is \textit{infinite} if it is not finite.
+}
+
+\nt{
+    According to \Cref{dfn:finite}, cardinal numbers of finite sets
+    are the natural numbers.
+    We evidently have \(\fall n \in \NN,\: |n| = n\).
+}
+
+\mlemma[finiteProperSubset]{}{
+    If \(n \in \NN\) and \(X \subsetneq n\),
+    then there is no \(f \colon n \hooktwoheadrightarrow X\).
+}
+\pf{Proof}{
+    If \(n = 0\), there is no \(X \subsetneq n\); the assertion is true.
+
+    Assume the assertion holds for \(n\).
+    Suppose there is some \(f \colon (n + 1) \hooktwoheadrightarrow X\)
+    where \(X \subsetneq n + 1\).
+    There are two cases: \(n \in X\) and \(n \notin X\).
+
+    If \(n \notin X\), then \(X \subseteq n\), and thus
+    \(\restr{f}{n} \colon n \hooktwoheadrightarrow X \setminus \{f(n)\}\);
+    however \(X \setminus \{f(n)\} \subsetneq X \subseteq n\),
+    which is a contradiction.
+
+    If \(n \in X\), then \(n = f(k)\) for some \(k \le n\).
+    Define a function \(g\) on \(n\) by following:
+    \[
+        g(i) = \begin{cases}
+            f(n) & \text{if } i = k < n \\
+            f(i) & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, \(g \colon n \hooktwoheadrightarrow X \setminus \{n\}\)
+    and \(X \setminus \{n\} \subsetneq n\), which is also a contradiction.
+}
+
+\cor[basicFinite]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{cor:basicFinite} (\roman*)}, listparindent=\parindent]
+    \ii
+    If \(m \neq n\) where \(m, n \in \NN\), then there is no \(f \colon m \hooktwoheadrightarrow n\).
+    \ii
+    If \(|S| = m\) and \(|S| = n\), then \(m = n\).
+    \ii\label{itm:basicFinite.iii}
+    \(\NN\) is infinite.
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    If \(n \neq m\), by \nameref{th:NisLinearlyOrdered},
+    we have \(n \subsetneq m\) or \(m \subsetneq n\).
+    In either case, we do not have such function by \Cref{lem:finiteProperSubset}.
+
+    \ii
+    By \Cref{lem:basicEquipotent},
+    we have \(|m| = |n|\). (i) asserts that \(m = n\);
+    otherwise we cannot have \(|m| = |n|\).
+
+    \ii
+    By \Cref{exer:3.2.3}, there exists \(f \colon \NN \hooktwoheadrightarrow X\)
+    where \(X \subsetneq \NN\).
+    If there exists \(n \in \NN\) and \(g \colon n \hooktwoheadrightarrow \NN\),
+    \(g\inv \circ f\inv \circ f \circ g\) is a function on \(n\) onto a proper subset of \(n\).
+    This contradicts \Cref{lem:finiteProperSubset}.
+    \qed
+\end{enumerate}
+}
+
+\thm[subsetOfFiniteIsFinite]{}{
+    If \(X\) is a finite set and \(Y \subseteq X\), then \(Y\) is finite.
+}
+\pf{Proof}{
+    We may assume \(X = \{\,x_0, \cdots, x_{n-1}\,\}\), where \(\lang\,x_0, \cdots, x_{n-1}\,\rang\)
+    is an injective sequence, and \(Y \neq \OO\).
+
+    Let \(g\) be a function on a subset of \(n \times \NN\) into \(n\)
+    defined by
+    \begin{equation}
+        g(a, \texttt{-}) = \begin{cases}
+            \min \{\,j \in n \mid a < j \land x_j \in Y\,\} & \text{if it exists} \\
+            \text{undefined} & \text{otherwise}.
+        \end{cases}
+        \label{eq:YjMjSKBE} \tag{\(\ast\)}
+    \end{equation}
+    By \nameref{exer:3.3.5},
+    there exists a sequence \(k\) of elements in \(n\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+        \ii \(k_0 = \min \{\,j \in n \mid x_j \in Y\,\}\). \comment{\(Y \neq \OO\)}
+        \ii \(\fall i \in \NN,\: [i + 1 \in \dom k \implies k_{i+1} = g(k_i, i)
+            = \min \{\,j \in n \mid k_i < j \land x_j \in Y\,\}]\).
+        \ii \(k\) is either an infinite sequence or a finite sequence of length \(\ell + 1\)
+            and \((k_\ell, \ell) \notin \dom g\).
+    \end{enumerate}
+
+    By (ii) and \eqref{eq:YjMjSKBE}, \(\fall i \in \NN,\: (i + 1 \in \dom k \implies k_i < k_{i+1})\).
+    Hence, \(k\) is injective.
+    If \(k\) were an infinite sequence, i.e., \(k \colon \NN \hookrightarrow n\),
+    then \(|\NN| \le |n|\). Together with \Cref{exer:4.1.3} and \nameref{th:cantorBernstein},
+    we get \(|\NN| = |n|\), which contradicts \ref{itm:basicFinite.iii}.
+    Hence, \(k\) is a finite sequence of length \(\ell\).
+
+    Let \(y_i \triangleq x_{k_i}\) for each \(i < \ell\).
+    By (i) and (ii), the sequence \(y\) is injective and its range is a subset of \(Y\).
+    By the same argument of \Cref{clm:009f.fIsSurjective} of \Cref{th:thenIsoToN},
+    we have \(\ran y = Y\). Therefore, \(y \colon \ell \hooktwoheadrightarrow Y\); \(Y\) is finite.
+}
+
+\thm[imageOfFiniteIsFinite]{}{
+    If \(X\) is finite and \(f\) is a function, then \(f[X]\) is finite.
+    Moreover, \(|f[X]| \le |X|\).
+}
+\pf{Proof}{
+    We may assume \(X = \{\,x_0, \cdots, x_{n-1}\,\}\), where \(\lang\,x_0, \cdots, x_{n-1}\,\rang\)
+    is an injective sequence.
+    Let \(g\) be a function on a subset of \(\Seq(n)\) into \(n\)
+    defined by
+    \begin{equation}
+        g(\lang\,k_0, \cdots, k_{\ell'-1}\,\rang) = \begin{cases}
+            0 & \text{if } \ell' = 0 \\
+            \min \{\,k \in n \mid k_{\ell'-1} < k \land \fall i < \ell',\: f(x_k) \neq f(x_{k_i})\,\} & \text{if it exists and }\ell' > 0 \\
+            \text{undefined} & \text{otherwise}.
+        \end{cases}
+        \label{eq:badUlVto} \tag{\(\ast\)}
+    \end{equation}
+
+    Then, one may modify \nameref{th:generalRecursion} to its partial version
+    like \nameref{exer:3.3.5} to get a sequence \(k\) of elements of \(n\) such that:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\fall i \in \dom k,\: k_i = g\left(\restr{k}{i}\right)\).
+            In particular, \(k_0 = 0\).
+        \ii \(k\) is either an infinite sequence or a finite sequence of length \(\ell + 1\)
+            and \(k \notin \dom g\).
+    \end{enumerate}
+
+    By (i) and \eqref{eq:badUlVto}, \(\fall i, j \in \dom k,\: (i \neq j \implies f(x_{k_i}) \neq f(x_{k_j}))\),
+    i.e., the sequence \(y = \lang\,f(x_{k_i}) \mid i \in \dom k\,\rang\)
+    is injective and its range is a subset of \(f[X]\).
+
+    By the similar reason as in the proof of \Cref{th:subsetOfFiniteIsFinite},
+    \(k\) is finite and \(\ran y = f[X]\).
+    Finally, we get \(|f[X]| \le |X|\) from \(x \circ y\inv \colon f[X] \hookrightarrow X\).
+}
+
+\mlemma[finiteTwoUnion]{}{
+    Let \(X\) and \(Y\) be finite sets.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(X \cup Y\) is finite; moreover, \(|X \cup Y| \le |X| + |Y|\).
+        \ii If \(X\) and \(Y\) are disjoint, then \(|X \cup Y| = |X| + |Y|\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Write \(X = \{\,x_0, \cdots, x_{m-1}\,\}\) and \(Y = \{\,y_0, \cdots, y_{n-1}\,\}\)
+    where \(\lang\,x_0, \cdots, x_{m-1}\,\rang\) and \(\lang\,y_0, \cdots, y_{n-1}\,\rang\)
+    are injective sequences.
+
+    Now, define \(z \colon (n + m) \twoheadrightarrow X \cup Y\) by
+    \[
+        z_i = x_i \quad\text{for } 0 \le i < n \quad\text{and}\quad
+        z_i = y_{i-n}\quad\text{for } n \le i < n + m.
+    \]
+    (Here, \(i - n\) is the unique \(k \in \NN\) such that \(i = n + k\). See \Cref{exer:3.4.3}.)
+    Hence, by \Cref{th:imageOfFiniteIsFinite}, \(X \cup Y\) is finite and
+    \(|X \cup Y| \le n + m\).
+
+    \ii
+    If \(X\) and \(Y\) are disjoint, then \(z \colon (n + m) \hooktwoheadrightarrow X \cup Y\).
+    Hence, \(|X \cup Y| = n + m\).
+    \qed
+\end{enumerate}
+}
+
+\thm[finiteUnion]{}{
+    If \(S\) is finite and if every \(X \in S\) is finite,
+    then \(\bigcup S\) is finite.
+}
+\pf{Proof}{
+    If \(|S| = 0\), then it is done.
+
+    Assume that the statement is true for all \(S\) with \(|S| = n\).
+    Let \(S = \{\,X_0, \cdots, X_n\,\}\) be a set with \(n+1\) elements
+    such that each \(X_i \in S\) is finite.
+    Then, we have
+    \[
+        \bigcup S = \left(\bigcup_{i=0}^{n-1} X_i\right) \cup X_n
+    \]
+    but \(\bigcup_{i=0}^{n-1} X_i\) is finite by induction hypothesis
+    and thus \(\bigcup S\) is finite by \Cref{lem:finiteTwoUnion}.
+    Hence, by \nameref{th:induction}, the result follows.
+}
+
+\thm[powerSetOfFiniteIsFinite]{}{
+    If \(X\) is finite, then \(\mcal P(X)\) is finite.
+}
+\pf{Proof}{
+    If \(|X| = 0\), then \(\mcal P(X) = \{\OO\}\), which is indeed finite.
+
+    Fix any \(n \in \NN\) and assume that \(\mcal{P}(X)\) is finite for all \(X\) with \(|X| = n\).
+    Take any \(Y\) with \(|Y| = n + 1\).
+    Let \(Y = \{\,y_0, \cdots, y_n\,\}\) and \(X \triangleq \{\,y_0, \cdots, y_{n-1}\,\}\).
+    Note that \(\mcal P(Y) = \mcal P(X) \cup U\)
+    where \(U = \{\,u \subseteq Y \mid y_n \in u\,\}\).
+    Moreover, \(f \colon \mcal P(X) \to U\) defined by
+    \(f(x) = x \cup \{y_n\}\) is injective and onto \(U\).
+    Hence, \(U\) is finite.
+    By \Cref{lem:finiteTwoUnion}, \(\mcal P(Y)\) is finite.
+    The result follows by \nameref{th:induction}.
+}
+
+\thm[infiniteThenBigCard]{}{
+    If \(X\) is infinite, then \(|X| > n\) for all \(n \in \NN\).
+}
+\pf{Proof}{
+    We clearly have \(0 \le |X|\).
+    
+    For induction, fix any \(n \in \NN\) and assume \(n \le |X|\),
+    i.e., there exists \(f \colon n \hookrightarrow X\).
+    By \Cref{th:imageOfFiniteIsFinite}, \(\ran f \subsetneq X\);
+    we may take \(x \in X \setminus \ran f\).
+    Then, \(g \triangleq f \cup \{(n, x)\}\)
+    is an injective function on \(n+1\) into \(X\); hence \(n + 1 \le |X|\).
+    Therefore, by \nameref{th:induction}, we have \(n \ge |X|\) for all \(n \in \NN\),
+    which is suffices to induce the result.
+}
+
+\subsection*{Selected Problems}
+
+\exer[4.2.1]{}{
+    If \(S = \{\,X_0, \cdots, X_{n-1}\,\}\) is a finite set of mutually disjoint sets.
+    Then, \(\left|\bigcup S\right| = \sum_{i=0}^{n-1} |X_i|\).
+}
+\pf{Proof}{
+    If \(S = \OO\), then \(\left|\bigcup S\right| = 0 = \sum_{i=0}^{n-1} |X_i|\).
+
+    Fix \(n \in \NN\) and assume the assertion holds for all \(S\) with \(|S| = n\).
+    Then, take any set \(T\) of mutually disjoint sets with \(|T| = n+1\).
+    Write \(T = \{\,X_0, \cdots, X_n\,\}\) and let \(S \triangleq = \{\,X_0, \cdots, X_{n-1}\,\}\).
+    Then, since \(\bigcup T = \left(\bigcup S\right) \cup X_n\),
+    and since \(\bigcup S\) and \(X_n\) are disjoint,
+    \(\left|\bigcup T\right| = \left|\bigcup S\right| + |X_n|
+    = \sum_{i=0}^{n-1} |X_i| + |X_n| = \sum_{i=0}^{n} |X_i|\).
+    Hence, the result follows from \nameref{th:induction}.
+}
+
+\exer[4.2.1]{}{
+    If \(X\) and \(Y\) are finite, then \(|X \times Y| = |X| \cdot |Y|\).
+}
+\pf{Proof}{
+    We shall exploit the induction on \(|Y|\).
+    If \(|Y| = 0\), then
+    \begin{alignat*}{2}
+        |X \times Y| &= 0 &\qquad& \comment*{\Cref{exer:2.2.8}}\\
+                     &= |X| \cdot |Y|. && \comment*{\text{\eqref{eq:multiplication1}}}
+    \end{alignat*}
+
+    Assume the statement holds for all \(X\) and \(Y\) with \(|Y| = n\).
+    Let \(Z = \{\,z_0, \cdots, z_n\,\}\) be a set with \(|Z| = n + 1\).
+    Let \(Y \triangleq \{\,z_0, \cdots, z_{n-1}\,\}\).
+    Then, for all \(X\), \(X \times Z = (X \times Y) \cup (X \times \{z_n\})\).
+    Note that \(X \times \{z_n\}\) can be identified with \(X\) via
+    \(f \colon X \hooktwoheadrightarrow X \times \{z_n\}\) defined by
+    \(x \mapsto (x, z_n)\).
+    Hence, if \(X\) is finite,
+    \begin{alignat*}{2}
+        |X \times Z| &= |X \times Y| + |X \times \{z_n\}| &\qquad& \comment*{\Cref{lem:finiteTwoUnion}}\\
+                     &= |X \times Y| + |X| && \comment*{\(|X \times \{z_n\}| = |X|\)}\\
+                     &= |X| \cdot |Y| + |X| && \comment*{\(\mbf{P}(n)\)}\\
+                     &= |X| \cdot (|Y| + 1) && \comment*{\eqref{eq:multiplication2}}\\
+                     &= |X| \cdot |Z|.
+    \end{alignat*}
+    Therefore, by \nameref{th:induction}, the result follows.
+}
+
+\exer[4.2.3]{}{
+    If \(X\) is finite, \(|\mcal P(X)| = 2^{|X|}\).
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall X,\: (|X| = x \implies |\mcal P(X)| = 2^{|X|})\).''
+    \(\mbf{P}(0)\) holds since \(|\mcal P(\OO)| = |\{\OO\}| = 1 = 2^0\).
+
+    Fix \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Let \(Y = \{\,y_0, \cdots, y_n\,\}\) be a set with \(|Y| = n+1\).
+    Let \(X \triangleq \{\,y_0, \cdots, y_{n-1}\,\}\).
+    As in the proof of \Cref{th:powerSetOfFiniteIsFinite},
+    \(\mcal P(Y) = \mcal P(X) \cup U\)
+    where \(U = \{\,u \subseteq Y \mid y_n \in u\,\}\).
+    Note that \(\mcal P(X) \cap U = \OO\) and
+    \(f \colon \mcal P(X) \hooktwoheadrightarrow U\) defined by
+    \(x \mapsto x \cup \{y_n\}\) asserts \(|\mcal P(X)| = |U|\).
+    Therefore,
+    \begin{alignat*}{2}
+        |\mcal P(Y)| &= |\mcal P(X)| + |U| &\qquad& \comment*{\Cref{lem:finiteTwoUnion}}\\
+                     &= 2^n + 2^n && \comment*{\(|\mcal P(X)| = |U|\), \(\mbf{P}(n)\)}\\
+                     &= 2^n \cdot 1 + 2^n \cdot 1 && \comment*{\Cref{lem:timesOne}}\\
+                     &= 2^n \cdot 2 && \comment*{\nameref{th:multDistrOverAdd}}\\
+                     &= 2^{n+1}. && \comment*{\eqref{eq:exponentiation2}}
+    \end{alignat*}
+    Therefore, by \nameref{th:induction}, the result follows.
+}
+
+\exer[4.2.4]{}{
+    If \(X\) and \(Y\) are finite, then \(X^Y\) is finite and \(|X^Y| = |X|^{|Y|}\).
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property
+    ``if \(X\) is finite and \(|Y| = x\), then \(|X^Y| = |X|^x\).''
+    \(\mbf{P}(0)\) holds since \(|X^{\OO}| = |\{\OO\}| = 1 = |X|^0\) for all \(X\).
+
+    Fix \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Let \(Y = \{\,y_0, \cdots, y_n\,\}\) be a set with \(|Y| = n+1\).
+    Let \(Z \triangleq \{\,y_0, \cdots, y_{n-1}\,\}\).
+    Take any finite set \(X\).
+
+    We have \(|X^Y| = |X^Z \times X|\) since
+    we may define \(f \colon X^Y \hooktwoheadrightarrow X^Z \times X\)
+    by \(g \mapsto \left(\restr{g}{Z}, g(y_n)\right)\).
+    Hence,
+    \begin{alignat*}{2}
+        |X^Y| &= |X^Z \times X| &\qquad& \\
+              &= |X^Z| \cdot |X| && \comment*{\Cref{exer:4.2.1}}\\
+              &= |X|^{n} \cdot |X| && \comment*{\(\mbf{P}(n)\)}\\
+              &= |X|^{n+1}. && \comment*{\eqref{eq:exponentiation2}}
+    \end{alignat*}
+    The result follows by \nameref{th:induction}.
+}
+
+\setexernumber{5}
+
+\exer[4.2.6]{}{
+    \(X\) is finite if and only if every \(\OO \subsetneq U \subseteq \mcal P(X)\)
+    has a \(\subseteq\)-maximal element.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \(|X| = n\) and \(\OO \subsetneq U \subseteq \mcal P(X)\).
+    Since \(|Y| \le n\) for all \(Y \in U\),
+    by \Cref{th:hasUpperBoundThenMaxExists},
+    we may let \(m \triangleq \max\{\,|Y| \mid Y \in U\,\}\).
+    
+    There exists \(Y \in U\) with \(|Y| = m\).
+    Then, for each \(Y' \in U\) such that \(Y \subseteq Y'\),
+    we have \(m \le |Y'|\) by \Cref{exer:4.1.3}
+    and \(|Y'| \le m\) by definition of \(m\);
+    thus \(|Y'| = |Y| = m\) by \nameref{th:cantorBernstein},
+    which implies we may not have \(Y \subsetneq Y'\) by
+    \Cref{lem:finiteProperSubset}.
+    Hence, \(Y\) is a maximal element of \(U\).
+
+    \ii[(\(\Leftarrow\))]
+    Assume \(X\) is infinite.
+    Let \(U = \{\,Y \subseteq X \mid Y\text{ is finite}\,\}\).
+    (Note \(\OO \in U\), hence \(U \neq \OO\).)
+    Take any \(Y \in U\).
+    Since \(Y \subsetneq X\), we may take \(x \in X \setminus Y\).
+    Then, \(Y \subsetneq Y \cup \{x\}\) and \(Y \cup \{x\} \in U\)
+    by \Cref{lem:finiteTwoUnion}.
+    Hence, there is no maximal element of \(U\).
+    \qed
+\end{itemize}
+}
+
+\end{document}

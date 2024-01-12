@@ -273,6 +273,36 @@
     i.e., \(R\) is an \(n\)-ary relation in \(A = \bigcup \left[ \bigcup \left( \bigcup R\right)\right]\).
 }
 
+\setexernumber{9}
+
+\exer[3.5.10]{}{
+    Let \(A\) be a sequence of length \(n\). Then,
+    \(\prod_{0 \le i < n} A_i \neq \OO \iff \fall i < n,\: A_i \neq \OO\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property
+    ``if \(A\) is a sequence of length \(x\),
+    then \(\prod_{0 \le i < n} A_i \neq \OO \iff \fall i < n,\: A_i \neq \OO\).''
+    \(\mbf{P}(0)\) holds since, if \(A\) is a function with \(\dom A = \OO\),
+    then \(\prod A = \{\OO\}\).
+
+    Fix \(n \in \NN\) and assume \(\mbf{P}(n)\) holds.
+    Take any sequence \(A\) of length \(n + 1\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii 
+        Assume \(\prod A \neq \OO\) and take \(a \in \prod A\).
+        Then, for each \(i < n + 1\), \(a_i \in A_i\); and thus \(A_i \neq \OO\).
+
+        \ii
+        Assume \(\fall i < n + 1,\: A_i \neq \OO\).
+        Then, by \(\mbf{P}(n)\), we may take \(a' \in \prod_{0 \le i < n} A_i\).
+        We also may take \(b \in A_n\).
+        Then, \(a' \cup \{(n, b)\} \in \prod A\).
+    \end{itemize}
+    Hence, \(\mbf{P}(n)\) holds.
+    Thus, the result follows by \nameref{th:induction}.
+}
+
 \setexernumber{12}
 
 \exer[3.5.13]{}{
