@@ -1,0 +1,389 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\section{Countably Infinite sets}
+
+\dfn[countably infinite]{Countably Infinite Set}{
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii A set \(S\) is \textit{countably infinite} if \(|S| = |\NN|\).
+        \ii A set \(S\) is \textit{countable} if \(|S| \le |\NN|\).
+        \ii \(|\NN| = \NN\), i.e., the cardinality of countably infinite sets is \(\NN\).
+    \end{itemize}
+}
+
+\nt{
+    In the book, the author uses the term `countable' and `at most countable'
+    for \(|S| = |\NN|\) and \(|S| \le |\NN|\), respectively.
+}
+
+\notat[]{Cardinality of Countably Infinite Sets}{
+    We use the symbol \(\aleph_0\) (read \textit{aleph-naught})
+    to denote the cardinality of countably infinite sets,
+    i.e., \(\aleph_0 = \NN\).
+}
+
+\thm[subsetOfCountable]{}{
+    A subset of a countably infinite set is countable.
+}
+\pf{Proof}{
+    Assume \(A\) is countably infinite and \(B \subseteq A\) is infinite.
+    Let \(\lang a_i \rang_{i \in \NN}\) be an injective sequence whose range is \(A\).
+
+    Let \(g \colon \Seq(\NN) \to \NN\) be defined by
+    \[
+        g(k) \triangleq \min \big\{\,i \in \NN \:\big|\: a_i \in B \setminus \{\,a_{k_j} \mid j \in \dom k\,\}\,\big\}.
+    \]
+    Note that \(g\) is well-defined since \(B\) is infinite.
+    Then, by \nameref{th:generalRecursion}, there exists a sequence \(\lang k_i \rang_{i \in \NN}\) of natural numbers
+    such that \(\fall n \in \NN,\: k_n = g\big(\restr{k}{n}\big)\).
+    By construction, \(\lang k_i \rang_{i \in \NN}\) is injective,
+    and thus \(\lang a_{k_i} \rang_{i \in \NN}\) is an injective sequence whose range is \(B\)
+    by the same argument of \Cref{clm:009f.fIsSurjective} of \Cref{th:thenIsoToN}.
+}
+
+\cor[]{}{
+    A set is countable if and only if it is either finite or countably infinite.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \(S\) be countable.
+    Let \(f \colon S \hookrightarrow \NN\).
+    Then, \(|S| = |\ran f|\) and \(\ran f\) is a subset of \(\NN\).
+    Hence, by \Cref{th:subsetOfCountable}, \(S\) is countably infinite if it is not finite.
+
+    \ii[(\(\Leftarrow\))]
+    \Cref{th:infiniteThenBigCard}
+    \qed
+\end{itemize}
+}
+
+\thm[imageOfCountable]{}{
+    If \(X\) is countably infinite and \(f\) is a function, then \(f[X]\) is countable.
+}
+\pf{Proof}{
+    If \(f[X] = \OO\), then it is done; assume \(f[X] \neq \OO\). \WLOG, \(X \subseteq \dom f\).
+    Let \(\lang x_i \rang_{i \in \NN}\) be an injective sequence whose range is \(X\).
+    Let \(g \colon f[X] \to \NN\) be defined by
+    \[g(y) \triangleq \min \{\,i \in \NN \mid y = f(x_i)\,\}.\]
+    \(g\) is injective, and thus \(|f[X]| \le \aleph_0\).
+}
+
+\thm[productOfCountable]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii
+    If \(A\) and \(B\) are countably infinite, then \(A \times B\) is countably infinite.
+
+    \ii
+    If \(A\) is countably infinite and \(B \neq \OO\) is finite,
+    then \(A \times B\) is countably infinite.
+
+    \ii
+    If \(A\) and \(B\) are countable, then \(A \times B\) is countable.
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    The function \(f \colon \NN \times \NN \to \NN\) defined by
+    \(f(x, y) = 2^x \cdot 3^y\) is injective by elementary number theory.
+    Also, we have an injection \(g \colon \NN \to \NN \times \NN\)
+    defined by \(g(x) = (x, 0)\).
+    Hence, by \nameref{th:cantorBernstein}, we have \(|\NN \times \NN| = \aleph_0\).
+
+    \ii
+    Let \(|B| = n\).
+    Then, we have
+    \begin{alignat*}{2}
+        |A \times B| &= |\NN \times n| &\qquad& \\
+                     &\le |\NN \times \NN| && \comment*{\Cref{exer:4.1.3}} \\
+                     &= \aleph_0. && \comment*{\Cref{th:productOfCountable}}
+    \end{alignat*}
+    Let \(b \in B\). Then, we have
+    \begin{alignat*}{2}
+        \aleph_0 &= |A| &\qquad& \\
+              &= |A \times \{b\}| && \comment*{\(a \mapsto (a, b)\)} \\
+              &\le |A \times B|. && \comment*{\Cref{exer:4.1.3}}
+    \end{alignat*}
+    Hence, by \nameref{th:cantorBernstein}, \(|A \times B| = \aleph_0\).
+
+    \ii
+    If one of them is empty, then \(A \times B = \OO\).
+    If \(A\) and \(B\) are finite, then \(A \times B\) is finite by \Cref{exer:4.2.2}.
+    If any of them is countably infinite, and if both are nonempty, then \(A \times B\)
+    is countably infinite by (i) and (ii).
+    \qed
+\end{enumerate}
+}
+
+\cor[productOfFiniteCountable]{}{
+    Let \(\lang\,A_i \mid i \in n\,\rang\) be a system of countably infinite sets where \(n > 0\).
+    Then, \(\prod_{i=0}^{n-1} A_i\) is countably infinite.
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\prod_{i=0}^{x-1} A_i\) is countably infinite
+    for each system \(\lang\,A_i \mid i \in x\,\rang\) of countably infinite sets.
+    \(\mbf{P}(1)\) evidently holds.
+
+    Fix \(n > 0\) and assume \(\mbf{P}(n)\).
+    Now, take any system \(\lang\,A_i \mid i \in n + 1\,\rang\) of countably infinite sets.
+    Then, since we have a natural mapping \(f \colon \prod_{i = 0}^{n} A_i \hooktwoheadrightarrow
+    \left(\prod_{i=0}^{n-1} A_i\right) \times A_n\) defined by
+    \(\lang\,a_0, \cdots, a_{n}\,\rang \mapsto (\lang\,a_0, \cdots, a_{n-1}\,\rang, a_n)\),
+    we get
+    \begin{alignat*}{2}
+        \textstyle \left|\prod_{i = 0}^{n} A_i\right|
+        &= \textstyle \left|\left(\prod_{i=0}^{n-1} A_i\right) \times A_n\right| &\qquad& \\
+        &= |\NN \times \NN| && \comment*{\(\mbf{P}(n)\)} \\
+        &= \aleph_0. && \comment*{\Cref{th:productOfCountable}}
+    \end{alignat*}
+    Hence, we have \(\mbf{P}(n + 1)\).
+
+    Therefore, by \Cref{exer:3.2.11}, the result follows.
+}
+
+\thm[unionOfCountable]{}{
+    Let \(\lang\,a_n \mid n \in \NN\,\rang\) countably infinite system of infinite sequences.
+    Then, \(\bigcup_{n \in \NN} \ran a_n\) is countable.
+}
+\pf{Proof}{
+    Define \(f \colon \NN \times \NN \twoheadrightarrow \bigcup_{n \in \NN} \ran a_n\)
+    by \(f(n, k) = a_n(k)\). The result follows
+    by \Cref{th:imageOfCountable} and \Cref{th:productOfCountable}.
+}
+
+\nt{
+    Note that we cannot yet prove the proposition ``the union of
+    countably infinite system of countable sets is countable''
+    since, if \(\lang\,A_n \mid n \in \NN\,\rang\) is the system,
+    we do not have enough tools to show the existence of
+    \(\lang\,a_n \mid n \in \NN\,\rang\) such that \(\ran a_n = A_n\) for each \(n \in \NN\).
+}
+
+\thm[seqCountable]{}{
+    If \(A\) is countably infinite, then \(\Seq(A)\) is countably infinite.
+}
+\pf{Proof}{
+    It is enough to show \(\Seq(\NN) = \bigcup_{n \in \NN} \NN^n\) is countably infinite.
+    Fix any \(f \colon \NN \twoheadrightarrow \NN \times \NN\).
+    Define \(\lang\,a_n \mid n \in \NN\,\rang\) recursively by
+    \begin{alignat*}{2}
+        \fall i \in \NN, && a_0(i) &= \lang\rang \\
+        \fall n, i \in \NN, &\:& a_{n+1}(i) &= \lang\,b_0, \cdots, b_{n-1}, i_2\,\rang \\
+               &&& \hphantom{=1}\text{where \(g(i) = (i_1, i_2)\) and
+                   \(a_n(i_1) = \lang\,b_0, \cdots, b_{n-1}\,\rang\).}
+    \end{alignat*}
+    The existence is justified by \nameref{th:recursion}.
+    Then, with \nameref{th:induction}, it is easy to prove that
+    \(\ran a_n = \NN^n\) for each \(n \in \NN\).
+    Hence, by \Cref{th:unionOfCountable}, \(\bigcup_{n \in \NN} \NN^n\) is countably infinite.
+}
+
+\cor[]{}{
+    The set of all finite subsets of a countably infinite set is countably infinite.
+}
+\pf{Proof}{
+    Let \(A\) be countably infinite.
+    Let \(f \colon \Seq(A) \to \mcal P(A)\)
+    by \(f(\lang\,a_0, \cdots, a_{n-1}\,\rang) = \{\,a_0, \cdots, a_{n-1}\,\}\).
+    Then, \(\ran f\) is countable by \Cref{th:imageOfCountable} and \Cref{th:seqCountable}.
+    \(\ran f\) is countably infinite since we have an injection \(a \mapsto \{a\}\).
+}
+
+\thm[equivClassOfContable]{}{
+    An equivalence on a countably infinite set has at most countably many equivalence classes.
+}
+\pf{Proof}{
+    Let \(E\) be an equivalence on a countably infinite set \(A\).
+    Let \(f \colon A \twoheadrightarrow A/E\) be defined by \(a \mapsto [a]_E\).
+    Hence, by \Cref{th:imageOfCountable}, \(A/E\) is countable.
+}
+
+\thm[countableClosure]{}{
+    Let \(\mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)\)
+    be a structure.
+    If \(C \subseteq A\) is countable, then \(\cl{C}\) is also countable.
+}
+\pf{Proof}{
+    \Cref{th:closureAsUnion} says that \(\cl C = \bigcup_{i \in \NN} C_i\)
+    where \(C_0 = C\) and \(C_{i+1} = C_i \cup \bigcup_{j=0}^{n-1} F_j[C_i^{f_j}]\).
+
+    Let \(c \colon \NN \twoheadrightarrow C\).
+    Let \(g \colon \NN \twoheadrightarrow
+    (n + 1) \times \NN \times \NN^{f_0} \times \cdots \times \NN^{f_{n-1}}\).
+    Now, define \(\lang\,a_i \mid i \in \NN\,\rang\) recursively by
+    \begin{alignat*}{2}
+        \fall k \in \NN &\quad& a_0(k) &\triangleq c(k) \\
+        \fall i, k \in \NN, &\:& a_{i+1}(k) &\triangleq \begin{cases}
+            F_p(a_i(r_p^0), \cdots, a_i(r_p^{f_{p-1}})) & \text{if } 0 \le p < n \\
+            a_i(q) & \text{if } p = n
+        \end{cases} \\ &&&
+        \hphantom{=.}\text{where } g(k) = \lang\,p, q, \lang\,r_0^0, \cdots, r_0^{f_0-1}\,\rang,
+        \cdots, \lang\,r_{n-1}^{0}, \cdots, r_{n-1}^{f^{n-1}-1}\,\rang\,\rang.
+    \end{alignat*}
+    It is apparent by \nameref{th:induction} that \(\ran a_i = C_i\) for each \(i \in \NN\).
+    Hence, by \Cref{th:unionOfCountable}, \(\cl{C}\) is countable.
+}
+
+\subsection*{Selected Problems}
+
+\exer[4.3.1]{}{
+Let \(|A_1| = |A_2|\) and \(|B_1| = |B_2|\).
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:4.3.1} (\roman*)}, listparindent=\parindent]
+    \ii
+    If \(A_1 \cap B_1 = \OO\) and \(A_2 \cap B_2 = \OO\),
+    then \(|A_1 \cup B_1| = |A_2 \cup B_2|\).
+    \ii
+    \(|A_1 \times B_1| = |A_2 \times B_2|\)
+    \ii
+    \(|\Seq(A_1)| = |\Seq(A_2)|\)
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Let \(f_A \colon A_1 \hooktwoheadrightarrow A_2\) and
+    \(f_B \colon B_1 \hooktwoheadrightarrow B_2\).
+    Then, \(f_A \cup f_B \colon A_1 \cup B_1 \hooktwoheadrightarrow A_2 \cup B_2\).
+
+    \ii
+    Let \(f_A \colon A_1 \hooktwoheadrightarrow A_2\) and
+    \(f_B \colon B_1 \hooktwoheadrightarrow B_2\).
+    We may define \(g \colon A_1 \times B_1 \hooktwoheadrightarrow A_2 \times B_2\) by
+    \((a, b) \mapsto (f_A(a), f_B(b))\).
+
+    \ii
+    Let \(f \colon A_1 \hooktwoheadrightarrow A_2\).
+    We may define \(g \colon \Seq(A_1) \hooktwoheadrightarrow \Seq(A_2)\) by
+    \[\lang\,a_0, \cdots, a_{n-1}\,\rang \mapsto \lang\,f(a_0), \cdots, f(a_{n-1})\,\rang.\]
+
+    \qed
+\end{enumerate}
+}
+
+\exer[4.3.2]{}{
+    If \(A\) is finite and \(B\) is countably infinite, then \(A \cup B\) is countably infinite.
+}
+\pf{Proof}{
+    Let \(f_A \colon A \hookrightarrow \NN\) and \(f_B \colon B \hookrightarrow \NN\).
+    Then, we may define \(g \colon A \cup B \hookrightarrow \NN \times \NN\) by
+    \[
+        g(x) = \begin{cases}
+            (f_A(x), 0) & \text{if } x \in A \\
+            (f_B(x), 1) & \text{if } x \in B \setminus A
+        \end{cases}
+    \]
+    Hence, \(|A \cup B| \le \aleph_0\) by \Cref{th:productOfCountable}.
+    Moreover, \(\aleph_0 = |B| \le |A \cup B|\) by \Cref{exer:4.1.3}.
+    The result follows from \nameref{th:cantorBernstein}.
+}
+
+\setexernumber{3}
+
+\exer[4.3.4]{}{
+    If \(A\) is finite and nonempty, then \(\Seq(A)\) is countably infinite.
+}
+\pf{Proof}{
+    Let \(B \triangleq A \cup \NN\).
+    Then, by \Cref{exer:4.3.2}, \(B\) is countably infinite and \(\Seq(B)\) is countably infinite by
+    \Cref{th:seqCountable}.
+    Hence, as \(\Seq(A) \subseteq \Seq(B)\), \(|\Seq(A)| \le \aleph_0\).
+
+    Fix any \(a \in A\).
+    Let \(s\) be the infinite sequence with \(\fall i \in \NN,\: s_i = a\).
+    Then, we have \(f \colon \NN \hookrightarrow \Seq(A)\)
+    defined by \(f(n) = \restr{s}{n}\); thus \(\aleph_0 \le |\Seq(A)|\).
+    The result follows from \nameref{th:cantorBernstein}.
+}
+
+\exer[4.3.5]{}{
+    Let \(A\) be countably infinite.
+    The set \([A]^n = \{\,S \subseteq A \mid |S| = n\,\}\) is countably infinite
+    for all \(n > 0\).
+}
+\pf{Proof}{
+    It is enough to show that \([\NN]^n\) is countably infinite for all \(n > 0\).
+    Evidently, \(i \mapsto \{i\}\) is an injective mapping on \(\NN\) onto \([\NN]^{1}\).
+    Hence, \(|[\NN]^1| = \aleph_0\).
+
+    For the sake of induction, fix \(n > 0\) and assume \(|[\NN]^{n}| = \aleph_0\).
+    We may define \(f \colon [\NN]^n \hookrightarrow [\NN]^{n+1}\) by
+    \[
+        f(x) \triangleq x \cup
+        \big\{\,\max \{\,i \in \NN \mid i \in x \} + 1 \,\big\}.
+    \]
+    Hence, \(\aleph_0 \le |[\NN]^{n+1}|\).
+
+    Now, since \(|[\NN]^n| = |\NN^n| = \aleph_0\) by \Cref{cor:productOfFiniteCountable},
+    there exists an injection \(g \colon [\NN]^n \hookrightarrow \NN^n\).
+    We define \(h \colon [\NN]^{n+1} \hookrightarrow \NN^{n+1}\) by
+    \begin{align*}
+        h(x) &\triangleq g(x \setminus \{i\}) \cup \{(n, i)\} \\
+             &\quad\text{where } i = \max x.
+    \end{align*}
+    Hence, \(|[\NN]^{n+1}| \le |\NN^{n+1}| \le \aleph_0\).
+    \Cref{exer:3.2.11} assures that \(\fall n > 0,\: |[\NN]^n| = \aleph_0\).
+}
+
+\setexernumber{9}
+
+\exer[4.3.10]{}{
+    Let \((S, \preceq)\) be a linearly ordered set and let \(\lang\,A_n \mid n \in \NN\,\rang\)
+    be an infinite sequence of finite subsets of \(S\).
+    Then, \(\bigcup_{n = 0}^{\infty} A_n\) is countable.
+}
+\pf{Proof}{
+    \WLOG, \(A_n \neq \OO\) for each \(n \in \NN\).
+    \clm[FMsBqJPY]{
+        For each finite \(A \subseteq S\),
+        there uniquely exists a unique isomorphism between
+        \(\left(|A|, \restr{\mathord{\le}}{|A|^2}\right)\)
+        and \(\big(A, \restr{\mathord{\preceq}}{A^2}\big)\).
+    }{
+        We have existence for each \(A\) by \Cref{th:??}. % TODO: fill this
+        Hence, we only prove the uniqueness by induction.
+        If \(|A| = 0\), we have only one isomorphism \(\OO\).
+
+        Fix some \(n \in \NN\) and assume the proposition holds for all \(A\) with cardinality \(n\).
+        Take any \(A \subseteq S\) with \(|A| = n + 1\).
+        Let \(f\) and \(g\) be two isomorphisms between
+        \(\left(n+1, \restr{\mathord{\le}}{(n + 1)^2}\right)\)
+        and \(\big(A, \restr{\mathord{\preceq}}{A^2}\big)\).
+        Then, \(f(n) = g(n)\) since the greatest element is unique.
+        Let \(B = A \setminus \{f(n)\}\).
+        Then, \(\restr{f}{n}\) and \(\restr{g}{n}\) are isomorphisms between
+        \(\left(n, \restr{\mathord{\le}}{n^2}\right)\)
+        and \(\big(B, \restr{\mathord{\preceq}}{B^2}\big)\).
+        Hence, \(\restr{f}{n} = \restr{g}{n}\), and thus \(f = g\).
+        The result follows from \nameref{th:induction}.
+    }
+
+    \Cref{clm:FMsBqJPY} enables us to guarantee the existence of infinite sequence
+    \(\lang\,a_n \mid n \in \NN\,\rang\) such that, for each \(n \in \NN\):
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        \(\restr{a_n}{|A_n|}\) is the isomorphism between
+        \(\left(|A_n|, \restr{\mathord{\le}}{|A_n|^2}\right)\)
+        and \(\big(A_n, \restr{\mathord{\preceq}}{A_n^2}\big)\).
+        \ii
+        \(\fall k \ge |A_n|,\: a_n(k) = a_n(0)\).
+    \end{enumerate}
+    Hence, \(\ran a_n = A_n\) for each \(n \in \NN\), and thus
+    \(\bigcup_{n=0}^{\infty} A_n\) is countable by \Cref{th:unionOfCountable}.
+}
+
+\exer[4.3.11]{}{
+    Any partition of a countable set has a set of representatives.
+}
+\pf{Proof}{
+    Let \(A\) be countable and \(S\) be a partition of \(A\).
+    There exists \(f \colon A \hookrightarrow \NN\).
+    Then,
+    \[
+        X \triangleq \{\,f\inv(\min f[C]) \mid C \in S \,\}
+    \]
+    is a set of representatives.
+}
+
+\end{document}

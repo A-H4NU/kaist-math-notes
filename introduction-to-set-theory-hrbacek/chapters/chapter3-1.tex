@@ -131,15 +131,15 @@
     If \(n = 0\), then we have \(0 \in S(0) = n + 1\) by definition (\Cref{dfn:successor}).
     If \(0 < n\), then \(0 \in n\), and thus \(0 \in n \cup \{n\} = S(n)\).
     Therefore, by \nameref{th:induction}, the result follows.
-    
+
     \ii
     Note that \(k \in n \cup \{n\}\) if and only if \(k \in n\) or \(k = n\).
     \qed
 \end{enumerate}
 }
 
-\thm[NisLinearlyOrdered]{\((N, \le)\) is Linearly Ordered}{
-    \((N, \le)\) is a linearly ordered set.
+\thm[NisTotallyOrdered]{\((\NN, \le)\) is Totally Ordered}{
+    \((\NN, \le)\) is a totally ordered set.
 }
 \pf{Proof}{
     We first need to prove that \((\NN, \le)\) is an ordered set.
@@ -153,7 +153,7 @@
         Now, let \(k, m \in \NN\) and \(k < m\) and \(m < n + 1\).
         By \ref{itm:basicLess.ii}, \(m < n\) or \(m = n\).
         \begin{itemize}[nolistsep]
-            \ii 
+            \ii
             If \(m < n\), then we have \(k < n\) as \(\mbf{P}(n)\) holds,
             \ii
             If \(m = n\), then we immediately have \(k < n\).
@@ -178,7 +178,7 @@
         The result follows from \nameref{th:induction}. \qed
     }
     Hence, \((\NN, \le)\) is an ordered set by \Cref{clm:lessIsTransitive,clm:lessIsAsymmetric,th:partialAndStrictAreSame}.
-    We are left to prove that \(\le\) is a linear ordering of \(\NN\).
+    We are left to prove that \(\le\) is a total ordering of \(\NN\).
 
     \clm[nPlusOne]{
         \(\fall n, m \in \NN,\: n < m \implies (n + 1) \le m\)
@@ -195,7 +195,7 @@
     }
 
     \clm[lessIsLinear]{
-        \(<\) is a linear ordering of \(\NN\).
+        \(<\) is a total ordering of \(\NN\).
     }{
         Let \(\mbf{P}(x)\) be the property ``\(\fall m \in \NN,\: m = x \lor m < x \lor x < m\).''
         \(\mbf{P}(0)\) is essentially \ref{itm:basicLess.i}.
@@ -239,12 +239,12 @@
 }
 
 \dfn[wellOrdering]{Well-Ordering}{
-    A linear ordering \(\preceq\) of a set \(A\) is a \textit{well-ordering}
+    A total ordering \(\preceq\) of a set \(A\) is a \textit{well-ordering}
     if every nonempty subset of \(A\) has a least element.
     Then, the ordered set \((A, \preceq)\) is called a \textit{well-ordered set}.
 }
 
-\thm[NisWellOrdered]{\(\NN\) is Well-Ordered}{
+\thm[NisWellOrdered]{\((\NN, \le)\) is Well-Ordered}{
     \((\NN, \le)\) is a well-ordered set.
 }
 \pf{Proof}{
@@ -281,12 +281,12 @@
     Hence, \(S \colon \NN \to \NN\) where \(n \mapsto n+1\) defines a one-to-one function on \(\NN\).
 }
 \pf{Proof}{
-    By \Cref{clm:nPlusOne} in the proof of \nameref{th:NisLinearlyOrdered},
+    By \Cref{clm:nPlusOne} in the proof of \nameref{th:NisTotallyOrdered},
     we have \(m+1 \le n\). Together with \(n < n + 1\), we have
     \(m + 1 < n + 1\).
 
     Now, take any \(m, n \in \NN\) with \(m \neq n\).
-    Then, by \nameref{th:NisLinearlyOrdered}, we have \(m < n\) or \(n < m\),
+    Then, by \nameref{th:NisTotallyOrdered}, we have \(m < n\) or \(n < m\),
     i.e., \(S(m) < S(n)\) or \(S(n) < S(m)\).
     In both cases, \(S(m) \neq S(n)\).
     Therefore, \(S\) is one-to-one.
@@ -375,7 +375,7 @@
     Hence, in both cases, \(\mbf{Q}(0)\) holds.
 
     Now assume \(\mbf{Q}(n)\) holds where \(n \in \NN\).
-    Then, by \nameref{th:NisLinearlyOrdered}, we have \(n + 1 < k\), \(n + 1 = k\), or \(n + 1 > k\).
+    Then, by \nameref{th:NisTotallyOrdered}, we have \(n + 1 < k\), \(n + 1 = k\), or \(n + 1 > k\).
     If \(n + 1 < k\) or \(n + 1 = k\), we immediately have \(\mbf{Q}(n + 1)\).
     If \(n + 1 > k\), we have \(n \ge k\) by \ref{itm:basicLess.ii}.
     Therefore, \(\mbf{P}(n)\) holds, and thus \(\mbf{P}(n+1)\) holds by assumption.
@@ -396,10 +396,10 @@
     \(\mbf{Q}(0)\) holds as \(\mbf{P}(0)\).
 
     Now, assume \(\mbf{Q}(n)\) holds where \(n \in \NN\).
-    Then, by \nameref{th:NisLinearlyOrdered}, we have \(n + 1 \le k\) or \(n + 1 > k\).
+    Then, by \nameref{th:NisTotallyOrdered}, we have \(n + 1 \le k\) or \(n + 1 > k\).
     If \(n + 1 > k\), then we immediately have \(\mbf{Q}(n + 1)\).
     If \(n + 1 \le k\), by \Cref{lem:basicLess}, \(n + 1 < k + 1\).
-    By \Cref{exer:3.2.2} and \nameref{th:NisLinearlyOrdered}, we must have \(n < k\).
+    By \Cref{exer:3.2.2} and \nameref{th:NisTotallyOrdered}, we must have \(n < k\).
     Hence, \(\mbf{P}(n)\) holds, and therefore \(\mbf{P}(n+1)\) holds by the assumption.
     By \nameref{th:induction}, \(\fall n \in \NN,\: n > k \lor \mbf{P}(n)\).
     In other words, \(\fall n \le k,\: \mbf{P}(n)\).

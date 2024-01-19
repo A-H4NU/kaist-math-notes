@@ -1,12 +1,12 @@
 \documentclass[../introduction_to_set_theory.tex]{subfiles}
 
 \begin{document}
-    
+
 \section{The Recursion Theorem}
 
 \dfn[sequence]{Sequence}{
     \begin{itemize}[nolistsep, leftmargin=*]
-        \ii 
+        \ii
         A \textit{sequence} is a function whose domain is a natural number or \(\NN\).
 
         \ii
@@ -42,7 +42,7 @@
     \ii
     A natural number \(n \in \NN\) is the set of all natural numbers less than \(n\).
     See \Cref{exer:3.2.6}.
-    \ii 
+    \ii
     Since \(A^n \in \mcal P(\NN \times A)\) for each \(n \in \NN\),
     \(\mcal A = \{\,w \mid \exs n \in \NN,\:w = A^n\,\}\) exists,
     and thus \(\Seq(A) = \bigcup \mcal A\) exists.
@@ -70,7 +70,7 @@
         so we may conclude \(f\) is a function thanks to \Cref{th:compatibleThenUnionIsFunction}.
         Take any \(t, u \in F\).
         Let \(n = \dom t \in \NN\) and \(m = \dom u \in \NN\).
-        \WLOG, \(n \le m\) (thanks to \nameref{th:NisLinearlyOrdered}), i.e., \(n \subseteq m\).
+        \WLOG, \(n \le m\) (thanks to \nameref{th:NisTotallyOrdered}), i.e., \(n \subseteq m\).
         Hence, \((\dom t) \cap (\dom u) = n\).
         If \(n = 0\), then it is done; assume \(n > 0\).
         Then, there exists \(n' \in \NN\) such that \(n' + 1 = n\) by \Cref{exer:3.2.4}.
@@ -102,7 +102,7 @@
     \noindent
     We now check if \(f\) satisfies the conditions (i) and (ii).
     \begin{enumerate}[nolistsep, label=(\roman*)]
-        \ii 
+        \ii
         Clearly, \(f_0 = a\).
         \ii
         Take any \(n \in \NN\).
@@ -160,7 +160,7 @@
     }
 
     We have \(f \colon \NN \hooktwoheadrightarrow A\) by \Cref{clm:009f.fIsSurjective}.
-    Hence, by \nameref{th:NisLinearlyOrdered} and \Cref{lem:oneImplicationIsEnough}, \(f\) is an isomorphism 
+    Hence, by \nameref{th:NisTotallyOrdered} and \Cref{lem:oneImplicationIsEnough}, \(f\) is an isomorphism
     between \((\NN, \le)\) and (\(A, \preceq\)).
 }
 
@@ -221,7 +221,7 @@
     \[
         F_0 = a \quad\text{and}\quad \fall n \in \NN,\:F_{n+1} = G(F_n, n).
     \]
-    
+
     Now, let \(f \colon P \times \NN \to A\) be defined by
     \(f(p, n) = F_n(p)\).
     We now check if \(f\) satisfies the conditions:
@@ -232,9 +232,9 @@
         \ii
         For each \(n \in \NN\) and \(p \in P\),
         \(f(p, n+1) = F_{n+1}(p) = G(F_n, n)(p) = g(p, F_n(p), n) = g(p, f(p, n), n)\).
-        
+
     \end{enumerate}
-    
+
     Let \(h \colon P \times \NN \to A\) be another function that satisfies (i) and (ii).
     Clear, we have \(\fall p \in P,\: f(p, 0) = a(p) = h(p, 0)\).
     Assuming \(\fall p \in P,\: f(p, n) = h(p, n)\) gives,
@@ -352,7 +352,7 @@
         We check if \(f\) satisfies the conditions (i), (ii), and (iii):
         \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*]
             \ii \(f_0 = \ol{f}_0 = a\)
-            \ii 
+            \ii
             If \(n < k\), i.e., \(n + 1 \in \dom f = k + 1\),
             then \(f_{n+1} = \ol{f}_{n+1} = \ol g(\ol{f}_n, n) = g(f_n, n)\).
             \ii
@@ -365,7 +365,7 @@
     Now, we prove the uniqueness.
     Let \(f\) and \(h\) be two sequences of elements of \(A\)
     that satisfies the conditions (i), (ii), and (iii).
-    \textsf{WLOG}, \(\dom h \subseteq \dom f\).
+    \WLOG, \(\dom h \subseteq \dom f\).
 
     Let \(\mbf{P}(x)\) be the property ``\(x \in \dom h \land f_x = h_x\).''
     \(\mbf{P}(0)\) evidently holds.
@@ -401,7 +401,7 @@
         \ii \(\fall n \in \NN,\: (n + 1 \in \dom f \implies f_{n+1} = g(f_n, n))\)
         \ii \(f\) is either an infinite sequence or a finite sequence of length \(k+1\) and \((f_k, k) \notin \dom g\).
     \end{enumerate}
-    
+
     Note that \(\dom g = \{\,(x, n) \in X \times \NN \mid \exs y \in X,\: x < y\,\}\).
     Moreover, for each \(n \in \NN\) such that \(n + 1 \in \dom f\),
     we have \(f_n < f_{n+1}\); hence \(\forall m, n \in \dom f,\: (m < n \implies f_m < f_n)\)

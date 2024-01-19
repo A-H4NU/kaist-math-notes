@@ -58,7 +58,7 @@
 \mclm{Proof}{\hfill
 \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
     \ii
-    If \(n \neq m\), by \nameref{th:NisLinearlyOrdered},
+    If \(n \neq m\), by \nameref{th:NisTotallyOrdered},
     we have \(n \subsetneq m\) or \(m \subsetneq n\).
     In either case, we do not have such function by \Cref{lem:finiteProperSubset}.
 
@@ -121,6 +121,9 @@
     Moreover, \(|f[X]| \le |X|\).
 }
 \pf{Proof}{
+    If \(f[X] = \OO\), then it is done; assume \(f[X] \neq \OO\).
+    \WLOG, \(X \subseteq \dom f\).
+
     We may assume \(X = \{\,x_0, \cdots, x_{n-1}\,\}\), where \(\lang\,x_0, \cdots, x_{n-1}\,\rang\)
     is an injective sequence.
     Let \(g\) be a function on a subset of \(\Seq(n)\) into \(n\)
@@ -224,7 +227,7 @@
 }
 \pf{Proof}{
     We clearly have \(0 \le |X|\).
-    
+
     For induction, fix any \(n \in \NN\) and assume \(n \le |X|\),
     i.e., there exists \(f \colon n \hookrightarrow X\).
     By \Cref{th:imageOfFiniteIsFinite}, \(\ran f \subsetneq X\);
@@ -254,7 +257,7 @@
     Hence, the result follows from \nameref{th:induction}.
 }
 
-\exer[4.2.1]{}{
+\exer[4.2.2]{}{
     If \(X\) and \(Y\) are finite, then \(|X \times Y| = |X| \cdot |Y|\).
 }
 \pf{Proof}{
@@ -349,7 +352,7 @@
     Since \(|Y| \le n\) for all \(Y \in U\),
     by \Cref{th:hasUpperBoundThenMaxExists},
     we may let \(m \triangleq \max\{\,|Y| \mid Y \in U\,\}\).
-    
+
     There exists \(Y \in U\) with \(|Y| = m\).
     Then, for each \(Y' \in U\) such that \(Y \subseteq Y'\),
     we have \(m \le |Y'|\) by \Cref{exer:4.1.3}

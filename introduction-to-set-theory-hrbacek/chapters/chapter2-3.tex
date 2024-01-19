@@ -1,7 +1,7 @@
 \documentclass[../introduction_to_set_theory.tex]{subfiles}
 
 \begin{document}
-    
+
 \section{Equivalences and Partitions}
 
 \dfn[equivalence]{Equivalence}{
@@ -31,7 +31,7 @@
 }
 \mclm{Proof}{\hfill
 \begin{enumerate}[nolistsep, label=(\roman*)]
-    \ii 
+    \ii
     (\(\Rightarrow\))
     Suppose \(aEb\).
     Take any \(c \in [a]_E\). Then, \(cEa\) and \(aEb\), and thus \(cEb\)
@@ -103,7 +103,7 @@
 }
 \mclm{Proof}{\hfill
 \begin{itemize}[nolistsep]
-    \ii 
+    \ii
     Take any \(a \in A\). As \(A = \bigcup S\), there exists \(C \in S\) such that \(a \in C\).
     Therefore, \(aE_Sa\). \(E_S\) is reflexive.
 
@@ -129,7 +129,7 @@
 }
 \mclm{Proof}{\hfill
 \begin{enumerate}[nolistsep, label=(\roman*)]
-    \ii 
+    \ii
     \(aE_Sb \underbrace{\iff}_{\text{\Cref{dfn:equivalenceFromPartition}}} \exs C \in S,\: a \in C \land b \in C
     \iff \exs c \in A,\: a \in [c]_E \land b \in [c]_E \underbrace{\iff}_{\text{\Cref{lem:equivIffSameClass}}} aEb \).
 
@@ -215,7 +215,7 @@
 
 \exmp{}{
 \begin{itemize}[nolistsep, leftmargin=*]
-    \ii 
+    \ii
     Define the relation \(\subseteq_A\) in \(A\) as follows:
     \(x \subseteq_A y\) if and only if \(x, y \in A \land x \subseteq y\).
     Then, \((A, \subseteq_A)\) is an ordered set.
@@ -244,7 +244,7 @@
 \mclm{Proof}{\hfill
 \begin{enumerate}[nolistsep, label=(\roman*)]
     \ii
-    Suppose \(aSb\) and \(bSa\). 
+    Suppose \(aSb\) and \(bSa\).
     Since \(S \subseteq R\), we have \(aRb\) and \(bRa\).
     As \(R\) is antisymmetric, we have \(aRa\),
     which is impossible since \(S \cap \mrm{Id}_S = \OO\).
@@ -283,7 +283,7 @@
 \dfn[comparable]{Comparability}{
     Let \(a, b \in A\) and let \(\le\) be a partial ordering of \(A\).
     \begin{itemize}[nolistsep, leftmargin=*]
-        \ii 
+        \ii
         We say that \(a\) and \(b\) are \textit{comparable} in the ordering \(\le\)
         if \(a \le b\) or \(b \le a\).
 
@@ -293,7 +293,7 @@
     \end{itemize}
     They can be stated equivalently in terms of the corresponding strict ordering \(<\).
     \begin{itemize}[nolistsep, leftmargin=*]
-        \ii 
+        \ii
         We say that \(a\) and \(b\) are \textit{comparable} in the ordering \(<\)
         if \(a = b\) or \(a < b\) or \(b < a\).
 
@@ -306,7 +306,7 @@
 \dfn[totalOrdering]{Total Ordering}{
     An ordering \(\le\) (or \(<\)) is called \textit{linear} or \textit{total}
     if any two elements of \(A\) are comparable.
-    The pair \((A, \le)\) is then called a \textit{linearly ordered set}.
+    The pair \((A, \le)\) is then called a \textit{totally ordered set}.
 }
 
 \dfn[chain]{Chain}{
@@ -434,7 +434,7 @@
     \Cref{th:basicInfimum} still holds when `least' and `infimum' are replaced by `greatest' and `supremum', respectively.
 }
 
-\dfn[]{Isomorphism Between Ordered Sets}{
+\dfn[isomorphismOrderedSet]{Isomorphism Between Ordered Sets}{
     An \textit{isomorphism} between two ordered sets \((P, \le)\) and \((Q, \preceq)\)
     is a function \(f \colon P \hooktwoheadrightarrow Q\) such that
     \[
@@ -446,13 +446,13 @@
 }
 
 \mlemma[oneImplicationIsEnough]{}{
-    Let \((P, \le)\) be a linearly ordered set and let \((Q, \preceq)\) be an ordered set.
+    Let \((P, \le)\) be a totally ordered set and let \((Q, \preceq)\) be an ordered set.
     Let \(h \colon P \hooktwoheadrightarrow Q\) be a function such that
     \[
         \fall p_1, p_2 \in P,\: (p_1 \le p_2 \implies h(p_1) \preceq h(p_2)).
     \]
     Then, \(h\) is an isomorphism between \((P, \le)\) and \((Q, \preceq)\),
-    and \((Q, \le)\) is linearly ordered.
+    and \((Q, \le)\) is totally ordered.
 }
 \pf{Proof}{
     Take any \(p_1, p_2 \in P\) and assume \(h(p_1) \preceq h(p_2)\).
@@ -460,14 +460,14 @@
     Then, since \(h\) is injective, \(h(p_1) \neq h(p_2)\), and thus \(h(p_1) \prec h(p_2)\).
     Then, we have \(\lnot (p_2 \le p_1)\), which is a contradiction.
     Hence, \(\lnot(p_2 < p_1)\).
-    Therefore, \(p_1 \le p_2\) since \((P, \le)\) is linearly ordered.
+    Therefore, \(p_1 \le p_2\) since \((P, \le)\) is totally ordered.
 
     Take any \(q_1, q_2 \in Q\).
     Then, since \(h\) is onto \(Q\), there exist \(p_1, p_2 \in P\)
     such that \(q_1 = h(p_1)\) and \(p_2 = h(p_2)\).
-    Since \(P\) is linearly ordered, it is \(p_1 \le p_2\) or \(p_2 \le p_1\).
+    Since \(P\) is totally ordered, it is \(p_1 \le p_2\) or \(p_2 \le p_1\).
     In either case, we have \(q_1 \preceq q_2\) or \(p_2 \preceq q_1\).
-    Therefore, \((Q, \preceq)\) is linearly ordered.
+    Therefore, \((Q, \preceq)\) is totally ordered.
 }
 
 \subsection*{Selected Problems}
@@ -574,7 +574,7 @@
 
     \ii
     If \(S = \OO\), then any \(C \in A\) is an lower bound of \(S\).
-    Since \(\bigcup A = X\)---by (i), the supremum of the set of lower bounds of \(S\)---is a lower bound of \(S\), 
+    Since \(\bigcup A = X\)---by (i), the supremum of the set of lower bounds of \(S\)---is a lower bound of \(S\),
     \(X\) is the infimum of \(S = \OO\). \checkmark
 
     If \(S \neq \OO\), as \(\bigcap S \subseteq C\) for all \(C \in S\),

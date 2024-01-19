@@ -1,7 +1,7 @@
 \documentclass[../introduction_to_set_theory.tex]{subfiles}
 
 \begin{document}
-    
+
 \section{Operations and Structures}
 
 \dfn[operation]{Operation}{
@@ -41,7 +41,7 @@
 
 \nt{
 \begin{itemize}[nolistsep, leftmargin=*]
-    \ii 
+    \ii
     If \(\lang\, A_i \mid 0 \le i < n\,\rang\) is a finite sequence (of sets),
     then the product of the indexed system of sets \(\prod_{0 \le i < n} A_i\) (\Cref{dfn:productIndexedSystemOfSets})
     is just the set of all \(n\)-tuples \(a = \lang\,a_0, \cdots, a_{n-1}\,\rang\) such that
@@ -173,7 +173,7 @@
     is the least closed set containing all elements of \(C\).
 }
 
-\thm[]{}{
+\thm[closureAsUnion]{}{
     Let \(\mfr{A} = (A, \lang\,R_0, \cdots, R_{m-1}\,\rang, \lang\,F_0, \cdots, F_{n-1}\,\rang)\)
     be a structure and let \(C \subseteq A\).
     If the sequence \(\lang\,C_i \mid i \in \NN\,\rang\) is defined recursively by
@@ -256,7 +256,7 @@
     \(X = A \setminus (A \setminus X) = A \setminus (A \setminus Y) = Y\)
     by \ref{itm:1.4.2iii}.
     Moreover, \(h(h(X)) = X\) for all \(X \in B\).
-    Hence, \(h \colon B \hooktwoheadrightarrow B\). 
+    Hence, \(h \colon B \hooktwoheadrightarrow B\).
 }
 
 \setexernumber{6}
@@ -289,7 +289,7 @@
     Fix \(n \in \NN\) and assume \(\mbf{P}(n)\) holds.
     Take any sequence \(A\) of length \(n + 1\).
     \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
-        \ii 
+        \ii
         Assume \(\prod A \neq \OO\) and take \(a \in \prod A\).
         Then, for each \(i < n + 1\), \(a_i \in A_i\); and thus \(A_i \neq \OO\).
 
@@ -314,7 +314,7 @@
     Let \(\mbf{P}(x)\) be the property
     ``the range of a finite sequence of natural numbers of length \(x\)
     has a greatest element.''
-    
+
     Let \(\lang k_0 \rang\) be a sequence of natural numbers of length \(1\).
     Then, \(k_0 = \max \ran \lang k_0 \rang\).
     Hence, \(\mbf{P}(1)\).
