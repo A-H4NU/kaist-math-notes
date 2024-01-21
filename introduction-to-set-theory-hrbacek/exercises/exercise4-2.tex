@@ -1,0 +1,142 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[4.2.1]{}{
+    If \(S = \{\,X_0, \cdots, X_{n-1}\,\}\) is a finite set of mutually disjoint sets.
+    Then, \(\left|\bigcup S\right| = \sum_{i=0}^{n-1} |X_i|\).
+}
+\pf{Proof}{
+    If \(S = \OO\), then \(\left|\bigcup S\right| = 0 = \sum_{i=0}^{n-1} |X_i|\).
+
+    Fix \(n \in \NN\) and assume the assertion holds for all \(S\) with \(|S| = n\).
+    Then, take any set \(T\) of mutually disjoint sets with \(|T| = n+1\).
+    Write \(T = \{\,X_0, \cdots, X_n\,\}\) and let \(S \triangleq = \{\,X_0, \cdots, X_{n-1}\,\}\).
+    Then, since \(\bigcup T = \left(\bigcup S\right) \cup X_n\),
+    and since \(\bigcup S\) and \(X_n\) are disjoint,
+    \(\left|\bigcup T\right| = \left|\bigcup S\right| + |X_n|
+    = \sum_{i=0}^{n-1} |X_i| + |X_n| = \sum_{i=0}^{n} |X_i|\).
+    Hence, the result follows from \nameref{th:induction}.
+}
+
+\exer[4.2.2]{}{
+    If \(X\) and \(Y\) are finite, then \(|X \times Y| = |X| \cdot |Y|\).
+}
+\pf{Proof}{
+    We shall exploit the induction on \(|Y|\).
+    If \(|Y| = 0\), then
+    \begin{alignat*}{2}
+        |X \times Y| &= 0 &\qquad& \comment*{\Cref{exer:2.2.8}}\\
+                     &= |X| \cdot |Y|. && \comment*{\text{\eqref{eq:multiplication1}}}
+    \end{alignat*}
+
+    Assume the statement holds for all \(X\) and \(Y\) with \(|Y| = n\).
+    Let \(Z = \{\,z_0, \cdots, z_n\,\}\) be a set with \(|Z| = n + 1\).
+    Let \(Y \triangleq \{\,z_0, \cdots, z_{n-1}\,\}\).
+    Then, for all \(X\), \(X \times Z = (X \times Y) \cup (X \times \{z_n\})\).
+    Note that \(X \times \{z_n\}\) can be identified with \(X\) via
+    \(f \colon X \hooktwoheadrightarrow X \times \{z_n\}\) defined by
+    \(x \mapsto (x, z_n)\).
+    Hence, if \(X\) is finite,
+    \begin{alignat*}{2}
+        |X \times Z| &= |X \times Y| + |X \times \{z_n\}| &\qquad& \comment*{\Cref{lem:finiteTwoUnion}}\\
+                     &= |X \times Y| + |X| && \comment*{\(|X \times \{z_n\}| = |X|\)}\\
+                     &= |X| \cdot |Y| + |X| && \comment*{\(\mbf{P}(n)\)}\\
+                     &= |X| \cdot (|Y| + 1) && \comment*{\eqref{eq:multiplication2}}\\
+                     &= |X| \cdot |Z|.
+    \end{alignat*}
+    Therefore, by \nameref{th:induction}, the result follows.
+}
+
+\exer[4.2.3]{}{
+    If \(X\) is finite, \(|\mcal P(X)| = 2^{|X|}\).
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall X,\: (|X| = x \implies |\mcal P(X)| = 2^{|X|})\).''
+    \(\mbf{P}(0)\) holds since \(|\mcal P(\OO)| = |\{\OO\}| = 1 = 2^0\).
+
+    Fix \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Let \(Y = \{\,y_0, \cdots, y_n\,\}\) be a set with \(|Y| = n+1\).
+    Let \(X \triangleq \{\,y_0, \cdots, y_{n-1}\,\}\).
+    As in the proof of \Cref{th:powerSetOfFiniteIsFinite},
+    \(\mcal P(Y) = \mcal P(X) \cup U\)
+    where \(U = \{\,u \subseteq Y \mid y_n \in u\,\}\).
+    Note that \(\mcal P(X) \cap U = \OO\) and
+    \(f \colon \mcal P(X) \hooktwoheadrightarrow U\) defined by
+    \(x \mapsto x \cup \{y_n\}\) asserts \(|\mcal P(X)| = |U|\).
+    Therefore,
+    \begin{alignat*}{2}
+        |\mcal P(Y)| &= |\mcal P(X)| + |U| &\qquad& \comment*{\Cref{lem:finiteTwoUnion}}\\
+                     &= 2^n + 2^n && \comment*{\(|\mcal P(X)| = |U|\), \(\mbf{P}(n)\)}\\
+                     &= 2^n \cdot 1 + 2^n \cdot 1 && \comment*{\Cref{lem:timesOne}}\\
+                     &= 2^n \cdot 2 && \comment*{\nameref{th:multDistrOverAdd}}\\
+                     &= 2^{n+1}. && \comment*{\eqref{eq:exponentiation2}}
+    \end{alignat*}
+    Therefore, by \nameref{th:induction}, the result follows.
+}
+
+\exer[4.2.4]{}{
+    If \(X\) and \(Y\) are finite, then \(X^Y\) is finite and \(|X^Y| = |X|^{|Y|}\).
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property
+    ``if \(X\) is finite and \(|Y| = x\), then \(|X^Y| = |X|^x\).''
+    \(\mbf{P}(0)\) holds since \(|X^{\OO}| = |\{\OO\}| = 1 = |X|^0\) for all \(X\).
+
+    Fix \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Let \(Y = \{\,y_0, \cdots, y_n\,\}\) be a set with \(|Y| = n+1\).
+    Let \(Z \triangleq \{\,y_0, \cdots, y_{n-1}\,\}\).
+    Take any finite set \(X\).
+
+    We have \(|X^Y| = |X^Z \times X|\) since
+    we may define \(f \colon X^Y \hooktwoheadrightarrow X^Z \times X\)
+    by \(g \mapsto \left(\restr{g}{Z}, g(y_n)\right)\).
+    Hence,
+    \begin{alignat*}{2}
+        |X^Y| &= |X^Z \times X| &\qquad& \\
+              &= |X^Z| \cdot |X| && \comment*{\Cref{exer:4.2.1}}\\
+              &= |X|^{n} \cdot |X| && \comment*{\(\mbf{P}(n)\)}\\
+              &= |X|^{n+1}. && \comment*{\eqref{eq:exponentiation2}}
+    \end{alignat*}
+    The result follows by \nameref{th:induction}.
+}
+
+\setexernumber{5}
+
+\exer[4.2.6]{}{
+    \(X\) is finite if and only if every \(\OO \subsetneq U \subseteq \mcal P(X)\)
+    has a \(\subseteq\)-maximal element.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \(|X| = n\) and \(\OO \subsetneq U \subseteq \mcal P(X)\).
+    Since \(|Y| \le n\) for all \(Y \in U\),
+    by \Cref{th:hasUpperBoundThenMaxExists},
+    we may let \(m \triangleq \max\{\,|Y| \mid Y \in U\,\}\).
+
+    There exists \(Y \in U\) with \(|Y| = m\).
+    Then, for each \(Y' \in U\) such that \(Y \subseteq Y'\),
+    we have \(m \le |Y'|\) by \Cref{exer:4.1.3}
+    and \(|Y'| \le m\) by definition of \(m\);
+    thus \(|Y'| = |Y| = m\) by \nameref{th:cantorBernstein},
+    which implies we may not have \(Y \subsetneq Y'\) by
+    \Cref{lem:finiteProperSubset}.
+    Hence, \(Y\) is a maximal element of \(U\).
+
+    \ii[(\(\Leftarrow\))]
+    Assume \(X\) is infinite.
+    Let \(U = \{\,Y \subseteq X \mid Y\text{ is finite}\,\}\).
+    (Note \(\OO \in U\), hence \(U \neq \OO\).)
+    Take any \(Y \in U\).
+    Since \(Y \subsetneq X\), we may take \(x \in X \setminus Y\).
+    Then, \(Y \subsetneq Y \cup \{x\}\) and \(Y \cup \{x\} \in U\)
+    by \Cref{lem:finiteTwoUnion}.
+    Hence, there is no maximal element of \(U\).
+    \qed
+\end{itemize}
+}
+
+\end{document}

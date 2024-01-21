@@ -1,0 +1,54 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\setexernumber{1}
+
+\exer[1.4.2]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:1.4.2} (\roman*)}, leftmargin=*, listparindent=\parindent]
+        \ii \(A \setminus B = (A \cup B) \setminus B = A \setminus (A \cap B)\)
+        \ii \(A \setminus (B \setminus C) = (A \setminus B) \cup (A \cap C)\)
+        \ii\label{itm:1.4.2iii} \(A \cap B = A \setminus (A \setminus B)\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii\mbox{}\vspace*{-\baselineskip}
+    \begin{flalign*}\SwapAboveDisplaySkip
+        x \in A \land x \notin B
+        &\iff x \in A \land x \notin B \lor x \in B \land x \notin B & \comment*{\(\lor\)-intro / \(\lor\)-syllogism} \\
+        &\iff (x \in A \lor x \in B) \land x \notin B & \comment*{Distribution}
+    \end{flalign*}
+    \begin{flalign*}\SwapAboveDisplaySkip
+        x \in A \land x \notin B
+        &\iff x \in A \land x \notin A \lor x \in A \land x \notin B & \comment*{\(\lor\)-intro / \(\lor\)-syllogism} \\
+        &\iff x \in A \land (x \notin A \lor x \notin B) & \comment*{Distribution} \\
+        &\iff x \in A \land \lnot(x \in A \land x \in B) & \comment*{De Morgan's Law}
+    \end{flalign*}
+
+    \ii\mbox{}\vspace*{-\baselineskip}
+    \begin{flalign*}\SwapAboveDisplaySkip
+        x \in A \land \lnot (x \in B \land x \notin C)
+        &\iff x \in A \land (x \notin B \lor x \in C) & \comment*{De Morgan's Law} \\
+        &\iff (x \in A \land x \notin B) \lor (x \in A \land x \in C) & \comment*{Distribution}
+    \end{flalign*}
+
+    \ii
+    By (ii), \(A \setminus (A \setminus B) = (A \setminus A) \cup (A \cap B) = A \cap B\).
+    \qed
+\end{enumerate}
+}
+
+\setexernumber{3}
+
+\exer[1.4.4]{}{
+    For any set \(A\), prove that a ``complement'' of \(A\) (\(\{\,x \mid x \notin A\,\}\)) does not exist.
+}
+\pf{Proof}{
+    Let \(B\) be the complement of \(A\) for the sake of contradiction.
+    Then, \(A \cup B\) is the set of all sets, which is impossible by \Cref{exer:1.3.3}.
+}
+
+\end{document}

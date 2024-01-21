@@ -41,7 +41,7 @@
 
 \dfn[]{}{
     \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
-        \ii 
+        \ii
         We say \textit{the cardinality of \(A\) is less than or equal to the cardinality of \(B\)}
         if there is a function \(f \colon A \hookrightarrow B\). We write \(|A| \le |B|\).
         \ii
@@ -62,7 +62,7 @@
 }
 \mclm{Proof}{\hfill
 \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
-    \ii 
+    \ii
     If \(f \colon A \hooktwoheadrightarrow B\),
     then \(f\) is injective as well.
 
@@ -151,7 +151,7 @@
     \(f[C] \subseteq \ran f = A_1 \subseteq B\) and
     \(D = A \setminus C = A \setminus ((A \setminus B) \cup f[C]) \subseteq A \setminus (A \setminus B) = B\),
     and thus \(\ran g \subseteq B\).
-    
+
     Now, take any \(y \in B\).
     If \(y \in C\), then, as \(y \notin A \setminus B\), \(y \in f[C]\).
     Hence, \(B \subseteq f[C] \cup D\).
@@ -187,106 +187,6 @@
     However, for certain classes of sets, cardinal numbers can be defined without the Axiom of Choice.
 }
 
-\subsection*{Selected Problems}
-
-\setexernumber{1}
-
-\exer[4.1.2]{}{
-    Let \(A\), \(B\), and \(C\) be sets.
-    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
-        \ii If \(|A| < |B|\) and \(|B| \le |C|\), then \(|A| < |C|\).
-        \ii If \(|A| \le |B|\) and \(|B| < |C|\), then \(|A| < |C|\).
-    \end{enumerate}
-}
-\mclm{Proof}{\hfill
-\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
-    \ii
-    We already have \(|A| \le |C|\) by \ref{itm:basicLessCardiii}.
-    Let \(g \colon B \hookrightarrow C\).
-    Suppose \(f \colon A \hooktwoheadrightarrow C\) for the sake of contradiction.
-    Then, \(f\inv \circ g \colon B \hookrightarrow A\), i.e., \(|B| \le |A|\).
-    By \nameref{th:cantorBernstein}, we get \(|A| = |B|\), which is a contradiction.
-
-    \ii
-    We already have \(|A| \le |C|\) by \ref{itm:basicLessCardiii}.
-    Let \(g \colon A \hookrightarrow B\).
-    Suppose \(f \colon A \hooktwoheadrightarrow C\) for the sake of contradiction.
-    Then, \(g \circ f\inv \colon C \hookrightarrow B\), i.e., \(|C| \le |B|\).
-    By \nameref{th:cantorBernstein}, we get \(|B| = |C|\), which is a contradiction.
-
-    \qed
-\end{enumerate}
-}
-
-\exer[4.1.3]{}{
-    If \(A \subseteq B\), then \(|A| \le |B|\).
-}
-\pf{Proof}{
-    \(\mrm{Id}_A\) is an injective function on \(A\) into \(B\).
-}
-
-\setexernumber{6}
-
-\exer[4.1.7]{}{
-    If \(S \subseteq T\), then \(|A^S| \le |A^T|\). In particular, \(|A^m| \le |A^n|\) if \(m \le n\).
-}
-\pf{Proof}{
-    If \(T = \OO\), then \(A^S = A^T = \{\OO\}\) and it is done.
-
-    Assume \(T \neq \OO\).
-    Fix some \(t \in T\).
-    Now, define \(f \colon A^S \hookrightarrow A^T\) by
-    \(g \mapsto g \cup \{\,(x, t) \mid x \in T \setminus S\,\}\).
-}
-
-\setexernumber{9}
-
-\exer[4.1.10]{}{
-    Let \(F \colon \mcal{P}(A) \to \mcal{P}(A)\) be \textit{monotone},
-    i.e., if \(X \subseteq Y \subseteq A\), then \(F(X) \subseteq F(Y)\).
-    Then, \(F\) has a least \textit{fixed point} \(\ol{X}\),
-    that is to say \(F(\ol{X}) = \ol{X}\) and \(\fall X \subseteq A,\: (F(X) = X \implies \ol{X} \subseteq X)\).
-}
-\pf{Proof}{
-    Let \(T \triangleq \{\,X \subseteq A \mid F(X) \subseteq X\,\}\).
-    Then, as \(A \in T\), \(T \neq \OO\); we may let \(\ol{X} \triangleq \bigcap T\).
-
-    Then, for all \(X \in T\), \(\ol{X} \subseteq X\); and thus \(F(\ol{X}) \subseteq F(X) \subseteq X\).
-    We have \(F(\ol{X}) \subseteq \bigcap T = \ol{X}\), i.e., \(\ol{X} \in T\).
-
-    On the other hand, we have \(F(F(\ol{X})) \subseteq F(\ol{X})\), or \(F(\ol{X}) \in T\),
-    and thus \(\ol{X} = \bigcap T \subseteq F(\ol{X})\). Therefore, \(F(\ol{X}) = \ol{X}\).
-    Moreover, if \(X\) is a fixed point, then \(X \in T\), and thus \(\ol{X} = \bigcap T \subseteq X\).
-}
-
-\setexernumber{13}
-
-\exer[4.1.14]{}{
-    A function \(F \colon \mcal P(A) \to \mcal P(A)\) is \textit{continuous}
-    if, for each sequence \(\lang\,X_i \mid i \in \NN\,\rang\) of subsets of \(A\)
-    such that \(\fall i, j \in \NN,\: (i \le j \implies X_i \subseteq X_j)\),
-    \(F \big(\bigcup_{i \in \NN} X_i\big) = \bigcup_{i \in \NN} F(X_i)\) holds.
-
-    If \(\ol{X}\) is the least fixed point of a monotone continuous function,
-    \(F \colon \mcal P(A) \to \mcal P(A)\),
-    then \(\ol{X} = \bigcup_{i \in \NN} X_i\)
-    where we define recursively \(X_0 = \OO\), \(\fall i \in \NN,\: X_{i+1} = F(X_i)\).
-}
-\pf{Proof}{
-    Let \(\tilde X \triangleq \bigcup_{i \in \NN} X_i\).
-    We have \(X_0 = \OO \subseteq X_1\).
-
-    If \(X_n \subseteq X_{n+1}\), then \(X_{n+1} \subseteq X_{n+2}\) since \(F\) is monotone.
-    Hence, \(\fall n \in \NN,\: X_n \subseteq X_{n+1}\).
-    Therefore, similarly to \Cref{exer:3.3.1},
-    we have \(X_m \subseteq X_n\) whenever \(m \le n\).
-    Hence, \(F(\tilde X) = \bigcup_{i \in \NN} F(X_i) = \bigcup_{i=1}^\infty X_{i} = \tilde X\);
-    \(\tilde X\) is a fixed point of \(F\); hence \(\ol X \subseteq \tilde X\). 
-
-    We have \(X_0 \subseteq \ol X\).
-    If \(X_n \subseteq \ol{X}\) for \(n \in \NN\), then
-    \(X_{n+1} \subseteq F(\ol X)) = \ol X\).
-    Hence, by \nameref{th:induction}, \(\tilde X \subseteq \ol X\).
-}
+\subfile{../exercises/exercise4-1.tex}
 
 \end{document}

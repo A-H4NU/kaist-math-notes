@@ -1,0 +1,123 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[2.2.1]{}{
+    Let \(R\) be a binary relation. Let \(A = \bigcup \big(\bigcup R\big)\).
+    Prove that \((x, y) \in R\) implies \(x \in A\) and \(y \in A\).
+}
+\pf{Proof}{
+    If \((x, y) = \{\{x\}, \{x, y\}\} \in R\),
+    Then \(\{x, y\} \in \bigcup R\), and thus \(x, y \in A\).
+}
+
+\setexernumber{2}
+
+\exer[2.2.3]{}{
+    Let \(R\) be a binary relation and \(A\) and \(B\) be sets. Prove:
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(R[A \cup B] = R[A] \cup R[B]\).
+        \ii \(R[A \cap B] \subseteq R[A] \cap R[B]\).
+        \ii \(R[A \setminus B] \supseteq R[A] \setminus R[B]\).
+        \ii Show by an example that \(\subseteq\) and \(\supseteq\) in parts (ii) and (iii) cannot be
+            replaced by \(=\).
+        \ii \(R\inv[R[A]] \supseteq A \cap \dom R\) and \(R[R\inv[B]] \supseteq B \cap \ran R\).
+            Give examples where equality does not hold.
+    \end{enumerate}
+}
+\mclm{Proof}{
+    \hfill
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        \(\begin{aligned}[t]
+            y \in R[A \cup B] &\iff \exs x,\: x \in A \cup B \land xRy \\
+                              &\iff \exs x,\: (x \in A \land xRy) \lor (x \in B \land xRy) \\
+                              &\iff y \in R[A] \lor y \in R[B] \iff y \in R[A] \cup R[B]
+        \end{aligned}\)
+
+        \ii
+        Take any \(y \in R[A \cap B]\).
+        Then, there exists \(x \in A \cap B\) such that \(xRy\).
+        Hence, \(y \in R[A]\) and \(y \in R[B]\).
+
+        \ii
+        Take any \(y \in R[A] \setminus R[B]\).
+        Then, there exists \(x \in A\) such that \(xRy\).
+        If \(x \in B\), it implies that \(y \in R[B]\), which is a contradiction.
+        Hence, \(x \in A \setminus B\).
+        Therefore, \(y \in R[A \setminus B]\).
+
+        \ii
+        Let \(a\), \(b\), and \(c\) be mutually different sets.
+        Let \(R = \{(a, a), (b, a), (c, c)\}\).
+        Let \(A = \{a, c\}\) and \(B = \{b, c\}\).
+        Then, \(R[A \cap B] = \{c\} \subsetneq R[A] \cap R[B] = \{a, c\}\),
+        and \(R[A] \setminus R[B] = \OO \subsetneq R[A \setminus B] = \{a\}\).
+
+        \ii
+        Take any \(a \in A \cap \dom R\).
+        Then, there exists \(b\) such that \(aRb\).
+        Moreover, \(b \in R[A]\).
+        Since \(b R\inv a\), we conclude that \(a \in R\inv[R[A]]\).
+
+        Take any \(b \in B \cap \ran R\).
+        Then, there exists \(a\) such that \(aRb\).
+        Moreover, \(a \in R\inv[B]\).
+        Hence, \(b \in R[R\inv[B]]\).
+    \end{enumerate}
+}
+
+\exer[2.2.4]{}{
+    Let \(R \subseteq X \times Y\). Prove:
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(R[X] = \ran R\) and \(R\inv[Y] = \dom R\).
+        \ii \(\dom R = \ran R\inv\) and \(\ran R = \dom R\inv\).
+        \ii \((R\inv)\inv = R\).
+        \ii \(R\inv \circ R \supseteq \mrm{Id}_{\dom R}\) and \(R \circ R\inv \supseteq \mrm{Id}_{\ran R}\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    We already have \(R[X] \subseteq \ran R\) by definition.
+    Take any \(y \in \ran R\).
+    There exists \(x\) such that \((x, y) \in R\).
+    Since \(R \subseteq X \times Y\), \(x \in X\).
+    Therefore, \(y \in R[X]\); \(\ran R \subseteq R[X]\).
+    A similar argument goes for \(R\inv[Y]\).
+
+    \ii
+    See the proof of \Cref{lem:invImgRisImgRInv}.
+
+    \ii
+    For any relation \(R\) and for all \(x\) and \(y\), we have \(xRy \iff yR\inv x\).
+    Since \(R\inv\) is also a relation, we have
+    \(xRy \iff yR\inv x \iff x (R\inv)\inv y\).
+
+    \ii
+    Take any \(x \in \dom R\).
+    Then, there exists \(y\) such that \(xRy\).
+    Then, \(y R\inv x\), and thus \(x(R \inv \circ R)x\).
+    A similar argument goes for \(R \circ R\inv\). \qed
+
+\end{enumerate}
+}
+
+\setexernumber{7}
+\exer[2.2.8]{}{
+    \(A \times B = \OO\) if and only if \(A = \OO\) or \(B = \OO\).
+}
+\pf{Proof}{
+    (\(\Rightarrow\))
+    If \(A \neq \OO\) and \(B \neq \OO\),
+    we have \((a, b) \in A \times B\) where \(a \in A\) and \(b \in B\),
+    and thus \(A \times B \neq \OO\).
+
+    (\(\Leftarrow\))
+    If \(A \times B \neq \OO\),
+    then \(a \in A\) and \(b \in B\) where \((a, b) \in A \times B\).
+}
+
+\end{document}

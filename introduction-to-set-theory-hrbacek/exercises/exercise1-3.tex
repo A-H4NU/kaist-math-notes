@@ -1,0 +1,60 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[1.3.1]{}{
+    The set of all \(x\) such that \(x \in A\) and \(x \notin B\) exists.
+}
+\pf{Proof}{
+    We have \(x \in A \land x \notin B \implies x \in A\).
+    Hence, the set exists and is equal to \(\{\,x \in A \mid x \in A \land x \notin B\,\}\).
+}
+
+\exer[1.3.2]{}{
+    Prove \nameref{ax:existence} only from \nameref{ax:comprehension}
+    and The Weak Axiom of Existence. \\[.3em]
+    \textsf{Weak Axiom of Existence}\; Some set exists.
+}
+\pf{Proof}{
+    Let \(A\) be a set known to exist.
+    Then, there exists \(B = \{\,x \in A \mid x \neq x\,\}\) by \nameref{ax:comprehension}.
+    Since \(\fall x\: (x = x)\), \(\fall x\: (x \notin B)\).
+}
+
+\exer[1.3.3]{}{
+    \begin{enumerate}[nolistsep, label=(\alph*)]
+        \ii Prove that a set of all sets(\(\{\,x \mid \top\,\}\)) does not exist.
+        \ii Prove that \(\fall A\: \exs x\: (x \notin A)\).
+    \end{enumerate}
+}
+\mclm{Proof}{
+\hfill
+\begin{enumerate}[nolistsep, label=(\alph*)]
+    \ii
+    Suppose \(V = \{\,x \mid \top\,\}\) exists.
+    Then, by \nameref{ax:comprehension}, \(R = \{\,x \in V \mid x \notin x\,\}\) exists.
+    However, we have \(R \in R \iff R \notin R\) by definition of \(R\).
+    Hence, \(V\) does not exist.
+
+    \ii
+    Suppose \(\exs A\: \fall x\: (x \in A)\) for the sake of contradiction.
+    Then, \(A\) is the set of all sets, which is impossible by (a). \qed
+\end{enumerate}
+}
+
+\setexernumber{5}
+
+\exer[1.3.6]{}{
+    Prove \(\fall X\: \lnot (\mcal P(X) \subseteq X)\).
+}
+\pf{Proof}{
+    Let \(Y = \{\,u \in X \mid u \notin u\,\}\).
+    Then, by definition, \(Y \subseteq X\), and thus \(Y \in \mcal P(X)\).
+    Now, suppose \(Y \in X\) for the sake of contradiction.
+    Then, \(Y \in Y \iff Y \in X \land Y \notin Y \iff Y \notin Y\),
+    which is a contradiction. Hence, \(Y \notin X\).
+}
+
+\end{document}

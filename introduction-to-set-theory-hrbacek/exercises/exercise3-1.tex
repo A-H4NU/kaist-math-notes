@@ -1,0 +1,31 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[3.1.1]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*]
+        \ii \(\fall x,\: x \subseteq S(x)\)
+        \ii \(\fall x,\: \lnot(\exs z,\: x \subsetneq z \subsetneq S(x))\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(x \subseteq x \subseteq x \cup \{x\} = S(x)\)
+
+    \ii
+    Take any \(z\) such that such that \(x \subseteq z \subseteq S(x) = x \cup \{x\}\).
+    If \(z \subseteq x\), then we have \(z = x\).
+    If \(z \not\subseteq x\), then there exists \(y\) such that
+    \(y \in z\) and \(y \notin x\).
+    However, \(y \in x \cup \{x\}\), and thus \(y = x\).
+    Therefore, \(S(x) \subseteq z\); \(z = S(x)\).
+    In conclusion, any \(z\) such that \(x \subseteq z \subseteq S(x)\)
+    must satisfy \(z = x\) or \(z = S(x)\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+\setexernumber{1}
+
+\exer[2.4.2]{}{
+    Let \(f\) be a function on \(A\) onto \(B\).
+    Define a relation \(E\) in \(A\) by: \(aEb\) if and only if \(f(a) = f(b)\).
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        Show that \(E\) is an equivalence on \(A\).
+        \ii
+        Show that \([a]_E = [a']_E\) implies that \(f(a) = f(a')\)
+        so that the function \(\varphi\) on \(A/E\) into \(B\)
+        defined by \(\varphi([a]_E) = f(a)\) is well-defined.
+        Show also that \(\varphi\) is \textit{onto} \(B\).
+        \ii
+        Let \(j\) be the function on \(A\) onto \(A/E\) given by \(j(a) = [a]_E\).
+        Show that \(\varphi \circ j = f\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(E\) can readily be shown to be reflexive, symmetric, and transitive.
+
+    \ii
+    Assume \([a]_E = [a']_E\). Then, \(f(a) = f(a')\) by definition of \(E\). Hence, \(\varphi\) is well-defined.
+    Take any \(b \in B\). Since \(f\) is onto, there exists \(a \in A\) such that \(f(a) = b\).
+    Hence, \(\varphi([a]_E) = f(a) = b\); \(\varphi\) is onto \(B\).
+
+    \ii
+    \(\dom (\varphi \circ j) = (\dom j) \cap j\inv[\dom \varphi] = A = \dom f\)
+    since \(j\) is onto.
+    For all \(a \in A\), \((\varphi \circ j)(a) = \varphi([a]_E) = f(a)\).
+    Hence, by \Cref{lem:functionEqualsIff}, \(\varphi \circ j = f\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}

@@ -1,0 +1,284 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[2.5.1]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        Let \(R\) be a partial ordering of \(A\) and let \(S\) be the strict ordering of \(A\) corresponding to \(R\).
+        Let \(R^\ast\) be the partial ordering of \(A\) corresponding to \(S\). Show that \(R^\ast = R\).
+        \ii
+        Let \(S\) be a strict ordering of \(A\) and let \(R\) be the partial ordering of \(A\) corresponding to \(S\).
+        Let \(S^\ast\) be the partial ordering of \(A\) corresponding to \(R\). Show that \(S^\ast = S\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(R^\ast = S \cup \mrm{Id}_A = (R \setminus \mrm{Id}_A) \cup \mrm{Id}_A = R\)
+    since \(\mrm{Id}_A \subseteq R\).
+
+    \ii
+    \(S^\ast = R \setminus \mrm{Id}_A = (S \cup \mrm{Id}_A) \setminus \mrm{Id}_A = S\)
+    since \(\mrm{Id}_A \cap S = \OO\).
+
+    \qed
+\end{enumerate}
+}
+
+\setexernumber{5}
+
+\exer[2.5.6]{}{
+    Let \((A_1, <_1)\) and \((A_2, <_2)\) be strictly ordered sets and let \(A_1 \cap A_2 = \OO\).
+    Define a relation \(\prec\) on \(B \triangleq A_1 \cup A_2\) as follows:
+    \[
+        x \prec y \iff (x <_1 y) \lor (x <_2 y) \lor (x \in A_1 \land y \in A_2).
+    \]
+    Show that \(\prec\) is a strict ordering of \(B\) and \(\mathord{\prec} \cap A_1^2 = \mathord{<_1}\), \(\mathord{\prec} \cap A_2^2 = \mathord{<_2}\).
+}
+\pf{Proof}{
+    Note that \(\mathord{\prec} = \mathord{<}_1 \cup \mathord{<}_2 \cup A_1 \times A_2\).
+
+    Suppose \(x \prec y\) and \(y \prec x\).
+    By definition, \(x, y \in A_1\) or \(x, y \in A_2\).
+    In both cases, we have (\(x <_1 y\) and \(y <_1 x\))
+    or (\(x <_2 y\) and \(y <_2 x\)), which are impossible as \(<_1\) and \(<_2\) are asymmetric.
+    Hence, \(\prec\) is asymmetric.
+    Transitivity of \(\prec\) can be shown easily.
+
+    Since \(\mathord{<_1} \cap A_2^2 = \mathord{<_2} \cap A_1^2 = (A_1 \times A_2) \cap A_1^2 = (A_1 \times A_2) \cap A_2^2 = \OO\),
+    we get \(\mathord{\prec} \cap A_1^2 = \mathord{<_1}\) and \(\mathord{\prec} \cap A_2^2 = \mathord{<_2}\).
+}
+
+\exer[2.5.7]{}{
+    Let \(R\) be a reflexive and transitive relation in \(A\) (\(R\) is called a \textit{preordering} of \(A\)).
+    Define a relation \(E\) in \(A\) by
+    \[
+        aEb \iff aRb \land bRa.
+    \]
+    Show that \(E\) is an equivalence on \(A\). Define the relation \(R/E\) in \(A/E\) by
+    \[
+        [a]_E R/E [b]_E \iff aRb.
+    \]
+    Show that \(R/E\) is well-defined and that \(R/E\) is a partial ordering of \(A/E\).
+}
+\pf{Proof}{
+    Since \(aEa \equiv aRa\) and \(R\) is reflexive, \(E\) is reflexive as well.
+    Since \(aEb \equiv bEa\), \(E\) is symmetric.
+    Since \(aEb \land bEc \iff (aRb \land bRc) \land (cRb \land bRa) \implies aRc \land cRa \iff aEc\),
+    \(E\) is transitive. \checkmark
+
+    Assume \([a]_E = [a']_E\) and \([b]_E = [b']_E\).
+    Then, we have \(aEa'\) and \(bEb'\) by \Cref{lem:equivIffSameClass},
+    i.e., \(aRa'\), \(a'Ra\), \(bRb'\), and \(b'Rb\).
+    By transitivity of \(R\), it follows that \(aRb \iff a'Rb'\).
+    Therefore, \(R/E\) is well-defined. \checkmark
+
+    It can be shown readily that \(R/E\) is reflexive and transitive.
+    To prove \(R/E\) is antisymmetric, assume \([a]_E R/E [b]_E\) and \([b]_E R/E [a]_E\).
+    Then, \(aRb\) and \(bRa\), which means \(aEb\).
+    Therefore, \([a]_E = [b]_E\) by \Cref{lem:equivIffSameClass}. \checkmark
+}
+
+\exer[2.5.8]{}{
+    Let \(A = \mcal P(X)\) where \(X\) is a set.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        Any \(S \subseteq A\) has a supremum in the ordering \(\subseteq_A\); \(\sup S = \bigcup S\).
+        \ii
+        Any \(S \subseteq A\) has an infimum in the ordering \(\subseteq_A\);
+        \(\inf S = \begin{cases}
+            \bigcap S & \text{if } S \neq \OO \\
+            X & \text{if } S = \OO
+        \end{cases}\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    As \(C \subseteq_A \bigcup S\) for all \(C \in S\), \(\bigcup S\) is an upper bound of \(S\).
+    Let \(U\) be any upper bound of \(S\).
+    Take any \(x \in \bigcup S\). Then, there exists \(C \in S\) such that \(x \in C\).
+    Since \(C \subseteq_A U\), we have \(x \in U\).
+    Therefore, \(\bigcup S \subseteq U\); \(\bigcup S\) is the least upper bound of \(S\).
+
+    \ii
+    If \(S = \OO\), then any \(C \in A\) is an lower bound of \(S\).
+    Since \(\bigcup A = X\)---by (i), the supremum of the set of lower bounds of \(S\)---is a lower bound of \(S\),
+    \(X\) is the infimum of \(S = \OO\). \checkmark
+
+    If \(S \neq \OO\), as \(\bigcap S \subseteq C\) for all \(C \in S\),
+    \(\bigcap S\) is a lower bound of \(S\).
+    Let \(L\) be any lower bound of \(S\).
+    Take any \(x \in L\). Then, \(\fall C \in L,\: x \in C\), i.e., \(x \in \bigcap S\).
+    Therefore, \(L \subseteq_A \bigcap S\); \(\bigcap S\) is the infimum of \(S\). \checkmark
+    \qed
+\end{enumerate}
+}
+
+\exer[2.5.8]{}{
+    Let \(\mrm{Fn}(X, Y)\) be the set of all functions mapping a subset of \(X\) into \(Y\),
+    i.e., \(\mrm{Fn}(X, Y) = \bigcup_{Z \in \mcal P(X)} Y^Z\).
+    Define a relation \(\le\) in \(\mrm{Fn}(X, Y)\) by
+    \[
+        f \le g \iff f \subseteq g.
+    \]
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \(\le\) is a partial ordering of \(\mrm{Fn}(X, Y)\).
+        \ii
+        Let \(F \subseteq \mrm{Fn}(X, Y)\).
+        \(\sup F\) exists if and only if \(F\) is a compatible system of functions.
+        Moreover, \(\sup F = \bigcup F\) if it exists.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*)]
+    \ii
+    \(\mathord{\le} = \mathord{\subseteq}_{\mrm{Fn}(X, Y)}\) by definition;
+    \(\subseteq_{\mrm{Fn}(X, Y)}\) is already a partial ordering of \(\mrm{Fn}(X, Y)\).
+
+    \ii
+    (\(\Rightarrow\)) Assume \(h \in \mrm{Fn}(X, Y)\) is a supremum of \(F\).
+    Then, \(\fall f \in F,\: f \subseteq s\).
+    Take any \(f, g \in F\).
+    Then, \(f \cup g \subseteq h\), and thus \(f \cup g\) is a function as \(h\) is a function.
+    Therefore, by \Cref{lem:compatibleIff}, \(f\) and \(g\) are compatible.
+    Hence, \(F\) is a compatible system of functions.
+
+    (\(\Leftarrow\))
+    Assume \(F\) is a compatible system of functions.
+    Then, \(\bigcup F \in \mrm{Fn}(X, Y)\) by \Cref{th:compatibleThenUnionIsFunction},
+    and \(f \le \bigcup F\) for all \(f \in F\) by definition; \(\bigcup F\) is an upper bound of \(F\).
+    Let \(U\) be any upper bound of \(S\).
+    Take any \((x, y) \in \bigcup F\). Then, there exists \(f \in S\) such that \((x, y) \in f\).
+    Since \(f \subseteq_A U\), we have \(x \in U\).
+    Therefore, \(\bigcup F \subseteq U\); \(\bigcup F\) is the least upper bound of \(S\).
+    \qed
+\end{enumerate}
+}
+
+\exer[2.5.10]{}{
+    Let \(\mrm{Pt}(A)\) be the set of all partitions of \(A\).
+    Define a relation $\preccurlyeq$ in \(\mrm{Pt}(A)\) by
+    \[
+        S_1 \preccurlyeq S_2 \iff \fall C \in S_1,\: \exs D \in S_2,\: C \subseteq D.
+    \]
+    (We say that the partition \(S_1\) is a \textit{refinement} of the partition \(S_2\) if \(S_1 \preccurlyeq S_2\).)
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii
+        \(\preccurlyeq\) is a partial ordering of \(\mrm{Pt}(A)\).
+        \ii
+        \(\inf T\) exists for all \(T \subseteq \mrm{Pt}(A)\).
+        \ii
+        \(\sup T\) exists for all \(T \subseteq \mrm{Pt}(A)\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    \(\preccurlyeq\) is reflexive since, for all \(S \in \mrm{Pt}(A)\) and \(C \in S\),
+    \(C \subseteq C\), i.e., \(S \preccurlyeq S\). \checkmark
+
+    Assume \(S_1 \preccurlyeq S_2\) and \(S_2 \preccurlyeq S_1\).
+    Take any \(C \in S_1\).
+    Then, there exists \(D \in S_2\) such that \(C \subseteq D\).
+    In addition, there exists \(E \in S_1\) such that \(D \subseteq E\).
+    We have \(C \subseteq E\) but \(C\) is nonempty as \(S_1\) is a partition,
+    which implies \(C \cap E \neq \OO\).
+    Therefore, as \(S_1\) is a partition, we must have \(C = E\) and thus \(C = D\).
+    Hence, \(S_1 \subseteq S_2\). This shows that \(\preccurlyeq\) is antisymmetric. \checkmark
+
+    Assume \(S_1 \preccurlyeq S_2\) and \(S_2 \preccurlyeq S_3\).
+    Take any \(C \in S_1\).
+    There exists \(D \in S_2\) such that \(C \subseteq D\).
+    There exists \(E \in S_3\) such that \(D \subseteq E\).
+    Hence, \(C \subseteq E\); \(S_1 \preceq S_3\).
+    This shows that \(\preccurlyeq\) is transitive. \checkmark
+
+    \ii
+    Define a relation \(E\) in \(A\) by
+    \(E \triangleq \{\,(a, b) \in A^2 \mid \fall S \in T,\: \exs C \in S,\: a \in C \land b \in C\,\}\).
+    It can be easily shown that \(E\) is an equivalence
+    mimicking the proof of \Cref{th:partitionDerivesEquiv}.
+    Then, \(A/E \in \mrm{Pt}(A)\) by \Cref{th:equivDerivesPartition}.
+
+    \clm[AEisLowerBound]{
+        \(A/E\) is a lower bound of \(T\).
+    }{
+        If \(T = \OO\), there is nothing to prove; so assume \(T \neq \OO\).
+        Take any \(S \in T\) and \(a \in A\).
+        Then, there exists \(C \in S\) such that \(a \in S\) since \(S\) is a partition of \(A\).
+        Let \(b \in [a]_E\). Then, there exists \(D \in S\) such that
+        \(a, b \in D\), which implies \(C = D\). Therefore, \([a]_E \subseteq C\).
+        Hence, \(A/E \preccurlyeq S\). \qed
+    }
+
+    \clm[AEisMaxLowerBound]{
+        For each lower bound \(L\) of \(T\), \(L \preccurlyeq A/E\).
+    }{
+        If \(T = \OO\), then \(A/E = \{A^2\}\) and every partition of \(A\) is a lower bound.
+        Since \(S \preccurlyeq \{A^2\}\) for all \(S \in \mrm{Pt}(A)\), the result follows.
+
+        Now, assume \(T \neq \OO\).
+        Let \(L\) be a lower bound of \(T\).
+        Take any \(D \in L\). Fix some \(a \in D\).
+        Then, each \(d \in D\) has the property that
+        \(\fall S \in T,\: \exs C \in S,\: \{a,d\} \subseteq D \subseteq C\)
+        as \(L\) is a lower bound of \(T\).
+        Therefore, \(d \in [a]_E\); \(D \subseteq [a]_E\).
+        Hence, \(L \preccurlyeq A/E\). \qed
+    }
+    \Cref{clm:AEisLowerBound,clm:AEisMaxLowerBound} say that \(\inf T = A/E\).
+    Hence, \(\inf T\) exists.
+
+    \ii
+    Let \(T' \triangleq \{\,S' \in \mrm{Pt}(A) \mid \fall S \in T,\: S \preccurlyeq S'\,\}\).
+    By (ii), \(S^\ast \triangleq \inf T'\) exists.
+    \clm[SastIsUpperBound]{
+        \(S^\ast\) is an upper bound of \(T\).
+    }{
+        In (ii), we showed that \(S^\ast = A/E\)
+        where \(E = \{\,(a, b) \in A^2 \mid \fall S' \in T',\: \exs C' \in S',\: a \in C' \land b \in C'\,\}\).
+        Take any \(S \in T\) and let \(C \in S\).
+        Fix some \(c_0 \in C\).
+
+        Now, take arbitrary \(c \in C\). Then, for all \(S' \in T'\),
+        since \(S \preccurlyeq S'\), there exists \(D' \in S'\)
+        such that \(c \in C \subseteq D'\).
+        Hence, we have \(cEc_0\); \(C \subseteq [c_0]_E\).
+        Therefore, \(S \preccurlyeq S^\ast\). \qed
+    }
+    \Cref{clm:SastIsUpperBound} essentially says that \(S^\ast \in T'\).
+    By \Cref{th:basicInfimum} (iii), \(S^\ast = \min T'\), i.e., \(S^\ast = \sup T\).
+    \qed
+\end{enumerate}
+}
+
+\setexernumber{12}
+
+\exer[2.5.13]{}{
+    If \(h\) is isomorphism between \((P, \le)\) and \((Q, \preceq)\),
+    then \(h\inv\) is an isomorphism between \((Q, \preceq)\) and \((P, \le)\).
+}
+\pf{Proof}{
+    Take any \(q_1, q_2 \in Q\).
+    Then, we have \(q_1 \preceq q_2 \iff h(h\inv(q_1)) \preceq h(h\inv(q_2)) \iff h\inv(q_1) \le h\inv(q_2)\).
+}
+
+\exer[2.5.14]{}{
+    If \(f\) is an isomorphism between \((P_1, \le_1)\) and \((P_2, \le_2)\),
+    and if \(g\) is an isomorphism between \((P_2, \le_2)\) and \(P_3, \le_3\),
+    then \(g \circ f\) is an isomorphism between \((P_1, \le_1)\) and \((P_3, \le_3)\).
+}
+\pf{Proof}{
+    \(\ran (g \circ f) = g[\ran f] = P_3\).
+    Moreover, \(g \circ f\) is one-to-one.
+    Hence, \(g \circ f \colon P_1 \hooktwoheadrightarrow P_3\).
+    For all \(p, q \in P_1\), we have
+    \(p \le_1 q \iff f(p) \le_2 f(q) \iff g(f(p)) \le_3 \iff g(f(q))\).
+    Hence, \(g \circ f\) is an isomorphism between \((P_1, \le_1)\) and \((P_3, \le_3)\).
+}
+
+\end{document}

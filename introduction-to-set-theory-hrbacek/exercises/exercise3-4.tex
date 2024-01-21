@@ -1,0 +1,82 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\setexernumber{1}
+
+\exer[3.4.2]{}{
+    \(\fall k, m, n \in \NN,\: (m < n \iff m + k < n + k)\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m, n \in \NN,\: (m < n \iff m + x < n + x)\).''
+    \(\mbf{P}(0)\) is evident from \eqref{eq:addition1}.
+
+    Now, fix any \(k \in \NN\) and assume \(\mbf{P}(k)\).
+    Then, for all \(m, n \in \NN\),
+    \begin{alignat*}{2}
+        m < n &\iff m + k < n + k &\qquad& \comment*{\(\mbf{P}(k)\)}\\
+              &\iff (m + k) + 1 < (n + k) + 1 && \comment*{\Cref{exer:3.2.2}}\\
+              &\iff m + (k + 1) < n + (k + 1). && \comment*{\nameref{th:addIsAssociative}}
+    \end{alignat*}
+    By \nameref{th:induction}, the result follows.
+}
+
+\exer[3.4.3]{}{
+    \(\fall m, n \in \NN,\: (m \le n \iff \exs! k \in \NN,\: n = m + k)\)
+}
+\pf{Proof}{
+    (\(\Rightarrow\))
+    Fix any \(m \in \NN\) and let \(\mbf{P}(x)\) be the property ``\(\exs k \in \NN,\: x = m + k\).''
+    \(\mbf{P}(m)\) holds since \(k = 0\) would satisfy by \eqref{eq:addition1}.
+
+    Fix any \(n \in \NN\) such that \(m \le n\) and assume \(\mbf{P}(n)\).
+    Then, there exists \(k\) such that \(n = m + k\),
+    which leads to \(n + 1 = m + (k + 1)\) by \nameref{th:addIsAssociative}.
+    Hence, \(\mbf{P}(n+1)\) holds.
+    Therefore, \(\fall n \ge m,\: \exs k \in \NN,\: n = m + k\) by \Cref{exer:3.2.11}.
+
+    To prove the uniqueness, assume \(m + k = m + \ell\) where \(k, \ell, m \in \NN\).
+    \WLOG, \(k \le \ell\). If it were \(k < \ell\), by \Cref{exer:3.4.2} and \nameref{th:addIsCommutative},
+    we must have \(m + k = k + m < \ell + m = \ell + m\).
+    Hence, \(k = \ell\).
+
+    (\(\Leftarrow\))
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m, n \in \NN,\: (n = m + x \implies m \le n)\).''
+    We have evidently \(\mbf{P}(0)\) by \eqref{eq:addition1}.
+
+    Fix any \(k \in \NN\) and assume \(\mbf{P}(k)\).
+    Then, for each \(m, n \in \NN\) such that \(n = m + (k + 1)\), we have
+    \(n = (m + 1) + k\) thanks to \nameref{th:addIsCommutative} and \nameref{th:addIsAssociative},
+    and thus \(m < m + 1 \le n\) by \(\mbf{P}(k)\).
+    Hence, by \nameref{th:induction}, the result follows.
+}
+
+\setexernumber{5}
+
+\exer[3.4.6]{}{
+    \(\fall k, m, n \in \NN,\: [k \neq 0 \implies (m < n \iff m \cdot k < n \cdot k)]\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property ``\(\fall m, n \in \NN,\: (m < n \iff m \cdot k < n \cdot k)\).''
+    \(\mbf{P}(1)\) holds since, for all \(n \in \NN\),
+    \begin{alignat*}{2}
+        n \cdot 1 &= n \cdot (0 + 1) &\qquad& \comment*{\eqref{eq:addition1}, \nameref{th:addIsCommutative}}\\
+                  &= n \cdot 0 + n && \comment*{\eqref{eq:multiplication2}}\\
+                  &= 0 + n && \comment*{\eqref{eq:multiplication1}}\\
+                  &= n. && \comment*{\eqref{eq:addition1}, \nameref{th:addIsCommutative}}
+    \end{alignat*}
+
+    Now, fix any \(k \in \NN\) and assume \(\mbf{P}(k)\).
+    Then, for each \(m, n \in \NN\) with \(m < n\),
+    \begin{alignat*}{2}
+        m \cdot (k + 1) &= m \cdot k + m &\qquad& \comment*{\eqref{eq:multiplication2}}\\
+                        &< m \cdot k + n && \comment*{\Cref{exer:3.4.2}}\\
+                        &< n \cdot k + n && \comment*{\(\mbf{P}(k)\), \nameref{th:addIsCommutative}, \Cref{exer:3.4.2}}\\
+                        &= n \cdot (k + 1). && \comment*{\eqref{eq:multiplication2}}
+    \end{alignat*}
+    Therefore, by \Cref{exer:3.2.11}, the result follows.
+}
+
+\end{document}

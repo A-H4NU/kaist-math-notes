@@ -1,0 +1,129 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\setexernumber{3}
+
+\exer[3.5.4]{}{
+    Let \(B = \mcal{P}(A)\). Show that \((B, \cup_B, \cap_B)\) and \((B, \cap_B, \cup_B)\)
+    are isomorphic structures.
+}
+\pf{Proof}{
+    Let \(h \colon B \to B\) be defined by \(h(X) = A \setminus X\).
+    If \(A \setminus X = A \setminus Y\), then
+    \(X = A \setminus (A \setminus X) = A \setminus (A \setminus Y) = Y\)
+    by \ref{itm:1.4.2iii}.
+    Moreover, \(h(h(X)) = X\) for all \(X \in B\).
+    Hence, \(h \colon B \hooktwoheadrightarrow B\).
+}
+
+\setexernumber{6}
+
+\exer[3.5.7]{}{
+    Let \(R\) be a set whose elements are \(n\)-tuples.
+    Then, \(R\) is an \(n\)-ary relation in \(A\) for some \(A\).
+}
+\pf{Proof}{
+    Let \(a \in R\). Then, \(a = \{(0, a_0), \cdots, (n-1, a_{n-1})\}\).
+    For each \(i < n\),
+    \(a_i \in \{i, a_i\} \in (i, a_i) \in a \in R\).
+    Hence, \(a_i \in \bigcup \left[ \bigcup \left( \bigcup R\right)\right]\),
+    i.e., \(R\) is an \(n\)-ary relation in \(A = \bigcup \left[ \bigcup \left( \bigcup R\right)\right]\).
+}
+
+\setexernumber{9}
+
+\exer[3.5.10]{}{
+    Let \(A\) be a sequence of length \(n\). Then,
+    \(\prod_{0 \le i < n} A_i \neq \OO \iff \fall i < n,\: A_i \neq \OO\)
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property
+    ``if \(A\) is a sequence of length \(x\),
+    then \(\prod_{0 \le i < n} A_i \neq \OO \iff \fall i < n,\: A_i \neq \OO\).''
+    \(\mbf{P}(0)\) holds since, if \(A\) is a function with \(\dom A = \OO\),
+    then \(\prod A = \{\OO\}\).
+
+    Fix \(n \in \NN\) and assume \(\mbf{P}(n)\) holds.
+    Take any sequence \(A\) of length \(n + 1\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume \(\prod A \neq \OO\) and take \(a \in \prod A\).
+        Then, for each \(i < n + 1\), \(a_i \in A_i\); and thus \(A_i \neq \OO\).
+
+        \ii
+        Assume \(\fall i < n + 1,\: A_i \neq \OO\).
+        Then, by \(\mbf{P}(n)\), we may take \(a' \in \prod_{0 \le i < n} A_i\).
+        We also may take \(b \in A_n\).
+        Then, \(a' \cup \{(n, b)\} \in \prod A\).
+    \end{itemize}
+    Hence, \(\mbf{P}(n)\) holds.
+    Thus, the result follows by \nameref{th:induction}.
+}
+
+\setexernumber{12}
+
+\exer[3.5.13]{}{
+    Let \(\lang\,k_0, \cdots, k_{n-1}\,\rang\) be a finite sequence of
+    natural numbers of length \(n \ge 1\).
+    Then, its range \(\{\,k_0, \cdots, k_{n-1}\,\}\) has a greatest element.
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x)\) be the property
+    ``the range of a finite sequence of natural numbers of length \(x\)
+    has a greatest element.''
+
+    Let \(\lang k_0 \rang\) be a sequence of natural numbers of length \(1\).
+    Then, \(k_0 = \max \ran \lang k_0 \rang\).
+    Hence, \(\mbf{P}(1)\).
+
+    Fix any \(n \in \NN\) and assume \(\mbf{P}(n)\).
+    Take any \(k \in \Seq(\NN)\) with length \(n + 1\).
+    Let \(k' = \lang\,k_0, \cdots, k_{n-1}\,\rang\) be another sequence.
+    Then, by \(\mbf{P}(n)\), there exists \(m' = \max \{\,k_0, \cdots,k_{n-1}\,\}\).
+    Now, let \(m = \max \{\,m', k_{n}\,\}\).
+    Then, for all \(i < n\), \(k_i \le m' \le m\),
+    and \(k_n \le m\).
+    Hence, \(m\) is an upper bound of \(\ran k\);
+    the result follows by \Cref{th:hasUpperBoundThenMaxExists} and \Cref{exer:3.2.11}.
+}
+
+\setexernumber{14}
+
+\exer[3.4.15]{}{
+    Let \(R \subseteq A^2\) be a binary relation. Define a binary operation \(F_R\) on \(A^2\) by
+    \[
+        F_R((a_1, a_2), (b_1, b_2)) = \begin{cases}
+            (a_1, b_2) & \text{if } a_2 = b_1 \\
+            \text{undefined} & \text{otherwise}.
+        \end{cases}
+    \]
+    Then,
+    \begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*]
+        \ii The closure of \(R\) in \((A^2, F_R)\) is a transitive relation.
+        \ii If \(R\) is reflexive and symmetric, \(\cl{R}\) is also an equivalence.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Take any \(a, b, c \in A\) and assume \(a\cl{R}b\) and \(b\cl{R}c\).
+    Then, since \(\cl{R}\) is closed, \(F((a, b), (b, c)) = (a, c) \in \cl{R}\).
+    Hence, \(\cl{R}\) is transitive.
+
+    \ii
+    \(\mrm{Id}_A \subseteq R \subseteq \cl{R}\); \(\cl{R}\) is reflexive.
+
+    Let \(\mbf{P}(x, y)\) be the property ``\(y \cl{R} x\).''
+    As \(R \subseteq \cl{R}\), we have \(\fall (a, b) \in R,\: \mbf{P}(a, b)\).
+    Now, take any \((a, b), (b, c) \in A^2\) such that \(\mbf{P}(a, b)\) and \(\mbf{P}(b, c)\).
+    Then, by (i), we have \(c \cl{R}a\); \(\mbf{P}(F_R((a, b), (b, c)))\) hold.
+    Therefore, by \nameref{th:generalInduction},
+    \(b\cl{R}a\) holds for all \((a, b) \in \cl{R}\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}
