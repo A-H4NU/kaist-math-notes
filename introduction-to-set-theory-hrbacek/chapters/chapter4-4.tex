@@ -1,0 +1,245 @@
+\documentclass[../introduction_to_set_theory.tex]{subfiles}
+
+\begin{document}
+
+\section{Linear Orderings}
+
+\dfn[similarLinearOrder]{Similar Ordered Sets}{
+    Totally ordered sets \((A, \le)\) and \((B, \preceq)\) are \textit{similar}
+    (have \textit{the same order type}) if they are isomorphic.
+    (\Cref{dfn:isomorphismOrderedSet})
+}
+
+\mlemma[finiteTotalOrder]{}{
+    Every total ordering on a finite set is a well-ordering.
+}
+\pf{Proof}{
+    Let \((A, \le)\) be a finite totally ordered set.
+    If \(B \subseteq A\) has \(|B| = 1\), then the only element of \(B\) is \(\min B\).
+
+    Now, fix \(n > 0\) and assume that every \(B \subseteq A\) with \(|B| = n\)
+    has a least element.
+    Take any \(B \subseteq A\) with \(|B| = n + 1\)
+    and write \(B = \{\,b_0, \cdots, b_n\,\}\).
+    Let \(C \triangleq \{\,b_0, \cdots, b_{n-1}\,\}\).
+    Then, if \(b_n \le \min C\), then \(b_n\) is a least element of \(B\);
+    otherwise, \(\min C\) is a least element of \(B\).
+    Hence, by \Cref{exer:3.2.11}, every nonempty finite subset of \(A\)
+    has a least element, i.e., \((A, \le)\) is well-ordered.
+}
+
+\thm[uniqueFiniteTotalOrder]{}{
+    If \((A_1, \le_1)\) and \((A_2, \le_2)\) are finite totally ordered sets with
+    the same cardinality, then \((A_1, \le_1)\) and \((A_2, \le_2)\) are similar.
+}
+\pf{Proof}{
+    We shall conduct the induction on the size of the sets.
+    If \(A_1 = A_2 = \OO\), then they are evidently similar by the isomorphism \(\OO\).
+
+    Fix \(n \in \NN\) and assume the proposition holds whenever \(|A_1| = |A_2| = n\).
+    Take any totally ordered sets \((A_1, \le_1)\) and \((A_2, \le_2)\)
+    such that \(|A_1| = |A_2| = n + 1\).
+    By \Cref{lem:finiteTotalOrder}, there exist \(a_1 = \min A_1\) and \(a_2 = \min A_2\).
+    Let \(A'_1 \triangleq A_1 \setminus \{a_1\}\) and \(A'_2 \triangleq A_2 \setminus \{a_2\}\).
+    Since \((A_1', \mathord{\le}_1 \cap A_1'^2)\) and \((A_2', \mathord{\le}_2 \cap A_2'^2)\)
+    are finite totally ordered sets with \(|A_1'| = |A_2'| = n\),
+    there exists an isomorphism \(g \colon A_1' \hooktwoheadrightarrow A_2'\) by the induction hypothesis.
+    Then, \(f \triangleq g \cup \{(a_1, a_2)\}\) is an isomorphism between
+    \((A_1, \le_1)\) and \((A_2, \le_2)\).
+    Therefore, the result follows from \nameref{th:induction}.
+}
+
+\mlemma[invOfTotalOrder]{}{
+    If \((A, \le)\) is a totally ordered set,
+    then \((A, \mathord{\le}\inv)\) is also a totally ordered set.
+}
+\pf{Proof}{
+    Take any \(a, b \in A\).
+    Then, it is \(a \le b\) or \(b \le a\).
+    If \(a \le b\), then \(b \le\inv b\).
+    If \(b \le a\), then \(a \le\inv b\).
+    Hence, \((A, \le\inv)\) is totally ordered.
+}
+
+\mlemma[orderOnUnion]{}{
+    Let \((A_1, \le_1)\) and \((A_2, \le_2)\) be totally ordered sets
+    such that \(A_1 \cap A_2 = \OO\).
+    The relation \(\le\) on \(A = A_1 \cup A_2\) defined by
+    \[
+        a \le b \iff (a \le_1 b) \lor (a \le_2 b) \lor (a \in A_1 \land b \in A_2)
+    \]
+    is a total ordering.
+}
+\pf{Proof}{
+    \Cref{exer:2.5.6} already shows that \(\le\) is an ordering of \(A\).
+    Totality follows directly by the definition.
+}
+
+\mlemma[orderOnProduct]{}{
+    Let \((A_1, \le_1)\) and \((A_2, \le_2)\) be totally ordered sets.
+    The relation \(\le\) on \(A = A_1 \times A_2\) defined by
+    \[
+        (a_1, a_2) \le (b_1, b_2) \iff
+        a_1 <_1 b_1 \lor (a_1 = b_1 \land a_2 \le_2 b_2)
+    \]
+    is a total ordering.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    Assume \((a_1, a_2) < (b_1, b_2)\) and \((b_1, b_2) < (c_1, c_2)\).
+    If \(a_1 <_1 b_1\), then, we have \(a_1 <_1 c_1\) by \(b_1 <_1 c_1\).
+    If \(b_1 <_1 c_1\), then, we have \(a_1 <_1 c_1\) by \(a_1 \>_1 b_1\).
+    In the only left case, we have \(a_1 = b_1 = c_1\) and \(a_2 \le_2 b_2 \le_2 c_2\).
+    Hence, \((a_1, a_2) < (c_1, c_2)\). Thus \(<\) is transitive in \(A\).
+    \checkmark
+
+    \ii
+    Assume \((a_1, a_2) < (b_1, b_2)\) and \((b_1, b_2) < (a_1, a_2)\).
+    Since \(a_1 \le_1 b_1\) and \(b_1 \le_1 a_1\), by antisymmetry of \(\le_1\), \(a_1 = b_1\).
+    The only option now is \(a_2 \le_2 b_2\) and \(b_2 \le_2 a_2\),
+    which implies \(a_2 = b_2\) by the antisymmetry of \(\le_2\).
+    Hence, \((a_1, a_2) = (b_1, b_2)\), which is a contradiction.
+    Thus, \(<\) is asymmetric in \(A\). \checkmark
+
+    \ii
+    Let \((a_1, a_2), (b_1, b_2) \in A_1 \times A_2\).
+    As \(\le_1\) is total, \WLOG, \(a_1 \le_1 b_1\).
+    If \(a_1 < b_1\), then we immediately have \((a_1, a_2) < (b_1, b_2)\).
+    Now, assume \(a_1 = b_1\).
+    Then, as \(\le_2\) is total, \WLOG, \(a_2 \le_2 b_2\),
+    and thus \((a_1, a_2) \le (b_1, b_2)\).
+    Hence, \(\le\) is a total ordering. \checkmark \qed
+\end{itemize}
+}
+
+\thm[lexicOrder]{}{
+    Let \(\lang\,(A_i, \le_i) \mid i \in I\,\rang\) be an indexed system of
+    totally ordered sets where \(I \subseteq \NN\).
+    The relation \(\prec\) on \(\prod_{i \in I} A_i\) defined by
+    \begin{align*}
+        f \prec g &\iff \mrm{diff}(f, g) \triangleq \{\,i \in I \mid f_i \neq g_i\,\} \neq \OO \land f_{i_0} <_{i_0} g_{i_0} \\
+                  &\hphantom{\iff}\quad\text{where }i_0 = \textstyle\min_{\le} \mrm{diff}(f, g)
+    \end{align*}
+    is a total strict ordering of \(\prod_{i \in I} A_i\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    Assume \(f \prec g\) and \(g \prec h\) and let
+    \(i_0 = \min \mrm{diff}(f, g)\) and \(j_0 = \min \mrm{diff}(g, h)\).
+    \begin{itemize}[nolistsep]
+        \ii If \(i_0 \le j_0\), then \(f_{i_0} < g_{i_0} \le h_{i_0}\)
+            and \(\mrm{diff}(f, h) = i_0\).
+        \ii If \(j_0 < i_0\), then \(f_{j_0} = g_{j_0} < h_{j_0}\)
+            and \(\mrm{diff}(f, h) = j_0\).
+    \end{itemize}
+    \vspace*{.2em}
+    Hence, \(f \prec h\); \(\prec\) is transitive in \(\prod_{i \in I} A_i\). \checkmark
+
+    \ii
+    For \(f, g \in \prod_{i \in I} A_i\) with \(f \neq g\),
+    since \(i_0 = \mrm{diff}(f, g) = \mrm{diff}(g, f)\),
+    we cannot have \(f \prec g\) and \(g \prec f\) because of the asymmetry of \(<_{i_0}\).
+    \checkmark
+
+    \ii
+    If \(\mrm{diff}(f, g) = \OO\), we have \(f = g\).
+    If \(i_0 = \min \mrm{diff}(f, g)\), then we have \(f \prec g\) when \(f_{i_0} <_{i_0} g_{i_0}\)
+    and \(g \prec f\) when \(g_{i_0} <_{i_0} f_{i_0}\).
+    Hence, \(\prec\) is a total ordering. \checkmark
+\end{itemize}
+}
+
+\dfn[dense]{Dense Ordered Set}{
+    An ordered set \((X, \le)\) is \textit{dense} if
+    \[
+        2 \le |X| \;\land\; \fall a, b \in X,\: (a < b \implies \exs x \in X,\: a < x < b).
+    \]
+}
+
+\dfn[endpoint]{Endpoints}{
+    We now will call the least and greatest elements of a totally ordered set
+    \textit{endpoints} of the set.
+}
+
+\thm[cntDenseTotal]{}{
+    Let \((P, \preceq)\) and \((Q, \le)\) be countable dense totally ordered sets
+    without endpoints. Then, \((P, \preceq)\) and \((Q, \le)\) are similar.
+}
+\pf{Proof}{
+    Let \(\lang\,p_n \mid n \in \NN\,\rang\) be an injective sequence onto \(P\).
+    Let \(\lang\,q_n \mid n \in \NN\,\rang\) be an injective sequence onto \(Q\).
+    Let us call \(h \colon P \rightharpoonup Q\) a \textit{partial isomorphism}
+    from \(P\) to \(Q\) if \[\fall p, p' \in \dom h,\: (p \prec p' \iff h(p) < h(p')).\]
+
+    \clm[RWmAyDPu]{
+        If \(h\) is a partial isomorphism from \(P\) to \(Q\) with finite \(\dom h\),
+        and if \(p \in P\) and \(q \in Q\),
+        then there exists a partial isomorphism \(h_{p,q}\) from \(P\) to \(Q\) that extends \(h\)
+        such that \(p \in \dom h_{p,q}\) and \(q \in \ran h_{p,q}\).
+    }{
+        Write \(h = \{\,(p_{i_0}, q_{i_0}), \cdots, (p_{i_k}, q_{i_k})\,\}\)
+        where \(p_{i_0} \prec p_{i_1} \prec \cdots \prec p_{i_k}\)
+        and thus \(q_{i_0} < q_{i_1} < \cdots < q_{i_k}\).
+        (This is justified by \Cref{th:uniqueFiniteTotalOrder}.)
+        We have four cases:
+        \begin{itemize}[nolistsep]
+            \ii
+            Assume \(p \in \dom h\). Then, let \(h' \triangleq h\).
+            \ii
+            Assume \(p \prec p_{i_0}\).
+            Then, as \(Q\) has no least element, \(n = \min \{\,i \in \NN \mid q_i < q_{i_0}\,\}\)
+            exists. Let \(h' \triangleq h \cup \{(p, q_n)\}\).
+            \ii
+            Assume there exists \(e < k\) such that \(p_{i_e} \prec p \prec p_{i_{e+1}}\).
+            Then, as \(Q\) is dense, \(n = \min \{\,i \in \NN \mid q_{i_e} < q_i < q_{i_{e+1}}\,\}\)
+            exists. Let \(h' \triangleq h \cup \{(p, q_n)\}\).
+            \ii
+            Assume \(p_{i_k} \prec p\).
+            Then, as \(Q\) has no greatest element, \(n = \min \{\,i \in \NN \mid q_{i_k} < q_i\,\}\)
+            exists. Let \(h' \triangleq h \cup \{(p, q_n)\}\).
+        \end{itemize}
+        Then, \(h'\) is a partial isomorphism from \(P\) to \(Q\) and \(p \in \dom h'\).
+        Similarly, one may extend \(h'\) in the same way so it has \(q\) in its range.
+        \qed
+    }
+
+    Now, we may create a sequence of compatible partial isomorphisms from \(P\) to \(Q\)
+    recursively by
+    \begin{alignat*}{2}\SwapAboveDisplaySkip
+        &\quad& h_0 &= \OO \\
+        \fall n \in \NN,&& h_{n+1} &= (h_n)_{p_n, q_n}
+    \end{alignat*}
+    where \((h_n)_{p_n,q_n}\) is the extension of \(h_n\) (provided by the steps
+    in the proof of \Cref{clm:RWmAyDPu}) such that \(p_n \in \dom [(h_n)_{p_n,q_n}]\)
+    and \(q_n \in \ran [(h_n)_{p_n,q_n}]\).
+    Then, \(h \triangleq \bigcup_{n \in \NN} h_n\) is a function by \Cref{th:compatibleThenUnionIsFunction}.
+    It is easy to check if \(h \colon P \hooktwoheadrightarrow Q\) is a desired isomorphism.
+}
+
+\thm[countImbed]{}{
+    Let \((P, \preceq)\) be a countable totally ordered set,
+    and let \((Q, \le)\) be a countable dense totally ordered set without endpoints.
+    Then, there exists \(h \colon P \hookrightarrow Q\) such that
+    \[\fall p, p' \in P,\: (p \prec p' \implies h(p) < h(p')).\]
+}
+\pf{Proof}{
+    This is essentially the one-sided version of \Cref{th:cntDenseTotal}.
+    Let \(\lang\,p_n \mid n \in \NN\,\rang\) be an injective sequence onto \(P\).
+    In a similar way as \Cref{clm:RWmAyDPu} in the proof of \Cref{th:cntDenseTotal},
+    if \(f\) is a partial isomorphism from \(P\) to \(Q\) with finite \(\dom f\),
+    and if \(p \in P\), there exists another partial isomorphism \(f_p\) from \(P\) to \(Q\)
+    that extends \(f\) such that \(p \in \dom f_p\).
+
+    Then, one is able to make a sequence of compatible partial isomorphisms from \(P\) to \(Q\)
+    recursively by
+    \begin{alignat*}{2}\SwapAboveDisplaySkip
+        &\quad& h_0 &= \OO \\
+        \fall n \in \NN,&& h_{n+1} &= (h_n)_{p_n}
+    \end{alignat*}
+    where \((h_n)_{p_n}\) is the extension of \(h_n\) such that \(p_n \in \dom [(h_n)_{p_n}]\).
+    The rest is the same as the proof of \Cref{th:cntDenseTotal}.
+}
+
+\end{document}

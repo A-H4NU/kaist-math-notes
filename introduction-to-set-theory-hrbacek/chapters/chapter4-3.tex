@@ -338,23 +338,23 @@ Let \(|A_1| = |A_2|\) and \(|B_1| = |B_2|\).
     \clm[FMsBqJPY]{
         For each finite \(A \subseteq S\),
         there uniquely exists a unique isomorphism between
-        \(\left(|A|, \restr{\mathord{\le}}{|A|^2}\right)\)
-        and \(\big(A, \restr{\mathord{\preceq}}{A^2}\big)\).
+        \(\left(|A|, \mathord{\le} \cap |A|^2\right)\)
+        and \((A, \mathord{\preceq} \cap A^2)\).
     }{
-        We have existence for each \(A\) by \Cref{th:??}. % TODO: fill this
+        We have existence for each \(A\) by \Cref{th:uniqueFiniteTotalOrder}.
         Hence, we only prove the uniqueness by induction.
         If \(|A| = 0\), we have only one isomorphism \(\OO\).
 
         Fix some \(n \in \NN\) and assume the proposition holds for all \(A\) with cardinality \(n\).
         Take any \(A \subseteq S\) with \(|A| = n + 1\).
         Let \(f\) and \(g\) be two isomorphisms between
-        \(\left(n+1, \restr{\mathord{\le}}{(n + 1)^2}\right)\)
-        and \(\big(A, \restr{\mathord{\preceq}}{A^2}\big)\).
+        \((n+1, \mathord{\le} \cap (n + 1)^2)\)
+        and \((A, \mathord{\le} \cap A^2)\).
         Then, \(f(n) = g(n)\) since the greatest element is unique.
         Let \(B = A \setminus \{f(n)\}\).
         Then, \(\restr{f}{n}\) and \(\restr{g}{n}\) are isomorphisms between
-        \(\left(n, \restr{\mathord{\le}}{n^2}\right)\)
-        and \(\big(B, \restr{\mathord{\preceq}}{B^2}\big)\).
+        \((n, \mathord{\le} \cap n^2)\)
+        and \((B, \mathord{\le} \cap B^2)\).
         Hence, \(\restr{f}{n} = \restr{g}{n}\), and thus \(f = g\).
         The result follows from \nameref{th:induction}.
     }
