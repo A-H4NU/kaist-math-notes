@@ -33,7 +33,6 @@ Let \(|A_1| = |A_2|\) and \(|B_1| = |B_2|\).
     Let \(f \colon A_1 \hooktwoheadrightarrow A_2\).
     We may define \(g \colon \Seq(A_1) \hooktwoheadrightarrow \Seq(A_2)\) by
     \[\lang\,a_0, \cdots, a_{n-1}\,\rang \mapsto \lang\,f(a_0), \cdots, f(a_{n-1})\,\rang.\]
-
     \qed
 \end{enumerate}
 }
@@ -102,6 +101,54 @@ Let \(|A_1| = |A_2|\) and \(|B_1| = |B_2|\).
     \Cref{exer:3.2.11} assures that \(\fall n > 0,\: |[\NN]^n| = \aleph_0\).
 }
 
+\exer[4.3.6]{}{
+    A sequence \(\lang\,s_n\,\rang_{n=0}^\infty\) of natural numbers is
+    \textit{eventually constant} if \[\exs n_0, s \in \NN,\: \fall n \ge n_0,\: s_n = s.\]
+    The set of eventually constant sequences of natural numbers is countable.
+}
+\pf{Proof}{
+    Let \(P\) be the set of eventually constant sequences of natural numbers.
+    As \(P \subseteq Q\) where \(Q\) is the set of eventually periodic sequences of natural numbers
+    (see \Cref{exer:4.3.7}),
+    we have \(|P| \le \aleph_0\) by \Cref{exer:4.1.3,exer:4.3.7}.
+
+    Moreover, we may define an injective infinite sequence into \(P\) recursively by
+    \begin{alignat*}{2}
+        && g_0 &= \lang\,0, 0, \cdots\,\rang \\
+        \fall n \in \NN, &\quad& g_{n+1} &= \lang\,n + 1, a_0, a_1, \cdots\,\rang \\
+                         &&&\qquad \text{where }g_n = \lang\,a_0, a_1, \cdots\,\rang.
+    \end{alignat*}
+    Hence, \(\aleph_0 \le |P|\).
+    The result follows by \nameref{th:cantorBernstein}.
+}
+
+\exer[4.3.7]{}{
+    A sequence \(\lang\,s_n\,\rang_{n=0}^\infty\) of natural numbers is
+    \textit{eventually periodic} if \[\exs n_0 \in \NN,\: \exs p > 0,\: \fall n \ge n_0,\: s_{n+p} = s_n.\]
+    The set of eventually periodic sequences of natural numbers is countably infinite.
+}
+\pf{Proof}{
+    Let \(Q\) be the set of eventually periodic sequences of natural numbers.
+    We may define \(f \colon Q \to \Seq(\NN) \times \NN\) by
+    \begin{align*}\
+        f(x) &\triangleq \left(\restr{x}{n^\ast + p^\ast}, p^\ast\right) \\
+             &\qquad\begin{aligned}[t]
+                 \text{where } n^\ast &=
+                 \min \{\,n_0 \in \NN \mid \exs p > 0,\: \fall n \ge n_0,\: s_{n+p} = s_n\,\}\\
+                 \text{and }p^\ast &=
+                 \min \{\,p > 0 \mid \fall n \ge n^\ast,\: s_{n+p} = s_n\,\}.
+             \end{aligned}
+    \end{align*}
+    Then, it can be easily shown that \(f\) is injective.
+    Hence, \(|Q| \le |\Seq(\NN) \times \NN| = \aleph_0\) by
+    \Cref{th:productOfCountable,th:seqCountable}.
+
+    Moreover, as \(P \subseteq Q\) where \(P\) is
+    the set of eventually constant sequences of natural numbers and \(\aleph_0 \le |P|\)
+    by \Cref{exer:4.3.6}, we have \(|Q| = \aleph_0\) by
+    \Cref{exer:4.1.3} and \nameref{th:cantorBernstein}.
+}
+
 \setexernumber{9}
 
 \exer[4.3.10]{}{
@@ -157,7 +204,7 @@ Let \(|A_1| = |A_2|\) and \(|B_1| = |B_2|\).
     There exists \(f \colon A \hookrightarrow \NN\).
     Then,
     \[
-        X \triangleq \{\,f\inv(\min f[C]) \mid C \in S \,\}
+        X \triangleq \{\,f\inv(\min f[C]) \mid C \in S\,\}
     \]
     is a set of representatives.
 }

@@ -163,8 +163,8 @@
     \textit{endpoints} of the set.
 }
 
-\thm[cntDenseTotal]{}{
-    Let \((P, \preceq)\) and \((Q, \le)\) be countable dense totally ordered sets
+\thm[countDenseTotal]{}{
+    Let \((P, \preceq)\) and \((Q, \le)\) be countably infinite dense totally ordered sets
     without endpoints. Then, \((P, \preceq)\) and \((Q, \le)\) are similar.
 }
 \pf{Proof}{
@@ -219,15 +219,15 @@
 }
 
 \thm[countImbed]{}{
-    Let \((P, \preceq)\) be a countable totally ordered set,
-    and let \((Q, \le)\) be a countable dense totally ordered set without endpoints.
+    Let \((P, \preceq)\) be a countably infinite totally ordered set,
+    and let \((Q, \le)\) be a countably infinite dense totally ordered set without endpoints.
     Then, there exists \(h \colon P \hookrightarrow Q\) such that
     \[\fall p, p' \in P,\: (p \prec p' \implies h(p) < h(p')).\]
 }
 \pf{Proof}{
-    This is essentially the one-sided version of \Cref{th:cntDenseTotal}.
+    This is essentially the one-sided version of \Cref{th:countDenseTotal}.
     Let \(\lang\,p_n \mid n \in \NN\,\rang\) be an injective sequence onto \(P\).
-    In a similar way as \Cref{clm:RWmAyDPu} in the proof of \Cref{th:cntDenseTotal},
+    In a similar way as \Cref{clm:RWmAyDPu} in the proof of \Cref{th:countDenseTotal},
     if \(f\) is a partial isomorphism from \(P\) to \(Q\) with finite \(\dom f\),
     and if \(p \in P\), there exists another partial isomorphism \(f_p\) from \(P\) to \(Q\)
     that extends \(f\) such that \(p \in \dom f_p\).
@@ -239,7 +239,7 @@
         \fall n \in \NN,&& h_{n+1} &= (h_n)_{p_n}
     \end{alignat*}
     where \((h_n)_{p_n}\) is the extension of \(h_n\) such that \(p_n \in \dom [(h_n)_{p_n}]\).
-    The rest is the same as the proof of \Cref{th:cntDenseTotal}.
+    The rest is the same as the proof of \Cref{th:countDenseTotal}.
 }
 
 \subfile{../exercises/exercise4-4.tex}

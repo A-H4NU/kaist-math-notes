@@ -2,4 +2,284 @@
 
 \begin{document}
 
+\subsection*{Selected Problems}
+
+\exer[4.4.1]{}{
+    Assume that \((A_1, \le_1)\) is similar to \((B_1, \preceq_1)\) and
+    \((A_2, \le_2)\) is similar to \((B_2, \preceq_2)\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}]
+        \ii
+        Assuming \(A_1 \cap A_2 = B_1 \cap B_2 = \OO\),
+        the sum of \((A_1, \le_1)\) and \((A_2, \le_2)\) is similar to the sum of
+        \((B_1, \preceq_1)\) and \((B_2, \preceq_2)\).
+        (See \Cref{lem:orderOnUnion}.)
+
+        \ii
+        The lexicographic product of \((A_1, \le_1)\) and \((A_2, \le_2)\) is similar to
+        the lexicographic product of \((B_1, \preceq_1)\) and \((B_2, \preceq_2)\).
+    \end{enumerate}
+}
+\mclm{Proof}{
+Let \(f_1\) be an isomorphism between \((A_1, \le_1)\) and \((B_1, \preceq_1)\),
+and let \(f_2\) be an isomorphism between \((A_2, \le_2)\) and \((B_2, \preceq_2)\).
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(g \triangleq f_1 \cup f_2\) is an isomorphism
+    between `the sum of \((A_1, \le_1)\) and \((A_2, \le_2)\)' and
+    `the sum of \((B_1, \preceq_1)\) and \((B_2, \preceq_2)\)'.
+
+    \ii
+    \(g \colon A_1 \times A_2 \hooktwoheadrightarrow B_1 \times B_2\)
+    defined by \((a_1, a_2) \mapsto (f_1(a_1), f_2(a_2))\)
+    is an isomorphism between
+    `the lexicographic product of \((A_1, \le_1)\) and \((A_2, \le_2)\)' and
+    `the lexicographic product of \((B_1, \preceq_1)\) and \((B_2, \preceq_2)\)'.
+    \qed
+\end{enumerate}
+}
+
+\exer[4.4.2]{}{
+    Give an example of linear orderings \((A_1, \le_1)\) and \((A_2, \le_2)\) such that
+    the sum of \((A_1, \le_1)\) and \((A_2, \le_2)\)
+    does not have the same order type as
+    the sum of \((A_2, \le_2)\) and \((A_1, \le_1)\).
+    Do the same for lexicographic product.
+}
+\mclm{Proof}{
+    Let \(A = \{\,a, b\,\}\) where \(a \neq b\) and \(a, b \notin \NN\)
+    with \(\mathord{\preceq} = \{\,(a, a), (a, b), (b, b)\,\}\).
+
+    \begin{itemize}[nolistsep, listparindent=\parindent]
+        \ii
+        The sum of \((\NN, \le)\) and \((A, \preceq)\)
+        has a greatest element \(b\) but the sum of \((A, \preceq)\) and \((\NN, \le)\)
+        does not have a greatest element.
+        Hence, they are not similar.
+
+        \ii
+        The lexicographic product of \((\NN, \le)\) and \((A, \preceq)\)
+        is isomorphic to \((\NN, \le)\) via the isomorphism
+        \((n, x) \mapsto \begin{cases}
+            2 \cdot n & \text{if } x = a \\
+            2 \cdot n + 1 & \text{if } x = b.
+        \end{cases}\)
+        However, \(\{a\} \times \NN\), a subset of \(A \times \NN\),
+        is bounded above by \((b, 0)\) but it does not have a greatest element
+        in the lexicographic product of \((A, \preceq)\) and \((\NN, \le)\).
+        Hence, they are not similar.
+        \qed
+    \end{itemize}
+}
+
+\exer[4.4.3]{}{
+    The sum and the lexicographic product of two well-orderings are well-orderings.
+}
+\mclm{Proof}{
+    Let \((A_1, \le_1)\) and \((A_2, \le_2)\) be well-orderings.
+    \begin{itemize}[nolistsep, listparindent=\parindent]
+        \ii
+        Assume \(A \cap B = \OO\).
+        Let \((B, \le)\) be the sum of \((A_1, \le_1)\) and \((A_2, \le_2)\).
+        Take any \(C \subseteq B\) with \(C \neq \OO\).
+        If \(C \cap A_1 = \OO\), then \(\min_{\le} C = \min_{\le_2} C\).
+        Otherwise, \(\min_{\le} C = \min_{\le_1} (C \cap A_1)\).
+
+        \ii
+        Let \((A_1 \times A_2, \le)\) be the lexicographic product of \((A_1, \le_1)\) and \((A_2, \le_2)\).
+        Take any \(R \subseteq A_1 \times A_2\) with \(R \neq \OO\).
+        Let \(a_1 \triangleq \min_{\le_1} \dom R\)
+        and \(a_2 \triangleq \min_{\le_2} R[\{a_1\}]\).
+        Then, \((a_1, a_2) = \min_{\le} R\).
+        \qed
+    \end{itemize}
+}
+
+\exer[4.4.4]{}{
+    If \(\lang\,A_i \mid i \in \NN\,\rang\) is an infinite sequence of
+    totally ordered sets of natural numbers and \(|A_i| \ge 2\) for all \(i \in \NN\),
+    then the lexicographic ordering of \(\prod_{i \in \NN} A_i\) is \textit{not} a well-ordering.
+}
+\pf{Proof}{
+    For each \(i \in \NN\), justified by \(|A_i| \ge 2\), let \(a_i \triangleq \min A_i\) and
+    \(b_i \triangleq \min (A_i \setminus \{a_i\})\).
+    Define \(X \subseteq \prod_{i \in \NN} A_i\) by
+    \[
+        X \triangleq \textstyle\big\{
+            \,f \in \prod_{i \in \NN} A_i \:\big|\:
+                \exs i \in \NN,\: [f(i) = b_i \land
+            \fall j \in \NN,\: (i \neq j \implies f(j) = a_j)]\,\big\}.
+    \]
+    Then, \(X\), being similar to \((\NN, \le\inv)\),
+    does not have a least element.
+}
+
+\exer[4.4.5]{}{
+    Let \(\lang\,(A_i, \le_i) \mid i \in I\,\rang\) be an indexed system of mutually
+    disjoint totally ordered sets where \(I \subseteq \NN\).
+    The relation \(\prec\) on \(\bigcup_{i \in I} A_i\) defined by
+    \[
+        a \prec b \iff (\exs i \in I,\: a <_i b) \lor
+        (\exs i, j \in I,\: i < j \land a \in A_i \land b \in A_j)
+    \]
+    is a strict total ordering.
+    Moreover, if all \(\le_i\) are well-orderings, so is \(\preceq\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    Assume \(a \prec b\) and \(b \prec c\).
+    There exist \(i, j, k \in I\) such that
+    \(a \in A_i\), \(b \in A_j\) and \(c \in A_k\).
+    Then, we have \(i \le j \le k\).
+    If \(i < j\) or \(j < k\), we immediately have \(a \prec c\)
+    by definition.
+    If \(i = j = k\), by transitivity of \(<_i\),
+    we have \(a \prec c\).
+    Hence, \(\prec\) is transitive in \(\bigcup_{i \in I} A_i\). \checkmark
+
+    \ii
+    Suppose \(a \prec b\) and \(b \prec a\) for the sake of contradiction.
+    There exists \(i, j \in I\) such that \(a \in A_i\) and \(b \in A_j\).
+    We cannot have \(i < j\) or \(j < i\) as it contradicts
+    one of \(a \prec b\) and \(b \prec a\).
+    Hence, \(i = j\) by totality of \((\NN, \le)\).
+    Then, we have \(a <_i b\) and \(b <_i a\), which is impossible
+    by asymmetry of \(<_i\). Hence, \(\prec\) is asymmetric in \(\bigcup_{i \in I} A_i\). \checkmark
+
+    \ii
+    Take any \(a, b \in \bigcup_{i \in I} A_i\).
+    There exists \(i, j \in I\) such that \(a \in A_i\) and \(b \in A_j\).
+    If \(i \neq j\), we immediately have \(a \prec b\) or \(b \prec a\).
+    If \(i = j\), as \(\le_i\) is total, we have \(a \le_i b\) or \(b \le_i a\).
+    Thus, \(a \preceq b\) or \(b \preceq a\).
+    Hence, \(\preceq\) is total. \checkmark
+
+    \ii
+    Assume \(\le_i\) is a well-ordering for each \(i \in \NN\).
+    Take any \(X \subseteq \bigcup_{i \in I} A_i\) with \(X \neq \OO\).
+    Let \(i_0 \triangleq \min \{\,i \in I \mid A_i \cap X \neq \OO\,\}\),
+    thanks to \nameref{th:NisWellOrdered} and \(X\) being nonempty.
+    Then, let \(a \triangleq \min_{\le_{i_0}} (A_{i_0} \cap X)\),
+    which exists as \(\le_{i_0}\) is a well-ordering.
+    Then, \(a = \min_{\preceq} X\). \checkmark
+    \qed
+\end{itemize}
+}
+
+\setexernumber{6}
+
+\exer[4.4.7]{}{
+    Let \(\preceq\) be the lexicographical ordering of \(\NN[\NN]\)
+    (where \(\NN\) is ordered in the usual way) and let
+    \(P \subseteq \NN[\NN]\) be the set of
+    all eventually periodic, but not eventually constant, sequences of natural numbers.
+    (See \Cref{exer:4.3.6,exer:4.3.7} for the definitions.)
+    Then, \((P, \mathord{\preceq} \cap P^2)\) is a countably infinite dense totally ordered set
+    without endpoints.
+}
+\pf{Proof}{
+    We already have \(\mathord{\preceq} \cap P^2\) is a total ordering.
+
+    \clm[DBALsefv]{
+        \(P\) is countably infinite.
+    }{
+        As \(P\) is a subset of the set of all eventually periodic sequences,
+        by \Cref{exer:4.1.3,exer:4.3.7}, \(|P| \le \aleph_0\).
+        We may define an injective infinite sequence into \(P\) recursively by
+        \begin{alignat*}{2}
+            && g_0 &= \lang\,0, 1, 0, 1, \cdots\,\rang \\
+            \fall n \in \NN,&\quad& g_{n+1} &= \lang\,n+1, a_0, a_1, \cdots\,\rang \\
+                            &&&\qquad\text{where }g_n = \lang\,a_0, a_1, \cdots\,\rang.
+        \end{alignat*}
+        Hence, \(\aleph_0 \le |P|\); thus \(|P| = \aleph_0\) by \nameref{th:cantorBernstein}.
+        \qed
+    }
+
+    \clm[NDZYpOnP]{
+        \((P, \mathord{\preceq} \cap P^2)\) is dense.
+    }{
+        Take any \(f, g \in P\) with \(f \prec g\).
+        Then, \(f_{i_0} < g_{i_0}\) where
+        \(i_0 = \min \{\,i \in \NN \mid f_i \neq g_i\,\}\).
+        Define \(h \in \NN[\NN]\) by
+        \[
+            h_i \triangleq \begin{cases}
+                f_i & \text{if } i \le i_0 \\
+                f_i + 1 & \text{otherwise.}
+            \end{cases}
+        \]
+        Then, it is evidently \(f \prec h \prec g\).
+
+        There exist \(n_0 \in \NN\) and \(p > 0\) such that
+        \(\fall n \ge n_0,\: f_{n+p} = f_n\).
+        Let \(n_0' \triangleq \max \{\,n_0, i_0 + 1\,\}\).
+        Then, for each \(n \ge n_0'\),
+        we have \(h_{n+p} = f_{n+p} + 1 = f_n + 1 = h_n\);
+        thus \(h \in P\).
+        Hence, \((P, \mathord{\preceq} \cap P^2)\) is dense. \qed
+    }
+
+    \clm[uEiOTovb]{
+        \((P, \mathord{\preceq} \cap P^2)\) has no endpoints.
+    }{
+        Fix any \(f \in P\).
+        Then, we may define \(g \in \NN[\NN]\) by \(\fall n \in \NN,\: g_n = f_n + 1\).
+        It is easy to show that \(f \prec g\) and \(g \in P\).
+        Hence, \((P, \mathord{\preceq} \cap P^2)\) has no greatest element.
+
+        We may also define \(h \in \NN[\NN]\) by
+        \[
+            \fall n \in \NN,\: h_n = \begin{cases}
+                0 & \text{if } n = 0 \\
+                f_{n-1} & \text{otherwise.}
+            \end{cases}
+        \]
+        As \(f\) is not eventually constant, \(f \neq h\) and we may let
+        \(i_0 \triangleq \min \{\,i \in \NN \mid f_i \neq 0\,\}\).
+        As \(\fall i < i_0,\: f_i = 0\), \(\min \mrm{diff}(f, h) = i_0\).
+        Since \(0 = h_{i_0} < f_{i_0}\), \(h \prec f\).
+        Thus, \((P, \mathord{\preceq} \cap P^2)\) has no least element. \qed
+    }
+    \noindent
+    Combining \Cref{clm:DBALsefv,clm:NDZYpOnP,clm:uEiOTovb} gives the desired result.
+}
+
+\setexernumber{10}
+
+\exer[4.4.11]{}{
+    Let \((A, \preceq)\) be a dense totally ordered set.
+    Show that for all \(a, b \in A\) such that \(a \prec b\),
+    the \textit{closed interval} \([a, b] \triangleq \{\,x \in A \mid a \preceq x \preceq b\,\}\)
+    is infinite.
+}
+\pf{Proof}{
+    Assume there are some \(a, b \in A\) such that \(a \prec b\) and \(I = [a, b]\) is finite.
+    Let \(|I| = n\). (Since \(a, b \in I\), \(n \ge 2\).)
+    Then, by \Cref{th:uniqueFiniteTotalOrder},
+    there exists an isomorphism \(h \colon n \hooktwoheadrightarrow I\)
+    between \((n, \mathord{\le} \cap n^2)\) and \((I, \mathord{\preceq} \cap I^2)\).
+    Then, \(\exs i < n,\: h(0) \prec h(i) \prec h(1)\) as \((A, \preceq)\) is dense.
+    However, there does not exist \(i \in \NN\) with \(0 < i < 1\) by \Cref{exer:3.1.1},
+    which is a contradiction.
+}
+
+\exer[4.4.12]{}{
+    Let \((P, \preceq)\) and \((Q, \le)\) be countably infinite dense totally ordered sets
+    with both endpoints. Then, \((P, \preceq)\) and \((Q, \le)\) are similar.
+}
+\pf{Proof}{
+    Define the following:
+    \begin{alignat*}{2}
+        p &\triangleq\textstyle \min_{\preceq} P & p' &\triangleq\textstyle \max_{\preceq} P \\
+        q &\triangleq\textstyle \min_{\le} Q &\qquad q' &\triangleq\textstyle \max_{\le} Q \\
+        P_0 &\triangleq P \setminus \{\,p, p'\,\} &\qquad Q_0 &\triangleq Q \setminus \{\,q, q'\,\}.
+    \end{alignat*}
+    Then, \((P_0, \mathord{\preceq} \cap P_0^2)\) and \((Q_0, \mathord{\preceq} \cap Q_0^2)\)
+    are countably infinite dense totally ordered sets without endpoints.
+    Hence, by \Cref{th:countDenseTotal}, we have an isomorphism
+    \(h \colon P_0 \hooktwoheadrightarrow Q_0\) between them.
+    Then, \(h' \cup \{\,(p, q), (p', q')\,\}\) is an isomorphism between
+    \((P, \preceq)\) and \((Q, \le)\).
+}
+
 \end{document}

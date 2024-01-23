@@ -73,7 +73,7 @@
                           &= ((n + m) + 1) + 1 &\qquad& \comment*{\eqref{eq:addition2}}\\
                           &= ((m + n) + 1) + 1 &\qquad& \comment*{\(\mbf{P}(n)\)}\\
                           &= (m + (n + 1)) + 1 &\qquad& \comment*{\eqref{eq:addition2}}\\
-                          &= ((n + 1) + m) + 1 &\qquad& \comment*{\(m + (n+1) = (n+1) + m\)}\\ 
+                          &= ((n + 1) + m) + 1 &\qquad& \comment*{\(m + (n+1) = (n+1) + m\)}\\
                           &= (n + 1) + (m + 1). &\qquad& \comment*{\eqref{eq:addition2}}
         \end{alignat*}
         Hence, by \nameref{th:induction}, \(\mbf{P}(n+1)\) holds. \qed
@@ -130,7 +130,7 @@
 }
 
 \thm[multIsCommutative]{\(\cdot\) is Commutative}{
-    Multiplication is commutative, i.e., 
+    Multiplication is commutative, i.e.,
     \[\fall m, n \in \NN,\: m \cdot n = n \cdot m.\]
 }
 \pf{Proof}{
@@ -189,14 +189,14 @@
 \pf{Proof}{
     Let \(\mbf{P}(x)\) be the property ``\(\fall k, m \in \NN,\: k \cdot (m + x) = k \cdot m + k \cdot x\).''
     \(\mbf{P}(0)\) holds by \eqref{eq:addition1} and \eqref{eq:multiplication1}.
-    
+
     Fix any \(n \in \NN\) and assume \(\mbf{P}(n)\).
     Then, for each \(k, m \in \NN\),
     \begin{alignat*}{2}
         k \cdot (m + (n + 1)) &= k \cdot ((m + n) + 1) &\qquad& \comment*{\nameref{th:addIsAssociative}}\\
                               &= k \cdot (m + n) + k && \comment*{\eqref{eq:multiplication2}}\\
                               &= (k \cdot m + k \cdot n) + k && \comment*{\(\mbf{P}(n)\)}\\
-                              &= k \cdot m + (k \cdot n + k) && \comment*{\nameref{th:addIsAssociative}}\\ 
+                              &= k \cdot m + (k \cdot n + k) && \comment*{\nameref{th:addIsAssociative}}\\
                               &= k \cdot m + k \cdot (n + 1). && \comment*{\eqref{eq:multiplication2}}
     \end{alignat*}
     Hence, by \nameref{th:induction}, we have \(\fall k, m, n \in \NN,\: k \cdot (m + n) = k \cdot m + k \cdot n\).
@@ -226,7 +226,7 @@
         (k \cdot m) \cdot (n + 1)
           &= (k \cdot m) \cdot n + k \cdot m &\qquad& \comment*{\eqref{eq:multiplication2}} \\
           &= k \cdot (m \cdot n) + k \cdot m && \comment*{\(\mbf{P}(n)\)} \\
-          &= k \cdot (m \cdot n + m) && \comment*{\nameref{th:multDistrOverAdd}} \\ 
+          &= k \cdot (m \cdot n + m) && \comment*{\nameref{th:multDistrOverAdd}} \\
           &= k \cdot (m \cdot (n + 1)). && \comment*{\eqref{eq:multiplication2}}
     \end{alignat*}
     Hence, the result follows by \nameref{th:induction}.
@@ -378,7 +378,7 @@
         Let \(k, \ell \in \Seq(\NN)\).
         If \(k \subseteq \ell\), then \(f(k, \dom k) = f(\ell, \dom k)\).
     }{
-        Let \(\mbf{P}(x)\) be the property 
+        Let \(\mbf{P}(x)\) be the property
         \[
             \fall k, \ell \in \Seq(\NN),\:
             [\dom k = x \land k \subseteq \ell \implies f(k, x) = f(\ell, x)].
@@ -397,7 +397,7 @@
         \end{alignat*}
         Hence, by \nameref{th:induction}, the result follows. \qed
     }
-    
+
     Let \(k \in \Seq(\NN)\) with length \(n + 1\).
     Then, \(\Sigma(k) = f(k, n+1) = f(k, n) + k_n\).
     \begin{alignat*}{2}
@@ -419,9 +419,9 @@
 }
 
 % \thm[lawsOfSummation]{}{
-%     
+%
 % }
 
-\subfile{../exercises/exercise3-3.tex}
+\subfile{../exercises/exercise3-4.tex}
 
 \end{document}
