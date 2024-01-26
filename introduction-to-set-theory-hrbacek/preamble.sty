@@ -28,13 +28,12 @@
 \usepackage{multicol,array}
 \usepackage{tikz-cd}
 \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
-\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi)
 \usepackage{import}
 \usepackage{xifthen}
 \usepackage{pdfpages}
 \usepackage{transparent}
 \usepackage{float}
-
 
 \newcommand\mycommfont[1]{\rmfamily\textcolor{black}{#1}}
 \SetCommentSty{mycommfont}
@@ -132,7 +131,7 @@
 	borderline west = {2pt}{0pt}{mytheoremfr},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = mytheoremfr,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -154,7 +153,7 @@
 	borderline west = {2pt}{0pt}{mytheoremfr},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = mytheoremfr,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -196,7 +195,7 @@
 	,borderline west = {2pt}{0pt}{mycorollaryfr}
 	,sharp corners
 	,detach title
-	,before upper = \tcbtitle\par\smallskip
+	,before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip
 	,coltitle = mycorollaryfr
 	,fonttitle = \bfseries
 	,description font = \mdseries\sffamily
@@ -217,7 +216,7 @@
 	,borderline west = {2pt}{0pt}{myp!85!black}
 	,sharp corners
 	,detach title
-	,before upper = \tcbtitle\par\smallskip
+	,before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip
 	,coltitle = mycorollaryfr
 	,fonttitle = \bfseries
 	,description font = \mdseries\sffamily
@@ -244,7 +243,7 @@
 	borderline west = {2pt}{0pt}{mylemmafr},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = mylemmafr,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -266,7 +265,7 @@
 	borderline west = {2pt}{0pt}{mylemmafr},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = mylemmafr,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -279,7 +278,7 @@
 
 
 %================================
-% PROPOSITION
+% ASSUMPTION
 %================================
 
 \tcbuselibrary{theorems,skins,hooks}
@@ -293,7 +292,7 @@
 	borderline west = {2pt}{0pt}{mypropfr},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = mypropfr,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -315,7 +314,7 @@
 	borderline west = {2pt}{0pt}{mypropfr},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = mypropfr,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -352,8 +351,8 @@
     ,right=.3em
     ,top=.3em
     ,bottom=.3em
-    ,before upper = \tcbtitle{\bfseries.}\
-    ,before lower = \setlength{\parindent}{1cm}\noindent{\bfseries\itshape Proof.}\ 
+    ,before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle{\bfseries.}\
+    ,before lower = \setlength{\parindent}{1cm}\noindent{\bfseries\itshape Proof.}\
     % ,after lower =\hfill\qed
 	,coltitle = black
 	,fonttitle = \bfseries\itshape
@@ -382,7 +381,7 @@
 	borderline west = {2pt}{0pt}{myexercisefg},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = myexercisefg,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -404,7 +403,7 @@
 	borderline west = {2pt}{0pt}{myexercisefg},
 	sharp corners,
 	detach title,
-	before upper = \tcbtitle\par\smallskip,
+	before upper = \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip,
 	coltitle = myexercisefg,
 	fonttitle = \bfseries,
 	description font = \mdseries\sffamily,
@@ -431,7 +430,7 @@
 	,boxrule = 1pt
 	,sharp corners
 	,detach title
-	,before upper=\tcbtitle\par\smallskip
+	,before upper=\renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip
 	,fonttitle = \bfseries
 	,description font = \mdseries\sffamily
 	,separator sign={\enspace}
@@ -449,7 +448,7 @@
 	,boxrule = 1pt
 	,sharp corners
 	,detach title
-	,before upper=\tcbtitle\par\smallskip
+	,before upper=\renewcommand\thempfootnote{\fnsymbol{mpfootnote}}\tcbtitle\par\smallskip
 	,fonttitle = \bfseries
 	,description font = \mdseries\sffamily
 	,separator sign={\enspace}
@@ -485,6 +484,7 @@
 				},interior engine=empty,
 		},
 	fonttitle=\bfseries,
+    before upper=\renewcommand\thempfootnote{\fnsymbol{mpfootnote}},
     label type=theorem,
 	title={#2},#1}{dfn}
 \newtcbtheorem[number within=chapter,use counter from=theorem,Crefname={Definition}{Definitions}]{definition}{Definition}{enhanced,
@@ -507,6 +507,7 @@
 				},interior engine=empty,
 		},
 	fonttitle=\bfseries,
+    before upper=\renewcommand\thempfootnote{\fnsymbol{mpfootnote}},
     label type=theorem,
 	title={#2},#1}{dfn}
 
@@ -534,6 +535,7 @@
 				},interior engine=empty,
 		},
 	fonttitle=\bfseries,
+    before upper=\renewcommand\thempfootnote{\fnsymbol{mpfootnote}},
     label type=theorem,
 	title={#2},#1}{not}
 \newtcbtheorem[number within=chapter,use counter from=theorem,Crefname={Notation}{Notations}]{notation}{Notation}{enhanced,
@@ -556,6 +558,7 @@
 				},interior engine=empty,
 		},
 	fonttitle=\bfseries,
+    before upper=\renewcommand\thempfootnote{\fnsymbol{mpfootnote}},
     label type=theorem,
 	title={#2},#1}{not}
 
@@ -901,7 +904,7 @@
 %{\hspace{0.5em}\nobreak\itshape\color{myred}\contentspage}
 %\titlecontents{subsection}
 %[8.4em]
-%{\sffamily\contentslabel{3em}}{}{}  
+%{\sffamily\contentslabel{3em}}{}{}
 %{\hspace{0.5em}\nobreak\itshape\color{myred}\contentspage}
 
 

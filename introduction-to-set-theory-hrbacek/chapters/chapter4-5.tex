@@ -1,0 +1,322 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Complete Linear Ordering}
+
+\dfn[cut]{Cut, Dedekind Cut, and Gap}{
+    Let \((P, \le)\) be a totally ordered set.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        A \textit{cut} is a pair \((A, B)\) of sets such that
+        \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+            \ii \(\{A, B\}\) is a \hyperref[dfn:partition]{partition} of \(P\).
+            \ii \(\fall a \in A,\: \fall b \in B,\: a < b\)
+        \end{enumerate}
+
+        \ii
+        A \textit{Dedekind cut} is a cut \((A, B)\) such that \(\max A\) does not exist.
+
+        \ii
+        A \textit{gap} is a cut \((A, B)\) such that \(\max A\) and \(\min B\) do not exist.
+    \end{itemize}
+}
+
+\dfn[bounded]{}{
+    Let \((P, \le)\) be a totally ordered set and let \(\OO \subsetneq A \subseteq P\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii \(A\) is \textit{bounded} if \(A\) has both lower and upper bounds.
+        \ii \(A\) is \textit{bounded from below} if it has a lower bound.
+        \ii \(A\) is \textit{bounded from above} if it has an upper bound.
+    \end{itemize}
+}
+
+\mlemma[completeIff]{}{
+    Let \((P, \le)\) be a totally ordered set.
+    Every nonempty \(S \subseteq P\) bounded from above has a supremum
+    if and only if \((P, \le)\) has no gap.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Suppose \((A, B)\) is a gap of \((P, \le)\).
+    Then, as any \(b \in B\) is a supremum of \(A\),
+    \(A\) is bounded from above.
+    Hence, by assumption, there exists \(\mu = \sup A\).
+    There are two cases: \(\mu \in A\) and \(\mu \in B\).
+
+    If \(\mu \in A\), then by \ref{itm:basicInfimum.iii},
+    \(\mu = \max A\), which contradicts the fact that \((A, B)\) is a gap.
+    If \(\mu \in B\), as any \(b \in B\) is an upper bound of \(A\),
+    \(\fall b \in B,\: \mu \le b\), i.e., \(\mu = \min B\),
+    which is a contradiction as well.
+
+    \ii[(\(\Leftarrow\))]
+    Suppose there is nonempty \(S \subseteq P\) such that \(S\) is bounded above and \(S\) has no supremum.
+    Let
+    \begin{align*}\SwapAboveDisplaySkip
+        A &\triangleq \{\,x \in P \mid \exs s \in S,\: x \le s\,\}, \\
+        B &\triangleq \{\,x \in P \mid \fall s \in S,\: x > s\,\}.
+    \end{align*}
+
+    \clm[FlmPHkut]{
+        \(\{A, B\}\) is a partition of \(P\).
+    }{
+        We have \(A \cap B = \OO\) and \(A \cup B = P\).
+        As \(A = P\) implies the existence of \(\max S\),
+        which contradicts the nonexistence of \(\sup S\) by \Cref{itm:basicInfimum.ii},
+        we have \(B \neq \OO\); moreover, as
+        \(B = P\) is impossible by \(S \cap P = \OO\),
+        we have \(A \neq \OO\). Hence, \(\{A, B\}\) is a partition of \(P\).
+        \qed
+    }
+
+    \clm[lnpuetJv]{
+        \(\fall a \in A,\: \fall b \in B,\: a < b\).
+    }{
+        Take any \(a \in A\) and \(b \in B\).
+        Then, there exists \(s \in S\) such that \(a \le s\).
+        As \(b \in B\), we have \(a \le s < b\).
+        Hence, \(a < b\). \qed
+    }
+
+    \clm[DhzmLRJS]{
+        \(\max A\) and \(\min B\) do not exist.
+    }{
+        Suppose \(m = \min B\) exists for the sake of contradiction.
+        Let \(m'\) be an upper bound of \(S\).
+        If \(m' \in S\), then \(m' = \sup S\), which is a contradiction.
+        Hence, we have \(\fall s \in S,\: m' > s\), i.e., \(m' \in B\).
+        This implies \(m \le m'\), that is to say \(m = \sup S\).
+        Hence, \(\min B\) does not exist.
+
+        Suppose \(M = \max A\) exists for the sake of contradiction.
+        Then, as \(S \subseteq A\), \(M\) is an upper bound of \(S\).
+        Let \(M'\) be another upper bound of \(S\).
+        Then, as \(\fall s \in S,\: M \le s \le M'\), \(M = \sup S\),
+        which is a contradiction. Hence, \(\max A\) does not exist.
+        \qed
+    }
+
+    \noindent
+    Combining \Cref{clm:FlmPHkut,clm:lnpuetJv,clm:DhzmLRJS} gives the result.
+    \qed
+\end{itemize}
+}
+
+\dfn[complete]{Complete Dense Totally Ordered Set}{
+    Let \((P, \le)\) be a dense totally ordered set.
+    \((P, \le)\) is said to be \textit{complete}
+    if every nonempty \(S \subseteq P\) bounded from above has a supremum,
+    i.e., if \((P, \le)\) has no gap. (See \Cref{lem:completeIff}.)
+}
+
+\thm[completion]{Completion}{
+    Let \((P, \le)\) be a dense totally ordered set without endpoints.
+    Then, there exists a complete totally ordered set \((C, \preceq)\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(P \subseteq C\).
+        \ii \(\fall p, q \in P,\: (p < q \iff p \prec q)\).
+        \ii \(\fall c, d \in C,\: (c \prec d \implies \exs p \in P,\: c \prec p \prec d)\), i.e., \(P\) is dense in \(C\).
+        \ii \(C\) does not have endpoints.
+    \end{enumerate}
+    Moreover, such \((C, \preceq)\)
+    is unique up to isomorphism \(h\) with \(\mrm{Id}_P \subseteq h\).%
+    \footnote[2]{
+        In other words, if \((C, \preceq)\) and \((C^\ast, \preceq^\ast)\)
+        satisfy all the requirements,
+        then there exists an isomorphism \(h\) between
+        \((C, \preceq)\) and \((C^\ast, \preceq^\ast)\)
+        such that \(\fall p \in P,\: h(p) = p\).
+    }
+    The complete totally ordered set \((C, \preceq)\) is called the
+    \textit{completion} of \((P, \le)\).
+}
+\pf{Proof}{
+    For each \(B \subseteq P\), one may easily verify that \(\min B\) exists
+    if and only if there exists \(p \in P\) such that
+    \(B = \{\,x \in P \mid x \ge p\,\}\).
+    Hence, there are two types of Dedekind cuts---a Dedekind cut \((A, B)\) such that:
+    \begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+        \ii There (uniquely) exists \(p \in P\) such that \(B = \{\,x \in P \mid x \ge p\,\}\);
+            in this case we write \((A, B) = [p]\).
+        \ii \((A, B)\) is a gap.
+    \end{enumerate}
+    Note that \([p]\) is a Dedekind cut of \((P, \le)\) for all \(p \in P\).
+
+    Now, define \(C\) and a relation \(\preceq\) on \(C\) by:
+    \begin{gather*}
+        C \triangleq \{\,(A, B) \mid (A, B) \text{ is a Dedekind cut of } (P, \le)\,\} \\
+        \shortintertext{and}
+        (A, B) \preceq (A', B') \iff A \subseteq A'\text{.}
+    \end{gather*}
+
+    \clm[VAPQliWa]{
+        \((C, \preceq)\) is a totally ordered set.
+    }{
+        It is evident that \((C, \preceq)\) is an ordered set.
+        Take any \((A, B), (A', B') \in C\).
+        Suppose they are incomparable for the sake of contradiction, i.e.,
+        \(A \setminus A' = A \cap B' \neq \OO\) and \(A' \setminus A = A' \cap B \neq \OO\).
+        Let \(a \in A \cap B'\) and \(a' \in A' \cap B\).
+        Then, \(a < a'\) and \(a' < a\), which is impossible
+        by asymmetry of \(<\). \qed
+    }
+
+    If \(p < q\) where \(p, q \in P\),
+    then we have \([p] \prec [q]\).
+    Hence, \((P', \mathord{\preceq} \cap P'^2)\) is isomorphic to \((P, \le)\)
+    where \(P' \triangleq \{\,[x] \mid x \in P\,\}\).
+    Thus, we simply prove that \((C, \preceq)\) is a completion of \((P', \mathord{\preceq} \cap P'^2)\).
+
+    \clm[dQPTDxRu]{
+        \(\fall c, d \in C,\: (c \prec d \implies \exs p \in P,\: c \prec [p] \prec d)\).
+    }{
+        Take any \(c, d \in C\) with \(c \prec d\).
+        In other words, \(c = (A, B)\) and \(d = (A', B')\) with \(A \subsetneq A'\).
+        Take \(p \in A' \setminus A\).
+        As \((P, \le)\) has no greatest element,
+        \WLOG, we may assume \(p\) is not a least element of \(B\).
+        Let \([p] = (A'', B'')\).
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii
+            As \((P, \le)\) is totally ordered,
+            the fact that \(p\) is not a least element of \(B\)
+            asserts the existence of \(b \in B\) such that \(b < p\).
+            Hence, \(\fall x \in B'',\:\fall a \in A,\: a < b < p \le x\).
+            Thus, \(B'' \subsetneq B\); \((A, B) \prec [p]\). \checkmark
+
+            \ii
+            As \(A'\) has no greatest element and \((P, \le)\) is totally ordered,
+            there exists \(a' \in A'\) such that \(p < a'\).
+            Then, we have \(\fall x \in A'',\: \fall b' \in B',\: x < p < a' < b'\),
+            i.e., \(A'' \subsetneq A'\).
+            Hence, \([p] \prec (A', B')\). \checkmark
+            \qed
+        \end{itemize}
+    }
+
+    \noindent
+    \Cref{clm:dQPTDxRu} also shows that \((C, \preceq)\) is a densely ordered set.
+
+    \clm[RxJeNpUA]{
+        \((C, \preceq)\) has no endpoints.
+    }{
+        Take any \((A, B) \in C\).
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii
+            In the same way as in the proof of \Cref{clm:dQPTDxRu},
+            any \(p \in B\) which is not a least element of \(B\) (which exists)
+            satisfies \((A, B) \prec [p]\).
+            Hence, \(C\) has no greatest element. \checkmark
+
+            \ii
+            Take any \(p \in A\).
+            As \(A\) has no greatest element, there exists \(a \in A\) such that \(p < a\).
+            Hence, \([p] \prec (A, B)\). \checkmark
+            \qed
+        \end{itemize}
+    }
+
+    \clm[IuBZDfdA]{
+        \((C, \preceq)\) is complete.
+    }{
+        Let \(\OO \subsetneq S \subseteq C\) be bounded from above.
+        Let \((A_0, B_0)\) be an upper bound of \(S.\)
+        Define
+        \[\textstyle
+            A_S \triangleq \bigcup \{\,A \mid (A, B) \in S\,\} \quad\text{and}\quad
+            B_S \triangleq P \setminus A_S = \bigcap \{\,B \mid (A, B) \in S\,\}.
+        \]
+        As \(B_0 \subseteq B_S\), \((A_S, B_S)\) is a cut.
+        Moreover, if \(x\) is a greatest element of \(A_S\),
+        then \(x\) is a greatest element of some \(A\) where \((A, B) \in S\).
+        Hence, \(A_S\) has no greatest element; \((A_S, B_S) \in C\).
+
+        As \(A \subseteq A_S\) for all \((A, B) \in S\),
+        \((A_S, B_S)\) is an upper bound of \(S\).
+        If \((A', B')\) is another upper bound of \(S\),
+        then \(\fall (A, B) \in S,\: A \subseteq A'\),
+        i.e., \(A_S \subseteq A'\).
+        Hence, \((A_S, B_S) \preceq (A', B')\).
+        Thus, \((A_S, B_S) = \sup_{\preceq} S\). \qed
+    }
+
+    \Crefrange{clm:VAPQliWa}{clm:IuBZDfdA} shows that \((C, \preceq)\) satisfies
+    the requirements of the theorem; hence the existence part is done.
+    We now prove the uniqueness.
+
+    \clm[]{
+        Let \((C, \preceq)\) and \((C^\ast, \preceq^\ast)\)
+        be two complete totally ordered sets that satisfies
+        (i)--(iv).
+        Then, there exists an isomorphism \(h\) between
+        \((C, \preceq)\) and \((C^\ast, \preceq^\ast)\)
+        such that \(\fall p \in P,\: h(p) = p\).
+    }{
+        For each \(c \in C\) and \(c^\ast \in C^\ast\) define
+        \[
+            S_c \triangleq \{\,p \in P \mid p \prec c\,\} \quad\text{and}\quad
+            S_{c^\ast} \triangleq \{\,p \in P \mid p \prec^\ast c^\ast\,\}.
+        \]
+        Note that:
+        \begin{enumerate}[nolistsep, label=(\Roman*), listparindent=\parindent]
+            \ii
+            \(\sup_{\preceq} S_c = c\) and \(\sup_{\preceq^\ast} S_{c^\ast} = c^\ast\) by (iii).
+
+            \ii
+            Take any \(c \in C\).
+            By (iii) and (iv), there exists \(q \in P\) such that \(c \prec q\).
+            Hence, \(\fall p \in S_c,\: p \prec c \prec q\),
+            and thus, \(\fall p \in S_c,\: p \prec^\ast q\) by (ii).
+            Therefore, every \(S_c\) is bounded from above in \((C^\ast, \preceq^\ast)\).
+            By symmetry, every \(S_{c^\ast}\) is bounded from above in \((C, \preceq)\).
+
+            \ii
+            For \(p \in P\) and \(\OO \subsetneq X \subseteq P\) such that both
+            \(\sup_{\preceq} X\) and \(\sup_{\preceq^\ast} X\) exist,
+            we have
+            \[
+                \textstyle p \prec \sup_{\preceq} X \iff \exs x \in X,\: p \prec x
+                                         \iff \exs x \in X,\: p \prec^\ast x
+                                         \iff\textstyle p \prec^\ast \sup_{\preceq^\ast} X.
+            \]
+        \end{enumerate}
+
+        \noindent
+        Now, define \(h \colon C \to C^\ast\) by \(c \mapsto \sup_{\preceq^\ast} S_c\).
+        \(h\) is well-defined by (II) and \((C^\ast, \preceq^\ast)\) being complete.
+        We now show that \(h\) is a desired isomorphism.
+
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii
+            Take any \(c^\ast \in C^\ast\).
+            Let \(c \triangleq \sup_{\preceq} S_{c^\ast}\).
+            Then,
+            \begin{alignat*}{2}
+                h(c) &= \textstyle\sup_{\preceq^\ast} S_c &\qquad& \\
+                     &= \textstyle\sup_{\preceq^\ast} \{\,p \in P \mid p \prec \sup_{\preceq} S_{c^\ast}\,\} \\
+                     &= \textstyle\sup_{\preceq^\ast} \{\,p \in P \mid p \prec^\ast \sup_{\preceq^\ast} S_{c^\ast}\,\} && \comment*{(III)} \\
+                     &= \textstyle\sup_{\preceq^\ast} \{\,p \in P \mid p \prec^\ast c^\ast\,\} && \comment*{(I)} \\
+                     &= \textstyle\sup_{\preceq^\ast} S_{c^\ast} = c^\ast. && \comment*{(I)}
+            \end{alignat*}
+            Hence, \(h\) is onto \(C^\ast\). \checkmark
+
+            \ii
+            Take any \(c, d \in C\) with \(c \prec d\).
+            Then, by (iii), there exist \(p_1, p_2 \in P\) such that \(c \prec p_1 \prec p_2 \prec d\).
+            We then have \(\sup_{\preceq^\ast} S_c \preceq^\ast p_1 \prec^\ast p_2 \preceq^\ast \sup_{\preceq^\ast} S_d \prec\).
+            Hence, \(h(c) \prec^\ast h(d)\); \(h\) is an isomorphism. \checkmark
+
+            \ii
+            For each \(p \in P \subseteq C \cap C^\ast\), by (I),
+            \(h(p) = \sup_{\preceq^\ast} S_p = p\). \checkmark
+        \end{itemize}
+    }
+    \noindent
+    Thus the theorem is now proven.
+}
+
+\subfile{../exercises/exercise4-5.tex}
+
+\end{document}

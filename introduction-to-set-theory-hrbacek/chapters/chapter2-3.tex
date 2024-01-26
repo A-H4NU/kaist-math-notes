@@ -309,7 +309,7 @@
 
 \thm[basicLeastMinimal]{}{
     Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
-    \begin{enumerate}[nolistsep, label=(\roman*)]
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:basicLeastMinimal} (\roman*)}, listparindent=\parindent]
         \ii \(B\) has at most one least element.
         \ii The least element of \(B\)---it it exists---is also minimal.
         \ii If \(B\) is a chain, then every minimal element of \(B\) is also least.
@@ -371,10 +371,13 @@
 
 \thm[basicInfimum]{}{
     Let \((A, \le)\) be an ordered set and \(B \subseteq A\).
-    \begin{enumerate}[nolistsep, label=(\roman*)]
-        \ii \(B\) has at most one infimum.
-        \ii If \(b\) is the least element of \(B\), then \(b\) is the infimum of \(B\).
-        \ii If \(b \in B\) is the infimum of \(B\), then \(b\) is the least element of \(B\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:basicInfimum} (\roman*)}, listparindent=\parindent]
+        \ii
+        \(B\) has at most one infimum.
+        \ii\label{itm:basicInfimum.ii}
+        If \(b\) is the least element of \(B\), then \(b\) is the infimum of \(B\).
+        \ii\label{itm:basicInfimum.iii}
+        If \(b \in B\) is the infimum of \(B\), then \(b\) is the least element of \(B\).
     \end{enumerate}
 }
 \mclm{Proof}{\hfill

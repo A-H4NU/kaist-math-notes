@@ -1,0 +1,26 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\setexernumber{3}
+
+\exer[4.5.4]{}{
+    A dense totally ordered set \((P, \preceq)\) is complete
+    if and only if every nonempty \(S \subseteq P\) bounded from below
+    has an infimum.
+}
+\pf{Proof}{
+    We notice that \((A, B)\) is a gap of \((P, \preceq)\)
+    if and only if \((B, A)\) is a gap of \((P, \preceq\inv)\).
+    Hence, by \Cref{lem:completeIff}, \((P, \preceq)\) is complete
+    if and only if every nonempty set \(S \subseteq P\) bounded from above in \((P, \preceq\inv)\)
+    has an supremum in \((P, \preceq\inv)\).
+
+    Note that \(S \subseteq P\) is bounded from above in \((P, \preceq\inv)\)
+    if and only if \(S\) is bounded from below in \((P, \preceq)\),
+    and \(\sup_{\preceq\inv} S = \inf_{\preceq} S\).
+}
+
+\end{document}
