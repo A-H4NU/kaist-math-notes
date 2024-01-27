@@ -5,7 +5,8 @@ using namespace System.IO;
 param(
     [String]$TexPath='',
     [String]$Invalidate='None',
-    [switch]$Verbose=$false
+    [switch]$Verbose=$false,
+    [switch]$Quiet=$false
 )
 
 [FileInfo]$texFile
@@ -62,8 +63,11 @@ $stopwatch.Stop()
 if ($LASTEXITCODE -ne 0)
 {
     Write-Host "$output"
-    Write-Host ""
-    Write-Host "====================="
+    if (-not $Quiet)
+    {
+        Write-Host -NoNewline "`a"
+    }
+    Write-Host "`n====================="
     Write-Host "Compile failed."
     Write-Host "There were some errors."
     Write-Host "Exit Code: $LASTEXITCODE"
@@ -73,8 +77,7 @@ if ($LASTEXITCODE -ne 0)
     {
         Write-Host "$output"
     }
-    Write-Host ""
-    Write-Host "====================="
+    Write-Host "`n====================="
     Write-Host "Compile done."
 }
 
