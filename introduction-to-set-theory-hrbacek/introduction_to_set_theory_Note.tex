@@ -24,9 +24,6 @@
 }
 \fi
 \usepgfplotslibrary{fillbetween}
-\usepgfplotslibrary{external}
-\tikzexternalize%[optimize=false]
-\tcbset{shield externalize}
 \pgfmathsetmacro{\PI}{3.141592654}
 
 \hypersetup{
@@ -49,6 +46,11 @@
 
 \begin{document}
 
+% NOTE: This should not be commented out for the final product.
+% The usage of memoize may corrupt some tcb boxes;
+% this is only for fast compilation.
+\mmzset{disable}
+
 \begin{titlepage}
 	\raggedleft
 
@@ -60,7 +62,7 @@
 		\\[4\baselineskip]
 		{\Large\textsc{seungwoo han}}
 
-		\vspace{0.5\textheight} % Whitespace between the title block and the publisher
+		\vspace{0.5\textheight}
 
         {\noindent
         Hrbacek, Karel, and Thomas J. Jech.
@@ -69,9 +71,7 @@
 	}
 \end{titlepage}
 \pdfbookmark[section]{\contentsname}{toc}
-\tikzexternaldisable
 \tableofcontents
-\tikzexternalenable
 \hypersetup{
     colorlinks=true,
     linkcolor=red!50!black,
@@ -98,6 +98,7 @@
 \subfile{./chapters/chapter4-4.tex}
 \subfile{./chapters/chapter4-5.tex}
 \chapter{Cardinal Numbers}\label{chap:cardinal}
+\subfile{./chapters/chapter5-1.tex}
 \chapter{Ordinal Numbers}\label{chap:ordinal}
 \chapter{Alephs}\label{chap:aleph}
 \chapter{Axiom of Choice}\label{chap:aoc}

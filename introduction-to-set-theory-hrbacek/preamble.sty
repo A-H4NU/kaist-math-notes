@@ -17,6 +17,25 @@
 %	bookmarksnumbered=true,
 %	bookmarksopen=true
 %}
+\usepackage[memo dir, extract=python]{memoize}
+\mmzset{%
+    capture = vbox,
+    auto = {tikzcd}{memoize},
+    auto = {Theorem}{memoize},
+    auto = {theorem}{memoize},
+    auto = {Lemma}{memoize},
+    auto = {lemma}{memoize},
+    auto = {Exercise}{memoize},
+    auto = {exercise}{memoize},
+    auto = {Definition}{memoize},
+    auto = {definition}{memoize},
+    auto = {Example}{memoize},
+    auto = {example}{memoize},
+    auto = {Notation}{memoize},
+    auto = {notation}{memoize},
+    auto = {Proposition}{memoize},
+    auto = {proposition}{memoize},
+}
 \usepackage[most,many,breakable]{tcolorbox}
 \usepackage{hyperref,theoremref}
 \usepackage[capitalise]{cleveref}
