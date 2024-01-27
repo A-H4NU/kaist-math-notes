@@ -1,0 +1,159 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\setexernumber{3}
+
+\exer[5.1.4]{}{
+    For every cardinal number \(\kappa\), \(\kappa^\kappa \le 2^{\kappa \cdot \kappa}\).
+}
+\pf{Proof}{
+    As \(\kappa \le 2^\kappa\),
+    we have \(\kappa^\kappa \le (2^\kappa)^\kappa = 2^{\kappa \cdot \kappa}\)
+    by \ref{itm:cardExp.ii}.
+}
+
+\exer[5.1.5]{}{
+    If \(|A| \le |B|\) and \(A \neq \OO\), then there exists \(f \colon B \twoheadrightarrow A\).
+}
+\pf{Proof}{
+    Fix some \(a \in A\).
+    Let \(g \colon A \hookrightarrow B\).
+    Then, define \(f \colon B \twoheadrightarrow A\) by
+    \[
+        f(b) \triangleq \begin{cases}
+            g\inv(b) & \text{if } b \in \ran g \\
+            a        & \text{otherwise.}
+        \end{cases}
+    \]
+}
+
+\exer[5.1.6]{}{
+    If there exists \(g \colon B \twoheadrightarrow A\),
+    then \(2^{|A|} \le 2^{|B|}\).
+}
+\pf{Proof}{
+    Let \(g \colon B \twoheadrightarrow A\).
+    Define \(f \colon \mcal P(A) \to \mcal P(B)\)
+    by \(X \mapsto g\inv[X]\).
+    Then, \(f\) is injective.
+}
+
+\dfn[dedekindInfinite]{Dedekind Infinite Set}{
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        A set \(X\) is called \textit{Dedekind infinite} if
+        there exists an injection on \(X\) onto its proper subset.
+        \ii
+        A set \(X\) is called \textit{Dedekind finite} if
+        \(X\) is not Dedekind infinite.
+    \end{itemize}
+}
+
+\setexernumber{7}
+
+\exer[5.1.8]{}{
+    A Dedekind infinite set is infinite.
+}
+\pf{Proof}{
+    Let \(X\) be a set and let \(f \colon X \hookrightarrow X\) with \(f[X] \subsetneq X\).
+    Suppose \(|X| = n\) for some \(n \in \NN\) for the sake of contradiction.
+    Then, \(|f[X]| = |X| = n\) as \(f\) is injective,
+    but this is impossible by \Cref{lem:finiteProperSubset}.
+}
+
+\exer[5.1.9]{}{
+    Every countably infinite set is Dedekind infinite.
+}
+\pf{Proof}{
+    It is enough to show that \(\NN\) is Dedekind infinite.
+    By \Cref{exer:3.2.2}, \(f \colon \NN \to \NN\)
+    defined by \(n \mapsto n + 1\) is injective
+    but \(0 \notin \ran f\).
+    Hence, \(\NN\) is Dedekind infinite.
+}
+
+\exer[5.1.10]{}{
+    If \(X\) has a countably infinite subset, then \(X\) is Dedekind infinite.
+}
+\pf{Proof}{
+    Let \(Y \subseteq X\) and \(|Y| = \aleph_0\).
+    By \Cref{exer:5.1.9}, there exists \(f \colon Y \hookrightarrow Y\)
+    such that \(\ran f \subsetneq Y\).
+    Let \(g \triangleq f \cup \mrm{Id}_{X \setminus Y}\).
+    Then, \(g \colon X \hookrightarrow X\)
+    and \(Y \setminus \ran f \subseteq X \setminus \ran g\).
+    Therefore, \(X\) is Dedekind infinite.
+}
+
+\exer[5.1.11]{}{
+    If \(X\) is Dedekind infinite, then \(X\) has a countably infinite subset.
+}
+\pf{Proof}{
+    Let \(f \colon X \hookrightarrow X\) with \(\ran f \subsetneq X\).
+    Fix any \(x \in X \setminus \ran f\).
+    Define \(\lang x_n \rang_{n \in \NN}\) by
+    \begin{alignat*}{2}
+        && x_0 &\triangleq x \\
+        \fall n \in \NN,&\quad& x_{n+1} &\triangleq f(x_n).
+    \end{alignat*}
+
+    Let \(\mbf{P}(n)\) be the property ``\(\fall m < n,\: x_m \neq x_n\).''
+    \(\mbf{P}(0)\) is vacuously true, and
+    \(\mbf{P}(1)\) follows from \(x_0 \notin \ran f\).
+
+    Fix \(n \ge 1\) and assume \(\mbf{P}(n)\) for the sake of induction.
+    Then, for each \(0 < m < n\),
+    \(x_{n} = f(x_{n-1}) \neq f(x_{m-1}) = x_{m}\) as \(f\) is injective.
+    \(x_0 \neq x_{n}\) since \(x_0 \notin \ran f\).
+    Hence, \(\mbf{P}(n+1)\) holds.
+    By \nameref{th:induction}, \(\lang x_n \rang_{n \in \NN}\) is injective,
+    and thus \(\{\,x_n \mid n \in \NN\,\}\) is a countably infinite
+    subset of \(X\).
+}
+
+\nt{
+    \Cref{exer:5.1.10} and \Cref{exer:5.1.11}
+    say that \(X\) is Dedekind infinite if and only if
+    \(X\) has a countably infinite subset.
+    In \Cref{chap:aoc}, we will show that
+    a set is Dedekind infinite if and only if it is infinite
+    using \nameref{ax:choice}.
+}
+
+\exer[5.1.12]{}{
+    If \(A\) and \(B\) are Dedekind finite, then \(A \cup B\) is Dedekind finite.
+}
+\pf{Proof}{
+    Suppose \(A \cup B\) is Dedekind infinite for the sake of contradiction.
+    Then, by \Cref{exer:5.1.11}, there exists \(C \subseteq A \cup B\)
+    such that \(C\) is countably infinite.
+    Noting that at least one of \(A \cap C\) and \(B \cap C\) is countably infinite,
+    by \Cref{exer:5.1.10}, we conclude \(A\) or \(B\) is Dedekind infinite,
+    which is a contradiction.
+}
+
+\exer[5.1.13]{}{
+    If \(A\) and \(B\) are Dedekind finite, then \(A \times B\) is Dedekind finite.
+}
+\pf{Proof}{
+    Suppose \(A \times B\) is Dedekind infinite for the sake of contradiction.
+    Then, by \Cref{exer:5.1.11}, there exists \(C \subseteq A \times B\)
+    such that \(C\) is countably infinite.
+    Let \(A' \triangleq \dom C\) and \(B' \triangleq \ran C\).
+    If \(A'\) and \(B'\) were both finite,
+    then \(C \subseteq A' \times B'\) would be finite by
+    \Cref{exer:4.2.2} and \Cref{th:subsetOfFiniteIsFinite}.
+
+    \WLOG, \(A'\) is infinite.
+    Let \(f \colon \NN \twoheadrightarrow C\).
+    Then, define \(g \colon \NN \twoheadrightarrow A'\) by
+    \(n \mapsto a'\) where \((a', b') = f(n)\).
+    Hence, by \Cref{th:imageOfCountable}, \(\ran g = A'\) is countably infinite.
+    Therefore, by \Cref{exer:5.1.10}, \(A\) is Dedekind infinte,
+    which is a contradiction.
+}
+
+\end{document}
