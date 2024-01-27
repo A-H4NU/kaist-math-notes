@@ -3,30 +3,30 @@
 using namespace System.IO;
 
 param(
-    $texPath='',
-    $invalidate='None',
-    [switch]$verbose=$false
+    [String]$TexPath='',
+    [String]$Invalidate='None',
+    [switch]$Verbose=$false
 )
 
 [FileInfo]$texFile
 
-if ($texPath -eq '')
+if ($TexPath -eq '')
 {
     if (@(Get-ChildItem *.tex).Count -ne 1)
     {
         Write-Error 'There must be only one TeX file in the directory.'
-        Write-Error 'You may specify the path for TeX file via --texPath'
+        Write-Error 'You may specify the path for TeX file via -TexPath'
         exit 1
     }
     $texFile = @(Get-ChildItem *.tex)[0]
 } else
 {
-    if (-not (Test-Path $texPath -PathType Leaf))
+    if (-not (Test-Path $TexPath -PathType Leaf))
     {
-        Write-Error "$texPath does not exist!"
+        Write-Error "$TexPath does not exist!"
         exit 1
     }
-    $texFile = Get-Item $texPath
+    $texFile = Get-Item $TexPath
 }
 
 [DirectoryInfo]$texDir = $texFile.Directory
@@ -34,41 +34,42 @@ if ($texPath -eq '')
 
 Write-Host "Compiling $(Resolve-Path -Relative $texFile)..."
 
-# $OriginalPwd = $pwd
-
 $stopwatch = [System.Diagnostics.Stopwatch]::new()
 
 Remove-Item $texDirWildcard -Include "*.auxlock"
 Remove-Item $texDirWildcard -Include "*.synctex.gz"
 
-if (($invalidate -ieq 'all') -or ($invalidate -ieq 'reference'))
+if (($Invalidate -ieq 'all') -or ($Invalidate -ieq 'reference'))
 {
     Write-Host "Invalidating references..."
     Remove-Item $texDirWildcard -Include "*.aux"
     Remove-Item $texDirWildcard -Include "*.toc"
 }
-if (($invalidate -ieq 'all') -or ($invalidate -ieq 'figure'))
+if (($Invalidate -ieq 'all') -or ($Invalidate -ieq 'figure'))
 {
     Write-Host "Invalidating figures..."
     Remove-Item $texDirWildcard -Include "*.md5"
     Remove-Item $texDirWildcard -Include "*.dep"
     Remove-Item $texDirWildcard -Include "*.dpth"
 }
+
 $stopwatch.Start()
 $output = xelatex -file-line-error -interaction=nonstopmode -halt-on-error -shell-escape `
     -synctex=1 -output-directory="$($texDir.FullName)" "$($texFile.FullName)"
 | Out-String
 $stopwatch.Stop()
+
 if ($LASTEXITCODE -ne 0)
 {
     Write-Host "$output"
     Write-Host ""
     Write-Host "====================="
     Write-Host "Compile failed."
-    Write-Host "There were some errors." "Exit Code: $LASTEXITCODE"
+    Write-Host "There were some errors."
+    Write-Host "Exit Code: $LASTEXITCODE"
 } else
 {
-    if ($verbose)
+    if ($Verbose)
     {
         Write-Host "$output"
     }
@@ -77,8 +78,7 @@ if ($LASTEXITCODE -ne 0)
     Write-Host "Compile done."
 }
 
-Write-Host "Total $($stopwatch.Elapsed.TotalSeconds) seconds elapsed."
+Write-Host "Elapsed: $([Math]::Round($stopwatch.Elapsed.TotalSeconds, 3))s"
 Write-Host "====================="
 
 exit 0
-# Set-Location $OriginalPwd
