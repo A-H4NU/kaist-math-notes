@@ -1,0 +1,77 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[6.1.1]{}{
+    Give an example of a totally ordered set \((L, \le)\)
+    and an initial segment \(S\) of \(L\) which is not of the form \(\{\,x \in L \mid x < a\,\}\)
+    for all \(a \in L\).
+}
+\pf{Proof}{
+    If \((L, \le)\) is dense and \(\ell \in L\),
+    then \(S \triangleq \{\,x \in L \mid x \le \ell\,\}\)
+    is never equal to \(\{\,x \in L \mid x < a\,\}\) where \(a \in L\).
+    For if they are equal, there exists \(x \in L\) such that \(\ell < x < a\)
+    and such \(x\) is not in \(S\).
+    One example would be \((\QQ, \le)\) and \(S = \{\,x \in \QQ \mid x \le 0\,\}\).
+}
+
+\exer[6.1.2]{}{
+    \(\omega + 1\) is not isomorphic to \(\omega\) (in the well-ordering by \(\in\)).
+}
+\pf{Proof}{
+    \(\omega\) is an initial segment of \(\omega + 1\),
+    and thus they are not isomorphic by \ref{itm:noIsoToInitSeg.i}.
+}
+
+\exer[6.1.3]{}{
+    There exist \(2^{\aleph_0}\) well-orderings of \(\NN\).
+}
+\pf{Proof}{
+    Let \(S\) be the set of all well-orderings of \(\NN\).
+    The cardinality of the set of all relations on \(\NN^2\)
+    is \(|\mcal P(\NN^2)| = |\mcal P(\NN)| = 2^{\aleph_0}\)
+    by \Cref{th:productOfCountable,th:cardPowSet}.
+    Hence, \(|S| \le 2^{\aleph_0}\).
+
+    Let \(T \triangleq \{\,f \in \NN[\NN] \mid f \colon \NN \hooktwoheadrightarrow \NN\,\}\).
+    Define \(F \colon T \to \mcal P(\NN^2)\) by
+    \(f \mapsto \{\,(f(m), f(n)) \mid m, n \in \NN \land m \le n \,\}\).
+    Then, for each \(f \in T\),
+    \((\NN, \le)\) and \((\NN, F(f))\) is an isomorphism,
+    thus \(F\) is into \(S\).
+    For each \(R \in S\), there exists one and only \(f \in T\) defined by
+    \(f_n = \min_R \left(\NN \setminus \restr{f}{n}\right)\) for all \(n \in \NN\).
+    Hence, \(|T| = |S|\).
+
+    Now, define \(\sigma \colon \mcal P(\NN) \to T\) by
+    \[
+        \sigma_X(2 \cdot n) = \begin{cases}
+            2 \cdot n & \text{if } n \notin X \\
+            2 \cdot n + 1 & \text{if } n \in X
+        \end{cases} \quad\text{and}\quad
+        \sigma_X(2 \cdot n + 1) = \begin{cases}
+            2 \cdot n + 1 & \text{if } n \notin X \\
+            2 \cdot n & \text{if } n \in X
+        \end{cases}
+    \]
+    for each \(n \in \NN\).
+    It is evident that \(\sigma\) is injective; hence
+    \(|T| \ge |\mcal P(\NN)| = 2^{\aleph_0}\).
+    By \nameref{th:cantorBernstein}, \(|S| = |T| = 2^{\aleph_0}\).
+}
+
+\exer[6.1.4]{}{
+    For every infinite subset \(A\) of \(\NN\),
+    \((A, \mathord{\le} \cap A^2)\) is isomorphic to \((\NN, \le)\).
+}
+\pf{Proof}{
+    Clearly, \((A, \mathord{\le} \cap A^2)\) is well-ordered.
+    Noting that every initial segment of \(A\) and \(\NN\) is finite,
+    \Cref{th:wosetComparable} leaves only one option---%
+    \(A\) and \(\NN\) are isomorphic.
+}
+
+\end{document}

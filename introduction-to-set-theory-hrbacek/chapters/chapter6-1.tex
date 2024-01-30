@@ -1,0 +1,190 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Well-Ordered Sets}
+
+\notat{}{
+    Let \(\omega \triangleq \NN\) be the least transfinite number.
+    We let \(\omega + 0 = \omega\) and \(\omega + (n + 1) = S(\omega + n)\) for each \(n \in \NN\).
+    In this fashion, one may let
+    \[
+        \omega \cdot 2 = \omega + \omega = \{\,0, 1, 2, \cdots, \omega, \omega+1, \omega + 2, \cdots\,\},
+    \]
+    \[
+        \omega \cdot \omega = \{\,0, 1, \cdots, \omega, \omega + 1, \cdots,
+        \omega \cdot 2, \cdots, \omega \cdot 3, \cdots\,\}.
+    \]
+    These sets are totally ordered by \(\in\),
+    and the ordering is a \hyperref[dfn:wellOrdering]{well-ordering}.
+}
+
+\dfn[]{Initial Segment}{
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Let \((L, \le)\) be a \hyperref[dfn:totalOrdering]{totally ordered} set.
+        A set \(S \subsetneq L\) is called an \textit{initial segment} of \(L\) if
+        \[
+            \fall a \in S,\: \fall x \in L,\: (x < a \implies x \in S).
+        \]
+
+        \ii
+        Let \((W, \le)\) be a well-ordered set.
+        If \(a \in W\), we call the set
+        \[
+            W[a] \triangleq \{\,x \in W \mid x < a\,\}
+        \]
+        the \textit{initial segment of \(W\) given by \(a\)}.
+    \end{itemize}
+}
+
+\mlemma[initSegIsGiven]{}{
+    If \((W, \le)\) is a well-ordered set,
+    and if \(S\) is an initial segment of \((W, \le)\),
+    then there exists \(a \in W\) such that \(S = W[a]\).
+}
+\pf{Proof}{
+    Let \(X \triangleq W \setminus S\).
+    As \(X \neq \OO\), there exists \(a \triangleq \min X\).
+    If \(x < a\), then \(x \notin X\), and thus \(x \in S\).
+    Conversely, if \(x \ge a\), then \(x \in S\) would imply \(a \in S\),
+    and thus \(x \in X\).
+    Hence, \(x \in S \iff x < a\).
+}
+
+\dfn[]{Increasing Function}{
+    A function \(f\) on a totally ordered set \((L, \le)\) into \(L\)
+    is \textit{strictly increasing} if
+    \[
+        \fall x_1, x_2 \in L,\: (x_1 < x_2 \implies f(x_1) < f(x_2)).
+    \]
+}
+
+\nt{
+    \noindent
+    Every automorphism of a totally ordered set
+    is strictly increasing.
+}
+
+\mlemma[wosetIncreasing]{}{
+    If \((W, \le)\) is a well-ordered set and if \(f \colon W \to W\) is a strictly increasing function,
+    then \(\fall x \in W,\: x \le f(x)\).
+}
+\pf{Proof}{
+    Suppose \(X \triangleq \{\,x \in W \mid f(x) > x\,\}\) is nonempty for the sake of contradiction.
+    Let \(a = \min X\). Then, \(f(a) < a\), and \(f(f(a)) < f(a)\)
+    as \(f\) is strictly increasing.
+    Hence, \(f(a) \in X\) even though \(f(a) < a\), which is a contradiction.
+}
+
+\cor[noIsoToInitSeg]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{cor:noIsoToInitSeg} (\roman*)}, listparindent=\parindent]
+    \ii\label{itm:noIsoToInitSeg.i}
+    No well-ordered set is isomorphic to an initial segment of itself.
+    \ii
+    \(\mrm{Id}_W\) is the unique automorphism of a well-ordered set \((W, \le)\).
+    \ii\label{itm:noIsoToInitSeg.iii}
+    If \(W_1\) and \(W_2\) are isomorphic well-ordered sets,
+    then the isomorphism between \(W_1\) and \(W_2\) is unique.
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Suppose \(f \colon W \to W[a]\) is an isomorphism for some \(a \in W\) for the sake of contradiction.
+    Then, \(f(a) \in W[a]\) and therefore \(f(a) < a\),
+    which contradicts \Cref{lem:wosetIncreasing}.
+
+    \ii
+    Let \(f\) be an automorphism of \(W\).
+    Then, both \(f\) and \(f\inv\) are strictly increasing functions,
+    and thus by \Cref{lem:wosetIncreasing},
+    for all \(x \in W\), \(f(x) \ge w\) and \(f\inv(x) \ge x\).
+    Hence, \(x \ge f(x)\).
+    Therefore, \(f(x) = x\) for all \(x \in W\) due to antisymmetry.
+
+    \ii
+    If \(f\) and \(g\) are isomorphisms between \(W_1\) and \(W_2\),
+    then \(f \circ g\inv\) is an automorphism of \(W_2\).
+    Then, by (ii), \(f \circ g\inv = \mrm{Id}_{W_2}\);
+    thus \(f = g\).
+    \qed
+\end{enumerate}
+}
+
+\thm[wosetComparable]{}{
+    If \((W_1, \le_1)\) and \((W_2, \le_2)\) are
+    well-ordered sets, then exactly one of the following holds:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \((W_1, \le_1)\) and \((W_2, \le_2)\) are isomorphic.
+        \ii \((W_1, \le_1)\) is isomorphic to an initial segment of \((W_2, \le_2)\).
+        \ii \((W_2, \le_2)\) is isomorphic to an initial segment of \((W_1, \le_1)\).
+    \end{enumerate}
+    Moreover, in each case, the isomorphism is unique.
+}
+\pf{Proof}{
+    (i), (ii), and (iii) are mutually exclusive by \ref{itm:noIsoToInitSeg.i}.
+    Also, the uniqueness follows from \ref{itm:noIsoToInitSeg.iii}.
+    Hence, we only need to show at least one of them holds.
+    Define \(f \triangleq \{\,(x, y) \in W_1 \times W_2 \mid W_1[x] \text{ is isomorphic to } W_2[y]\,\}\).
+
+    \clm[fLFMCNPo]{
+        \(f\) is an injective function.
+    }{
+        First of all, \(f\) is a function since,
+        if \(W_1[x]\) is isomorphic to \(W_2[y]\) and \(W_2[y']\),
+        then \(y = y'\) (otherwise, one would be an initial segment of the other).
+        By symmetry, \(f\) is injective. \qed
+    }
+
+    \clm[vdqpAzmT]{
+        \(f\) is strictly increasing.
+    }{
+        Take \(x, x' \in W_1\) with \(x <_1 x'\).
+        If \(h\) is the isomorphism between
+        \(W_1[x']\) and \(W_2[f(x')]\),
+        then \(\restr{h}{W_1[x]}\) is an isomorphism between
+        \(W_1[x]\) and \(W_2[h(x)]\).
+        Hence, by \Cref{clm:fLFMCNPo}, \(f(x) = h(x) <_2 f(x')\). \qed
+    }
+
+    \noindent
+    By \Cref{clm:vdqpAzmT,lem:oneImplicationIsEnough},
+    \(f\) is an isomorphism between \(\dom f\) and \(\ran f\).
+    \Cref{clm:ZpcauFEl} completes the proof.
+
+    \clm[ZpcauFEl]{
+        If \(\dom f \neq W_1\), then \(\ran f = W_2\).
+    }{
+        Let \(S \triangleq \dom f\).
+        If \(z < x\) and \(x \in S\),
+        then by the same argument in the proof of \Cref{clm:vdqpAzmT},
+        \(z \in S\). Hence, \(S\) is an initial segment of \(W_1\).
+
+        Suppose \(T \triangleq \ran f \neq W_2\) for the sake of contradiction.
+        Then, by the same argument, \(T\) is an initial segment of \(W_2\).
+        \(S = W_1[a]\) and \(T = W_2[b]\) for some \(a \in W_1\) and \(b \in W_2\)
+        by \Cref{lem:initSegIsGiven};
+        in other words, \((a, b) \in f\), or \(a \in \dom f = W_1[a]\),
+        which is impossible.
+    }
+
+    \noindent
+    By symmetry, if \(\ran f \neq W_2\), we must have \(\dom f = W_1\).
+}
+
+\dfn[smallerOrderType]{}{
+    Let \((W_1, \le_1)\) and \((W_2, \le_2)\) be well-ordered sets.
+    We say \(W_1\) has \textit{smaller order type} than \(W_2\)
+    if \(W_1\) is isomorphic to an initial segment of \(W_2\).
+}
+
+\nt{
+    \noindent
+    By \Cref{th:wosetComparable}, for two well-ordered sets,
+    if they are not isomorphic, then one of them has smaller order type than the other.
+}
+
+\subfile{../exercises/exercise6-1.tex}
+
+\end{document}
