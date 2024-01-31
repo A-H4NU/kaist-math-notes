@@ -1,0 +1,142 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[6.2.1]{}{
+    A set \(X\) is transitive if and only if \(X \subseteq \mcal P(X)\).
+}
+\pf{Proof}{
+    \(X\) is transitive iff every \(x \in X\) is a subset of \(X\)
+    iff every \(x \in X\) is an element of \(\mcal P(X)\)
+    iff \(X \subseteq \mcal P(X)\).
+}
+
+\exer[6.2.2]{}{
+    A set \(X\) is transitive if and only if \(\bigcup X \subseteq X\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Take any \(u \in \bigcup X\). There exists some \(x \in X\) such that \(u \in x\).
+    As \(X\) is transitive, \(u \in X\). Hence, \(\bigcup X \subseteq X\).
+
+    \ii[(\(\Leftarrow\))]
+    Let \(u \in v \in X\). Then, \(u \in \bigcup X \subseteq X\).
+    Hence, \(X\) is transitive.
+    \qed
+\end{itemize}
+}
+
+\setexernumber{3}
+
+\exer[6.2.4]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii If \(X\) and \(Y\) are transitive, then \(X \cup Y\) is transitive.
+        \ii If \(X\) and \(Y\) are transitive, then \(X \cap Y\) is transitive.
+        \ii If \(Y\) is transitive and \(S \subseteq \mcal P(Y)\), then \(Y \cup S\) is transitive.
+        \ii There exist \(X\) and \(Y\) such that \(X \in Y\), \(Y\) is transitive, but \(X\) is not transitive.
+        \ii There exist \(X\) and \(Y\) such that \(X \subseteq Y\), \(Y\) is transitive, but \(X\) is not transitive.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\bigcup (X \cup Y) = \left(\bigcup X\right) \cup \left(\bigcup Y\right) \subseteq X \cup Y\)
+    by \Cref{exer:6.2.2}.
+    Hence, \(X \cup Y\) is transitive.
+
+    \ii
+    \(\bigcup (X \cap Y) \subseteq \left(\bigcup X\right) \cap \left(\bigcup Y\right) \subseteq X \cup Y\)
+    by \Cref{exer:6.2.2}.
+    Hence, \(X \cap Y\) is transitive.
+
+    \ii
+    Let \(u \in v \in Y \cup S\).
+    If \(v \in Y\), then \(u \in Y \subseteq Y \cup S\) as \(Y\) is transitive.
+    If \(v \in S\), then \(u \in v \subseteq Y\).
+    Hence, \(Y \cup S\) is transitive.
+
+    \ii
+    Let \(Y \triangleq \{\,\OO, \{\OO\}, X\,\}\) where \(X \triangleq \{\{\OO\}\}\).
+    Then, \(\bigcup Y = \{\,\OO, \{\OO\}\,\} \subseteq Y\);
+    \(Y\) is transitive by \Cref{exer:6.2.2}.
+    However, \(\bigcup X = \{\OO\} \not\subseteq X\);
+    \(X\) is not transitive.
+
+    \ii
+    Let \(X \triangleq \{\{\OO\}\}\) and \(Y \triangleq \{\,\OO, \{\OO\}\,\}\).
+    Then, \(\bigcup Y = \{\OO\} \subseteq Y\); \(Y\) is transitive by \Cref{exer:6.2.2}.
+    \(X\) is not transitive as in (iii).
+    \qed
+\end{enumerate}
+}
+
+\exer[6.2.5]{}{
+    If every \(X \in S\) is transitive, then \(\bigcup S\) is transitive.
+}
+\pf{Proof}{
+    Let \(u \in v \in \bigcup S\).
+    Then, \(v \in X\) for some \(X \in S\).
+    As \(X\) is transitive, then \(u \in X \subseteq \bigcup S\);
+    hence \(\bigcup S\) is transitive.
+}
+
+\exer[6.2.6]{}{
+    An ordinal \(\alpha\) is a natural number if and only if
+    every nonempty subset of \(\alpha\) has a greatest element.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    If \(\alpha \in \NN\), then \(\alpha\) is a finite set of natural numbers.
+    Hence, if \(\OO \subsetneq X \subseteq \alpha\), by \Cref{th:subsetOfFiniteIsFinite},
+    \(X\) is also finite. Then, by \Cref{exer:3.5.13}, \(X\) has a greatest element.
+
+    \ii[(\(\Leftarrow\))]
+    Suppose \(\alpha \notin \NN\) for the sake of contradiction.
+    By \Cref{th:finiteOrdinalIsNat}, \(\omega \le \alpha\).
+    However, \(\omega\) does not have a greatest element.
+    \qed
+\end{itemize}
+}
+
+\exer[6.2.7]{}{
+    If a set of ordinals \(X\) does not have a greatest element,
+    then \(\sup X\) is a limit ordinal.
+}
+\pf{Proof}{
+    \(\sup X \notin X\); otherwise \(\sup X\) would be a greatest element of \(X\).
+    Suppose \(\sup X\) is a successor ordinal for the sake of contradiction,
+    i.e., \(\bigcup X = \beta + 1\) for some ordinal \(\beta\).
+
+    Take any \(\alpha \in X\).
+    Then, \(\alpha \le \beta + 1\) but \(\alpha\) cannot equal \(\beta + 1 = \sup X\).
+    As \(\lnot (\beta < \alpha < \beta + 1)\) and \(<\) totally orders \(X\),
+    we get \(\alpha \le \beta\), which contradicts the minimality of \(\sup X\).
+}
+
+\exer[6.2.8]{}{
+    If \(X\) is a nonempty set of ordinals,
+    then \(\bigcap X\) is an ordinal, and \(\bigcap X\) is a least element of \(X\).
+}
+\pf{Proof}{
+    Let \(m \triangleq \bigcap X\).
+    Let \(u \in v \in m\).
+    Then, \(\fall \alpha \in X,\: u \in v \in \alpha\).
+    As each \(\alpha \in X\) is ordinal, \(\fall \alpha \in X,\: u \in \alpha\),
+    i.e., \(u \in m\). Hence, \(m\) is transitive.
+    Moreover, by \ref{itm:basicOrdinal.iv},
+    \(m\) is well-ordered by \(\in\).
+    Hence, \(m\) is an ordinal.
+
+    Let \(m' \triangleq m + 1\).
+    Suppose \(\fall \alpha \in X,\: m' \le \alpha\) for the sake of contradiction.
+    Then, \(m' \le m\), which is a contradiction.
+    Hence, there exists \(\alpha \in X\) such that \(m \le \alpha < m'\).
+    Then, by \Cref{exer:3.1.1}, \(\alpha = m\); thus \(m \in X\).
+    Therefore, \(m = \min X\).
+}
+
+\end{document}

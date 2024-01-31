@@ -1,0 +1,224 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Ordinal Numbers}
+
+\dfn[transitiveSet]{Transitive Set}{
+    A set \(T\) is \textit{transitive} if every element of \(T\) is a subset of \(T\),
+    i.e,
+    \[
+        \fall u\:\fall v\: (u \in v \land v \in T \implies u \in T).
+    \]
+}
+
+\dfn[ordinal]{Ordinal Number}{
+    A set \(\alpha\) is an \textit{ordinal number} (or \textit{ordinal}) if
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\alpha\) is transitive
+        \ii \(\alpha\) is well-ordered by \(\mathord{\in}_\alpha = \{\,(x, y) \in \alpha^2 \mid x \in y\,\}\).
+    \end{enumerate}
+}
+
+\nt{
+    \noindent
+    Every natural number is an ordinal. (\nameref{th:NisWellOrdered})
+}
+
+\dfn[]{}{
+    \(\omega \triangleq \NN\). (\Cref{not:Qtmidocs})
+}
+
+\mlemma[succOfOrdinalIsOrdinal]{}{
+    If \(\alpha\) is an ordinal number, then \(S(\alpha)\) is also an ordinal number.
+}
+\pf{Proof}{
+    As \(\alpha\) is transitive, \(S(\alpha) = \alpha \cup \{\alpha\}\) is transitive.
+    Moreover, \(S(\alpha)\) is well-ordered by \(\in_{S(\alpha)}\)
+    as \((\alpha, \in_{\alpha})\) is well-ordered.
+}
+
+\notat[]{}{
+    We denote the successor of \(\alpha\) by \(\alpha + 1\).
+}
+
+\dfn[]{Successor Ordinal and Limit Ordinal}{
+    Let \(\alpha\) be an ordinal number.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        \(\alpha\) is called a \textit{successor ordinal}
+        if \(\alpha = \beta + 1\) for some ordinal \(\beta\).
+        \ii
+        Otherwise, \(\alpha\) is called a \textit{limit ordinal}.
+    \end{itemize}
+}
+
+\dfn[]{}{
+    For all ordinals \(\alpha\) and \(\beta\),
+    we define \(\alpha < \beta\) if and only if \(\alpha \in \beta\).
+}
+
+\mlemma[noOrdinalContainsItself]{}{
+    If \(\alpha\) is an ordinal number, then \(\alpha \notin \alpha\).
+}
+\pf{Proof}{
+    If \(\alpha \in \alpha\), then it will
+    contradict the asymmetry of \(<_{\alpha}\).
+}
+
+\mlemma[elementOfOrdinalIsOrdinal]{}{
+    Let \(\alpha\) be an ordinal number.
+    Then, every \(x \in \alpha\) is an ordinal number.
+}
+\mclm{Proof}{
+    Take any \(x \in \alpha\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        To show \(x\) is transitive, let \(u \in v \in x\).
+        As \(\alpha\) is transitive, we have \(v \in \alpha\),
+        and therefore \(u \in \alpha\) by the same reason.
+        Then, as \(\in_{\alpha}\) is transitive in \(\alpha\),
+        \(u \in x\). \checkmark
+
+        \ii
+        As \(\alpha\) is transitive, \(x \subseteq \alpha\).
+        Therefore, \(\mathord{\in}_x = \mathord{\in}_\alpha \cap x^2\).
+        As \(\in_{\alpha}\) is a well-ordering, so is \(\in_x\). \checkmark \qed
+    \end{itemize}
+}
+
+\mlemma[psbsOfOrdinalIsElement]{}{
+    Let \(\alpha\) and \(\beta\) be ordinal numbers.
+    Then \(\alpha \subsetneq \beta\) implies \(\alpha \in \beta\).
+}
+\pf{Proof}{
+    \(\beta \setminus \alpha\) is nonempty,
+    and thus there exists \(\gamma \triangleq \min_{\in_{\beta}} (\beta \setminus \alpha)\).
+    Note that, any \(\delta \in \gamma \setminus \alpha\)
+    would be an element of \(\beta \setminus \alpha\) less than \(\gamma\),
+    which contradicts the minimality of \(\gamma\).
+    Hence, \(\gamma \setminus \alpha = \OO\), i.e., \(\gamma \subseteq \alpha\).
+
+    Now we claim that \(\alpha \subseteq \gamma\) and thus \(\alpha = \gamma \in \beta\).
+    Take any \(\delta \in \alpha\) and suppose \(\delta \notin \gamma\) for the sake of contradiction.
+    As \(\in_{\beta}\) is a total ordering, it is either \(\gamma \in \delta\) or \(\gamma = \delta\).
+    In both cases, as \(\in_{\beta}\) is transitive, \(\gamma \in \alpha\),
+    which contradicts \(\gamma \in \beta \setminus \alpha\).
+}
+
+\thm[basicOrdinal]{}{
+Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinal numbers.
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:basicOrdinal} (\roman*)}, listparindent=\parindent]
+    \ii
+    \(\alpha < \beta \land \beta < \gamma \implies \alpha < \gamma\)
+    \ii
+    \(\lnot(\alpha < \beta \land \beta < \alpha)\)
+    \ii\label{itm:basicOrdinal.iii}
+    \((\alpha < \beta) \lor (\alpha = \beta) \lor (\beta < \alpha)\)
+    \ii\label{itm:basicOrdinal.iv}
+    Every nonempty set of ordinal numbers has a \(\le\)-least element.
+    \ii\label{itm:basicOrdinal.v}
+    For every set \(X\) of ordinal numbers,
+    there exists an ordinal number \(\alpha'\) such that \(\alpha' \notin X\).
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    The result follows as \(\gamma\) is transitive.
+
+    \ii
+    If \(\alpha \in \beta \in \alpha\),
+    as \(\alpha\) is transitive, we have \(\alpha \in \alpha\),
+    which contradicts \Cref{lem:noOrdinalContainsItself}.
+
+    \ii
+    Let \(\gamma \triangleq \alpha \cap \beta\).
+    If \(\alpha = \beta\), then \(\gamma = \alpha\) is an ordinal.
+    If \(\alpha \neq \beta\), then we have either \(\gamma \subsetneq \alpha\)
+    or \(\gamma \subseteq \beta\); hence
+    \(\gamma\) is an ordinal by \Cref{lem:psbsOfOrdinalIsElement,lem:elementOfOrdinalIsOrdinal}.
+
+    We have three cases: \(\gamma = \alpha\), \(\gamma = \beta\), or \(\gamma \subsetneq \alpha \land \gamma \subsetneq \beta\).
+    The last case is not possible since we have
+    \(\gamma \in \alpha\) and \(\gamma \in \beta\) by \Cref{lem:psbsOfOrdinalIsElement},
+    which implies \(\gamma \in \alpha \cap \beta = \gamma\) that contradicts
+    \Cref{lem:noOrdinalContainsItself}.
+    The first two cases lead to one of \(\alpha = \beta\), \(\alpha \in \beta\), and \(\beta \in \alpha\)
+    by \Cref{lem:psbsOfOrdinalIsElement}.
+
+    \ii
+    Let \(A\) be a nonempty set of ordinals.
+    Fix any \(\alpha \in A\).
+    If \(\alpha \cap A = \OO\), then by (iii), \(\alpha = \min_{\le} A\).
+    If \(\alpha \cap A \neq \OO\),
+    then \(\alpha \cap A \subseteq \alpha\) has \(\beta \triangleq \min_{\in_{\alpha}} A\),
+    which is a \(\le\)-minimal element of \(A\).
+
+    \ii
+    Let \(X\) be a set of ordinal numbers.
+    Then, \(\bigcup X\) is transitive by \Cref{exer:6.2.5}.
+    Moreover, (iv) implies that \(\in\) well-orders \(\bigcup X\).
+    Hence, \(\bigcup X\) is an ordinal.
+
+    Let \(\alpha \triangleq S\left(\bigcup X\right)\).
+    \(\alpha\) is an ordinal by \Cref{lem:succOfOrdinalIsOrdinal}.
+    Suppose \(\alpha \in X\) for the sake of contradiction.
+    Then, \(\alpha \subseteq \bigcup X\);
+    which implies \(\alpha = \bigcup X\) or \(\alpha \in \bigcup X\)
+    by \Cref{lem:psbsOfOrdinalIsElement}.
+    In both cases, \(\alpha \in S \left(\bigcup X\right) = \alpha\),
+    which contradicts \Cref{lem:noOrdinalContainsItself}.
+    \qed
+\end{enumerate}
+}
+
+\nt{
+    \noindent
+    \ref{itm:basicOrdinal.v} insists that there is no set of all ordinals.
+}
+
+\dfn[supOrdinal]{Supremum of a Set of Ordinals}{
+    If \(X\) is a set of ordinal numbers,
+    \(\bigcup X\) is the \textit{supremum} of \(X\) and is denoted \(\sup X\).
+}
+
+\nt{
+    \noindent
+    \Cref{dfn:supOrdinal} is justified the fact that:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        If \(\alpha \in X\), then \(\alpha \in \bigcup X\),
+        and thus \(\alpha \subseteq \bigcup X\), i.e., \(\alpha \le \bigcup X\), as \(\bigcup X\) is an ordinal.
+
+        \ii
+        If \(\fall \alpha \in X,\: \alpha \le \gamma\), i.e.,
+        \(\fall \alpha \in X,\: \alpha \subseteq \gamma\),
+        then \(\bigcup X \subseteq \gamma\),
+        i.e, \(\bigcup X \le \gamma\).
+    \end{enumerate}
+}
+
+\nt{
+    Let \(\alpha\) be an ordinal. Then, \(\alpha = \sup \alpha\).
+    If \(x \in \bigcup \alpha\), then \(x \in y \in \alpha\) for some \(y\),
+    and thus \(x \in \alpha\) as \(\alpha\) is transitive.
+    Hence, \(\bigcup \alpha \subseteq \alpha\).
+}
+
+\thm[finiteOrdinalIsNat]{}{
+    An ordinal \(\alpha\) is finite if and only if \(\alpha \in \NN\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \(\alpha\) be an ordinal such that \(\alpha \notin \NN\).
+    Then, by \ref{itm:basicOrdinal.iii}, \(\omega \subseteq \alpha\);
+    thus \(\alpha\) is not finite.
+    \qed
+\end{itemize}
+}
+
+\subfile{../exercises/exercise6-2.tex}
+
+\end{document}
