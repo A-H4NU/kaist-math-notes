@@ -1,0 +1,114 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{The Axiom Schema of Replacement}
+
+We lack some tools to guarantee the existence of some sets
+that look harmless. For example, you might want to construct a sequence
+\[
+    \lang\,\OO, \{\OO\}, \{\{\OO\}\}, \cdots\,\rang
+\]
+with the help of \nameref{th:recursion},
+but it requires an existence of set such to which
+every element of the sequence belongs.
+However, we do not have enough axioms to prove the existence.
+To get through this difficulty, \nameref{ax:replacement} comes to rescue.
+
+
+\axiom[replacement]{The Axiom Schema of Replacement}{
+    Let \(\mbf{P}(x, y)\) be a property such that \(\fall x\: \exs! y\: \mbf{P}(x, y)\).
+    For every set \(A\), there exists a set \(B\) such that,
+    for every \(x \in A\), there exists \(y \in B\) for which \(\mbf{P}(x, y)\) holds.
+    \[
+        \fall x \exs! y \mbf{P}(x, y) \implies
+        \fall A \exs B \fall x \bigl[ x \in A \implies \exs y [y \in B \land \mbf{P}(x, y)] \bigr]
+    \]
+}
+
+\nt{
+    Let \(\mbf{P}(x, y)\) be a property such that \(\fall x\: \exs! y\: \mbf{P}(x, y)\)
+    and let \(A\) be a set.
+    \nameref{ax:replacement} guarantees the existence of the set
+    \[
+        \{\,y \mid \exs x \in A,\:\mbf{P}(x, y)\,\}.
+    \]
+}
+
+\thm[counting]{The Counting Theorem}{
+    For every well-ordered set \((W, \preceq)\),
+    there uniquely exists an ordinal number which is isomorphic to \(W\).
+}
+\pf{Proof}{
+    Let \(\alpha\) and \(\beta\) be two distinct ordinal numbers with \(\alpha < \beta\).
+    Then, \(\alpha = \{\,\gamma \in \beta \mid \gamma < \alpha\,\} = \beta[\alpha]\)
+    (\Cref{cor:ordinalIsSetOfSmallerOrdinals,lem:elementOfOrdinalIsOrdinal})
+    is an initial segment of \(\beta\);
+    thus \(\alpha\) and \(\beta\) are not isomorphic by \ref{itm:noIsoToInitSeg.i}.
+    Hence, the uniqueness follows.
+
+    Let \(A \triangleq \{\,a \in W \mid W[a] \text{ is isomorphic to some ordinal number}\,\}\).
+    By the same reason as above,
+    for each \(a \in A\), there uniquely exists an ordinal number \(\alpha_a\) which
+    is isomorphic to \(W[a]\).
+    Let \(\mbf{P}(x, y)\) be the property
+    \[
+        (x \in A \text{ and } y \text{ is an ordinal isomorphic to } W[x])
+        \text{ or } (x \notin A \text{ and } y = \OO).
+    \]
+    Hence, by \nameref{ax:replacement},
+    there exists the set \(S \triangleq \{\,z \mid \exs a \in A,\: z = \alpha_a\,\}\).
+
+    \clm[UwimBbPO]{
+        \(S\) is an ordinal number.
+    }{
+        \(S\) is well-ordered by \(\in\) by \ref{itm:basicOrdinal.iv}.
+        Let \(\gamma \in \alpha_a \in S\).
+        Let \(\varphi \colon \alpha_a \hooktwoheadrightarrow W[a]\)
+        be the isomorphism between \(\alpha_a\) and \(W[a]\) and let \(c \triangleq \varphi(\gamma)\).
+        Then, \(\restr{\varphi}{\gamma}\) is an isomorphism between \(\gamma\) and \(W[c]\);
+        thus \(\gamma \in S\). Hence, \(S\) is an ordinal.
+    }
+
+    \clm[fKcQIApV]{
+        Let \(a \in A\), \(b \in W\), and \(b \prec a\).
+        Then, \(b \in A\).
+        Moreover, \(\alpha_b < \alpha_a\).
+    }{
+        Let \(\varphi \colon W[a] \hooktwoheadrightarrow \alpha_a\)
+        be the isomorphism between \(W[a]\) and \(\alpha_a\).
+        Then, \(\restr{\varphi}{W[b]}\) is an isomorphism between
+        \(W[b]\) and \(\varphi[W[b]]\). As \(W[b]\) is an initial segment of \(W[a]\),
+        \(\varphi[W[b]]\) is an initial segment of \(\alpha_a\).
+        Hence, \(\varphi[W[b]]\) is an ordinal.
+        By \Cref{lem:psbsOfOrdinalIsElement}, \(\varphi[W[b]] = \beta\) for some \(\beta < \alpha_a\).
+        Hence, \(b \in A\) and \(\alpha_b = \beta\). \qed
+    }
+
+    Now, define \(f \colon A \to S\) by \(a \mapsto \alpha_a\).
+    By \Cref{clm:UwimBbPO,clm:fKcQIApV}, \(f\) is an isomorphism between \(A\) and \(S\).
+    If \(\exs c \in W,\: A = W[c]\), then \(c \in A\) by definition.
+    Hence, \(A\) is not an initial segment of \(W\) in spite of \Cref{clm:fKcQIApV};
+    \(A = W\). (See \Cref{dfn:initialSegment}.)
+    Hence, \(f\) is an isomorphism between \(A\) and an ordinal \(S\).
+}
+
+\dfn[orderType]{Order Type}{
+    If \(W\) is a well-ordered set, then the \textit{order type} of \(W\)
+    is the unique ordinal number isomorphic to \(W\).
+    This is justified by \nameref{th:counting}.
+}
+
+\thm[operationRecursion]{The Recursion Theorem}{
+    Let \(\mbf{P}(x, y)\) be a property such that \(\fall x\: \exs! y\: \mbf{P}(x, y)\).
+    For any \(a\), there exists a unique infinite sequence \(\lang\,a_n \mid n \in \NN\,\rang\) such that
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(a_0 = a\) and
+        \ii \(\fall n \in \NN,\: \mbf{P}((a_n, n), a_{n+1})\).
+    \end{enumerate}
+}
+
+\noindent
+The proof of \nameref{th:operationRecursion} is given in the next section.
+
+\end{document}

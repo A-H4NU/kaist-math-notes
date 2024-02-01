@@ -87,11 +87,18 @@
     \end{itemize}
 }
 
+\cor[ordinalIsSetOfSmallerOrdinals]{}{
+    Let \(\alpha\) be an ordinal number.
+    Then, \(\alpha = \{\,\beta \mid \beta \text{ is an ordinal number with } \beta < \alpha\,\}\).
+}
+
 \mlemma[psbsOfOrdinalIsElement]{}{
     Let \(\alpha\) and \(\beta\) be ordinal numbers.
-    Then \(\alpha \subsetneq \beta\) implies \(\alpha \in \beta\).
+    Then \(\alpha \subsetneq \beta \iff \alpha \in \beta\).
 }
-\pf{Proof}{
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
     \(\beta \setminus \alpha\) is nonempty,
     and thus there exists \(\gamma \triangleq \min_{\in_{\beta}} (\beta \setminus \alpha)\).
     Note that, any \(\delta \in \gamma \setminus \alpha\)
@@ -104,6 +111,15 @@
     As \(\in_{\beta}\) is a total ordering, it is either \(\gamma \in \delta\) or \(\gamma = \delta\).
     In both cases, as \(\in_{\beta}\) is transitive, \(\gamma \in \alpha\),
     which contradicts \(\gamma \in \beta \setminus \alpha\).
+
+    \ii[(\(\Leftarrow\))]
+    Take any \(\gamma \in \alpha\).
+    Then, as \(\beta\) is transitive, we have \(\gamma \in \beta\) as well.
+    Hence, \(\alpha \subseteq \beta\).
+    Since \(\alpha \neq \beta\) by \Cref{lem:noOrdinalContainsItself},
+    we conclude \(\alpha \subsetneq \beta\).
+    \qed
+\end{itemize}
 }
 
 \thm[basicOrdinal]{}{
