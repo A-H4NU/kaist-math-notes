@@ -1,0 +1,177 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[6.3.1]{}{
+    Let \(\mbf{P}(x, y)\) be a property such that
+    for every \(x\) there is at most one \(y\) for which \(\mbf{P}(x, y)\) holds.
+    Then, for every \(A\), there exists a set \(B\) such that
+    \[\fall x \in A,\: [\exs y,\: \mbf{P}(x, y) \implies \exs y \in B,\: \mbf{P}(x, y)].\]
+}
+\pf{Proof}{
+    Let \(\mbf{Q}(x, y)\) be the property
+    \[
+        \mbf{P}(x, y) \lor [y = \OO \land \lnot\exs z\: \mbf{P}(x, z)].
+    \]
+    Then, for each \(x\), there uniquely exists \(y\) such that \(\mbf{Q}(x, y)\) holds.
+    If \(\lnot\exs\: z \mbf{P}(x, z)\), then \(y = \OO\) is the only one which satisfies
+    \(\mbf{Q}(x, y)\); otherwise, \(y\) that satisfies \(\mbf{P}(x, y)\)
+    is unique.
+
+    Let \(A\) be any set.
+    By \nameref{ax:replacement},
+    the set \(B \triangleq \{\,y \mid \exs x \in A,\: \mbf{Q}(x, y)\,\}\) exists.
+    Then, for each \(x \in A\) such that \(\exs y\: \mbf{P}(x, y)\),
+    the \(y\) also satisfies \(\mbf{Q}(x, y)\); hence \(y \in B\).
+}
+
+\exer[6.3.2]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\{\,\OO, \{\OO\}, \{\{\OO\}\}, \{\{\{\OO\}\}\}, \cdots\,\}\) exists.
+        \ii \(\{\,\NN, \mcal P(\NN), \mcal P(\mcal P(\NN)), \cdots\,\}\) exists.
+        \ii \(\omega + \omega = \omega \cup \{\,\omega, \omega+1, (\omega + 1) + 1, \cdots\,\}\) exists.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Let \(\mbf{P}(x, y)\) be the property
+    \[
+        [\exs a\: \exs b\: x = (a, b) \land y = \{a\}]
+        \lor [\lnot (\exs a\: \exs b\: x = (a, b)) \land y = \OO].
+    \]
+    The result follows from \nameref{th:operationRecursion} with \(a = \OO\).
+
+    \ii
+    Let \(\mbf{P}(x, y)\) be the property
+    \[
+        [\exs a\: \exs b\: x = (a, b) \land y = \mcal P(a)]
+        \lor [\lnot (\exs a\: \exs b\: x = (a, b)) \land y = \OO].
+    \]
+    The result follows from \nameref{th:operationRecursion} with \(a = \NN\).
+
+    \ii
+    Let \(\mbf{P}(x, y)\) be the property
+    \[
+        [\exs a\: \exs b\: x = (a, b) \land y = S(a)]
+        \lor [\lnot (\exs a\: \exs b\: x = (a, b)) \land y = \OO].
+    \]
+    Then, the set \(B = \{\,\omega, \omega+1, (\omega + 1) + 1, \cdots\,\}\) exists by
+    \nameref{th:operationRecursion} with \(a = \omega\).
+    Hence, the union of \(B\) and \(\omega\) exists.
+    \qed
+\end{enumerate}
+}
+
+\exer[6.3.3]{}{
+    Use \nameref{th:operationRecursion} to define
+    \begin{alignat*}{2}
+        && V_0 &= \OO \\
+        \fall n \in \omega,&\:& V_{n+1} &= \mcal P(V_n) \\
+        && V_{\omega} &= \textstyle \bigcup_{n \in \omega} V_n.
+    \end{alignat*}
+}
+\pf{Proof}{
+    Let \(\mbf{P}(x, y)\) be the property
+    \[
+        [\exs a\: \exs b\: x = (a, b) \land y = \mcal P(a)]
+        \lor [\lnot (\exs a\: \exs b\: x = (a, b)) \land y = \OO].
+    \]
+    Then, by \nameref{th:operationRecursion},
+    \(\lang\,V_n \mid n \in \NN\,\rang\) exists.
+    Hence, \(V_{\omega}\) exists as well.
+}
+
+\exer[6.3.4]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:6.3.4} (\roman*)}, listparindent=\parindent]
+        \ii\label{itm:6.3.4.i} Every \(x \in V_{\omega}\) is finite.
+        \ii \(V_{\omega}\) is transitive.
+        \ii \(V_{\omega}\) is an inductive set.
+    \end{enumerate}
+    The elements of \(V_{\omega}\) are called \textit{hereditarily finite sets}.
+}
+
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    By \nameref{th:induction} and \Cref{th:powerSetOfFiniteIsFinite},
+    \(V_n\) is finite for all \(n \in \omega\).
+    Take any \(x \in V_{\omega}\). \(x \in V_{n+1} = \mcal P(V_n)\) for some \(n \in \omega\) as \(V_0 = \OO\).
+    Hence, \(x \subseteq V_n\) is finite by \Cref{th:subsetOfFiniteIsFinite}.
+
+    \ii
+    Let \(x \in y \in V_\omega\). Then, \(y \in V_{n+1} = \mcal P(V_n)\) for some \(n \in \omega\).
+    Then, \(x \in y \subseteq V_n\); hence \(x \in V_{\omega}\).
+    Therefore, \(V_{\omega}\) is transitive.
+
+    \ii
+    \(\OO \in V_1 \subseteq V_{\omega}\).
+    Assume \(x \in V_{\omega}\). Then, \(x \in V_{n}\) for some \(n \in \omega\).
+    Then, \(\{x\} \in V_{n+1}\); thus \(S(x) = x \cup \{x\} \subseteq V_{n} \cup V_{n+1} \subseteq V_{\omega}\).
+    Hence, \(V_{\omega}\) is inductive.
+    \qed
+\end{enumerate}
+}
+
+\exer[6.3.5]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        If \(x, y \in V_{\omega}\), then \(\{x, y\} \in V_{\omega}\).
+        \ii
+        If \(X \in V_{\omega}\), then \(\bigcup X \in V_{\omega}\) and \(\mcal P(X) \in V_{\omega}\).
+        \ii
+        If \(X \in V_{\omega}\) and \(f \colon X \to V_{\omega}\),
+        then \(f[X] \in V_{\omega}\).
+        \ii
+        If \(X\) is a finite subset of \(V_{\omega}\), then \(X \in V_{\omega}\).
+    \end{enumerate}
+}
+\mclm{Proof}{
+We first prove that each \(V_n\) is transitive.
+\clm[LvcbkauV]{
+    \(\fall n \in \NN,\: V_n \subseteq \mcal P(V_n)\).
+}{
+    We have \(\OO = V_0 \subseteq \mcal P(V_0)\).
+    Fix any \(n \in \NN\) and assume \(V_n \subseteq \mcal P(V_n)\).
+    Take any \(x \in V_{n+1}\). Then, \(x \subseteq V_n \subseteq \mcal P(V_n) = V_{n+1}\),
+    i.e., \(x \in \mcal P(V_{n+1})\).
+    By \nameref{th:induction}, \(\fall n \in \NN,\: V_n \subseteq \mcal P(V_n)\).
+}
+\noindent
+From \Cref{clm:LvcbkauV} and \nameref{th:induction},
+one may conclude \(\fall m, n \in \omega,\: (m \le n \implies V_m \subseteq V_n)\).
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Take any \(x, y \in V_{\omega}\).
+    Then, there exist \(m, n \in \omega\) such that \(x \in V_m\) and \(y \in V_n\).
+    \WLOG, \(m \le n\), and thus \(V_m \subseteq V_n\).
+    Therefore, \(\{x, y\} \subseteq V_n\);
+    \(\{x, y\} \in V_{\omega}\).
+
+    \ii
+    \(X \in V_{n+1}\) for some \(n \in \omega\).
+    By \Cref{clm:LvcbkauV}, \(V_{n+1}\) is transitive,
+    and thus \(x \subseteq V_n\) for each \(x \in X\).
+    Hence, \(\bigcup X \subseteq V_n\); so \(\bigcup X \in V_{\omega}\).
+    Moreover, if \(A \subseteq X\), then \(A \subseteq V_n\), i.e., \(A \in V_{n+1}\).
+    Hence, \(\mcal P(X) \subseteq V_{n+1}\); \(\mcal P(X) \in V_{\omega}\).
+
+    \ii
+    By \ref{itm:6.3.4.i}, \(X\) is finite.
+    Hence, \(f[X]\) is a finite subset of \(V_{\omega}\)
+    by \Cref{th:imageOfFiniteIsFinite}.
+    Hence, by (iv), \(f[X] \in V_{\omega}\).
+
+    \ii
+    Let \(f \colon X \to \NN\) be defined by
+    \(f(x) \triangleq \min \{\,m \in \NN \mid x \in X_m\,\}\).
+    Let \(n \triangleq \max \ran f\).
+    Then, \(\fall x \in X,\: x \in V_n\).
+    Hence, \(X \subseteq V_n\); \(X \in V_{\omega}\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}
