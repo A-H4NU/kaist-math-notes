@@ -26,13 +26,28 @@ To get through this difficulty, \nameref{ax:replacement} comes to rescue.
     \]
 }
 
+\dfn[operation2]{Operation}{
+    Let \(\mbf{P}(x, y)\) be a property such that \(\fall x\: \exs! y\: \mbf{P}(x, y)\).
+    \(\mbf{F}\) is the \textit{operation defined by \(\mbf{P}\)}
+    when \(\mbf{F}(x)\) denotes the unique \(y\) for which \(\mbf{P}(x, y)\).
+}
+
 \nt{
     Let \(\mbf{P}(x, y)\) be a property such that \(\fall x\: \exs! y\: \mbf{P}(x, y)\)
-    and let \(A\) be a set.
+    and let \(\mbf{F}\) be the operation defined by \(\mbf{P}\).
+    Let \(A\) be a set.
     \nameref{ax:replacement} guarantees the existence of the set
     \[
-        \{\,y \mid \exs x \in A,\:\mbf{P}(x, y)\,\}.
+        \{\,y \mid \exs x \in A,\:\mbf{P}(x, y)\,\}
+        = \{\,y \mid \exs x \in A,\: y = \mbf{F}(x)\,\}.
     \]
+}
+
+\notat{Image}{
+    Let \(\mbf{P}(x, y)\) be a property such that \(\fall x\: \exs! y\: \mbf{P}(x, y)\)
+    and let \(\mbf{F}\) be the operation defined by \(\mbf{P}\).
+    Then, we write \(\mbf{F}[A] \triangleq \{\,\mbf{F}(x) \mid x \in A\,\}\)
+    instead of \(\mbf{F}[A] = \{\,y \mid \exs x \in A,\: y = \mbf{F}(x)\,\}\).
 }
 
 \thm[counting]{The Counting Theorem}{
@@ -57,7 +72,7 @@ To get through this difficulty, \nameref{ax:replacement} comes to rescue.
         \text{ or } (x \notin A \text{ and } y = \OO).
     \]
     Hence, by \nameref{ax:replacement},
-    there exists the set \(S \triangleq \{\,z \mid \exs a \in A,\: z = \alpha_a\,\}\).
+    there exists the set \(S \triangleq \{\,\alpha_a \mid a \in A\,\}\).
 
     \clm[UwimBbPO]{
         \(S\) is an ordinal number.
@@ -100,16 +115,16 @@ To get through this difficulty, \nameref{ax:replacement} comes to rescue.
 }
 
 \thm[operationRecursion]{The Recursion Theorem}{
-    Let \(\mbf{P}(x, y)\) be a property such that \(\fall x\: \exs! y\: \mbf{P}(x, y)\).
+    Let \(\mbf{G}\) be an operation.
     For any \(a\), there exists a unique infinite sequence \(\lang\,a_n \mid n \in \NN\,\rang\) such that
     \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
         \ii \(a_0 = a\) and
-        \ii \(\fall n \in \NN,\: \mbf{P}((a_n, n), a_{n+1})\).
+        \ii \(\fall n \in \NN,\: a_{n+1} = \mbf{G}(a_n, n)\).
     \end{enumerate}
 }
 
 \noindent
-The proof of \nameref{th:operationRecursion} is given in the next section.
+The \hyperlink{yinFUHIP}{proof} of \nameref{th:operationRecursion} is given in the next section.
 
 \subfile{../exercises/exercise6-3.tex}
 

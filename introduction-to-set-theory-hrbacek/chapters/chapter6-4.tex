@@ -1,0 +1,306 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Transfinite Induction and Recursion}
+
+\thm[firstTransInduction]{The Transfinite Induction Principle: First Version}{
+    Let \(\mbf{P}(x)\) be a property.
+    Assume that, for each ordinal number \(\alpha\),
+    \eqref{eq:transInduction} holds.
+    Then, \(\mbf{P}(\alpha)\) holds for all ordinals \(\alpha\). \begin{align}
+        \text{If }\mbf{P}(\beta)\text{ holds for each ordinal }\beta\text{ such that }\beta < \alpha
+        \text{, then }\mbf{P}(\alpha)\text{ holds}.
+        \label{eq:transInduction}\tag{1}
+    \end{align}
+}
+\pf{Proof}{
+    Suppose there exists an ordinal \(\gamma\) such that \(\lnot \mbf{P}(\gamma)\)
+    for the sake of contradiction.
+    Let \(S \triangleq \{\,\beta \mid \beta\text{ is an ordinal such that }
+    \beta \le \alpha\text{ and }\lnot\mbf{P}(\beta)\,\}\).
+    As \(S \neq \OO\), by \ref{itm:basicOrdinal.iv},
+    \(S\) has a least element \(\alpha\).
+    As every ordinal \(\beta < \alpha\) satisfies \(\mbf{P}(\beta)\),
+    by assumption, we must have \(\mbf{P}(\alpha)\) by \eqref{eq:transInduction},
+    which contradicts \(\alpha \in S\).
+}
+
+\thm[secondTransInduction]{The Transfinite Induction Principle: Second Version}{
+    Let \(\mbf{P}(x)\) be a property. Assume that:
+    \begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+        \ii For each ordinal \(\alpha\), \(\mbf{P}(\alpha) \implies \mbf{P}(\alpha + 1)\).
+        \ii For each limit ordinal \(\alpha\), if \(\mbf{P}(\beta)\) holds for each ordinal
+            \(\beta\) such that \(\beta < \alpha\), then \(\mbf{P}(\alpha)\) holds.
+    \end{enumerate}
+    Then, \(\mbf{P}(\alpha)\) holds for all ordinals \(\alpha\).
+}
+\pf{Proof}{
+    Take any ordinal \(\alpha\) and assume that
+    \(\mbf{P}(\beta)\) holds for all ordinals less than \(\alpha\).
+    If \(\alpha\) is a limit ordinal, then \(\mbf{P}(\alpha)\) holds by (ii).
+    Otherwise, i.e., if \(\alpha = \beta + 1\) for some ordinal \(\beta\),
+    then, by (i), \(\mbf{P}(\alpha)\) holds as \(\mbf{P}(\beta)\) holds.
+    Therefore, \eqref{eq:transInduction} holds.
+    The result follows from \nameref{th:firstTransInduction}.
+}
+
+\dfn[transfiniteSequence]{Transfinite Sequence}{
+    A function whose domain is an ordinal \(\alpha\)
+    is called \textit{transfinite sequence of length \(\alpha\)}.
+}
+
+\thm[transRecursion]{The Transfinite Recursion Theorem}{
+    Let \(\mbf{G}\) be an operation.
+    Then, the property \(\mbf{P}(x, y)\) stated in \eqref{eq:transRecursion} defines an operation \(\mbf{F}\)
+    such that \(\mbf{F}(\alpha) = \mbf{G} \left(\restr{\mbf{F}}{\alpha}\right)\)
+    for all ordinals \(\alpha\) where \(\restr{\mbf{F}}{\alpha}\) is the transfinite sequence
+    of length \(\alpha\) defined by \(x \mapsto \mbf{F}(x)\).
+
+    \begin{equation}
+        \begin{aligned}
+            & \mbf{P}(x, y) \text{ is the property defined by:} \\
+            & \quad\left\{
+            \begin{aligned}
+                & \begin{aligned}
+                    &x\text{ is an ordinal and }y = t(x)\text{ for some computation }t \\
+                    &\qquad\text{ of length }x\text{ based on }\mbf{G},
+                \end{aligned} \\
+                \text{or }& x\text{ is not an ordinal and }y = \OO
+            \end{aligned}
+            \right.
+        \end{aligned}
+        \label{eq:transRecursion}\tag{2}
+    \end{equation}
+    where \(t\) is called a \textit{computation of length \(\alpha\) based on \(\mbf{G}\)}
+    if \(t\) is a function whose domain is \(\alpha + 1\)
+    and for all \(\beta \le \alpha\), \(t(\beta) = \mbf{G}\left(\restr{t}{\beta}\right)\).
+}
+\pf{Proof}{
+    We first have to show that \(\mbf{P}(x, y)\) defined in \eqref{eq:transRecursion}
+    defines an operation.
+    \clm[bfvdLoYw]{
+        For any ordinal \(\alpha\),
+        there uniquely exists a computation of length \(\alpha\) based on \(\mbf{G}\).
+    }{
+        Fix any ordinal \(\alpha\) and assume for the sake of induction that:
+        \begin{equation}
+            \begin{gathered}
+                \text{For each ordinal \(\beta\) with \(\beta < \alpha\),} \\
+                \text{there uniquely exists a computation of length \(\beta\)}.
+            \end{gathered}
+            \label{eq:pnZedvFP}\tag{\(\ast\)}
+        \end{equation}
+        Then, by \nameref{ax:replacement}, a set
+        \[
+            T \triangleq \{\,t \mid t\text{ is a computation of length }\beta\text{ for some }\beta < \alpha\,\}
+        \]
+        exists.
+        Note that, for each \(\beta < \alpha\),
+        there uniquely exists \(t \in T\) whose length is \(\beta\) by \eqref{eq:pnZedvFP}.
+        Let \(\hat t \triangleq \bigcup T\) and
+        \(\tau \triangleq \hat t \cup \{(\alpha, \mbf{G}(\hat t))\}\).
+
+        \clmwt[uRkAHbWC]{
+            \(\tau\) is a function and \(\dom \tau = \alpha + 1\).
+        }{
+            We have to show that \(T\) is a compatible system of functions.
+            First, take any \(t_1, t_2 \in T\) and let
+            \(\beta_1 \triangleq \dom t_1\) and \(\beta_2 \triangleq \dom t_2\).
+            \WLOG, by \ref{itm:basicOrdinal.iii}, \(\beta_1 \le \beta_2\).
+
+            For the sake of transfinite induction, fix any ordinal \(\gamma\) with \(\gamma < \beta_1\)
+            and assume that \(t_1(\delta) = t_2(\delta)\) for all ordinals \(\delta < \gamma\).
+            Then, \(\restr{t_1}{\gamma} = \restr{t_2}{\gamma}\);
+            thus \(t_1(\gamma) = \mbf{G}\left(\restr{t_1}{\gamma}\right)
+            = \mbf{G}\left(\restr{t_2}{\gamma}\right) = t_2(\gamma)\).
+            Hence, by \nameref{th:firstTransInduction},
+            \(t_1(\gamma) = t_2(\gamma)\) for all ordinals \(\gamma < \beta_1\).
+
+            Hence, \(\hat t\) is a function by \Cref{th:compatibleThenUnionIsFunction} and
+            \begin{alignat*}{2}
+                \dom \hat t &= \textstyle\bigcup_{t \in T} \dom t &\qquad& \comment*{\Cref{th:compatibleThenUnionIsFunction}} \\
+                            &= \textstyle\bigcup_{\beta < \alpha} (\beta + 1) && \comment*{\eqref{eq:pnZedvFP}} \\
+                            &= \alpha.
+            \end{alignat*}
+            Therefore, by \Cref{th:compatibleThenUnionIsFunction},
+            \(\tau\) is a function and \(\dom \tau = \alpha \cup \{\alpha\} = \alpha + 1\). \qed
+        }
+
+        \clmwt[vEQSOsaD]{
+            For each ordinal \(\beta\) with \(\beta \le \alpha\),
+            \(\tau(\beta) = \mbf{G}\left(\restr{\tau}{\beta}\right)\).
+        }{
+            If \(\beta = \alpha\),
+            we immediately have \(\tau(\alpha) = \mbf{G}(\hat t) = \mbf{G}\left(\restr{\tau}{\alpha}\right)\).
+            If \(\beta < \alpha\), then take \(t \in T\) with \(\dom t = \beta + 1\).
+            Then, we have \(\tau(\beta) = t(\beta) = \mbf{G}\left(\restr{t}{\beta}\right)
+            = \mbf{G}\left(\restr{\tau}{\beta}\right)\) as \(t \subseteq \tau\). \qed
+        }
+
+        \noindent
+        \Cref{clm:uRkAHbWC,clm:vEQSOsaD} asserts that \(\tau\) is a computation
+        of length \(\alpha\) based on \(\mbf{G}\).
+
+        To prove the uniqueness, let \(\sigma\) be another computation of length \(\alpha\).
+        Note that, if \(\tau(\delta) = \sigma(\delta)\) for all \(\delta < \gamma\),
+        then \(\tau(\gamma) = \mbf{G}\left(\restr{\tau}{\gamma}\right)
+        = \mbf{G}\left(\restr{\sigma}{\gamma}\right) = \sigma(\gamma)\).
+        Hence, by \nameref{th:firstTransInduction},
+        \(\tau(\gamma) = \sigma(\gamma)\) for all \(\gamma \le \alpha\);
+        thus \(\tau = \sigma\).
+
+        Hence, we showed that \eqref{eq:pnZedvFP}
+        implies, there uniquely exists a computation of length \(\alpha\).
+        Hence, by \nameref{th:firstTransInduction},
+        for all ordinals \(\alpha\), there uniquely exists \(y\)
+        that satisfies \(\mbf{P}(\alpha, y)\). \qed
+    }
+
+    By \Cref{clm:bfvdLoYw}, \(\fall x\:\exs! y\: \mbf{P}(x, y)\);
+    \(\mbf{P}\) defines an operation \(\mbf{F}\).
+    (In other words, \(\mbf{F}(\alpha) = t(\alpha)\) where \(t\)
+    is the unique computation of length \(\alpha\) based on \(\mbf{G}\).)
+
+    Fix any ordinal \(\alpha\).
+    Let \(t\) be the unique computation of length \(\alpha\).
+    Then, for each \(\gamma < \alpha\), \(\restr{t}{\gamma + 1}\)
+    is a computation of length \(\gamma\),
+    and thus \(\mbf{F}(\gamma) = \restr{t}{\gamma + 1}(\gamma) = t(\gamma)\);
+    in other words, \(\restr{\mbf{F}}{\alpha} = \restr{t}{\alpha}\).
+    Then,
+    \begin{alignat*}{2}\SwapAboveDisplaySkip
+        \mbf{F}(\alpha)
+        &= t(\alpha) &\qquad& \comment*{Definition of \(\mbf{F}\)} \\
+        &= \mbf{G}\left(\restr{t}{\alpha}\right) && \comment*{\(t\) is a computation} \\
+        &= \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right). && \comment*{\(\restr{\mbf{F}}{\alpha} = \restr{t}{\alpha}\)}
+    \end{alignat*}
+    The theorem is now proven.
+}
+
+\notat{}{
+    If \(\mbf{F}(z, x)\) is an operation in two variables,
+    i.e., \(\mbf{P}(z, x, y)\) is an property such that
+    \(\fall z\: \fall x\: \exs! y\: \mbf{P}(z, x, y)\)
+    and \(\mbf{F}(z, x)\) denotes the unique \(y\)
+    such that \(\mbf{P}(z, x, y)\).
+    We write \(\mbf{F}_z(x)\) in place of \(\mbf{F}(z, x)\)
+    so that we may treat \(\mbf{F}_z\) as an operation.
+}
+
+\thm[transRecursionParam]{The Transfinite Recursion Theorem: Parametric Version}{
+    Let \(\mbf{G}\) be an operation.
+    Then, the property \(\mbf{Q}(z, x, y)\) stated in \eqref{eq:transRecursionParam}
+    defines an operation \(\mbf{F}\)
+    such that \(\mbf{F}(z, \alpha) = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha}\right)\).
+
+    \begin{equation}
+        \begin{aligned}
+            & \mbf{Q}(z, x, y)\text{ is the property defined by:} \\
+            & \quad\left\{
+            \begin{aligned}
+                & \begin{aligned}
+                    &x\text{ is an ordinal and }y = t(x)\text{ for some computation }t \\
+                    &\qquad\text{ of length }x\text{ based on }\mbf{G}\text{ and }z,
+                \end{aligned} \\
+                \text{or }& x\text{ is not an ordinal and }y = \OO
+            \end{aligned}
+            \right.
+        \end{aligned}
+        \label{eq:transRecursionParam}\tag{3}
+    \end{equation}
+    where \(t\) is called a \textit{computation of length \(\alpha\) based on \(\mbf{G}\) and \(z\)}
+    if \(t\) is a function whose domain is \(\alpha + 1\)
+    and for all \(\beta \le \alpha\), \(t(\beta) = \mbf{G}\left(z, \restr{t}{\beta}\right)\).
+}
+\pf{Proof}{
+    Replace every \(\mbf{G}(-)\) into \(\mbf{G}(z, -)\)
+    in the proof of \nameref{th:transRecursion}.
+}
+
+\thm[secondTransRecursion]{}{
+    Let \(\mbf{G}_1\) and \(\mbf{G}_2\) be operations.
+    Let \(\mbf{G}\) be the operation defined in \eqref{eq:secondTransRecursion}.
+    Then, the property \(\mbf{P}(x, y)\) stated in \eqref{eq:transRecursion} defines an operation \(\mbf{F}\)
+    such that:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii For each ordinal \(\alpha\), \(\mbf{F}(\alpha + 1) = \mbf{G}_1(\mbf{F}(\alpha))\).\vspace*{.3em}
+        \ii For each limit ordinal \(\alpha\), \(\mbf{F}(\alpha) = \mbf{G}_2\left(\restr{\mbf{F}}{\alpha}\right)\).
+    \end{enumerate}\vspace*{1em}
+    \begin{equation}
+        \begin{aligned}
+            & y = \mbf{G}(x) \text{ if and only if} \\
+            & \quad\left\{
+            \begin{aligned}
+                          & x\text{ is a transfinite sequence of length }\alpha + 1\text{ and }y = \mbf{G}_1(x(\alpha)), \\
+                \text{or }&
+                \begin{aligned}[t]
+                    & x\text{ is a transfinite sequence of length }\alpha
+                    \text{ such that }\alpha\text{ is a limit ordinal} \\
+                    &\qquad\text{and }y = \mbf{G}_2(x), \\
+                \end{aligned} \\
+                \text{or }& x\text{ is not a transfinite sequence and }y = \OO. \\
+            \end{aligned}
+            \right.
+        \end{aligned}
+        \label{eq:secondTransRecursion}\tag{4}
+    \end{equation}
+}
+\mclm{Proof}{
+    For each ordinal \(\alpha\), \(\mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)\)
+    by \nameref{th:transRecursion}.\vspace*{.3em}
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        If \(\alpha\) is an ordinal,
+        then \(\mbf{F}(\alpha + 1) = \mbf{G}\left(\restr{\mbf{F}}{\alpha + 1}\right)
+        = \mbf{G}_1\left(\restr{\mbf{F}}{\alpha + 1}(\alpha)\right)
+        = \mbf{G}_1\left(\mbf{F}(\alpha)\right)\).\vspace*{.3em}
+        \ii
+        If \(\alpha\) is a limit ordinal,
+        then \(\mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)
+        = \mbf{G}_2\left(\restr{\mbf{F}}{\alpha}\right)\). \qed
+    \end{itemize}
+}
+
+\cor[]{}{
+    Let \(\Omega\) be an ordinal number, \(A\) be a set,
+    and \(S = \bigcup_{\alpha < \Omega} A^{\alpha}\)
+    be the set of all transfinite sequences of elements of \(A\) of length less than \(\Omega\).
+    Let \(g \colon S \to A\).
+    Then, there exists a unique function \(f \colon \Omega \to A\) such that
+    \[
+        f(\alpha) = g \left(\restr{f}{\alpha}\right)\text{ for all ordinals }\alpha < \Omega.
+    \]
+}
+\pf{Proof}{
+    Define an operation \(\mbf{G}\) by
+    \[
+        \mbf{G}(t) \triangleq \begin{cases}
+            g(t) & \text{if } t \in S \\
+            \OO  & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, by \nameref{th:transRecursion},
+    there exists an operation \(\mbf{F}\) such that
+    \(\mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)\)
+    holds for all ordinals \(\alpha\).
+    Then, \(f \triangleq \restr{\mbf{F}}{\Omega}\)
+    satisfies the condition.
+}
+
+\pf{\hypertarget{yinFUHIP}{Proof} of {\rm\nameref{th:operationRecursion}}}{
+    Define an operation \(\mbf{G}'\) by
+    \[
+        \mbf{G}'(x) \triangleq \begin{cases}
+            \mbf{G} & \text{if } t \in S \\
+            \OO  & \text{otherwise.}
+        \end{cases}
+    \]
+    By \nameref{th:transRecursionParam},
+    there exists an operation \(\mbf{F}\) such that
+    \(\mbf{F}(0) = a\) and \(\mbf{F}(n + 1) = \mbf{G}(\mbf{F}(n), n)\)
+    for all \(n \in \NN\).
+    Then, \(\restr{\mbf{F}}{\omega}\) is the sequence we are looking for.
+}
+
+\end{document}
