@@ -192,7 +192,8 @@
     Let \(\mbf{G}\) be an operation.
     Then, the property \(\mbf{Q}(z, x, y)\) stated in \eqref{eq:transRecursionParam}
     defines an operation \(\mbf{F}\)
-    such that \(\mbf{F}(z, \alpha) = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha}\right)\).
+    such that \(\mbf{F}(z, \alpha) = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha}\right)\)
+    for all ordinals \(\alpha\) and all sets \(z\).
 
     \begin{equation}
         \begin{aligned}
@@ -288,19 +289,27 @@
     satisfies the condition.
 }
 
-\pf{\hypertarget{yinFUHIP}{Proof} of {\rm\nameref{th:operationRecursion}}}{
+\mclm{\hypertarget{yinFUHIP}{Proof} of {\rm\nameref{th:operationRecursion}}}{
     Define an operation \(\mbf{G}'\) by
     \[
         \mbf{G}'(x) \triangleq \begin{cases}
-            \mbf{G} & \text{if } t \in S \\
-            \OO  & \text{otherwise.}
+            \mbf{G}(x_n, n) & \text{if }x\text{ is a sequence of length }n + 1\text{ where }n \in \omega\\
+            a  & \text{otherwise.}
         \end{cases}
     \]
-    By \nameref{th:transRecursionParam},
+    By \nameref{th:transRecursion},
     there exists an operation \(\mbf{F}\) such that
-    \(\mbf{F}(0) = a\) and \(\mbf{F}(n + 1) = \mbf{G}(\mbf{F}(n), n)\)
-    for all \(n \in \NN\).
-    Then, \(\restr{\mbf{F}}{\omega}\) is the sequence we are looking for.
+    \(\mbf{F}(\alpha) = \mbf{G}'\left(\restr{\mbf{F}}{\alpha}\right)\)
+    for all ordinals \(\alpha\).
+    Now, let \(\lang a_n \rang_{n \in \NN} \triangleq \restr{\mbf{F}}{\omega}\).
+    Then,
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii \(a_0 = \mbf{F}(0) = \mbf{G}'(\OO) = a\)
+        \ii For each \(n \in \NN\),
+        \(a_{n+1} = \mbf{F}(n+1) = \mbf{G}'\left(\restr{\mbf{F}}{n+1}\right) =
+        \mbf{G}\left(\restr{\mbf{F}}{n+1}(n), n\right)
+        = \mbf{G}\left(\mbf{F}(n), n\right) = \mbf{G}(a_n, n)\). \qed
+    \end{itemize}
 }
 
 \end{document}
