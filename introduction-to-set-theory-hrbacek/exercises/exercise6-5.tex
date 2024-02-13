@@ -1,0 +1,1149 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\nt{
+    The proof of \Cref{exer:6.5.1} depends on \Cref{exer:6.5.2} and \Cref{exer:6.5.7};
+    and the proof of \Cref{exer:6.5.2} depends on \Cref{exer:6.5.7}.
+}
+
+\exer[6.5.1]{}{
+    For all ordinals \(\alpha\), \(\beta\), and \(\gamma\),
+    \((\alpha \cdot \beta) \cdot \gamma = \alpha \cdot (\beta \cdot \gamma)\).
+}
+\pf{Proof}{
+    Note that it is evident when \(\gamma = 0\) by \eqref{eq:ordinalMult1}.
+    Moreover, the cases when \(\alpha = 0\) or \(\beta = 0\) follows
+    from \Cref{clm:pJKfeXhM} of \Cref{exer:6.5.2}.
+    We shall exploit \nameref{th:secondTransInduction} on \(\gamma\).
+
+    Fix any ordinal \(\gamma\) and assume that,
+    for all ordinals \(\alpha\), \(\beta\), and \(\gamma'\) with \(\gamma' < \gamma\),
+    \((\alpha \cdot \beta) \cdot \gamma = \alpha \cdot (\beta \cdot \gamma)\).
+    Then,
+    \begin{alignat*}{2}
+        (\alpha \cdot \beta) \cdot (\gamma + 1)
+        &= (\alpha \cdot \beta) \cdot \gamma + \alpha \cdot \beta &\qquad& \comment*{\eqref{eq:ordinalMult2}} \\
+        &= \alpha \cdot (\beta \cdot \gamma) + \alpha \cdot \beta && \comment*{Induction Hypothesis} \\
+        &= \alpha \cdot (\beta \cdot \gamma + \beta) && \comment*{\Cref{exer:6.5.2}} \\
+        &= \alpha \cdot [\beta \cdot (\gamma + 1)]. && \comment*{\eqref{eq:ordinalMult2}}
+    \end{alignat*}
+
+    Now, fix an nonzero limit ordinal \(\gamma\) and assume,
+    for all ordinals \(\alpha\), \(\beta\), and \(\gamma'\) with \(\gamma' < \gamma\),
+    \((\alpha \cdot \beta) \cdot \gamma' = \alpha \cdot (\beta \cdot \gamma')\).
+    Now, take any ordinals \(\alpha \neq 0\) and \(\beta \neq 0\).
+
+    Take any \(\xi < (\alpha \cdot \beta) \cdot \gamma\).
+    Then, there exists \(\xi' < \gamma\) such that \(\xi < (\alpha \cdot \beta) \cdot \xi'\).
+    Hence,
+    \begin{alignat*}{2}
+        \xi
+        &< (\alpha \cdot \beta) \cdot \xi' &\qquad \\
+        &= \alpha \cdot (\beta \cdot \xi') && \comment*{Induction Hypothesis} \\
+        &< \alpha \cdot (\beta \cdot \gamma); && \comment*{\ref{itm:6.5.7.i}}
+    \end{alignat*}
+    we have \((\alpha \cdot \beta) \cdot \gamma \le \alpha \cdot (\beta \cdot \gamma)\).
+
+    Take any \(\xi < \alpha \cdot (\beta \cdot \gamma)\).
+    As \(\beta \cdot \gamma\) is a nonzero ordinal by \Cref{clm:TxauNXSj} of \Cref{exer:6.5.2}.
+    Hence, there exists \(\xi' < \beta \cdot \gamma\)
+    such that \(\xi < \alpha \cdot \xi'\).
+    Moreover, there exists \(\xi'' < \gamma\) such that \(\xi' < \beta \cdot \xi''\)
+    as \(\gamma\) is a limit ordinal.
+    Hence,
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha \cdot \xi' &\qquad \\
+        &< \alpha \cdot (\beta \cdot \xi'') && \comment*{\ref{itm:6.5.7.i}} \\
+        &= (\alpha \cdot \beta) \cdot \xi'' && \comment*{Induction Hypothesis} \\
+        &< (\alpha \cdot \beta) \cdot \gamma; && \comment*{\ref{itm:6.5.7.i}}
+    \end{alignat*}
+    we have \(\alpha \cdot (\beta \cdot \gamma) \le (\alpha \cdot \beta) \cdot \gamma\).
+    The result follows from \nameref{th:secondTransInduction}.
+}
+
+\exer[6.5.2]{}{
+    For all ordinals \(\alpha\), \(\beta\), and \(\gamma\),
+    \(\alpha \cdot (\beta + \gamma) = \alpha \cdot \beta + \alpha \cdot \gamma\).
+}
+\pf{Proof}{
+    We first begin with the following claims.
+    \clm[pJKfeXhM]{
+        Let \(\alpha\) and \(\beta\) be ordinals.
+        Then, \(\alpha \cdot \beta = 0 \iff \alpha = 0 \lor \beta = 0\).
+    }{
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))]
+        Note that \(0 + \alpha\), which is isomorphic
+        to the sum of \(\OO\) and \(\alpha\), has the order type \(\alpha\);
+        hence, \(0 + \alpha = \alpha\).
+
+        Assume \(\alpha \neq 0\) and \(\beta \neq 0\).
+        Then,
+        \begin{alignat*}{2}
+            0 < \alpha
+            &= 0 + \alpha &\qquad& \\
+            &= \alpha \cdot 0 + \alpha && \comment*{\eqref{eq:ordinalMult1}} \\
+            &= \alpha \cdot 1 &\qquad& \comment*{\eqref{eq:ordinalMult2}} \\
+            &\le \alpha \cdot \beta; && \comment*{\ref{itm:6.5.7.i}}
+        \end{alignat*}
+        \(\alpha \cdot \beta \neq 0\).
+        \ii[(\(\Leftarrow\))]
+        If is evident when \(\beta = 0\) by \eqref{eq:ordinalMult1}.
+        Hence, we shall conduct \nameref{th:secondTransInduction} on \(\beta\).
+        (In other words, we shall prove \(0 \cdot \beta = 0\).)
+
+        Fix any ordinal \(\beta\) and assume \(0 \cdot \beta = 0\).
+        Then,
+        \begin{alignat*}{2}
+            0 \cdot (\beta + 1)
+            &= 0 \cdot \beta + 0 &\qquad& \comment*{\eqref{eq:ordinalMult2}} \\
+            &= 0 \cdot \beta && \comment*{\eqref{eq:ordinalAdd1}} \\
+            &= 0. && \comment*{Induction Hypothesis}
+        \end{alignat*}
+
+        Now, fix any limit ordinal \(\beta \neq 0\)
+        and assume \(0 \cdot \delta = 0\) for all ordinals \(\delta < \beta\).
+        Then, \(0 \cdot \beta = \sup \{\,0 \cdot \delta \mid \delta < \beta \,\}
+        = \sup \{0\} = 0\).
+        The result follows from \nameref{th:secondTransInduction}.
+        \qed
+    \end{itemize}
+    }
+
+    \clm[TxauNXSj]{
+        If \(\alpha\) and \(\beta\) are nonzero ordinals and \(\beta\) a limit ordinal,
+        then \(\alpha \cdot \beta\) is a nonzero limit ordinal.
+    }{
+        Let \(\xi < \alpha \cdot \beta\).
+        Then, there exists \(\delta < \beta\) such that
+        \(\xi < \alpha \cdot \delta\) by \eqref{eq:ordinalMult3}.
+        Then, as \(\delta + 1< \beta\), we have
+        \begin{alignat*}{2}
+            \xi + 1
+            &\le \alpha \cdot \delta &\qquad& \\
+            &< \alpha \cdot (\delta + 1) && \comment*{\ref{itm:6.5.7.i}} \\
+            &\le \alpha \cdot \beta. && \comment*{\eqref{eq:ordinalMult3}}
+        \end{alignat*}
+        Hence, \(\alpha \cdot \beta\) is a limit ordinal.
+        We have \(\alpha \cdot \beta \neq 0\) from \Cref{clm:pJKfeXhM}.
+    }
+
+    When, \(\alpha = 0\), then the both sides are equal to \(0\) by
+    \Cref{clm:pJKfeXhM} and \eqref{eq:ordinalAdd1}.
+    Hence, we may assume \(\alpha \neq 0\).
+    The case \(\gamma = 0\) is evident from
+    \eqref{eq:ordinalAdd1} and \eqref{eq:ordinalMult1}.
+    We shall exploit \nameref{th:secondTransInduction} on \(\gamma\).
+
+    Fix any ordinal \(\gamma\) and assume that,
+    for all ordinals \(\alpha\) and \(\beta\),
+    the property ``\(\alpha \cdot (\beta + \gamma) = \alpha \cdot \beta + \alpha \cdot \gamma\)''
+    holds. Then, for all ordinals \(\alpha\) and \(\beta\)
+    \begin{alignat*}{2}
+        \alpha \cdot [\beta + (\gamma + 1)]
+        &= \alpha \cdot [(\beta + \gamma) + 1] &\qquad& \comment*{\eqref{eq:ordinalAdd2}} \\
+        &= \alpha \cdot (\beta + \gamma) + \alpha && \comment*{\eqref{eq:ordinalMult2}} \\
+        &= (\alpha \cdot \beta + \alpha \cdot \gamma) + \alpha && \comment*{Induction Hypothesis} \\
+        &= \alpha \cdot \beta + (\alpha \cdot \gamma + \alpha) && \comment*{\ref{itm:basicOrdinalArith.iii}} \\
+        &= \alpha \cdot \beta + \alpha \cdot (\gamma + 1). && \comment*{\eqref{eq:ordinalMult2}}
+    \end{alignat*}
+
+    Now, fix any limit ordinal \(\gamma \neq 0\) and assume
+    \(\alpha \cdot (\beta + \gamma') = \alpha \cdot \beta + \alpha \cdot \gamma'\)
+    for all ordinals \(\alpha\), \(\beta\), and \(\gamma'\) with \(\gamma' < \gamma\).
+    Take any ordinals \(\alpha\) and \(\beta\).
+    When, \(\alpha = 0\), then the both sides are equal to \(0\) by
+    \Cref{clm:pJKfeXhM} and \eqref{eq:ordinalAdd1}.
+    Hence, we may assume \(\alpha \neq 0\).
+
+    Note that \(\beta + \gamma\) is a limit ordinal by \Cref{clm:xcqeUAWE} of \Cref{lem:basicOrdinalArith}.
+    Hence, \(a \cdot (\beta + \gamma) = \sup \{\,\alpha \cdot \xi \mid \xi < \beta + \gamma\,\}\)
+    by \eqref{eq:ordinalMult3}.
+
+    Take any \(\xi < \beta + \gamma\). Then, there exists \(\delta < \gamma\)
+    such that \(\xi < \beta + \delta\) as \(\gamma\) is a limit ordinal. Hence,
+    \begin{alignat*}{2}
+        \alpha \cdot \xi
+        &< \alpha \cdot (\beta + \delta) &\qquad& \comment*{\ref{itm:basicOrdinalArith.i}} \\
+        &= \alpha \cdot \beta + \alpha \cdot \delta && \comment*{Induction Hypothesis} \\
+        &< \alpha \cdot \beta + \alpha \cdot \gamma; && \comment*{\ref{itm:basicOrdinalArith.i}, \ref{itm:6.5.7.i}}
+    \end{alignat*}
+    we have \(\alpha \cdot (\beta + \gamma) \le \alpha \cdot \beta + \alpha \cdot \gamma\).
+
+    Now, take any \(\xi < \alpha \cdot \beta + \alpha \cdot \gamma\).
+    Then, by \Cref{clm:TxauNXSj}, \(\alpha \cdot \gamma\) is a limit ordinal;
+    thus there exists \(\xi' < \alpha \cdot \gamma\) such that \(\xi < \alpha \cdot \beta + \xi'\).
+    There exists \(\xi'' < \gamma\) such that \(\xi' < \alpha \cdot \xi''\)
+    as \(\gamma\) is a limit ordinal.
+    Hence,
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha \cdot \beta + \xi' \\
+        &< \alpha \cdot \beta + \alpha \cdot \xi'' &\qquad& \comment*{\ref{itm:basicOrdinalArith.i}} \\
+        &= \alpha \cdot (\beta + \xi'') && \comment*{Induction Hypothesis} \\
+        &< \alpha \cdot (\beta + \gamma); && \comment*{\ref{itm:basicOrdinalArith.i}, \ref{itm:6.5.7.i}}
+    \end{alignat*}
+    we have \(\alpha \cdot \beta + \alpha \cdot \gamma \le \alpha \cdot (\beta + \gamma)\).
+    The result follows from \nameref{th:secondTransInduction}.
+}
+
+\exer[6.5.3]{}{
+    Simplify:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \((\omega + 1) + \omega\)
+        \ii \(\omega + \omega^2\)
+        \ii \((\omega + 1) \cdot \omega^2\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \begin{alignat*}{2}\SwapAboveDisplaySkip
+        (\omega + 1) + \omega
+        &= \omega + (1 + \omega) &\qquad& \comment*{\ref{itm:basicOrdinalArith.iii}} \\
+        &= \omega + \omega && \comment*{\(1 + \omega = \omega\)} \\
+        &= \omega \cdot 2
+    \end{alignat*}
+
+    \ii
+    \begin{alignat*}{2}\SwapAboveDisplaySkip
+        \omega + \omega^2
+        &= \omega \cdot 1 + \omega \cdot \omega &\qquad \\
+        &= \omega \cdot (1 + \omega) && \comment*{\Cref{exer:6.5.2}} \\
+        &= \omega \cdot \omega && \comment*{\(1 + \omega = \omega\)} \\
+        &= \omega^2
+    \end{alignat*}
+
+    \ii
+    We have \(\omega^2 = \omega \cdot \omega \le (\omega + 1) \cdot \omega\)
+    by \ref{itm:6.5.8.ii}.
+
+    Take any \(\xi < (\omega + 1) \cdot \omega\).
+    Then, there exists \(n < \omega\) such that \(\xi < (\omega + 1) \cdot n\).
+    Then,
+    \begin{alignat*}{2}
+        \xi
+        &< (\omega + 1) \cdot n &\qquad \\
+        &\le (\omega + \omega) \cdot n && \comment*{\ref{itm:basicOrdinalArith.i}, \ref{itm:6.5.8.ii}} \\
+        &= \omega \cdot (2 \cdot n) && \comment*{\Cref{exer:6.5.1}} \\
+        &\le \omega \cdot \omega; && \comment*{\eqref{eq:ordinalMult3}}
+    \end{alignat*}
+    hence, \((\omega + 1) \cdot \omega \le \omega^2\).
+    Therefore, \((\omega + 1) \cdot \omega = \omega^2\),
+    which implies \((\omega + 1) \cdot \omega^2 = \omega^3\) by \Cref{exer:6.5.1}.
+    \qed
+\end{enumerate}
+}
+
+\exer[6.5.4]{}{
+    For every ordinal \(\alpha\), there uniquely exist an ordinal \(\beta\)
+    and a natural number \(n\) such that \(\alpha = \beta + n\).
+}
+\pf{Proof}{
+    Let \(\beta \triangleq \sup \{\,\gamma \mid \gamma \le \alpha\text{ and }\gamma\text{ is a limit ordinal}\,\}\).
+    Then, \(\beta \le \alpha\) by definition.
+    Hence, there exists an ordinal \(\xi\) such that \(\alpha = \beta + \xi\)
+    by \Cref{lem:ordinalUniqueDifference}.
+
+    \clm[ILOYFmUw]{
+        \(\beta\) is a limit ordinal.
+    }{
+        Suppose \(\beta = \delta + 1\) is for some ordinal \(\delta\) for the sake of contradiction.
+        Then, as \(\delta < \beta\),
+        there exists \(\gamma \le \alpha\)
+        such that \(\gamma\) is a limit ordinal and \(\delta < \gamma\).
+        Then, \(\beta = \delta + 1 < \gamma\) as \(\gamma\) is a limit ordinal,
+        which is a contradiction.
+        \qed
+    }
+
+    \clm[]{
+        \(\xi\) is a natural number.
+    }{
+        Suppose \(\xi \ge \omega\) for the sake of induction.
+        Then, there exists an ordinal \(\delta\) such that \(\xi = \omega + \delta\)
+        by \Cref{lem:ordinalUniqueDifference}.
+        Then, we have \(\alpha = (\beta + \omega) + \delta\)
+        by \ref{itm:basicOrdinalArith.iii}
+        while \(\beta + \omega\) is a limit ordinal (\Cref{clm:xcqeUAWE} of \Cref{th:basicOrdinalArith})
+        such that \(\beta < \beta + \omega \le \alpha\),
+        which contradicts the definition of \(\beta\). \qed
+    }
+
+    Hence, we have the existence; now we prove the uniqueness.
+    Assume \(\alpha = \beta + n = \beta' + n'\)
+    where \(\beta\) and \(\beta'\) are limit ordinals and \(n\) and \(n'\) are natural numbers.
+    For the sake of contradiction, suppose \(\beta < \beta'\).
+    Then, as \(\beta'\) is a limit ordinal,
+    \(\beta + m < \beta'\) for all ordinals \(m < \omega\).
+    Hence, \(\beta' \ge \sup \{\,\beta + m \mid m < \omega\,\} = \beta + \omega\).
+    We have
+    \begin{alignat*}{2}
+        \beta + n
+        &= \beta' + n' &\qquad& \\
+        &\ge (\beta + \omega) + n' && \comment*{\ref{itm:6.5.8.i}} \\
+        &= \beta + (\omega + n'), && \comment*{\ref{itm:basicOrdinalArith.iii}}
+    \end{alignat*}
+    which implies \(n \ge \omega + n'\) by \ref{itm:basicOrdinalArith.i}.
+    This is a contradiction; hence \(\beta = \beta'\).
+    As \(\beta + n = \beta + n'\), we get \(n = n'\) by \ref{itm:basicOrdinalArith.ii}.
+}
+
+\exer[6.5.5]{}{
+    Let \(\alpha\) and \(\beta\) be ordinals such that \(\alpha \le \beta\).
+    Then, there can be 0, 1, or infinitely many \(\xi\)
+    such that \(\xi + \alpha = \beta\).
+}
+\pf{Proof}{
+    Assume \(\xi_1\) and \(\xi_2\) are two different ordinals such that
+    \(\xi_1 + \alpha = \xi_2 + \alpha = \beta\).
+    \WLOG, \(\xi_1 < \xi_2\), i.e., \(\xi_1 + 1 \le \xi_2\).
+    Then,
+    \begin{alignat*}{2}
+        \xi_1 + \alpha
+        &\le (\xi_1 + 1) + \alpha &\qquad& \comment*{\ref{itm:6.5.8.i}} \\
+        &\le \xi_2 + \alpha && \comment*{\ref{itm:6.5.8.i}} \\
+        &= \xi_1 + \alpha;
+    \end{alignat*}
+    Hence, \(\xi_1 + \alpha = \xi_1 + (1 + \alpha)\) by \ref{itm:basicOrdinalArith.iii},
+    which implies \(\alpha + 1 = \alpha\) by \ref{itm:basicOrdinalArith.ii}.
+    By induction, we have \(\alpha + n = \alpha\) for all \(n \in \omega\);
+    which says \((\xi_1 + n) + \alpha = \beta\) for all \(n \in \omega\).
+    \((\xi_1 + n)\)'s are all different by \ref{itm:basicOrdinalArith.ii}.
+}
+
+\exer[6.5.6]{}{
+    Find the least \(\alpha > \omega\) such that \(\xi + \alpha = \alpha\)
+    for all \(\xi < \alpha\).
+}
+\pf{Proof}{
+    We first assert that \(\alpha = \omega^2\) satisfies the condition.
+    \clm[ydbNElnY]{
+        If \(\xi\) is an ordinal less than \(\omega^2\),
+        then \(\xi + \omega^2 = \omega^2\).
+    }{
+        By definition, there exists \(n < \omega\) such that
+        \(\xi < \omega \cdot n\). Then,
+        \begin{alignat*}{2}
+            \xi + \omega^2
+            &\le \omega \cdot n + \omega^2 &\qquad& \comment*{\ref{itm:6.5.8.i}} \\
+            &= \omega \cdot (n + \omega) && \comment*{\Cref{exer:6.5.2}} \\
+            &= \omega \cdot \omega. && \comment*{\(n + \omega = \omega\)}
+        \end{alignat*}
+        Hence, \(\omega^2 \le \xi + \omega^2 \le \omega^2\); thus \(\xi + \omega^2 = \omega^2\).
+        \qed
+    }
+
+    Now, let \(\omega < \alpha < \omega^2\).
+    Then, as there exists \(m \in \omega\) such that \(\alpha < \omega \cdot m\),
+    we may let \(n \triangleq \max \{\,m \in \omega \mid \alpha > \omega \cdot m\,\}\)
+    by \Cref{th:hasUpperBoundThenMaxExists}. Then,
+    \begin{alignat*}{2}
+        \omega + \alpha
+        &> \omega + \omega \cdot n &\qquad \\
+        &= \omega \cdot 1 + \omega \cdot n \\
+        &= \omega \cdot (n + 1) && \comment*{\Cref{exer:6.5.2}, \nameref{th:multIsCommutative}} \\
+        &\ge \alpha;
+    \end{alignat*}
+    \(\omega + \alpha \neq \alpha\).
+    Hence, \(\omega^2\) is the least ordinal that satisfies the condition.
+}
+
+\exer[6.5.7]{}{
+    Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinals with \(\gamma \neq 0\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:6.5.7} (\roman*)}]
+        \ii\label{itm:6.5.7.i}
+        \(\alpha < \beta \iff \gamma \cdot \alpha < \gamma \cdot \beta\)
+        \ii
+        \(\alpha = \beta \iff \gamma \cdot \alpha = \gamma \cdot \beta\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))]
+        We will conduct \nameref{th:secondTransInduction} on \(\beta\).
+
+        Fix any ordinal \(\beta\) and assume
+        \(\alpha < \beta \implies \gamma \cdot \alpha < \gamma \cdot \beta\)
+        for all ordinals \(\alpha\) and \(\gamma \neq 0\).
+        Then, if \(\alpha < \beta + 1\) and \(\gamma \neq 0\), we have
+        \begin{alignat*}{2}
+            \gamma \cdot \alpha
+            &\le \gamma \cdot \beta &\qquad& \comment*{\(\alpha \le \beta\), Induction Hypothesis} \\
+            &= \gamma \cdot \beta + 0 && \comment*{\eqref{eq:ordinalAdd1}} \\
+            &< \gamma \cdot \beta + \gamma && \comment*{\ref{itm:basicOrdinalArith.i}} \\
+            &= \gamma \cdot (\beta + 1). && \comment*{\eqref{eq:ordinalMult2}}.
+        \end{alignat*}
+
+        Now, fix any limit ordinal \(\beta\) and assume that
+        \(\alpha < \beta' \implies \gamma \cdot \alpha < \gamma \cdot \beta'\) holds
+        for all \(\beta' < \beta\) and \(\gamma \neq 0\).
+        Now, let \(\alpha < \beta\) and \(\gamma \neq 0\).
+        Then, we have \(\alpha + 1 < \beta\) as \(\beta\)
+        is a limit ordinal. Hence,
+        \begin{alignat*}{2}
+            \gamma \cdot \alpha
+            &< \gamma \cdot (\alpha + 1) &\qquad& \comment*{Induction Hypothesis} \\
+            &\le \gamma \cdot \beta. && \comment*{\eqref{eq:ordinalMult3}}
+        \end{alignat*}
+        Therefore, the result follows from \nameref{th:secondTransInduction}.
+
+        \ii[(\(\Leftarrow\))]
+        Assume \(\gamma \cdot \alpha < \gamma \cdot \beta\) where \(\alpha\), \(\beta\), and \(\gamma\)
+        are ordinals with \(\gamma \neq 0\)
+        We clearly cannot have \(\alpha = \beta\).
+        If \(\beta < \alpha\), then (\(\Rightarrow\))
+        implies \(\gamma \cdot \beta < \gamma \cdot \alpha\),
+        which is impossible.
+        Hence, the only remaining option is \(\alpha < \beta\).
+    \end{itemize}
+
+    \ii
+    By (i), \(\alpha < \beta\) or \(\alpha > \beta\) immediately implies
+    \(\gamma \cdot \alpha \neq \gamma \cdot \beta\).
+    Hence, the result follows.
+    \qed
+\end{enumerate}
+}
+
+\exer[6.5.8]{}{
+    Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinals with \(\alpha < \beta\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:6.5.8} (\roman*)}]
+        \ii\label{itm:6.5.8.i}
+        \(\alpha + \gamma \le \beta + \gamma\)
+        \ii\label{itm:6.5.8.ii}
+        \(\alpha \cdot \gamma \le \beta \cdot \gamma\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    We shall conduct \nameref{th:secondTransInduction} on \(\gamma\).
+    If \(\gamma = 0\), then it is obvious by \eqref{eq:ordinalAdd1}.
+
+    Fix any ordinal \(\gamma\) and assume
+    \(\alpha + \gamma \le \beta + \gamma\) for all ordinals \(\alpha\) and \(\beta\) with \(\alpha < \beta\).
+    Take any ordinals \(\alpha\) and \(\beta\) such that \(\alpha < \beta\).
+    Then,
+    \begin{alignat*}{2}
+        \alpha + (\gamma + 1)
+        &= (\alpha + \gamma) + 1 &\qquad& \comment*{\ref{itm:basicOrdinalArith.iii}} \\
+        &\le (\beta + \gamma) + 1 && \comment*{Induction Hypothesis} \\
+        &= \beta + (\gamma + 1). &\qquad& \comment*{\ref{itm:basicOrdinalArith.iii}}
+    \end{alignat*}
+
+    Now, fix any limit ordinal \(\gamma \neq 0\)
+    and assume, for each ordinal \(\gamma' < \gamma\),
+    \(\alpha + \gamma' \le \beta + \gamma'\) for all ordinals \(\alpha\) and \(\beta\) with \(\alpha < \beta\).
+    Let \(\xi < \alpha + \gamma\); then there exists \(\delta < \gamma\)
+    such that \(\xi < \alpha + \delta\).
+    Then,
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha + \delta &\qquad \\
+        &\le \beta + \delta && \comment*{Induction Hypothesis} \\
+        &< \beta + \gamma. && \comment*{\ref{itm:basicOrdinalArith.i}}
+    \end{alignat*}
+    Hence, \(\alpha + \delta \le \beta + \gamma\).
+    The result follows from \nameref{th:secondTransInduction}.
+
+    \ii
+    We shall conduct \nameref{th:secondTransInduction} on \(\gamma\).
+    If \(\gamma = 0\), then it is obvious by \eqref{eq:ordinalMult1}.
+
+    Fix any ordinal \(\gamma\) and assume
+    \(\alpha + \gamma \le \beta + \gamma\) for all ordinals \(\alpha\) and \(\beta\) with \(\alpha < \beta\).
+    Take any ordinals \(\alpha\) and \(\beta\) such that \(\alpha < \beta\).
+    Then,
+    \begin{alignat*}{2}
+        \alpha \cdot (\gamma + 1)
+        &= \alpha \cdot \gamma + \alpha && \comment*{\eqref{eq:ordinalMult2}} \\
+        &< \alpha \cdot \gamma + \beta && \comment*{\ref{itm:basicOrdinalArith.i}} \\
+        &\le \beta \cdot \gamma + \beta && \comment*{Induction Hypothesis, (i)} \\
+        &= \beta \cdot (\gamma + 1). && \comment*{\eqref{eq:ordinalMult2}}
+    \end{alignat*}
+
+    Now, fix any limit ordinal \(\gamma \neq 0\)
+    and assume, for each ordinal \(\gamma' < \gamma\),
+    \(\alpha \cdot \gamma' \le \beta \cdot \gamma'\)
+    for all ordinals \(\alpha\) and \(\beta\) with \(\alpha < \beta\).
+    Let \(\xi < \alpha \cdot \gamma\).
+    Then, there exists \(\delta < \gamma\) such that \(\xi < \alpha \cdot \delta\).
+    Then,
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha \cdot \delta &\qquad \\
+        &\le \beta \cdot \delta && \comment*{Induction Hypothesis} \\
+        &< \beta \cdot \gamma. && \comment*{\ref{itm:basicOrdinalArith.i}}
+    \end{alignat*}
+    Hence, \(\alpha \cdot \gamma \le \beta \cdot \gamma\).
+    The result follows from \nameref{th:secondTransInduction}.
+    \qed
+\end{enumerate}
+}
+
+\exer[6.5.9]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        Ordinal addition is not right-cancellative; that is to say
+        there exist \(\alpha\), \(\beta\), and \(\gamma\) such that \(\alpha + \gamma = \beta + \gamma\)
+        but \(\alpha \neq \beta\).
+        \ii
+        Ordinal multiplication is not right-cancellative; that is to say
+        there exist \(\alpha\), \(\beta\), and \(\gamma \neq 0\) such that \(\alpha \cdot \gamma = \beta \cdot \gamma\)
+        but \(\alpha \neq \beta\).
+        \ii
+        Ordinal addition and multiplication is not right-distributive; that is to say
+        there exist \(\alpha\), \(\beta\), and \(\gamma\) such that
+        \((\alpha + \beta) \cdot \gamma \neq \alpha \cdot \gamma + \beta \cdot \gamma\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\alpha = 0\), \(\beta = 1\), and \(\gamma = \omega\) is a counterexample;
+    \(0 + \omega = 1 + \omega = \omega\).
+
+    \ii
+    \(\alpha = 1\), \(\beta = 2\), and \(\gamma = \omega\) is a counterexample;
+    \(1 \cdot \omega = 2 \cdot \omega = \omega\).
+
+    \ii
+    \(\alpha = \beta = 1\) and \(\gamma = \omega\) is a counterexample;
+    \((1 + 1) \cdot \omega = \omega \neq \omega \cdot 2 = \omega \cdot 1 + \omega \cdot 1\).
+    \qed
+\end{enumerate}
+}
+
+\exer[6.5.10]{}{
+    An ordinal \(\alpha\) is a limit ordinal
+    if and only if \(\alpha = \omega \cdot \beta\) for some ordinal \(\beta\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Take any limit ordinal \(\alpha\) and assume that,
+    for every limit ordinal \(\gamma\) less than \(\alpha\),
+    there exists \(\beta\) such that \(\gamma = \omega \cdot \beta\)
+    for the sake of induction.
+    We have two cases:
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume there exists some limit ordinal \(\gamma < \alpha\)
+        such that there is no limit ordinal \(\delta\) such that \(\gamma < \delta < \alpha\).
+        By the induction hypothesis, \(\gamma = \omega \cdot \beta\) for some ordinal \(\beta\).
+        Then, \(\gamma + \omega\) is a limit ordinal by
+        \Cref{clm:xcqeUAWE} of \Cref{lem:basicOrdinalArith},
+        and there is no limit ordinal between \(\gamma\) and \(\gamma + \omega\).
+        Hence, \(\alpha = \gamma + \omega = \omega \cdot \beta + \omega = \omega \cdot (\beta + 1)\).
+
+        \ii
+        Assume that, for every limit ordinal \(\gamma < \alpha\),
+        there exists a limit ordinal \(\delta\) such that \(\gamma < \delta < \alpha\).
+        Let \(\beta \triangleq \sup \{\,\xi \mid \omega \cdot \xi < \alpha\,\}\).
+        (\(\beta\) is well-defined since \(\omega \cdot \xi < \alpha\) implies \(\xi < \alpha\).)
+
+        \clm[RxFiXaVb]{
+            There is no ordinal \(\xi\) such that \(\xi + \omega = \alpha\).
+        }{
+            Suppose \(\xi\) is an ordinal such that \(\xi + \omega = \alpha\)
+            for the sake of contradiction.
+            Then, there uniquely exists \(\eta\) and \(n\)
+            such that \(\xi = \eta + n\) where \(\eta\) is a limit ordinal
+            and \(n \in \omega\) by \Cref{exer:6.5.4}.
+            Then, \(\alpha = (\eta + n) + \omega = \eta + \omega\),
+            but there is no limit integral between \(\eta\) and \(\alpha\),
+            which is a contradiction. \qed
+        }
+
+        \clm[NdOQHgXm]{
+            \(\beta\) is a limit ordinal.
+        }{
+            It is easy to check that \(\omega \cdot \xi < \alpha \implies \omega \cdot (\xi + 1) < \alpha\)
+            by the assumption.
+            Suppose \(\beta = \delta + 1\) for some ordinal \(\delta\)
+            for the sake of contradiction.
+            Then, as \(\delta < \beta\), there exists \(\xi\) such that
+            \(\delta < \xi\) and \(\omega \cdot \xi < \alpha\).
+            Then, \(\delta + 1 < \xi + 1\) and \(\omega \cdot (\xi + 1) < \alpha\)
+            by \ref{itm:basicOrdinalArith.i}.
+            Hence, \(\delta + 1 < \xi + 1 \le \beta\).
+            Therefore, \(\beta\) is a limit ordinal. \qed
+        }
+
+        Take any \(\xi < \omega \cdot \beta\).
+        Then, there exists \(\delta < \beta\) such that \(\xi < \omega \cdot \delta\)
+        by \Cref{clm:NdOQHgXm}.
+        Moreover, there exists \(\xi'\) such that \(\delta < \xi'\) and \(\omega \cdot \xi' < \alpha\).
+        Hence, \(\xi < \omega \cdot \delta < \omega \cdot \xi' < \alpha\);
+        thus \(\omega \cdot \beta \le \alpha\).
+
+        Take any \(\xi < \alpha\).
+        Then, as \(\alpha\) is a limit ordinal, \(\xi + \omega \le \alpha\).
+        \Cref{clm:RxFiXaVb} further asserts that \(\xi + \omega < \alpha\).
+        By the induction hypothesis and \Cref{clm:xcqeUAWE} of \Cref{lem:basicOrdinalArith},
+        \(\xi + \omega = \omega \cdot \delta\) for some \(\delta\).
+        Then, \(\delta \le \beta\) by definition of \(\beta\).
+        Therefore, \(\xi < \omega \cdot \delta \le \omega \cdot \beta\);
+        we have \(\alpha \le \omega \cdot \beta\).
+    \end{itemize}
+    In both cases, we have \(\alpha = \omega \cdot \beta\) for some \(\beta\).
+    Therefore, by \nameref{th:secondTransInduction},
+    every limit ordinal \(\alpha\) can be expressed as
+    \(\alpha = \omega \cdot \beta\).
+
+    \ii[(\(\Leftarrow\))]
+    We shall conduct \nameref{th:secondTransInduction} on \(\beta\).
+    Note that \(\omega \cdot 0 = 0\) is a limit ordinal.
+
+    Take any ordinal \(\beta\).
+    Then, \(\omega \cdot (\beta + 1) = \omega \cdot \beta + \omega\)
+    is a limit ordinal by \Cref{clm:xcqeUAWE} of \Cref{lem:basicOrdinalArith}.
+
+    Now, take any limit ordinal \(\beta \neq 0\).
+    Then, by \Cref{clm:TxauNXSj} of \Cref{exer:6.5.2},
+    \(\omega \cdot \beta\) is a limit ordinal.
+    The result follows from \nameref{th:secondTransInduction}.
+    \qed
+\end{itemize}
+}
+
+\setexernumber{12}
+
+\exer[6.5.13]{}{
+    Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinals.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii\label{itm:6.5.13.i}
+        \(\alpha^{\beta + \gamma} = \alpha^\beta \cdot \alpha^\gamma\)
+        \ii\label{itm:6.5.13.ii}
+        \((\alpha^\beta)^\gamma = \alpha^{\beta \cdot \gamma}\)
+    \end{enumerate}
+}
+\mclm{Proof}{
+We first need the following lemmas:
+
+\clm[bDXCdeUG]{
+    Let \(\alpha\) and \(\beta\) be ordinals.
+    If \(\alpha > 1\) and \(\beta\) is a nonzero limit ordinal,
+    then \(\alpha^\beta\) is a nonzero limit ordinal.
+}{
+    Take any \(\xi < \alpha^\beta\).
+    Then, there exists \(\gamma < \beta\) such that
+    \(\xi < \alpha^\gamma\) by \eqref{eq:ordinalExpo3}.
+    Then,
+    \begin{alignat*}{2}
+        \xi + 1
+        &\le \alpha^{\gamma} &\qquad \\
+        &< \alpha^{\gamma + 1} && \comment*{\ref{exer:6.5.14.ii}} \\
+        &\le \alpha^\beta. && \comment*{\eqref{eq:ordinalExpo3}}
+    \end{alignat*}
+    Hence, \(\alpha^\beta\) is a limit ordinal.
+    Since \(1 = \alpha^0 < \alpha^\beta\)
+    by \eqref{eq:ordinalExpo1} and \ref{exer:6.5.14.ii},
+    \(\alpha^\beta\) is nonzero. \qed
+}
+
+\clm[sRgAyodz]{
+    Let \(\alpha\) be a nonzero ordinal.
+    Then, \(0^\alpha = 0\).
+}{
+    Let \(\mbf{P}(\alpha)\) be the property
+    ``if \(\alpha\) is a nonzero ordinal, then \(0^\alpha = 0\).''
+    \(\mbf{P}(0)\) holds by vacuous truth.
+    Take any ordinal \(\alpha\). Then,
+    \begin{alignat*}{2}
+        0^{\alpha + 1}
+        &= 0^\alpha \cdot 0 &\qquad& \comment*{\eqref{eq:ordinalExpo2}} \\
+        &= 0. && \comment*{\eqref{eq:ordinalMult1}}
+    \end{alignat*}
+
+    Take any limit ordinal \(\alpha \neq 0\) and assume
+    \(\mbf{P}(\alpha')\) holds for all \(\alpha' < \alpha\).
+    Then, \[
+        0^\alpha = \sup \{\,0^{\gamma} \mid 0 < \gamma < \alpha\,\}
+        = \sup \{0\} = 0.
+    \]
+    The result follows from \nameref{th:secondTransInduction}. \qed
+}
+
+\clm[LJcAuMNB]{
+    Let \(\alpha\) be an ordinal. Then, \(1^\alpha = 1\).
+}{
+    We already have \(1^0 = 1\) by \eqref{eq:ordinalExpo1}.
+    Take any ordinal \(\alpha\) and assume \(1^\alpha = 1\). Then,
+        \begin{alignat*}{2}
+            1^{\alpha + 1}
+            &= 1^\alpha \cdot 1 &\qquad& \comment*{\eqref{eq:ordinalExpo2}} \\
+            &= 1 \cdot 1 && \comment*{Induction Hypothesis} \\
+            &= 1.
+        \end{alignat*}. Then,
+    \begin{alignat*}{2}
+        1^{\alpha + 1}
+        &= 1^\alpha \cdot 1 &\qquad& \comment*{\eqref{eq:ordinalExpo2}} \\
+        &= 1 \cdot 1 && \comment*{Induction Hypothesis} \\
+        &= 1.
+    \end{alignat*}
+
+    Take any limit ordinal \(\alpha \neq 0\)
+    and assume \(1^{\gamma} = 1\) for all \(\gamma < \alpha\). Then,
+    \begin{alignat*}{2}
+        1^\alpha
+        &= \sup \{\,1^\gamma \mid 0 < \gamma < \alpha\,\} &\qquad& \comment*{\eqref{eq:ordinalExpo3}} \\
+        &= \sup \{1\} && \comment*{Induction Hypothesis, \(1^1 = 1\)} \\
+        &= 1.
+    \end{alignat*}
+    The result follows from \nameref{th:secondTransInduction}. \qed
+}
+
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    We shall conduct \nameref{th:secondTransInduction} on \(\gamma\).
+    Let \(\mbf{P}(\gamma)\) be the property
+    ``for all ordinals \(\alpha\) and \(\beta\), \(\alpha^{\beta + \gamma} = \alpha^\beta \cdot \alpha^\gamma\).''
+    \(\mbf{P}(0)\) evidently holds.
+
+    Take any ordinal \(\gamma\) and assume \(\mbf{P}(\gamma)\). Then,
+    for all ordinals \(\alpha\) and \(\beta\),
+    \begin{alignat*}{2}
+        \alpha^{\beta + (\gamma + 1)}
+        &= \alpha^{(\beta + \gamma) + 1} &\qquad& \comment*{\ref{itm:basicOrdinalArith.i}} \\
+        &= \alpha^{\beta + \gamma} \cdot \alpha && \comment*{\eqref{eq:ordinalExpo2}} \\
+        &= (\alpha^\beta \cdot \alpha^\gamma) \cdot \alpha && \comment*{Induction Hypothesis} \\
+        &= \alpha^\beta \cdot (\alpha^\gamma \cdot \alpha) && \comment*{\Cref{exer:6.5.1}} \\
+        &= \alpha^\beta \cdot \alpha^{\gamma + 1}. && \comment*{\eqref{eq:ordinalExpo2}}
+    \end{alignat*}
+
+    Now, take any limit ordinal \(\gamma \neq 0\) and assume
+    \(\mbf{P}(\gamma')\) for all ordinals \(\gamma' < \gamma\).
+    The result is clear when \(\beta = 0\); hence further assume \(\beta \neq 0\).
+    Then, by \Cref{clm:xcqeUAWE} of \Cref{lem:basicOrdinalArith} and, \(\beta + \gamma\)
+    is a nonzero limit ordinal.
+
+    Take any \(\xi < \alpha^{\beta + \gamma}\).
+    Then, there exists \(\delta < \beta + \gamma\) such that
+    \(\xi < \alpha^\delta\) by \eqref{eq:ordinalExpo3}.
+    Moreover, there exists \(\delta' < \gamma\) such that
+    \(\delta < \beta + \delta'\) by \eqref{eq:ordinalAdd3}.
+    Then,
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha^\delta &\qquad \\
+        &< \alpha^{\beta + \delta'} &\qquad& \comment*{\ref{exer:6.5.14.ii}} \\
+        &= \alpha^\beta \cdot \alpha^{\delta'} && \comment*{Induction Hypothesis} \\
+        &< \alpha^\beta \cdot \alpha^\gamma; && \comment*{\ref{exer:6.5.14.ii}, \ref{itm:6.5.7.i}}
+    \end{alignat*}
+    hence \(\alpha^{\beta + \gamma} \le \alpha^\beta \cdot \alpha^\gamma\).
+
+    Take any \(\xi < \alpha^\beta \cdot \alpha^\gamma\).
+    By \Cref{clm:bDXCdeUG} and \eqref{eq:ordinalMult3},
+    there exists \(\delta < \alpha^\gamma\) such that \(\xi < \alpha^\beta \cdot \delta\).
+    By \eqref{eq:ordinalExpo3}, there exists \(\gamma' < \gamma\) such that \(\delta < \alpha^{\gamma'}\).
+    Then,
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha^\beta \cdot \delta &\qquad \\
+        &< \alpha^\beta \cdot \alpha^{\gamma'} && \comment*{\ref{itm:6.5.7.i}} \\
+        &= \alpha^{\beta + \gamma'} && \comment*{Induction Hypothesis} \\
+        &< \alpha^{\beta + \gamma}; && \comment*{\ref{itm:basicOrdinalArith.i}, \ref{exer:6.5.14.ii}}
+    \end{alignat*}
+    hence \(\alpha^\beta \cdot \alpha^\gamma \le \alpha^{\beta + \gamma}\).
+    The result follows form \nameref{th:secondTransInduction}.
+
+    \ii
+    We shall conduct \nameref{th:secondTransInduction} on \(\gamma\).
+    Let \(\mbf{P}(\gamma)\) be the property
+    ``for all ordinals \(\alpha\) and \(\beta\), \((\alpha^\beta)^\gamma = \alpha^{\beta \cdot \gamma}\).''
+    \(\mbf{P}(0)\) holds by \eqref{eq:ordinalMult1} and \eqref{eq:ordinalExpo1}.
+
+    Take any ordinal \(\gamma\) and assume \(\mbf{P}(\gamma)\).
+    Take any ordinals \(\alpha\) and \(\beta\). Then,
+    \begin{alignat*}{2}
+        (\alpha^\beta)^{\gamma + 1}
+        &= (\alpha^\beta)^\gamma \cdot \alpha^\beta &\qquad& \comment*{\eqref{eq:ordinalExpo2}} \\
+        &= \alpha^{\beta \cdot \gamma} \cdot \alpha^\beta && \comment*{Induction Hypothesis} \\
+        &= \alpha^{\beta\cdot \gamma + \beta} && \comment*{(i)} \\
+        &= \alpha^{\beta \cdot (\gamma + 1)}. && \comment*{\eqref{eq:ordinalMult2}}
+    \end{alignat*}
+    Hence, \(\mbf{P}(\gamma + 1)\) holds.
+
+    Now, take any limit ordinal \(\gamma \neq 0\)
+    and assume \(\mbf{P}(\gamma')\) holds for all \(\gamma' < \gamma\).
+    Fix any ordinals \(\alpha\) and \(\beta\).
+    If \(\alpha = 0\), it is evident from \Cref{clm:sRgAyodz},
+    \eqref{eq:ordinalExpo1}, and \Cref{clm:pJKfeXhM} of \Cref{exer:6.5.2}.
+    Also, \Cref{clm:LJcAuMNB} covers the case \(\alpha = 1\);
+    hence we may assume \(\alpha > 1\).
+    Moreover, if \(\beta = 0\), then it is all clear from \Cref{clm:pJKfeXhM} of \Cref{exer:6.5.2}
+    and \eqref{eq:ordinalExpo1}.
+
+    Take any \(\xi < (\alpha^\beta)^\gamma\).
+    There exists \(\gamma' < \gamma\) such that \(\xi < (\alpha^\beta)^{\gamma'}\)
+    by \eqref{eq:ordinalExpo3}.
+    Then,
+    \begin{alignat*}{2}
+        \xi
+        &< (\alpha^\beta)^{\gamma'} &\qquad \\
+        &= \alpha^{\beta \cdot \gamma'} && \comment*{Induction Hypothesis} \\
+        &< \alpha^{\beta \cdot \gamma}; && \comment*{\ref{itm:6.5.7.i}, \ref{exer:6.5.14.ii}}
+    \end{alignat*}
+    hence \((\alpha^\beta)^\gamma \le \alpha^{\beta \cdot \gamma}\).
+
+    Take any \(\xi < \alpha^{\beta \cdot \gamma}\).
+    By \Cref{clm:TxauNXSj} of \Cref{exer:6.5.2},
+    \(\beta \cdot \gamma\) is a nonzero limit ordinal;
+    and thus there exists \(\delta < \beta \cdot \gamma\)
+    such that \(\xi < \alpha^\delta\) by \eqref{eq:ordinalExpo3}.
+    Moreover, there exists \(\gamma' < \gamma\)
+    such that \(\delta < \beta \cdot \gamma'\) by \eqref{eq:ordinalMult3}. Then,
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha^\delta &\qquad \\
+        &< \alpha^{\beta \cdot \gamma'} && \comment*{\ref{exer:6.5.14.ii}} \\
+        &= (\alpha^\beta)^{\gamma'} && \comment*{Induction Hypothesis} \\
+        &< (\alpha^\beta)^{\gamma}; && \comment*{\(\alpha^\beta > 1\), \ref{exer:6.5.14.ii}}
+    \end{alignat*}
+    hence \(\alpha^{\beta \cdot \gamma} = (\alpha^\beta)^\gamma\).
+    The result follows from \nameref{th:secondTransInduction}.
+    \qed
+\end{enumerate}
+}
+
+\exer[6.5.14]{}{
+    Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinals.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:6.5.14} (\roman*)}]
+        \ii\label{exer:6.5.14.i}
+        \(\alpha \le \beta \implies \alpha^\gamma \le \beta^\gamma\)
+        \ii\label{exer:6.5.14.ii}
+        \(\alpha > 1 \land \beta < \gamma \implies \alpha^\beta < \alpha^\gamma\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    We will make use of \nameref{th:secondTransInduction} on \(\gamma\).
+    Let \(\mbf{P}(\gamma)\) be the property
+    ``for all ordinals \(\alpha\) and \(\beta\),
+    \(\alpha \le \beta \implies \alpha^\gamma \le \beta^\gamma\).''
+    \(\mbf{P}(0)\) evidently holds by \eqref{eq:ordinalExpo1}.
+
+    Take any ordinal \(\gamma\) and assume \(\mbf{P}(\gamma)\). Then,
+    for all ordinals \(\alpha\) and \(\beta\) with \(\alpha \le \beta\),
+    \begin{alignat*}{2}
+        \alpha^{\gamma + 1}
+        &= \alpha^\gamma \cdot \alpha &\qquad& \comment*{\eqref{eq:ordinalExpo2}} \\
+        &\le \beta^\gamma \cdot \alpha && \comment*{Induction Hypothesis, \ref{itm:6.5.8.ii}} \\
+        &\le \beta^\gamma \cdot \beta && \comment*{\ref{itm:6.5.7.i}} \\
+        &= \beta^{\gamma + 1}. && \comment*{\eqref{eq:ordinalExpo2}}
+    \end{alignat*}
+
+    Now, take any limit ordinal \(\gamma \neq 0\)
+    and assume that \(\mbf{P}(\gamma')\) holds for all ordinals \(\gamma' < \gamma\).
+    Take any ordinals \(\alpha\) and \(\beta\) with \(\alpha \le \beta\).
+    Take any \(\xi < \alpha^\gamma\).
+    Then, there exists \(\delta < \gamma\) such that \(\xi < \alpha^\delta\)
+    by \eqref{eq:ordinalExpo2}. We then have
+    \begin{alignat*}{2}
+        \xi
+        &< \alpha^\delta &\qquad \\
+        &\le \beta^\delta && \comment*{Induction Hypothesis} \\
+        &\le \beta^\gamma. && \comment*{\eqref{eq:ordinalExpo3}}
+    \end{alignat*}
+    Hence, \(\alpha^\gamma \le \beta^\gamma\).
+    The result follows from \nameref{th:secondTransInduction}.
+
+    \ii
+    We will make use of \nameref{th:secondTransInduction} on \(\gamma\).
+    Let \(\mbf{P}(\gamma)\) be the property
+    ``for all ordinals \(\alpha\) and \(\beta\),
+    \(\alpha > 1 \land \beta < \gamma \implies \alpha^\beta < \alpha^\gamma\).''
+    \(\mbf{P}(0)\) evidently holds by vacuous truth.
+
+    Take any ordinal \(\gamma\) and assume \(\mbf{P}(\gamma)\) holds.
+    Take any ordinals \(\alpha\) and \(\beta\)
+    with \(\alpha > 1\) and \(\beta < \gamma + 1\). Then,
+    \begin{alignat*}{2}
+        \alpha^\beta
+        &\le \alpha^\gamma &\qquad& \comment*{Induction Hypothesis} \\
+        &< \alpha^\gamma \cdot \alpha && \comment*{\ref{itm:6.5.7.i}} \\
+        &= \alpha^{\gamma + 1}. && \comment*{\eqref{eq:ordinalExpo2}}
+    \end{alignat*}
+
+    Now, take any limit ordinal \(\gamma \neq 0\)
+    and assume \(\mbf{P}(\gamma')\) holds for all \(\gamma' < \gamma\).
+    Take any ordinals \(\alpha\) and \(\beta\)
+    with \(\alpha > 1\) and \(\beta < \gamma\). Then, as \(\beta + 1 < \gamma\),
+    \begin{alignat*}{2}
+        \alpha^\beta
+        &< \alpha^{\beta+1} &\qquad& \comment*{Induction Hypothesis} \\
+        &\le \alpha^\gamma. && \comment*{\eqref{eq:ordinalExpo3}}
+    \end{alignat*}
+    The result follows from \nameref{th:secondTransInduction}.
+    \qed
+\end{enumerate}
+}
+
+\exer[6.5.15]{}{
+    Find the least ordinal \(\xi\) such that:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\omega + \xi = \xi\).
+        \ii \(\omega \cdot \xi = \xi\) and \(\xi \neq 0\).
+        \ii \(\omega^\xi = \xi\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    We have
+    \begin{alignat*}{2}
+        \omega + \omega \cdot \omega
+        &= \omega \cdot 1 + \omega \cdot \omega &\qquad \\
+        &= \omega \cdot (1 + \omega) && \comment*{\Cref{exer:6.5.2}} \\
+        &= \omega \cdot \omega. && \comment*{\(1 + \omega = \omega\)}
+    \end{alignat*}
+    Hence, \(\omega^2 = \omega \cdot \omega\) satisfies the property.
+
+    Assume an ordinal \(\xi\) satisfies \(\omega + \xi = \xi\).
+    Let \(\mbf{P}(n)\) be the property ``\(n \in \omega\) and \(\xi \ge \omega \cdot n\).''
+    \(\mbf{P}(0)\) holds since \(\omega \cdot 0 = 0\).
+
+    Take any \(n \in \omega\) and assume \(\mbf{P}(n)\). Then,
+    \begin{alignat*}{2}
+        \omega \cdot (n + 1)
+        &= \omega \cdot (1 + n) &\qquad& \comment*{\nameref{th:addIsCommutative}} \\
+        &= \omega + \omega \cdot n && \comment*{\eqref{eq:ordinalMult2}} \\
+        &\le \omega + \xi && \comment*{Induction Hypothesis, \ref{itm:basicOrdinalArith.i}} \\
+        &= \xi.
+    \end{alignat*}
+    Hence, by \nameref{th:induction}, \(\xi \ge \omega \cdot n\) for all \(n \in \omega\).
+    Thus, \(\xi \ge \sup \{\,\omega \cdot 0, \omega \cdot 1, \omega \cdot 1, \cdots\,\} = \omega^2\).
+    Hence, the least such ordinal is \(\omega^2\).
+
+    \ii
+    We have
+    \begin{alignat*}{2}
+        \omega \cdot \omega^\omega
+        &= \omega^1 \cdot \omega^\omega &\qquad \\
+        &= \omega^{1 + \omega} && \comment*{\ref{itm:6.5.13.i}} \\
+        &= \omega^\omega. && \comment*{\(1 + \omega = \omega\)}
+    \end{alignat*}
+    Hence, \(\omega^\omega\) satisfies the property.
+
+    Assume an ordinal \(\xi \neq 0\) satisfies \(\omega \cdot \xi = \xi\).
+    Let \(\mbf{P}(n)\) be the property ``\(n \in \omega\) and \(\xi \ge \omega^n\).''
+    \(\mbf{P}(0)\) holds since \(\xi \neq 0\).
+
+    Take any \(n \in \omega\) and assume \(\mbf{P}(n)\). Then,
+    \begin{alignat*}{2}
+        \omega^{n + 1}
+        &= \omega^{1 + n} &\qquad& \comment*{\nameref{th:addIsCommutative}} \\
+        &= \omega \cdot \omega^n && \comment*{\ref{itm:6.5.13.i}} \\
+        &\le \omega \cdot \xi && \comment*{Induction Hypothesis, \ref{itm:6.5.7.i}} \\
+        &= \xi.
+    \end{alignat*}
+    Hence, by \nameref{th:induction}, \(\xi \ge \omega^n\) for all \(n \in \omega\).
+    Therefore, \(\xi \ge \sup \{\,\omega^0, \omega^1, \omega^2, \cdots\,\} = \omega^\omega\).
+    Hence, the least such ordinal is \(\omega^\omega\).
+
+    \ii
+    Let \(\mbf{G}(\alpha)\) be an operation defined by
+    \[
+        \mbf{G}(\alpha) \triangleq \begin{cases}
+            \omega^\alpha & \text{if }\alpha\text{ is an ordinal} \\
+            \OO & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, by \Cref{th:operationRecursion}, there exists a sequence
+    \(\lang\,a_n \mid n \in \omega\,\rang\) such that \(a_0 = \omega\)
+    and \(a_{n+1} = \mbf{G}(a_n) = \omega^{a_n}\) for all \(n \in \omega\)
+    so that \(\veps = \sup \{\,a_n \mid n \in \omega\,\}\).
+
+    \clm[wOrZJaUg]{
+        \(\fall n \in \omega,\: a_n < a_{n+1}\).
+    }{
+        Let \(\mbf{P}(n)\) be the property ``\(a_n < a_{n+1}\).''
+        \(\mbf{P}(0)\) holds evidently.
+
+        Take any \(n \in \omega\) and assume \(\mbf{P}(n)\). Then,
+        \begin{alignat*}{2}
+            a_{n+1}
+            &= \omega^{a_n} &\qquad \\
+            &< \omega^{a_{n+1}} && \comment*{Induction Hypothesis, \ref{exer:6.5.14.ii}} \\
+            &= a_{n+2}.
+        \end{alignat*}
+        The result follows from \nameref{th:induction}. \qed
+    }
+    \noindent
+    Note that \Cref{clm:wOrZJaUg} asserts that \(\veps\) is a limit ordinal.
+
+    Take any \(\xi < \omega^\veps\). Then, there exists \(\delta < \veps\)
+    such that \(\xi < \omega^{\delta}\) by \Cref{clm:wOrZJaUg}. There exists \(n \in \omega\)
+    such that \(\delta < a_n\). Then,
+    \begin{alignat*}{2}
+        \xi
+        &< \omega^\delta &\qquad \\
+        &< \omega^{a_n} && \comment*{\ref{exer:6.5.14.ii}} \\
+        &= a_{n+1} \\
+        &\le \veps.
+    \end{alignat*}
+    Hence, \(\omega^\veps \le \veps\).
+
+    Take any \(\xi < \veps\). Then, there exists \(n \in \omega\)
+    such that \(\xi < a_n\). Then,
+    \begin{alignat*}{2}
+        \xi
+        &< a_n &\qquad \\
+        &< a_{n+1} && \comment*{\Cref{clm:wOrZJaUg}} \\
+        &= \omega^{a_n} \\
+        &\le \omega^\veps; && \comment*{\ref{exer:6.5.14.ii}}
+    \end{alignat*}
+    hence \(\veps \le \omega^\veps\).
+    Therefore, \(\omega^\veps = \veps\).
+
+    Suppose \(\xi < \veps\) is an ordinal such that \(\omega^\xi = \xi\) for the sake of contradiction.
+    Then, by the same argument, \(\omega^\xi = \xi < \omega^\veps\),
+    which is a contradiction. \qed
+\end{enumerate}
+}
+
+\exer[6.5.16]{}{
+    Let \(\alpha\) and \(\beta\) be ordinals.
+    Define \(s \colon (\beta \to \alpha) \to \mcal P(\beta)\) be defined by
+    \[
+        s(f) \triangleq \{\,\xi < \beta \mid f(\xi) \neq 0\,\}.
+    \]
+    (The domain of \(s\) is the set of functions on \(\beta\) into \(\alpha\).)
+    Let
+    \[
+        S(\beta, \alpha) \triangleq \{\,f \colon \beta \to \alpha \mid s(f)\text{ is finite}\,\}.
+    \]
+    Define \(\prec\) on \(S(\beta, \alpha)\) as follows:
+    \[
+        f \prec g \iff
+        \exs \xi_0 < \beta,\: f(\xi_0) < g(\xi_0) \land
+        [\fall \xi < \beta,\: (\xi_0 < \xi \implies f(\xi) = g(\xi))].
+    \]
+    Then, \((S(\beta, \alpha), \preceq)\) is isomorphic to \(\alpha^\beta\).
+}
+\pf{Proof}{
+    We first have to justify that \(\prec\) is a strict total ordering of \(S(\beta, \alpha)\).
+    \clm[tbPlOXHY]{
+        \(\prec\) is a strict total ordering of \(S(\beta, \alpha)\).
+    }{
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Suppose there exist \(f, g \in S(\beta, \alpha)\) such that \(f \prec g\) and \(g \prec f\)
+        for the sake of contradiction.
+        There exist \(\xi_0, \xi_1 \in \beta\) such that
+        \begin{enumerate}[nolistsep, label=(\alph*)]
+            \ii
+            \(f(\xi_0) < g(\xi_0) \land
+            [\fall \xi < \beta,\: (\xi_0 < \xi \implies f(\xi) = g(\xi))]\) and
+            \ii
+            \(f(\xi_1) > g(\xi_1) \land
+            [\fall \xi < \beta,\: (\xi_1 < \xi \implies f(\xi) = g(\xi))]\).
+        \end{enumerate}
+        \WLOG, \(\xi_0 \le \xi_1\).
+        However, we cannot have \(\xi_0 = \xi_1\) as \(\in_{\beta}\) is a strict ordering.
+        Hence, \(\xi_0 < \xi_1\); thus \(f(\xi_1) = g(\xi_1)\) by (a),
+        which is impossible by (b). Hence, \(\prec\) is asymmetric on \(S(\beta, \alpha)\). \checkmark
+
+        \ii
+        Assume \(f \prec g\) and \(g \prec h\) where \(f, g, h \in S(\beta, \alpha)\).
+        There exist \(\xi_0, \xi_1 \in \beta\) such that
+        \begin{enumerate}[nolistsep, label=(\alph*)]
+            \ii
+            \(f(\xi_0) < g(\xi_0) \land
+            [\fall \xi < \beta,\: (\xi_0 < \xi \implies f(\xi) = g(\xi))]\) and
+            \ii
+            \(g(\xi_1) < h(\xi_1) \land
+            [\fall \xi < \beta,\: (\xi_1 < \xi \implies g(\xi) = h(\xi))]\).
+        \end{enumerate}
+
+        Let \(\xi_2 \triangleq \max \{\,\xi_0, \xi_1\,\}\).
+        Then, we have \(f(\xi_2) < h(\xi_2)\) and,
+        for all \(\xi_2 < \xi < \beta\), then \(f(\xi) = g(\xi) = h(\xi)\).
+        Hence, \(f \prec h\); \(\prec\) is transitive on \(S(\beta, \alpha)\). \checkmark
+
+        \ii
+        Take any \(f, g \in S(\beta, \alpha)\) with \(f \neq g\).
+        Let \(A \triangleq \{\,\xi < \beta \mid f(\xi) \neq g(\xi)\,\}\).
+        As \(A \subseteq s(f) \cup s(g)\), \(A\) is nonempty and finite by
+        \Cref{lem:finiteTwoUnion,th:subsetOfFiniteIsFinite}.
+        Hence, we may let \(\gamma \triangleq \max A\).
+        If \(f(\gamma) < g(\gamma)\), then \(f \prec g\);
+        if \(g(\gamma) < f(\gamma)\), then \(g \prec f\).
+        Hence, \(\preceq\) is a total ordering of \(S(\beta, \alpha)\). \checkmark \qed
+    \end{itemize}
+    }
+
+    We shall conduct \nameref{th:secondTransInduction} on \(\beta\).
+    Let \(\mbf{P}(\beta)\) be the property
+    ``For all ordinals \(\alpha\), \((S(\beta, \alpha), \preceq)\)
+    is isomorphic to \(\alpha^\beta\).''
+    We have \(\mbf{P}(0)\) since \(|S(\beta, \alpha)| = |\{\OO\}| = 1\).
+
+    Take any ordinal \(\beta\) and assume \(\mbf{P}(\beta)\).
+    Let \(h \colon S(\beta, \alpha) \hooktwoheadrightarrow \alpha^\beta\)
+    be an isomorphism between \(S(\beta, \alpha)\) and \(\alpha^\beta\).
+    First, note that:
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        \(f \in S(\beta + 1, \alpha)\)
+        if and only if \(\restr{f}{\beta} \in S(\beta, \alpha)\).
+
+        \ii
+        For \(f, g \in S(\beta + 1, \alpha)\) such that \(f(\beta) = g(\beta)\),
+        \(f \prec g \iff \restr{f}{\beta} \prec \restr{g}{\beta}\).
+
+        \ii
+        For \(f, g \in S(\beta + 1, \alpha)\),
+        if \(f(\beta) < g(\beta) \implies f \prec g\).
+    \end{itemize}
+
+    Define a function \(h' \colon S(\beta + 1, \alpha) \hooktwoheadrightarrow \alpha \times \alpha^\beta\)
+    by \(f \mapsto \left(f(\beta), h\left(\restr{f}{\beta}\right)\right)\).
+    Then, \(h'\) is an isomorphism between \((S(\beta + 1, \alpha), \preceq)\) and \(\alpha \times \alpha^\beta\),
+    which has the order type \(\alpha^\beta \cdot \alpha = \alpha^{\beta + 1}\)
+    by \Cref{th:orderTypeOfProduct}.
+
+    Take any limit ordinal \(\beta \neq 0\) and assume
+    \(\mbf{P}(\beta')\) holds for all \(\beta' < \beta\).
+    Fix any ordinal \(\alpha\).
+    If \(\alpha = 0\) or \(\alpha = 1\), it is immediate; hence assume \(\alpha > 1\).
+    For each \(\beta' < \beta\), let \(h_{\beta'}\) denote the
+    isomorphism between \(S(\beta', \alpha)\) and \(\alpha^{\beta'}\).
+    Note that:
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        For each \(\beta' < \beta\) and \(f \in S(\beta, \alpha)\),
+        \(\restr{f}{\beta'} \in S(\beta', \alpha)\).
+    \end{itemize}
+
+    Define \(h \colon S(\beta, \alpha) \twoheadrightarrow \alpha^\beta\)
+    by \(f \mapsto h_{\gamma + 1}\!\left(\restr{f}{\gamma + 1}\right)\) where \(\gamma = \max s(f)\).
+    (It is easy to prove that \(\ran h = \alpha^\beta\).)
+    Take any \(f, g \in S(\beta, \alpha)\) with \(f \prec g\).
+    Let \(\gamma_1 = \max s(f)\) and \(\gamma_2 = \max s(g)\).
+    We must have \(\gamma_1 \le \gamma_2\) since \(f \prec g\);
+    and \(\restr{f}{\gamma_2 + 1} \prec \restr{g}{\gamma_2+1}\)
+    as \(f(\xi) = g(\xi)\) for all \(\gamma_2 < \xi < \beta\).
+    If \(\gamma_1 = \gamma_2\), then \(h(f) \prec h(g)\) by definition.
+
+    If \(\gamma_1 < \gamma_2\), as \(A \triangleq \big\{\,f \cup \{(\xi, 0) \mid \gamma_1 < \xi \le \gamma_2\}
+    \:\big|\: f \in S(\gamma_1 + 1, \alpha) \,\big\}\),
+    which is isomorphic to \(S(\gamma_1 + 1, \alpha)\) (under \(\prec\)),
+    is an initial segment of \(S(\gamma_2 + 1 ,\alpha)\),
+    we have \(h(f) < h(g)\)
+    since \(\restr{f}{\gamma_1 + 1} \in S(\gamma_1 + 1, \alpha)\)
+    while \(\restr{g}{\gamma_2 + 1} \notin A\).
+    Hence, \(h\) is an isomorphism.
+    The result follows from \nameref{th:secondTransInduction}.
+}
+
+\end{document}

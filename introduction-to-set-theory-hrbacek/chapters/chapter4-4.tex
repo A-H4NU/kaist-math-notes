@@ -69,6 +69,8 @@
         a \le b \iff (a \le_1 b) \lor (a \le_2 b) \lor (a \in A_1 \land b \in A_2)
     \]
     is a total ordering.
+    The totally ordered set \((A, \le)\) is called the
+    \textit{sum} of the totally ordered sets \((A_1, \le_1)\) and \((A_2, \le_2)\).
 }
 \pf{Proof}{
     \Cref{exer:2.5.6} already shows that \(\le\) is an ordering of \(A\).
@@ -83,6 +85,8 @@
         a_1 <_1 b_1 \lor (a_1 = b_1 \land a_2 \le_2 b_2)
     \]
     is a total ordering.
+    We call \(\le\) the \textit{lexicographic ordering} (\textit{lexicographic product})
+    of \(A_1 \times A_2\).
 }
 \mclm{Proof}{\hfill
 \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
@@ -122,6 +126,8 @@
                   &\hphantom{\iff}\quad\text{where }i_0 = \textstyle\min_{\le} \mrm{diff}(f, g)
     \end{align*}
     is a total strict ordering of \(\prod_{i \in I} A_i\).
+    We call \(\le\) the \textit{lexicographic ordering} (\textit{lexicographic product})
+    of \(\prod_{i \in I} A_i\).
 }
 \mclm{Proof}{\hfill
 \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]

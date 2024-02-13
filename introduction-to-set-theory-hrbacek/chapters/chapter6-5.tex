@@ -1,0 +1,424 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Ordinal Arithmetic}
+
+\dfn[ordinalAddition]{Addition of Ordinal Numbers}{
+    For each ordinal \(\beta\):
+    \begin{align}
+        \label{eq:ordinalAdd1}\tag{1}
+        &\beta + 0 = \beta. \\
+        \label{eq:ordinalAdd2}\tag{2}
+        &\beta + (\alpha + 1) = (\beta + \alpha) + 1\text{ for all ordinals }\alpha. \\
+        \label{eq:ordinalAdd3}\tag{3}
+        &\beta + \alpha = \sup \{\,\beta + \gamma \mid \gamma < \alpha \,\}
+        \text{ for all limit ordinals }\alpha \neq 0.
+    \end{align}
+}
+
+\nt{
+    Let \(\mbf{G}_1\) and \(\mbf{G}_2\) be operations defined by
+    \begin{align*}
+        \mbf{G}_1(z, x) &= x + 1 \\
+        \mbf{G}_2(z, x) &= \begin{cases}
+            \bigcup \ran x & \text{if }x\text{ is a nonempty function} \\
+            z & \text{otherwise.}
+        \end{cases}
+    \end{align*}
+    Then, \Cref{th:secondTransRecursionParam} gives an operation \(\mbf{F}\) such that:
+    for each ordinal \(\beta\),
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        \(\mbf{F}(\beta, 0) = \mbf{G}_2(\beta, \OO) = \beta\).
+        \ii
+        \(\mbf{F}(\beta, \alpha + 1) = \mbf{G}_1(\beta, \mbf{F}(\beta, \alpha)) = \mbf{F}(\beta, \alpha) + 1\)
+        for each ordinal \(\alpha\).
+        \ii
+        \(\mbf{F}(\beta, \alpha) = \mbf{G}_2\left(\beta, \restr{\mbf{F}_\beta}{\alpha}\right)
+        = \bigcup \ran \left(\restr{\mbf{F}_\beta}{\alpha}\right)\)
+        for each limit ordinal \(\alpha\).
+    \end{enumerate}
+
+    Let \(\mbf{P}(\alpha)\) be the property
+    ``\(\mbf{F}(\beta, \alpha)\) is an ordinal for each ordinal \(\alpha\).''
+    \begin{itemize}[nolistsep, listparindent=\parindent]
+        \ii
+        For each ordinal \(\alpha\), if \(\mbf{P}(\alpha)\) holds,
+        then \(\mbf{F}(\beta, \alpha + 1) = \mbf{F}(\beta, \alpha) + 1\)
+        is an ordinal for all ordinals \(\beta\)
+        by \Cref{lem:succOfOrdinalIsOrdinal}.
+
+        \ii
+        For each limit ordinal \(\alpha\),
+        if \(\mbf{P}(\beta)\) holds for all ordinals \(\beta < \alpha\),
+        then \(\ran \left(\restr{\mbf{F}_\beta}{\alpha}\right)\)
+        is a set of ordinals, and thus
+        \(\mbf{F}(\beta, \alpha) = \bigcup \ran \left(\restr{\mbf{F}_\beta}{\alpha}\right)\)
+        is an ordinal. (See the proof of \ref{itm:basicOrdinal.v}).
+    \end{itemize}
+    Therefore, by \nameref{th:secondTransInduction},
+    \(\mbf{F}(\beta, \alpha)\) is an ordinal for each ordinal \(\alpha\) and \(\beta\).
+    Hence, \Cref{dfn:ordinalAddition} is justified;
+    \(\beta + \alpha\) is just a shortcut for \(\mbf{F}(\beta, \alpha)\).
+}
+
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    Addition of ordinals is not commutative:
+    \[
+        n + \omega = \sup \{\,n + m \mid n < \omega\,\} = \omega \neq \omega + n
+        \text{ for all }n \in \omega \setminus \{0\}.
+    \]
+    \ii
+    Addition of ordinals is not right-cancellative:
+    \[
+        1 + \omega = \omega = 2 + \omega\text{ but }1 \neq 2.
+    \]
+\end{itemize}
+}
+
+\thm[sumOfWosetAndOrdinal]{}{
+    Let \((W_1, \le_1)\) and \((W_2, \le_2)\) be well-ordered sets,
+    isomorphic to \(\alpha_1\) and \(\alpha_2\), respectively,
+    and let \((W, \le)\) be the sum of \((W_1, \le_1)\) and \((W_2, \le_2)\).
+    (See \Cref{lem:orderOnUnion}.)
+    Then, \((W, \le)\) is isomorphic to \(\alpha_1 + \alpha_2\).
+}
+\mclm{Proof}{
+    We may assume that \(W_1\) and \(W_2\) are disjoint, that \(W = W_1 \cup W_2\).
+    We shall conduct \nameref{th:secondTransInduction} on \(\alpha_2\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Let \(\alpha_2 = \beta + 1\) for some ordinal \(\beta\)
+        and assume the theorem holds whenever \(W_2\) is isomorphic to \(\beta\).
+        \(W_2\) has a greatest element \(a\),
+        which is also a greatest element of \(W\).
+        Moreover, \(W_2[a]\) is isomorphic to \(\beta\),
+        and thus \(W[a]\) is isomorphic to the sum of \(W_1\) and \(W_2[a]\).
+
+        By the induction hypothesis,
+        we have an isomorphism
+        \(h \colon W[a] \hooktwoheadrightarrow \alpha_1 + \beta\).
+        Then, \(h \cup \{(a, \alpha_1 + \beta)\}\) is an isomorphism between
+        \(W\) and \((\alpha_1 + \beta) + 1 = \alpha_1 + (\beta + 1) = \alpha_1 + \alpha_2\).
+
+        \ii
+        Let \(\alpha_2\) is a limit ordinal
+        and assume the theorem holds whenever \(W_2\) is isomorphic to an ordinal less than \(\alpha_2\).
+        For each \(\beta < \alpha_2\), justified by \Cref{th:wosetComparable},
+        let \(a_\beta\) be the unique element of \(W_2\)
+        such that \(\beta\) is isomorphic to \(W_2[a_\beta]\).
+
+        Then, by the induction hypothesis, for each \(\beta < \alpha_2\),
+        noting that the sum of \(W_1\) and \(W_2[a_\beta]\) is isomorphic to \(W[a_\beta]\),
+        we may let \(f_\beta\) to be the unique isomorphism between \(\alpha_1 + \beta\)
+        and \(W[a_\beta]\). (Once again, uniqueness follows from \Cref{th:wosetComparable}.)
+        Now, define \(f \triangleq \bigcup_{\beta < \alpha_2} f_{\beta}\).
+        If \(\beta < \gamma < \alpha_2\),
+        then \(\restr{f_\gamma}{\alpha_1 + \beta}\)
+        is an isomorphism between \(\alpha_1 + \beta\) and \(W[a_\beta]\),
+        and thus \(f_\beta \subsetneq f_\gamma\).
+        Therefore, by \Cref{th:compatibleThenUnionIsFunction}, \(f\) is a function,
+        and \(f\) is an isomorphism between \(\bigcup \{\,\alpha_1 + \beta \mid \beta < \alpha_2\,\}
+        = \alpha_1 + \alpha_2\) and \(W\). \qed
+    \end{itemize}
+}
+\mlemma[basicOrdinalArith]{}{
+    Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinals.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{lem:basicOrdinalArith} (\roman*)}]
+        \ii\label{itm:basicOrdinalArith.i}
+        \(\alpha < \beta \iff \gamma + \alpha < \gamma + \beta\)
+        \ii\label{itm:basicOrdinalArith.ii}
+        \(\alpha = \beta \iff \gamma + \alpha = \gamma + \beta\)
+        \ii\label{itm:basicOrdinalArith.iii}
+        \((\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \begin{itemize}[nolistsep, wide=0pt, widest={[\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))]
+        Fix any ordinal \(\beta\) and
+        assume \(\alpha < \beta' \implies \gamma + \alpha < \gamma + \beta'\)
+        for all ordinals \(\alpha\), \(\beta\), and \(\gamma\) with \(\beta' < \beta\)
+        for the sake of induction. We shall assume \(\beta \neq 0\).
+        Take any ordinals \(\alpha\) and \(\gamma\) such that \(\alpha < \beta\)
+        If \(\beta = \delta + 1\), then \(\delta \ge \alpha\). (Otherwise, we have
+        \(\delta < \alpha < \delta + 1\), which is impossible.) Then, we have
+        \begin{alignat*}{2}
+            \gamma + \alpha
+            &\le \gamma + \delta &\qquad& \comment*{Induction Hypothesis} \\
+            &< (\gamma + \delta) + 1 \\
+            &= \gamma + (\delta + 1) && \comment*{\eqref{eq:ordinalAdd2}} \\
+            &= \gamma + \beta.
+        \end{alignat*}
+        In the case of \(\beta\) being an limit ordinal,
+        then \(\alpha + 1 < \beta\), and thus
+        \begin{alignat*}{2}
+            \gamma + \alpha
+            &< (\gamma + \alpha) + 1 &\qquad& \\
+            &= \gamma + (\alpha + 1) && \comment*{\eqref{eq:ordinalAdd2}} \\
+            &\le \sup \{\,\gamma + \delta \mid \delta < \beta\,\} && \comment*{\(\alpha + 1 < \beta\)} \\
+            &= \gamma + \beta. && \comment*{\eqref{eq:ordinalAdd3}}
+        \end{alignat*}
+        The result follows from \nameref{th:firstTransInduction}.
+        \ii[(\(\Leftarrow\))]
+        Assume \(\gamma + \alpha < \gamma + \beta\) where \(\alpha\), \(\beta\), and \(\gamma\)
+        are ordinals.
+        We clearly cannot have \(\alpha = \beta\).
+        If \(\beta < \alpha\), then (\(\Rightarrow\))
+        implies \(\gamma + \beta < \gamma + \alpha\),
+        which is impossible.
+        Hence, the only remaining option is \(\alpha < \beta\).
+    \end{itemize}
+
+    \ii
+    By (i), \(\alpha < \beta\) or \(\alpha > \beta\) immediately implies
+    \(\gamma + \alpha \neq \gamma + \beta\).
+    Hence, the result follows.
+
+    \ii
+    We shall conduct the transfinite induction on \(\gamma\).
+    Fix any ordinal \(\gamma\) and assume
+    \((\alpha + \beta) + \gamma' = \alpha + (\beta + \gamma')\)
+    for all ordinals \(\alpha\), \(\beta\), and \(\gamma'\) such that \(\gamma' < \gamma\).
+    Note the case \(\gamma = 0\) is evident by \eqref{eq:ordinalAdd1}.
+
+    If \(\gamma = \delta + 1\) for some ordinal \(\delta\), then
+    \begin{alignat*}{2}
+        (\alpha + \beta) + (\delta + 1)
+        &= [ (\alpha + \beta) + \delta ] + 1 &\qquad& \comment*{\eqref{eq:ordinalAdd2}} \\
+        &= [ \alpha + (\beta + \delta) ] + 1 && \comment*{Induction Hypothesis} \\
+        &= \alpha + [(\beta + \delta) + 1] && \comment*{\eqref{eq:ordinalAdd2}} \\
+        &= \alpha + [\beta + (\delta + 1)]. && \comment*{\eqref{eq:ordinalAdd2}}
+    \end{alignat*}
+
+    Now, assume \(\gamma\) is a limit ordinal other than \(0\).
+    \clm[xcqeUAWE]{
+        \(\beta + \gamma\) is a limit ordinal.
+    }{
+        If \(\xi < \beta + \gamma = \sup \{\,\beta + \delta \mid \delta < \gamma\,\}\),
+        there exists \(\delta < \gamma\) such that \(\xi < \beta + \delta\).
+        Then,
+        \begin{alignat*}{2}
+            \xi + 1 &< (\beta + \delta) + 1 &\qquad& \\
+                    &= \beta + (\delta + 1) && \comment*{\eqref{eq:ordinalAdd2}} \\
+                    &= \beta + \gamma. && \comment*{\(\delta + 1 < \gamma\), (i)}
+        \end{alignat*}
+        \qed
+    }
+
+    \clm[WpOrRgov]{
+        \((\alpha + \beta) + \gamma \le \alpha + (\beta + \gamma)\)
+    }{
+        Take any \(\delta < \gamma\).
+        Then, as \(\beta + \delta < \beta + \gamma\) by (i),
+        \(\xi \triangleq (\beta + \delta) + 1\) satisfies \(\beta + \delta < \xi < \beta + \gamma\)
+        thanks to \Cref{clm:xcqeUAWE}.
+
+        Then,
+        \begin{alignat*}{2}
+            (\alpha + \beta) + \delta
+            &= \alpha + (\beta + \delta) &\qquad& \comment*{Induction Hypothesis} \\
+            &< \alpha + \xi. && \comment*{(i)}
+        \end{alignat*}
+        Hence, \(\sup \{\,(\alpha + \beta) + \delta \mid \delta < \gamma\,\}
+        \le \sup \{\,\alpha + \xi \mid \xi < \beta + \gamma\,\}\). \qed
+    }
+
+    \clm[kqDYBUJN]{
+        \(\alpha + (\beta + \gamma) \le (\alpha + \beta) + \gamma\)
+    }{
+        If \(\xi < \beta + \gamma\),
+        then there exists \(\delta < \gamma\) such that \(\xi < \beta + \delta\)
+        by \Cref{clm:xcqeUAWE};
+        thus
+        \begin{alignat*}{2}
+            \alpha + \xi
+            &< \alpha + (\beta + \delta) &\qquad& \comment*{(i)} \\
+            &= (\alpha + \beta) + \delta. && \comment*{Induction Hypothesis}
+        \end{alignat*}
+        In other words, \(\sup \{\,\alpha + \xi \mid \xi < \beta + \gamma\,\}
+        \le \sup \{\,(\alpha + \beta) + \delta \mid \delta < \gamma\,\}\). \qed
+    }
+    \noindent
+    \Cref{clm:WpOrRgov,clm:kqDYBUJN} finishes the proof
+    with the help of \nameref{th:firstTransInduction}. \qed
+\end{enumerate}
+}
+
+\mlemma[ordinalUniqueDifference]{}{
+    Let \(\alpha\) and \(\beta\) be ordinals.
+    If \(\alpha \le \beta\), then there uniquely exists an ordinal \(\xi\)
+    such that \(\alpha + \xi = \beta\).
+}
+\pf{Proof}{
+    \(\beta \setminus \alpha = \{\,\nu \mid \alpha \le \nu < \beta\,\}\)
+    is a well-ordered set by \ref{itm:basicOrdinal.iv}.
+    There exists an ordinal \(\xi\) which is isomorphic to \(\beta \setminus \alpha\).
+    Moreover, the sum of \(\alpha\) and \(\beta \setminus \alpha\)
+    is \(\beta\); hence \(\alpha + \xi = \beta\) by
+    \Cref{th:sumOfWosetAndOrdinal}.
+    The uniqueness follows from \ref{itm:basicOrdinalArith.ii}.
+}
+
+\dfn[ordinalMultiplication]{Multiplication Of Ordinal Numbers}{
+    For each ordinal \(\beta\):
+    \begin{align}
+        \label{eq:ordinalMult1}\tag{4}
+        &\beta \cdot 0 = \beta. \\
+        \label{eq:ordinalMult2}\tag{5}
+        &\beta \cdot (\alpha + 1) = \beta \cdot \alpha + \beta\text{ for all ordinals }\alpha. \\
+        \label{eq:ordinalMult3}\tag{6}
+        &\beta \cdot \alpha = \sup \{\,\beta \cdot \gamma \mid \gamma < \alpha \,\}
+        \text{ for all limit ordinals }\alpha \neq 0.
+    \end{align}
+}
+
+\nt{
+    Let \(\mbf{G}_1\) and \(\mbf{G}_2\) be operations defined by
+    \begin{align*}
+        \mbf{G}_1(z, x) &= \begin{cases}
+            x + z & \text{if }x\text{ and }z\text{ are ordinals} \\
+            \OO & \text{ otherwise}
+        \end{cases} \\
+        \mbf{G}_2(z, x) &= \begin{cases}
+            \bigcup \ran x & \text{if }x\text{ is a nonempty function} \\
+            0 & \text{otherwise.}
+        \end{cases}
+    \end{align*}
+    Then, \Cref{th:secondTransRecursionParam} gives an operation \(\mbf{F}(\beta, \alpha)\)
+    that justifies \Cref{dfn:ordinalMultiplication}.
+}
+
+\thm[orderTypeOfProduct]{}{
+    Let \(\alpha\) and \(\beta\) be ordinal numbers.
+    Then, the order type of the lexicographic ordering of \(\beta \times \alpha\) is \(\alpha \cdot \beta\).
+}
+\pf{Proof}{
+    We shall conduct \nameref{th:secondTransInduction} on \(\beta\).
+    Let \(\mbf{P}(\beta)\) be the property that
+    \begin{center}
+    ``for all ordinals \(\alpha\), the function \(h\) on \(\beta \times \alpha\)
+    defined by \((\eta, \xi) \mapsto \alpha \cdot \eta + \xi\) \\
+    is an isomorphism between \(\beta \times \alpha\) and \(\alpha \cdot \beta\).''
+    \end{center}
+    \(\mbf{P}(0)\) evidently holds.
+
+    Take any ordinals \(\alpha\) and  \(\beta\) and assume that \(\mbf{P}(\beta)\) holds.
+    Let \(h'\) be the function on \((\beta + 1) \times \alpha\)
+    defined by \((\eta, \xi) \mapsto \alpha \cdot \eta + \xi\).
+    Then, \(\restr{h'}{\beta \times \alpha}\) is the
+    isomorphism between \(\beta \times \alpha\) and \(\alpha \cdot \beta\) by \(\mbf{P}(\beta)\).
+    For all ordinals \(\eta < \beta\) and \(\xi_1, \xi_2 < \alpha\),
+    \begin{alignat*}{2}
+        \alpha \cdot \eta + \xi_1
+        &< \alpha \cdot \eta + \alpha &\qquad& \comment*{\ref{itm:basicOrdinalArith.i}} \\
+        &= \alpha \cdot (\eta + 1) && \comment*{\eqref{eq:ordinalMult2}} \\
+        &\le \alpha \cdot \beta && \comment*{\ref{itm:6.5.8.i}} \\
+        &\le \alpha \cdot \beta + \xi_2; && \comment*{\ref{itm:basicOrdinalArith.i}} \\
+        \shortintertext{moreover,}
+        \alpha \cdot \beta + \xi_1
+        &< \alpha \cdot \beta + \xi_2 && \comment*{\ref{itm:basicOrdinalArith.i}} \\
+        & \qquad\text{if }\xi_1 < \xi_2.
+    \end{alignat*}
+    Hence, \(h\) is an isomorphism between \((\beta + 1) \times \alpha\) and \(\ran h\).
+    It is evident that \(\alpha \cdot \beta \subseteq \ran h \subseteq \alpha \cdot (\beta + 1)\).
+
+    Now, take any \(\gamma\) such that \(\alpha \cdot \beta \le \gamma < \alpha \cdot (\beta + 1)\).
+    Then, by \Cref{lem:ordinalUniqueDifference}, there exists an ordinal \(\xi\)
+    such that \(\gamma = \alpha \cdot \beta + \xi\).
+    Then, by \ref{itm:noIsoToInitSeg.i}, \(\xi < \beta\);
+    hence \(\gamma = h'(\beta, \xi)\);
+    thus \(\ran h = \alpha \cdot (\beta + 1)\).
+
+    Now, take any ordinal \(\beta\) and assume that
+    \(\mbf{P}(\beta')\) holds for all \(\beta' < \beta\).
+    Take any ordinal \(\alpha\).
+    By the inductive assumption, \nameref{ax:replacement}, and \nameref{th:counting},
+    there exists a set
+    \[
+        H \triangleq \{\,h_{\beta'} \mid h_{\beta'}
+        \text{ is an isomorphism between }\beta' \times \alpha\text{ and }\alpha \cdot \beta'
+        \text{ where }\beta' < \beta\,\}.
+    \]
+    Let \(h' \triangleq \bigcup H\).
+    Then, by the inductive assumption, \(H\) is a compatible system of functions,
+    hence \(h'\) is a function with \(\dom h' = \bigcup_{\beta' < \beta} \beta' \times \alpha
+    = \beta \times \alpha\) by \Cref{th:compatibleThenUnionIsFunction}.
+    Moreover, \(\ran h' = \bigcup_{\beta' < \beta} \alpha \cdot \beta' = \alpha \cdot \beta\).
+    It is evident that \(h'\) is a isomorphism.
+    The result follows from \nameref{th:secondTransInduction}.
+}
+
+\dfn[ordinalExponentiation]{Exponentiation of Ordinal Numbers}{
+    For each ordinal \(\beta\):
+    \begin{align}
+        \label{eq:ordinalExpo1}\tag{7}
+        &\beta^0 = 1. \\
+        \label{eq:ordinalExpo2}\tag{8}
+        &\beta^{\alpha + 1} = \beta^\alpha \cdot \beta\text{ for all ordinals }\alpha. \\
+        \label{eq:ordinalExpo3}\tag{9}
+        &\beta^\alpha = \sup \{\,\beta^\gamma \mid 0 < \gamma < \alpha \,\}
+        \text{ for all limit ordinals }\alpha \neq 0.
+    \end{align}
+    \let\thefootnote\relax\footnotetext{
+        In the textbook, it defines \(\beta^\alpha = \sup \{\,\beta^\gamma \mid \gamma < \alpha \,\}\)
+        for limit ordinals, which results in
+        \(0^\omega = \sup \{\,0^0, 0^1, 0^2, \cdots\,\} = \sup \{0, 1\} = 1\).
+        I considered this as a mistake or a typo, so we just
+        define in \href{https://en.wikipedia.org/wiki/Ordinal_arithmetic\#Exponentiation}{this way}.
+    }
+}
+
+\nt{
+    Let \(\mbf{G}_1\) and \(\mbf{G}_2\) be operations defined by
+    \begin{align*}
+        \mbf{G}_1(z, x) &= \begin{cases}
+            x \cdot z & \text{if }x\text{ and }z\text{ are ordinals} \\
+            \OO & \text{ otherwise}
+        \end{cases} \\
+        \mbf{G}_2(z, x) &= \begin{cases}
+            \bigcup \ran x & \text{if }x\text{ is a nonempty function} \\
+            1 & \text{otherwise.}
+        \end{cases}
+    \end{align*}
+    Then, \Cref{th:secondTransRecursionParam} gives an operation \(\mbf{F}(\beta, \alpha)\)
+    that justifies \Cref{dfn:ordinalExponentiation}.
+}
+
+\nt{
+    \noindent
+    Ordinal arithmetic differs from arithmetic of cardinals.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        \(2^{\aleph_0} > \aleph_0\) but \(2^\omega = \omega\).
+        \ii
+        \(\aleph_0^n = \aleph_0\) but \(\omega^n > \omega\).
+        \ii
+        \(\omega^\omega\) is countable.
+        (It is an order type of lexicographic ordering of \(\Seq(\NN)\).)
+    \end{itemize}
+}
+
+\nt{
+    One can use arithmetic operations to generate larger and larger ordinals:
+    \begin{gather*}
+        0, 1, \cdots, \omega, \omega + 1, \cdots, \omega \cdot 2, \cdots \omega \cdot 3, \cdots, \\
+        \omega \cdot \omega = \omega^2, \cdots, \omega^3, \cdots, \omega^\omega, \cdots, \omega^\omega, \cdots,
+        \omega^{\omega^2}, \cdots, \omega^{\omega^3}, \cdots, \omega^{\omega^\omega}, \cdots
+    \end{gather*}
+    We define
+    \[
+        \veps \triangleq \sup \{\,\omega, \omega^\omega, \omega^{\omega^\omega}, \omega^{\omega^{\omega^\omega}}, \cdots\,\}
+    \]
+    and then form \(\veps + 1\), \(\veps + \omega\), \(\veps^\omega\), \(\veps^\veps\),
+    \(\veps^{\veps^\veps}\), etc.
+}
+
+\subfile{../exercises/exercise6-5.tex}
+
+\end{document}

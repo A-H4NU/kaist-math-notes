@@ -219,6 +219,12 @@
     in the proof of \nameref{th:transRecursion}.
 }
 
+\nt{
+    \noindent
+    We now present some variations of
+    \nameref{th:transRecursion} and \nameref{th:transRecursionParam}.
+}
+
 \thm[secondTransRecursion]{}{
     Let \(\mbf{G}_1\) and \(\mbf{G}_2\) be operations.
     Let \(\mbf{G}\) be the operation defined in \eqref{eq:secondTransRecursion}.
@@ -260,6 +266,56 @@
         If \(\alpha\) is a limit ordinal,
         then \(\mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)
         = \mbf{G}_2\left(\restr{\mbf{F}}{\alpha}\right)\). \qed
+    \end{itemize}
+}
+
+\thm[secondTransRecursionParam]{}{
+    Let \(\mbf{G}_1\) and \(\mbf{G}_2\) be operations.
+    Let \(\mbf{G}\) be the operation defined in \eqref{eq:secondTransRecursionParam}.
+    Then, the property \(\mbf{Q}(z, x, y)\) stated in \eqref{eq:transRecursionParam} defines an operation \(\mbf{F}\)
+    such that:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        For each ordinal \(\alpha\) and each set \(z\),
+        \(\mbf{F}(z, \alpha + 1) = \mbf{G}_1(z, \mbf{F}(z, \alpha))\).\vspace*{.3em}
+        \ii
+        For each limit ordinal \(\alpha\) and each set \(z\),
+        \(\mbf{F}(z, \alpha) = \mbf{G}_2\left(z, \restr{\mbf{F}_z}{\alpha}\right)\).
+    \end{enumerate}\vspace*{1em}
+    \begin{equation}
+        \begin{aligned}
+            & y = \mbf{G}(z, x) \text{ if and only if} \\
+            & \quad\left\{
+            \begin{aligned}
+                          & x\text{ is a transfinite sequence of length }\alpha + 1\text{ and }y = \mbf{G}_1(z, x(\alpha)), \\
+                \text{or }&
+                \begin{aligned}[t]
+                    & x\text{ is a transfinite sequence of length }\alpha
+                    \text{ such that }\alpha\text{ is a limit ordinal} \\
+                    &\qquad\text{and }y = \mbf{G}_2(z, x), \\
+                \end{aligned} \\
+                \text{or }& x\text{ is not a transfinite sequence and }y = \OO. \\
+            \end{aligned}
+            \right.
+        \end{aligned}
+        \label{eq:secondTransRecursionParam}\tag{5}
+    \end{equation}
+}
+\mclm{Proof}{
+    For each ordinal \(\alpha\) and each set \(z\),
+    \(\mbf{F}(z, \alpha) = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha}\right)\)
+    by \nameref{th:transRecursionParam}.\vspace*{.3em}
+    Then, for each set \(z\):
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        If \(\alpha\) is an ordinal,
+        then \(\mbf{F}(z, \alpha + 1) = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha + 1}\right)
+        = \mbf{G}_1\left(z, \restr{\mbf{F}_z}{\alpha + 1}(\alpha)\right)
+        = \mbf{G}_1(z, \mbf{F}(z, \alpha))\).\vspace*{.3em}
+        \ii
+        If \(\alpha\) is a limit ordinal,
+        then \(\mbf{F}(z, \alpha) = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha}\right)
+        = \mbf{G}_2\left(z, \restr{\mbf{F}_z}{\alpha}\right)\). \qed
     \end{itemize}
 }
 
