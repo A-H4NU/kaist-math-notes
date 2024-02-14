@@ -269,7 +269,7 @@
         by \Cref{lem:ordinalUniqueDifference}.
         Then, we have \(\alpha = (\beta + \omega) + \delta\)
         by \ref{itm:basicOrdinalArith.iii}
-        while \(\beta + \omega\) is a limit ordinal (\Cref{clm:xcqeUAWE} of \Cref{th:basicOrdinalArith})
+        while \(\beta + \omega\) is a limit ordinal (\Cref{clm:xcqeUAWE} of \Cref{lem:basicOrdinalArith})
         such that \(\beta < \beta + \omega \le \alpha\),
         which contradicts the definition of \(\beta\). \qed
     }
@@ -640,12 +640,12 @@ We first need the following lemmas:
     \begin{alignat*}{2}
         \xi + 1
         &\le \alpha^{\gamma} &\qquad \\
-        &< \alpha^{\gamma + 1} && \comment*{\ref{exer:6.5.14.ii}} \\
+        &< \alpha^{\gamma + 1} && \comment*{\ref{itm:6.5.14.ii}} \\
         &\le \alpha^\beta. && \comment*{\eqref{eq:ordinalExpo3}}
     \end{alignat*}
     Hence, \(\alpha^\beta\) is a limit ordinal.
     Since \(1 = \alpha^0 < \alpha^\beta\)
-    by \eqref{eq:ordinalExpo1} and \ref{exer:6.5.14.ii},
+    by \eqref{eq:ordinalExpo1} and \ref{itm:6.5.14.ii},
     \(\alpha^\beta\) is nonzero. \qed
 }
 
@@ -734,9 +734,9 @@ We first need the following lemmas:
     \begin{alignat*}{2}
         \xi
         &< \alpha^\delta &\qquad \\
-        &< \alpha^{\beta + \delta'} &\qquad& \comment*{\ref{exer:6.5.14.ii}} \\
+        &< \alpha^{\beta + \delta'} &\qquad& \comment*{\ref{itm:6.5.14.ii}} \\
         &= \alpha^\beta \cdot \alpha^{\delta'} && \comment*{Induction Hypothesis} \\
-        &< \alpha^\beta \cdot \alpha^\gamma; && \comment*{\ref{exer:6.5.14.ii}, \ref{itm:6.5.7.i}}
+        &< \alpha^\beta \cdot \alpha^\gamma; && \comment*{\ref{itm:6.5.14.ii}, \ref{itm:6.5.7.i}}
     \end{alignat*}
     hence \(\alpha^{\beta + \gamma} \le \alpha^\beta \cdot \alpha^\gamma\).
 
@@ -750,7 +750,7 @@ We first need the following lemmas:
         &< \alpha^\beta \cdot \delta &\qquad \\
         &< \alpha^\beta \cdot \alpha^{\gamma'} && \comment*{\ref{itm:6.5.7.i}} \\
         &= \alpha^{\beta + \gamma'} && \comment*{Induction Hypothesis} \\
-        &< \alpha^{\beta + \gamma}; && \comment*{\ref{itm:basicOrdinalArith.i}, \ref{exer:6.5.14.ii}}
+        &< \alpha^{\beta + \gamma}; && \comment*{\ref{itm:basicOrdinalArith.i}, \ref{itm:6.5.14.ii}}
     \end{alignat*}
     hence \(\alpha^\beta \cdot \alpha^\gamma \le \alpha^{\beta + \gamma}\).
     The result follows form \nameref{th:secondTransInduction}.
@@ -790,7 +790,7 @@ We first need the following lemmas:
         \xi
         &< (\alpha^\beta)^{\gamma'} &\qquad \\
         &= \alpha^{\beta \cdot \gamma'} && \comment*{Induction Hypothesis} \\
-        &< \alpha^{\beta \cdot \gamma}; && \comment*{\ref{itm:6.5.7.i}, \ref{exer:6.5.14.ii}}
+        &< \alpha^{\beta \cdot \gamma}; && \comment*{\ref{itm:6.5.7.i}, \ref{itm:6.5.14.ii}}
     \end{alignat*}
     hence \((\alpha^\beta)^\gamma \le \alpha^{\beta \cdot \gamma}\).
 
@@ -804,9 +804,9 @@ We first need the following lemmas:
     \begin{alignat*}{2}
         \xi
         &< \alpha^\delta &\qquad \\
-        &< \alpha^{\beta \cdot \gamma'} && \comment*{\ref{exer:6.5.14.ii}} \\
+        &< \alpha^{\beta \cdot \gamma'} && \comment*{\ref{itm:6.5.14.ii}} \\
         &= (\alpha^\beta)^{\gamma'} && \comment*{Induction Hypothesis} \\
-        &< (\alpha^\beta)^{\gamma}; && \comment*{\(\alpha^\beta > 1\), \ref{exer:6.5.14.ii}}
+        &< (\alpha^\beta)^{\gamma}; && \comment*{\(\alpha^\beta > 1\), \ref{itm:6.5.14.ii}}
     \end{alignat*}
     hence \(\alpha^{\beta \cdot \gamma} = (\alpha^\beta)^\gamma\).
     The result follows from \nameref{th:secondTransInduction}.
@@ -817,9 +817,9 @@ We first need the following lemmas:
 \exer[6.5.14]{}{
     Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinals.
     \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:6.5.14} (\roman*)}]
-        \ii\label{exer:6.5.14.i}
+        \ii\label{itm:6.5.14.i}
         \(\alpha \le \beta \implies \alpha^\gamma \le \beta^\gamma\)
-        \ii\label{exer:6.5.14.ii}
+        \ii\label{itm:6.5.14.ii}
         \(\alpha > 1 \land \beta < \gamma \implies \alpha^\beta < \alpha^\gamma\)
     \end{enumerate}
 }
@@ -973,7 +973,7 @@ We first need the following lemmas:
         \begin{alignat*}{2}
             a_{n+1}
             &= \omega^{a_n} &\qquad \\
-            &< \omega^{a_{n+1}} && \comment*{Induction Hypothesis, \ref{exer:6.5.14.ii}} \\
+            &< \omega^{a_{n+1}} && \comment*{Induction Hypothesis, \ref{itm:6.5.14.ii}} \\
             &= a_{n+2}.
         \end{alignat*}
         The result follows from \nameref{th:induction}. \qed
@@ -987,7 +987,7 @@ We first need the following lemmas:
     \begin{alignat*}{2}
         \xi
         &< \omega^\delta &\qquad \\
-        &< \omega^{a_n} && \comment*{\ref{exer:6.5.14.ii}} \\
+        &< \omega^{a_n} && \comment*{\ref{itm:6.5.14.ii}} \\
         &= a_{n+1} \\
         &\le \veps.
     \end{alignat*}
@@ -1000,7 +1000,7 @@ We first need the following lemmas:
         &< a_n &\qquad \\
         &< a_{n+1} && \comment*{\Cref{clm:wOrZJaUg}} \\
         &= \omega^{a_n} \\
-        &\le \omega^\veps; && \comment*{\ref{exer:6.5.14.ii}}
+        &\le \omega^\veps; && \comment*{\ref{itm:6.5.14.ii}}
     \end{alignat*}
     hence \(\veps \le \omega^\veps\).
     Therefore, \(\omega^\veps = \veps\).

@@ -1,0 +1,271 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{The Normal Form}
+
+\mlemma[ordinalQuotientLog]{}{
+    Let \(\alpha\) and \(\beta\) be ordinals.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{lem:ordinalQuotientLog} (\roman*)}]
+        \ii\label{itm:ordinalQuotient}
+        If \(0 < \alpha \le \beta\), then \(\{\,\xi \mid \xi~\text{is an ordinal and}~\alpha \cdot \xi \le \beta\,\}\)
+        has a greatest element.
+        \ii\label{itm:ordinalLog}
+        If \(1 < \alpha \le \beta\), then \(\{\,\xi \mid \xi~\text{is an ordinal and}~\alpha^\xi \le \beta\,\}\)
+        has a greatest element.
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Since \(\beta < \beta + 1 \le \alpha \cdot (\beta + 1)\) by \ref{itm:6.5.7.i},
+    there exists \(\delta\) such that \(\alpha \cdot \delta > \beta\).
+    Hence, \(\delta_0 \triangleq \min \{\,\xi \le \delta \mid \alpha \cdot \xi > \beta \,\}\)
+    exists by \ref{itm:basicOrdinal.iv}.
+
+    Suppose \(\delta_0\) is a limit ordinal for the sake of contradiction.
+    We have \(\delta_0 \neq 0\) by definition.
+    There exists \(\delta_1 < \delta_0\) such that \(\beta < \alpha \cdot \delta_1\)
+    by \eqref{eq:ordinalMult3}, which is immediately a contradiction.
+    Hence, there exists \(\gamma\) such that \(\delta_0 = \gamma + 1\),
+    and \(\gamma = \max \{\,\xi \mid \xi~\text{is an ordinal and}~\alpha \cdot \xi \le \beta\,\}\).
+
+    \ii
+    Replace every multiplication in the proof of (i) into exponentiation.
+    \qed
+\end{enumerate}
+}
+
+\mlemma[ordinalEuclidDiv]{}{
+    Let \(\alpha\) and \(\beta\) be ordinals with \(\alpha \neq 0\).
+    Then, there uniquely exist ordinals \(\gamma\) and \(\rho\) such that
+    \(\beta = \alpha \cdot \gamma + \rho\) and \(\rho < \alpha\).
+}
+\pf{Proof}{
+    \(\gamma \triangleq \max \{\,\xi \mid \xi~\text{is an ordinal and}~\alpha \cdot \xi \le \beta\,\}\)
+    exists by \ref{itm:ordinalQuotient}.
+    By \Cref{lem:ordinalUniqueDifference}, there exists \(\rho\)
+    such that \(\beta = \alpha \cdot \gamma + \rho\).
+    Then, we have \(\rho < \alpha\); otherwise \(\gamma + 1\) would satisfy \(\alpha \cdot (\gamma + 1) \le \beta\)
+    by \eqref{eq:ordinalMult2}. Hence, the existence is shown.
+
+    Let \(\beta = \alpha \cdot \gamma_1 + \rho_1 = \alpha \cdot \gamma_2 + \rho_2\)
+    where \(\rho_1, \rho_2 < \alpha\).
+    Suppose \(\gamma_1 < \gamma_2\) for the sake of contradiction.
+    Then, as \(\gamma_1 + 1 \le \gamma_2\),
+    \begin{alignat*}{2}
+        \alpha \cdot \beta_1 + (\alpha + \rho_2)
+        &= (\alpha \cdot \beta_1 + \alpha) + \rho_2 &\qquad& \comment*{\ref{itm:basicOrdinalArith.iii}} \\
+        &= \alpha \cdot (\beta_1 + 1) + \rho_2 && \comment*{\eqref{eq:ordinalMult2}} \\
+        &\le \alpha \cdot \beta_2 + \rho_2 && \comment*{\ref{itm:6.5.7.i}, \ref{itm:6.5.8.i}} \\
+        &= \alpha \cdot \beta_1 + \rho_1;
+    \end{alignat*}
+    thus \(\alpha \le \alpha + \rho_2 \le \rho_1\) by \ref{itm:basicOrdinalArith.i},
+    which contradicts \(\rho_1 < \alpha\). Hence, \(\gamma_1 = \gamma_2\).
+    \(\rho_1 = \rho_2\) follows from \ref{itm:basicOrdinalArith.ii}.
+}
+
+\thm[normalForm]{}{
+    Every ordinal \(\alpha > 0\) can be uniquely expressed as
+    \[
+        \alpha = \omega^{\beta_1} \cdot k_1 + \omega^{\beta_2} \cdot k_2 + \cdots + \omega^{\beta_n} \cdot k_n
+    \]
+    where \(k_1, k_2, \cdots, k_n\) are nonzero finite ordinals, and
+    \(\beta_1 > \beta_2 > \cdots > \beta_n\).
+    The expression is called the \textit{normal form} of \(\alpha\).
+}
+\pf{Proof}{
+    Let \(\mbf{P}(\alpha)\) be the property stated in the theorem.
+    \(\mbf{P}(1)\) is clearly true since \(1 = \omega^0 \cdot 1\) is unique.
+
+    Fix any ordinal \(\alpha > 1\) and assume \(\mbf{P}(\alpha')\) holds
+    for all \(0 < \alpha' < \alpha\).
+    By \ref{itm:ordinalLog}, there exists \(\beta_1 \triangleq \max \{\,\xi \mid \omega^\xi \le \alpha\,\}\).
+    Then, there exists \(k_1\) and \(\rho\) such that
+    \(\alpha = \omega^{\beta_1} \cdot k_1 + \rho\)
+    and \(\rho < \omega^\beta_1\).
+    If \(k_1 \ge \omega\), then we have
+    \begin{alignat*}{2}
+        \omega^{\beta_1+1}
+        &= \omega^{\beta_1} \cdot \omega &\qquad& \comment*{\eqref{eq:ordinalMult2}} \\
+        &\le \omega^{\beta_1} \cdot k_1 && \comment*{\ref{itm:6.5.7.i}} \\
+        &\le \alpha, && \comment*{\ref{itm:basicOrdinalArith.i}}
+    \end{alignat*}
+    contradicting the maximality of \(\beta_1\).
+    Hence, \(k_1\) is finite.
+
+    By the induction hypothesis,
+    \[
+        \rho = \omega^{\beta_2} \cdot k_2 + \omega^{\beta_3} \cdot k_3 + \cdots + \omega^{\beta_n} \cdot k_n
+    \]
+    where \(k_2, k_3, \cdots, k_n\) are nonzero finite ordinals, and
+    \(\beta_2 > \beta_3 > \cdots > \beta_n\).
+    Hence, the existence is shown.
+
+    \clm[ZwGUunTE]{
+        If \(\alpha = \omega^{\beta_1} \cdot k_1 + \omega^{\beta_2} \cdot k_2 + \cdots + \omega^{\beta_n} \cdot k_n\)
+        is in its normal form and \(\beta_1 < \gamma\),
+        then \(\alpha > \omega^\gamma\).
+    }{
+        For any \(k < \omega\) and ordinals \(\xi < \zeta\), we have
+        \begin{equation}\label{eq:WfsldBhG}\tag{\(\ast\)}
+            \begin{aligned}[c]
+                \omega^{\xi} \cdot k
+                &< \omega^{\xi} \cdot \omega &\qquad& \comment*{\ref{itm:6.5.7.i}} \\
+                &= \omega^{\xi + 1} && \comment*{\eqref{eq:ordinalExpo2}} \\
+                &\le \omega^{\zeta}. && \comment*{\ref{itm:6.5.14.ii}}
+            \end{aligned}
+        \end{equation}
+
+        Hence, one may repeatedly apply \eqref{eq:WfsldBhG}
+        to acquire \(\alpha \ge \omega^{\beta_1} \cdot \sum_{i=1}^{n} k_i\)
+        (rigorously with \nameref{th:induction} on \(n\)),
+        hence \(\alpha > \omega^\gamma\) once again by \eqref{eq:WfsldBhG}.
+        \qed
+    }
+
+    Let
+    \begin{align*}\SwapAboveDisplaySkip
+        \alpha &= \omega^{\beta_1} \cdot k_1 + \omega^{\beta_2} \cdot k_2 + \cdots + \omega^{\beta_n} \cdot k_n \\
+               &= \omega^{\gamma_1} \cdot \ell_1 + \omega^{\gamma_2} \cdot \ell_2 + \cdots + \omega^{\gamma_m} \cdot \ell_m
+    \end{align*}
+    be two normal forms of \(\alpha\).
+    By \Cref{clm:ZwGUunTE}, we must have \(\beta_1 = \gamma_1\).
+    Let
+    \begin{align*}
+        \delta &= \omega^{\beta_1} = \omega^{\gamma_1} \\
+        \rho   &= \omega^{\beta_2} \cdot k_2 + \omega^{\beta_3} \cdot k_3 + \cdots + \omega^{\beta_n} \cdot k_n \\
+        \sigma &= \omega^{\gamma_2} \cdot \ell_2 + \omega^{\gamma_3} \cdot \ell_3 + \cdots + \omega^{\gamma_m} \cdot \ell_m
+    \end{align*}
+    so that \(\alpha = \delta \cdot k_1 + \rho = \delta \cdot \ell_1 + \sigma\).
+    Once again by \Cref{clm:ZwGUunTE}, \(\rho\) and \(\sigma\) are less than \(\delta\).
+    Then, by \Cref{lem:ordinalEuclidDiv}, \(k_1 = \ell_1\) and \(\rho = \sigma\).
+    By the induction hypothesis,
+    \(n = m\), and \(k_i = \ell_i\) and \(\beta_i = \gamma_i\) for all \(1 < i \le n\).
+    The result follows from \nameref{th:firstTransInduction}.
+}
+
+\dfn[weakGoodstein]{Weak Goodstein Sequence}{
+    \setlength{\parindent}{1cm}
+    \noindent
+    Let \(g \colon \NN \times \NN \to \NN\) be a function which is defined by:
+    \begin{align*}
+        f(n, b) &= \textstyle \sum_{i=0}^{m} c_i \cdot (b+1)^{i} - 1 \\
+                &\qquad\textstyle\text{where}~n = \sum_{i=0}^{m} c_i \cdot b^{i}
+                 ~\text{is the base-\(b\) representation of}~n
+    \end{align*}
+    for each \(n > 0\) and \(b > 1\), and \(f(n, b) = 0\) otherwise.
+
+    The \textit{weak Goodstein sequence starting at \(m > 0\)}
+    is the infinite sequence \(\lang m_i \rang_{i \in \NN}\) such that:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(m_0 = m\) and,
+        \ii for all \(k \in \NN\), \(m_{k+1} = f(m_k, k + 2)\),
+    \end{enumerate}
+    whose existence and uniqueness is guaranteed by \nameref{th:recursion}.
+    In other words, the next entry of \(m_k\) is obtained by
+    writing \(m_k\) in base-\((k + 2)\), replacing the bases with \(k + 3\),
+    and then subtracting one.
+}
+
+\nt{
+    \noindent
+    First few terms of the weak Goodstein sequence starting at \(m = 21\) are:
+    \begin{align*}
+        m_0 &= 21 = 2^4 + 2^2 + 1 \\
+        m_1 &= 3^4 + 3^2 = 90 \\
+        m_2 &= 4^4 + 4^2 - 1 = 4^4 + 3 \cdot 4^1 + 3 = 271 \\
+        m_3 &= 5^4 + 3 \cdot 5^1 + 2 = 642 \\
+        m_4 &= 6^4 + 3 \cdot 6^1 + 1 = 1315 \\
+        m_5 &= 7^4 + 3 \cdot 7^1 = 2422 \\
+        m_6 &= 8^4 + 3 \cdot 8^1 - 1 = 8^4 + 2 \cdot 8^1 + 7 = 4119 \\
+        m_7 &= 9^4 + 2 \cdot 9^1 + 6 = 6585 \\
+        m_8 &= 10^4 + 2 \cdot 10^1 + 5 = 10025
+    \end{align*}
+}
+
+\mlemma[noDecreasingSeq]{}{
+    There is no strictly decreasing infinite sequence of ordinal numbers.
+    An infinite sequence \(f\) of ordinal numbers is \textit{strictly decreasing}
+    if \(\fall i \in \NN,\: f(n+1) < f(n)\).
+}
+\pf{Proof}{
+    Suppose \(f\) is a strictly decreasing infinite sequence of ordinal numbers for the sake of contradiction.
+    Then, as \(\ran f\) is a set of ordinal numbers,
+    by \ref{itm:basicOrdinal.iv}, there exists \(n \in \NN\) such that,
+    \(f(n) \le f(m)\) for all \(m \in \NN\).
+    However, we must have \(f(n) > f(n+1)\), which is a contradiction.
+}
+
+\thm[weakGoodsteinTerminate]{}{
+    For each \(m \in \NN_{> 0}\), the weak Goodstein sequence starting at \(m\)
+    eventually terminates with \(m_n = 0\) for some \(n\).
+}
+\pf{Proof}{
+    Take any \(m > 0\) and let \(\lang m_i \rang_{i \in \NN}\) be
+    the weak Goodstein sequence starting at \(m\).
+
+    Suppose \(m_i > 0\) for all \(i \in \NN\) for the sake of contradiction.
+    For each \(a \in \NN\), we may write \(m_a\) in base-\((a+2)\) as:
+    \[
+        m_a = (a+2)^{d_1} \cdot k_1 + (a+2)^{d_2} \cdot k_2 + \cdots + (a+2)^{d_n} \cdot k_n
+    \]
+    where \(\omega > d_1 > d_2 > \cdots > d_n\) and \(k_i < a+2\), and let
+    \[
+        \alpha_a \triangleq \omega^{d_1} \cdot k_1 + \omega^{d_2} \cdot k_2 + \cdots + \omega^{d_n} \cdot k_n.
+    \]
+    Then, the sequence \(\lang\,\alpha_0, \alpha_1, \cdots\,\rang\) is clearly strictly decreasing,
+    contradicting \Cref{lem:noDecreasingSeq}.
+}
+
+\nt{
+    The \textit{hereditary base-\(n\) notation}
+    is a base-\(n\) notation but every exponent should itself be a number less than \(n\)
+    or written in a hereditary base-\(n\) notation.
+    For instance,
+    \[
+        100 = 3^{3^1} + 2 \cdot 3^2 + 1
+    \]
+    is the hereditary base-\(3\) notation of \(100\).
+}
+
+\dfn[goodsteinSeq]{Goodstein Sequence}{
+    The Goodstein sequence starting at \(m > 0\)
+    is the sequence where \(m_0 = m\)
+    and the next entry of \(m_k\) is obtained by
+    writing \(m_k\) in the hereditary base-\((k+2)\) notation,
+    replacing every occurrence of \(k+2\) with \(k+3\),
+    and subtracting one.
+}
+
+\nt{
+    \noindent
+    First few terms of Goodstein sequence starting at \(m = 21\) are:
+    \begin{align*}
+        m_0 &= 2^{2^{2^1}} + 2^{2^1} + 1 &&= 21 &\mbox{} \\
+        m_1 &= 3^{3^{3^1}} + 3^{3^1} &&= 7625597485014 \\
+        m_2 &= 4^{4^{4^1}} + 4^{4^1} - 1 = 4^{4^{4^1}} + 3 \cdot 4^{3} + 3 \cdot 4^2 + 3 \cdot 4^1 + 3 &&\approx 1.340781 \times 10^{155} \\
+        m_3 &= 5^{5^{5^1}} + 3 \cdot 5^{3} + 3 \cdot 5^2 + 3 \cdot 5^1 + 2 &&\approx 1.911013 \times 10^{2184} \\
+        m_4 &= 6^{6^{6^1}} + 3 \cdot 6^{3} + 3 \cdot 6^2 + 3 \cdot 6^1 + 1 &&\approx 2.659120 \times 10^{36305} \\
+        m_5 &= 7^{7^{7^1}} + 3 \cdot 7^{3} + 3 \cdot 7^2 + 3 \cdot 7^1 &&\approx 3.759824 \times 10^{695974} \\
+        m_6 &= 8^{8^{8^1}} + 3 \cdot 8^{3} + 3 \cdot 8^2 + 2 \cdot 8^1 + 7 &&\approx 6.014521 \times 10^{15151335}
+    \end{align*}
+}
+
+\thm[goodstein]{Goodstein's Theorem}{
+    For each \(m > 0\), the Goodstein sequence starting at \(m\)
+    eventually terminates with \(m_n = 0\) for some \(n \in \NN\).
+}
+\pf{Proof}{
+    Take any \(m > 0\) and let \(\lang m_i \rang_{i \in \NN}\) be
+    the Goodstein sequence starting at \(m\).
+
+    Suppose \(m_i > 0\) for all \(i \in \NN\) for the sake of contradiction.
+    For each \(a \in \NN\), we get \(\omega_a\) by writing \(m_a\)
+    in the hereditary base-\((a+2)\) notation
+    and replacing every \(a + 2\) with \(\omega\).
+    Then, the sequence \(\lang\,\alpha_0, \alpha_1, \cdots\,\rang\) is clearly strictly decreasing,
+    contradicting \Cref{lem:noDecreasingSeq}.
+}
+
+\end{document}
