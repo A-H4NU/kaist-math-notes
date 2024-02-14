@@ -53,8 +53,8 @@
 \thm[transRecursion]{The Transfinite Recursion Theorem}{
     Let \(\mbf{G}\) be an operation.
     Then, the property \(\mbf{P}(x, y)\) stated in \eqref{eq:transRecursion} defines an operation \(\mbf{F}\)
-    such that \(\mbf{F}(\alpha) = \mbf{G} \left(\restr{\mbf{F}}{\alpha}\right)\)
-    for all ordinals \(\alpha\) where \(\restr{\mbf{F}}{\alpha}\) is the transfinite sequence
+    such that \(\fall \alpha \in \Ord,\: \mbf{F}(\alpha) = \mbf{G} \left(\restr{\mbf{F}}{\alpha}\right)\)
+    where \(\restr{\mbf{F}}{\alpha}\) is the transfinite sequence
     of length \(\alpha\) defined by \(x \mapsto \mbf{F}(x)\).
 
     \begin{equation}
@@ -63,10 +63,10 @@
             & \quad\left\{
             \begin{aligned}
                 & \begin{aligned}
-                    &x\text{ is an ordinal and }y = t(x)\text{ for some computation }t \\
+                    &x \in \Ord\text{ and }y = t(x)\text{ for some computation }t \\
                     &\qquad\text{ of length }x\text{ based on }\mbf{G},
                 \end{aligned} \\
-                \text{or }& x\text{ is not an ordinal and }y = \OO
+                \text{or }& x \notin \Ord \land y = \OO
             \end{aligned}
             \right.
         \end{aligned}
@@ -192,8 +192,8 @@
     Let \(\mbf{G}\) be an operation.
     Then, the property \(\mbf{Q}(z, x, y)\) stated in \eqref{eq:transRecursionParam}
     defines an operation \(\mbf{F}\)
-    such that \(\mbf{F}(z, \alpha) = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha}\right)\)
-    for all ordinals \(\alpha\) and all sets \(z\).
+    such that \(\fall z,\: \fall \alpha \in \Ord,\: \mbf{F}(z, \alpha)
+    = \mbf{G}\left(z, \restr{\mbf{F}_z}{\alpha}\right)\).
 
     \begin{equation}
         \begin{aligned}
@@ -201,10 +201,10 @@
             & \quad\left\{
             \begin{aligned}
                 & \begin{aligned}
-                    &x\text{ is an ordinal and }y = t(x)\text{ for some computation }t \\
+                    &x \in \Ord\text{ and }y = t(x)\text{ for some computation }t \\
                     &\qquad\text{ of length }x\text{ based on }\mbf{G}\text{ and }z,
                 \end{aligned} \\
-                \text{or }& x\text{ is not an ordinal and }y = \OO
+                \text{or }& x \notin \Ord \land y = \OO
             \end{aligned}
             \right.
         \end{aligned}

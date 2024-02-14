@@ -20,6 +20,12 @@
     \end{enumerate}
 }
 
+\notat{}{
+    We write \(\alpha \in \Ord\) instead of ``\(\alpha\) is an ordinal number.''
+    This is just a syntactic sugar, not implying \(\Ord\) is the set of all ordinals,
+    which does not exist by \ref{itm:basicOrdinal.v}.
+}
+
 \nt{
     \noindent
     Every natural number is an ordinal. (\nameref{th:NisWellOrdered})
@@ -43,11 +49,11 @@
 }
 
 \dfn[]{Successor Ordinal and Limit Ordinal}{
-    Let \(\alpha\) be an ordinal number.
+    Let \(\alpha \in \Ord\).
     \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
         \ii
         \(\alpha\) is called a \textit{successor ordinal}
-        if \(\alpha = \beta + 1\) for some ordinal \(\beta\).
+        if \(\alpha = \beta + 1\) for some \(\beta \in \Ord\).
         \ii
         Otherwise, \(\alpha\) is called a \textit{limit ordinal}.
     \end{itemize}
@@ -59,7 +65,7 @@
 }
 
 \mlemma[noOrdinalContainsItself]{}{
-    If \(\alpha\) is an ordinal number, then \(\alpha \notin \alpha\).
+    \(\fall \alpha \in \Ord,\: \alpha \notin \alpha\)
 }
 \pf{Proof}{
     If \(\alpha \in \alpha\), then it will
@@ -67,8 +73,7 @@
 }
 
 \mlemma[elementOfOrdinalIsOrdinal]{}{
-    Let \(\alpha\) be an ordinal number.
-    Then, every \(x \in \alpha\) is an ordinal number.
+    \(\fall \alpha \in \Ord,\: \fall x \in \alpha,\: x \in \Ord\)
 }
 \mclm{Proof}{
     Take any \(x \in \alpha\).
@@ -135,7 +140,7 @@ Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinal numbers.
     Every nonempty set of ordinal numbers has a \(\le\)-least element.
     \ii\label{itm:basicOrdinal.v}
     For every set \(X\) of ordinal numbers,
-    there exists an ordinal number \(\alpha'\) such that \(\alpha' \notin X\).
+    \(\exs \alpha' \in \Ord,\: \alpha' \notin X\).
 \end{enumerate}
 }
 \mclm{Proof}{\hfill
@@ -190,6 +195,7 @@ Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinal numbers.
 }
 
 \nt{
+    \noindent
     \ref{itm:basicOrdinal.v} insists that:
     \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
         \ii There is no set of all ordinals.
@@ -220,7 +226,7 @@ Let \(\alpha\), \(\beta\), and \(\gamma\) be ordinal numbers.
 }
 
 \nt{
-    Let \(\alpha\) be an ordinal.
+    Let \(\alpha \in \Ord\).
     If \(x \in \bigcup \alpha\), then \(x \in y \in \alpha\) for some \(y\),
     and thus \(x \in \alpha\) as \(\alpha\) is transitive.
     Hence, \(\bigcup \alpha \subseteq \alpha\).
