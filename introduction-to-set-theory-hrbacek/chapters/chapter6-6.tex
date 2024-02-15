@@ -8,10 +8,10 @@
     Let \(\alpha\) and \(\beta\) be ordinals.
     \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{lem:ordinalQuotientLog} (\roman*)}]
         \ii\label{itm:ordinalQuotient}
-        If \(0 < \alpha \le \beta\), then \(\{\,\xi \mid \xi~\text{is an ordinal and}~\alpha \cdot \xi \le \beta\,\}\)
+        If \(0 < \alpha \le \beta\), then \(\{\,\xi \in \Ord \mid \alpha \cdot \xi \le \beta\,\}\)
         has a greatest element.
         \ii\label{itm:ordinalLog}
-        If \(1 < \alpha \le \beta\), then \(\{\,\xi \mid \xi~\text{is an ordinal and}~\alpha^\xi \le \beta\,\}\)
+        If \(1 < \alpha \le \beta\), then \(\{\,\xi \in \Ord \mid \alpha^\xi \le \beta\,\}\)
         has a greatest element.
     \end{enumerate}
 }
@@ -28,7 +28,7 @@
     There exists \(\delta_1 < \delta_0\) such that \(\beta < \alpha \cdot \delta_1\)
     by \eqref{eq:ordinalMult3}, which is immediately a contradiction.
     Hence, there exists \(\gamma\) such that \(\delta_0 = \gamma + 1\),
-    and \(\gamma = \max \{\,\xi \mid \xi~\text{is an ordinal and}~\alpha \cdot \xi \le \beta\,\}\).
+    and \(\gamma = \max \{\,\xi \in \Ord \mid \alpha \cdot \xi \le \beta\,\}\).
 
     \ii
     Replace every multiplication in the proof of (i) into exponentiation.
@@ -42,7 +42,7 @@
     \(\beta = \alpha \cdot \gamma + \rho\) and \(\rho < \alpha\).
 }
 \pf{Proof}{
-    \(\gamma \triangleq \max \{\,\xi \mid \xi~\text{is an ordinal and}~\alpha \cdot \xi \le \beta\,\}\)
+    \(\gamma \triangleq \max \{\,\xi \in \Ord \mid \alpha \cdot \xi \le \beta\,\}\)
     exists by \ref{itm:ordinalQuotient}.
     By \Cref{lem:ordinalUniqueDifference}, there exists \(\rho\)
     such that \(\beta = \alpha \cdot \gamma + \rho\).
@@ -80,7 +80,7 @@
 
     Fix any ordinal \(\alpha > 1\) and assume \(\mbf{P}(\alpha')\) holds
     for all \(0 < \alpha' < \alpha\).
-    By \ref{itm:ordinalLog}, there exists \(\beta_1 \triangleq \max \{\,\xi \mid \omega^\xi \le \alpha\,\}\).
+    By \ref{itm:ordinalLog}, there exists \(\beta_1 \triangleq \max \{\,\xi \in \Ord \mid \omega^\xi \le \alpha\,\}\).
     Then, there exists \(k_1\) and \(\rho\) such that
     \(\alpha = \omega^{\beta_1} \cdot k_1 + \rho\)
     and \(\rho < \omega^\beta_1\).

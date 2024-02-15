@@ -1,0 +1,208 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[7.1.1]{}{
+    If \(X\) is an infinite well-orderable set,
+    then \(X\) has nonisomorphic well-orderings.
+}
+\pf{Proof}{
+    Let \(R \subseteq X \times X\) be a well-ordering of \(X\).
+    Then, by \nameref{th:counting}, there exists \(\alpha \in \Ord\)
+    such that \((X, R) \cong \alpha\).
+    Let \(f \colon X \bijto \alpha\).
+
+    By \Cref{th:finiteOrdinalIsNat}, \(\omega \subseteq \alpha\).
+    By \Cref{exer:4.3.2}, there exists \(g \colon \omega \bijto (\omega \cup \{\alpha\})\).
+    Define \(f' \colon X \bijto (\alpha + 1)\) by
+    \[
+        f'(x) \triangleq \begin{cases}
+            g(f(x)) & \text{if}~f(x) \in \omega \\
+            f(x)    & \text{otherwise}.
+        \end{cases}
+    \]
+    Then, \(R' \triangleq \{\,(x, y) \in X^2 \mid f'(x) < f'(y) \,\}\)
+    is a well-ordering of \(X\) isomorphic to \(\alpha + 1\).
+}
+
+\exer[7.1.2]{}{
+    Let \(\alpha, \beta \in \Ord\) where \(\alpha\) and \(\beta\) are countable.
+    Then, \(\alpha + \beta\), \(\alpha \cdot \beta\), and \(\alpha^\beta\)
+    are countable.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    By \Cref{th:sumOfWosetAndOrdinal},
+    \(\alpha + \beta\) is isomorphic to the sum of \(\alpha\) and \(\beta\),
+    which is countable by \Cref{th:unionOfCountable}. \checkmark
+
+    \ii
+    By \Cref{th:orderTypeOfProduct},
+    \(\alpha \cdot \beta\) is isomorphic to the lexicographical ordering of \(\beta \times \alpha\),
+    which is countable by \Cref{th:productOfCountable}. \checkmark
+
+    \ii
+    We only consider the case where both \(\alpha\) and \(\beta\) are countably infinite.
+    \(S(\beta, \alpha)\) in \Cref{exer:6.5.16} is equipotent to \(\alpha^\beta\).
+    We have
+    \begin{align*}
+        |S(\beta, \alpha)|
+        &= |\{\,f \colon \beta \to \alpha \mid s(f)~\text{if finite}\,\}| \\
+        &= \left|\textstyle \bigcup_{n \in \omega} \big\{\,f \colon \beta \to \alpha \:\big|\: |s(f)| = n\,\big\}\right|.
+    \end{align*}
+    For each \(n \in \omega\), as \(A_n \triangleq
+    \big\{\,f \colon \beta \to \alpha \:\big|\: |s(f)| = n\,\big\} \subseteq S(\beta, \alpha)\),
+    it is well-ordered by \(\preceq\) (in \Cref{exer:6.5.16});
+    hence there exists a unique ordinal \(\gamma_n\) isomorphic to \(A_n\).
+    Let \(h_n\) be the unique isomorphism between \(\gamma_n\) and \(A_n\).
+    We also have \(|A_n| = \big| [\beta]^n \times \prod_{i<n} \alpha \big| = \aleph_0 \cdot \aleph_0^n = \aleph_0\)
+    for \(n > 0\) by \Cref{th:productOfCountable,exer:4.3.5}.
+
+    Hence, \(\left|\bigcup_{n \in \omega} \big\{\,f \colon \beta \to \alpha \:\big|\: |s(f)| = n\,\big\}\right|
+    = \big|\bigcup_{n \in \omega} \ran h_n\big| = \aleph_0\)
+    by \Cref{th:unionOfCountable}. \checkmark \qed
+\end{itemize}
+}
+
+\exer[7.1.3]{}{
+    \(\fall A,\: \exs f \colon \mcal P(A \times A) \surjto h(A)\)
+}
+\pf{Proof}{
+    For each well-ordering \(R\) of \(W \subseteq A\), let \(\alpha_R\)
+    be the unique ordinal isomorphic to \((W, R)\) thanks to \nameref{th:counting}.
+    Note that \(|\alpha_R| = |A| < |h(A)|\) by \Cref{lem:ordinalHartogsGreater}, and thus \(\alpha_R < h(A)\).
+    Define a function \(f \colon \mcal P(A \times A) \to h(A)\) by
+    \[
+        f(R) \triangleq \begin{cases}
+            \alpha_R & \text{if}~R~\text{is a well-ordering of}~\field R \\
+            0 & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, \(\ran f\) exactly equals \(H\) defined in the proof of
+    \Cref{lem:hartogsNumberExists}, which in turn equals \(h(A)\).
+}
+
+\exer[7.1.4]{}{
+    \(\fall A,\: |A| < |A| + |h(A)|\)
+}
+\pf{Proof}{
+    \WLOG, \(A \cap h(A) = \OO\).
+    Since we already have \(|A| \le |A| + |h(A)|\), we only need to prove
+    \(|A| \neq |A| + |h(A)|\).
+
+    Suppose \(|A| = |A| + |h(A)|\) for the sake of contradiction.
+    Then, we have \(|h(A)| \le |A| + |h(A)| = |A|\),
+    which contradicts \(|h(A)| \not\le |A|\).
+}
+
+\exer[7.1.5]{}{
+    \(\fall A,\: |h(A)| < |\mcal P(\mcal P(A \times A))|\)
+}
+\pf{Proof}{
+    As in the proof of \Cref{lem:hartogsNumberExists},
+    \(\alpha \in h(A)\) if and only if there exists some \(R \subseteq A \times A\)
+    such that \((\field R, R)\) is isomorphic to \(\alpha\).
+    Define \(f \colon \mcal P(h(A)) \to \mcal P(\mcal P(A \times A))\) by
+    \[
+        X \mapsto \{\,R \subseteq A \times A \mid \exs \alpha \in X,\: (\field R, R) \cong \alpha\,\}.
+    \]
+    Then, \(f\) is injective; thus
+    \(|h(A)| < |\mcal P(h(A))| \le |\mcal P(\mcal P(A \times A))|\)
+    by \nameref{th:cantor}.
+}
+
+\exer[7.1.6]{}{
+    Let \(h^\ast(A)\) be the least ordinal \(\alpha\)
+    such that there does not exist \(f \colon A \surjto \alpha\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(h^\ast(A)\) exists for all \(A\).
+        \ii \(\fall \alpha \in \Ord,\: (\alpha \ge h^\ast(A) \implies \nexists f \colon A \surjto \alpha)\).
+        \ii \(h^\ast(A)\) is an initial ordinal.
+        \ii \(h(A) \le h^\ast(A)\).
+        \ii If \(A\) is well-orderable, then \(h(A) = h^\ast(A)\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Let \(\opname{Pt}(A)\) be the set of all \hyperref[dfn:partition]{partitions} of \(A\). Let
+    \[
+        H^\ast \triangleq \{\,\alpha \in \Ord \mid
+        \exs S \in \opname{Pt}(A),\: \exs R \subseteq S \times S,\:
+        (S, R) \cong \alpha\,\}.
+    \]
+    \(H^\ast\) exists by \nameref{th:counting} and \nameref{ax:replacement}.
+    \clm[ljtFsxqK]{
+        \(\fall \alpha \in \Ord,\: (\exs f \colon A \surjto \alpha \iff \alpha \in H^\ast)\)
+    }{
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))]
+        Let \(f \colon A \surjto \alpha\).
+        Then, \(S \triangleq \{\,f\inv[\{\beta\}] \mid \beta < \alpha\,\}\)
+        is a partition of \(A\), and
+        the relation \(R\) on \(S\) defined by \(R = \{\,(f\inv[\{\beta\}], f\inv[\{\gamma\}]) \mid
+        \beta < \gamma < \alpha\,\}\) is isomorphic to \(\alpha\) since \(\ran f = \alpha\).
+        Hence, \(\alpha \in H^\ast\).
+
+        \ii[(\(\Leftarrow\))]
+        There exist \(S \in \opname{Pt}(A)\) and \(R \subseteq S \times S\)
+        such that \((S, R) \cong \alpha\).
+        Let \(g \colon S \bijto \alpha\) be the isomorphism between \((S, R)\) and \(\alpha\).
+        Define \(f \colon A \to \alpha\) by
+        \(a \mapsto g(C)\) where \(C \in S\) is the unique element of \(S\)
+        such that \(a \in C\).
+        Then, \(\ran f = \alpha\) as each \(C \in S\) is nonempty.
+        \qed
+    \end{itemize}
+    }
+
+    \Cref{clm:ljtFsxqK} says that \(H^\ast\) is transitive.
+    Moreover, by \ref{itm:basicOrdinal.iv},
+    \(H^\ast\) is well-ordered by \(\in\).
+    Hence, \(H^\ast \in \Ord\).
+
+    By \Cref{lem:noOrdinalContainsItself}, \(H^\ast \notin H^\ast\);
+    thus \(\nexs f \colon A \surjto H^\ast\) by \Cref{clm:ljtFsxqK}.
+    If \(\alpha \in H^\ast\), then \(\exs f \colon A \surjto H^\ast\)
+    by \Cref{clm:ljtFsxqK}. Therefore, \(h^\ast(A) = H^\ast\).
+
+    \ii
+    Take any \(\alpha \in \Ord\).
+    Assume \(\exs f \colon A \surjto \alpha\).
+    Then, by \Cref{clm:ljtFsxqK}, \(\alpha < h^\ast(A)\).
+
+    \ii
+    Suppose \(\exs \beta < h^\ast(A),\: |\beta| = |h^\ast(A)|\) for the sake of contradiction.
+    Then, there exists \(f \colon A \surjto \beta\).
+    Let \(g \colon \beta \bijto h^\ast(A)\).
+    Then, \(g \circ f \colon A \surjto h^\ast(A)\), which is a contradiction.
+
+    \ii
+    Take any \(\alpha < h(A)\).
+    Then, \(\exs g \colon \alpha \injto A\).
+    Now, define \(f \colon A \to \alpha\) by
+    \[
+        f(a) \triangleq \begin{cases}
+            g\inv(a) & \text{if}~a \in \ran g \\
+            0 & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, \(f\) is onto \(\alpha\); thus \(\alpha < h^\ast(A)\) by \Cref{clm:ljtFsxqK}.
+    Therefore, \(h(A) \le h^\ast(A)\).
+
+    \ii
+    Assume \((A, \preceq)\) is a well-ordered set.
+    Take any \(\alpha < h^\ast(A)\).
+    Then, there exists \(f \colon A \surjto \alpha\).
+    Define \(g \colon \alpha \to A\) by
+    \(g(\beta) \triangleq \min_{\preceq} f\inv[\{\beta\}]\).
+    It is well defined since \(f\) is onto \(\alpha\).
+    Then, \(g\) is injective; thus \(|\alpha| \le |A|\),
+    which implies \(\alpha < h(A)\). \qed
+\end{enumerate}
+}
+
+\end{document}

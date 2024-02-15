@@ -84,7 +84,7 @@
     isomorphic to \(\alpha_1\) and \(\alpha_2\), respectively,
     and let \((W, \le)\) be the sum of \((W_1, \le_1)\) and \((W_2, \le_2)\).
     (See \Cref{lem:orderOnUnion}.)
-    Then, \((W, \le)\) is isomorphic to \(\alpha_1 + \alpha_2\).
+    Then, \((W, \le) \cong \alpha_1 + \alpha_2\).
 }
 \mclm{Proof}{
     We may assume that \(W_1\) and \(W_2\) are disjoint, that \(W = W_1 \cup W_2\).
@@ -92,10 +92,10 @@
     \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
         \ii
         Let \(\alpha_2 = \beta + 1\) for some ordinal \(\beta\)
-        and assume the theorem holds whenever \(W_2\) is isomorphic to \(\beta\).
+        and assume the theorem holds whenever \(W_2 \cong \beta\).
         \(W_2\) has a greatest element \(a\),
         which is also a greatest element of \(W\).
-        Moreover, \(W_2[a]\) is isomorphic to \(\beta\),
+        Moreover, \(W_2[a] \cong \beta\),
         and thus \(W[a]\) is isomorphic to the sum of \(W_1\) and \(W_2[a]\).
 
         By the induction hypothesis,
@@ -109,10 +109,10 @@
         and assume the theorem holds whenever \(W_2\) is isomorphic to an ordinal less than \(\alpha_2\).
         For each \(\beta < \alpha_2\), justified by \Cref{th:wosetComparable},
         let \(a_\beta\) be the unique element of \(W_2\)
-        such that \(\beta\) is isomorphic to \(W_2[a_\beta]\).
+        such that \(\beta \cong W_2[a_\beta]\).
 
         Then, by the induction hypothesis, for each \(\beta < \alpha_2\),
-        noting that the sum of \(W_1\) and \(W_2[a_\beta]\) is isomorphic to \(W[a_\beta]\),
+        noting that the sum of \(W_1\) and \(W_2[a_\beta] \cong W[a_\beta]\),
         we may let \(f_\beta\) to be the unique isomorphism between \(\alpha_1 + \beta\)
         and \(W[a_\beta]\). (Once again, uniqueness follows from \Cref{th:wosetComparable}.)
         Now, define \(f \triangleq \bigcup_{\beta < \alpha_2} f_{\beta}\).

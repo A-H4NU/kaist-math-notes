@@ -1,0 +1,226 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Initial Ordinals}
+
+\dfn[initialOrdinal]{Initial Ordinal}{
+    An ordinal number \(\alpha\) is called an \textit{initial ordinal}
+    if it is not equipotent to any \(\beta < \alpha\).
+}
+
+\exmp{}{
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii Every natural number is an initial ordinal.
+        \ii \(\omega\) is an initial ordinal. (\ref{itm:basicFinite.iii})
+        \ii None of \(\omega + 1, \omega + 2, \cdots, \omega \cdot \omega, \cdots, \omega^{\omega}, \cdots\) is initial.
+    \end{itemize}
+}
+
+\thm[wosetEquipotentToInitial]{}{
+    Each well-orderable set \(X\) is equipotent to a unique initial ordinal number.
+}
+\pf{Proof}{
+    By \nameref{th:counting}, there exists an ordinal number \(\alpha\) such that
+    \(|X| = |\alpha|\).
+    Hence, \(\alpha_0 \triangleq \min \{\,\alpha \in \Ord \mid |X| = |\alpha|\,\}\)
+    exists by \nameref{ax:comprehension} and \ref{itm:basicOrdinal.iv}.
+    Then, \(\alpha_0\) is a limit ordinal
+    because \(\exs \beta < \alpha_0,\: |\alpha_0| = |\beta|\) would imply \(|\beta| = |X|\),
+    which contradicts the minimality of \(\alpha_0\).
+
+    If \(\alpha_1\) and \(\alpha_2\) are different initial ordinals,
+    then we cannot have \(|\alpha_1| = |\alpha_2|\)
+    since one of them is less than the other.
+    Hence, the uniqueness is shown.
+}
+
+\dfn[]{Cardinality of Well-Orderable Sets}{
+    If \(X\) is a well-orderable set,
+    we define \(|X|\) to be the unique initial ordinal which is equipotent to \(\alpha\).
+    This is justified by \Cref{th:wosetEquipotentToInitial}.
+}
+
+\mlemma[hartogsNumberExists]{}{
+    Let \(A\) be any set.
+    Then, there exists the least ordinal number \(\alpha\)
+    such that \(|\alpha| \not\le |A|\).
+}
+\pf{Proof}{
+    By \nameref{th:counting},
+    for each well-ordered set \((W, R)\) where \(W \subseteq A\),
+    there exists a unique ordinal \(\alpha\) such that \(\alpha\) is isomorphic to \((W, R)\).
+    Hence, by \nameref{ax:replacement}, the set
+    \[
+        H \triangleq \{\,\alpha \in \Ord \mid
+        \exs R \subseteq A \times A,\: (\field R, R) \cong \alpha\,\}
+    \]
+    exists.
+
+    \clm[eYkMWAIP]{
+        \(\fall \alpha \in \Ord,\: (|\alpha| \le |A| \iff \alpha \in H)\)
+    }{
+        \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+            \ii[(\(\Rightarrow\))]
+            It is direct from the definition.
+            \ii[(\(\Leftarrow\))]
+            Let \(f \colon \alpha \injto A\) and \(W \triangleq \ran f\).
+            Define \(R \triangleq \{\,(f(\beta), f(\gamma)) \mid \beta < \gamma < \alpha\,\}\).
+            Then, \((W, R)\) is a well-ordered set
+            and \(f\) is an isomorphism between \(\alpha\) and \((W, R)\).
+            \qed
+        \end{itemize}
+    }
+
+    As \(H\) is a set of ordinal numbers, it is well-ordered by \(\in\).
+    Moreover, if \(\alpha \in \beta \in H\),
+    then \(\alpha \subsetneq \beta\) by \Cref{lem:psbsOfOrdinalIsElement};
+    thus \(|\alpha| \le |\beta| \le |A|\) by \Cref{exer:4.1.3},
+    which implies \(\alpha \in H\) by \Cref{clm:eYkMWAIP}.
+    Hence, \(H \in \Ord\).
+
+    We have \(H \notin H\) by \Cref{lem:noOrdinalContainsItself};
+    hence \(|H| \not\le |A|\) by \Cref{clm:eYkMWAIP}.
+    Moreover, every \(\alpha < H\) satisfies \(|\alpha| \le |A|\) by \Cref{clm:eYkMWAIP};
+    \(H\) is the least ordinal we are looking for.
+}
+
+\dfn[hartogsNumber]{Hartogs Number}{
+    For any \(A\), let \(h(A)\) denote the least ordinal \(\alpha\)
+    such that \(|\alpha| \not\le |A|\).
+    \(h(A)\) is called the \textit{Hartogs number} of \(A\).
+    This is justified by \Cref{lem:hartogsNumberExists}.
+}
+
+\mlemma[ordinalHartogsGreater]{}{
+    \(\fall \alpha \in \Ord, |\alpha| < |h(\alpha)|\)
+}
+\pf{Proof}{\hfill
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        If \(\alpha = h(\alpha)\), it contradicts \(|h(\alpha)| \not\le |\alpha|\).
+        \ii
+        If \(\alpha > h(\alpha)\), then we have \(|h(\alpha)| \le |\alpha|\) by
+        \Cref{exer:4.1.3,lem:psbsOfOrdinalIsElement}, which is a contradiction.
+    \end{itemize}
+    Hence, we must have \(\alpha < h(\alpha)\).
+    Then, by \Cref{exer:4.1.3,lem:psbsOfOrdinalIsElement}, \(|\alpha| \le |h(\alpha)|\);
+    but \(|\alpha| \neq |h(\alpha)|\). Therefore, the result follows.
+}
+
+\nt{
+    \noindent
+    Take any \(\alpha \in \Ord\).
+}
+
+\mlemma[hartogsNumberIsInitial]{}{
+    For any \(A\), \(h(A)\) is an initial ordinal.
+}
+\pf{Proof}{
+    Suppose that \(\exs \beta < h(A),\: |\beta| = |h(A)|\).
+    Then, \(|\beta| \le |A|\) by definition of \(h(A)\)
+    while we also have \(|\beta| = |h(A)|\),
+    which contradicts \(|h(A)| \not\le |A|\).
+}
+
+\dfn[ordinalOmega]{}{
+    \begin{alignat*}{2}\SwapAboveDisplaySkip
+        \omega_0 &= \omega \\
+        \omega_{\alpha + 1} &= h(\omega_\alpha) &\qquad& \text{for all ordinals}~\alpha \\
+        \omega_\alpha &= \sup \{\,\omega_\beta \mid \beta < \alpha\,\} && \text{for all nonzero limit ordinals}~\alpha
+    \end{alignat*}
+}
+
+\nt{
+    Since \(|\omega_{\alpha+1}| \not\le |\omega_\alpha|\),
+    we have \(|\omega_\alpha| < |\omega_{\alpha+1}|\)
+    as one of two ordinals must have the other as its subset.
+    Therefore, with \nameref{th:secondTransInduction},
+    one might be able to prove \(\alpha < \beta \implies |\omega_\alpha| < |\omega_\beta|\).
+}
+
+\thm[omegaIffInfInitial]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:omegaIffInfInitial} (\roman*)}]
+        \ii
+        For each \(\alpha \in \Ord\), \(\omega_{\alpha}\) is an infinite initial ordinal number.
+        \ii
+        If \(\Omega\) is an infinite initial ordinal number,
+        then \(\exs \alpha \in \Ord,\: \Omega = \omega_{\alpha}\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\omega_{\alpha}\) is infinite for all \(\alpha \in \Ord\) by the discussion above.
+    If \(\alpha = 0\) or \(\alpha\) is a successor ordinal,
+    then \(\omega_\alpha\) is initial ordinal by \Cref{lem:hartogsNumberIsInitial}.
+
+    Take any nonzero limit ordinal \(\alpha\)
+    and suppose \(\exs \gamma < \omega_{\alpha},\: |\gamma| = |\omega_{\alpha}|\)
+    for the sake of contradiction.
+    Then, there exists \(\beta < \alpha\) such that \(\gamma < \omega_{\beta}\),
+    which implies \(|\omega_\alpha| = |\gamma| \le |\omega_\beta| < |\omega_\alpha|\).
+
+    \ii
+    We first prove the following claim.
+    \clm[BRQUcvXT]{
+        For each ordinal \(\alpha\) and infinite initial ordinal \(\Omega < \omega_\alpha\),
+        \(\exs \gamma < \alpha,\: \Omega = \omega_\gamma\).
+    }{
+        We will conduct the transfinite induction on \(\alpha\).
+        Let \(\mbf{P}(\alpha)\) be the property
+        ``If \(\Omega < \omega_\alpha\) is an infinite initial ordinal,
+        then \(\exs \gamma < \alpha,\: \Omega = \omega_\gamma\).''
+        \(\mbf{P}(0)\) holds since \(\omega_0\) is the least infinite initial ordinal.
+
+        Take any ordinal \(\alpha\) and assume \(\mbf{P}(\alpha)\).
+        Take any infinite initial ordinal \(\Omega < \omega_{\alpha + 1} = h(\omega_\alpha)\).
+        Then, by \Cref{dfn:hartogsNumber}, \(|\Omega| \le |\omega_{\alpha}|\).
+        \(\omega_{\alpha} < \Omega\) is not an option since
+        we have \(|\omega_{\alpha}| = |\Omega|\)
+        by \Cref{exer:4.1.3}, \Cref{lem:psbsOfOrdinalIsElement}, and \Cref{th:cantor},
+        which contradicts the fact that \(\Omega\) is an initial ordinal.
+        If \(\Omega = \omega_{\alpha}\), then it is done.
+        If \(\Omega < \omega_{\alpha}\), then by \(\mbf{P}(\alpha)\),
+        there exists \(\gamma < \alpha < \alpha + 1\)
+        such that \(\Omega = \omega_\gamma\).
+
+        Now, take any nonzero limit ordinal \(\alpha\) and assume
+        \(\mbf{P}(\alpha')\) holds for all \(\alpha' < \alpha\).
+        Take any infinite initial ordinal \(\Omega < \omega_\alpha\).
+        Then, by \Cref{dfn:ordinalOmega}, there exists \(\beta < \alpha\)
+        such that \(\Omega < \omega_\beta\).
+        Hence, by the induction hypothesis, \(\Omega = \omega_\gamma\)
+        for some \(\gamma < \beta < \alpha\). \qed
+    }
+
+    One may readily show that \(\alpha \le \omega_\alpha\) for all \(\alpha \in \Ord\)
+    with \nameref{th:secondTransInduction}.
+    Take any infinite limit ordinal \(\Omega\).
+    Then, \(\Omega \le \omega_{\Omega} < \omega_{\Omega + 1}\).
+    By \Cref{clm:BRQUcvXT}, there exists an ordinal \(\gamma \le \Omega\)
+    such that \(\Omega = \omega_{\gamma}\).
+    \qed
+\end{enumerate}
+}
+
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    Every infinite well-orderable set is equipotent to a unique infinite initial ordinal number.
+    (\Cref{th:wosetEquipotentToInitial})
+
+    \ii
+    \(\alpha\) is an infinite initial ordinal if and only if \(\alpha = \omega_{\gamma}\) for some \(\gamma \in \Ord\).
+    (\Cref{th:omegaIffInfInitial})
+\end{itemize}
+}
+
+\dfn[alephs]{Alephs}{
+    \(\aleph_{\alpha} = \omega_{\alpha}\) for each \(\alpha \in \Ord\).
+    They represent cardinalities of well-orderable infinite sets.
+}
+
+\subfile{../exercises/exercise7-1.tex}
+
+\end{document}
