@@ -1,0 +1,114 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{Addition and Multiplication of Alephs}
+
+\nt{
+    Refer to \Cref{sec:cardinalArith}: \nameref{sec:cardinalArith}
+    for definitions of addition and multiplication between two cardinals.
+}
+
+\thm[squareOfAlephs]{}{
+    \(\fall \alpha \in \Ord,\: \aleph_{\alpha} \cdot \aleph_{\alpha} = \aleph_{\alpha}\)
+}
+\pf{Proof}{
+    Take any ordinal \(\alpha\) and define \(\preceq\) on \(\omega_{\alpha} \times \omega_{\alpha}\) by
+    \[
+        (\alpha_1, \alpha_2) \preceq (\beta_1, \beta_2)
+        \iff
+        (\max \{\alpha_1, \alpha_2\}, \alpha_1, \alpha_2) \le_{\alpha} (\max \{\beta_1, \beta_2\}, \beta_1, \beta_2)
+    \]
+    where \(\le_{\alpha}\) is the lexicographical ordering of
+    \(\omega_{\alpha} \times \omega_{\alpha} \times \omega_{\alpha}\).
+    Then, \(\preceq\) is naturally a well-ordering of \(\omega_{\alpha} \times \omega_{\alpha}\)
+    since \(R_{\alpha}\) is a well-ordering.
+
+    Now, we will prove by transfinite induction on \(\alpha\).
+    We already have \(\aleph_0 \cdot \aleph_0 = \aleph_0\) by
+    \Cref{th:productOfCountable}.
+
+    Take any ordinal \(\alpha\) and assume that
+    \(\fall \beta < \alpha,\: \aleph_\beta \cdot \aleph_\beta \le \aleph_\beta\).
+
+    \clm[pfPmbtHV]{
+        For any \((\alpha_1, \alpha_2) \in \omega_{\alpha} \times \omega_{\alpha}\),
+        we have \(|X| < \aleph_\alpha\) where
+        \[
+            X \triangleq \{\,(\xi_1, \xi_2) \in \omega_{\alpha} \times \omega_{\alpha} \mid (\xi_1, \xi_2) \prec (\alpha_1, \alpha_2)\,\}.
+        \]
+    }{
+        Let \(\beta \triangleq \max \{\alpha_1, \alpha_2\} + 1\).
+        We have \(\beta < \omega_{\alpha}\).
+        Then, for every \((\xi_1, \xi_2) \in X\),
+        we have \(\max \{\xi_1, \xi_2\} \le \max \{\alpha_1, \alpha_2\} < \beta\)
+        by definition. Hence, \(\xi_1 < \beta\) and \(\xi_2 < \beta\).
+        In other words, \(X \subseteq \beta \times \beta\).
+
+        As \(\omega_{\alpha}\) is an initial ordinal,
+        \(|\beta| < \aleph_{\alpha}\).
+        Moreover, by \Cref{th:wosetEquipotentToInitial},
+        there exists \(\gamma < \alpha\) such that \(|\beta| \le \aleph_\gamma\). Therefore,
+        \begin{alignat*}{2}
+            |X| &\le |\beta \times \beta| &\qquad& \comment*{\Cref{exer:4.1.3}} \\
+                &\le \aleph_{\gamma} \cdot \aleph_{\gamma} \\
+                &\le \aleph_{\gamma} && \comment*{Induction Hypothesis} \\
+                &< \aleph_{\alpha}.
+        \end{alignat*}
+        \qed
+    }
+
+    If the order type of \((\omega_{\alpha} \times \omega_{\alpha}, \preceq)\) were greater than \(\omega_{\alpha}\),
+    then there exists an initial segment \(X\) of \((\omega_{\alpha} \times \omega_{\alpha}, \preceq)\)
+    such that \(|X| = \aleph_{\alpha}\),
+    which is impossible by \Cref{clm:pfPmbtHV}.
+    Hence, \(\aleph_{\alpha} \cdot \aleph_{\alpha} \le \aleph_{\alpha}\).
+    The result follows from \nameref{th:firstTransInduction}.
+}
+
+\cor[productOfAlephs]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{cor:productOfAlephs} (\roman*)}]
+        \ii
+        \(\fall \alpha, \beta \in \Ord,\: (\alpha \le \beta \implies \aleph_{\alpha} \cdot \aleph_{\beta} = \aleph_{\beta})\)
+        \ii
+        \(\fall \alpha \in \Ord,\: \fall n \in \NN,\: n \cdot \aleph_{\alpha} = \aleph_{\alpha}\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    It is direct that \(\aleph_{\beta} = 1 \cdot \aleph_{\beta} \le \aleph_{\alpha} \cdot \aleph_{\beta}\).
+    On the other hand, by \Cref{th:squareOfAlephs},
+    \(\aleph_{\alpha} \cdot \aleph_{\beta} \le \aleph_{\beta} \cdot \aleph_{\beta} = \aleph_{\beta}\).
+    Hence, by \nameref{th:cantorBernstein}, \(\aleph_{\alpha} \cdot \aleph_{\beta} = \aleph_{\beta}\).
+
+    \ii
+    It is direct that \(\aleph_{\alpha} = 1 \cdot \aleph_{\alpha} \le n \cdot \aleph_{\alpha}\).
+    On the other hand, by \Cref{th:squareOfAlephs},
+    \(n \cdot \aleph_{\alpha} \le \aleph_{\alpha} \cdot \aleph_{\alpha} = \aleph_{\alpha}\).
+    Hence, by \nameref{th:cantorBernstein}, \(\aleph_{\alpha} \cdot \aleph_{\beta} = \aleph_{\beta}\).
+    \qed
+\end{enumerate}
+}
+
+\cor[sumOfAlephs]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{cor:productOfAlephs} (\roman*)}]
+        \ii
+        \(\fall \alpha, \beta \in \Ord,\: (\alpha \le \beta \implies \aleph_{\alpha} + \aleph_{\beta} = \aleph_{\beta})\)
+        \ii
+        \(\fall \alpha \in \Ord,\: \fall n \in \NN,\: n + \aleph_{\alpha} = \aleph_{\alpha}\)
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(\aleph_{\beta} \le \aleph_{\alpha} + \aleph_{\beta} \le \aleph_{\beta} + \aleph_{\beta}
+    = 2 \cdot \aleph_{\beta} = \aleph_{\beta}\).
+    \ii
+    \(\aleph_{\alpha} \le n + \aleph_{\alpha} \le \aleph_{\alpha} + \aleph_{\alpha}
+    = 2 \cdot \aleph_{\alpha} = \aleph_{\alpha}\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}
