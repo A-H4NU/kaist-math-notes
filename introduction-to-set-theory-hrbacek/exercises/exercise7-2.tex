@@ -1,0 +1,145 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\setexernumber{2}
+
+\exer[7.2.3]{}{
+    Let \(0 < n < \omega\) and \(\alpha \in \Ord\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:7.2.3} (\roman*)}]
+        \ii\label{itm:7.2.3.i}
+        \(\aleph_{\alpha}^n = \aleph_{\alpha}\).
+        \ii\label{itm:7.2.3.ii}
+        \(\left|[\aleph_\alpha]^n\right| = \aleph_{\alpha}\). (See \Cref{exer:4.3.5} for notation.)
+        \ii\label{itm:7.2.3.iii}
+        \(\left|[\aleph_\alpha]^{< \omega}\right| = \aleph_{\alpha}\)
+        where \([\aleph_\alpha]^{< \omega} = \bigcup_{n \in \omega} [\aleph_{\alpha}]^n\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    If \(\aleph_{\alpha}^n = \aleph_{\alpha}\) for some \(n \in \omega\), then
+    \begin{alignat*}{2}
+        \aleph_{\alpha}^{n+1}
+        &= \aleph_{\alpha}^{n} \cdot \aleph_\alpha &\qquad \\
+        &= \aleph_{\alpha} \cdot \aleph_{\alpha} && \comment*{Induction Hypothesis} \\
+        &= \aleph_{\alpha}. && \comment*{\Cref{th:squareOfAlephs}}
+    \end{alignat*}
+    Hence, the result follows by \nameref{th:induction}.
+
+    \ii
+    The proof is analogous to that of \Cref{exer:4.3.5}.
+
+    \ii
+    By (ii), we have \(\left| [\aleph_\alpha]^{< \omega} \right| = \left| \bigcup_{n \in \omega} \aleph_\alpha^n \right|\).
+    By \Cref{th:squareOfAlephs},
+    there exists \(g \colon \aleph_{\alpha} \twoheadrightarrow \aleph_{\alpha} \times \aleph_{\alpha}\).
+    Define \(\lang\,a_n \mid n \in \omega\,\rang\) recursively by
+    \begin{alignat*}{2}
+        \fall \beta \in \aleph_\alpha, && a_0(\beta) &= \lang\rang \\
+        \fall n \in \omega, \fall \beta \in \aleph_{\alpha}, &\:&
+        a_{n+1}(\beta) &= \lang\,\gamma_0, \cdots, \gamma_{n-1}, \beta_2\,\rang \\
+               &&& \hphantom{=1}\text{where \(g(\beta) = (\beta_1, \beta_2)\) and
+                   \(a_n(\beta_1) = \lang\,\gamma_0, \cdots, \gamma_{n-1}\,\rang\).}
+    \end{alignat*}
+    The existence is justified by \nameref{th:recursion}.
+    Then, for each \(n \in \omega\), \(\ran a_n = \aleph_{\alpha}^n\).
+    Hence, one may define \(f \colon \omega \times \aleph_{\alpha} \surjto \bigcup_{n \in \omega} \aleph_\alpha^n\)
+    by \(f(n, \beta) = a_n(\beta)\).
+    Since \(|\omega \times \aleph_{\alpha}| = \aleph_0 \cdot \aleph_{\alpha} = \aleph_{\alpha}\)
+    by \ref{itm:productOfAlephs.i}, there
+    exists \(\eta \colon \aleph_{\alpha} \surjto \bigcup_{n \in \omega} \aleph_\alpha^n\).
+    Hence, by \Cref{exer:7.2.5}, \(\left| \bigcup_{n \in \omega} \aleph_\alpha^n \right| \le \aleph_{\alpha}\).
+    The result follows from \nameref{th:cantorBernstein}.
+    \qed
+\end{enumerate}
+}
+
+\exer[7.2.4]{}{
+    Let \(\alpha, \beta, \gamma \in \Ord\), and assume \(|\alpha| \le \aleph_\gamma\) and
+    \(|\beta| \le \aleph_\gamma\).
+    Then, \(|\alpha + \beta| \le \aleph_\gamma\), \(|\alpha \cdot \beta| \le \aleph_\gamma\),
+    and \(|\alpha^\beta| \le \aleph_\gamma\)
+}
+\pf{Proof}{
+    We directly have \(|\alpha + \beta| \le \aleph_\gamma\)
+    and \(|\alpha \cdot \beta| \le \aleph_\gamma\)
+    from \Cref{th:squareOfAlephs} and \Cref{cor:sumOfAlephs}.
+
+    It is evident that, if \(\beta\) is finite, \(|\alpha^\beta| \le \aleph_{\gamma}\).
+    One may prove this by \nameref{th:induction}.
+
+    By \Cref{exer:6.5.16}, \(|\alpha^\beta| = |X|\) where
+    \[
+        X \triangleq \{\,f \colon \beta \to \alpha \mid s(f)\text{ is finite}\,\}
+    \]
+    and \(s(f) \triangleq \{\,\xi < \beta \mid f(\xi) \neq 0\,\}\).
+
+    For each \(n \in \omega\), let \(A_n \triangleq
+    \big\{\,f \colon \beta \to \alpha \:\big|\: |s(f)| = n\,\big\} \subseteq X\).
+    Let \(P_n\) be the set of all injections on \(n\) into \(\beta\),
+    whose cardinality is at most \(\aleph_\gamma^n = \aleph_\gamma\) by
+    \ref{itm:7.2.3.i}.
+    Hence, for all \(0 < n < \omega\),
+    \begin{alignat*}{2}
+        |A_n|
+        &= \textstyle \big| P_n \times \prod_{i<n} \alpha \big| &\qquad \\
+        &\le \aleph_\gamma \cdot \aleph_\gamma^n \\
+        &= \aleph_\gamma. &\qquad& \comment*{\ref{itm:7.2.3.i}}
+    \end{alignat*}
+
+    Moreover, \(A_n\) is well-ordered by \(\preceq\) (in \Cref{exer:6.5.16});
+    hence there exists a unique ordinal \(\eta_n\) isomorphic to \(A_n\)
+    by \nameref{th:counting}.
+    Let \(h_n\) be the unique isomorphism between \(\eta_n\) and \(A_n\).
+    As \(\eta_n \le \omega_\gamma\), extend \(h_n\) by
+    \(h'_n \triangleq h_n \cup \{\,(\xi, \min_{\preceq} A_n) \mid \eta_n \le \xi < \omega_\gamma\,\}\)
+    so that \(h'_n \colon \aleph_{\gamma} \surjto A_n\).
+    Define \(g \colon \omega \times \aleph_\gamma \surjto X\)
+    by \(g(n, \xi) = h_n'(\xi)\)
+    Therefore, \(|X| \le |\omega \times \aleph_{\gamma}| = \aleph_{\gamma}\)
+    in the similar manner as the proof of \ref{itm:7.2.3.iii}.
+}
+
+\exer[7.2.5]{}{
+    Let \(\alpha \in \Ord\) and let \(f\) be a function on \(\alpha\).
+    Then, \(|\ran f| \le |\alpha|\).
+}
+\pf{Proof}{
+    Define \(g \colon f[\alpha] \injto \alpha\)
+    by \(g(x) \triangleq \min f\inv[\{x\}]\).
+    Then, \(g\) is injective.
+}
+
+\exer[7.2.6]{}{
+    Let \(X \subseteq \omega_{\alpha}\) with \(|X| < \aleph_{\alpha}\).
+    Then, \(|\omega_{\alpha} \setminus X| = \aleph_\alpha\).
+}
+\pf{Proof}{
+    The statement is true when \(\alpha = 0\).
+    Hence, assume \(\alpha > 0\).
+    We already have \(|\omega_\alpha \setminus X| \le \aleph_\alpha\)
+    by \Cref{exer:4.1.3}.
+    Suppose \(|\omega_\alpha \setminus X| < \aleph_\alpha\) for the sake of contradiction.
+
+    By \nameref{th:counting}, there exist \(\beta_1, \beta_2 \in \omega_{\alpha}\)
+    such that \(|\beta_1| = |X|\) and \(|\beta_2| = |\omega_{\alpha} \setminus X|\).
+    Then, there exist \(\gamma_1, \gamma_2 \in \alpha\) such that
+    \(|\beta_1| \le \aleph_{\gamma_1}\) and \(|\beta_2| \le \aleph_{\gamma_2}\).
+    Let \(\gamma_0 \triangleq \max \{\gamma_1, \gamma_2\}\).
+    Then,
+    \begin{alignat*}{2}
+        |\omega_{\alpha}|
+        &= |X| + |\omega_{\alpha} \setminus X| &\qquad \\
+        &\le \aleph_{\gamma_1} + \aleph_{\gamma_2} \\
+        &\le \aleph_{\gamma_0} + \aleph_{\gamma_0} \\
+        &= \aleph_{\gamma_0} && \comment*{\Cref{cor:sumOfAlephs}} \\
+        &< \aleph_{\alpha},
+    \end{alignat*}
+    which is a contradiction.
+}
+
+\end{document}

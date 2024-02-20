@@ -32,39 +32,8 @@
     Then, \(\alpha + \beta\), \(\alpha \cdot \beta\), and \(\alpha^\beta\)
     are countable.
 }
-\mclm{Proof}{\hfill
-\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
-    \ii
-    By \Cref{th:sumOfWosetAndOrdinal},
-    \(\alpha + \beta\) is isomorphic to the sum of \(\alpha\) and \(\beta\),
-    which is countable by \Cref{th:unionOfCountable}. \checkmark
-
-    \ii
-    By \Cref{th:orderTypeOfProduct},
-    \(\alpha \cdot \beta\) is isomorphic to the lexicographical ordering of \(\beta \times \alpha\),
-    which is countable by \Cref{th:productOfCountable}. \checkmark
-
-    \ii
-    We only consider the case where both \(\alpha\) and \(\beta\) are countably infinite.
-    \(S(\beta, \alpha)\) in \Cref{exer:6.5.16} is equipotent to \(\alpha^\beta\).
-    We have
-    \begin{align*}
-        |S(\beta, \alpha)|
-        &= |\{\,f \colon \beta \to \alpha \mid s(f)~\text{if finite}\,\}| \\
-        &= \left|\textstyle \bigcup_{n \in \omega} \big\{\,f \colon \beta \to \alpha \:\big|\: |s(f)| = n\,\big\}\right|.
-    \end{align*}
-    For each \(n \in \omega\), as \(A_n \triangleq
-    \big\{\,f \colon \beta \to \alpha \:\big|\: |s(f)| = n\,\big\} \subseteq S(\beta, \alpha)\),
-    it is well-ordered by \(\preceq\) (in \Cref{exer:6.5.16});
-    hence there exists a unique ordinal \(\gamma_n\) isomorphic to \(A_n\).
-    Let \(h_n\) be the unique isomorphism between \(\gamma_n\) and \(A_n\).
-    We also have \(|A_n| = \big| [\beta]^n \times \prod_{i<n} \alpha \big| = \aleph_0 \cdot \aleph_0^n = \aleph_0\)
-    for \(n > 0\) by \Cref{th:productOfCountable,exer:4.3.5}.
-
-    Hence, \(\left|\bigcup_{n \in \omega} \big\{\,f \colon \beta \to \alpha \:\big|\: |s(f)| = n\,\big\}\right|
-    = \big|\bigcup_{n \in \omega} \ran h_n\big| = \aleph_0\)
-    by \Cref{th:unionOfCountable}. \checkmark \qed
-\end{itemize}
+\pf{Proof}{
+    This is a special case of \Cref{exer:7.2.4}.
 }
 
 \exer[7.1.3]{}{
@@ -117,12 +86,13 @@
 \exer[7.1.6]{}{
     Let \(h^\ast(A)\) be the least ordinal \(\alpha\)
     such that there does not exist \(f \colon A \surjto \alpha\).
-    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exer:7.1.6} (\roman*)}]
         \ii \(h^\ast(A)\) exists for all \(A\).
         \ii \(\fall \alpha \in \Ord,\: (\alpha \ge h^\ast(A) \implies \nexists f \colon A \surjto \alpha)\).
         \ii \(h^\ast(A)\) is an initial ordinal.
         \ii \(h(A) \le h^\ast(A)\).
-        \ii If \(A\) is well-orderable, then \(h(A) = h^\ast(A)\).
+        \ii\label{itm:7.1.6.v}
+        If \(A\) is well-orderable, then \(h(A) = h^\ast(A)\).
     \end{enumerate}
 }
 \mclm{Proof}{\hfill
