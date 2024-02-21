@@ -1,0 +1,360 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\section{The Axiom of Choice and its Equivalents}
+
+\dfn[choiceFunction]{Choice Function}{
+    A function \(g \colon S \to \bigcup S\) is called a \textit{choice function for \(S\)} if
+    \[
+        \fall X \in S,\: (X \neq \OO \implies g(X) \in X).
+    \]
+}
+
+\thm[wellOrdering]{Well-Ordering Theorem}{
+    A set \(A\) can be well-ordered if and only if the set
+    \(\mcal P(A)\) has a choice function.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Assume \(\preceq\) well-orders \(A\).
+    Define \(g \colon \mcal P(A) \to A\) by
+    \[
+        g(X) \triangleq \begin{cases}
+            \min_{\preceq} X & \text{if}~x \neq \OO \\
+            \OO & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, \(g\) is a choice function of \(\mcal P(A)\).
+
+    \ii[(\(\Leftarrow\))]
+    Fix any choice function \(g \colon \mcal P(A) \to A\) of \(\mcal P(A)\)
+    and any \(a \notin A\).
+    Let \(\mbf{G}(x)\) be the operation defined by
+    \[
+        \mbf{G}(x) \triangleq \begin{cases}
+            g(A \setminus \ran x) & \text{if}~x~\text{is a function and}~A \setminus \ran x \neq \OO \\
+            a & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, by \nameref{th:transRecursion}, there exists an operation \(\mbf{F}(x)\)
+    such that \(\fall \alpha \in \Ord,\: \mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)\).
+    \clm[FtsPjUKS]{
+        There exists \(\lambda < h(A)\) such that
+        \(\mbf{F}(\lambda) = a\).
+    }{
+        Assume \(\alpha < \beta\) and \(\mbf{F}(\beta) \neq a\).
+        Then, \(\mbf{F}(\beta) \in A \setminus \ran \left(\restr{\mbf{F}}{\beta}\right)\)
+        and \(\mbf{F}(\alpha) \in \left(\restr{\mbf{F}}{\beta}\right)\);
+        thus \(\mbf{F}(\alpha) \neq \mbf{F}(\beta)\).
+        Hence, \(\restr{\mbf{F}}{\beta + 1}\) is injective if \(\mbf{F}(\beta) \neq a\).
+
+        Suppose \(\fall \alpha < h(A),\: \mbf{F}(\alpha) \neq a\) for the sake of contradiction.
+        Then, \(\restr{\mbf{F}}{h(A)}\) is an injection on \(h(A)\) into \(A\)
+        by the preceding discussion,
+        which contradicts \Cref{dfn:hartogsNumber}. \qed
+    }
+
+    Hence, by \Cref{clm:FtsPjUKS},
+    we may let \(\lambda \triangleq \min \{\,\xi < h(A) \mid \mbf{F}(\xi) = a\,\}\).
+    The discussion in the proof of \Cref{clm:FtsPjUKS} says that \(\restr{\mbf{F}}{\lambda}\)
+    is injective.
+    Clearly, we have \(\mbf{F}[\lambda] \subseteq A\) by definition of \(\lambda\).
+    If it were \(\mbf{F}[\lambda] \subsetneq A\),
+    then \(\mbf{F}(\lambda) \in A \setminus \mbf{F}[\lambda]\);
+    thus \(\mbf{F}(\lambda) \neq a\), which is a contradiction.
+    Hence, \(\restr{\mbf{F}}{\lambda} \colon \lambda \bijto A\).
+    \(R \triangleq \{\,(\mbf{F}(\alpha), \mbf{F}(\beta)) \in A^2 \mid \alpha < \beta < \lambda\,\}\)
+    is a well-ordering of \(A\).
+    \qed
+\end{itemize}
+}
+
+\thm[]{}{
+    Every finite system of sets has a choice function.
+}
+\pf{Proof}{
+    Let \(\mbf{P}(n)\) be the property ``for every set \(S\) with \(|S| = n\),
+    there exists a choice function for \(S\).''
+    \(\mbf{P}(0)\) and \(\mbf{P}(1)\) are evidently true.
+
+    Fix any \(0 < n < \omega\) and assume \(\mbf{P}(n)\).
+    Take any set \(S\) with \(|S| = n + 1\) and fix \(X \in S\).
+    \WLOG, \(X \neq \OO\).
+    Then, \(|S \setminus \{X\}| = n\), and thus
+    there exists a choice function \(g\) for \(S \setminus \{X\}\).
+    Fix any \(x \in X\).
+    Then, \(g' \triangleq g \cup \{(X, x)\}\) is a choice function for \(S\).
+    The result follows from \nameref{th:induction}.
+}
+
+\axiom[choice]{The Axiom of Choice}{
+    \noindent
+    There exists a choice function for every set.
+    \[\textstyle
+        \fall S,\: \exs g \in \left(\bigcup S\right)^S,\:
+        \fall X \in S,\: (X \neq \OO \implies g(X) \in X)
+    \]
+}
+
+\thm[aocTFAE]{}{
+    \TFAE.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:aocTFAE} (\roman*)}]
+        \ii
+        \nameref{ax:choice}
+        \ii\label{itm:aocTFAE.ii}
+        Every partition has a set of representatives.
+        \ii\label{itm:aocTFAE.iii}
+        If \(\lang\,X_i \mid i \in I\,\rang\) is an
+        \hyperref[dfn:indexedSystemOfSets]{indexed system} of nonempty sets,
+        then there exists a function \(f\) on \(I\) such that \(\fall i \in I,\: f(i) \in X_i\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[
+    nolistsep, wide=0pt, widest={\(\text{(ii)} \Rightarrow \text{(iii)}\)},
+    align=right, leftmargin=*, listparindent=\parindent
+]
+    \ii[\(\text{(i)} \Rightarrow \text{(ii)}\)]
+    Let \(f\) be a choice function for a partition \(S\).
+    Then, \(X = \ran f\) is a set of representatives for \(S\).
+
+    \ii[\(\text{(ii)} \Rightarrow \text{(iii)}\)] Hello
+    Let \(C_i \triangleq \{i\} \times X_i\) for each \(i \in I\).
+    Then, as \(\fall i, i' \in I,\: (i \neq i' \implies C_i \cap C_{i'} = \OO)\),
+    \(S \triangleq \{\,C_i \mid i \in I\,\}\) is a partition.
+    Let \(f\) be a set of representatives for \(S\).
+    Then, for each \(i \in I\), there uniquely exists \(x \in X_i\)
+    such that \((i, x) \in f \cap C_i\).
+    Hence, \(f\) is a function on \(I\) and \(\fall i \in I,\: f(i) \in X_i\).
+
+    \ii[\(\text{(iii)} \Rightarrow \text{(i)}\)]
+    Take any \(S\) and let \(I \triangleq S \setminus \{\OO\}\).
+    Let \(X_C \triangleq C\) for all \(C \in I\).
+    Hence, the indexed system of sets \(\{\,X_C \mid C \in I\,\}\)
+    has a function \(f\) on \(I\) such that \(f(C) \in X_C = C\) for each \(C \in I\).
+
+    If \(\OO \notin S\), then \(f\) is a choice function for \(S\).
+    If \(\OO \in S\), then \(f \cup \{(\OO, \OO)\}\) is a choice function for \(S\).
+    \qed
+\end{itemize}
+}
+
+\nt{
+    \noindent
+    From now, the results that depend on \nameref{ax:choice} is marked with [\textsf{AoC}].
+}
+
+\thm[infIffDedekindInf]{}{
+    Every infinite set has a countable subset. \needsChoice
+}
+\pf{Proof}{
+    Let \(A\) be an infinite set.
+    By \nameref{th:wellOrdering},
+    there exists \(f \colon \Omega \bijto A\) where \(\Omega \in \Ord\) with \(\omega \le \Omega\).
+    Then, \(f[\omega]\) is a countable subset of \(A\).
+}
+
+\thm[infiniteHasAlephCard]{}{
+    For every infinite set \(S\),
+    there uniquely exists \(\alpha \in \Ord\)
+    such that \(|S| = \aleph_{\alpha}\).
+    \needsChoice
+}
+\pf{Proof}{
+    By \nameref{th:wellOrdering}, \(|S| = |\Omega|\) for some infinite ordinal \(\Omega\).
+    Then, by \Cref{th:wosetEquipotentToInitial,th:omegaIffInfInitial},
+    there exists \(\alpha \in \Ord\) such that \(|\Omega| = \aleph_{\alpha}\).
+    The uniqueness is evident.
+}
+
+\dfn[cardinal]{Cardinals}{
+    For every set \(X\), \(|X|\) is the unique initial ordinal equipotent to \(X\).
+}
+
+\nt{
+\Cref{as:cardinalExists} is justified by \Cref{dfn:cardinal}, which is justified by these facts:
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    There exists \(f \colon X \bijto Y\) if and only if \(|X|\) is equal to \(|Y|\).
+
+    \ii
+    There exists \(f \colon X \injto Y\) if and only if \(|X|\) is less than or equal to \(|Y|\).
+\end{itemize}
+}
+
+\thm[cardinalLinearOrder]{}{
+    For any sets \(A\) and \(B\), we have \(|A| \le |B|\) or \(|B| \le |A|\).
+    \needsChoice
+}
+\pf{Proof}{
+    \(|A|\) and \(|B|\) are ordinal numbers,
+}
+
+\thm[strongUnionOfCountable]{}{
+    The union of countably infinite collection of countable sets is countable.
+    \needsChoice
+}
+\pf{Proof}{
+    Let \(|S| = \aleph_0\) and \(\fall X \in S,\: |S| \le \aleph_0\).
+    Fix any injective sequence \(\lang\,A_n \mid n \in \NN\,\rang\) onto \(S\).
+    For each \(n \in \NN\), as \(|A_n| \le \aleph_0\),
+    there exists \(f \colon \NN \surjto A_n\).
+    Let \(P_n \triangleq \{\,f \in A_n^{\>\NN} \mid \ran f = A_n\,\}\),
+    which is nonempty.
+
+    By \ref{itm:aocTFAE.iii}, there exists a function \(g\) on \(\NN\)
+    such that \(\fall n \in \NN,\: g_n \in P_n\).
+    Then, we can define \(\eta \colon \NN \times \NN \surjto \bigcup S\)
+    by \(\eta(n, k) = g_n(k)\);
+    hence \(\bigcup S\) is countable by \Cref{th:imageOfCountable}.
+}
+
+\thm[]{}{
+    \(\aleph_1 \le 2^{\aleph_0}\) \needsChoice
+}
+\pf{Proof}{
+    This is a consequence of \Cref{th:infiniteHasAlephCard} and \nameref{th:cantor}.
+}
+
+\thm[imageIsLessThanDomain]{}{
+    If \(f\) is a function on \(A\), then \(|\ran f| \le |A|\). \needsChoice
+}
+\pf{Proof}{
+    Since \(|A| = |\alpha|\) for some ordinal \(\alpha\) by
+    \Cref{th:infiniteHasAlephCard},
+    the result follows from \Cref{exer:7.2.5}.
+}
+
+\thm[alephUnionOfAlephs]{}{
+    Let \(\alpha \in \Ord\).
+    If \(|S| \le \aleph_{\alpha}\) and \(\fall X \in S,\: |X| \le \aleph_{\alpha}\),
+    then \(\big|\bigcup S\big| \le \aleph_{\alpha}\).
+    \needsChoice
+}
+\pf{Proof}{
+    \WLOG, \(S \neq \OO\) and \(\fall X \in S,\: X \neq \OO\).
+    Write \(S = \{\,X_\nu \mid \nu < \omega_{\alpha}\,\}\)
+    and, for each \(\nu < \omega_{\alpha}\),
+    choose a transfinite sequence \(\lang\,x_\nu(k) \mid k < \omega_{\alpha}\,\rang\)
+    such that \(X_{\nu} = \{\,a_\nu(k) \mid k < \omega_{\alpha}\,\}\).
+    We may define \(f \colon \omega_\alpha \times \omega_\alpha \surjto \bigcup S\)
+    by \(f(\nu, \kappa) = x_\nu(\kappa)\).
+    Hence,
+    \begin{alignat*}{2}
+        \textstyle \left|\bigcup S\right|
+        &\le \aleph_{\alpha} \cdot \aleph_{\alpha} &\qquad& \comment*{\Cref{th:imageIsLessThanDomain}} \\
+        &= \aleph_{\alpha}. && \comment*{\Cref{th:squareOfAlephs}}
+    \end{alignat*}
+    Thus, the result follows.
+}
+
+\thm[zorn]{Zorn's Lemma}{
+    \TFAE.
+    \begin{itemize}[nolistsep, leftmargin=*]
+        \ii
+        \nameref{ax:choice}
+        \ii
+        Let \((A, \preceq)\) be a partially ordered set.
+        If every \hyperref[dfn:chain]{chain} in \((A, \preceq)\) has an upper bound,
+        then there exists a \hyperref[dfn:leastMinimal]{maximal} element of \(A\).
+    \end{itemize}
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \((A, \preceq)\) be a partially ordered set
+    such that every chain in \((A, \preceq)\) has an upper bound.
+    Fix any \(b \in A\) and a choice function \(g\) for \(\mcal P(A)\).
+    Let \(\mbf{G}(x)\) be an operation defined by
+    \[
+            \mbf{G}(x) \triangleq \begin{cases}
+                g(A_{x}) & \text{if}~\begin{aligned}[t]
+                    &x~\text{is a transfinite sequence of length}~\alpha \\
+                    &\text{and}~A_{x} \triangleq \{\,a \in A \mid \fall \xi < \alpha,\: x(\xi) \prec a\,\}~
+                    \text{is nonempty}
+                \end{aligned} \\
+                b & \text{otherwise.}
+            \end{cases}
+        \]
+        Then, by \nameref{th:transRecursion},
+        there exists an operation \(\mbf{F}(x)\) such that
+        \(\fall \alpha \in \Ord,\: \mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)\).
+        Similarly to the discussion in \Cref{clm:FtsPjUKS} of \nameref{th:wellOrdering},
+        \(\mbf{F}(\alpha) = b\) for some \(\alpha < h(A)\).
+        Let \(\lambda \triangleq \min \{\,\alpha \in h(A) \mid \mbf{F}(\alpha) = b\,\}\).
+        Then, the set \(C \triangleq \mbf{F}[\lambda]\) is a chain in \((A, \preceq)\);
+        so it has an upper bound \(c \in A\).
+
+        If \(c \prec a\) for some \(a \in A\),
+        then \(a \in A_{\mbf{F} |_\lambda}\);
+        thus \(\mbf{F}(\lambda) = g\left(A_{\mbf{F} |_\lambda}\right) \neq b\),
+        which is a contradiction.
+        Hence, \(c\) is a maximal element of \(A\).
+
+        \[
+        \mbf{G}(x) \triangleq \begin{cases}
+            g(A_{x}) & \text{if}~\begin{aligned}[t]
+                &x~\text{is a transfinite sequence of length}~\alpha \\
+                &\text{and}~A_{x} \triangleq \{\,a \in A \mid \fall \xi < \alpha,\: x(\xi) \prec a\,\}~
+                \text{is nonempty}
+            \end{aligned} \\
+            b & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, by \nameref{th:transRecursion},
+    there exists an operation \(\mbf{F}(x)\) such that
+    \(\fall \alpha \in \Ord,\: \mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)\).
+    Similarly to the discussion in \Cref{clm:FtsPjUKS} of \nameref{th:wellOrdering},
+    \(\mbf{F}(\alpha) = b\) for some \(\alpha < h(A)\).
+    Let \(\lambda \triangleq \min \{\,\alpha \in h(A) \mid \mbf{F}(\alpha) = b\,\}\).
+    Then, the set \(C \triangleq \mbf{F}[\lambda]\) is a chain in \((A, \preceq)\);
+    so it has an upper bound \(c \in A\).
+
+    If \(c \prec a\) for some \(a \in A\),
+    then \(a \in A_{\mbf{F} |_\lambda}\);
+    thus \(\mbf{F}(\lambda) = g\left(A_{\mbf{F} |_\lambda}\right) \neq b\),
+    which is a contradiction.
+    Hence, \(c\) is a maximal element of \(A\).
+
+    \ii[(\(\Leftarrow\))]
+    It suffices to show that every system of nonempty sets \(S\)
+    has some choice function.
+    Let \(F \triangleq \{\,f \colon S \rightharpoonup \bigcup S \mid \fall X \in \dom f,\: f(X) \in X\,\}\).
+    Then, \((F, \subseteq_F)\) is a partially ordered set.
+    Moreover, if \(C \subseteq F\) is a chain in \((F, \subseteq_{F})\),
+    then \(\bigcup C\) is an upper bound of \(C\).
+
+    Therefore, by the assumption, there exists a maximal element \(\ol{f}\) of \(F\).
+    Suppose \(\dom \ol{f} \subsetneq S\) for the sake of contradiction.
+    Take any \(X \in S \setminus \dom \ol{f}\) and \(x \in X\).
+    Then, \(\ol{f} \cup \{(X, x)\} \in F\) is clearly greater than \(\ol{f}\),
+    which is a contradiction.
+    Hence, \(\dom \ol{f} = S\), i.e., \(f\) is a choice function for \(S\).
+    \qed
+\end{itemize}
+}
+
+\thm[initialLessThanAlephThen]{}{
+    Let \(\gamma \in \Ord\) and let \((A, \preceq)\) be a totally ordered set.
+    If \(\fall x \in A,\: |\{\,y \in A \mid y \preceq x\,\}| < \aleph_\gamma\),
+    then \(|A| \le \aleph_{\gamma}\).
+    \needsChoice
+}
+\pf{Proof}{
+    In the same way as in the proof of \nameref{th:zorn},
+    we construct an operation \(\mbf{F}(x)\)
+    and \(\lambda = \min \{\,\alpha < h(A) \mid \mbf{F}(\alpha) = b\,\}\).
+
+    For any \(a \in A\), there exists \(\xi < \lambda\) such that \(a \preceq \mbf{F}(\xi)\).
+    (Otherwise, \(\mbf{F}(\lambda) \neq b\) by definition.)
+    Hence, \(A = \bigcup_{\xi < \lambda} \{\,y \in A \mid y \preceq \mbf{F}(\xi)\,\}\).
+    Moreover, \(\lambda \le \omega_{\gamma}\) since,
+    otherwise, \(\restr{\mbf{F}}{\omega_\gamma}\)
+    is an injection on \(\omega_\gamma\) into \(\{\,y \in A \mid y \preceq \mbf{F}(\omega_\gamma)\,\}\),
+    which is a contradiction.
+    Hence, \(|A| \le \aleph_\gamma\) by \Cref{th:alephUnionOfAlephs}.
+}
+
+\end{document}

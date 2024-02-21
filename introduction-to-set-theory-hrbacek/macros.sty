@@ -1,5 +1,4 @@
-\makeatletter
-\renewcommand{\comment}{%
+\makeatletter \renewcommand{\comment}{%
              \@ifstar
                   \commentStar%
                   \commentNoStar%
@@ -9,6 +8,7 @@
 \newcommand{\commentStar}[1]{\text{\(\triangleright\)~#1}}
 \renewcommand{\vec}[1]{\boldsymbol{#1}}
 \newcommand{\WLOG}{\textsf{WLOG}}
+\newcommand{\TFAE}{\textsf{TFAE}}
 
 \makeatletter
 \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
@@ -127,3 +127,4 @@
 \vphantom{\big|}%
 \right|_{#2}%
 }}
+\newcommand{\noleft}{\left.\kern-\nulldelimiterspace}
