@@ -1,0 +1,66 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Group Homomorphisms}
+
+\dfn[groupHomomorphism]{Group Homomorphism}{
+    Let \(G\) and \(H\) be groups.
+    A \textit{group homomorphism} between \(G\) and \(H\) is a function \(f \colon G \to H\)
+    such that \(\fall a, b \in G,\: f(ab) = f(a)f(b)\).
+}
+
+\dfn[groupIsomorphism]{Group Isomorphism}{
+    Let \(G\) and \(H\) be groups.
+    A \textit{group isomorphism} is a bijective group homomorphism
+    between \(G\) and \(H\). (This means that \(G\) and \(H\) have the same group structure.)
+    We write \(G \cong H\).
+}
+
+\thm[]{}{
+    Let \(f \colon G \to H\) be a group homomorphism.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(f(1_G) = 1_H\).
+        \ii \(\fall a \in G,\: f(a\inv) = f(a)\inv\).
+        \ii \(\Img f\) is a group under the group operation under \(H\).
+        \ii If \(f\) is injective, then \(G \cong \Img f\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \(f(1_G) f(1_G) = f(1_G 1_G) = f(1_G) = f(1_G) 1_H\). Hence, we have \(f(1_G) = 1_H\) from
+    \ref{itm:basicGroup.i}.
+
+    \ii
+    \(f(a\inv) f(a) = f(a\inv a) = f(1_G) = 1_H\) by (i).
+    Hence, \(f(a\inv) = f(a)\inv\).
+
+    \ii
+    Direct from definition.
+    \ii
+    Direct from definition.
+    \qed
+\end{enumerate}
+}
+
+\nt{
+    There is only one way---the direct product---to give a group structure on \(G \times H\)
+    such that both projections are group homomorphisms.
+}
+
+\dfn[groupAutomorphism]{Group Automorphism}{
+    An \textit{automorphism} of \(G\) is an isomorphism \(G \bijto G\) between \(G\) and itself.
+    Then, the collection of all automorhpisms of \(G\),
+    \(\Aut(G) \triangleq \{\,\text{automorphisms of}~G\,\}\),
+    equipped with \(\circ\), is a group.
+    Moreover, \(\Aut(G) \curvearrowleft G\) in the natural way (\((\sigma, g) \mapsto \sigma(g)\)).
+}
+
+\exmp[]{}{
+    Fix any \(c \in G\) and define \(i_C \colon G \to G\)
+    by \(g \mapsto cgc\inv\).
+    Then, \(i_C \in \Aut(G)\).
+}
+
+\end{document}

@@ -1,0 +1,173 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Definitions and Examples of Groups}
+
+\dfn[abelianGroup]{Abelian Group}{
+    An \textit{abelian group} is a nonempty set \(G\) equipped with a
+    binary operation \(+\) on \(G\) that satisfies the following.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii (associative) \(\fall a, b, c \in G,\: a + (b + c) = (a + b) + c\).
+        \ii (commutative) \(\fall a, b \in G,\: a + b = b + a\).
+        \ii (identity) \(\exs 0 \in G,\: \fall a \in G,\: a + 0 = 0 + a = a\).
+        \ii (inverse) \(\fall a \in G,\: \exs b \in G,\: a + b = b + a = 0\).
+    \end{enumerate}
+}
+
+\nt{
+    \noindent
+    One may easily show that the identity is unique, and for each \(a \in G\),
+    an inverse of \(a\) is unique.
+}
+
+\notat{}{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    We define \(\mathord{-}\colon G \times G \to G\)
+    by \(a - b = a + (-b)\).
+
+    \ii
+    We write, for each positive integer \(n\), and for each \(a \in G\),
+    \[
+        na \triangleq \underbrace{a + a + \cdots + a}_{n~\text{times}},\qquad
+        0a \triangleq 0_G,\qquad
+        (-n)a \triangleq \underbrace{(-a) + (-a) + \cdots + (-a)}_{n~\text{times}}.
+    \]
+
+    \ii
+    Hence, \(\fall m, n \in \ZZ,\: \fall a \in G,\: (m + n)a = ma + na \land m(na) = (mn)a\).
+\end{itemize}
+}
+
+\exmp{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        \(\ZZ\), \(\QQ\), \(\RR\), and \(\CC\), equipped with their ordinary additions,
+        are abelian groups, while \((\NN, +)\) is not.
+
+        \ii
+        \(\QQ \setminus \{0\}\), \(\RR \setminus \{0\}\), and \(\CC \setminus \{0\}\),
+        equipped with their ordinary multiplications,
+        are abelian groups.
+
+        \ii
+        If \(G = \{\,1, -1, i, -i\,\} \subseteq \CC\),
+        then \((G, \cdot)\) is an abelian group.
+        One may explicitly write the \textit{group table} for this.
+
+        \ii
+        \(\mrm{GL}_n(\CC) = \{\,n\times n~\text{invertible matrices over}~\CC\,\}\)
+        (general linear group)
+        equipped with \(\cdot\) is not an abelian group
+        but is a group. (See \Cref{dfn:group}.)
+    \end{enumerate}
+}
+
+\dfn[group]{Group}{
+    An \textit{group} is a nonempty set \(G\) equipped with a
+    binary operation \(\cdot\) on \(G\) that satisfies the following.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii (associative) \(\fall a, b, c \in G,\: a \cdot (b \cdot c) = (a \cdot b) \cdot c\).
+        \ii (identity) \(\exs 1 \in G,\: \fall a \in G,\: a \cdot 1 = 1 \cdot a = a\).
+        \ii (inverse) \(\fall a \in G,\: \exs b \in G,\: a \cdot b = b \cdot a = 1\).
+    \end{enumerate}
+}
+
+\thm[basicGroup]{}{
+    Let \((G, \cdot)\) be a group.
+    Let \(a, b, c \in G\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:basicGroup} (\roman*)}]
+        \ii\label{itm:basicGroup.i} \(ab = ac \implies b = c\)
+        \ii \((a\inv)\inv = a\)
+        \ii \((ab)\inv = b\inv a\inv\)
+    \end{enumerate}
+}
+\pf{Proof}{
+    Trivial.
+}
+
+\notat{}{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    We write, for each positive integer \(n\), and for each \(a \in G\),
+    \[
+        a^n \triangleq \underbrace{a \cdot a \cdot \cdots \cdot a}_{n~\text{times}},\qquad
+        a^0 \triangleq 1_G,\qquad
+        a^{-n} \triangleq \underbrace{a\inv \cdot a\inv \cdot \cdots \cdot a\inv}_{n~\text{times}}.
+    \]
+
+    \ii
+    Hence, \(\fall m, n \in \ZZ,\: \fall a \in G,\: a^m a^n = a^{m+n} \land (a^m)^n = a^{mn}\).
+\end{itemize}
+}
+
+\nt{
+    \noindent We don't generally have \((ab)^n = a^n b^n\).
+}
+
+\dfn[orderOfGroup]{Order}{
+    We write \(|G|\) to denote the number of elements in \(G\)
+    and call it \textit{order} of \(G\).
+}
+
+\exmp[dihedral]{Dihedral Groups}{
+    \[\begin{aligned}[t]
+        D_n &\triangleq
+        \{\,r_i \colon [n] \bijto [n] \mid \fall j \in [n],\: r_i(j) = i +_n j\,\}
+        \cup \{\text{reflections???}\} \\
+        &=\{\,\text{all ``rigid motions'' for regular}~n~\text{polygon}\,\}
+    \end{aligned}\]
+    Then, \((D_n, \circ)\) is a group where \(\circ\) is ordinary function composition operator.
+    We claim that \(|D_n| = 2n\) and \(D_n\) is not abelian.
+    \pf{Proof}{
+        If \(r \in D_n\) is a rotation, then
+    }
+}
+
+\exmp[]{Symmetric Group}{
+    Let \(T\) be a nonempty set.
+    Then, the set \(S(T) \triangleq \{\,f \colon f \colon T \bijto T\,\}\)
+    with the function composition operator \(\circ\)
+    is a group.
+
+    We write
+    \[
+        S_n \triangleq S(\{1,2,\cdots,n\})
+    \]
+    and call it \textit{symmetric group}.
+    \(S_1\) and \(S_2\) are abelian,
+    but \(S_n\) with \(n \ge 3\) is not abelian.
+    (\(\cycle{1,2,3} \circ \cycle{1,2} \neq \cycle{1,2} \circ \cycle{1,2,3}\))
+}
+
+\dfn[groupAction]{Group Action}{
+    Let \(G\) be a group and \(A\) be a set.
+    A group action \(G\) on \(A\) is a map
+    \(f \colon G \times A \to A\) such that:
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\fall g_1, g_2 \in G,\: \fall a \in A,\: f(g_1, f(g_2, a)) = f(g_1 g_2, a)\).
+        \ii \(\fall a \in A,\: f(1, a) = a\).
+    \end{enumerate}
+    We write \(G \curvearrowleft A\) to write \(G\) acts on \(A\).
+}
+
+\exmp[]{Quaternion Group}{
+    \noindent
+    \(Q_8 \triangleq \{\,\pm 1, \pm i, \pm j, \pm k\,\}\) as usual.
+}
+
+\exmp[]{General Linear Group}{
+    \noindent
+    \(\GL_n(R)\) is a group of all
+    \(n \times n\) invertible matrices over \(R\).
+}
+
+\dfn[directProduct]{Direct Product}{
+    If \((G, \ast_G)\) and \((H, \ast_H)\) are groups,
+    then the binary operation \(\ast\) on \(G \times H\)
+    defined by \((g, h) \times (g', h') \triangleq (g \ast_G g', h \ast_H h')\)
+    forms a group \((G \times H, \ast)\).
+}
+
+\end{document}
