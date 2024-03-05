@@ -1,0 +1,158 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Subgroups}
+
+\dfn[subgroup]{Subgroup}{
+    Let \(G\) be a group, and \(\OO \subsetneq H \subseteq G\).
+    \(H\) is a \textit{subgroup} of \(G\) if \(H\) is a group under the binary operation of \(G\).
+    If \(H\) is a subgroup of \(G\), we write \(H \le G\).
+}
+
+
+\nt{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii \({1}, G \le G\).
+    \ii
+    If \(H, K \le G\) and \(H \subseteq K\), then \(H \le K\).
+    \ii
+    If \(f \colon H \to G\) is a group homomorphism,
+    then \(\img(f) \le G\).
+
+    \ii
+    If \(H \le G\), then \(\id_H \colon H \injto G\)
+    is a group homomorphism.
+
+    \ii
+    For all \(n \in \ZZ\),
+    \(n \ZZ = \{\,nz \mid z \in \ZZ\,\} \le \ZZ\).
+
+    \ii
+    \(\{\,\pm 1, \pm i\,\} \le \CC^\ast\).
+
+    \ii
+    \(\{\,1, r_1, \cdots, r_{n-1}\,\} \le D_n \le S_n\) and \(\{\,1, s\,\} \le D_n\).
+\end{enumerate}
+}
+
+\thm[subgroupTFAE]{}{
+\TFAE.
+Let \(G\) be a group and \(\OO \subsetneq H \subseteq G\).
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii \(H \le G\).
+    \ii \(\fall a, b \in H, ab \in H\) and \(\fall a \in H, a\inv \in H\).
+    \ii \(\fall a, b \in H, ab\inv \in H\).
+\end{enumerate}
+}
+\pf{Proof}{
+    Implications \(\text{(i)} \lthen \text{(ii)}\) and \(\text{(ii)} \lthen \text{(iii)}\)
+    are trivial.
+    For any \(a, b \in H\), we have
+    \(1 = a a\inv \in H\), \(a\inv = 1 a\inv \in H\), and \(ab = a (b\inv)\inv \in H\).
+}
+
+\dfn[kernel]{Kernel}{
+    Let \(f \colon G \to H\) be a group homomorphism.
+    The \textit{kernel} of \(f\) is the set
+    \[
+        \ker(f) \triangleq \{\,g \in G \mid f(g) = 1_H\,\}.
+    \]
+}
+
+\exmp[kernelIsSubgroup]{Kernel}{
+    Let \(f \colon G \to H\) be a group homomorphism.
+    Then, \(\ker(f) \le G\) since,
+    \(1 \in \ker(f)\) and,
+    for each \(a, b \in \ker(f)\),
+    \(f(ab\inv) = f(a) f(b)\inv = 1_H 1_H = 1_H\).
+}
+
+\cor[finiteSubgroup]{}{
+    Let \(G\) be a group and let \(H\) be a nonempty finite subset of \(G\).
+    Then, \[H \le G \iff \fall a, b \in H,\: ab \in H.\]
+}
+\pf{Proof}{
+    The direction \((\Leftarrow)\) is trivial.
+
+    Take any \(a \in H\).
+    By the assumption, \(a^n \in H\) for all \(n \in \ZZ_+\).
+    As \(H\) is finite, there exists \(m, n \in \ZZ_+\) such that
+    \(a^n = a^m\). \WLOG, \(m < n\).
+    Therefore, \(1 = a^{n-m} \in H\).
+    Moreover, we have \(a a^{n-m-1} = 1\), which implies \(a\inv = a^{n-m-1} \in H\).
+    Therefore, by \Cref{th:subgroupTFAE}, \(H \le G\).
+}
+
+\nt{
+    The finite condition in \Cref{cor:finiteSubgroup} is essential
+    since \(\NN \not\le \ZZ\) while \(\NN\) is closed under addition.
+    (\(\NN\) is not a group at first.)
+}
+
+\cor[interSubgroup]{}{
+    Let \(G\) be a group and let \(\lang\,H_i \mid i \in I\,\rang\)
+    be an indexed system of subgroups of \(G\).
+    Then, \(\bigcap_{i \in I} H_i \le G\).
+}
+\pf{Proof}{
+    Since \(1 \in H_i\) for all \(i \in I\), \(\bigcap_{i \in I} H_i \neq \OO\).
+    Take any \(a, b \in \bigcap_{i \in I} H_i\).
+    Then, as \(\fall i \in I,\: ab\inv \in H_i\), we have
+    \(ab\inv \in \bigcap_{i \in I} H_i\).
+    The result follows from \Cref{th:subgroupTFAE}.
+}
+
+\nt{
+    Even though \(H_1, H_2 \le G\),
+    it is not guaranteed that \(H_1 \cup H_2 \le G\).
+    For instance, \(2\ZZ \cup 3\ZZ \not\le \ZZ\).
+    (\(2 + 3 \notin 2\ZZ \cup 3\ZZ\).)
+}
+
+\thm[cayley]{Cayley Theorem}{
+    Let \(G\) be a group.
+    Then, \(G \cong H\) for some \(H \le S(G)\).
+}
+\pf{Proof}{
+    Note that \((g, g') \mapsto g g'\) is a group action of \(G\) on \(G\).
+    Let \(\vphi \colon G \to S(G)\) be the permutation representation of it.
+    We only need to show that \(\vphi\) is injective.
+
+    Take any \(x, y \in G\) and assume \(\vphi_x = \vphi_y\).
+    Then, \(x = x \cdot 1 = \vphi_x(1) = \vphi_y(1) = y \cdot 1 = y\).
+    Therefore, \(G \cong \img(\vphi) \le S(G)\).
+}
+
+\dfn[center]{Center}{
+    Let \(G\) be a group.
+    The \textit{center} of \(G\) is the set
+    \[
+        Z(G) \triangleq \{\,g \in G \mid \fall a \in G,\: ag = ga\,\}.
+    \]
+}
+
+\thm[centerIsAbelian]{}{
+    Let \(G\) be a group.
+    Then, \(Z(G)\) is an abelian group.
+}
+\pf{Proof}{
+    Take any \(a, b \in Z(G)\).
+    Then for all \(g \in G\),
+    \((ab)g = a(gb) = a(gb) = (ag)b = g(ab)\); hence \(ab \in Z(G)\).
+    For all \(g \in G\),
+    \(g a\inv = a\inv g (a a\inv) = a\inv (ga) a\inv = a\inv g(a a\inv) = a\inv g\);
+    hence \(a\inv \in Z(G)\). Therefore, \(Z(G) \le G\) by \Cref{th:subgroupTFAE}.
+    \(Z(G)\) is abelian by definition.
+}
+
+\dfn[centralizer]{Centralizer}{
+    Let \(G\) be a group and let \(\OO \subsetneq A \subseteq G\).
+    The \textit{centralizer} of \(A\) is the subset
+    \[
+        C_G(A) = C(A) =  \triangleq \{\,g \in G \mid \fall a \in A,\: ag = ga\,\}.
+    \]
+    We may also write \(C(a)\) instead of \(C(\{a\})\).
+}
+
+\end{document}

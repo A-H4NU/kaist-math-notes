@@ -63,4 +63,46 @@
     Then, \(i_C \in \Aut(G)\).
 }
 
+\mlemma[actionInducesPermRep]{}{
+    Let \(G \actson A\).
+    Then, every \(g \in G\) induces a map
+    \begin{align*}
+       \vphi_g : A &\longrightarrow A \\
+        a &\longmapsto ga
+    .\end{align*}
+    Then, \(\vphi_g \in S(A)\) and \(\vphi \colon G \to S(A)\) defined by \(g \mapsto \vphi_g\)
+    is a group homomorphism,
+    which is called the \textit{permutation representation of the group action of \(G\) on \(A\)}.
+}
+\pf{Proof}{
+    For each \(a \in A\),
+    \((\vphi_{g\inv} \circ \vphi_g)(a) = g\inv(ga) = (g\inv g) a = 1a = a\).
+    Thus, \(\vphi_{g\inv} \circ \vphi_g = \vphi_g \circ \vphi_{g\inv} = \id\).
+    Therefore, \(\vphi_g \in S(A)\).
+    It is easy to show that \(\vphi\) is a group homomorphism.
+}
+
+\mlemma[permRepInducesAction]{}{
+    Let \(G\) be a group and let \(A\) be a set.
+    If \(\vphi \colon G \to S(A)\) is a group homomorphism,
+    Then, the map \(G \times A \to A\) defined by
+    \((g, a) \mapsto \vphi(g)(a)\) is a group action of \(G\) on \(A\).
+}
+\pf{Proof}{
+    Direct from \Cref{dfn:groupAction}.
+}
+
+\thm[actionCorresHoms]{}{
+    Let \(G\) be a group and let \(A\) be a nonempty set.
+    Then, there exists one-to-one correspondence
+    \[
+        \text{\{all group actions of \(G\) on \(A\)\}}
+        \xleftrightarrow{\text{1-1}}
+        \text{\{all group homomorphisms \(G \to S(A)\)\}.}
+    \]
+}
+\pf{Proof}{
+    Direct from \Cref{lem:actionInducesPermRep,lem:permRepInducesAction}.
+}
+
 \end{document}
