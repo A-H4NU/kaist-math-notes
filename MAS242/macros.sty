@@ -1,6 +1,14 @@
-\renewcommand{\comment}[1]{\hfill $\triangleright$ #1}
-\newcommand{\mcomment}[1]{\text{\comment{#1}}}
-\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\makeatletter \renewcommand{\comment}{%
+             \@ifstar
+                  \commentStar%
+                  \commentNoStar%
+}
+\makeatother
+\newcommand{\commentNoStar}[1]{\hfill\text{\(\triangleright\)~#1}}
+\newcommand{\commentStar}[1]{\text{\(\triangleright\)~#1}}
+\renewcommand{\vec}[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand{\WLOG}{\textsf{WLOG}}
+\newcommand{\TFAE}{\textsf{TFAE}}
 
 \makeatletter
 \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
@@ -36,7 +44,11 @@
 \newcommand{\opname}{\operatorname}
 \newcommand{\surjto}{\twoheadrightarrow}
 \newcommand{\injto}{\hookrightarrow}
+\newcommand{\bijto}{\hooktwoheadrightarrow}
+\newcommand{\isoto}{\simrightarrow}
+\newcommand{\actson}{\curvearrowleft}
 \newcommand{\On}{\mathrm{On}} % ordinals
+\newcommand{\Ord}{\mathrm{Ord}} % ordinals
 \DeclareMathOperator{\img}{im} % Image
 \DeclareMathOperator{\Img}{Im} % Image
 \DeclareMathOperator{\bd}{bd} % boundary
@@ -57,6 +69,8 @@
 
 \newcommand{\eps}{\epsilon}
 \newcommand{\veps}{\varepsilon}
+\newcommand{\vphi}{\varphi}
+\newcommand{\vtheta}{\varepsilon}
 \newcommand{\ol}{\overline}
 \newcommand{\ul}{\underline}
 \newcommand{\cl}{\overline}
@@ -101,8 +115,19 @@
 \newcommand{\bs}[1]{\boldsymbol{#1}}
 \newcommand{\fall}{\forall}
 \newcommand{\exs}{\exists}
+\newcommand{\nexs}{\nexists}
+\newcommand{\symdif}{\operatorname{\vartriangle}}
 \newcommand{\st}{\strut}
 \newcommand{\dps}[1]{\displaystyle{#1}}
+\newcommand{\nsub}{\trianglelefteq}
 
 \newcommand{\sol}{\setlength{\parindent}{0cm}\textbf{\textit{Solution:}}\setlength{\parindent}{1cm} }
 \newcommand{\solve}[1]{\setlength{\parindent}{0cm}\textbf{\textit{Solution: }}\setlength{\parindent}{1cm}#1 \Qed}
+
+\newcommand\restr[2]{{
+\left.\kern-\nulldelimiterspace%
+#1%
+\vphantom{\big|}%
+\right|_{#2}%
+}}
+\newcommand{\noleft}{\left.\kern-\nulldelimiterspace}

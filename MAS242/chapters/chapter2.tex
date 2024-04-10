@@ -7,8 +7,8 @@
     Let \(\vec f \colon U (\subseteq \RR[m]) \to \RR[n]\) be differentiable.
     The function \(J_f \colon U \to \RR\) defined by \[
         J_{\vec f}(\vec x) = \det \begin{bmatrix}
-            \partial_1 f_1(\vec x) & \cdots & \partial_n f_1(\vec x) \\ 
-            \vdots & \ddots & \vdots \\ 
+            \partial_1 f_1(\vec x) & \cdots & \partial_n f_1(\vec x) \\
+            \vdots & \ddots & \vdots \\
             \partial_1 f_n(\vec x) & \cdots & \partial_n f_n(\vec x)
         \end{bmatrix}
     \]
@@ -92,7 +92,7 @@
         \fall \vec y \in \RR[n],\: (\alpha - \beta)|B\inv\vec y| \le |BB\inv \vec y| = |\vec y|
     \]
     This shows that \(\|B\inv\|_L \le (\alpha - \beta)\inv\).
-    
+
     Hence, we have
     \[
         \|B\inv - A\inv\|_L \le \|B\inv\|_L \|A - B\|_L \|A\inv\|_L \le \frac{\beta}{\alpha(\alpha-\beta)}.
@@ -131,7 +131,7 @@
     \[
         \|\d\varphi(\vec x; \vec y)\|_L
         = \big\|A\inv \big(A - \d\vec f(\vec x)\big)\big\|_L
-        \le \|A\inv\|_L \cdot \|A - \d\vec f(\vec x)\|_L 
+        \le \|A\inv\|_L \cdot \|A - \d\vec f(\vec x)\|_L
         < 1/(2\lambda) \cdot \lambda = 1/2\text{.}
     \]
 
@@ -340,7 +340,7 @@
     Hence, for every \(x_2 \in [-1, 1]\), there exists \(x_1^\ast \in \RR\)
     such that \((\varphi-\psi)(x_1^\ast, x_2) = 0\).
 
-    Moreover, 
+    Moreover,
     \(\partial_1(\varphi - \psi) = \partial_1(\varphi - \ol\varphi) + (a-b) + \partial_1(\ol \psi - \psi)\),
     and thus \(|\partial_1(\varphi - \psi)| \ge \frac{3}{4} |a-b| > 0\).
     Hence, the \(x_1^\ast\) in the previous paragraph is unique.
@@ -361,7 +361,7 @@
 \thm[optim]{Optimization Under Multiple Constraints}{
     Let \(f, g_1, g_2, \cdots, g_k \colon E \to \RR\) be \(C^1\)
     where \(E\) is an open set in \(\RR[n]\) and \(n > k\).
-    Let \(Z \triangleq \cap_{j=1}^k \{\,\vec{z} \in \RR[n] \mid g_j(\vec{z}) = 0\,\}\).
+    Let \(Z \triangleq \bigcap_{j=1}^k \{\,\vec{z} \in \RR[n] \mid g_j(\vec{z}) = 0\,\}\).
     Suppose \(\vec{z}_0 \in Z\) is a local maximum point with respect to \(f\)
     on \(Z\). Suppose also that
     \[
@@ -409,7 +409,7 @@
     \(\vec{y} \mapsto g_j(\vec{s(y), y})\).
     As \((\vec{s(y), y}) \in Z\), we have \(G_j = 0\) for each \(j \in [k]\).
     Thus, \(\nabla G_j(\vec{y}) = \vec{0}\).
-    
+
     Let \(\vec{s} = (s_1, s_2, \cdots, s_k)\) where each \(s_j \colon W \to \RR\).
     Since
     \[\begin{aligned}[t]

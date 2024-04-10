@@ -23,7 +23,7 @@
 }
 \fi
 \usepgfplotslibrary{fillbetween}
-\usepgfplotslibrary{external} 
+\usepgfplotslibrary{external}
 \tikzexternalize%[optimize=false]
 \tcbset{shield externalize}
 \pgfmathsetmacro{\PI}{3.141592654}
@@ -44,6 +44,9 @@
 \date{\today}
 
 \begin{document}
+
+\mmzset{disable}
+
 \maketitle
 \newpage
 \pdfbookmark[section]{\contentsname}{toc}
@@ -53,15 +56,15 @@
 \pagebreak
 
 \chapter{Differentiation}
-\subfile{chapters/chapter1.tex} 
+\subfile{chapters/chapter1.tex}
 \chapter{Inverse Function Theorem}
-\subfile{chapters/chapter2.tex} 
+\subfile{chapters/chapter2.tex}
 \chapter{Series of Vectors}
-\subfile{chapters/chapter3.tex} 
+\subfile{chapters/chapter3.tex}
 \chapter{Analysis for Series Functions}
-\subfile{chapters/chapter4.tex} 
+\subfile{chapters/chapter4.tex}
 \chapter{Applications of Improper Integrals}
-\subfile{chapters/chapter5.tex} 
+\subfile{chapters/chapter5.tex}
 \vfill
 \begin{center}
     \textbf{\textit{End.}}
