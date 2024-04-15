@@ -1,0 +1,168 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Group Actions by Conjugation}
+
+\dfn[conjugate]{Conjugate}{
+    Let \(G\) be a group.
+    We say \(a, b \in G\) are \textit{conjugate}
+    if
+    \[\exs g \in G,\: b = gag\inv.\]
+    In other words,
+    if \(G\) acts on \(G\) by conjugation \(g \cdot a = g a g\inv\),
+    \(a, b \in G\) are conjugate if they are in the same orbit.
+    The orbit of \(a\) in this case
+    is called \textit{conjugacy class} of \(a\).
+}
+
+\nt{
+    Under conjugation, the stabilizer of \(a\) is
+    the centralizer of \(a\).
+}
+
+\exmp[iUFrfCWG]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exmp:iUFrfCWG} (\roman*)}, listparindent=\parindent]
+    \ii\label{itm:iUFrfCWG.i}
+    The conjugacy class of \(a\) is \(\{1\}\) if and only if \(a \in Z(G)\).
+    \ii
+    Let \(\sigma \in S_n\) has the \textit{cycle type} \((n_1, n_2, \cdots, n_r)\).
+    Then, as \(\sigma\) and its conjugation have the same cycle type,
+    the conjugacy class of \(\sigma\) is the collection of permutations
+    with the same cycle type of \(\sigma\).
+\end{enumerate}
+}
+
+\cor[XhaqBMFa]{}{
+    Let \(G \actson A\) and let \(a \in A\).
+    If \([G : C_G(a)]\) is finite, then
+    \[
+        |\text{conjugacy class of}~a| = [G : C_G(a)].
+    \]
+}
+\pf{Proof}{
+    Direct consequence of \nameref{th:orbitStab}.
+}
+
+\exmp[]{}{
+Let \(1 \le m \le n\).
+Let \(\sigma = \cycle[\,]{1,2,\cdots,m}\) be an \(m\)-cycle in \(S_n\).
+Then, there are \(n(n-1)\cdots(n-m+1)/m\) number of \(m\)-cycles in \(S_n\).
+Therefore, \(|C_{S_n}(\sigma)| = |G| / [n(n-1)\cdots(n-m+1)/m] = m \cdot (n-m)!\).
+One may note that
+\(C_{S_n}(\sigma) = \{\,\sigma^i \tau \mid 0 \le i \le m - 1 ~\text{and}~\tau \in S_{n-m}\,\}\).
+}
+
+\thm[classEquation]{Class Equation}{
+    Let \(G\) be a finite group.
+    If \(C_1, C_2, \cdots, C_r\) are all the distinct conjugacy classes of \(G\)
+    such that \(\fall i \in [r],\: C_i \not\subseteq Z(G)\),
+    and if \(a_i \in C_i\) for each \(i \in [r]\),
+    then
+    \[
+        |G| = |Z(G)| + \sum_{i=1}^r [G : C_G(a_i)].
+    \]
+}
+\pf{Proof}{
+    \(Z(G)\) is the union of all singleton conjugacy classes by
+    \ref{itm:iUFrfCWG.i}.
+    The result follows from \Cref{cor:XhaqBMFa}.
+}
+
+\exmp[]{}{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii \(|S_3| = 1 + 2 + 3\)
+    \ii \(|Q_8| = 2 + 2 + 2 + 2\)
+    \ii \(|D_4| = 2 + 2 + 2 + 2\)
+\end{itemize}
+}
+
+\cor[pGroupCenter]{}{
+    Let \(G\) be a group of order \(p^n\) where \(p\) is a prime number and \(n \ge 1\).
+    Then, \(|Z(G)| = p^k\) for some \(k \le 1\).
+}
+\pf{Proof}{
+    In \nameref{th:classEquation},
+    each \([G : C_G(a_i)]\) is a multiple of \(p\).
+    Therefore, we must have \(p \mid |Z(G)|\)
+    while \(Z(G) \neq \OO\).
+}
+
+\cor[orderPSquare]{}{
+    Let \(G\) be a group of order \(p^2\) where \(p\) is a prime number,
+    then \(G \cong \ZZ_{p^2}\) or \(G \cong \ZZ_p \times \ZZ_p\).
+}
+\pf{Proof}{
+    By \Cref{cor:pGroupCenter}, we have \(|Z(G)| = p^2\) or \(|Z(G)| = p\).
+
+    If \(|Z(G)| = p^2\), then
+    If \(G\) has an element of order \(p^2\), then \(G \cong \ZZ_{p^2}\).
+    If every nonidentity element of \(G\) has order \(p\),
+    then \(G \cong \ZZ_p \times \ZZ_p\).
+    Then, \(f \colon \ZZ_p \times \ZZ_p \to G\)
+    defined by \((i, j) \mapsto x^i y^j\)
+    where \(x \in G \setminus \{1\}\) and \(y \in G \setminus \lang x \rang\)
+    is a group isomorphism.
+
+    Now, assume \(|Z(G)| = p\). Then, \(G/Z(G) \cong \ZZ_p\).
+    By \Cref{th:modCenterCyclic}, we get \(Z(G) = G\), which is a contradiction.
+}
+
+\thm[normalIsUnionOfConjClass]{}{
+    Let \(G\) be a group and let \(N \nsub G\).
+    Let \(K\) be a conjugacy class of \(G\).
+    Then,  we have \(K \subseteq N\) or \(K \cap N = \OO\).
+    In particular, \(N\) is union of some conjugacy classes of \(G\).
+}
+\pf{Proof}{
+    Assume \(K \cap N \neq \OO\) and take any \(x \in K \cap N\).
+    Then, for any \(g \in G\), \(gxg\inv \in gNg\inv = N\); thus \(K \subseteq N\).
+}
+
+\exmp[]{}{
+    There are four cycle types of \(A_5\);
+    \(\cycle[\,]{1}, \cycle[\,]{1,2,3}, \cycle[\,]{1,2,3,4,5}, \cycle[\,]{1,2}\cycle[\,]{3,4}\).
+    Note that, even if \(\sigma\) and \(\sigma'\) have the same cycle type
+    so that \(\sigma' = \tau \sigma \tau\inv\) for some \(S_5\),
+    \(\sigma\) and \(\sigma'\) may not be in the same conjugacy class
+    since \(\tau\) may not be an element of \(A_5\).
+
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        \(C_{S_5}(\cycle[\,]{1,2,3}) = \lang \cycle[\,]{1,2,3}, \cycle[\,]{4,5} \rang\) and
+        \(C_{A_5}(\cycle[\,]{1,2,3}) = \lang \cycle[\,]{1,2,3} \rang \cong \ZZ_3\);
+        thus the conjugacy class consists of \(20\) elements; which are all the \(3\)-cycles in \(A_5\).
+        \ii
+        \(C_{S_5}(\cycle[\,]{1,2,3,4,5}) = \lang \cycle[\,]{1,2,3,4,5} \rang\) and
+        \(C_{A_5}(\cycle[\,]{1,2,3,4,5}) = \lang \cycle[\,]{1,2,3,4,5} \rang \cong \ZZ_5\);
+        the conjugacy class of \(\cycle[\,]{1,2,3,4,5}\) consists of \(12\) elements
+        while \(A_5\) has \(24\) \(5\)-cycles.
+        The conjugacy class of \(\cycle[\,]{1,3,5,2,4}\) consists of \(12\) elements.
+        \ii
+        \(|C_{S_5}(\cycle[\,]{1,2}\cycle[\,]{3,4})| = 8\)
+        and \(|C_{A_5}(\cycle[\,]{1,2}\cycle[\,]{3,4})| = 4\);
+        the conjugacy class of \(\cycle[\,]{1,2}\cycle[\,]{3,4}\)
+        consists of all \(15\) elements.
+    \end{itemize}
+
+    Therefore, the class equation of \(A_5\)
+    is \(|A_5| = 1 + 12 + 12 + 15 + 20\);
+    thus by \Cref{th:normalIsUnionOfConjClass},
+    if there is a nontrivial normal subgroup
+    then its order is sum of orders of some conjugacy classes but there is no way to
+    make it divisible by \(|A_5| = 60\).
+    Therefore, \(A_5\) is simple.
+}
+
+\cor[]{}{
+    Let \(G \actson \mcal{P}(G)\) by conjugation;
+    \((g, A) \mapsto g A g\inv\).
+    We say \(A, B \subseteq G\) are \textit{conjugate}
+    if \(A = gBg\inv\) for some \(g \in G\).
+    Then, \([G:N_G(A)] = |G\cdot A| = |\text{orbit of}~A|\).
+}
+\pf{Proof}{
+    \(N_G(A) = G_A\).
+}
+
+\end{document}

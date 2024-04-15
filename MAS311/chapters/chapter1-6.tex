@@ -1,0 +1,97 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Alternating Groups}
+
+\dfn[mCycle]{\(\bs{m}\)-Cycle}{
+    Permutations of the form \(\cycle[\,]{a_1,a_2,\cdots,a_m}\)
+    is called \textit{\(m\)-cycles}.
+}
+
+\nt{
+Some basic facts:
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    \(S_1, S_2, S_3\) consist of cycles while
+    \(S_4\) has a non-cycle \(\cycle[\,]{1,2}\cycle[\,]{3,4}\).
+
+    \ii
+    \(\cycle[\,]{a_1,a_2,\cdots,a_m}\inv = \cycle[\,]{a_m,a_{m-1},\cdots,a_1}\).
+
+    \ii
+    Every \(\sigma \in S_n\) admits a disjoint cycle decomposition.
+    In other words, \[
+        \sigma = \cycle[\,]{a_{i_{11}},\cdots,a_{i_{1m_1}}}
+        \cycle[\,]{a_{i_{21}},\cdots,a_{i_{2m_2}}}
+        \cdots \cycle[\,]{a_{i_{k1}},\cdots,a_{i_{km_k}}}
+    \]
+    where \(a_{i_{j\ell}}\)s are all different.
+    Moreover, the cycle decomposition is unique up to
+    permutation of the cycles.
+
+    \ii
+    If \(\sigma = \sigma_1 \sigma_2 \cdots \sigma_k\) is a disjoint cycle decomposition,
+    then \(\sigma^n = \sigma_1^n \sigma_2^n \cdots \sigma_k^n\).
+    Moreover, \(|\sigma| = \lcm(|\sigma_1|, |\sigma_2|, \cdots, \sigma_k)\).
+\end{itemize}
+}
+
+\exmp[]{Center of Symmetric Group}{
+    \(Z(S_2) = S_2\) since \(S_2\) is abelian.
+    Fix \(n \ge 3\) and consider \(S_n\).
+    Let \(\sigma \in Z(S_n) \setminus \{(1)\}\).
+    Let \(\sigma = \cycle[\,]{a_1,a_2,\cdots,a_m}\sigma_2 \cdots \sigma_k\) be a disjoint cycle decomposition
+    with \(m \ge 2\).
+    Choose \(\tau \in S_n\) such that \(\tau(a_1) = a_1\) and \(\tau(a_2) \neq a_2\).
+    Then, \(\sigma(a_1) = \tau \sigma \tau\inv (a_1) = \tau \sigma(a_1) = \tau(a_2) \neq a_2\),
+    which is a contradiction. Hence, \(Z(S_n) = \{(1)\}\).
+}
+
+\dfn[transpotiion]{Transposition}{
+    A \textit{transposition} is a \(2\)-cycle \(\cycle[\,]{a,b}\).
+}
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii \(\cycle[\,]{a_1,a_2,\cdots,a_m} = \cycle[\,]{a_1,a_m} \cycle[\,]{a_1,a_{m-1}} \cdots \cycle[\,]{a_1,a_2}\).
+    \ii
+    By the cyclic decomposition and the equation above, we get the fact that
+    every \(\sigma \in S_n\) is a product of transpositions.
+\end{itemize}
+}
+
+\dfn[parityPerm]{Parity of Permutation}{
+    For each \(\sigma \in S_n\), define
+    \(\sigma(\Delta) = \prod_{i \le i < j \le n} (x_{\sigma(i)} - x_{\sigma(j)})\)
+    be a polynomial on independent variables \(x_1, \cdots, x_n\).
+    Let \(\Delta \triangleq (1)(\Delta)\).
+    Then, \(\sigma(\Delta) = \pm \Delta\).
+    We define \(\veps \colon S_n \to \{1, -1\}\) by
+    \[
+        \veps(\sigma) \triangleq \begin{cases}
+            1 & \text{if}~\sigma(\Delta) = \Delta \\
+            -1 & \text{if}~\sigma(\Delta) = -\Delta.
+        \end{cases}
+    \]
+}
+
+\thm[]{}{
+    \(\veps\) in \Cref{dfn:parityPerm} is a surjective group homomorphism.
+}
+\pf{Proof}{
+    Take any \(\sigma, \tau \in S_n\).
+    Suppose \(\sigma(\Delta)\) has exactly \(k\) factors of \((x_j - x_i)\) with \(j > i\)
+    so that \(\veps(\sigma) = (-1)^k\).
+    \(\veps(\tau \sigma) \Delta = (\tau \sigma)(\Delta) = \veps(\sigma) \prod_{i \le i < j \le n} (x_{\tau(i)} - x_{\tau(j)})
+    = \veps(\sigma)\veps(\tau) \Delta\).
+    Hence, \(\veps(\tau \sigma) = \veps(\sigma) \veps(\tau) = \veps(\tau) \veps(\sigma)\).
+}
+
+\dfn[alternatingGroup]{Alternating Group}{
+    \[
+        A_n \triangleq \ker (\veps \colon S_n \to \{\pm 1\})
+    \]
+}
+
+
+\end{document}

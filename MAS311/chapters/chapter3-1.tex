@@ -1,0 +1,167 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Stabilizers and Orbits}
+
+\dfn[stabilizer]{Stabilizer}{
+    Let \(G \actson A\).
+    The \textit{stabilizer of \(a \in A\)} is the set
+    \[
+        G_a \triangleq \{\,g \in G \mid ga = a\,\}.
+    \]
+}
+
+\dfn[kernelGroupAction]{Kernel of Group Action}{
+    Let \(G \actson A\).
+    The \textit{kernel of \(G \actson A\)} is the set
+    \[
+        K(G, A) \triangleq \{\,g \in G \mid \fall a \in A,\: ga = a\,\}
+        = \textstyle \bigcap_{a \in A} G_a.
+    \]
+}
+
+\nt{
+    \(K(G, A)\) is the kernel of the permutation representation of the group action.
+    Therefore, \(K(G, A) \nsub G\).
+}
+
+\thm[]{}{
+    Let \(G \actson A\).
+    Then, \(\fall a \in G,\: G_a \le G\).
+}
+\pf{Proof}{
+    \(G_a \neq \OO\) since \(1 \in G_a\).
+    If \(x, y \in G_a\),
+    then \((xy\inv) a = (xy\inv)(ya) = xa = a\); thus \(xy\inv \in G_a\).
+    Hence, \(G_a \le G\) by \Cref{th:subgroupTFAE}.
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii
+    Let \(G\) be a group and let \(S \triangleq \mcal{P}(G)\).
+    Define a group action of \(G\) on \(S\) by \((g, A) \mapsto gAg\inv\).
+    Then, for each \(A \in \mcal{P}(G)\),
+    \(G_A = \{\,g \in G \mid gAg\inv = A\,\} = N(A)\).
+
+    \ii
+    Let \(G\) be a group and let \(A \subseteq G\).
+    Define a group action of \(N(A)\) on \(A\) by \((g, a) \mapsto gag\inv\).
+    Then, \(K(N(A), A) = \{\,g \in N(A) \mid \fall a \in A,\: gag\inv = a\,\} = C(A)\).
+
+    \ii
+    Let \(G\) be a group
+    and define a group action of \(G\) on \(G\) by \((g, a) \mapsto gag\inv\).
+    Then, \(G_a = \{\,g \in G \mid gag\inv = a\,\} = C(a)\) for each \(a \in G\)
+    and \(K(G, G) = \{\,g \in G \mid \fall a \in A,\: gag\inv = a\,\} = Z(G)\).
+\end{enumerate}
+}
+
+\dfn[faithfulGroupAction]{Faithful Group Action}{
+    If \(G \actson A\), we say the group action is \textit{faithful} if \(K(G, A) = \{1\}\).
+}
+
+\nt{
+    Let \(\vphi \colon G \to S(A)\) be the permutation representation.
+    Then, \(G/K(G, A) \cong \img(\vphi) \le S(A)\)
+    so we may consider injective group homomorphism \(G/K(G, A) \injto S(A)\)
+    so that \(G/K(G, A) \actson A\) is faithful.
+}
+
+\mlemma[HhRpyQeL]{}{
+    Define \(a \sim b \iff \exs g \in G,\: a = g \cdot b\).
+    Then, \(\sim\) is an equivalence relation.
+}
+
+\dfn[orbit]{Orbit}{
+    Let \(G \actson A\).
+    The \textit{orbit of \(a \in A\)} is the set
+    \[
+        Ga \triangleq \{\,g \cdot a \mid g \in G\,\}.
+    \]
+}
+\nt{
+    By \Cref{lem:HhRpyQeL}, the collection of orbits
+    forms a partition of \(A\).
+    Moreover, \(G \actson Ga\) for each \(a \in A\).
+}
+
+\thm[orbitStab]{Orbit-Stabilizer Theorem}{
+    Let \(G \actson A\) and \(a \in A\).
+    Then, the function
+    \begin{align*}
+        f\colon Ga &\longrightarrow \{\,\text{left cosets of}~G_a~\text{in}~G\,\} \\
+        ga &\longmapsto g G_a
+    \end{align*}
+    is well-defined and is a bijection.
+    In particular, if \(Ga\) is finite, then
+    \(|Ga| = [G:G_a]\).
+}
+\pf{Proof}{
+    For each \(g, g' \in G\), we have
+    \[
+        ga = g'a \iff a = g\inv g' a
+        \iff g \inv g' \in G_a \iff g G_a = g' G_a
+    \]
+    Therefore, \(f\) is well-defined and is injective.
+    The surjectivity of \(f\) is evident.
+}
+
+\dfn[transitiveGroupAction]{Transitive Group Action}{
+    Let \(G \actson A\).
+    The group action is \textit{transitive}
+    if \(\fall a \in A,\: A = Ga\).
+}
+
+\nt{
+    By \nameref{th:orbitStab} and \nameref{th:lagrange},
+    if \(G\) and \(A\) are finite, and if the group action is transitive,
+    then \(|A| \mid |G|\).
+}
+
+\dfn[]{}{
+    Let \(G \actson A\).
+    Then, for each \(g \in G\), we define
+    \[
+        A_g \triangleq \{\,a \in A \mid g \cdot a = a\,\}.
+    \]
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii
+    Let \(S_n \actson [n]\).
+    Then, \((S_n)_i \cong S_{n-1}\) for each \(i \in [n]\).
+    Moreover, \(K(S_n, [n]) = \bigcap_{i \in [n]} (S_n)_i = \{(1)\}\).
+    By \nameref{th:orbitStab}, \(|S_n \cdot i| = |S_n| / |(S_n)_i| = n\);
+    thus \(S_n \cdot i = [n]\).
+\end{enumerate}
+}
+
+\thm[burnside]{Burnside's Lemma}{
+    Let \(G \actson A\) and let \(|G|\) and \(|A|\) be finite.
+    Then,
+    \[
+        (\text{\# of orbits of}~G) = \frac{1}{|G|} \sum_{a \in A} |G_a|
+        = \frac{1}{|G|} \sum_{g \in G} |A_g|.
+    \]
+}
+\pf{Proof}{
+    Let \(S \triangleq \{\,(g, a) \in G \times A \mid g \cdot a = a\,\}\).
+    Then, by double counting, \(|S| = \sum_{a \in A} |G_a| = \sum_{g \in G} |A_g|\).
+    By \nameref{th:orbitStab},
+    \[
+        \sum_{a \in A} |G_a| = \sum_{a \in A} \frac{|G|}{|Ga|}
+        = |G| \sum_{a \in A} \frac{1}{|Ga|}.
+    \]
+    Since \(\sum_{a' \in Ga} |Ga|\inv = 1\),
+    we have \(\sum_{a \in A} \frac{1}{|Ga|} = (\text{\# of orbits of}~G)\).
+    Therefore, we have
+    \[
+        (\text{\# of orbits of}~G) = \frac{1}{|G|} \sum_{a \in A} |G_a|
+        = \frac{1}{|G|} \sum_{g \in G} |A_g|.
+    \]
+}
+
+\end{document}

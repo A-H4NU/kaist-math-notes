@@ -1,0 +1,334 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Quotient Groups and Group Homomorphisms}
+
+\dfn[quotient Group]{Quotient Group}{
+    Let \(G\) be a group and \(N \nsub G\).
+    Then, by \Cref{lem:normalWellDefines},
+    \(G/N\) equipped with operation \((Na, Nb) \mapsto (Nab)\)
+    is a group. \parinn
+
+    \(\pi \colon G \to G/N\) defined by \(a \mapsto Na\)
+    is a surjective group homomorphism.
+    We call \(\pi\) the \textit{natural projection}.
+}
+
+\nt{
+    If \(G\) is abelian/cyclic/finite, then \(G/N\) is also abelian/cyclic/finite.
+}
+
+\thm[modCenterCyclic]{}{
+    Let \(G\) be a group.
+    If \(G/Z(G)\) is a cyclic group, then \(G\) is an abelian group.
+}
+\pf{Proof}{
+    Let \(C \triangleq Z(G)\).
+    There exists \(d \in G\) such that \(G/C = \lang Cd \rang\).
+    Take any \(a, b \in G\).
+    Then, \(Ca = Cd^i\) and \(Cb = Cd^j\) for some \(i, j \in \ZZ\).
+    Hence, \(a = c_1d^i\) and \(b = c_2 d^j\) for some \(c_1, c_2 \in C\).
+    Then, we have
+    \[
+        ab = c_1(d^ic_2)d^j = (c_1c_2)(d^id^j)
+        = c_2 (c_1 d^j) d^i = c_2 d^j c_1 d^i = ba.
+    \]
+    Hence, the result follows.
+}
+
+\thm[trivialKerIffInj]{}{
+    Let \(f \colon G \to H\) be a group homomorphism.
+    Then, \(\ker(f) = \{1\}\) if and only if \(f\) is injective.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Take any \(a, b \in G\) with \(f(a) = f(b)\).
+    Then, we have \(1 = f(a)f(b)\inv = f(ab\inv)\); thus \(ab\inv \in \ker(f)\).
+    Therefore, we have \(ab\inv = 1\), which implies \(a = b\).
+    \ii[(\(\Leftarrow\))]
+    Trivial.
+    \qed
+\end{itemize}
+}
+
+\thm[firstIso]{First Isomorphism Theorem}{
+    If \(f \colon G \to H\) is a group homomorphism, then
+    \(G/\ker(f) \cong \img(H)\).
+}
+\pf{Proof}{
+    \WLOG, \(f\) is surjective.
+    Put \(K \triangleq \ker(f)\).
+    Define \(\vphi \colon G/K \to H\)
+    by \(Ka \mapsto f(a)\).
+    It is well-defined since,
+    if \(Ka = Kb\), then we have \(a = kb\) for some \(k \in \ker(f)\)
+    and thus \(f(a) = f(k) f(b) = f(b)\).
+    Moreover, it is evidently surjetive.
+
+    It is clear that \(\vphi\) is a group homomorphism.
+    Take any \(Ka, Kb \in G/K\) and assume \(f(a) = f(b)\).
+    Then, \(1 = f(ab\inv)\); thus \(ab\inv \in K\).
+    Therefore, \(Ka = Kb\); \(\vphi\) is injective.
+}
+
+\cor[indexSmallestPrime]{}{
+    Let \(N \le G\) be a subgroup of a finite group \(G\).
+    If \([G:N]\) is the smallest prime divisor of \(|G|\),
+    then \(N \nsub G\).
+}
+\pf{Proof}{
+    Let \(L\) be the set of left cosets of \(N\) in \(G\)
+    and let \(p \triangleq [G:N] = |L|\). (See \Cref{th:bijLeftRightCoset}.)
+    Note that \(G \actson L\) by \((g, aN) \mapsto (ga)N\).
+    Then, by \Cref{lem:actionInducesPermRep},
+    the map \(\vphi \colon G \to S(L)\)
+    defined by \(g \mapsto \vphi_g\) is a group homomorphism.
+    Let \(K \triangleq \ker(\vphi)\).
+    By \nameref{th:firstIso} and \nameref{th:lagrange}, we have \(|G/K| \mid p!\).
+
+    On the other hand,
+    for each \(k \in K\), since \(\vphi(k) = \mrm{id}_L\),
+    \(kN = \vphi(k)(N) = N\); thus \(k \in N\).
+    Hence, we have \(K \le N\).
+    By \Cref{cor:lagrangeChain}, \(p[N:K] = [N:K][G:N] = [G:K] \mid p!\).
+    Now, we have \([N:K] \mid (p-1)!\).
+    As \(p\) is the smallest prime divisor of \(|G|\),
+    and as \([N:K]\) divides \(|G|\), we have \([N:K] = 1\);
+    that is to say \(N = K = \ker(\vphi) \nsub G\).
+}
+
+\thm[HKCard]{}{
+    If \(H, K \le G\) and \(G\) is a finite group, then
+    \[
+        |HK| = \frac{|H| |K|}{|H \cap K|}.
+    \]
+}
+\pf{Proof}{
+    Note that, for each \(h_1, h_1 \in H\),
+    \[
+        h_1K = h_2K
+        \iff h_2\inv h_1 \in K
+        \iff h_2\inv h_1 \in H \cap K
+        \iff h_1(H \cap K) = h_2(H \cap K).
+    \]
+    Therefore,
+    \begin{align*}
+        |\{\,hK \mid h \in H\,\}|
+        = |\{\,h(H \cap K) \mid h \in H\,\}|
+        = [H:H \cap K] = |H|/|H \cap K|
+    \end{align*}
+    by \nameref{th:lagrange} and \Cref{th:bijLeftRightCoset}.
+    Therefore,
+    \(|HK| = |\{\,hK \mid h \in H\,\}| |K| = |H||K|/|H \cap K|\).
+}
+
+\thm[HKSubgroupIff]{}{
+    Let \(H, K \le G\). Then, \(HK \le G\) if and only if \(HK = KH\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Take any \(kh \in KH\). Since \(H, K \le HK\), we have \(kh \in HK\); thus \(KH \subseteq HK\).
+    Now, take any \(x \in HK\). Then, since \(x\inv \in HK\), \(x\inv = hk\) for some
+    \(h \in H\) and \(k \in K\).
+    Therefore, \(x = (x\inv)\inv = k\inv h\inv \in KH\); thus \(HK \subseteq KH\).
+
+    \ii[(\(\Leftarrow\))]
+    \(HK\) is evidently nonempty.
+    Take any \(h_1k_1, h_2k_2 \in HK\).
+    Since \(k_1k_2\inv h_2\inv \in KH = HK\), we have \(k_1k_2\inv h_2\inv = h_3k_3\)
+    for some \(h_3 \in H\) and \(k_3 \in K\).
+    Therefore, \((h_1k_1)(h_2k_2)\inv = h_1(k_1k_2\inv h_2\inv) = h_1h_3k_3 \in HK\).
+    Thus, \(HK \le G\) by \Cref{th:subgroupTFAE}.
+    \qed
+\end{itemize}
+}
+
+\cor[HsubNKThen]{}{
+    Let \(H, K \le G\). Then, \(H \le N(K)\) implies \(HK \le G\).
+    In particular, if \(H \le G\) and \(K \nsub G\), then \(HK \le G\).
+}
+\pf{Proof}{
+    Take any \(hk \in HK\). Since \(hkh\inv \in K\), we have \(hk = (hkh\inv) h \in KH\);
+    thus \(HK \subseteq KH\).
+    On the other hand, for each \(kh \in KH\),
+    we have \(kh = h (h\inv k h) \in HK\) by the same reason.
+    Hence, \(HK = KH\). The result follows from \Cref{th:HKSubgroupIff}.
+}
+
+\thm[secondIso]{Second Isomorphism Theorem}{
+    Let \(N \nsub G\) and \(K \le G\).
+    Then, \(NK \le G\), \(N \nsub NK\), \(N \cap K \nsub K\), and \(K/(N \cap K) \cong NK/N\).
+}
+\pf{Proof}{
+    By \Cref{cor:HsubNKThen} and \Cref{th:HKSubgroupIff}, we have \(KN = NK \le G\).
+    Moreover, \(N \nsub G\) and \(N \le NK\) straightforwardly implies \(N \nsub NK\).
+    Consider a group homomorphism \(f \colon K \to NK/N\) defined by \(k \mapsto Nk\).
+    As \(Nnk = Nk\) for each \(n \in N\) and \(k \in K\), \(f\) is surjective.
+    Now,
+    \[
+        \ker(f) = \{\,k \in K \mid Nk = N\,\} = \{\,k \in K \mid k \in N\,\} = K \cap N.
+    \]
+    Therefore, \(K \cap N \nsub K\).
+    \nameref{th:firstIso} implies \(K/(K \cap N) \cong NK/N\).
+}
+
+\thm[thirdIso]{Third Isomorphism Theorem}{
+    Let \(N, K \nsub G\) and \(N \le K\).
+    Then, \(K/N \nsub G/N\) and \((G/N)/(K/N) \cong G/K\).
+}
+\pf{Proof}{
+    Define
+    \begin{align*}
+        f\colon G/N &\longrightarrow G/K \\
+        Na &\longmapsto Ka.
+    \end{align*}
+    To show well-definedness, take any \(a, b \in G\) and assume \(ab\inv \in N\).
+    Then, since \(N \subseteq K\), we also have \(ab\inv \in K\), i.e., \(Ka = Kb\).
+    Now, clearly \(f\) is a surjective group homomorphism.
+    \[
+        \ker(f) \triangleq \{\,Na \in G/N \mid Ka = K\,\}
+        = \{\,Na \in G/N \mid a \in K\,\} = K/N.
+    \]
+    Therefore, \((G/N)/(K/N) \cong G/K\) by \nameref{th:firstIso}.
+}
+
+\thm[fourthIso]{Fourth Isomorphism Theorem}{
+    Let \(N \nsub G\) and let \(\pi \colon G \surjto G/N\) be the natural projection.
+    Then, there is a natural one-to-one correspondence between
+    \[
+        \{\,\text{subgroups of}~G~\text{containing}~N\,\} \xleftrightarrow{\text{1:1}}
+        \{\,\text{subgroups of}~G/N\,\}
+    \]
+    with \(K \mapsto K/N\). Furthermore,
+    for each \(K \le G\) such that \(N \le K\), we have \(K \nsub G \iff K/N \nsub G/N\).
+}
+\mclm{Proof}{
+    Let \(\phi(K) = K/N\) for each subgroup \(K \le G\) containing \(N\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume \(N \le K, K' \le G\) with \(K \neq K'\).
+        \WLOG, fix \(k \in K \setminus K'\).
+        If \(Nk = Nk'\) for some \(k' \in K'\), then we have \(k \in Nk' \subseteq K'\).
+        Therefore, \(\fall k' \in K,\: Nk \neq Nk'\);
+        we get \(Nk \in K/N\) while \(Nk \notin K'/N\). Thus, \(K/N \neq K'/N\).
+        \(\phi\) is injective.
+
+        \ii
+        Take any \(\ol{K} \le G/N\) and let \(K = \pi\inv(\ol{K}) = \{\,g \in G \mid Ng \in \ol{K}\,\}\).
+        Then, we immediately have \(N \le K \le G\)
+        and \(\phi(K) = K/N = \ol{K}\).
+    \end{itemize}
+    Therefore, \(\phi\) is bijective.
+
+    We are now left with the last assertion.
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))] \nameref{th:thirdIso}
+        \ii[(\(\Leftarrow\))]
+        Assume \(K/N \nsub G/N\). Take any \(a \in G\) and \(k \in K\).
+        Then, we have \(Na\inv k a = (Na)\inv (Nk) (Na) \in K/N\).
+        Therefore, \(Na\inv k a = Nt\) for some \(t \in K\),
+        and thus \(a\inv k a = nt\) for some \(n \in N\).
+        Since \(N \subseteq K\), we have \(a\inv k a \in K\).
+        \qed
+    \end{itemize}
+}
+
+\dfn[commutator]{Commutator}{
+    Let \(G\) be a group and let \(x, y \in G\).
+    Then, the \textit{commutator} of \(x\) and \(y\) is
+    \[
+        [x, y] \triangleq x\inv y\inv xy.
+    \]
+    Moreover, for \(A, B \le G\), the \textit{commutator} of \(A\) and \(B\) is
+    \[
+        [A, B] \triangleq \lang\,[a, b] \mid a \in A \land b \in B\,\rang.
+    \]
+    The \textit{commutator subgroup of \(G\)} is \([G, G]\).
+}
+
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    Let \(x, y \in G\).
+    From the fact that \(xy = yx [x, y]\), we have
+    \([x, y] = 1 \iff xy = yx\).
+
+    \ii
+    \(G\) is abelian if and only if \([G, G] = \{1\}\).
+
+    \ii
+    We do not have \(\{\,[a, b] \mid a \in A \land b \in B\,\} \le G\) in general.
+    However, the smallest counterexample requires \(|G| = 96\); so we do not consider it.
+\end{itemize}
+}
+
+\exmp[]{}{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    In \(D_n\),
+    \([r_1^i, r_1^j] = r_0\), \([sr_1^i, r_1^j] = r_1^{2j}\), \([r_1^i, sr_1^j] = r_1^{-2i}\), and
+    \([sr_1^i, sr_1^j] = r_1^{-2i+2j}\).
+    In particular, \([D_4, D_4] = \{r_0, r_1^2\}\).
+\end{itemize}
+}
+
+\thm[commutatorProperty]{}{
+    Let \(G\) be a group and let \(H \le G\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:commutatorProperty} (\roman*)}]
+        \ii
+        \(H \nsub G \iff [H, G] \le H\).
+        \ii
+        \(\fall \sigma \in \Aut(G),\:\fall x, y \in G,\: \sigma([x,y]) = [\sigma(x), \sigma(y)]\).
+        \ii\label{itm:commutatorProperty.iii}
+        \([G, G] \char G\), and \(G/[G, G]\) is abelian.
+        \ii\label{itm:commutatorProperty.iv}
+        \(H \nsub G\) and \(G/H\) is abelian if and only if \([G, G] \le H\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Take any \(g \in G\) and \(h \in H\).
+    Then, \([h, g] = h\inv(g\inv h g) \in H \iff g\inv h g \in H\).
+
+    \ii
+    Take any \(\sigma \in \Aut(G)\) and \(x, y \in G\).
+    Then, \(\sigma([x, y]) = \sigma(x\inv y\inv x y) = \sigma(x)\inv \sigma(y)\inv \sigma(x) \sigma(y)
+    = [\sigma(x), \sigma(y)]\).
+
+    \ii
+    Take any \(\sigma \in \Aut(G)\).
+    Then, we have \(\sigma([G, G]) \le [G, G]\) and \(\sigma\inv([G, G]) \le [G, G]\) by (ii).
+    Hence, \(\sigma([G, G] = G)\).
+
+    Now, take any \(x, y \in G\).
+    Then, \([G, G]xy = [G, G][y\inv, x\inv] x y = [G, G] yx\).
+    Hence, \(G/[G, G]\) is abelian.
+
+    \ii
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))]
+        Take any \(x, y \in G\).
+        Then, \(H = (Hx)\inv(Hy)\inv (Hx)(Hy) = H(x\inv y\inv x y) = H[x, y]\).
+        Therefore, \([x, y] \in H\). This shows \([G, G] \le H\).
+        \ii[(\(\Leftarrow\))]
+        By (iii) and \ref{itm:characteristicBasic.i}, we have \([G, G] \nsub G\);
+        and thus \([G, G] \nsub H\).
+        Moreover, since \(G/[G, G]\) is abelian, every subgroup of \(G/[G, G]\) is normal.
+        In particular, \(H/[G, G] \nsub G/[G, G]\).
+        Hence, by \nameref{th:fourthIso}, \(H \nsub G\).
+        By \nameref{th:thirdIso}, \(G/H \cong (G/[G, G])/(H/[G,G])\) is abelian.
+        \qed
+    \end{itemize}
+\end{enumerate}
+}
+
+\nt{
+    From \ref{itm:commutatorProperty.iii} and \ref{itm:commutatorProperty.iv},
+    we get the fact that \(G/[G, G]\) is the \textit{largest} abelian quotient of \(G\).
+}
+
+\end{document}

@@ -41,8 +41,13 @@
 \DeclareMathOperator{\dom}{dom}
 \let\ran\relax
 \DeclareMathOperator{\ran}{ran}
+\let\char\relax
+\newcommand{\char}{\mathrel{\textrm{char}}}
+% \DeclareMathOperator{\Inn}{Inn}
 
-\newcommand{\needsChoice}{\hfill[\textsf{AoC}]}
+% for index
+\DeclareMathSymbol{:}{\mathord}{operators}{"3A}
+\setlength{\emergencystretch}{10pt}
 
 \begin{document}
 
@@ -64,10 +69,10 @@
 
 		\vspace{0.5\textheight}
 
-        % {\noindent
-        % Hrbacek, Karel, and Thomas J. Jech.
-        % \textit{Introduction to Set Theory, Revised and Expanded}. 3rd ed.,
-        % CRC Press, 1999.}\\[\baselineskip]
+        {\noindent
+        David S. Dummit, Richard M. Foote.
+        \textit{Abstract Algebra}. 3rd ed.,
+        Wiley, 2003.}\\[\baselineskip]
 	}
 \end{titlepage}
 \pdfbookmark[section]{\contentsname}{toc}
@@ -84,6 +89,20 @@
 \subfile{./chapters/chapter1-1.tex}
 \subfile{./chapters/chapter1-2.tex}
 \subfile{./chapters/chapter1-3.tex}
+\subfile{./chapters/chapter1-4.tex}
+\subfile{./chapters/chapter1-5.tex}
+\subfile{./chapters/chapter1-6.tex}
+
+\chapter{Normal Subgroups and Quotient Groups}
+\subfile{./chapters/chapter2-1.tex}
+\subfile{./chapters/chapter2-2.tex}
+\subfile{./chapters/chapter2-3.tex}
+\subfile{./chapters/chapter2-4.tex}
+
+\chapter{Group Actions}
+\subfile{./chapters/chapter3-1.tex}
+\subfile{./chapters/chapter3-2.tex}
+\subfile{./chapters/chapter3-3.tex}
 
 \vfill
 \begin{center}

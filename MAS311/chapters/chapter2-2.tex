@@ -1,0 +1,187 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Normal Subgroups}
+
+\mlemma[normalWellDefines]{}{
+    Let \(G\) be a group and let \(N \le G\).
+    Then,
+    \begin{multline*}
+        \fall a, a', b, b' \in G,\: (Na = Na' \land Nb = Nb' \implies Nab = Na'b') \\
+        \iff
+        \fall g \in G, gNg\inv \subseteq N.
+    \end{multline*}
+}
+
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Take any \(g \in G\) and \(n \in N\).
+    Since \(N 1 = N n\inv\), we have \(Ng = Ngn\inv\).
+    Hence, there exists \(n' \in N\) such that \(ng = n'gn\inv\).
+    Therefore, \(gng\inv = g(gn\inv)\inv = n\inv n' \in N\).
+
+    \ii[(\(\Leftarrow\))]
+    Take any \(a, a', b, b' \in G\) and assume \(Na = Na'\) and \(Nb = Nb'\).
+    Then, \(n' \triangleq a' a\inv \in N\) and \(b' b\inv \in N\).
+    Hence, \(a' = n'a\); thus
+    \((a'b')(ab)\inv = n'(a(b'b\inv)a\inv) \in N\)
+    (by \(b'b\inv \in N\) and the assumption).
+    Therefore, \(Nab = Na'b'\).
+    \qed
+\end{itemize}
+}
+
+\dfn[normalSubgroup]{Normal Subgroup}{
+    Let \(G\) be a group and let \(N \le G\).
+    \(N\) is a \textit{subgroup} if \(\fall g \in G,\: gNg\inv \in N\).
+    If \(N\) is a normal subgroup of \(G\), we write \(N \nsub G\).
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii If \(G\) is abelian, then every subgroup is normal.
+    \ii If \(f \colon G \to H\) is a group homomorphism, then \(\ker(f) \nsub G\).
+\end{enumerate}
+}
+
+\mlemma[]{}{
+    Let \(G\) be a group and \(N \le G\).
+    Then, \(aNa\inv \le G\) and \(aNa\inv \cong N\).
+}
+\pf{Proof}{
+    For each \(ana\inv, an'a\inv \in aNa\inv\),
+    we have \((ana\inv)(an'a\inv)\inv = (ana\inv)(a(n')\inv a\inv) = a(n (n')\inv)a\inv \in aNa\inv\).
+    Therefore, \(aNa\inv \le G\).
+
+    Moreover, \(f \colon N \to aNa\inv\) defined by \(n \mapsto ana\inv\)
+    is a bijective group homomorphism; thus \(aNa\inv \cong N\).
+}
+
+\thm[normalSubgroupTFAE]{}{
+Let \(G\) be a group and \(N \le G\). \TFAE.
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}]
+    \ii \(N \nsub G\)
+    \ii \(\fall a \in G,\: aNa\inv = N\)
+    \ii \(\fall a \in G,\: Na = aN\)
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(i)\(\Rightarrow\)(ii)]
+    For each \(n \in N\) and \(a \in G\), we have
+    \(a\inv n a = a\inv n (a\inv)\inv \in N\);
+    thus \(n = a(a\inv n a)a\inv \in aNa\inv\). Therefore, \(N \subseteq aNa\inv\).
+
+    \ii[(ii)\(\Rightarrow\)(iii)]
+    Take any \(n \in N\) and \(a \in G\).
+    Then, \(ana\inv = n'\) for some \(n' \in N\).
+    Hence, \(an = n'a \in Na\); thus \(aN \subseteq Na\).
+    Similarly, we may show \(Na \subseteq aN\).
+
+    \ii[(iii)\(\Rightarrow\)(i)]
+    Take any \(n \in N\) and \(a \in G\).
+    Then, \(an = n'a\) for some \(n' \in N\).
+    Thus, \(ana\inv = n' \in N\); thus \(aNa\inv \subseteq N\).
+    \qed
+\end{itemize}
+}
+
+\mlemma[indexTwoSubgroup]{}{
+    Let \(G\) be a group and \(N \le G\).
+    If \([G:N] = 2\), then \(N \nsub G\).
+}
+\pf{Proof}{
+    \(\{N, Na\}\) and \(\{N, aN\}\) are partitions of \(G\);
+    thus \(Na = aN\).
+    The result follows from \Cref{th:normalSubgroupTFAE}.
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii If \(N \le Z(G)\), then \(N \nsub G\). (In particular, \(Z(G) \nsub G\)).
+    \ii By (i) and \Cref{lem:indexTwoSubgroup}, \(A_n \nsub S_n\).
+    \ii \(\{\,r_0, s\,\} \nsub \{\,r_0, s, r_2, s r_2\,\} \nsub D_4\) but \(\{\,r_0, s\,\} \not\nsub D_4\).
+\end{enumerate}
+}
+
+\dfn[normalizer]{Normalizer}{
+    Let \(G\) be a group and let \(\OO \subsetneq A \subseteq G\).
+    Then, the \textit{normalizer of \(A\)} is the set
+    \[
+        N(A) = N_G(A) \triangleq \{\,g \in G \mid gAg\inv = A\,\}.
+    \]
+}
+
+\thm[]{}{
+    Let \(G\) be a group and let \(\OO \subsetneq A \subseteq G\).
+    Then, \(C(A) \le N(A) \le G\).
+}
+\pf{Proof}{
+    As \(C(A) \subseteq N(A)\), it is enough to show \(N(A) \le G\).
+    Note that \(1 \in A\) by definition.
+    Take any \(x, y \in N(A)\).
+    Then, \((xy\inv)A(xy\inv)\inv = xy\inv A yx\inv
+    = xy\inv (yAy\inv) y x\inv = xAx\inv = A\).
+    Therefore, \(xy\inv \in N(A)\); thus \(N(A) \le G\) by \Cref{th:subgroupTFAE}.
+}
+
+\thm[normalierIsMaximal]{}{
+Let \(G\) be a group and let \(H \le G\).
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii \(H \nsub N(H)\)
+    \ii If \(H \nsub K \le G\), then \(K \le N(H)\).
+\end{enumerate}
+}
+\pf{Proof}{
+    (i) is trivial since \(H \subseteq N(H)\).
+    Take any \(k \in K\). From \(kHk\inv = H\), we have \(k \in N(H)\);
+    \(K \subseteq N(H)\).
+}
+
+\nt{
+    \Cref{th:normalierIsMaximal} essentially says that
+    \(N(H)\) is the largest subgroup of \(G\) of which \(H\) is a normal subgroup.
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii If \(G\) is abelian, then \(N(H) = G\) for all \(H \le G\).
+    \ii \(K = \{\,r_0, s\,\} \le D_4\) but \(K \not\nsub D_4\).
+    \(N(K) = \{\,r_0, r_2, s, r_2\,\}\).
+\end{enumerate}
+}
+
+\dfn[characteristicSubgroup]{Characteristic Subgroup}{
+    Let \(G\) be a group and let \(H \le G\).
+    \(H\) is called a \textit{characteristic subgroup of \(G\)}
+    if \(\fall \sigma \in \Aut(G),\: \sigma(H) = H\).
+    If \(H\) is a characteristic characteristic subgroup of \(G\),
+    we write \(H \char G\).
+}
+
+\thm[characteristicBasic]{}{
+Let \(G\) be a group and let \(H \le G\).
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:characteristicBasic} (\roman*)}, listparindent=\parindent]
+    \ii\label{itm:characteristicBasic.i}
+    If \(H \char G\), then \(H \nsub G\).
+    \ii If \(H\) is a unique subgroup of \(G\) of a given order, then \(H \char G\).
+    \ii If \(K \char H \nsub G\), then \(K \nsub G\).
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    For all \(g \in G\), we have \(gHg\inv = i_g(H) = H\).
+    \ii
+    For any automorphism \(\sigma \in \Aut(G)\), we have \(|\sigma(H)| = |H|\)
+    but the condition asserts that \(H = \sigma(H)\).
+    \ii
+    Take any \(g \in G\). Note that \(\restr{i_g}{H} \in \Aut(H)\).
+    Then, \(gKg\inv = \restr{i_g}{H}(K) = K\); thus \(K \nsub G\).
+    \qed
+\end{enumerate}
+}
+
+\end{document}

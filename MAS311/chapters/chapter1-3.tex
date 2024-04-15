@@ -150,9 +150,27 @@ Let \(G\) be a group and \(\OO \subsetneq H \subseteq G\).
     Let \(G\) be a group and let \(\OO \subsetneq A \subseteq G\).
     The \textit{centralizer} of \(A\) is the subset
     \[
-        C_G(A) = C(A) =  \triangleq \{\,g \in G \mid \fall a \in A,\: ag = ga\,\}.
+        C_G(A) = C(A) \triangleq \{\,g \in G \mid \fall a \in A,\: ag = ga\,\}.
     \]
     We may also write \(C(a)\) instead of \(C(\{a\})\).
+}
+
+\thm[centerBasic]{}{
+    Let \(G\) be a group.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:centerBasic} (\roman*)}, listparindent=\parindent]
+        \ii
+        \(C(A) \le G\) for any \(\OO \subsetneq A \subseteq G\).
+        \ii
+        \(Z(G) = \bigcap_{a \in G} C(a)\).
+        \ii
+        \(a \in Z(G) \iff C(a) = G\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    \qed
+\end{enumerate}
 }
 
 \end{document}

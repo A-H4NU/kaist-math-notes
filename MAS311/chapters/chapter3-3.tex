@@ -1,0 +1,100 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Automorphisms}
+
+\nt{
+    Let \(G\) be a group and let \(N \nsub G\).
+    We may let \(G \actson N\) by conjugation.
+    Then, the permutation representation evaluated at \(g \in G\) is defined by
+    \(\vphi_g \colon N \to N\) and \(n \mapsto gng\inv\)
+}
+
+\thm[permRepIsAut]{}{
+    For each \(g \in G\),
+    we have \(\vphi_g \in \Aut(N)\).
+    Moreover, \(\ker(\vphi) = C_G(N)\).
+    In particular, \(G/C_G(N)\) is isomorphic to a subgroup of \(\Aut(N)\).
+}
+\pf{Proof}{
+    For each \(n_1, n_2 \in N\),
+    we have \(\vphi_g(n_1n_2) = gn_1n_2g\inv = gn_1g\inv gn_2g\inv = \vphi_g(n_1) \vphi_g(n_2)\);
+    thus \(\vphi_g\) is a group isomorphism as it is already \(\vphi_g \in S(N)\).
+
+    We have
+    \[
+        \ker(\vphi)
+        = \{\,g \in G \mid \fall n \in \NN,\:\vphi_g(n) = n\,\}
+        = \{\,g \in G \mid \fall n \in \NN,\:ng = gn\,\} = C_G(N).
+    \]
+}
+
+\cor[]{}{
+    Let \(G\) be a group and let \(H \le G\).
+    Then, \(N_G(H)/C_G(H)\) is isomorphic to a subgroup of \(\Aut(H)\).
+    In particular, \(G/Z(G)\) is isomorphic to a subgroup of \(\Aut(G)\).
+}
+\pf{Proof}{
+    We have \(H \nsub N_G(H)\), \(C_G(H) = C_{N_G(H)}(H)\), and
+    \(N_G(H) = N_{N_G(H)}(H)\).
+    The result follows from \Cref{th:permRepIsAut}.
+}
+
+\nt{
+    Let \(\Inn(G)\) be the set of all inner automorphisms of \(G\).
+    Then, \(\Inn(G) \nsub \Aut(G)\)
+    since \(\fall \vphi \in \Aut(G),\: \vphi \circ i_c \circ \vphi\inv = i_{\vphi(c)}\).
+    We call \(\Aut(G)/\Inn(G)\) the \textit{outer automorphism group}.
+}
+
+\cor[innIsoToGModZG]{}{
+    Let \(G\) be a group.
+    Then, \(\Inn(G) \cong G/Z(G)\).
+}
+\pf{Proof}{
+    Let \(G \actson G\) by conjugation
+    so that \(\vphi \colon G \surjto \Inn(G)\) is a permutation representation.
+    Then, \(\ker(\vphi) = Z(G)\); the result follows from \nameref{th:firstIso}.
+}
+
+\exmp[]{}{
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii \(\Inn(D_4) \cong \ZZ_2 \times \ZZ_2\)
+        \ii \(\Inn(Q_8) \cong \ZZ_2 \times \ZZ_2\)
+        \ii \(\Inn(S_n) \cong S_n\) for \(n \ge 3\).
+    \end{itemize}
+}
+
+\dfn[]{}{
+    For each integer \(n \ge 1\), define
+    \[
+        (\ZZ/n \ZZ)^\ast = \{\,k \in \ZZ_n \mid \gcd(k, n) = 1\,\}
+    \]
+    so that \((\ZZ/n \ZZ)^\ast\) is a group under usual multiplication.
+}
+
+\thm[]{}{
+    For each \(n \in \ZZ_+\),
+    \(\Aut(\ZZ_n) \cong (\ZZ/n \ZZ)^\ast\).
+}
+\pf{Proof}{
+    Take any \(k \in \ZZ_+\) such that \(\gcd(k, n) = 1\).
+    Consider the map \(f_k \colon \ZZ_n \to \ZZ_n\) by \(\ell \mapsto k\ell\).
+    Then, clearly, \(f_k \in \Aut(\ZZ_n)\).
+
+    Now, define \(\Phi \colon (\ZZ/n \ZZ)\ast \to \Aut(\ZZ_n)\)
+    by \(k \mapsto f_k\).
+    Then, it is easy to check \(\Phi\) is an injective group homomorphism.
+    Take any \(f \in \Aut(\ZZ_n)\) and let \(k \triangleq f(1)\).
+    Then, \(f = f_k\).
+}
+
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii \(\lnot (G~\text{is abelian} \implies \Aut(G)~\text{is abelian})\).
+    \ii \(\lnot (G~\text{is cyclic} \implies \Aut(G)~\text{is cyclic})\).
+\end{itemize}
+}
+
+\end{document}

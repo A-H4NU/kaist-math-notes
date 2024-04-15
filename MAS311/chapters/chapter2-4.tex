@@ -1,0 +1,375 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Simple Groups and Jordan--H\"older Theorem}
+
+\dfn[simpleGroup]{Simple Group}{
+    A nontrivial group \(G\) is \textit{simple}
+    if \(G\) has only two normal subgroups.
+}
+
+\exmp[]{}{
+    Let \(G\) be a group and let \(M\) be a proper normal subgroup of \(G\).
+    Then, \(M\) is a maximal normal subgroup if and only if \(G/M\) is simple.
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))]
+        Let \(N \nsub G/M\).
+        Let \(H \triangleq \{\,h \in G \mid Mh \in N\,\}\) so that \(M \le H \nsub G\).
+        By maximality of \(M\), we have \(H = M\) or \(H = G\),
+        that is to say \(N = \{M\}\) or \(N = G/M\).
+        \ii[(\(\Leftarrow\))]
+        Let \(M \nsub N \nsub G\).
+        Then, by \nameref{th:thirdIso}, \(N/M \nsub G/M\);
+        thus \(N/M = \{M\}\) or \(N/M = G/M\) as \(G/M\) is simple.
+        Therefore, \(N = M\) or \(N = G\).
+        \qed
+    \end{itemize}
+}
+
+\dfn[compositionSeries]{Composition Series}{
+    Let \(G\) be a group.
+    A sequence of subgroups
+    \[
+        \{1\} = N_0 \nsub N_1 \nsub \cdots \nsub N_k = G
+    \]
+    of \(G\) is called a \textit{composition series of \(G\)}
+    if \(N_{i}/N_{i-1}\) is simple for each \(i \in [k]\).
+    Each \(N_{i+1} / N_i\) is called a \textit{composition factor of \(G\).}
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii
+    \(\{r_0\} \nsub \lang s \rang \nsub \lang s, r_1^2 \rang \nsub D_4\)
+    and \(\{r_0\} \nsub \lang r_1^2 \rang \nsub \lang s, r_1^2 \rang \nsub D_4\)
+    are two composition series of \(D_4\).
+
+    \ii
+    \(\ZZ\) has no composition series because every proper subgroup of \(\ZZ\) is an infinite cyclic group.
+\end{enumerate}
+}
+
+\thm[jordanHolder]{Jordan--H\"older Theorem}{
+Let \(G\) be a nontrivial finite group.
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii \(G\) has a composition series.
+    \ii
+    If \((N_0, \cdots, N_r)\) and \((M_0, \cdots, M_s)\) are composition series of \(G\),
+    then \(r = s\) and \(\exs \sigma \in S_r\) such that
+    \(\fall i \in [r],\: M_{\sigma(i)}/M_{\sigma(i)-1} \cong N_i / N_{i-1}\).
+\end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    We prove (i) by induction on \(|G|\). It is trivial when \(|G| = 2\).
+    Let \(G\) be a finite group with \(|G| \ge 3\).
+    If \(G\) is simple, we are done; assume \(G\) is not simple.
+    Then, \(G\) has a proper normal subgroup \(N\) which is maximal
+    so that \(G/N\) is simple.
+    By induction hypothesis, \(N\) admits a composition series.
+
+    \ii
+    \WLOG, \(s \ge r\). We proceed with induction on \(r\).
+    Since \(r=1\) implies \(G\) is simple and \(s = 1\), we are done;
+    hence assume \(r \ge 2\).
+    If \(N_{r-1} = M_{s-1}\), then we are done by induction hypothesis.
+
+    Now, assume \(N_{r-1} = M_{s-1}\).
+    Then, \(N_{r-1}, M_{s-1} \nsub N_{r-1} M_{s-1} \le G\) by \Cref{cor:HsubNKThen}.
+    Moreover, since \(g(nm)g\inv = (gng\inv)(gmg\inv) \in N_{r-1} M_{s-1}\) for all \(g \in G\),
+    \(n \in N_{r-1}\), and \(m \in M_{s-1}\),
+    we have \(N_{r-1}M_{s-1} \nsub G\).
+    Hence, as \(N_{r-1}\) and \(M_{s-1}\) are maximal proper normal subgroups of
+    \(G\), and as \(N_{r-1} \neq M_{s-1}\), we have \(N_{r-1}M_{s-1} = G\).
+    Define \(H \triangleq H_{r-1} \cap M_{s-1}\) so that \(H \nsub N_{r-1}, M_{s-1}\).
+    Then, by \nameref{th:secondIso}, \(G/N_{r-1} = N_{r-1}M_{s-1}/N_{r-1} \cong M_{s-1} / H\)
+    and \(G/M_{s-1} = N_{r-1}M_{s-1}/M_{s-1} \cong N_{r-1}/H\),
+    and they are simple groups.
+
+    Let \(\{1\} = H_0 \nsub H_1 \nsub \cdots \nsub H_h = H\)
+    be a composition series of \(H\). Then,
+    \begin{gather*}
+        \{1\} = H_0 \nsub H_1 \nsub \cdots \nsub H_h = H \nsub N_{r-1} \\
+        \{1\} = H_0 \nsub H_1 \nsub \cdots \nsub H_h = H \nsub M_{s-1}
+    \end{gather*}
+    are composition series of \(N_{r-1}\) and \(M_{s-1}\), respectively.
+    Therefore, by induction hypothesis, \(r - 1 = h + 1 = s - 1\); thus \(r = s\).
+    By induction hypothesis again,
+    \begin{align*}
+        & H_1/H_0, H_2/H_1, \cdots, H_h/H_{h-1}, N_{r-1}/H_h \cong G/M_{s-1} \\
+        \text{and}~& N_1/N_0, N_2/N_1, \cdots, N_{r-2}/N_{r-1}, N_{r-1}/N_{r-2}
+    \end{align*}
+    are the same up to permutation, and
+    \begin{align*}
+        & H_1/H_0, H_2/H_1, \cdots, H_h/H_{h-1}, M_{s-1}/H_h \cong G/N_{r-1} \\
+        \text{and}~& M_1/M_0, M_2/M_1, \cdots, M_{s-2}/M_{s-1}, M_{s-1}/M_{s-2}
+    \end{align*}
+    are the same up to isomorphism.
+    Hence, the result follows.
+    \qed
+\end{enumerate}
+}
+
+\thm[abelianSimple]{}{
+    Let \(G\) be an abelian group.
+    Then, \(G\) is simple if and only if \(G \cong \ZZ_p\) for some prime number \(p\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Take any \(a \in G \setminus \{1\}\).
+    Then, \(\lang a \rang \nsub G\) since \(G\) is abelian.
+    As \(G\) is simple, we have \(\lang a \rang = G\).
+    Therefore, by \Cref{cor:cycleClassify}, \(\lang a \rang \cong Z_p\) for some prime \(p\).
+
+    \ii[(\(\Leftarrow\))]
+    Trivial.
+    \qed
+\end{itemize}
+}
+
+\thm[alterIsSimple]{}{
+    \(A_n\) is simple for \(n \ge 5\).
+}
+\mclm{Proof}{
+    \hfill
+    \clm[jqiUsOPn]{
+        For \(n \ge 3\), \(A_n\) is generated by \(3\)-cycles.
+    }{
+        There are three types of products of two transpositions. \hfill
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii \(\cycle[\,]{a,b}\cycle[\,]{c,d} = \cycle[\,]{a,d,b}\cycle[\,]{a,d,c}\)
+            \ii \(\cycle[\,]{a,b}\cycle[\,]{a,c} = \cycle[\,]{a,c,b}\)
+            \ii \(\cycle[\,]{a,b}\cycle[\,]{a,b} = \cycle[\,]{1}\)
+        \end{itemize}
+        \noindent
+        This is sufficient since every \(\sigma \in A_n\) is a product of even number of transpositions.
+        \qed
+    }
+
+    \clm[EhVeEjzz]{
+        Let \(n \ge 3\) and \(N \nsub A_n\)
+        such that \(N\) contains a \(3\)-cycle. Then, \(N = A_n\).
+    }{
+        \WLOG, \(\cycle[\,]{1,2,3} \in N\). Then,
+        \(\cycle[\,]{1,3,2} = \cycle[\,]{1,2,3}^2 \in N\).
+        Take any \(k \ge 4\).
+        Then,
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii
+            \(\cycle[\,]{1,2,k} = \cycle[\,]{2,k,1} = \tau \cycle[\,]{1,3,2} \tau\inv \in N\)
+            where \(\tau = \cycle[\,]{1,2}\cycle[\,]{3,k}\), and
+            \ii
+            \(\cycle[\,]{2,1,k} = \cycle[\,]{1,k,2} = \tau' \cycle[\,]{1,2,3} (\tau')\inv \in N\)
+            where \(\tau' = \cycle[\,]{3,2,k}\).
+        \end{itemize}
+        All other \(3\)-cycles can be generated by:
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii
+            \(\cycle[\,]{1,a,b} = \cycle[\,]{1,2,b}\cycle[\,]{1,2,a}\cycle[\,]{1,2,a} \in N\),
+            \ii
+            \(\cycle[\,]{2,a,b} = \cycle[\,]{2,1,b}\cycle[\,]{2,1,a}\cycle[\,]{2,1,a} \in N\), and
+            \ii
+            \(\cycle[\,]{a,b,c} = \cycle[\,]{1,2,a}\cycle[\,]{1,2,a}\cycle[\,]{1,2,c}
+            \cycle[\,]{1,2,b}\cycle[\,]{1,2,b}\cycle[\,]{1,2,a} \in N\).
+        \end{itemize}
+        Therefore, by \Cref{clm:jqiUsOPn}, \(N = A_n\). \qed
+    }
+
+    Take any \(\{(1)\} \lneq N \nsub A_n\) and fix some \(\sigma \in N \setminus \{(1)\}\).
+    Consider the cycle decomposition of \(\sigma\).
+    There are three cases: (i) some cycle has length \(\ge 4\),
+    (ii) the maximum length of cycle is \(3\), and (iii)
+    every cycle has length \(\le 2\).
+    \begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+        \ii
+        \WLOG, \(\sigma = \cycle[\,]{1,2,\cdots,r} \tau\) where \(r \ge 4\)
+        where \(\tau(i) = i\) for each \(i \in [r]\).
+        Let \(\delta = \cycle[\,]{1,2,3} \in A_n\).
+        Then, we have \(\cycle[\,]{2,3,1,4,5,\cdots,r} \tau = \delta \sigma \delta\inv \in N\).
+        Moreover, we have
+        \[
+            \sigma\inv \cycle[\,]{2,3,1,4,5,\cdots,r} \tau
+            = \cycle[\,]{r,r-1,\cdots,1} \cycle[\,]{2,3,1,4,5,\cdots,r} \tau\inv \tau
+            = \cycle[\,]{1,3,r} \in N;
+        \]
+        thus \(N = A_n\) by \Cref{clm:EhVeEjzz}.
+
+        \ii
+        We have two subcases: (1) there are (at least) two \(3\)-cycles and
+        (2) there are only one \(3\)-cycle.
+        \begin{enumerate}[nolistsep, label=(\arabic*), listparindent=\parindent]
+            \ii
+            \WLOG, \(\sigma = \cycle[\,]{1,2,3}\cycle[\,]{4,5,6} \tau\) where \(\tau\) fixes \([6]\).
+            Let \(\delta = \cycle[\,]{1,2,4} \in A_n\).
+            Then, \(\cycle[\,]{2,4,3}\cycle[\,]{1,5,6} \tau = \delta \sigma \delta\inv \in N\).
+            Hence, we have
+            \[
+                \sigma\inv \cycle[\,]{2,4,3} \cycle[\,]{1,5,6} \tau
+                = \cycle[\,]{3,2,1} \cycle[\,]{6,5,4} \cycle[\,]{2,4,3} \cycle[\,]{1,5,6} \tau\inv \tau = \cycle[\,]{1,4,2,6,3} \in N,
+            \]
+            which reduces to case (i). Hence, we have \(N = A_n\) in this case.
+
+            \ii
+            \WLOG, \(\sigma = \cycle[\,]{1,2,3} \tau\)
+            where \(\tau\) fixes \([3]\) and \(\tau\) is a product of disjoint transpositions
+            so that \(\tau^2 = 1\).
+            Then, we have \(\sigma^2 = \cycle[\,]{1,3,2} \in N\);
+            thus \(N = A_n\) by \Cref{clm:EhVeEjzz}.
+        \end{enumerate}
+
+        \ii
+        \WLOG, \(\sigma = \cycle[\,]{1,2} \cycle[\,]{3,4} \tau\) where \(\tau\) fixes \([4]\)
+        and \(\tau\) is a product of disjoint transpositions.
+        Let \(\delta = \cycle[\,]{1,2,3} \in A_n\).
+        Then, \(\cycle[\,]{2,3} \cycle[\,]{1,4} \tau = \delta \sigma \delta\inv \in N\).
+        Therefore,
+        \[
+            \beta \triangleq \sigma\inv \cycle[\,]{2,3} \cycle[\,]{1,4} \tau
+            = \cycle[\,]{1,2} \cycle[\,]{3,4}\cycle[\,]{2,3} \cycle[\,]{1,4} \tau\inv \tau
+            = \cycle[\,]{1,3} \cycle[\,]{2,4} \in N.
+        \]
+        As \(n \ge 5\) we may fix \(5 \le k \le n\) and let \(\alpha = \cycle[\,]{1,3,k} \in A_n\).
+        Then, \(\cycle[\,]{3,k} \cycle[\,]{2,4} = \alpha \beta \alpha\inv \in N\).
+        Hence,
+        \[
+            \beta \cycle[\,]{3,k} \cycle[\,]{2,4}
+            = \cycle[\,]{1,3} \cycle[\,]{2,4} \cycle[\,]{3,k} \cycle[\,]{2,4}
+            = \cycle[\,]{1,3,k} \in N,
+        \]
+        which implies \(N = A_n\) by \Cref{clm:EhVeEjzz}.
+        \qed
+    \end{enumerate}
+}
+
+\nt{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii
+    \(A_4\) is not simple.
+
+    \ii
+    We have two infinite series of simple groups: \(\ZZ_p\)'s (\(p\) is prime) and \(A_n\)'s
+    \(n \ge 5\).
+\end{itemize}
+}
+
+\cor[symmetricThreeNSub]{}{
+    For \(n \ge 5\), \(S_n\) has only three normal subgroups \(\{1\}\), \(A_n\), and \(S_n\).
+}
+\mclm{Proof}{
+    By \Cref{lem:indexTwoSubgroup}, we have \(A_n \nsub S_n\).
+
+    Let \(N \nsub S_n\) be a nontrivial normal subgroup of \(S_n\).
+    Then, \(N \cap A_n \nsub A_n\).
+    By \Cref{th:alterIsSimple}, we have (i) \(N \cap A_n = \{(1)\}\) or (ii) \(N \cap A_n = A_n\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        If \(N \cap A_n = \{1\}\), then \(N \cong N/(N \cap A_n) \cong A_nN/A_n\)
+        by \nameref{th:secondIso}.
+        As \(|A_nN| | n!\) and \(|A_n| = n!/2\), we have
+        \(|N| = |A_nN|/|A_n| = 2\) as we assumed \(N\) is nontrivial.
+        Then, \(N = \{(1), \sigma\}\) where \(\sigma^2 = (1)\).
+        By \Cref{th:normalSubgroupTFAE}, \(\tau N = N \tau\) for all \(\tau \in S_n\);
+        that is to say \(\sigma \tau = \tau \sigma \in S_n\) for all \(\tau \in S_n\).
+        This means \(N \le Z(S_n) = \{(1)\}\), which is a contradiction.
+
+        \ii
+        Assume \(N \cap A_n = A_n\), i.e., \(A_n \le N\).
+        However, by \nameref{th:lagrange},
+        \(n!/2 \mid |N| \mid n!\) so that \(N = A_n\) or \(N = S_n\). \qed
+    \end{enumerate}
+}
+
+\dfn[solvable]{Solvable Group}{
+    Let \(G\) be a group.
+    We say \(G\) is \textit{solvable}
+    if there is a sequence
+    \[
+        \{1\} = G_n \nsub G_{n-1} \nsub \cdots \nsub G_0 = G
+    \]
+    of subgroups of \(G\) such that \(G_{i-1}/G_i\) is abelian
+    for each \(i \in [n]\).
+}
+
+\exmp[]{}{
+\begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+    \ii Every abelian group is solvable. (\(G_0 = \{1\}, G_1 = G\))
+    \ii \(\{1\} \nsub A_3 \nsub S_3\) and \(A_3\) is abelian; thus \(S_3\) is solvable.
+    \ii \(\{1\} \nsub
+    \{\,(1), \cycle[\,]{1,2}\cycle[\,]{3,4}, \cycle[\,]{1,3}\cycle[\,]{2,4}, \cycle[\,]{1,4}\cycle[\,]{2,3}\,\}
+    \nsub A_4 \nsub S_4\); \(S_4\) is solvable.
+    \ii \(S_n\) is not solvable for \(n \ge 5\).
+\end{itemize}
+}
+
+\thm[GsolvableIff]{}{
+    Let \(G\) be a group and \(N \nsub G\).
+    Then, \(G\) is solvable if and only if \(N\) and \(G/N\) are solvable.
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    There exists a sequence \(\{1\} = G_n \nsub G_{n-1} \nsub \cdots \nsub G_0 = G\)
+    such that \(G_{i-1} / G_i\) is abelian for each \(i \in [n]\).
+    Then, we have \(N \cap G_i \nsub G_{i-1}\) and thus \(N \cap G_i \nsub N \cap G_{i-1}\) for each \(i \in [n]\).
+    Moreover,
+    \[
+        (N \cap G_{i-1})/(N \cap G_i) \le G_{i-1} / (N \cap G_i).
+    \]
+    By \nameref{th:thirdIso}, \(G_i/(N \cap G_i) \nsub G_{i-1}/(N \cap G_i)\) and
+    \((G_{i-1}/(N \cap G_i))/(G_i/(N \cap G_i)) \cong G_{i-1}/G_i\).
+
+    Considering the existence of natural projection
+    \[
+        G_{i-1}/(N \cap G_i) \surjto (G_{i-1}/(N \cap G_i))/(G_i/(N \cap G_i)) \cong G_{i-1}/G_i,
+    \]
+    there is a group homomorphism
+    \[
+        \vphi \colon (N \cap G_{i-1})/(N \cap G_i) \longrightarrow G_{i-1}/G_i
+    \]
+    whose kernel \(\ker(\vphi) = (N \cap G_{i-1})/(N \cap G_i) \cap G_i/(N \cap G_i) = (N \cap G_i)/(N \cap G_i)\)
+    is trivial.
+    Therefore, \(\vphi\) is injective by \Cref{th:trivialKerIffInj}.
+    Hence, \((N \cap G_i)/(N \cap G_i)\) is isomorphic to a subgroup of
+    \(G_{i-1}/G_i\), which is abelian.
+    Therefore, the sequence
+    \[
+        \{1\} = N \cap G_n \nsub N \cap G_{n-1} \nsub \cdots \nsub N \cap G_0 = N
+    \]
+    witnesses that \(N\) is solvable.
+
+    Let \(\pi \colon G \to G/N\) be the natural projection.
+    Then, \(\pi(G_i) \nsub \pi(G_i)\) for all \(i \in [n]\).
+    The map \(G_{i-1}/G_i \mapsto \pi(G_{i-1})/\pi(G_i)\) defined by \(G_i g_{i-1} \mapsto \pi(G_i) \pi(g_{i-1})\)
+    is a surjective group homomorphism; thus \(\pi(G_{i-1})/\pi(G_i)\) is abelian.
+    Hence, the sequence
+    \[
+        \{1\} = \pi(G_n) \nsub \pi(G_{n-1}) \nsub \cdots \nsub \pi(G_0) = G/N
+    \]
+    witnesses that \(G/N\) is solvable.
+    \ii[(\(\Leftarrow\))]
+    Let
+    \begin{gather*}
+        \{1\} = N_s \nsub N_{s-1} \nsub \cdots \nsub N_0 = N \\
+        \shortintertext{and}
+        \{N\} = \ol{G}_r \nsub \ol{G}_{r-1} \nsub \cdots \nsub \ol{G}_0 = G/N
+    \end{gather*}
+    be sequences that witnesses the solvability of \(N\) and \(G/N\).
+    By \nameref{th:fourthIso}, for each \(j \in [r]\),
+    there (uniquely) exists \(G_j \le G\) such that \(N \nsub G_j\) and \(G_j/N = \ol{G}_j\).
+    Then, for each \(j \in [r]\), we have \(G_j \nsub G_{j-1}\) by \nameref{th:fourthIso}.
+    By \nameref{th:thirdIso},
+    \(G_{j-1}/G_j \cong (G_{j-1}/N)/(G_j/N) = \ol{G}_{j-1}/\ol{G}_j\) is abelian;
+    thus
+    \[
+        \{1\} = N_s \nsub N_{s-1} \nsub \cdots \nsub N_0 = N
+        = G_r \nsub G_{r-1} \nsub \cdots G_0 = G
+    \]
+    shows that \(G\) is solvable.
+    \qed
+\end{itemize}
+}
+
+\end{document}

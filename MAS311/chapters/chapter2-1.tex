@@ -1,0 +1,162 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Lagrange Theorem}
+
+\dfn[]{Congruence}{
+    Let \(K \le G\) and \(a, b \in G\).
+    We say \textit{\(a\) is congruent to \(b\) modulo \(K\)}
+    if \(ab\inv \in K\), and write \(a \equiv b \pmod{K}\).
+}
+
+\dfn[coset]{Coset}{
+    Let \(K \le G\) and \(a \in G\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii \(Ka \triangleq \{\,ka \mid k \in K\,\}\) is a \textit{right coset of \(K\) in \(G\)}.
+        \ii \(aK \triangleq \{\,ak \mid k \in K\,\}\) is a \textit{left coset of \(K\) in \(G\)}.
+    \end{itemize}
+}
+
+\nt{
+    The relation \(\equiv \pmod{K}\) is reflexive, symmetric, and transitive;
+    hence it is a equivalence relation.
+    Then, the equivalence class of \(a \in G\) is
+    \[
+        [a]_K = \{\,b \in G \mid b \equiv a \pmod{K}\,\}
+        = \{\,b \in G \mid \exs k \in K,\: b = ka\,\}
+        = Ka.
+    \]
+    In other words, \(a \equiv b \pmod{K} \iff Ka = Kb\).
+
+    One may define \(\equiv_l\) by \(a \equiv_l b\) iff \(a\inv b \in K\)
+    so that \([a] = aK\).
+}
+
+\nt{
+    One may note that, if \(K\) is just a nonempty subset of \(G\),
+    then \(\equiv \pmod{K}\) is an equivalence relation if and only if \(K \le G\).
+}
+
+\dfn[]{}{
+    Let \(K \le G\).
+    \[
+        G/K \triangleq \{\,Ka \mid a \in G\,\}.
+    \]
+}
+
+\dfn[index]{Index}{
+    The \textit{index of \(K\) in \(G\)} is
+    \[
+        [G \mathord{:} K] \triangleq |G/K|.
+    \]
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii \(n \ZZ \le \ZZ\); \([\ZZ : n \ZZ] = n\).
+    \ii \(\ZZ \le \QQ\); \([\QQ : \ZZ] = \infty\).
+\end{enumerate}
+}
+
+\thm[bijLeftRightCoset]{}{
+    Let \(K \le G\). Let \(L\) and \(R\) be sets of left and right cosets, respectively.
+    Then, the map
+    \begin{align*}
+        \vphi\colon R &\longrightarrow L \\
+        Ka &\longmapsto a\inv K
+    \end{align*} is a (well-defined) bijection.
+}
+\pf{Proof}{
+    Take any \(a, b \in G\) and assume \(Ka = Kb\).
+    Then, we have \(b = ka\) for some \(k \in K\).
+    Hence, \(a\inv = b\inv k\); thus we have \(a\inv K = b\inv K\).
+    Therefore, the function is well-defined.
+    Moreover, by a similar argument, \(a\inv K = b\inv K \implies Ka = Kb\);
+    thus \(\vphi\) is injective.
+    The surjectivity is evident.
+}
+
+\nt{
+    \Cref{th:bijLeftRightCoset} implies that
+    \([G:K] = |\{\,aK \mid a \in G\,\}|\).
+}
+
+\mlemma[cosetsSameSize]{}{
+    Let \(K \le G\). For each \(a \in G\),
+    the function
+    \begin{align*}
+        f\colon K &\longrightarrow Ka \\
+        k &\longmapsto ka
+    \end{align*}
+    is a bijection.
+}
+\pf{Proof}{
+    \(f\) is evidently surjective.
+    If \(ka = f(k) = f(k') = k'a\),
+    then we have \(k = k'\).
+}
+
+\thm[lagrange]{Lagrange Theorem}{
+    Let \(K\) be a finite group and \(K \le G\).
+    Then, \([G:K] = |G| / |K|\). (In particular, \(|K| \mid |G|\).)
+}
+\pf{Proof}{
+    Let \(n = [G:K]\)
+    and write \(G/K = \{\,Ka_1, Ka_2, \cdots, Ka_n\,\}\).
+    By \Cref{lem:cosetsSameSize},
+    \(|Ka_i| = |K|\) for all \(i \in [n]\).
+    Therefore, \(|G| = \sum_{i=1}^n |Ka_i| = n|K| = [G:K] |K|\).
+}
+
+\exmp[]{}{
+\(A_n \cycle[\,]{1,2} = \{\,\text{all odd permutations}\,\}\).
+Therefore, \([S_n : A_n] = 2\); thus by \nameref{th:lagrange}, \(|A_n| = n!/2\).
+}
+
+\nt{
+    The converse of \nameref{th:lagrange} (if \(d \mid |G|\), there exists a subgroup of order \(d\))
+    does not hold.
+
+    \(|A_4| = 12\).
+    Suppose \(K \le A_4\) with \(|K| = 6\).
+    Then, there are two right cosets \(K\) and \(Ka\) where \(a \in A_4 \setminus K\).
+    (Note that \(Ka = A_4 \setminus K\).)
+    Take any \(b \in A_4 \setminus K\).
+    If \(b^2 \in Ka = Kb\), then \(b^2 = kb\) for some \(k \in K\), which implies \(b = k \in K\).
+    Thus, \(b^2 \in K\). Therefore, \(\fall g \in G,\: g^2 \in K\).
+    Hence, for all \(g \in G\) with \(|g| = 3\), then \(g = g^4 = (g^2)^2 \in K\)
+    while there are \(8\) elements in \(A_4\) whose order is \(3\),
+    which contradicts \(|K| = 6\).
+}
+
+\cor[orderDividesOrder]{}{
+Let \(G\) be a finite group.
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii If \(a \in G\), then \(|a| \mid |G|\).
+    \ii If \(a^{|G|} = 1\).
+\end{enumerate}
+}
+\pf{Proof}{
+    Direct from \nameref{th:lagrange}.
+}
+
+\cor[groupWithPrimeOrder]{}{
+    Let \(p\) be a prime number.
+    Then, every group of order \(p\) is cyclic.
+}
+\pf{Proof}{
+    Fix any \(a \in G \setminus \{1\}\).
+    Then, \(1 < |a| \mid p\); thus \(|a| = p\); thus \(G = \lang a \rang\).
+}
+
+\cor[lagrangeChain]{}{
+    Let \(G\) be a finite group and let \(K \le H \le G\).
+    Then, \([G:K] = [G:H][H:K]\).
+}
+\pf{Proof}{
+    \([G:K]|K| = |G| = [G:H]|H| = [H:K] [G:H]|K|\).
+}
+
+
+\end{document}

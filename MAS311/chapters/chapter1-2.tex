@@ -58,19 +58,20 @@
 }
 
 \exmp[]{}{
-    Fix any \(c \in G\) and define \(i_C \colon G \to G\)
+    Fix any \(c \in G\) and define \(i_c \colon G \to G\)
     by \(g \mapsto cgc\inv\).
-    Then, \(i_C \in \Aut(G)\).
+    Then, \(i_c \in \Aut(G)\).
+    \(i_c\) is called the \textit{inner automorphism on \(G\) induced by \(c\).}
 }
 
 \mlemma[actionInducesPermRep]{}{
     Let \(G \actson A\).
     Then, every \(g \in G\) induces a map
     \begin{align*}
-       \vphi_g : A &\longrightarrow A \\
+       \vphi_g \colon A &\longrightarrow A \\
         a &\longmapsto ga
     .\end{align*}
-    Then, \(\vphi_g \in S(A)\) and \(\vphi \colon G \to S(A)\) defined by \(g \mapsto \vphi_g\)
+    Then, \(\vphi \colon G \to S(A)\) defined by \(g \mapsto \vphi_g\)
     is a group homomorphism,
     which is called the \textit{permutation representation of the group action of \(G\) on \(A\)}.
 }
