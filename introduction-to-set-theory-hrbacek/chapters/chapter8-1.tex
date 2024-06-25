@@ -71,7 +71,7 @@
 \end{itemize}
 }
 
-\thm[]{}{
+\thm[finiteHasChoice]{}{
     Every finite system of sets has a choice function.
 }
 \pf{Proof}{
@@ -120,7 +120,7 @@
     Let \(f\) be a choice function for a partition \(S\).
     Then, \(X = \ran f\) is a set of representatives for \(S\).
 
-    \ii[\(\text{(ii)} \Rightarrow \text{(iii)}\)] Hello
+    \ii[\(\text{(ii)} \Rightarrow \text{(iii)}\)]
     Let \(C_i \triangleq \{i\} \times X_i\) for each \(i \in I\).
     Then, as \(\fall i, i' \in I,\: (i \neq i' \implies C_i \cap C_{i'} = \OO)\),
     \(S \triangleq \{\,C_i \mid i \in I\,\}\) is a partition.
@@ -147,13 +147,13 @@
 }
 
 \thm[infIffDedekindInf]{}{
-    Every infinite set has a countable subset. \needsChoice
+    Every infinite set has a countably infinite subset. \needsChoice
 }
 \pf{Proof}{
     Let \(A\) be an infinite set.
     By \nameref{th:wellOrdering},
     there exists \(f \colon \Omega \bijto A\) where \(\Omega \in \Ord\) with \(\omega \le \Omega\).
-    Then, \(f[\omega]\) is a countable subset of \(A\).
+    Then, \(f[\omega]\) is a countably infinite subset of \(A\).
 }
 
 \thm[infiniteHasAlephCard]{}{
@@ -252,7 +252,7 @@
 
 \thm[zorn]{Zorn's Lemma}{
     \TFAE.
-    \begin{itemize}[nolistsep, leftmargin=*]
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
         \ii
         \nameref{ax:choice}
         \ii
@@ -269,31 +269,6 @@
     Fix any \(b \in A\) and a choice function \(g\) for \(\mcal P(A)\).
     Let \(\mbf{G}(x)\) be an operation defined by
     \[
-            \mbf{G}(x) \triangleq \begin{cases}
-                g(A_{x}) & \text{if}~\begin{aligned}[t]
-                    &x~\text{is a transfinite sequence of length}~\alpha \\
-                    &\text{and}~A_{x} \triangleq \{\,a \in A \mid \fall \xi < \alpha,\: x(\xi) \prec a\,\}~
-                    \text{is nonempty}
-                \end{aligned} \\
-                b & \text{otherwise.}
-            \end{cases}
-        \]
-        Then, by \nameref{th:transRecursion},
-        there exists an operation \(\mbf{F}(x)\) such that
-        \(\fall \alpha \in \Ord,\: \mbf{F}(\alpha) = \mbf{G}\left(\restr{\mbf{F}}{\alpha}\right)\).
-        Similarly to the discussion in \Cref{clm:FtsPjUKS} of \nameref{th:wellOrdering},
-        \(\mbf{F}(\alpha) = b\) for some \(\alpha < h(A)\).
-        Let \(\lambda \triangleq \min \{\,\alpha \in h(A) \mid \mbf{F}(\alpha) = b\,\}\).
-        Then, the set \(C \triangleq \mbf{F}[\lambda]\) is a chain in \((A, \preceq)\);
-        so it has an upper bound \(c \in A\).
-
-        If \(c \prec a\) for some \(a \in A\),
-        then \(a \in A_{\mbf{F} |_\lambda}\);
-        thus \(\mbf{F}(\lambda) = g\left(A_{\mbf{F} |_\lambda}\right) \neq b\),
-        which is a contradiction.
-        Hence, \(c\) is a maximal element of \(A\).
-
-        \[
         \mbf{G}(x) \triangleq \begin{cases}
             g(A_{x}) & \text{if}~\begin{aligned}[t]
                 &x~\text{is a transfinite sequence of length}~\alpha \\
@@ -356,5 +331,7 @@
     which is a contradiction.
     Hence, \(|A| \le \aleph_\gamma\) by \Cref{th:alephUnionOfAlephs}.
 }
+
+\subfile{../exercises/exercise8-1.tex}
 
 \end{document}

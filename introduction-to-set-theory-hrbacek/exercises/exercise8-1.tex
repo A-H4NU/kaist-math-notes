@@ -1,0 +1,417 @@
+\documentclass[../introduction_to_set_theory_Note.tex]{subfiles}
+
+\begin{document}
+
+\subsection*{Selected Problems}
+
+\exer[8.1.1]{}{
+    If a set \(A\) can be totally ordered,
+    then every system of finite subsets of \(A\) has a choice function.
+}
+\pf{Proof}{
+    Let \(\preceq\) be a total ordering of \(A\).
+    Take any system of finite subsets \(S\) of \(A\).
+    Define \(f \colon S \to A \cup \{\OO\}\) by
+    \[
+        f(X) \triangleq \begin{cases}
+            \min_{\preceq} X & \text{if}~X \neq \OO \\
+            \OO & \text{otherwise.}
+        \end{cases}
+    \]
+    (The definition is justified by \Cref{lem:finiteTotalOrder}.)
+    Then, \(f\) is a choice function for \(S\).
+}
+
+\exer[8.1.2]{}{
+    If \(A\) can be well-ordered, then \(\mcal P(A)\) can be totally ordered.
+}
+\mclm{Proof}{
+    Assume \((A, \le)\) is a well-ordered set.
+    Then, define \(\prec\) on \(\mcal P(A)\) by
+    \[\textstyle
+        X \prec Y \iff X \neq Y \land \min_{\le} (X \symdif Y) \in X.
+    \]
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Since \((X \symdif Y) \cap (X \cap Y) = \OO\),
+        \(\prec\) is asymmetric on \(\mcal P(A)\). \checkmark
+
+        \ii
+        Assume \(X \prec Y\) and \(Y \prec Z\).
+        Then, \(a \triangleq \min_{\le} (X \symdif Y) \in X\) and \(b \triangleq \min_{\le} (Y \symdif Z) \in Y\).
+        Then, since \(a \notin Y\), \(a \neq b\).
+
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii
+            If \(a < b\), then \(a \notin Z\) by minimality of \(b\). Therefore, \(a \in X \symdif Z\).
+            If \(x \in A\) and \(x < a < b\),
+            then \(x \in X \iff x \in Y\) by minimality of \(a\) and
+            \(x \in Y \iff x \in Z\) by minimality of \(b\).
+            Therefore, \(x \notin X \symdif Z\); thus \(a = \min_{\le} (X \symdif Z) \in X\).
+
+            \ii
+            If \(b < a\), then \(b \in X\) by minimality of \(a\).
+            Therefore, \(b \in X \symdif Z\).
+            Similarly, if \(x \in A\) and \(x < b < a\), then \(x \in X \iff x \in Y \iff x \in Z\)
+            by minimality of \(a\) and \(b\); thus \(b = \min_{\le} (X \symdif Z) \in X\).
+        \end{itemize}
+
+        Hence, in both cases, we have \(X \prec Z\); \(\prec\) is transitive in \(\mcal P(A)\).
+        \checkmark
+
+        \ii
+        Take any \(X, Y \in \mcal P(A)\) with \(X \neq Y\).
+        Then, \(\min_{\le} (X \symdif Y) \in X \symdif Y \subseteq X \cup Y\);
+        thus we have \(X \prec Y\) or \(Y \prec X\).
+        Hence, \(\preceq\) is a total ordering of \(\mcal P(A)\). \checkmark \qed
+    \end{itemize}
+}
+
+\exer[8.1.3]{}{
+    Let \((A, \preceq)\) be a partially ordered set
+    in which every chain has an upper bound.
+    Then, for every \(a \in A\),
+    there exists a \(\preceq\)-maximal element \(x \in A\)
+    such that \(a \preceq x\).
+    \needsChoice
+}
+\pf{Proof}{
+    Replace \(\mbf{G}(x)\) in the proof of \nameref{th:zorn} with
+    \[
+        \mbf{G}(x) \triangleq \begin{cases}
+            g(A_{x}) & \text{if}~\begin{aligned}[t]
+                &x~\text{is a transfinite sequence of length}~\alpha > 0 \\
+                &\text{and}~A_{x} \triangleq \{\,a \in A \mid \fall \xi < \alpha,\: x(\xi) \prec a\,\}~
+                \text{is nonempty}
+            \end{aligned} \\
+            a & \text{if}~x = \OO \\
+            b & \text{otherwise.}
+        \end{cases}
+    \]
+    \noindent
+    Then, if \(c\) is an upper bound of \(\mbf{F}[\lambda]\),
+    then \(a \preceq c\) and \(c\) is a maximal element.
+}
+
+\exer[8.1.4]{}{
+    \TFAE.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii \nameref{th:zorn}
+        \ii
+        For every partially ordered set \((A, \preceq)\),
+        the set of all chains of \((A, \preceq)\) has an \(\subseteq\)-maximal element.
+    \end{itemize}
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \(\mcal{C} \subseteq \mcal{P}(A)\) be the set of all chains of \((A, \preceq)\).
+    Then, \((\mcal{C}, \subseteq_{\mcal{C}})\) is a partially ordered set
+    such that every chain in \(\mcal{D}\) of \((\mcal{C}, \subseteq_{\mcal{C}})\) has an upper bound \(\bigcup \mcal{D}\).
+    (If \(a_1, a_2 \in \bigcup \mcal{D}\), then there exists
+    \(C_1, C_2 \in \mcal{D}\) such that \(a_1 \in C_1\) and \(a_2 \in C_2\).
+    \WLOG, \(C_1 \subseteq C_2\); thus \(a_1, a_2 \in  C_2\),
+    which implies \(a_1\) and \(a_2\) is comparable.)
+    Hence, by assumption, \(P\) has a \(\subseteq\)-maximal element.
+
+    \ii[(\(\Leftarrow\))]
+    Let \((A, \preceq)\) be a partially ordered set
+    in which every chain of \((A, \preceq)\) has an upper bound.
+    Let \(\mcal{C} \subseteq \mcal{P}(A)\) be the set of all chains of \((A, \preceq)\).
+    Hence, there exists a chain \(C \in \mcal{C}\),
+    such that, if \(C \subsetneq X \subseteq A\), then \(X \notin \mcal{C}\).
+    By assumption, there exists an upper bound \(c \in A\) of \(C\).
+
+    Suppose \(c\) is not a \(\preceq\)-maximal element of \(A\) for the sake of contradiction.
+    There exists \(c' \in A\) such that \(c \prec c'\).
+    Then, \(C \cup \{c'\}\) would be a chain in \((A, \preceq)\),
+    contradicting the maximality of \(C\).
+    Hence, \(c\) is a \(\preceq\)-maximal element.
+    \qed
+\end{itemize}
+}
+
+\exer[8.1.5]{}{
+    \TFAE.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii \nameref{th:zorn}
+        \ii
+        Let \(A\) be a set.
+        Assume that, for each \(B \subseteq A\) such that \((B, \subseteq_B)\)
+        is a totally ordered set, \(\bigcup B \in A\).
+        Then, \(A\) has an \(\subseteq\)-maximal element.
+    \end{itemize}
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \(A\) be a set and
+    assume that, for each \(B \subseteq A\) such that \((B, \subseteq_B)\)
+    is a totally ordered set, \(\bigcup B \in A\).
+    This essentially says that, every chain in \((A, \subseteq_A)\)
+    has an upper bound.
+    Hence, by \nameref{th:zorn}, \(A\) has a \(\subseteq\)-maximal element.
+
+    \ii[(\(\Leftarrow\))]
+    Let \((A, \preceq)\) be a partially ordered set
+    in which every chain of \((A, \preceq)\) has an upper bound.
+    Let \(\mcal{C} \subseteq \mcal{P}(A)\) be the set of all chains in \((A, \preceq)\).
+    If \(C \subseteq \mcal{C}\) is a chain in the partially ordered set \((\mcal{C}, \subseteq_{\mcal{C}})\),
+    then \(\bigcup C\) is also a chain in \((A, \preceq)\), i.e., \(\bigcup C \in \mcal{C}\).
+    Therefore, by assumption, there an \(\subseteq\)-maximal element \(C_0 \in \mcal{C}\)
+    of \((\mcal{C}, \subseteq_{\mcal{C}})\).
+
+    By assumption, there exists an upper bound \(c \in A\) of \(C_0\).
+    If \(\exs c' \in A,\: c \prec c'\),
+    then \(C_0 \cup \{c'\} \in \mcal{C}\), which contradicts the maximality of \(C_0\).
+    Hence, \(c\) is a \(\preceq\)-maximal element of \((A, \preceq)\).
+    \qed
+\end{itemize}
+}
+
+\exer[8.1.6]{Tukey's Lemma}{
+    A set \(\mcal{F}\) has \textit{finite character} if
+    \[
+        \fall X,\: (X \in \mcal{F} \iff [X]^{<\omega} \subseteq \mcal{F}).
+    \]
+    \TFAE.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii \nameref{th:zorn}
+        \ii
+        Every set of finite character has an \(\subseteq\)-maximal element.
+    \end{itemize}
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Let \(\mcal{F}\) be a set of finite character.
+    \clm[NahxtRYZ]{
+        For any \(\mcal{G} \subseteq \mcal{F}\),
+        if \((\mcal{G}, \subseteq_{\mcal{G}})\) is a totally ordered set,
+        then \(\bigcup \mcal{G} \in \mcal{F}\).
+    }{
+        Take any \(\mcal{G} \subseteq \mcal{F}\) such that
+        \((\mcal{G}, \subseteq_{\mcal{G}})\) is a totally ordered set.
+        Take any \(A \in \left[\bigcup \mcal{G}\right]^{<\omega}\) and write
+        \(A = \{\,a_0, a_1, \cdots, a_{n-1}\,\}\).
+        Then, by \Cref{th:finiteHasChoice}, we may let, for each \(i < n\),
+        \(A_i\) be an element of \(\mcal{G}\) such that \(a_i \in A_i\).
+        As \((\mcal{G}, \subseteq_{\mcal{G}})\) is a totally ordered set,
+        there exists \(i_0 \in n\) such that \(\fall i < n,\: A_i \subseteq A_{i_0}\),
+        so we have \(A \in A_0 \subseteq \bigcup \mcal{G}\).
+        Therefore, \(\bigcup \mcal{G} \in \mcal{F}\) because \(\mcal{F}\) is of finite character.
+        \qed
+    }
+    \noindent
+    By \Cref{clm:NahxtRYZ,exer:8.1.5},
+    \(\mcal{F}\) has a \(\subseteq\)-maximal element.
+
+    \ii[(\(\Leftarrow\))]
+    Let \((A, \preceq)\) be a partially ordered set.
+    Let \(\mcal{C} = \mcal{P}(A)\) be the set of all chains in \((A, \preceq)\).
+    \clm[LMAPADQO]{
+        \(\mcal{C}\) has finite character.
+    }{
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\Rightarrow\))]
+        Take any \(C \in \mcal{C}\).
+        Since every subset of \(C\) is also a chain, hence \([C]^{<\omega} \subseteq \mcal{C}\).
+
+        \ii[(\(\Leftarrow\))]
+        Take any \(X\) such that \([X]^{<\omega} \subseteq \mcal{C}\).
+        Take any \(a_1, a_2 \in X\).
+        Then, the assumption says \(\{x_1, x_2\}\) is a chain; thus \(x_1\) and \(x_2\) are comparable
+        in \(\preceq\).
+        Hence, \(X\) is a chain in \((A, \preceq)\).
+        \qed
+    \end{itemize}
+    }
+    Therefore, by assumption and \Cref{clm:LMAPADQO},
+    \(\mcal{C}\) has a \(\subseteq\)-maximal element.
+    Hence, by \Cref{exer:8.1.4}, \nameref{th:zorn} is implied.
+    \qed
+\end{itemize}
+}
+
+\exer[8.1.7]{}{
+    Let \(E\) be a binary relation on \(A\).
+    Then, there exists a function \(f \colon A \to A\)
+    such that \(\fall x \in A,\: ((x, f(x)) \in E \iff \exs y \in A,\: (x, y) \in E)\).
+    \needsChoice
+}
+\pf{Proof}{
+    If \(A = \OO\), then it is done; so assume \(A \neq \OO\).
+    Fix any \(a \in A\).
+    Let \(g\) be a choice function for \(\mcal{P}(A)\).
+    Then, define \(f \colon A \to A\) by
+    \[
+        f(x) \triangleq \begin{cases}
+            g(E[\{x\}]) & \text{if}~\exs y \in A,\: (x, y) \in E \\
+            g(A \setminus E[\{x\}]) & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, \(f\) satisfies the condition.
+}
+
+\exer[8.1.8]{}{
+    For each \(X\), if \(|X| > \aleph_0\), then \(X\) has a subset of cardinality \(\aleph_1\).
+    \needsChoice
+}
+\pf{Proof}{
+    By \Cref{th:infiniteHasAlephCard}, there exists \(\alpha \in \Ord\)
+    such that \(|X| = \aleph_\alpha\). Then, we have \(\alpha \ge 1\).
+    As \(\aleph_1 \le \aleph_\alpha = |X|\),
+    there exists \(f \colon \omega_1 \injto X\); thus
+    \(\ran f\) is a subset of \(X\) with cardinality \(\aleph_1\).
+}
+
+\setexernumber{9}
+
+\exer[8.1.10]{}{
+    Let \((A, \preceq)\) be a totally ordered set.
+    A sequence \(\lang\,a_n \mid n \in \NN\,\rang\)
+    of elements of \(A\) is \textit{strictly decreasing}
+    if \(\fall n \in \NN,\: a_{n+1} \prec a_n\).
+    Then, \((A, \preceq)\) is a well-ordered set
+    if and only if there is no strictly decreasing infinite sequence in \(A\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Suppose there exists a strictly decreasing sequence
+    \(\lang\,a_n \mid n \in \NN\,\rang\) of elements of \(A\)
+    for the sake of contradiction.
+    Let \(\alpha \in \Ord\) be the order type of \((A, \preceq)\).
+    If \(h \colon A \bijto \alpha\) is an isomorphism between them,
+    then \(f \colon \NN \to \alpha\) defined by \(f(n) \triangleq h(a_n)\)
+    is a strictly decreasing infinite sequence in \(\alpha\),
+    which contradicts \Cref{lem:noDecreasingSeq}.
+
+    \ii[(\(\Leftarrow\))]
+    Assume \((A, \preceq)\) is not a well-ordered set.
+    Then, there exists nonempty \(X \subseteq A\) such that
+    there is no least element of \(X\).
+    Let \(f\) be a choice function for \(\mcal{P}(X)\).
+    Fix some \(a_0 \in X\).
+    Define a sequence \(\lang\,a_n \mid n \in \NN\,\rang\) recursively by
+    \(a_{n+1} = f(\{\,x \in X \mid x \prec a_n\,\})\).
+    Then, \(\lang\,a_n \mid n \in \NN\,\rang\) is a strictly decreasing
+    infinite sequence in \(A\).
+    \qed
+\end{itemize}
+}
+
+\exer[8.1.11]{}{
+    Let \(\lang\,F_{a, b}\,\rang_{a \in A,\: b \in B}\) be a nonempty indexed system of sets.
+    \vspace*{.3em}
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        \(\bigcap_{a \in A} \left[\bigcup_{b \in B} F_{a, b}\right]
+        = \bigcup_{f \in B^A} \left[\bigcap_{a \in A} F_{a, f(a)}\right]\) if \(A \neq \OO\). \vspace*{.3em}
+        \ii
+        \(\bigcup_{a \in A} \left[\bigcap_{b \in B} F_{a, b}\right]
+        = \bigcap_{f \in B^A} \left[\bigcup_{a \in A} F_{a, f(a)}\right]\) if \(B \neq \OO\).
+        \needsChoice
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), leftmargin=*, listparindent=\parindent]
+    \ii
+    Let \(L \triangleq \bigcap_{a \in A} \left[\bigcup_{b \in B} F_{a, b}\right]\)
+    and \(R \triangleq \bigcup_{f \in B^A} \left[\bigcap_{a \in A} F_{a, f(a)}\right]\).
+    \begin{itemize}[nolistsep, wide=0pt, widest={(\(\subseteq\))}, leftmargin=*, listparindent=\parindent]
+        \ii[(\(\subseteq\))]
+        Take any \(x \in L\).
+        Let \(E \triangleq \{\,(a, b) \in A \times B \mid x \in F_{a, b}\,\}\).
+        By \Cref{exer:8.1.7},
+        there exists \(f \colon A \to B\)
+        such that, for each \(a \in A\), \((a, f(a)) \in E\) if and only if
+        \(a \in \dom R\).
+        (\(\dom E = A\) as \(x \in L\).)
+        Therefore, \(x \in \bigcap_{a \in A} F_{a, f(a)} \subseteq R\);
+        thus \(L \subseteq R\).
+
+        \ii[(\(\supseteq\))]
+        Same as in the proof of \Cref{exer:2.3.13}.
+    \end{itemize}
+
+    \ii
+    Let \(L \triangleq \bigcup_{a \in A} \left[\bigcap_{b \in B} F_{a, b}\right]\)
+    and \(R \triangleq \bigcap_{f \in B^A} \left[\bigcup_{a \in A} F_{a, f(a)}\right]\).
+    If \(A = \OO\), then it is done; so assume \(A \neq \OO\).
+    Let \(\mcal{U} \triangleq \bigcup_{(a, b) \in A \times B} F_{a, b}\).
+    Then,
+    \begin{alignat*}{2}
+        \mcal{U} \setminus L
+        &= \textstyle \bigcap_{a \in A} \left[ \mcal{U} \setminus \bigcap_{b \in B} F_{a, b} \right]
+        &\qquad& \comment*{\Cref{exer:2.3.11}} \\
+        &= \textstyle \bigcap_{a \in A} \left[ \bigcup_{b \in B} (\mcal{U} \setminus F_{a, b}) \right]
+        &\qquad& \comment*{\Cref{exer:2.3.11}} \\
+        &= \textstyle \bigcup_{f \in B^A} \left[ \bigcap_{a \in A} (\mcal{U} \setminus F_{a, f(a)}) \right]
+        && \comment*{(i)} \\
+        &= \textstyle \bigcup_{f \in B^A} \left[ \mcal{U} \setminus \bigcup_{a \in A} F_{a, f(a)} \right]
+        &\qquad& \comment*{\Cref{exer:2.3.11}} \\
+        &= \textstyle \mcal{U} \setminus R.
+        &\qquad& \comment*{\Cref{exer:2.3.11}}
+    \end{alignat*}
+    Since \(L, R \subseteq \mcal{U}\), by \ref{itm:1.4.2.iii},
+    \(L = \mcal{U} \cap L = \mcal{U} \setminus (\mcal{U} \setminus L)
+    = \mcal{U} \setminus (\mcal{U} \setminus R)
+    = \mcal{U} \cap R = R\).
+    \qed
+\end{enumerate}
+}
+
+\exer[8.1.12]{}{
+    Let \(A\) be a set.
+    For each partial ordering \(\preceq\) of \(A\),
+    there exists a total ordering \(\le\) of \(A\)
+    such that \(\fall a, b \in A,\: (a \preceq b \implies a \le b)\).
+    \needsChoice
+}
+\pf{Proof}{
+    Let \(\mfr{P} \subseteq \mcal{P}(A \times A)\) be the set of all partial orderings of \(A\).
+    It is easy to see that, if \(\mcal{C}\) is a chain in the partially ordered set
+    \((\mfr{P}, \subseteq_{\mfr{P}})\), then \(\bigcup \mcal{C}\) is also a partial ordering of \(A\).
+    Then, by \Cref{exer:8.1.3},
+    the partially ordered set \((\mfr{P}, \subseteq_{\mfr{P}})\)
+    has a \(\subseteq\)-maximal element \(P \in \mfr{P}\)
+    such that \(\mathord{\preceq} \subseteq P\).
+
+    Suppose \(x_0\) and \(y_0\) are incomparable in \(P\) for the sake of contradiction.
+    Let
+    \[
+        P' \triangleq P \cup \{\,(a, y_0) \in A^2 \mid aPx_0 \,\}
+        \cup \{\,(x_0, a) \in A^2 \mid y_0Pa\,\}.
+    \]
+    In particular, \(x_0P'y_0\). It is evident that \(P'\) is reflexive.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Take any \(a, b \in A\) and assume \(aP'b\) and \(bP'a\).
+        \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+            \ii
+            If \(aPb\) and \(bPa\), then by antisymmetry of \(P\).
+            \ii
+            In the case of \(\lnot(aPb) \land bPa\),
+            we have either \(b = y_0 \land aPx_0\) or \(a = x_0 \land y_0Pb\).
+            If \(b = y_0\) and \(aPx_0\), then we have \(y_0 P x_0\) by transitivity of \(P\),
+            which is a contradiction.
+            The other case leads to a contradiction in a similar manner.
+            \ii
+            If \((a, b), (b, a) \in \{\,(a, y_0) \in A^2 \mid aPx_0 \,\}\),
+            then we have \(a = b = y_0\).
+            The case \((a, b), (b, a) \in \{\,(x_0, a) \in A^2 \mid y_0Pa\,\}\)
+            can be treated similarly.
+            \ii
+            If \((a, b) \in \{\,(a, y_0) \in A^2 \mid aPx_0 \,\}\) and
+            \((b, a) \in \{\,(x_0, a) \in A^2 \mid y_0Pa\,\}\),
+            then it \(x_0 = b = y_0\), which is a contradiction.
+        \end{itemize}
+        Therefore, we conclude \(a = b\); \(P'\) is antisymmetric in \(A\).
+
+        \ii
+        Take any \(a, b, c \in A\) and assume \(aP'b\) and \(bP'c\).
+    \end{itemize}
+}
+
+\end{document}

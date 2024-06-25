@@ -34,25 +34,24 @@
     The proof is analogous to that of \Cref{exer:4.3.5}.
 
     \ii
-    By (ii), we have \(\left| [\aleph_\alpha]^{< \omega} \right| = \left| \bigcup_{n \in \omega} \aleph_\alpha^n \right|\).
     By \Cref{th:squareOfAlephs},
     there exists \(g \colon \aleph_{\alpha} \twoheadrightarrow \aleph_{\alpha} \times \aleph_{\alpha}\).
-    Define \(\lang\,a_n \mid n \in \omega\,\rang\) recursively by
+    Define an infinite sequence of functions
+    \(\lang\,a_n \mid n \in \omega\,\rang\) recursively by
     \begin{alignat*}{2}
-        \fall \beta \in \aleph_\alpha, && a_0(\beta) &= \lang\rang \\
+        \fall \beta \in \aleph_\alpha, && a_0(\beta) &= \OO \\
         \fall n \in \omega, \fall \beta \in \aleph_{\alpha}, &\:&
-        a_{n+1}(\beta) &= \lang\,\gamma_0, \cdots, \gamma_{n-1}, \beta_2\,\rang \\
-               &&& \hphantom{=1}\text{where \(g(\beta) = (\beta_1, \beta_2)\) and
-                   \(a_n(\beta_1) = \lang\,\gamma_0, \cdots, \gamma_{n-1}\,\rang\).}
+        a_{n+1}(\beta) &= a_n(\beta_1) \cup \{\beta_2\} \\
+                       &&& \hphantom{=1}\text{where}~g(\beta) = (\beta_1, \beta_2).
     \end{alignat*}
     The existence is justified by \nameref{th:recursion}.
-    Then, for each \(n \in \omega\), \(\ran a_n = \aleph_{\alpha}^n\).
-    Hence, one may define \(f \colon \omega \times \aleph_{\alpha} \surjto \bigcup_{n \in \omega} \aleph_\alpha^n\)
+    Then, for each \(n \in \omega\), \(\ran a_n = \bigcup_{i=0}^n [\aleph_\alpha]^i\).
+    Hence, one may define \(f \colon \omega \times \aleph_{\alpha} \surjto [\aleph_\alpha]^{<\omega}\)
     by \(f(n, \beta) = a_n(\beta)\).
     Since \(|\omega \times \aleph_{\alpha}| = \aleph_0 \cdot \aleph_{\alpha} = \aleph_{\alpha}\)
     by \ref{itm:productOfAlephs.i}, there
-    exists \(\eta \colon \aleph_{\alpha} \surjto \bigcup_{n \in \omega} \aleph_\alpha^n\).
-    Hence, by \Cref{exer:7.2.5}, \(\left| \bigcup_{n \in \omega} \aleph_\alpha^n \right| \le \aleph_{\alpha}\).
+    exists \(f' \colon \aleph_{\alpha} \surjto [\aleph_\alpha]^{<\omega}\).
+    Hence, by \Cref{exer:7.2.5}, \(\left| [\aleph_{\alpha}]^{<\omega} \right| \le \aleph_{\alpha}\).
     The result follows from \nameref{th:cantorBernstein}.
     \qed
 \end{enumerate}

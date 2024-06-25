@@ -186,4 +186,33 @@ Thanks to \Cref{exer:2.2.3} (ii) and (iii), we only need to prove the other incl
 \end{enumerate}
 }
 
+\exer[2.3.13]{}{
+    Let \(\lang\,F_{a, b}\,\rang_{a \in A,\: b \in B}\) be a nonempty indexed system of sets.
+    Assuming that \(\fall a \in A,\: \fall b_1, b_2 \in B,\: (b_1 \neq b_2 \implies F_{a, b_1} \cap F_{a, b_2} = \OO)\),
+    the following equation holds.
+    \[\textstyle
+        \bigcap_{a \in A} \left[\bigcup_{b \in B} F_{a, b}\right]
+        = \bigcup_{f \in B^A} \left[\bigcap_{a \in A} F_{a, f(a)}\right]
+    \]
+}
+\mclm{Proof}{
+Let \(L \triangleq \bigcap_{a \in A} \left[\bigcup_{b \in B} F_{a, b}\right]\)
+and \(R \triangleq \bigcup_{f \in B^A} \left[\bigcap_{a \in A} F_{a, f(a)}\right]\).
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\subseteq\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\subseteq\))]
+    Take any \(x \in L\).
+    Let \(f \triangleq \{\,(a, b) \in A \times B \mid x \in F_{a, b}\,\}\).
+    Then, by assumption, \(f\) is a function.
+    Moreover, as \(x \in L\), \(f\) is a function on \(A\) into \(B\).
+    Therefore, \(x \in \bigcap_{a \in A} F_{a, f(a)} \subseteq R\);
+    thus \(L \subseteq R\). \checkmark
+
+    \ii[(\(\supseteq\))]
+    Note that, for each \(a \in A\), and \(f \colon A \to B\),
+    \(\bigcap_{a \in A} F_{a, f(a)} \subseteq \bigcap_{a \in A} \left[\bigcup_{b \in B} F_{a, b}\right] = L\).
+    Therefore, \(R \subseteq L\).
+    \qed
+\end{itemize}
+}
+
 \end{document}
