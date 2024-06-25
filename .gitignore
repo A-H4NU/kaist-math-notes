@@ -6,3 +6,4 @@
 !*/
 *.memo.dir/
 *.memo.dir/*
+!makefile
