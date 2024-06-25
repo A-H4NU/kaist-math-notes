@@ -157,4 +157,22 @@ Note that (v) and (vi) shows that \(Q_8 \ncong D_n\).
 \end{enumerate}
 }
 
+\exmp[prodCycleIffGCD]{}{
+Let \(m, n \in \ZZ_+\). Then, \(\ZZ_m \times \ZZ_n \cong \ZZ_{mn} \iff \gcd(m, n) = 1\).
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    Suppose \(\gcd(m, n) > 1\) for the sake of contradiction.
+    Take any \((a, b) \in \ZZ_m \times \ZZ_n\).
+    Then, \(|(a, b)| \mid \lcm(m, n) = mn/\gcd(m,n) < mn\).
+    Hence, \(\ZZ_m \times \ZZ_n\) has no element of order \(mn\);
+    thus \(\ZZ_m \times \ZZ_n \not\cong \ZZ_{mn}\).
+
+    \ii[(\(\Leftarrow\))]
+    As \(|(1, 0)| = m\) and \(|(0, 1)| = n\) in \(\ZZ_m \times \ZZ_n\),
+    \(|(1, 1)| = |(1, 0)(0, 1)| = mn\) by \ref{itm:basicOrder.iii}.
+    Therefore, \(\ZZ_m \times \ZZ_n = \lang(1,1)\rang \cong \ZZ_{mn}\).
+    \qed
+\end{itemize}
+}
+
 \end{document}

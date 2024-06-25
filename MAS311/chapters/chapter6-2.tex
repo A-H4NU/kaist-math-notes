@@ -1,0 +1,178 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Quotient Rings and Ring Homomorphisms}
+
+\begin{Definition}[colbacktitle=red!75!black]{Quotient Ring}{quotientRing}
+    Let \(R\) be a ring and let \(I \subseteq R\) be an ideal in \(R\).
+    Then, \(R/I\) equipped with operations
+    \begin{gather*}
+        (a + I) + (b + I) = (a + b) + I \\
+        (a+I) \cdot (b+I) = ab + I
+    \end{gather*}
+    is a ring and is called the \textit{quotient ring of \(R\) by \(I\)}.
+    This is justified by \Cref{lem:idealIff}.
+    \vspace*{1em}
+    If \(R\) is commutative, then so is \(R/I\).
+    If \(R\) has a multiplicative identity, then \(1 + I\) is
+    the multiplicative identity of \(R/I\).
+    \vspace*{1em}
+    There is a surjective ring homomorphism
+    \begin{align*}
+        \pi \colon R &\longrightarrow R/I \\
+        r &\longmapsto r + I
+    \end{align*}
+    which is called the \textit{natural projection from \(R\) to \(R/I\)}.
+\end{Definition}
+
+\begin{Lemma}{}{trivialRingKerIffInj}
+    Let \(R\) and \(S\) be rings.
+    Let \(f \colon R \to S\) be a ring homomorphism.
+    Then, \(\ker(f) = \{0\}\) if and only if \(f\) is injective.
+\end{Lemma}
+\begin{myproof}[Proof]
+    This is a special case of \Cref{th:trivialKerIffInj}
+    noting that \(f\) is a group homomorphism from \((R, +)\) to \((S, +)\).
+\end{myproof}
+
+\begin{Theorem}{\textsf{First Isomorphism Theorem}}{firstIsoRing}
+    Let \(R\) and \(S\) be rings.
+    Let \(f \colon R \to S\) be a ring homomorphism.
+    Then, \(R/\ker(f) \cong \img(f)\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(K \triangleq \ker(f)\).
+    Define a function
+    \begin{align*}
+        \vphi \colon R/K &\longrightarrow \img(f) \\
+        r + K &\longmapsto f(r).
+    \end{align*}
+    For each \(r, r' \in R\), we have \(r + K = r' + K\) if and only if \(f(r) = f(r')\)
+    as \(f\) is a ring homomorphism.
+    Hence, \(\vphi\) is well-defined and injective.
+    \(\vphi\) is evidently surjective.
+    Therefore, \(\vphi\) is a bijective ring isomorphism.
+\end{myproof}
+
+\begin{Definition}[colbacktitle=red!75!black]{}{}
+    Let \(R\) be a ring and let \(I\) and \(J\) be ideals of \(R\).
+    Then, we define
+    \begin{gather*}
+        I + J \triangleq \{\,i + j \mid i \in I \land j \in J\,\} \\
+        IJ \triangleq \{\,i_1j_1 + i_2j_2 + \cdots + i_nj_n \mid n \in \NN \land \fall k \in [n],\: (i_k \in I \land j_k \in J)\,\}.
+    \end{gather*}
+\end{Definition}
+
+\begin{Lemma}{\textsf{}}{}
+    Let \(R\) be a ring and let \(I\) and \(J\) be ideals of \(R\).
+    Then, \(I + J\) and \(IJ\) are ideals of \(R\).
+\end{Lemma}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    Take any \(i + j, i' + j' \in I + J\) and \(r \in R\). Then,
+    \begin{gather*}
+        (i + j) - (i' + j') = (i - i') + (j + j') \in I + J \\
+        \shortintertext{and}
+        r(i + j) = ri + rj \in I + J, \\
+        (i + j)r = ir + jr \in I + J.
+    \end{gather*}
+    Hence, \(I + J\) is an ideal in \(R\).
+
+    \ii
+    Take any \(i_1j_1 + \cdots + i_mj_m, i'_1j'_1 + \cdots + i'_nj'_n \in IJ\) and \(r \in J\).
+    Then,
+    \begin{gather*}
+        (i_1j_1 + \cdots + i_mj_m) - (i'_1j'_1 + \cdots + i'_nj'_n)
+        = i_1j_1 + \cdots + i_mj_m + (-i'_1)j'_1 + \cdots + (-i'_n) j'_n \in IJ \\
+        \intertext{and}
+        r(i_1j_1 + \cdots + i_mj_m) = (ri_1)j_1 + \cdots (ri_m)j_m \in IJ, \\
+        (i_1j_1 + \cdots + i_mj_m)r = i_1(j_1r) + \cdots i_m(j_mr) \in IJ
+    \end{gather*}
+    Hence, \(IJ\) is an ideal in \(R\).
+    \qed
+\end{enumerate}
+\end{myclaim}
+
+\begin{Theorem}{\textsf{Second Isomorphism Theorem}}{secondIsoRing}
+    Let \(R\) be a ring and let \(I\) and \(J\) be ideals in \(R\).
+    Then, \(I \cap J\) is an ideal in \(I\), \(J\) is an ideal in \(I + J\), and
+    \(I/(I \cap J) \cong (I + J)/J\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    \(J\) is clearly an ideal in \(I + J\).
+    Define a ring homomorphism
+    \begin{align*}
+        \vphi \colon I &\longrightarrow (I+J)/J \\
+        i &\longmapsto i + J.
+    \end{align*}
+    Then, for any \(i + j \in I + J\), we have \((i + j) + J = i + (j + J) = i + J = \vphi(i)\);
+    hence \(\vphi\) is surjective. We also have \(\ker(\vphi) = I \cap J\);
+    \(I \cap J\) is an ideal in \(I\).
+    Hence, by \nameref{th:firstIsoRing}, \(I/(I \cap J) \cong (I+J)/J\).
+\end{myproof}
+
+\begin{Theorem}{\textsf{Third Isomorphism Theorem}}{thirdIsoRing}
+    Let \(R\) be a ring and let \(I\) and \(J\) be ideals in \(R\) such that \(J \subseteq I\).
+    Then, \(I/J\) is an ideal in \(R/J\). Furthermore, \((R/J)/(I/J) \cong R/I\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Define a function
+    \begin{align*}
+        \vphi \colon R/J &\longrightarrow R/I \\
+        r + J &\longmapsto r + I.
+    \end{align*}
+    For each \(r, r' \in R\) such that \(r + J = r' + J\), then \(r - r' \in J \subseteq I\);
+    thus \(r + I = r' + I\), hence \(\vphi\) is well-defined.
+    It is evident that \(\vphi\) is a surjective ring homomorphism.
+    Simply computing the kernel, we have \(\ker(\vphi) = I/J\) and \(I/J\) is an ideal in \(R/J\).
+    Hence, by \nameref{th:firstIsoRing}, \((R/J)/(I/J) \cong R/I\).
+\end{myproof}
+
+\begin{Lemma}{}{inverseIdeal}
+    Let \(R\) and \(S\) be rings.
+    Let \(f \colon R \to S\) be a ring homomorphism.
+    If \(I \subseteq S\) is an ideal in \(S\), then \(f\inv(I)\) is an ideal in \(R\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    Take any \(a, b \in f\inv(I)\).
+    Then, \(f(a - b) = f(a) - f(b) \in I\); hence \(a - b \in f\inv(I)\).
+    Moreover, for any \(r \in R\),
+    we have \(f(ra) = f(r)f(a) \in I\) and \(f(ar) = f(a)f(r) \in I\); hence \(ar, ra \in f\inv(I)\).
+    Hence, \(f\inv(I)\) is an ideal in \(R\).
+\end{myproof}
+
+\begin{Theorem}{\textsf{Fourth Isomorphism Theorem}}{fourthIsoRing}
+    Let \(R\) be a ring and let \(I\) be an ideal in \(R\).
+    Let \(\pi \colon R \surjto R/I\) be the natural projection.
+    Then, there is a natural one-to-one correspondence between
+    \[
+        \{\,\text{ideals of}~R~\text{containing}~I\,\} \xleftrightarrow{\text{1:1}}
+        \{\,\text{ideals of}~R/I\,\}
+    \]
+    with \(K \mapsto K/I\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Define a function
+    \begin{align*}
+        \vphi \colon \{\,\text{ideals of}~R~\text{containing}~I\,\} &\longrightarrow \{\,\text{ideals of}~R/I\,\} \\
+        K &\longmapsto K/I.
+    \end{align*}
+    By \nameref{th:thirdIsoRing}, if \(K \subseteq R\) is an ideal containing \(I\),
+    then \(\vphi(K) = K/I\) is an ideal in \(R/I\). Hence, \(\vphi\) is well-defined.
+
+    Let \(K, K' \subseteq R\) be ideals in \(R\) containing \(I\) such that \(K \neq K'\).
+    Then, there exists \(k \in K \setminus K'\).
+    If \(k + I = k' + I\) for some \(k' \in K'\), then \(k = k' + i\) for some \(i \in I\),
+    which implies \(k \in K'\), which is a contradiction.
+    Hence, \(k + I \neq k' + I\) for all \(k' \in K'\), i.e., \(k + I \in \vphi(K) \setminus \vphi(K')\).
+    Therefore, \(\vphi\) is injective.
+
+    Let \(\ol{K}\) be an ideal in \(R/I\).
+    then, by \Cref{lem:inverseIdeal}, \(K \triangleq \vphi\inv(\ol{K})\) is an ideal in \(R\).
+    Clearly, \(I = \ker(\vphi) = \vphi\inv(\{0\}) \subseteq K\) and \(\vphi(K) = K/I = \ol{K}\).
+    Hence, \(\vphi\) is surjective.
+\end{myproof}
+
+\end{document}

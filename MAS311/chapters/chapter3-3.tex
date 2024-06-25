@@ -12,7 +12,9 @@
 }
 
 \thm[permRepIsAut]{}{
-    For each \(g \in G\),
+    Let \(G\) be a group and let \(N \nsub G\).
+    Let \(G \actson N\) by conjugation.
+    Then, for each \(g \in G\),
     we have \(\vphi_g \in \Aut(N)\).
     Moreover, \(\ker(\vphi) = C_G(N)\).
     In particular, \(G/C_G(N)\) is isomorphic to a subgroup of \(\Aut(N)\).
@@ -28,6 +30,8 @@
         = \{\,g \in G \mid \fall n \in \NN,\:\vphi_g(n) = n\,\}
         = \{\,g \in G \mid \fall n \in \NN,\:ng = gn\,\} = C_G(N).
     \]
+    Moreover, by \nameref{th:firstIso},
+    \(G/C_G(N) \cong \img(\vphi) \le \Aut(N)\).
 }
 
 \cor[]{}{
@@ -37,15 +41,52 @@
 }
 \pf{Proof}{
     We have \(H \nsub N_G(H)\), \(C_G(H) = C_{N_G(H)}(H)\), and
-    \(N_G(H) = N_{N_G(H)}(H)\).
+    \(N_G(H) = N_{N_G(H)}(H)\) by definition.
     The result follows from \Cref{th:permRepIsAut}.
+    The last assertion is obtained by letting \(H \coloneqq G\).
 }
 
-\nt{
-    Let \(\Inn(G)\) be the set of all inner automorphisms of \(G\).
-    Then, \(\Inn(G) \nsub \Aut(G)\)
-    since \(\fall \vphi \in \Aut(G),\: \vphi \circ i_c \circ \vphi\inv = i_{\vphi(c)}\).
-    We call \(\Aut(G)/\Inn(G)\) the \textit{outer automorphism group}.
+\dfn[innerAutomorphism]{Inner Automorphism Group}{
+    For each \(c \in G\), mapping \(i_c \colon G \to G\)
+    defined by \(g \mapsto cgc\inv\)
+    is an automorphism and is called an \textit{inner automorphism on \(G\) induced by \(c\).}
+    We define
+    \[
+        \Inn(G) \triangleq \{\,i_c \in \Aut(G) \mid c \in G\,\}
+    \]
+    and call it the \textit{inner automorphism group of \(G\)}.
+}
+
+\mlemma[innerIsNormal]{}{
+    Let \(G\) be a group. Then, \(\Inn(G) \nsub \Aut(G)\).
+}
+\pf{Proof}{
+    \(\mrm{id}_G = i_{1} \in \Inn(G)\).
+    For each \(c \in G\), \((i_c)\inv = i_{c\inv}\) is already an automorphism on \(G\).
+    Take any \(c, c' \in G\). Then, for all \(g \in G\),
+    \[
+        (i_c \circ i_{c'})(g) = i_c(c' g (c')\inv)
+        = c c' g (c')\inv c\inv = (c c') g (c c')\inv = i_{c c'}(g).
+    \]
+    Therfore, \(i_c \circ i_{c'} = i_{c c'}\); \(\Inn(G)\) is a subgroup of \(\Aut(G)\).
+
+    Take any \(c \in G\) and \(\sigma \in \Aut(G)\).
+    Then, for each \(g \in G\),
+    \[
+        (\sigma \circ i_c \circ \sigma\inv)(g) = \sigma(c \sigma\inv(g) c\inv)
+        = \sigma(c) g \sigma(c\inv) = \sigma(c) g \sigma(c)\inv = i_{\sigma(c)}(g).
+    \]
+    Therefore, \(\sigma \circ i_c \circ \sigma\inv = i_{\sigma(c)} \in \Inn(G)\).
+    Hence, \(\Inn(G) \nsub \Aut(G)\).
+}
+
+\dfn[outerAutomorphism]{Outer Automorphism Group}{
+    Let \(G\) be a group.
+    Justified by \Cref{lem:innerIsNormal}, we
+    \[
+        \Aut(G) / \Inn(G).
+    \]
+    the \textit{outer automorphism group of \(G\)}.
 }
 
 \cor[innIsoToGModZG]{}{
@@ -71,10 +112,10 @@
     \[
         (\ZZ/n \ZZ)^\ast = \{\,k \in \ZZ_n \mid \gcd(k, n) = 1\,\}
     \]
-    so that \((\ZZ/n \ZZ)^\ast\) is a group under usual multiplication.
+    so that \((\ZZ/n \ZZ)^\ast\) is an abelian group under usual multiplication.
 }
 
-\thm[]{}{
+\thm[autOfZn]{}{
     For each \(n \in \ZZ_+\),
     \(\Aut(\ZZ_n) \cong (\ZZ/n \ZZ)^\ast\).
 }

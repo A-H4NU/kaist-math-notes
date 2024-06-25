@@ -1,0 +1,37 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Rings of Fractions}
+
+\begin{Definition}[colbacktitle=red!75!black]{Multiplicative Set}{multiplicative}
+    Let \(R\) be a commutative ring.
+    Then, \(D \subseteq R\) is said to be \textit{multiplicative}
+    if every element of \(D\) is a nonzero divisor and \(D\) is
+    closed under multiplication.
+\end{Definition}
+
+\begin{Lemma}{}{ringOfFractionDef}
+    Let \(R\) be a commutative ring and let \(D \subseteq R\) be a multiplicative set.
+    Then, the relation \(\sim\) on \(R \times D\) defined by
+    \[
+        (r, d) \sim (s, e) \iff re = sd
+    \]
+    is an equivalence relation.
+    Moreover, if \(Q \triangleq \{\,[a] \mid a \in R \times D\,\}\) is the set of
+    equivalence classes, then the structure \((Q, +, \cdot)\)
+    defined by
+    \begin{gather*}
+        \frac{a}{b} + \frac{c}{d} \triangleq \frac{ad + bc}{bd} \\
+        \shortintertext{and}
+        \frac{a}{b} \cdot \frac{c}{d} \triangleq \frac{ac}{bd}
+    \end{gather*}
+    where \(a/b\) denote the equivalence class \([(a, b)]\)
+    is well-defined and is a commutative ring with identity such that every element of form \(d/d'\)
+    where \(d, d' \in D\) is a unit.
+\end{Lemma}
+\begin{myproof}[Proof]
+    
+\end{myproof}
+
+\end{document}

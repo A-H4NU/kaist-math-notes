@@ -1,0 +1,72 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Ring Homomorphisms}
+
+\begin{Definition}[colbacktitle=red!75!black]{Ring Homomorphism}{ringHomomorphism}
+    Let \(R\) and \(S\) be groups.
+    A \textit{ring homomorphism} between \(R\) and \(S\) is a function \(f \colon R \to S\)
+    such that
+    \[
+        f(a + b) = f(a) + f(b) ~\text{and}~ f(ab) = f(a)f(b)
+    \]
+    for all \(a, b \in R\).
+    The \textit{kernel} of a ring homomorphism \(f\)
+    is the set
+    \[
+        \ker(f) \triangleq \{\,r \in R \mid f(r) = 0\,\}.
+    \]
+\end{Definition}
+
+\begin{Definition}[colbacktitle=red!75!black]{Ring isomorphism}{ringIso}
+    Let \(R\) and \(S\) be groups.
+    A \textit{ring isomorphism} between \(R\) and \(S\)
+    is a bijective ring homomorphism between \(R\) and \(S\).
+    We write \(R \cong S\) if there is a ring isomorphism between \(R\) and \(S\).
+    ``\(\cong\)'' is an equivalence relation.
+\end{Definition}
+
+\begin{Theorem}{}{basicRingHomo}
+    Let \(R\) be a ring with identity and let \(S\) be a ring.
+    Let \(f \colon R \surjto S\) be a surjective ring homomorphism.
+    Then, the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:basicRingHomo} (\roman*)}]
+        \ii\label{itm:basicRingHomo.i}
+        \(f(1)\) is the multiplicative identity of \(S\).
+        \ii\label{itm:basicRingHomo.ii}
+        If \(u\) is a unit in \(R\), then \(f(u)\) is a unit in \(S\) and \(f(u)\inv = f(u\inv)\).
+    \end{enumerate}
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    Take any \(s \in S\). Then, there exists \(r \in R\) such that \(f(r) = s\).
+    Then, \(sf(1) = f(r)f(1) = f(r) = s\) and \(f(1)s = f(1)f(r) = f(r) = s\).
+    Hence, the result follows.
+    \ii
+    \(f(u) f(u\inv) = f(1) = 1\) and \(f(u\inv)f(u) = f(1) = 1\) by (i).
+    Hence, \(f(u\inv) = f(u)\inv\).
+    \qed
+\end{enumerate}
+\end{myclaim}
+
+\begin{Theorem}{\textsf{}}{}
+    Let \(R\) and \(S\) be groups and let \(f \colon R \to S\)
+    be a group homomorphism.
+    Then, \(\img(f)\) is a subring of \(S\) and \(\ker(f)\) is a subring of \(R\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    \(\img(f)\) and \(\ker(f)\) are a subgroup of \((R, +)\) and \((S, +)\), respectively.
+
+    Take any \(s, s' \in \img(f)\). Then, there exist \(r, r' \in R\)
+    such that \(f(r) = s\) and \(f(r') = s'\),
+    then \(s s' = f(r) f(r') = f(r r') \in \img(f)\). Hence, \(\img(f)\) is closed under
+    multiplication.
+
+    Take any \(r, r' \in \ker(f)\).
+    Then, \(f(r r') = f(r) f(r') = 0 \cdot 0 = 0\). Hence, \(\ker(f)\)
+    is closed under multiplication. Ther result follows from \Cref{th:subringIff}.
+\end{myproof}
+
+\end{document}

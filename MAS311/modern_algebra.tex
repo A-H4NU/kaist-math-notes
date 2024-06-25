@@ -1,3 +1,4 @@
+%! TEX TS-program = xelatex
 \documentclass[a4paper,12pt]{report}
 \usepackage{subfiles}
 \usepackage{calc}
@@ -43,18 +44,17 @@
 \DeclareMathOperator{\ran}{ran}
 \let\char\relax
 \newcommand{\char}{\mathrel{\textrm{char}}}
-% \DeclareMathOperator{\Inn}{Inn}
 
 % for index
 \DeclareMathSymbol{:}{\mathord}{operators}{"3A}
-\setlength{\emergencystretch}{10pt}
+% \setlength{\emergencystretch}{10pt}
 
 \begin{document}
 
 % NOTE: This should not be commented out for the final product.
 % The usage of memoize may corrupt some tcb boxes;
 % this is only for fast compilation.
-\mmzset{disable}
+% \mmzset{disable}
 
 \begin{titlepage}
 	\raggedleft
@@ -71,14 +71,13 @@
 
         {\noindent
         David S. Dummit, Richard M. Foote.
-        \textit{Abstract Algebra}. 3rd ed.,
-        Wiley, 2003.}\\[\baselineskip]
+        \textit{Abstract Algebra}. \newline
+        3rd ed., Wiley, 2003.}
 	}
 \end{titlepage}
 \pdfbookmark[section]{\contentsname}{toc}
 \tableofcontents
 \hypersetup{
-    colorlinks=true,
     linkcolor=red!50!black,
     filecolor=black,
     urlcolor=red!50!black,
@@ -103,6 +102,23 @@
 \subfile{./chapters/chapter3-1.tex}
 \subfile{./chapters/chapter3-2.tex}
 \subfile{./chapters/chapter3-3.tex}
+\subfile{./chapters/chapter3-4.tex}
+
+\chapter{Product of Groups}
+\subfile{./chapters/chapter4-1.tex}
+\subfile{./chapters/chapter4-2.tex}
+\subfile{./chapters/chapter4-3.tex}
+\subfile{./chapters/chapter4-4.tex}
+
+\chapter{Rings}
+\subfile{./chapters/chapter5-1.tex}
+\subfile{./chapters/chapter5-2.tex}
+
+\chapter{Ideals and Quotient Rings}
+\subfile{./chapters/chapter6-1.tex}
+\subfile{./chapters/chapter6-2.tex}
+\subfile{./chapters/chapter6-3.tex}
+\subfile{./chapters/chapter6-4.tex}
 
 \vfill
 \begin{center}

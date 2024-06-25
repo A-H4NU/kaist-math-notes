@@ -1,0 +1,150 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Prime and Maximal Ideals}
+
+\begin{Definition}[colbacktitle=red!75!black]{Prime Ideal}{}
+    Let \(R\) be a commutative ring.
+    A proper ideal \(P\) in \(R\) is a \textit{prime ideal}
+    if \(ab \in P\) implies \(a \in P \lor b \in P\).
+\end{Definition}
+
+\begin{Theorem}{\textsf{}}{}
+    Let \(R\) and \(S\) be commutative rings with identity.
+    Let \(f \colon R \to S\) be a ring homomorphism.
+    If \(P \subseteq S\) is a prime ideal in \(S\), then \(f\inv(P)\) is a prime ideal in \(R\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    By \Cref{lem:inverseIdeal}, \(f\inv(P)\) is an ideal in \(R\).
+    Moreover, as \(1 \notin P\) by \ref{itm:idealUnit}, \(1 \notin f\inv(P)\)
+    by \ref{itm:basicRingHomo.i}, and thus \(f\inv(P) \subsetneq R\).
+
+    Take any \(a, b \in R\) such that \(ab \in f\inv(P)\).
+    Then, as \(f(a)f(b) = f(ab) \in P\), we have
+    \(f(a) \in P\) or \(f(b) \in P\), i.e., \(a \in f\inv(P)\) or \(b \in f\inv(P)\).
+\end{myproof}
+
+\begin{Theorem}{\textsf{}}{primeIdealIff}
+    Let \(R\) be a commutative ring with identity and let \(P\) be an ideal in \(R\).
+    Then, \(P\) is a prime ideal if and only if \(R/P\) is an integral domain.
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    \(R/P\) is a commutative ring with identity. \(R/P\) is not trivial as \(P \subsetneq R\).
+    Take any \(a, b \in R\) such that \((a + P)(b + P) = 0 + P\).
+    Then, \(ab \in P\) and thus \(a \in P\) or \(b \in P\), i.e., \(a + P = 0 + P\) or \(b + P = 0 + P\).
+    \ii[(\(\Leftarrow\))]
+    \(P \subsetneq R\) as \(R/P\) is not trivial.
+    Take any \(a, b \in R\) such that \(ab \in P\).
+    Then, we have \((a + P)(b + P) = ab + P = 0 + P\).
+    Hence, \(a + P = 0 + P\) or \(b + P = 0 + P\), i.e., \(a \in P\) or \(b \in P\).
+    \qed
+\end{itemize}
+\end{myclaim}
+
+\begin{Definition}[colbacktitle=red!75!black]{Maximal Ideal}{maximalIdeal}
+    Let \(R\) be a ring.
+    A proper ideal \(M\) in \(R\) is called a \textit{maximal ideal} if
+    \(M\) is maximal with respect to inclusion among proper ideals in \(R\).
+    In other words, if \(I\) is an ideal in \(R\) such that \(M \subseteq I\),
+    then \(I = M\) or \(I = R\).
+\end{Definition}
+
+\begin{Theorem}{\textsf{}}{maximalIdealExists}
+    Let \(R\) be a ring and let \(I\) be a proper ideal in \(R\).
+    There exists a maximal ideal \(M\) of \(R\) such that \(I \subseteq M\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let
+    \[
+        \mcal{J} \triangleq \{\,J \subsetneq R \mid J~\text{is an ideal in}~R~\text{and}~I \subseteq J\,\}.
+    \]
+    Then, \((\mcal{J}, \subseteq)\) is a poset.
+    Let \(\mcal{C}\) be a nonempty chain\footnotemark\ in \((\mcal{J}, \subseteq)\).
+    Let \(M_{\mcal{C}} \triangleq \bigcup \mcal{C}\).
+    \begin{Claim}{}{Bkvtgtrz}
+        \(M_{\mcal{C}} \in \mcal{J}\)
+        \tcblower
+        It is clear that \(I \subseteq M_{\mcal{C}}\).
+        Take any \(a, b \in M_{\mcal{C}}\).
+        Then, there exists \(J_a, J_b \in \mcal{C}\) such that \(a \in J_a\) and \(b \in J_b\).
+        \WLOG, \(J_a \subseteq J_b\). Then, \(a - b \in J_b \subseteq M_{\mcal{C}}\).
+
+        Take any \(m \in M_{\mcal{C}}\) and \(r \in R\).
+        Then, \(m \in J\) for some \(J \in \mcal{C}\)
+        so that \(mr, rm \in J \subseteq M_{\mcal{C}}\).
+        Hence, \(M_{\mcal{C}}\) is an ideal in \(R\).
+        Moreover, \(M_{\mcal{C}}\) is proper since \(1 \notin M_{\mcal{C}}\).
+        \qed
+    \end{Claim}
+
+    \Cref{clm:Bkvtgtrz} says that \(M_{\mcal{C}}\) is an upper bound of \(\mcal{C}\).
+    Therefore, by Zorn's lemma, \(\mcal{J}\) has a maximal element \(M\) with
+    respect to the inclusion, which is evidently a maximal ideal in \(R\)
+    containing \(I\).
+    \footnotetext{A \textit{chain} in a poset \((P, \le)\)
+    is a totally ordered subset of \(P\).}
+\end{myproof}
+
+\begin{Theorem}{}{maximalIdealIff}
+    Let \(R\) be a commutative ring with identity and let \(M\) be a ideal.
+    Then, \(M\) is a maximal ideal if and only if \(R/M\) is a field.
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    As \(M\) is proper, \(R/M\) is nontrivial commutative ring with identity.
+    Take any nonzero element \(a + M \in R/M\). Then, \(a \in R \setminus M\).
+    Define
+    \[
+        J \triangleq \{\,m + ra \mid r \in R \land m \in M\,\}.
+    \]
+    Take any \(m + ra, m' + r'a \in J\). Then,
+    \begin{gather*}
+        (m + ra) - (m' + r'a) = (m - m') + (r - r')a \in J \\
+        \shortintertext{and}
+        r(m' + r'a) = rm' + (r r')a \in J, \\
+        (m' + r'a)r = m'r + r'ra \in J.
+    \end{gather*}
+    Hence, \(J\) is an ideal such that \(M \subsetneq J\) as \(a \in J \setminus M\).
+    As \(M\) is maximal, \(J = R\); thus \(1 \in J\).
+
+    There exist \(m \in M\) and \(r \in R\) such that \(1 = m + ra\).
+    Then,
+    \[
+        (r + M)(a + M) = ra + M = 1 + M;
+    \]
+    hence \(a + M\) is a unit.
+    \ii[(\(\Leftarrow\))]
+    As \(1 + M \neq 0 + M\), \(1 \notin M\), i.e., \(M\) is a proper ideal by \ref{itm:idealUnit}.
+    Let \(J\) be an ideal in \(R\) such that \(M \subsetneq J\).
+    There exists some \(a \in J \setminus M\) so that \(a + M \neq 0 + M\).
+    Hence, there exists \(b + M \in R/M\) such that \(ab + M = (a + M)(b + M) = 1 + M\),
+    i.e., \(m \triangleq ab - 1 \in M \subseteq J\). As \(ab \in J\) as \(a \in J\),
+    we have \(1 = ab - m \in J\); hence \(J = R\) by \ref{itm:idealUnit}.
+    \qed
+\end{itemize}
+\end{myclaim}
+
+\begin{Corollary}{}{maximalThenPrime}
+    Let \(R\) be a commutative ring with identity.
+    Then, every maximal ideal in \(R\) is a prime ideal in \(R\).
+\end{Corollary}
+\begin{myproof}[Proof]
+    Let \(M\) be a maximal ideal in \(R\).
+    Then, \(R/M\) is a field by \Cref{th:maximalIdealIff}.
+    In particular, \(R/M\) is an integral domain.
+    Hence, by \Cref{th:primeIdealIff}, \(M\) is a prime ideal.
+\end{myproof}
+
+\begin{Corollary}{\textsf{}}{}
+    Let \(R\) be a commutative ring with identity.
+    Then, \((0)\) is a maximal ideal if and only if \(R\) is a field.
+\end{Corollary}
+\begin{myproof}[Proof]
+    This directly follows from \(R \cong R/(0)\) and \Cref{th:maximalIdealIff}.
+\end{myproof}
+
+\end{document}

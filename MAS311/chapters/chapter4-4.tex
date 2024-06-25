@@ -1,0 +1,129 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Classification of Finite Groups of Small Orders}
+
+\begin{Theorem}{\textsf{}}{group2p}
+    If \(G\) is a group of order \(2p\) where \(p\) is an odd prime,
+    then \(G \cong \ZZ_{2p}\) or \(G \cong D_p\).
+\end{Theorem}
+\begin{myclaim}[Proof]
+    By \nameref{cor:cauchyThm},
+    there exists \(a, b \in G\) such that \(|a| = p\) and \(|b| = 2\).
+    Let \(H \triangleq \lang a \rang\).
+    By \Cref{lem:indexTwoSubgroup}, \(H \nsub G\).
+    As \(bab = bab\inv \in H\), there exists \(t \in \ZZ\) such that \(bab\inv = a^t\).
+    Then, we have
+    \[
+        a^{t^2} = (a^t)^t = (bab\inv)^t = ba^t b\inv = b b a b\inv b\inv = a.
+    \]
+    Hence, \(t^2 \equiv 1 \pmod{p}\) by \ref{itm:basicOrder.ii},
+    so we have \(t \equiv \pm 1 \pmod{p}\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume \(t \equiv 1 \pmod{p}\).
+        Then, \(bab\inv = a^t = a\), i.e., \(ba = ab\).
+        By \ref{itm:basicOrder.iii}, \(|ab| = 2p\), i.e., \(G \cong \ZZ_{2p}\).
+
+        \ii
+        Assume \(t \equiv -1 \pmod{p}\).
+        Then, \(bab = a^t = a\inv\), i.e., \(abab = 1\).
+        Hence, by \Cref{th:presentHomomorphism},
+        there exists a group homomorphism \(f \colon D_p \to G\)
+        with \(f(r_1) = a\) and \(f(s) = b\).
+        By \nameref{th:lagrange}, \(\img(f) = G\), i.e., \(f\)
+        is a group isomorphism. \qed
+    \end{itemize}
+\end{myclaim}
+
+\begin{Lemma}{\textsf{}}{allOrder2}
+    Let \(G\) be a group. If \(a^2 = 1\) for all \(a \in G\),
+    then \(G\) is abelian.
+\end{Lemma}
+\begin{myproof}[Proof]
+    Take any \(a, b \in G\).
+    Then, \(1 = (ab)^2 = abab\), and thus \(ab = (bab)b = ba\).
+\end{myproof}
+
+\begin{Theorem}{\textsf{}}{}
+    If \(G\) is a group of order 8, then
+    \(G\) is isomorphic to one of \(\ZZ_8\), \(\ZZ_4 \times \ZZ_2\), \(\ZZ_2^3\),
+    \(D_4\), and \(Q_8\).
+\end{Theorem}
+\begin{myclaim}[Proof]
+    If \(G\) is abelian, then \nameref{th:FTFAG} asserts that
+    \(G \cong \ZZ_8\), \(G \cong \ZZ_4 \times \ZZ_2\), or \(G \cong \ZZ_2^3\).
+    Now, assume that \(G\) is nonabelian.
+    By \Cref{lem:allOrder2}, there exists \(a \in G\) such that \(|a| = 4\).
+    Fix \(b \in G \setminus \lang a \rang\).
+    Then,
+    \(G = \{\,1, a, a^2, a^3, b, ab, a^2b, a^3b\,\} = \lang a, b \rang\).
+    There are three possibilities: \(ba = ab\), \(ba = a^2b\), and \(ba = a^3b\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        If \(ba = ab\), then \(G\) is abelian.
+        \ii
+        Assume \(ba = a^2b\). Then,
+        \[
+            a^2ba = a^2(a^2b) = a^4b = b
+        \]
+        so that
+        \[
+            ba^2 = a^4ba^2 = a^2(a^2ba)a = a^2ba.
+        \]
+        Thus, \(b = a^2ba = ba^2\), so \(a^2 = 1\), which is a contradiction.
+        Thus, \(ba = a^3b\).
+    \end{itemize}
+    Now, we have four possibilities: \(b^2 = 1\), \(b^2 = a\), \(b^2 = a^2\), and \(b^2 = a^3\).
+    If \(b^2 = a\) or \(b^2 = a^3\), then \(|b| = 8\), which is a contradiction.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume \(b^2 = 1\).
+        Then, we have \(abab = a(a^3b)b = a^4 b^2 = 1\).
+        Hence, \(G \cong D_4\).
+
+        \ii
+        Assume \(b^2 = a^2\).
+        Then, \(G \cong Q_8 = \lang\,i, j \mid i^4 = 1, i^2 = j^2, ji = i\inv j\,\rang\).
+        \qed
+    \end{itemize}
+\end{myclaim}
+
+\begin{Theorem}{\textsf{}}{}
+    If \(G\) is a group of order 12,
+    then \(G\) is isomorphic to one of
+    \(\ZZ_{12}\), \(\ZZ_6 \times \ZZ_2\), \(T_{12}\), \(D_6\), or \(A_4\).
+\end{Theorem}
+\begin{myclaim}[Proof]
+    If \(G\) is abelian, then \nameref{th:FTFAG} asserts that
+    \(G \cong \ZZ_{12}\) or \(G \cong \ZZ_6 \times \ZZ_2\).
+    Assume \(G\) is nonabelian.
+
+    Fix some \(P \in \Syl_2(G)\) and \(Q \in \Syl_3(G)\).
+    Then, \(P \cong \ZZ_4\) or \(P \cong \ZZ_2 \times \ZZ_2\) by \Cref{cor:orderPSquare},
+    and \(Q \cong \ZZ_3\) by \Cref{cor:groupWithPrimeOrder}.
+    By \Cref{cor:order12NotSimple}, \(P\) or \(Q\) is normal in \(G\).
+    Note that \(PQ = G\) and \(P \cap G = \{1\}\). Hence,
+    one cannot have both \(P \nsub G\) and \(Q \nsub G\) by \Cref{cor:isoToProdIf}.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume \(P \nsub G\) and \(Q \not\nsub G\).
+        Then, \(G \cong P \rtimes Q\).
+        If \(P = \ZZ_4\), then the trivial group homomorphism \(Q \to \Aut(P)\)
+        is the only homomorphism, hence \(G \cong \ZZ_4 \times \ZZ_3\) by \Cref{cor:subdirectTFAE}.
+        If \(P = \ZZ_2 \times \ZZ_2\), then \(G \cong A_4\) by \ref{itm:semiZ2Z2XZ3}.
+
+        \ii
+        Assume \(P \not\nsub G\) and \(Q \nsub G\). Then, \(G \cong Q \rtimes P\).
+        If \(P = \ZZ_4\), then \(G \cong T_{12}\) by \ref{itm:semiZ3XZ4}.
+        If \(P = \ZZ_2 \times \ZZ_2\), then \(G \cong D_6\) by \ref{itm:semiZ3XZ2Z2}.
+        \qed
+    \end{itemize}
+\end{myclaim}
+
+\begin{note}
+    Now, we have complete classification of groups of order less than 16.
+\end{note}
+
+\end{document}

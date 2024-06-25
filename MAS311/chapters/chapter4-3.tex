@@ -1,0 +1,243 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Semidirect Products}
+
+\thm[semidirectValid]{}{
+    Let \(H, K\) be groups and let \(\vphi \colon K \to \Aut(H)\) be a group homomorphism.
+    We define a binary operation on \(G = H \times K\) (simple Cartesian product)
+    by
+    \[
+        (h_1, k_1) \cdot (h_2, k_2) \triangleq (h_1 \vphi(k_1)(h_2), k_1k_2).
+    \]
+    Let \(\tilde{H} \triangleq H \times \{1\} \cong H\) and \(\tilde{K} \triangleq \{1\} \times K \cong K\).
+    Then,
+    \begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+        \ii \(G\) is a group.
+        \ii
+        \(\tilde{H} \nsub G\) and \(\tilde{K} \le G\)
+        with \(\tilde{H} \cap \tilde{K} = \{(1,1)\}\).
+        \ii
+        \(G = \tilde{H} \tilde{K}\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    \((1, 1)\) is the identity of the group.
+    Take any \(h_1, h_2, h_3 \in H\) and \(k_1, k_2, k_3 \in K\).
+    We have
+    \begin{align*}
+        \bigl( (h_1, k_1) (h_2, k_2) \bigr) (h_3, k_3)
+        &= (h_1 \vphi(k_1)(h_2), k_1k_2) (h_3, k_3) \\
+        &= (h_1 \vphi(k_1)(h_2) \vphi(k_1k_2)(h_3), k_1k_2k_3) \\
+        (h_1, k_1) \bigl( (h_2, k_2) (h_3, k_3)\bigr)
+        &= (h_1, k_1) (h_2 \vphi(k_2)(h_3), k_2k_3) \\
+        &= (h_1 \vphi(k_1)(h_2 \vphi(k_2)(h_3)), k_1k_2k_3)
+    \end{align*}
+    while
+    \begin{alignat*}{2}
+        \vphi(k_1)(h_2 \vphi(k_2)(h_3))
+        &= \vphi(k_1)(h_2) \vphi(k_1)(\vphi(k_2)(h_3)) &\qquad& \comment*{\(\vphi(k_1) \in \Aut(H)\)} \\
+        &= \vphi(k_1)(h_2) \vphi(k_1 k_2)(h_3). && \comment*{\(\vphi\) is a group homomorphism}
+    \end{alignat*}
+    Hence, the operation is associative.
+
+    Moreover, for each \((h, k) \in G\),
+    \begin{alignat*}{2}
+        (h, k)(\vphi(k\inv)(h\inv), k\inv)
+        &= (h \vphi(k)(\vphi(k\inv)(h\inv)), k k\inv) &\qquad \\
+        &= (h \cdot \id_H(h\inv), 1) & \comment*{\(\vphi\) is a group homomorphism}\\
+        &= (1, 1)
+        \intertext{and}
+        (\vphi(k\inv)(h\inv), k\inv)(h, k)
+        &= (\vphi(k\inv)(h\inv) \vphi(k\inv)(h), k\inv k) &\qquad \\
+        &= (\vphi(k\inv)(1), 1) & \comment*{\(\vphi(k\inv) \in \Aut(H)\)} \\
+        &= (1, 1);
+    \end{alignat*}
+    hence \((h, k)\inv = (\vphi(k\inv)(h\inv), k\inv)\).
+    We conclude that \(G\) is a group.
+
+    \ii
+    For each \((h_1, 1), (h_2, 1) \in \tilde{H}\) and \((1, k_1), (1, k_2) \in \tilde{K}\), we have
+    \[
+        (h_1, 1) (h_2, 1)\inv = (h_1, 1)(h_2\inv, 1) = (h_1 h_2\inv, 1) \in \tilde{H}
+    \]
+    and
+    \[
+        (1, k_1) (1, k_2)\inv = (1, k_1)(1, k_2\inv) = (1, k_1k_2\inv) \in \tilde{K}.
+    \]
+    Hence, by \Cref{th:subgroupTFAE}, \(\tilde{H}\) and \(\tilde{K}\) are subgroups of \(G\).
+    For normality of \(\tilde{H}\), take any \((h, k) \in G\) and \((h', 1) \in \tilde{H}\).
+    Then, we have
+    \begin{align*}
+        (h, k) (h', 1) (h, k)\inv
+        &= (h h', k) (\vphi(k\inv)(h\inv), k\inv) \\
+        &= (\text{something complex}, 1) \in \tilde{H}.
+    \end{align*}
+    Hence, \(\tilde{H} \nsub G\).
+    \(\tilde{H} \cap \tilde{K} = \{(1, 1)\}\) is clear.
+
+    \ii
+    For each \((h, k) \in G\), \((h, k) = (h, 1) (1, k) \in \tilde{H}\tilde{K}\).
+    \qed
+\end{enumerate}
+}
+
+\dfn[semidirectProduct]{Semidirect Product}{
+    Let \(H\) and \(K\) be groups and let \(\vphi \colon K \to \Aut(H)\)
+    be a group homomorphism.
+    Then, the group \(G\) on \(H \times K\)
+    equipped with the operation defined in \Cref{th:semidirectValid}
+    is called the \textit{semidirect product of \(H\) and \(K\) with respect to \(\vphi\)}
+    and is written
+    \[
+        G = H \rtimes_{\vphi} K.
+    \]
+}
+
+\thm[]{}{
+    Let \(G\) be a group with \(H \nsub G\) and \(K \le G\) with \(H \cap K = \{1\}\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii
+        Let \(\vphi \colon K \to \Aut(H)\) be defined by \(k \mapsto \restr{i_k}{H}\).
+        Then, \(\vphi\) is a group homomorphism.
+        \ii
+        Moreover, \(HK \cong H \rtimes_{\vphi} K\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    Note that the well-definedness of \(\vphi\) follows from normality of \(H\).
+    For each \(k, k' \in K\), we have
+    \[
+        \vphi(k k') = \restr{i_{k k'}}{H} = \restr{(i_k \circ i_{k'})}{H}
+        = \restr{i_k}{H} \circ \restr{i_{k'}}{H} = \vphi(k) \circ \vphi(k').
+    \]
+    \ii
+    Let \(f \colon HK \to H \rtimes_{\vphi} K\) be defined by
+    \(hk \mapsto (h, k)\). It is well-defined since,
+    for each \(h_1, h_2 \in H\) and \(k_1, k_2 \in K\) such that \(h_1k_1 = h_2k_2\),
+    we have \(H \ni h_2\inv h_1 = k_2k_1\inv \in K\); thus \(h_1 = h_2\) and \(k_1 = k_2\).
+    This further shows that \(f\) is injective (and surjective indeed).
+
+    Moreover, for each \(h_1k_1, h_2k_2 \in HK\),
+    \begin{alignat*}{2}
+        f \bigl( (h_1k_1)(h_2k_2) \bigr)
+        &= f \bigl((h_1k_1h_2k_1\inv)(k_1k_2)\bigr) &\qquad& \comment*{inserting \(k_1\inv k_1\)} \\
+        &= (h_1k_1h_2k_1\inv, k_1k_2) && \comment*{\(h_1k_1h_2k_1\inv \in H\) and \(k_1k_2 \in K\)} \\
+        &= (h_1 i_{k_1}(h_2), k_1k_2) \\
+        &= (h_1, k_1) (h_2, k_2) \\
+        &= f(h_1k_1) f(h_2k_2).
+    \end{alignat*}
+    Hence, \(f\) is a group isomorphism.
+    \qed
+\end{enumerate}
+}
+
+\cor[subdirectTFAE]{}{
+    Let \(H\) and \(K\) be groups and let \(\vphi \colon K \to \Aut(H)\) be a group homomorphism.
+    \TFAE.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(\vphi\) is trivial (is a constant map).
+        \ii \(H \rtimes K = H \times K\)
+        \ii \(\tilde{K} \nsub H \rtimes_{\vphi} K\).
+    \end{enumerate}
+}
+\pf{Proof}{
+    \(\text{(i)} \Rightarrow \text{(ii)}\) and \(\text{(ii)} \Rightarrow \text{(iii)}\)
+    are direct.
+
+    We show \(\text{(ii)} \Rightarrow \text{(i)}\) first.
+    Then, we have \(h_1 \vphi(k_1)(h_2) = h_1 h_2\) for all \(h_1, h_2 \in H\) and \(k_1 \in K\).
+    In other words, \(\vphi(k_1) = \id_H\) for all \(k_1 \in K\).
+    Hence, \(\vphi\) is trivial.
+
+    Now, we show \(\text{(iii)} \Rightarrow \text{(ii)}\).
+    We have \(\tilde{H}, \tilde{K} \nsub H \rtimes_{\vphi} K\),
+    \(\tilde{H} \tilde{K} = H \rtimes_{\vphi} K\), and \(\tilde{H} \cap \tilde{K} = \{(1,1)\}\)
+    by \Cref{th:semidirectValid}.
+    Hence, by \Cref{cor:isoToProdIf}, we have \(H \rtimes_\vphi K \cong \tilde{H} \times \tilde{K}
+    \cong H \times K\).
+    This implies that \(f \colon H \rtimes_\vphi K \to H \times K\)
+    defined by \((h, k) \mapsto (h, k)\) is a group isomorphism.
+}
+
+\mlemma[egsFZkUX]{}{
+    \(\Aut(\ZZ_2 \times \ZZ_3) \cong S_3\)
+}
+\begin{myproof}[Proof]
+    \(\Aut(\ZZ_2 \times \ZZ_2)\) is exactly the set of bijections on \(\ZZ_2 \times \ZZ_2\)
+    which fix \((0, 0)\).
+\end{myproof}
+
+\begin{Example}{\textsf{}}{ZyinWZci}
+\begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exmp:ZyinWZci} (\roman*)}, listparindent=\parindent]
+    \ii
+    Let \(p\) and \(q\) be primes such that \(p \mid q - 1\).
+    Let \(H \triangleq \ZZ_q\) and \(K \triangleq \ZZ_p\).
+    \(\Aut(H) \cong \ZZ_{q-1}\) has a unique subgroup of order \(p\).
+    There exists a nontrivial group homomorphism \(\vphi \colon K \to \Aut(H)\).
+    Then, \(G \triangleq H \rtimes_{\vphi} K\) is nonabelian as \(\tilde{K}\) is not normal.
+
+    \ii\label{itm:semiZ3XZ4}
+    \(H \triangleq \ZZ_3\) and \(K \triangleq \ZZ_4\).
+    Then, there uniquely exists a group homomorphism
+    \(\vphi \colon K \to \Aut(H)\).
+    Then, \(T_{12} \triangleq \ZZ_3 \rtimes_{\vphi} \ZZ_4\)
+    is a nonabelian group of order \(12\).
+    Moreover, \(\ZZ_4 \cong \tilde{K} \le T_{12}\);
+    thus \(T_{12}\) has an element of order \(4\).
+    This implies that \(T_{12} \not\cong A_4\) and \(T_{12} \not\cong D_6\).
+
+    \ii\label{itm:semiZ3XZ2Z2}
+    \(H \triangleq \ZZ_3\) and \(K \triangleq \ZZ_2 \times \ZZ_2\).
+    Note that \(\Aut(H) \cong \ZZ_2\).
+    There are three nontrivial group homomorphisms \(\vphi_1, \vphi_2, \vphi_3 \colon K \to \Aut(H)\)
+    with \(\vphi_1(0, 1) = 0\), \(\vphi_2(1, 0) = 0\), and \(\vphi_3(1, 1) = 0\).
+    However, \(H \rtimes_{\vphi_1} K \cong H \rtimes_{\vphi_2} K \cong H \rtimes_{\vphi_3} K\).
+    For instance, the function \(H \rtimes_{\vphi_1} K \to H \rtimes_{\vphi_3} K\)
+    defined by
+    \begin{gather*}
+        (h, (0, 0)) \mapsto (h, (0, 0)), (h, (1, 0)) \mapsto (h, (1, 0)) \\
+        (h, (0, 1)) \mapsto (h, (1, 1)), (h, (1, 1)) \mapsto (h, (0, 1))
+    \end{gather*}
+    is a group isomorphism.
+
+    Let \(G \triangleq H \rtimes_{\vphi_3} K\).
+    Let \(M \triangleq \lang (0, (1, 0)) \rang \tilde{H}\)
+    and \(N \triangleq \lang (0, (1,1)) \rang\).
+    Let \(a \triangleq (1, (0, 0)) \in M\) and \(b \in (0, (1, 0)) \in M\).
+    Then,
+    \[
+        ab = (1, (0, 0)) (0, (1, 0)) = (1, (1, 0)) = (0, (1, 0))(2, (0, 0)) = ba\inv,
+    \]
+    hence \(M \cong D_3\).
+    Moreover, \(M \nsub G\) by \Cref{lem:indexTwoSubgroup}.
+
+    In addition, \(N \nsub G\) as, for each \((h, (k_1, k_2)) \in G\),
+    \begin{align*}
+        &(h, (k_1, k_2))(0, (1, 1))(h, (k_1, k_2))\inv \\
+        &= (h, (k_1 + 1, k_2 + 1))(\vphi_3(-k_1, -k_2)(-h), (-k_1, -k_2)) \\
+        &= (h + \vphi_3(k_1 + 1, k_2 + 1)(\vphi_3(-k_1, -k_2)(-h)), (1, 1)) \\
+        &= (h + \vphi_3(1, 1)(-h), (1, 1)) \\
+        &= (0, (1, 1)) \in N.
+    \end{align*}
+    Hence, by \Cref{cor:isoToProdIf}, \(G \cong M \times N \cong D_3 \times \ZZ_2 \cong D_6\).
+    (See \ref{itm:dihedralDecompose}.)
+
+    \ii\label{itm:semiZ2Z2XZ3}
+    Let \(H \triangleq \ZZ_2 \times \ZZ_2\) and \(K \triangleq \ZZ_3\).
+    By \Cref{lem:egsFZkUX}, \(\Aut(H) \cong S_3\).
+    Then, there are two homomorphisms \(\vphi_1, \vphi_2 \colon K \to \Aut(H)\)
+    defined by \(\vphi_1(1) = \cycle[\,]{1,2,3}\) and \(\vphi_2(1) = \cycle[\,]{1,3,2}\).
+    However, they give the same semiproduct since \(\vphi_1(2) = \vphi_2(1)\).
+    Let \(G \triangleq H \rtimes_{\vphi_1} K\).
+    Then, \(K\) is a Sylow-3 subgroup of \(G\) but is not normal in \(H\).
+    Hence, \Cref{cor:order12NotSimple} shows that \(G \cong A_4\).
+\end{enumerate}
+\end{Example}
+
+\end{document}

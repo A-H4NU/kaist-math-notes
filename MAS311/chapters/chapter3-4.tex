@@ -1,0 +1,332 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Sylow Theorems}
+
+\dfn[]{Sylow \(\bs{p}\)-Subgroup}{
+    Let \(G\) be a group of order \(p^n m\)
+    where \(p\) is a prime and \(\gcd(p, m) = 1\).
+    A subgroup of \(G\) of order \(p^{\alpha}\) where \(1 \le \alpha \le n\)
+    is called a \textit{\(p\)-subgroup} of \(G\).
+    A subgroup of \(G\) of order \(p^{n}\) (or, equivalently, a maximal \(p\)-subgroup)
+    is called a \textit{Sylow \(p\)-subgroup} of \(G\).
+    Write
+    \[
+        \Syl_p(G) = \{\,\text{Sylow \(p\)-subgroups of \(G\)}\,\}
+    \]
+    to denote the set of all Sylow \(p\)-subgroups of \(G\).
+    Write
+    \[
+        n_p = n_p(G) \triangleq |\Syl_p(G)|.
+    \]
+}
+
+\mlemma[MKOxIjWk]{}{
+    Let \(G\) be a group.
+    Then, if \(P \in \Syl_p(G)\) and \(Q\) is a \(p\)-subgroup of \(G\),
+    then \(Q \cap N(P) = Q \cap P\).
+}
+\pf{Proof}{
+    Let \(H \triangleq Q \cap N(P)\).
+    We already have \(Q \cap P \le H\).
+    As \(H \le N(P)\) and \(P \nsub N(P)\), we have \(HP = PH \le N(P) \le G\) by \Cref{cor:HsubNKThen}.
+    As \(|PH| = |P| |H| / |P \cap H|\) is a power of \(p\) and \(P \le PH\),
+    we have \(|PH| = p^n\); thus \(|H| = |P \cap H|\), i.e., \(Q \cap N(P) = H \le P\).
+}
+
+\mlemma[abelThenHasPrimeOrder]{}{
+    Let \(G\) be an abelian group and let \(p\) be a prime.
+    Then, \(p \mid |G|\) implies that \(G\) has an element of order \(p\).
+}
+\mclm{Proof}{
+    Write \(|G| = pk\).
+    We shall conduct induction on \(k\).
+    If \(k = 1\), then \(G\) is cyclic by \Cref{cor:groupWithPrimeOrder}; thus it is done.
+
+    Now, fix \(k \ge 2\) and take \(x \in G \setminus \{1\}\).
+    We have two cases: \(p \mid |x|\) and \(p \nmid |x|\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        If \(p \mid |x|\), then \(|x| = pn\) for some \(n \in \ZZ_+\),
+        and we have \(|x^n| = p\); we are done.
+        \ii
+        Assume \(p \nmid |x|\) and let \(N \triangleq \lang x \rang\).
+        As \(G\) is abelian, \(N \nsub G\).
+        Then, \(p \mid |G|/|N| = |G/N| < |G|\) and \(G/N\) is abelian.
+        By induction hypothesis, \(\exs y \in G,\: |Ny| = p\).
+        Then, \(y \notin N\) while \(y^p \in N\).
+        Put \(m \triangleq |y^p|\).
+        Then, as \(y^{mp} = (y^p)^m = 1\), we have \(m \mid |y| \mid mp\)
+        while \(y \notin \lang y^p \rang \subseteq N\).
+        Therefore, the only option is \(|y| = mp\);
+        this reduces to the first case. \qed
+    \end{itemize}
+}
+
+\thm[sylow]{Sylow Theorems}{
+    Let \(G\) be a group and let
+    \(|G| = p^n m\) where \(p\) is a prime and \(\gcd(p, m) = 1\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\nameref{th:sylow} (\roman*)}, listparindent=\parindent]
+        \ii\label{itm:sylow1}
+        For each \(0 \le k \le n\), \(G\) has a subgroup of order \(p^k\).
+        In particular, \(\Syl_p(G) \neq \OO\).
+
+        \ii\label{itm:sylow2}
+        For each \(P \in \Syl_p(G)\), and for each \(p\)-subgroup \(Q\) of \(G\),
+        we have \(Q \le gPg\inv\) for some \(g \in G\).
+        In particular, if \(Q \in \Syl_p(G)\), then
+        \(Q = gPg\inv\) for some \(g \in G\).
+
+        \ii\label{itm:sylow3}
+        \(\fall P \in \Syl_p(G),\: n_p = [G:N(P)] \equiv 1 \pmod{p}\),
+        and \(n_p \mid m\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    The assertion trivially holds when \(|G| = 1\) or \(k = 0\).
+    Hence, we conduct induction on \(|G|\).
+    Fix any \(G\) and assume (i) holds for all groups of order less than \(|G|\).
+    Take any \(1 \le k \le n\).
+    There are two cases: \(p \mid |Z(G)|\) and \(p \nmid |Z(G)|\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume \(p \mid |Z(G)|\).
+        Then, by \Cref{lem:abelThenHasPrimeOrder}, \(Z(G)\) has a subgroup \(N\) of order \(p\).
+        As \(N \le Z(G)\), \(N\) is a normal subgroup of \(G\); thus we may let \(\ol{G} \triangleq G/N\).
+        Since \(|\ol{G}| = |G|/|N| = p^{n-1}m < |G|\) by \nameref{th:lagrange}, by induction hypothesis,
+        \(\ol{G}\) has a subgroup \(\ol{P}\) of order \(p^{k-1}\).
+        By \nameref{th:fourthIso}, there exists a subgroup \(P\) of \(G\) containing \(N\)
+        such that \(P/N = \ol{P}\). Then, \(|P| = |\ol{P}| |N| = p^k\) by \nameref{th:lagrange}.
+
+        \ii
+        Assume \(p \nmid |Z(G)|\).
+        By \nameref{th:classEquation}, there exists \(g \in G\) such that \(p \nmid [G:C_G(g)]\).
+        As \(|G| = |C_G(g)| [G:C_G(g)]\) by \nameref{th:lagrange}, \(p^n \mid |C_G(g)|\).
+        Moreover, as \(C_G(g) \lneq G\), by induction hypothesis,
+        there exists a subgroup of \(C_G(g)\) of order \(p^k\), which is also a subgroup of \(G\).
+    \end{itemize}
+
+    \ii
+    Fix \(P \in \Syl_p(G)\) and let
+    \[
+        \mcal{S} \triangleq \{\,gPg\inv \mid g \in G\,\}.
+    \]
+    Then, \(G \actson \mcal{S}\) by conjugation.
+    Note that \(\fall P' \in \mcal{S},\: |P'| = |P| = p^n\)
+    by \Cref{lem:conjIsom}.
+
+    Take any \(p\)-subgroup \(Q\) of \(G\).
+    Then, \(Q\) also acts on \(S\) by conjugation.
+    Fix \(P' \in \mcal{S}\).
+    The stabilizer of \(P'\) of the group action \(Q \actson \mcal{S}\) is
+    \[
+        \{\,q \in Q \mid q P' q\inv = P'\,\} = N_Q(P').
+    \]
+    Hence, by \nameref{th:orbitStab}, we have \(|Q \cdot P'| = [Q:N_Q(P')]\).
+    On the other hand, by \Cref{lem:MKOxIjWk},
+    \(N_Q(P') = N_G(P') \cap Q = P' \cap Q\).
+    Hence, \(|Q \cdot P'| = [Q : P' \cap Q]\) for each \(P' \in \mcal{S}\).
+
+    \clm[vXyvNEwm]{
+        \(|\mcal{S}| \equiv 1 \pmod{p}\).
+    }{
+        Fix any \(P' \in \mcal{S}\).
+        Let \(\mcal{O}_1, \cdots, \mcal{O}_s\) be the orbits of \(P' \actson \mcal{S}\) with \(P' \in \mcal{O}_1\).
+        Then, by the previous discussion,
+        \(|\mcal{O}_1| = |P' \cdot P'| = [P' : P' \cap P'] = 1\).
+        Moreover, for each \(P'' \in \mcal{S} \setminus \{P'\}\),
+        as \(P' \cap P'' \lneq P'\),
+        \(|P' \cdot P''| = [P' : P' \cap P'']\) is a power of \(p\);
+        thus \(p \mid |\mcal{O}_i|\) for each \(i \in \{2,3,\cdots,s\}\).
+        Hence, \(|\mcal{S}| = \sum_{i=1}^s |\mcal{O}_i| \equiv |\mcal{O}_1| = 1 \pmod{p}\). \qed
+    }
+
+    Suppose there exists a \(p\)-subgroup \(Q\) such that
+    \(Q \not\subseteq P'\) for all \(P' \in \mcal{S}\).
+    Therefore, \(|Q \cap P'| < |P'|\); hence \(p \mid [Q : P' \cap Q] = |Q \cdot P'|\)
+    for each \(P' \in \mcal{S}\).
+    However, this implies \(p \mid |\mcal{S}|\), which contradicts \Cref{clm:vXyvNEwm}.
+
+    \ii
+    By (ii), \(\mcal{S}\) (defined in the proof of (ii)) equals \(\Syl_p(G)\).
+    Hence, \(n_p = |\mcal{S}| \equiv 1 \pmod{p}\) by \Cref{clm:vXyvNEwm}.
+    Moreover, \(\mcal{S}\) is the orbit of \(P\) under the group action
+    \(G \actson \mcal{P}(G)\) by conjugation.
+    Therefore, by \Cref{cor:conjSubsetOrbit},
+    \(n_p = |G \cdot P| = [G:N_G(P)] = |G|/|N_G(P)|\)
+    while \(p^n = |P| \mid |N_G(P)|\).
+    Therefore, \(n_p \mid m\).
+    \qed
+\end{enumerate}
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    Assume \(|G| = 200 = 2^3 \cdot 5^2\).
+    Then, \(n_5 \equiv 1 \pmod{5}\) and \(n_5 \mid 8\) by \ref{itm:sylow3};
+    thus \(n_5 = 1\); thus \(G\) is not simple by \Cref{cor:npEqualsOneIff}.
+
+    \ii
+    Assume \(|G| = 30 = 2 \cdot 3 \cdot 5\).
+    Then, \(n_3 = 10\) and \(n_5 = 6\) for the sake of contradiction.
+\end{enumerate}
+}
+
+\cor[npEqualsOneIff]{}{
+    Let \(K \in \Syl_p(G)\).
+    Then, \(K \nsub G \iff n_p = 1\).
+}
+\mclm{Proof}{\hfill
+\begin{itemize}[nolistsep, wide=0pt, widest={(\(\Rightarrow\))}, leftmargin=*, listparindent=\parindent]
+    \ii[(\(\Rightarrow\))]
+    We have \(gKg\inv = K\) for all \(g \in G\);
+    hence \(\Syl_p(G) = \{K\}\) by \ref{itm:sylow2}.
+    \ii[(\(\Leftarrow\))]
+    As \(gKg\inv \in \Syl_p(G)\) for each \(g \in G\),
+    this implies \(\fall g \in G,\: gKg\inv = K\); that is to say \(K \nsub G\).
+    \qed
+\end{itemize}
+}
+
+\cor[cauchyThm]{Cauchy Theorem}{
+    If \(G\) is a finite group and \(p \mid |G|\) for some prime \(p\),
+    then \(G\) has an element of order \(p\).
+}
+\pf{Proof}{
+    By \ref{itm:sylow1}, \(G\) has a subgroup of order \(p\),
+    which is cyclic by \Cref{cor:groupWithPrimeOrder}.
+    Any nonidentity element of the cyclic subgroup has order \(p\).
+}
+
+\cor[]{}{
+    Let \(G\) be a group of order \(pq\)
+    where \(p\) and \(q\) are primes with \(p < q\).
+    Let \(P \in \Syl_p(G)\) and \(Q \in \Syl_q(G)\).
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(Q \nsub G\)
+        \ii
+        If \(P \nsub G\), then \(G \cong \ZZ_{pq}\).
+        In particular, if \(p \nmid q-1\), then \(G \cong \ZZ_{pq}\).
+    \end{enumerate}
+}
+\mclm{Proof}{\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    By \ref{itm:sylow3}, we have \(n_q \equiv 1 \pmod{q}\) and \(n_q = p\).
+    Therefore, \(n_q = 1\) as \(p < q\).
+    By \Cref{cor:npEqualsOneIff}, \(Q \nsub G\).
+
+    \ii
+    We have \(P = \lang x \rang \cong \ZZ_p\) and \(Q = \lang y \rang \cong \ZZ_q\)
+    for some \(x, y \in G\).
+    As \(G/C_G(P)\) is isomorphic to a subgroup of \(\Aut(P) \cong \Aut(\ZZ_p) \cong (\ZZ/p \ZZ)^\ast\)
+    by \Cref{th:permRepIsAut,th:autOfZn},
+    we have \(|G/C_G(P)| \mid p - 1\).
+    At the same time, \(|G/C_G(P)| \mid |G| = pq\).
+    Hence, the only option is \(|G/C_G(P)| = 1\), i.e., \(G = C_G(P)\);
+    thus \(xy = yx\). Therefore, \(|xy| = pq\) by \ref{itm:basicOrder.iii}; \(G \cong \ZZ_{pq}\).
+
+    Now, assume \(p \nmid q - 1\).
+    We have \(n_p \equiv 1 \pmod{p}\) and \(n_p \mid q\) by \ref{itm:sylow3}.
+    Then, \(n_p = 1\) as \(p \nmid q - 1\); thus \(P \nsub G\)
+    by \Cref{cor:npEqualsOneIff}.
+    \qed
+\end{enumerate}
+}
+
+\cor[order12NotSimple]{}{
+    Let \(G\) be a group of order \(12\).
+    Then, \(G\) has a normal Sylow \(3\)-subgroup or \(G \cong A_4\).
+    When \(G = A_4\), \(G\) has a unique Sylow \(2\)-subgroup.
+    In particular, \(G\) is not simple.
+}
+\pf{Proof}{
+    If \(n_3 = 1\), then there (uniquely) exists a normal Sylow \(3\)-subgroup
+    by \Cref{cor:npEqualsOneIff}. Now, assume \(n_3 \neq 1\).
+
+    Then, by \ref{itm:sylow3}, we have \(n_3 = 4 = [G:N(P)]\);
+    thus \(P = N(P)\) by \nameref{th:lagrange}.
+    Let \(G\) acts on \(\Syl_3(G)\) by conjugation.
+    Let \(\vphi \colon G \injto S_4\) be a permutation representation of the group action.
+    Note that the stabilizer of \(P \in \Syl_3(G)\) is \(G_P = N(P) = P\).
+    Therefore, \(\ker(\vphi) = K(G, \Syl_3(G)) = \bigcap_{P \in \Syl_3(G)} G_P
+    = \bigcap_{P \in \Syl_3(G)} P = \{1\}\)
+    as the intersection of two distinct subgroups of order \(3\) is trivial.
+    Hence, by \Cref{th:trivialKerIffInj}, \(\vphi\) is injective.
+    Therefore, \(|\img(\vphi)| = 12\); thus \(\img(\vphi) \nsub S_4\)
+    by \Cref{lem:indexTwoSubgroup}.
+    As \(G\) has an element \(x\) of order \(3\) by \nameref{cor:cauchyThm},
+    \(|\vphi(x)| = 3\) for some \(x \in G\).
+    Then, as \(\vphi(x) \in \vphi(G) \cap A_4 \nsub A_4\),
+    by \Cref{clm:EhVeEjzz} in the proof of \Cref{th:alterIsSimple},
+    \(\vphi(G) \subseteq A_4\); that is to say \(\vphi(G) = A_4\).
+    Moreover, if \(V \in \Syl_2(G)\), then there cannot be another Sylow-\(2\) subgroup
+    by simple counting of elements. (Note that there are already 4 distinct Sylow-\(3\) subgroups.)
+}
+
+\cor[orderp2qNotSimple]{}{
+    Let \(G\) be a group of order \(p^2 q\) where \(p\) and \(q\) are distinct prime numbers.
+    Then, \(G\) has a normal Sylow \(p\)-subgroup or a normal Sylow \(q\)-subgroup.
+    In particular, \(G\) is not simple.
+}
+\mclm{Proof}{
+    Fix any \(P \in \Syl_p(G)\) and \(Q \in \Syl_q(G)\).
+    There are two cases: \(p > q\) and \(p < q\).
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        Assume \(p > q\).
+        By \ref{itm:sylow3}, \(n_p \equiv 1 \pmod{p}\) and \(n_p \mid q\),
+        which implies \(n_p = 1\). Hence, by \Cref{cor:npEqualsOneIff}.
+
+        \ii
+        Assume \(p < q\).
+        If \(n_q = 1\), then we immediately have \(Q \nsub G\) by \Cref{cor:npEqualsOneIff}.
+        Hence, assume \(n_q > 1\).
+        By \ref{itm:sylow3}, \(n_q \equiv 1 \pmod{q}\) and \(n_q \mid p^2\).
+        As \(n_q \ge q + 1 > p\), we have \(n_q = p^2\).
+        Now, we are left with \(q \mid p^2 - 1 = (p + 1)(p - 1)\),
+        which implies \(q = p + 1\) as \(p < q\).
+        Hence, \(p = 2\) and \(q = 3\); \(|G| = 12\).
+        The result follows from \Cref{cor:order12NotSimple}.
+        \qed
+    \end{itemize}
+}
+
+\exmp[]{}{
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    Let \(G\) be a group of order \(200 = 2^3 \cdot 5^2\).
+    By \ref{itm:sylow3}, \(n_5 \equiv 1 \pmod{5}\) and \(n_5 \mid 8\),
+    which implies \(n_5 = 1\). Hence, by \Cref{cor:npEqualsOneIff},
+    \(G\) has a normal Sylow-\(5\) subgroup; \(G\) is not simple.
+
+    \ii
+    Let \(G\) be a group of order \(30 = 2 \cdot 3 \cdot 5\).
+    We have \(n_3 \equiv 1 \pmod{3}\), \(n_3 \mid 10\),
+    \(n_5 \equiv 1 \pmod{5}\), and \(n_5 \mid 6\) by \ref{itm:sylow3}.
+    Suppose \(n_3 \neq 1\) and \(n_5 \neq 1\) for the sake of contradiction.
+    The only option if \(n_3 = 10\) and \(n_5 = 6\).
+    Then, we have ten Sylow \(3\)-subgroups and six Sylow \(5\)-subgroups
+    and they mutually intersect only at \(1\).
+    Therefore, \(|G| \ge 1 + 2 \cdot 9 + 5 \cdot 5 = 44\), which is a contradiction.
+    Therefore, \(n_3 = 1\) or \(n_5 = 1\); thus \(G\) is not simple by \Cref{cor:npEqualsOneIff}.
+
+    \ii
+    Let \(G\) be a group of order \(36 = 2^3 \cdot 3^2\).
+    By \ref{itm:sylow1}, we have \(n_3 \equiv 1 \pmod{3}\) and \(n_3 \mid 8\).
+    Hence, \(n_3 = 1\) or \(n_3 = 4\).
+    If \(n_3 = 1\), then \(G\) is not simple by \Cref{cor:npEqualsOneIff}.
+    Now, assume \(n_3 = 4\) and let \(H\) and \(K\) be two distinct Sylow \(3\)-subgroups.
+    Then, by \Cref{th:HKCard}, \(|HK| = 81/|H \cap K| \le |G|\); thus we must have
+    \(|H \cap K| = 3\).
+    Moreover, as \(H\) and \(K\) are abelian by \Cref{cor:orderPSquare},
+    \(H \cap K \nsub H, K \le G\), which implies that \(G\) is not simple.
+    Therefore, \(G\) is simple in either case.
+\end{enumerate}
+}
+
+\end{document}

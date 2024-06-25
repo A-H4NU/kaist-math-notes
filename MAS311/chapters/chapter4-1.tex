@@ -1,0 +1,164 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Direct Products}
+
+\dfn[directProduct2]{Direct Product}{
+    (See \Cref{dfn:directProduct}.)
+
+    Let \(G_1, G_2, \cdots, G_n\) be groups.
+    Then, the operation on \(G_1 \times \cdots \times G_n\)
+    given by \[(g_1, \cdots, g_n) \ast (g_1', \cdots, g_n') = (g_1 g_1', \cdots, g_n g_n')\]
+    is a group operation.
+    We call the group \((G_1 \times \cdots \times G_n, \ast)\)
+    the \textit{direct product} of \(G_1, \cdots, G_n\).
+}
+
+\notat{}{
+    Let \(G_1, G_2, \cdots, G_n\) be groups
+    and consider their direct product \(G_1 \times G_2 \times \cdots, G_n\).
+    For each \(i \in [n]\), define
+    \[
+        \tilde{G}_i \triangleq \{\,(1_{G_1}, \cdots, 1_{G_{i-1}}, g_i, 1_{G_{i+1}}, \cdots, 1_{G_n})
+        \mid g_i \in G_i\,\} \le G_1 \times G_2 \times \cdots, G_n
+    \]
+    so that \(G_1 \cong \tilde{G}_i\) and
+    \[
+        (G_1 \times G_2 \times \cdots \times G_n)/\tilde{G}_i
+        \cong G_1 \times \cdots \times G_{i-1} \times G_{i+1} \times \cdots \times G_n.
+    \]
+    Abusing the notation, we may write \(G_i\) instead of \(\tilde{G}_i\).
+}
+
+\nt{
+    Let a group structure is given for \(G_1 \times G_2\).
+    If both projections are group homomorphisms,
+    then the group structure is the direct product.
+}
+
+\mlemma[normalTrivInter]{}{
+    Let \(G\) be a group and let \(H, K \nsub G\) and \(H \cap K = \{1\}\).
+    Then, \(\fall a \in M,\: \fall b \in N,\: ab = ba\).
+}
+\pf{Proof}{
+    Take any \(h \in H\) and \(k \in K\).
+    Then, \(h\inv k h \in K\) and \(k h k\inv \in H\) by normality; thus \(h\inv k h k\inv \in H \cap K\),
+    which implies \(h\inv k h k\inv = 1\). Therefore, we have \(kh = hk\).
+}
+
+\thm[bijectiveProdIso]{}{
+    Let \(G\) be a group and let \(N_1, N_2, \cdots, N_k\) be normal subgroups of \(G\).
+    Let \(f \colon N_1 \times \cdots \times N_k \to G\) be defined by
+    \((a_1, \cdots, a_k) \mapsto a_1\cdots a_k\).
+    If \(f\) is bijective, then \(f\) is a group isomorphism.
+}
+\pf{Proof}{
+    If \(\{1\} \subsetneq N_i \cap N_j\) for some \(i \neq j\), then 
+    it contradicts the injectivity of \(f\).
+    Hence, by \Cref{lem:normalTrivInter},
+    \(a_ia_j = a_ja_i\) for all \(a_i \in N_i\) and \(a_j \in N_j\).
+
+    Take any \((a_1, \cdots, a_k), (b_1, \cdots, b_k) \in N_1 \times \cdots \times N_k\).
+    Then,
+    \begin{align*}
+        f((a_1, \cdots, a_k) (b_1, \cdots, b_k))
+        &= f(a_1b_1, a_2b_2, \cdots, a_kb_k) \\
+        &= a_1b_1a_2b_2 \cdots a_kb_k \\
+        &= a_1 a_2 \cdots a_k b_1 b_2 \cdots b_k \\
+        &= f(a_1, \cdots, a_k) f(a_2, \cdots, a_k).
+    \end{align*}
+    Hence, the result follows.
+}
+
+\cor[isoToProdIf]{}{
+    Let \(G\) be a group and let \(N_1, N_2, \cdots, N_k\) be normal subgroups of \(G\).
+    If
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+        \ii \(G = N_1 N_2 \cdots N_k\) and
+        \ii
+        \(\fall i \in [k],\: N_i \cap (N_1 \cdots N_{i-1} N_{i+1} \cdots N_k) = \{1\}\),
+    \end{enumerate}
+    then \(G \cong N_1 \times N_2 \times \cdots \times N_k\).
+}
+\pf{Proof}{
+    (i) essentially says that \(f\) in \Cref{th:bijectiveProdIso} is surjective.
+
+    Suppose \(a_1a_2\cdots a_k = b_1 b_2 \cdots b_k\) but
+    \((a_1, \cdots, a_k) \neq (b_1, \cdots, b_k)\).
+    Then,
+    \begin{align*}
+        b_1\inv a_1
+        &= (b_2 \cdots b_k)(a_2 \cdots a_k)\inv \\
+        &= b_2 \cdots b_{k-1} b_ka_k\inv a_{k-1}\inv \cdots a_2\inv \\
+        \intertext{%
+            As \(b_k a_k\inv N_k \nsub G\),
+            \((b_ka_k\inv) (a_{k-1}\inv \cdots a_2\inv) = (a_{k-1}\inv \cdots a_2\inv) n_k\)
+            for some \(n_k \in N_k\). Therefore, this continues to
+        }
+        &= b_2 \cdots b_{k-1} a_{k-1}\inv \cdots a_2\inv n_k \\
+        \intertext{%
+            This continues and we yield
+        }
+        &= n_2n_3\cdots n_k \in N_2 N_3 \cdots N_{k-1}
+    \end{align*}
+    for some \(n_2, n_3, \cdots, n_{k-1}\) where \(n_i \in N_i\)
+    for each \(i \in \{ 2,3,\cdots,k-1 \}\).
+    By (ii), we have \(a_1 = b_1\); and thus \(a_2a_3 \cdots a_k = b_2 b_3 \cdots b_k\).
+    We may repeat this and obtain \(a_i = b_i\) for all \(i \in [k]\).
+    Hence, the function \(f\) in \Cref{th:bijectiveProdIso} is injective;
+    the result follow from \Cref{th:bijectiveProdIso}.
+}
+
+\dfn[decomposableGroup]{Decomposable Group}{
+    Let \(G\) be a group.
+    We say \(G\) is \textit{decomposable}
+    if \(G \cong M \times N\) for some nontrivial groups \(M\) and \(N\).
+}
+
+\nt{
+    If \(G\) is decomposable, then \(G\) has at least four normal subgroups.
+}
+
+\cor[orderp2q]{}{
+    Let \(G\) be a group of order \(p^2 q\) where \(p\) and \(q\) are distinct primes
+    with \(q \not\equiv 1 \pmod{p}\) and \(p^2 \not\equiv 1 \pmod{q}\).
+    Then, \(G \cong \ZZ_{p^2 q}\) or \(G \cong \ZZ_{pq} \times \ZZ_p\).
+}
+\pf{Proof}{
+    By \ref{itm:sylow3},
+    we have \(n_p \equiv 1 \pmod{p}\), \(n_p \mid q\),
+    \(n_q \equiv 1 \pmod{q}\), and \(n_q \mid p^2\).
+    By the constraints, we have \(n_p = 1\) and \(n_q = 1\).
+    By \Cref{cor:npEqualsOneIff}, the unique \(P \in \Syl_p(G)\)
+    and \(Q \in \Syl_q(G)\) are normal in \(G\).
+    Moreover, \(P \cap Q = \{1\}\) by \nameref{th:lagrange}.
+    By \Cref{th:HKCard}, \(PQ = G\).
+    Hence, \(G \cong P \times Q\) by \Cref{cor:isoToProdIf}.
+    By \Cref{cor:orderPSquare}, \(P \cong \ZZ_{p^2}\) and \(P \cong \ZZ_{p} \times \ZZ_{p}\).
+    The result follows from \Cref{exmp:prodCycleIffGCD}.
+}
+
+\exmp[THtkKEBD]{}{
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{exmp:THtkKEBD} (\roman*)}]
+    \ii Suppose \(\ZZ \cong N \times H\) for some nontrivial normal subgroups \(N, H \nsub \ZZ\).
+    However, any intersection of two nontrivial subgroups of \(\ZZ\)
+    is nontrivial; thus \(\ZZ\) is indecomposable.
+
+    \ii
+    The image of the natural projection \(\ZZ \surjto \ZZ/6\ZZ\)
+    is decomposable (\(\ZZ/6\ZZ \cong \ZZ_2 \times \ZZ_3\)) while
+    \(\ZZ\) is indecomposable.
+
+    \ii
+    \(S_n\) for \(n \ge 5\) is indecomposable.
+
+    \ii\label{itm:dihedralDecompose}
+    Let \(n\) be an odd positive integer and consider \(D_{2n}\).
+    Let \(M \triangleq \lang\,s, r_1^2\,\rang\) and \(N \triangleq \lang r_1^n \rang\).
+    Then, they are nontrivial normal subgroups whose intersection is trivial
+    and \(MN = D_{2n}\). Therefore, \(D_{2n} \cong D_n \times \ZZ_2\).
+\end{enumerate}
+}
+
+\end{document}

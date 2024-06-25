@@ -1,0 +1,168 @@
+\documentclass[../modern_algebra.tex]{subfiles}
+
+\begin{document}
+
+\section{Definitions and Examples of Rings}
+
+\begin{Definition}[colbacktitle=red!75!black]{Ring}{ring}
+    A \textit{ring} is a nonempty set equipped with two binary operations
+    ``\(+\)'' and ``\(\cdot\)'' such that for all \(a, b, c \in R\), the following are
+    satisfied:
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \ii \((R, +)\) is an abelian group.
+        \ii \((a \cdot b) \cdot c = a \cdot (b \cdot c)\).
+        \ii \(a \cdot (b + c) = a \cdot b + a \cdot c\) and \((a + b) \cdot c = a \cdot c + b \cdot c\).
+    \end{enumerate}
+    The additive identity of ring \(R\) is usually denoted \(0\),
+    and the additive inverse of \(a \in R\) is usually denoted \(-a\).
+
+    \vspace*{1em}
+    A \textit{commutative ring} is a ring \((R, +, \cdot)\) such that
+    the following condition is additionally satisfied.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \setcounter{enumi}{3}
+        \ii \(a \cdot b = b \cdot a\) for all \(a, b \in R\).
+    \end{enumerate}
+    \vspace*{1em}
+    A \textit{ring with identity} is a ring \((R, +, \cdot)\) such that
+    the following condition is additionally satisfied.
+    \begin{enumerate}[nolistsep, label=(\roman*)]
+        \setcounter{enumi}{4}
+        \ii There exists \(1 \in R\) such that \(1 \cdot a = a \cdot 1 = a\) for all \(a \in R\).
+    \end{enumerate}
+    \vspace*{1em}
+    A \textit{commutative ring with identity} is a ring \((R, +, \cdot)\)
+    such that (iv) and (v) are both satisfied.
+\end{Definition}
+
+\begin{Theorem}{\textsf{}}{basicRing}
+    Let \(R\) be a ring. Then, the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:basicRing} (\roman*)}]
+        \ii\label{itm:basicRing.i}
+        \(0 \cdot a = a \cdot 0 = 0\) for all \(a \in R\).
+        \ii\label{itm:basicRing.ii}
+        \(a \cdot (-b) = (-a) \cdot b = -ab\) for all \(a, b \in R\).
+        \ii\label{itm:basicRing.iii}
+        \((-a) \cdot (-b) = ab\) for all \(a, b \in R\).
+        \ii\label{itm:basicRing.iv}
+        If \(R\) is a ring with identity, then \((-1) \cdot a = -a\) for all \(a \in R\).
+    \end{enumerate}
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    We have \(0 \cdot a + 0 \cdot a = (0 + 0) \cdot a = 0 \cdot a\);
+    hence \(0 \cdot a = 0\). We have \(a \cdot 0 = 0\) similarly.
+    \ii
+    \(a \cdot b + a \cdot (-b) = a \cdot (b - b) = a \cdot 0 = 0\) by (i).
+    Hence, \(a \cdot (-b)\) is the additive inverse of \(a \cdot b\).
+    Similarly, \((-a) \cdot b = -ab\).
+    \ii
+    \((-a)(-b) = -(-a)b = -(-ab) = ab\) by (ii).
+    \ii
+    \(a + (-1) \cdot a = 1 \cdot a + (-1) \cdot a = (1 - 1) \cdot a = 0 \cdot a = 0\) by (i).
+    Hence, \((-1) \cdot a\) is the additive inverse of \(a\).
+    \qed
+\end{enumerate}
+\end{myclaim}
+
+\begin{Theorem}{\textsf{}}{}
+    Let \(R\) be a commutative ring with identity.
+    If \(1 = 0\), then \(R\) is the trivial ring \(\{0\}\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    For any \(a \in R\), then \(a = 1 \cdot a = 0 \cdot a = 0\) by \ref{itm:basicRing.i}.
+\end{myproof}
+
+\begin{Definition}[colbacktitle=red!75!black]{Unit}{unit}
+    Let \(R\) be a ring with identity.
+    An element \(a \in R\) is a \textit{unit} if \(a\) has a multiplicative inverse,
+    i.e., there exists \(u \in R\) such that \(au = ua = 1\).
+\end{Definition}
+
+\begin{Definition}[colbacktitle=red!75!black]{Zero Divisor}{zeroDivisor}
+    Let \(R\) be a ring.
+    \begin{itemize}[nolistsep, leftmargin=*, listparindent=\parindent]
+        \ii
+        An element \(a \in R \setminus \{0\}\) is a \textit{zero divisor}
+        if there exists \(b \in R\) such that \(ab = 0\) or \(ba = 0\).
+        \ii
+        An element \(a \in R \setminus \{0\}\) is a \textit{nonzero divisor}
+        if \(a\) is not a zero divisor.
+    \end{itemize}
+\end{Definition}
+
+\begin{Definition}[colbacktitle=red!75!black]{Integral Domain}{integralDomain}
+    Let \(R\) be a nontrivial commutative ring with identity.
+    If \(R\) has no zero divisor, then \(R\) is called an \textit{integral domain}.
+\end{Definition}
+
+\begin{Theorem}{\textsf{}}{basicRingId}
+    Let \(R\) be a ring with identity. Then, the following hold.
+    \begin{enumerate}[nolistsep, label=(\roman*), ref=\protect{\Cref{th:basicRingId} (\roman*)}]
+        \ii\label{itm:basicRingId.i}
+        If \(u \in R\) is a unit, then it is not a zero divisor.
+        \ii\label{itm:basicRingId.ii}
+        A multiplicative inverse \(u\inv\) of a unit \(u\) is unique.
+        \ii\label{itm:basicRingId.iii}
+        If \(a\) is a nonzero divisor and \(ab = ac\) (or \(ba = ca\)), then \(b = c\).
+    \end{enumerate}
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[nolistsep, label=(\roman*), listparindent=\parindent]
+    \ii
+    There is an element \(w \in R\) such that \(uw = wu = 1\).
+    Suppose \(uv = 0\) for some \(u \in R\).
+    Then, \(0 = w0 = w(uv) = (wu)v = 1v = v\), which is a contradiction.
+    It is similar for the case in which \(vu = 0\) for some \(u \in R\).
+
+    \ii
+    Assume \(vu = wu = 1\) for some \(v, w \in R\).
+    Then, \(0 = vu - wu = (v - w)u\).
+    By (i), \(u\) is not a zero divisor, hence \(v - w = 0\), i.e., \(v = w\).
+
+    \ii
+    We have \(a(b-c) = 0\) (or \((b - c)a = 0\)).
+    As \(a\) is a nonzero divisor, we have \(b - c = 0\), i.e., \(b = c\).
+    \qed
+\end{enumerate}
+\end{myclaim}
+
+\begin{Theorem}{\textsf{}}{finiteCommRingId}
+    Every element of a finite commutative ring with identity is
+    \(0\), a unit, or a zero divisor.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(R = \{a_1, \cdots, a_n\}\) be a finite commutative ring with identity.
+    Take any \(a_t \in R \setminus \{0\}\) and assume \(a_t\) is a nonzero divisor.
+    If \(a_i a_t = a_j a_t\), then \(a_i = a_j\) by \ref{itm:basicRingId.iii}, i.e., \(i = j\).
+    Therefore, \(a_1 a_t, a_2 a_t, \cdots, a_n a_t\) are all distinct;
+    hence \[
+        R = \{a_1 a_t, a_2 a_t, \cdots, a_n a_t\}.
+    \]
+    Thus, there exists \(a_i \in R\) such that \(a_i a_t = 1\);
+    hence \(a_t\) is a unit.
+\end{myproof}
+
+\begin{Corollary}{\textsf{}}{finiteIntegralDomain}
+    A finite integral domain is a field\footnotemark.
+    \footnotetext{A \textit{field} is a nontrivial commutative ring \((R, +, \cdot)\)
+    with identity in which every nonzero element is a unit.}
+\end{Corollary}
+\begin{myproof}[Proof]
+    Direct from \Cref{th:finiteCommRingId}.
+\end{myproof}
+
+\begin{Definition}[colbacktitle=red!75!black]{Subring}{subring}
+    Let \(R\) be a ring and let \(S \subseteq R\) be nonempty.
+    Then, \(S\) is a \textit{subring} of \(R\)
+    if \(S\) is a ring under the binary operations \(+\) and \(\cdot\).
+\end{Definition}
+
+\begin{Theorem}{\textsf{}}{subringIff}
+    Let \(R\) be a ring and let \(S \subseteq R\) be nonempty.
+    Then, \(S\) is a subring of \(R\) if and only if
+    \(S\) is closed under subtraction and multiplication.
+\end{Theorem}
+
+\end{document}

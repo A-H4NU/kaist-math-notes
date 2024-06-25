@@ -4,7 +4,7 @@
 
 
 \usepackage[tmargin=2cm,rmargin=1in,lmargin=1in,margin=0.85in,bmargin=2cm,footskip=.2in]{geometry}
-\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{amsmath,amsthm}
 \usepackage{bm}
 \usepackage{xfrac}
 \usepackage[makeroom]{cancel}
@@ -17,25 +17,25 @@
 %	bookmarksnumbered=true,
 %	bookmarksopen=true
 %}
-\usepackage[memo dir, extract=python]{memoize}
-\mmzset{%
-    capture = vbox,
-    auto = {tikzcd}{memoize},
-    auto = {Theorem}{memoize},
-    auto = {theorem}{memoize},
-    auto = {Lemma}{memoize},
-    auto = {lemma}{memoize},
-    auto = {Exercise}{memoize},
-    auto = {exercise}{memoize},
-    auto = {Definition}{memoize},
-    auto = {definition}{memoize},
-    auto = {Example}{memoize},
-    auto = {example}{memoize},
-    auto = {Notation}{memoize},
-    auto = {notation}{memoize},
-    auto = {Proposition}{memoize},
-    auto = {proposition}{memoize},
-}
+% \usepackage[memo dir, extract=python]{memoize}
+% \mmzset{%
+%     capture = vbox,
+%     auto = {tikzcd}{memoize},
+%     auto = {Theorem}{memoize},
+%     auto = {theorem}{memoize},
+%     auto = {Lemma}{memoize},
+%     auto = {lemma}{memoize},
+%     auto = {Exercise}{memoize},
+%     auto = {exercise}{memoize},
+%     auto = {Definition}{memoize},
+%     auto = {definition}{memoize},
+%     auto = {Example}{memoize},
+%     auto = {example}{memoize},
+%     auto = {Notation}{memoize},
+%     auto = {notation}{memoize},
+%     auto = {Proposition}{memoize},
+%     auto = {proposition}{memoize},
+% }
 \usepackage[most,many,breakable]{tcolorbox}
 \usepackage{hyperref,theoremref}
 \usepackage[nameinlink,noabbrev,capitalise]{cleveref}
@@ -51,7 +51,6 @@
 \usepackage{import}
 \usepackage{xifthen}
 \usepackage{pdfpages}
-\usepackage{transparent}
 \usepackage{float}
 
 \usepackage{listofitems}
@@ -70,7 +69,6 @@
 
 % font
 % \usepackage{unicode-math}
-\usepackage[utf8]{inputenc}
 \usepackage[charter]{mathdesign}
 \usepackage[]{kotex}
 \setmainfont{XCharter}[
@@ -380,7 +378,7 @@
     ,before lower = \setlength{\parindent}{1cm}\noindent{\bfseries\itshape Proof.}\
     % ,after lower =\hfill\qed
 	,coltitle = black
-	,fonttitle = \bfseries\itshape
+	,fonttitle = \bfseries
 	,description font = \upshape\mdseries
     ,separator sign={\enspace}
 }
@@ -772,7 +770,7 @@
 \newcommand{\dfn}[3][]{\begin{Definition}[colbacktitle=red!75!black]{#2}{#1}#3\end{Definition}}
 \newcommand{\dfnc}[2]{\begin{definition}[colbacktitle=red!75!black]{#1}{}#2\end{definition}}
 \newcommand{\qs}[2]{\begin{question}{#1}{}#2\end{question}}
-\newcommand{\pf}[2]{\stepcounter{proof}\begin{myproof}[#1]#2\end{myproof}}
+\newcommand{\pf}[2]{\begin{myproof}[#1]#2\end{myproof}}
 \newcommand{\nt}[1]{\begin{note}\setlength{\parindent}{1.5em}#1\end{note}}
 \newcommand{\notat}[3][]{\begin{Notation}{#2}{#1}#3\end{Notation}}
 \newcommand{\axiom}[3][]{\begin{Axiom}{\textsf{#2}}{#1}\setlength{\parindent}{1.5em}#3\end{Axiom}}
@@ -786,11 +784,11 @@
 }
 \newcommand{\getCurrentSectionNumber}{\getcurrentref{section}}
 \newenvironment{myproof}[1][\proofname]{%
-	\proof[\bfseries #1]%
+	\stepcounter{proof}\proof[\bfseries #1]%
 }{\endproof}
 
-\newcommand{\mclm}[2]{\stepcounter{proof}\begin{myclaim}[#1]#2\end{myclaim}}
-\newenvironment{myclaim}[1][\claimname]{\proof[\bfseries #1]}{}
+\newcommand{\mclm}[2]{\begin{myclaim}[#1]#2\end{myclaim}}
+\newenvironment{myclaim}[1][\claimname]{\stepcounter{proof}\proof[\bfseries #1]}{}
 
 \makeatletter
 \newcommand{\setword}[2]{%
@@ -949,8 +947,8 @@
 \titlecontents{chapter}[3.7pc]
 {\addvspace{30pt}%
 	\begin{tikzpicture}[remember picture, overlay]%
-		\draw[fill=doc!60,draw=doc!60] (-7,-.1) rectangle (-0.9,.5);%
-		\pgftext[left,x=-3.5cm,y=0.2cm]{\color{white}\Large\sc\bfseries Chapter\ \thecontentslabel};%
+		\draw[fill=doc!60,draw=doc!60] (-7,-.1) rectangle (-.3,.5);%
+		\pgftext[left,x=-3.5cm,y=0.2cm]{\color{white}\Large\sc\bfseries Chapter\ \thecontentslabel}%
 	\end{tikzpicture}\color{doc!60}\large\sc\bfseries}%
 {}
 {}
@@ -976,10 +974,10 @@
 	\chapter*{%
 	  \vspace*{-20\p@}%
 	  \begin{tikzpicture}[remember picture, overlay]%
-		  \pgftext[right,x=15cm,y=0.2cm]{\color{doc!60}\Huge\sc\bfseries \contentsname};%
+		  \pgftext[right,x=15cm,y=0.2cm]{\color{doc!60}\Huge\sc\bfseries \contentsname}%
 		  \draw[fill=doc!60,draw=doc!60] (13,-.75) rectangle (20,1);%
-		  \clip (13,-.75) rectangle (20,1);
-		  \pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
+		  \clip (13,-.75) rectangle (20,1);%
+		  \pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname}%
 	  \end{tikzpicture}}%
 	\@starttoc{toc}}
 \makeatother

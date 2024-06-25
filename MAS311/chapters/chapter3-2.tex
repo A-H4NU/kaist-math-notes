@@ -66,7 +66,7 @@ One may note that
 \pf{Proof}{
     \(Z(G)\) is the union of all singleton conjugacy classes by
     \ref{itm:iUFrfCWG.i}.
-    The result follows from \Cref{cor:XhaqBMFa}.
+    The result follows from \Cref{cor:XhaqBMFa} and the fact that conjugacy classes partition \(G\).
 }
 
 \exmp[]{}{
@@ -79,7 +79,7 @@ One may note that
 
 \cor[pGroupCenter]{}{
     Let \(G\) be a group of order \(p^n\) where \(p\) is a prime number and \(n \ge 1\).
-    Then, \(|Z(G)| = p^k\) for some \(k \le 1\).
+    Then, \(|Z(G)| = p^k\) for some \(k \ge 1\).
 }
 \pf{Proof}{
     In \nameref{th:classEquation},
@@ -154,15 +154,19 @@ One may note that
     Therefore, \(A_5\) is simple.
 }
 
-\cor[]{}{
-    Let \(G \actson \mcal{P}(G)\) by conjugation;
-    \((g, A) \mapsto g A g\inv\).
+\dfn[]{Conjugate Subsets}{
+    Let \(G\) be a group.
     We say \(A, B \subseteq G\) are \textit{conjugate}
     if \(A = gBg\inv\) for some \(g \in G\).
+}
+
+\cor[conjSubsetOrbit]{}{
+    Let \(G \actson \mcal{P}(G)\) by conjugation;
     Then, \([G:N_G(A)] = |G\cdot A| = |\text{orbit of}~A|\).
 }
 \pf{Proof}{
-    \(N_G(A) = G_A\).
+    \(N_G(A) = \{\,g \in G \mid gAg\inv = A\,\} = G_A\) by definition.
+    The result follows from \nameref{th:orbitStab}.
 }
 
 \end{document}
