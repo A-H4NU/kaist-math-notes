@@ -1,0 +1,98 @@
+%! TEX TS-program = xelatex
+\documentclass[a4paper,12pt]{report}
+\usepackage{subfiles}
+\usepackage{calc}
+
+\usepackage{preamble}
+\usepackage{macros}
+\usepackage{letterfonts}
+
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.18}
+\iftrue
+\pgfplotsset{
+    axis lines=middle,
+    xlabel=$x$,
+    ylabel=$y$,
+    no markers,
+    samples=200,
+    trig format plots=rad,
+    every axis plot/.append style={
+        line width=.7pt,
+        % smooth,
+    },
+}
+\fi
+\usepgfplotslibrary{fillbetween}
+\pgfmathsetmacro{\PI}{3.141592654}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdftitle={Modern Algebra II},
+    pdfpagemode=FullScreen,
+}
+
+\usetikzlibrary{arrows.meta, positioning, decorations, decorations.markings}
+
+\let\dom\relax
+\DeclareMathOperator{\dom}{dom}
+\let\ran\relax
+\DeclareMathOperator{\ran}{ran}
+\let\char\relax
+\newcommand{\char}{\mathrel{\textrm{char}}}
+
+% for index
+\DeclareMathSymbol{:}{\mathord}{operators}{"3A}
+% \setlength{\emergencystretch}{10pt}
+
+\begin{document}
+
+% NOTE: This should not be commented out for the final product.
+% The usage of memoize may corrupt some tcb boxes;
+% this is only for fast compilation.
+% \mmzset{disable}
+
+\begin{titlepage}
+	\raggedleft
+
+	\rule{1pt}{\textheight}
+	\hspace{0.05\textwidth}
+	\parbox[b]{0.75\textwidth}{
+
+        {\Huge\bfseries Summary for\\[0.5\baselineskip] Modern Algebra \rom{2}}\\[2\baselineskip]
+		\\[4\baselineskip]
+		{\Large\textsc{seungwoo han}}
+
+		\vspace{0.5\textheight}
+
+        {\noindent
+        David S. Dummit, Richard M. Foote.
+        \textit{Abstract Algebra}. \newline
+        3rd ed., Wiley, 2003.}
+	}
+\end{titlepage}
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\hypersetup{
+    linkcolor=red!50!black,
+    filecolor=black,
+    urlcolor=red!50!black,
+}
+\pagebreak
+
+% \tcbstartdraftmode
+
+\chapter{Integral Domains}
+\subfile{./chapters/1-1.tex}
+\subfile{./chapters/1-2.tex}
+
+\vfill
+\begin{center}
+    \textbf{\textit{End.}}
+\end{center}
+
+\end{document}

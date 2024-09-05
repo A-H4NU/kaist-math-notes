@@ -1,0 +1,20 @@
+\documentclass[../modern_algebra_2.tex]{subfiles}
+
+\begin{document}
+
+\section{Euclidean Domains}
+
+\begin{Definition}{Euclidean Domain}[euDom]
+    An integral domain \(R\) is a \emph{Euclidean domain} if \(R\) has a \emph{Euclidean function}
+    \(\delta \colon R \setminus \{0\} \to \ZZ_{\ge 0}\) satisfying
+    \begin{enumerate}[nolistsep, label=(EF\arabic*)]
+        \ii
+        If \(a, b \in R \setminus \{0\}\), then \(\delta(a) \le \delta(ab)\).
+        \ii
+        If \(a, b \in R \setminus \{0\}\), then
+        there exist \(q, r \in R\) such that
+        \(a = bq + r\) with \(r = 0\) or \(\delta(r) < \delta(b)\).
+    \end{enumerate}
+\end{Definition}
+
+\end{document}
