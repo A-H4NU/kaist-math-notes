@@ -1,0 +1,51 @@
+\documentclass[../modern_algebra_2.tex]{subfiles}
+
+\begin{document}
+
+\section{Finite Extensions and Degree of Field Extension}
+
+\begin{Definition}{Finite Extension}[]
+    Let \(F\) be a field and \(K\) be an extension field over \(F\).
+    We say \(K\) is \emph{finite} over \(F\) if \(\dim_{F}K\) is finite.
+    We also write \([K:F] \triangleq \dim_F K\) and call it the \emph{degree} of \(K\) over \(F\).
+\end{Definition}
+
+\begin{Example}{}[]
+\begin{enumerate}[label=(\arabic*)]
+    \ii
+    Let \(d \in \ZZ\) be square-free. Then, \([\QQ(\sqrt{d}):\QQ] = 2\).
+    \ii
+    If \(u\) is algebraic over \(F\), then
+    \([F(u):F] = \deg \min_{u,F}(x)\).
+\end{enumerate}
+\end{Example}
+
+\begin{Lemma}{}[]
+    Let \(F\) be a field, \(K\) be a finite extension field of \(K\),
+    and \(L\) be an extension field of \(F\).
+    If there is an isomorphism \(f \colon K \isoto L\) such that \(\fall c \in F,\: f(c) = c\),
+    then \([K:F] = [L:F]\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    \(f\) is a bijective linear transformation between vector spaces \(K\) and \(L\).
+\end{myproof}
+
+\begin{Theorem}{}[]
+    Let \(F\) be a field and \(K\) be a finite extension field of \(K\).
+    Then, every \(u \in K\) is algebraic over \(F\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(n \triangleq [K:F]\).
+    Then, \(1, u, u^2, \cdots, u^{n-1}, u^n\) are linearly dependent over \(F\).
+    Hence, there are some \(c_0, c_1, \cdots, c_n \in F\), not all zero,
+    such that \(c_0 + c_1u+c_2u^2 + \cdots + c_nu^n = 0\).
+\end{myproof}
+
+\begin{Theorem}{}[finiteTrans]
+    Let \(F\), \(K\), and \(L\) be fields with \(F \subseteq K \subseteq L\).
+    Then, \(L\) is finite over \(F\) if and only if
+    \(L\) is finite over \(K\) and \(K\) is finite over \(F\).
+    Futhermore, \([L:F] = [L:K][K:F]\).
+\end{Theorem}
+
+\end{document}

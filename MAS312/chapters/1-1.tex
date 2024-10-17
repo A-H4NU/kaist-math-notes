@@ -37,19 +37,20 @@
         \(u \in R\) is a \emph{unit} in \(R\)
         if \(uv = 1\) for some \(v \in R\).
         \(v\) is called the \emph{inverse} of \(u\) and is denoted \(u\inv\).
-        \ii
-        For \(a, b \in R\), \(a\) is an \emph{associate} of \(b\)
-        if \(a = bu\) for some \(u \in R\),
-        or equivalently, if \((a) = (b)\).
 
         \ii
-        For a non-unit \(p \in R \setminus \{0\}\),
-        \(p\) is \emph{irreducible} if \(p = ab\) implies \(a\) or \(b\) is a unit.
+        For \(a, b \in R\), \(a\) is an \emph{associate} of \(b\) if \(a = bu\) for some \(u \in
+        R\), or equivalently, if \((a) = (b)\).
 
         \ii
-        For a non-unit \(p \in R \setminus \{0\}\),
-        \(p\) is \emph{prime} in \(R\) if \(p \mid ab\) implies \(p \mid a\) or \(p \mid b\).
-        Equivalently, \(p\) is prime if \((p)\) is a prime ideal of \(R\).
+        For a non-unit \(p \in R \setminus \{0\}\), \(p\) is \emph{irreducible} if \(p = ab\)
+        implies \(a\) or \(b\) is a unit, or equivalently, only divisors of \(p\) are associates of
+        \(p\) and units.
+
+        \ii
+        For a non-unit \(p \in R \setminus \{0\}\), \(p\) is \emph{prime} in \(R\) if \(p \mid ab\)
+        implies \(p \mid a\) or \(p \mid b\), or equivalently, \(p\) is prime if \((p)\) is a prime
+        ideal of \(R\).
 
         \ii
         \(R^\ast \triangleq \{\,u \in R \mid u~\text{is a unit in}~R\,\}\)
@@ -70,7 +71,7 @@
 \end{myproof}
 
 \begin{Example}{}[]
-    \begin{enumerate}[label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \begin{enumerate}[label=(\roman*), ref=\protect{(\roman*)}]
         \ii
         \(\ZZ\) is an integral domain. \(\ZZ^\ast = \{\pm 1\}\).
         For nonzero \(n \in \ZZ\), \(n\) and \(-n\) are associate.
@@ -113,7 +114,7 @@
 \end{Definition}
 
 \begin{Theorem}{}[basicNorm]
-    Let \(\alpha, \beta \in \QQ(\sqrt{d})\).
+    Let \(d\) be a square-free integer. Let \(\alpha, \beta \in \QQ(\sqrt{d})\).
     \begin{enumerate}[label=(\roman*), ref=\protect{\Cref{th:basicNorm} (\roman*)}]
         \ii\label{itm:basicNorm.i}
         \(N(\alpha) = 0 \iff \alpha = 0\)
@@ -125,14 +126,14 @@
 \begin{Definition}{Ring of Quadratic Integer}[quadInt]
     Let \(d\) be a square-free integer. Then,
     \[
-        \mcal{O}_{\QQ(\sqrt{d})} \triangleq \begin{cases}
-            \ZZ{}[\sqrt{d}] & \text{if}~d \equiv 2, 3 \pmod{4} \\
-            \ZZ{} \left[\frac{1+\sqrt{d}}{2}\right] & \text{if}~d \equiv 1 \pmod{4}
+        \rqi{\sqrt{d}} \triangleq \begin{cases}
+            \ZZ{}[\sqrt{d}] = \{\,a+b\sqrt{d} \mid a, b \in \ZZ\,\} & \text{if}~d \equiv 2, 3 \pmod{4} \\
+            \ZZ{} \left[\frac{1+\sqrt{d}}{2}\right] = \left\{\,\left. a+\frac{1+\sqrt{d}}{2}b\:\right\vert\: a, b \in \ZZ\,\right\} & \text{if}~d \equiv 1 \pmod{4}
         \end{cases}
     \]
     is an integral domain.
-    As \(\mcal{O}_{\QQ(\sqrt{d})}\) is a subring of \(\QQ(\sqrt{d})\),
-    we may apply the norm function \(N\) for \(\mcal{O}_{\QQ(\sqrt{d})}\).
+    As \(\rqi{\sqrt{d}}\) is a subring of \(\QQ(\sqrt{d})\),
+    we may apply the norm function \(N\) for \(\rqi{\sqrt{d}}\).
 \end{Definition}
 
 \begin{note}
@@ -141,18 +142,19 @@
 \end{note}
 
 \begin{Theorem}{}[basicQuadInt]
+    Let \(d\) be a square-free integer.
     \begin{enumerate}[label=(\roman*), ref=\protect{\Cref{th:basicQuadInt} (\roman*)}, listparindent=\parindent]
         \ii\label{itm:basicQuadInt.i}
-        \(\fall \alpha \in \mcal{O}_{\QQ(\sqrt{d})},\: N(\alpha) \in \ZZ\)
+        \(\fall \alpha \in \rqi{\sqrt{d}},\: N(\alpha) \in \ZZ\)
         \ii\label{itm:basicQuadInt.ii}
-        \(\fall u \in \mcal{O}_{\QQ(\sqrt{d})},\: (u~\text{is a unit} \iff N(u) = \pm 1)\)
+        \(\fall u \in \rqi{\sqrt{d}},\: (u~\text{is a unit} \iff N(u) = \pm 1)\)
         \ii\label{itm:basicQuadInt.iii}
-        \(\fall \alpha \in \mcal{O}_{\QQ(\sqrt{d})},\:
-        (N(\alpha)~\text{is prime in}~\ZZ \implies \alpha~\text{is irreducible in}~\mcal{O}_{\QQ(\sqrt{d})})\)
+        \(\fall \alpha \in \rqi{\sqrt{d}},\:
+        (N(\alpha)~\text{is prime in}~\ZZ \implies \alpha~\text{is irreducible in}~\rqi{\sqrt{d}})\)
         \ii\label{itm:basicQuadInt.iv}
-        If \(\pi \in \mcal{O}_{\QQ(\sqrt{d})}\) is prime,
+        If \(\pi \in \rqi{\sqrt{d}}\) is prime,
         then \(N(\pi) \in \{\,\pm p^2, \pm p\,\}\) for some prime \(p \in \ZZ\).
-        Either \(p\) is irreducible in \(\mcal{O}_{\QQ(\sqrt{d})}\) (in which \(N(\pi) = \pm p^2\))
+        Either \(p\) is irreducible in \(\rqi{\sqrt{d}}\) (in which \(N(\pi) = \pm p^2\))
         or \(p = \pi \pi'\) for some irreducible \(\pi'\) (in which \(N(\pi) = \pm p\)).
     \end{enumerate}
 \end{Theorem}
@@ -168,11 +170,11 @@
             \frac{1-\sqrt{d}}{2} & \text{if}~d \equiv 1 \pmod{4}
         \end{cases}
     \]
-    so that \(\mcal{O}_{\QQ(\sqrt{d})} = \ZZ{}[\omega]\).
+    so that \(\rqi{\sqrt{d}} = \ZZ{}[\omega]\).
 \begin{enumerate}[label=(\roman*), listparindent=\parindent]
     \ii
     \[
-        N(\alpha) = \begin{cases}
+        N(a + b\omega) = \begin{cases}
             a^2 - db^2 & \text{if}~d \equiv 2, 3 \pmod{4} \\
             a^2 + ab + \frac{1 - d}{4} b^2 d & \text{if}~d \equiv 1 \pmod{4}
         \end{cases}
@@ -181,7 +183,6 @@
     \ii
     If \(u \in \ZZ{}[\omega]\) is a unit, then \(1 = N(1) = N(u u\inv) = N(u) N(u\inv)\).
     Hence, by (i), \(N(u) = \pm 1\).
-
     If \(N(a + b\omega) = \pm 1\), then \((a + b \omega)(a - b \omega) = \pm 1\).
     Hence, \(a + b \omega\) is a unit.
     \ii
@@ -192,6 +193,7 @@
     which implies \(\beta\) or \(\gamma\) is a unit in \(\ZZ{}[\omega]\) by (ii).
     \ii
     Let \((\pi) \subseteq \ZZ{}[\omega]\) be a prime ideal.
+    \(\pi\) is irreducible by \Cref{th:primeThenIrred}.
     Let
     \begin{align*}
         \iota \colon \ZZ &\longrightarrow \ZZ{}[\omega] \\
@@ -201,13 +203,18 @@
     Then, \(\iota\inv \bigl((\pi)\bigr) = (\pi) \cap \ZZ \subseteq \ZZ\)
     is a prime ideal in \(\ZZ\).\footnotemark
     \footnotetext{%
-        % TODO: fill this.
-        The inverse image of prime ideal in .
+        Given a ring homomorphism between commutative rings with identity, the inverse image of
+        prime ideal is a prime ideal.
     }
     Hence, \((\pi) \cap \ZZ = (p)\) for some prime \(p \in \ZZ\),
     and thus \(p = \pi \pi'\) for some \(\pi' \in \ZZ{}[\omega]\).
     Therefore, we get \(N(\pi) N(\pi') = N(p) = p^2\) in \(\ZZ\).
-    Thus, the result follows from previous conclusions.
+    As \(N(\pi) \in (\pi) \cap \ZZ\), we have \(p \mid N(\pi)\).
+    Thus, \(N(\pi) \in \{\,\pm p^2, \pm p\,\}\).
+
+    If \(N(\pi) = \pm p^2\), then \(\pi'\) is a unit by (ii), i.e., \(p\) is an associate of \(\pi\)
+    and hence \(p\) is irreducible.
+    If \(N(\pi) = \pm p\), then \(N(\pi') = \pm p\); hence \(\pi'\) is irreducible by (iii).
     \qed
 \end{enumerate}
 \end{myclaim}
@@ -215,25 +222,35 @@
 \begin{Example}{}[]
     \begin{enumerate}[label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
         \ii 
-        \(\mcal{O}_{\QQ(i)} = \ZZ{}[i]\) is the \emph{ring of Gaussian integers}.
+        \(\rqi{i} = \ZZ{}[i]\) is the \emph{ring of Gaussian integers}.
         \(\ZZ{}[i]^\ast = \{\,\pm 1, \pm i\,\}\).
         \(N(1 \pm i) = 2\); \(1 \pm i\) is irreducible in \(\ZZ{}[i]\).
 
         \ii
-        Consider \(\mcal{O}_{\QQ(\sqrt{-5})} = \ZZ{}[\sqrt{-5}]\).
+        Consider \(\rqi{\sqrt{-5}} = \ZZ{}[\sqrt{-5}]\).
         \(N(1 + \sqrt{-5}) = 6\); hence \(1 + \sqrt{-5}\) is not prime in \(\ZZ{}[\sqrt{-5}]\)
         by \ref{itm:basicQuadInt.iv}.
 
         Suppose \(1 + \sqrt{-5} = \alpha \beta\) for some \(\alpha, \beta \in \ZZ{}[\sqrt{-5}]\).
-        Let \(\alpha = a + b\sqrt{-5}\).
-        % TODO: fill this
-        Then, we may conclude that \(\alpha\) or \(\beta\) is a unit in \(\ZZ{}[\sqrt{-5}]\).
+        Then, \(6 = N(1 + \sqrt{-5}) = N(\alpha \beta) = N(\alpha) N(\beta)\).
+        Write \(\alpha = a + b\sqrt{-5}\) so that
+        \(N(\alpha) = a^2 + 5b^2 \in \{\,1,2,3,6\,\}\).
+        As \(a, b \in \ZZ\), \(N(\alpha) \in \{1, 6\}\).
+        If \(N(\alpha) = 6\), then \(N(\beta) = 1\).
+        Then, we may conclude that \(\alpha\) or \(\beta\) is a unit in \(\ZZ{}[\sqrt{-5}]\)
+        by \ref{itm:basicNorm.ii}.
+        Hence, \(1+\sqrt{-5}\) is irreducible but not prime, which is a counterexample
+        of the converse of \ref{itm:basicQuadInt.iii}.
 
-        Moreover there is no gcd of \(6\) and \(2 + 2\sqrt{-5}\).
-        Note that \(6 = (1 + \sqrt{-5})(1 - \sqrt{-5}) = 2 \cdot 3\).
-        Hence, \(1+\sqrt{-5}\) and \(2\) are common divisors of \(6\) and \(2 + 2\sqrt{-5}\).
-        Suppose \(d = a + b\sqrt{-5}\) is a gcd of them.
-        % TODO: also fill this
+        Moreover there is no gcd of \(6\) and \(2 + 2\sqrt{-5}\). Note that
+        \(6 = (1 + \sqrt{-5})(1 - \sqrt{-5}) = 2 \cdot 3\). Hence, \(1+\sqrt{-5}\) and \(2\) are
+        common divisors of \(6\) and \(2 + 2\sqrt{-5}\). Suppose \(d = a + b\sqrt{-5}\) is a gcd of
+        \(6\) and \(2+2\sqrt{-5}\) for the sake of contradiction. Then, by \ref{itm:basicNorm.ii},
+        \(N(1+\sqrt{-5}) = 6\) and \(N(2) = 4\) both divide \(N(d) = a^2 + 5b^2\).
+        Hence, \(12 \mid N(d) = a^2 + 5b^2\).
+        On the other hand, as \(d\) divides both \(6\) and \(2+2\sqrt{-5}\),
+        \(N(d) = a^2 + 5b^2\) divides \(N(6) = 36\) and \(N(2+2\sqrt{-5}) = 24\).
+        Hence, \(N(d) = a^2 + 5b^2 = 12\); but there is no such \(a, b \in \ZZ\).
     \end{enumerate}
 \end{Example}
 

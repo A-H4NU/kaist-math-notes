@@ -1,0 +1,164 @@
+\documentclass[../modern_algebra_2.tex]{subfiles}
+
+\begin{document}
+
+\section{Principal Ideal Domains}
+
+\begin{Definition}{Principal Ideal Domain}[pid]
+    A \emph{principal ideal domain} is an integral domain
+    in which every ideal is principal.
+\end{Definition}
+
+\begin{note}
+    By \Cref{th:edThenPid}, as the zero ideal is principal,
+    every Euclidean domain is a principal ideal domain.
+\end{note}
+
+\begin{Example}{}[pidExmp]
+\begin{enumerate}[label=(\roman*), ref=\protect{\Cref{exmp:pidExmp} (\roman*)}]
+    \ii
+    \(\ZZ\), \(F[x]\), and \(\ZZ{}[i]\) are principal ideal domains.
+    \ii
+    \(\rqi{\sqrt{-19}}\) is not a Euclidean domain but is a principal ideal domain.
+    In \ref{itm:exExmp.iv}, we already showed that \(\rqi{\sqrt{-19}}\) is not a Euclidean domain.
+
+    Let \(\omega = \frac{1+\sqrt{-19}}{2}\) and let \(I \subsetneq \ZZ{}[\omega]\) be
+    a proper nonzero ideal of \(\ZZ{}[\omega]\).
+    Choose \(\beta \in I \setminus \{0\}\) such that \(N(\beta)\) is the smallest.
+    Suppose there exists \(\alpha \in I \setminus (\beta)\) for the sake of contradiction.
+    To this end, it is enough to show that there exists \(s, t \in \ZZ{}[\omega]\)
+    such that
+    \[
+        0 < N \left(\frac{\alpha}{\beta}s - t\right) < 1\text{,}
+    \]
+    which contradicts the minimality of \(\beta\).
+    Write
+    \[
+        \frac{\alpha}{\beta} = \frac{a+b\sqrt{-19}}{c} \in \QQ(\sqrt{-19})
+    \]
+    with \(a, b, c \in \ZZ\), \(c > 0\), and they have no common divisor.
+    Note that, if \(c = 1\), then \(\beta \mid \alpha\), i.e., \(\alpha \in (\beta)\),
+    which is a contradiction.
+    We have four cases: \(c \ge 5\), \(2 \le c \le 4\).
+    \begin{itemize}
+        \ii
+        Assume \(c \ge 5\).
+        There exist \(x, y, z \in \ZZ\) such that \(ax + by + cz = 1\).
+        There exist \(q, r \in \ZZ\) such that
+        \[
+            ax - 19bx = cq + r\text{ with } |r| \le c/2\text{.}
+        \]
+        Let \(s \triangleq y + x\sqrt{-19} \in \ZZ{}[\omega]\) and \(t \triangleq q - z\sqrt{-19} \in
+        \ZZ{}[\omega]\) so that
+        \begin{align*}
+            \frac{\alpha}{\beta}s - t
+            &= \frac{(a + b\sqrt{-19})(y + x\sqrt{-19})}{c} - (q - z\sqrt{-19}) \\
+            &= \frac{(ay - 19bx) + (ax + by)\sqrt{-19}}{c} - \frac{cq - cz\sqrt{-19}}{c} \\
+            &= \frac{(ay - 19bx - cq) + (ax + by + cz)\sqrt{-19}}{c} = \frac{r+\sqrt{-19}}{c}\text{,}
+        \end{align*}
+        and hence
+        \[
+            0 < N \left(\frac{\alpha}{\beta}s - t\right) = \frac{r^2+19}{c^2} \le \frac{1}{4} +
+            \frac{19}{c^2}\text{.}
+        \]
+        Then, when \(c \ge 6\), we have \(N\left(\frac{\alpha}{\beta}s - t\right) \le \frac{7}{9}\),
+        and when \(c = 5\), we have \(|r| \le 2\) so that \(N\left(\frac{\alpha}{\beta}s - t\right)
+        \le \frac{23}{25}\); we eventually reached the contradiction.
+
+        \ii
+        Assume \(2 \le c \le 4\).
+        There exists \(q, r \in \ZZ\) such that
+        \[
+            a^2 + 19b^2 = cq + r\text{ with }0 \le r < c\text{.}
+        \]
+        \begin{itemize}
+            \ii
+            Consider the case in which \(r \neq 0\).
+            Let \(s \triangleq a - b\sqrt{-19} \in \ZZ{}[\omega]\) and \(t \triangleq q \in \ZZ{}[
+            \omega]\). Then, we have
+            \[
+                \frac{\alpha}{\beta}s - t = \frac{(a + b\sqrt{-19})(a - b\sqrt{-19})}{c} - q
+                = \frac{a^2 + 19b^2 - cq}{c} = \frac{r}{c}\text{,}
+            \]
+            so we have \(0 < N \left(\frac{\alpha}{\beta}s - t\right) = \frac{r^2}{c^2} < 1\).
+
+            \ii
+            Now, consider the case \(r = 0\), which means \(c \mid a^2 + b^2\) while
+            \(a\), \(b\), and \(c\) have no common divisor.
+            \begin{itemize}
+                \ii
+                if \(c = 2\), then \(a^2 + 19b^2\) is even thus \(a\) and \(b\) are both odd.
+                Then,
+                \[
+                    \frac{\alpha}{\beta} = \frac{a+b\sqrt{-19}}{2} = \frac{a-b}{2} + b\omega \in
+                    \ZZ{}[\omega]\text{,}
+                \]
+                which is a contradiction.
+                \ii
+                If \(c = 3\), then \(3 \nmid a\) or \(3 \nmid b\) so that
+                \(a^2 + 19b^2 \equiv a^2 + b^2 \equiv 1 \text{ or } 2 \pmod{3}\)
+                while it must be \(c \mid a^2 + 19b^2\).
+                \ii
+                If \(c = 4\), then \(a\) and \(b\) are both odd.
+                As \(a^2, b^2 \equiv 1 \pmod{8}\), we have \(a^2 + 19b^2 = 8k + 4\) for some \(k \in
+                \ZZ\). Let
+                \[
+                    s \triangleq \frac{a-b\sqrt{-19}}{2} = \frac{a+b}{2} - b\omega \in \ZZ{}[\omega]
+                    \text{ and }
+                    t \triangleq k \in \ZZ{}[\omega]\text{.}
+                \]
+                Then, we have
+                \[
+                    \frac{\alpha}{\beta}s - t
+                    = \frac{(a+b\sqrt{-19})(a-b\sqrt{-19})}{8} - k
+                    = \frac{a^2+19b^2-8k}{8} = \frac{1}{2}\text{,}
+                \]
+                hence \(0 < N \left(\frac{\alpha}{\beta}s - t\right) = \frac{1}{4} < 1\).
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    Therefore, in all cases, \((\beta) \subsetneq I\) reached a contradiction.
+    Hence, \(I\) is a principal ideal.
+
+    \ii
+    \(\rqi{\sqrt{-5}} = \ZZ{}[\sqrt{-5}]\) is not a PID.
+    We will show \(I \triangleq (3, 2+\sqrt{-5}) \subseteq \ZZ{}[-5]\) is not principal.
+    \(I\) is an proper ideal.
+    Otherwise, there exist \(x, y, z, w \in \ZZ\) such that
+    \begin{align*}
+        1 &= 3(x+y\sqrt{-5}) + (2+\sqrt{-5})(z+w\sqrt{-5}) \\
+          &= (3x+2z-5w) + (3y+z+2w)\sqrt{-5}\text{,}
+    \end{align*}
+    i.e., \(3x+2z-5w=1\) and \(3y+z+2w=0\).
+    Hence, it follows that
+    \[
+        1 = 3x + 2(-3y-2w) - 5w = 3(x-2y-3w)\text{,}
+    \]
+    which is a contradiction. Hence, \(I\) is a proper ideal.
+
+    Suppose \(I = (a+b\sqrt{-5})\).
+    Then, \(3 = (a+b\sqrt{-5})(c+d\sqrt{-5})\) for some \(c, d \in \ZZ\).
+    Then, we have
+    \[
+        9 = N(3) = (a^2+5b^2)(c^2+5d^2)\text{.}
+    \]
+    \(a^2+5b^2 \neq 1\) as \(I\) is not proper; hence
+    \(a^2+5b^2 = 9\) and \(c^2+5d^2 = 1\),
+    which implies \(c+d\sqrt{-15}\) is a unit and \(a+b\sqrt{-5}\) is an associate of \(3\).
+    Therefore, \(I = (3)\), which is a contradiction.
+\end{enumerate}
+\end{Example}
+
+\begin{Theorem}{}[pidIrredThenPrime]
+    Let \(R\) be a principal ideal domain.
+    If \(p \in R\) is irreducible, then \((p) \subseteq R\) is a maximal ideal.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(M \subseteq R\) be an ideal containing \((p)\).
+    As \(R\) is a PID, \(M = (m)\) for some \(m \in R\).
+    Hence, \(p = mr\) for some \(r \in R\).
+    If \(r\) is a unit, then \((p) = (m)\).
+    If \(m\) is a unit, then \(M = R\).
+\end{myproof}
+
+\end{document}

@@ -7,14 +7,269 @@
 \begin{Definition}{Euclidean Domain}[euDom]
     An integral domain \(R\) is a \emph{Euclidean domain} if \(R\) has a \emph{Euclidean function}
     \(\delta \colon R \setminus \{0\} \to \ZZ_{\ge 0}\) satisfying
-    \begin{enumerate}[nolistsep, label=(EF\arabic*)]
+    \begin{enumerate}[label=(EF\arabic*)]
         \ii
         If \(a, b \in R \setminus \{0\}\), then \(\delta(a) \le \delta(ab)\).
         \ii
-        If \(a, b \in R \setminus \{0\}\), then
+        If \(a \in R\) and \(b \in R \setminus \{0\}\), then
         there exist \(q, r \in R\) such that
         \(a = bq + r\) with \(r = 0\) or \(\delta(r) < \delta(b)\).
     \end{enumerate}
 \end{Definition}
+
+\begin{note}
+    The condition (EF1) is reduntant.
+    If \(\delta' \colon R \setminus \{0\} \to \ZZ_{\ge 0}\) is a function that satisfies (EF2),
+    then
+    \begin{align*}
+       \delta \colon R \setminus \{0\} &\longrightarrow \ZZ_{\ge 0} \\
+        r &\longmapsto \min \{\,\delta'(rx) \mid x \in R \setminus \{0\}\,\}
+    \end{align*}
+    is a Euclidean function. By definition, \(\delta\) evidently satisfies (EF1).
+
+    To see how \(\delta\) satisfies (EF2), take any \(a \in R\) and \(b \in R \setminus \{0\}\).
+    Then, there exist \(q, r \in R\) such that \(a = bq + r\) and either \(r = 0\) or \(\delta'(r) <
+    \delta'(b)\). If \(r = 0\), then we are done; hence assume \(b \nmid a\). By definition,
+    \(\delta(b) = \delta'(bx)\) for some \(x \in R\). There exist \(q' \in R\) and \(r' \in R
+    \setminus \{0\}\) such that \(a = (bx)q' + r'\) and \(\delta'(r') < \delta'(bx)\). Now, we have
+    \(\delta(r') \le \delta'(r') < \delta'(bx) = \delta(b)\) and \(a = b(xq') + r'\).
+\end{note}
+
+\begin{Example}{}[edExmp]
+    \begin{enumerate}[label=(\roman*), ref=\protect{\Cref{exmp:edExmp} (\roman*)}, listparindent=\parindent]
+        \ii\label{itm:exExmp.i}
+        Every field \(F\) is a Euclidean domain, since \(a = (a/b)b\) for all \(a, b \in F \setminus
+        \{0\}\). The Euclidean function is \(a \mapsto 0\).
+        \ii\label{itm:exExmp.ii}
+        \(\ZZ\) is a Euclidean domain. The Euclidean function is \(n \mapsto \lvert n\rvert\). The
+        pairs \(q, r\) may not be unique; \(10 = (-7)(-1) + 3 = (-7)(-2) + (-4)\).
+
+        \ii\label{itm:exExmp.iii}
+        Let \(F\) be a field. Then, \(F[x]\) is a Euclidean domain. The Euclidean function is \(f(x)
+        \mapsto \deg f(x)\). Moreover, the quotient and the remainder of any division is unique.
+
+        \ii
+        \(\ZZ{}[i]\) is a Euclidean domain with the function \(a + bi \mapsto a^2 + b^2\) (the norm
+        of \(\ZZ{}[i]\)). (EF1) is satisfied by \ref{itm:basicNorm.ii}.
+
+        To check (EF2), take any \(a + bi \in \ZZ{}[i]\) and \(c + di \in \ZZ{}[i] \setminus
+        \{0\}\). Then, in \(\QQ(i)\), \(\frac{a+bi}{c+di} = t' + s'i\) for some \(t', s' \in \QQ\).
+        Let \(t \triangleq \lfloor t' \rceil\) and \(s \triangleq \lfloor s \rceil\) so that \(|t -
+        t'|, |s - s'| \le 1/2\).\footnotemark\ Let \(q \triangleq t + si \in \ZZ{}[i]\) and
+        % TODO: Fix the label of this footnote.
+        \footnotetext{%
+            \(\lfloor x\rceil\) for \(x \in \RR\) is an integer closest to \(x\).
+        }
+        \begin{align*}
+            r
+            &\triangleq (a + bi) - (c + di)q \\
+            &= (a + bi) - (c + di)\bigl\{ (t' + s'i) + \bigl((t - t') + (s - s')i\bigr) \bigr\} \\
+            &= (c + di) \bigl( (t - t') + (s - s')i \bigr)
+            \intertext{so that \(a + bi = (c + di)q + r\). Now, as}
+            \delta(r)
+            &= \delta(c + di) \delta((t - t') + (s - s')i) \\
+            &= \delta(c + di) \left( (t - t')^2 + (s - s')^2 \right) \\
+            &\le \frac{1}{2} \delta(c + di) < \delta(c + di)\text{,}
+        \end{align*}
+        (EF2) is verified.
+
+        \ii\label{itm:exExmp.iv}
+        \(\rqi{\sqrt{-19}} = \ZZ{}\left[\frac{1+\sqrt{-19}}{2}\right]\) is not a Euclidean domain.
+        Let \(\omega \triangleq \frac{1+\sqrt{-19}}{2}\).
+        Here are some facts easy to verify:
+        \begin{enumerate}[label=(\arabic*)]
+            \ii \(N(a + b \omega) = a^2 + ab + 5b^2 = (a + b/2)^2 + \frac{19}{4}b^2\).
+            \ii \(N(\alpha) \ge 5\) if \(\alpha \notin \{0, \pm 1, \pm 2\}\).
+            \ii \(N(a + b \omega) \notin \{2,3\}\).
+            \ii \(\ZZ{}[\omega]^\ast = \{\pm 1\}\).
+        \end{enumerate}
+
+        \(2\) is irreducible in \(\ZZ{}[\omega]\).
+        If \(2 = \alpha \beta\) in \(\ZZ{}[\omega]\),
+        Then, \(4 = N(2) = N(\alpha)N(\beta)\); thus one of \(\alpha\) and \(\beta\) is a unit
+        by (3) and \ref{itm:basicQuadInt.ii}.
+        Similarly, \(3\) is irreducible in \(\ZZ{}[\omega]\).
+
+        Suppose \(\ZZ{}[\omega]\) is a Euclidean domain with \(\delta \colon \ZZ{}[\omega] \setminus
+        \{0\} \to \ZZ_{\ge 0}\).
+        Choose \(m \in \ZZ{}[\omega] \setminus \{0, \pm 1\}\) such that \(\delta(m)\) is smallest.
+        Note that \(m\) is not a unit by (4).
+        There exists \(q, r \in \ZZ{}[\omega]\) with
+        \(2 = mq + r\) with \(r = 0\) or \(\delta(r) < \delta(m)\).
+        We have \(r \in \{0, \pm 1\}\).
+        \begin{itemize}
+            \ii
+            If \(r = 0\), then \(m \mid 2\); hence \(m \in \{\pm 2\}\) as \(2\) is irreducible.
+            \ii
+            If \(r = 1\), then \(m \mid 1\), which is impossible.
+            \ii
+            If \(r = -1\), then \(m \mid 3\); hence \(m \in \{\pm 3\}\) as \(3\) is irreducible.
+        \end{itemize}
+        Hence, \(m \in \{\pm 2, \pm 3\}\).
+
+        Now, write \(\omega = mq' + r'\) for some \(q', r' \in R\) with \(r' = 0\) or
+        \(\delta(r') < \delta(m)\). This means \(r' \in \{0, \pm 1\}\).
+        We have
+        \[
+            N(\omega - r') = N(mq') = N(m)N(q') \in \{4N(q'), 9N(q')\}
+        \]
+        while
+        \[
+            N(\omega - r') = (r')^2 - r' + 5 \in \{5, 7\}\text{,}
+        \]
+        which is a contridiction.
+    \end{enumerate}
+\end{Example}
+
+\begin{Theorem}{}[edTFAE]
+    Let \(R\) be a Euclidean domain with the Euclidean function \(\delta \colon R \setminus \{0\}
+    \to \ZZ_{\ge 0}\). Let \(u \in R \setminus \{0\}\). \TFAE.
+    \begin{enumerate}[label=(\roman*)]
+        \ii \(u\) is a unit in \(R\).
+        \ii \(\delta(u) = \delta(1)\).
+        \ii There exists \(c \in R \setminus \{0\}\) such that \(\delta(c) = \delta(uc)\).
+    \end{enumerate}
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{pftfae}[labelwidth=\widthof{\(\text{(ii)} \Rightarrow \text{(iii)}\)}]
+    \ii[\(\text{(i)} \Rightarrow \text{(ii)}\)]
+    \(\delta(1) \le \delta(1 \cdot u) = \delta(u) \le \delta(u u\inv) = \delta(1)\).
+    \ii[\(\text{(ii)} \Rightarrow \text{(iii)}\)]
+    Take \(c = 1\).
+    \ii[\(\text{(iii)} \Rightarrow \text{(i)}\)]
+    There exist \(q, r \in R\) such that \(c = (uc)q + r\) with \(r = 0\) or \(\delta(r) <
+    \delta(uc) = \delta(c)\). If \(r \neq 0\), then
+    \[
+        \delta(uc) = \delta(c) \le \delta(c(1 - uq)) = \delta(c - ucq) = \delta(r) < \delta(uc)\text{,}
+    \]
+    which is a contridiction.
+    Hence, \(c = ucq\), i.e., \(uq = 1\).
+    \qed
+\end{pftfae}
+\end{myclaim}
+
+\begin{Theorem}{}[edThenPid]
+    Let \(R\) be a Euclidean domain with the Euclidean function \(\delta \colon \RR \setminus \{0\}
+    \to \ZZ_{\ge 0}\). Let \(I \subseteq R\) be a nonzero ideal in \(R\).
+    Then, there exists \(d \in I \setminus \{0\}\) such that \(\fall a \in I \setminus \{0\},\: \delta(d) \le
+    \delta(a)\) and \(I = (d)\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Choose \(d \in I \setminus \{0\}\) such that \(\delta(d)\) is minimized.
+    Take any \(a \in I\).
+    Then, there exist \(q, r \in R\) such that \(a = dq + r\) with \(r = 0\) or \(\delta(r) <
+    \delta(d)\). As \(r = a - dq \in I\), \(r = 0\) by the choice of \(d\).
+    Hence, \(a = dq \in (d)\).
+\end{myproof}
+
+\begin{Theorem}{}[idGCD]
+    Le t \(R\) be an integral domain. Let \(a, b \in R \setminus \{0\}\).
+    Assume \((a, b) = (d)\) for some \(d \in R\). Then,
+    \begin{enumerate}[label=(\roman*)]
+        \ii \(d\) is a greatest common divisor of \(a\) and \(b\).
+        \ii If \(d'\) is a greatest common divisor of \(a\) and \(b\), then \((a, b) = (d')\).
+    \end{enumerate}
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[label=(\roman*)]
+    \ii
+    Since \(a, b \in (a, b) = (d)\), it follows that \(d \mid a, b\) so that \(d\) is a common
+    divisor of \(a\) and \(b\). If \(m \mid a, b\), then \((d) = (a, b) \subseteq (m)\) so that \(m
+    \mid d\).
+    \ii
+    \(d' \mid d\), i.e., \((d) \subseteq (d')\). On the other hand, \(d \mid d'\), i.e., \((d')
+    \subseteq (d)\). Therefore, \((d') = (d) = (a, b)\).
+    \qed
+\end{enumerate}
+\end{myclaim}
+
+\begin{note}
+    The assumption that there exists \(d \in R\) such that \((a, b) = (d)\)
+    in \Cref{th:idGCD} is critical. For instance in the integral domain \(\ZZ{}[x]\),
+    elements \(2\) and \(x\) are prime and thus irreducible; thus \(1\) is a greatest common
+    divisor of \(2\) and \(x\) but \((2, x) \neq (1)\).
+\end{note}
+
+\begin{Lemma}{}[edEuclid]
+    Let \(R\) be a Euclidean domain with the Euclidean function \(\delta \colon \RR \setminus \{0\}
+    \to \ZZ_{\ge 0}\). Let \(a, b \in R \setminus \{0\}\).
+    Let \(q, r \in R\) satisfy \(a = bq + r\) with \(r = 0\) or \(\delta(r) < \delta(b)\).
+    Then, \((a, b) = (b, r)\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    By \Cref{th:edThenPid}, there exist \(d, d' \in R\) such that \((a, b) = (d)\) and \((b, r) =
+    (d')\). By \Cref{th:idGCD}, \(d\) and \(d'\) are greatest common divisors of \(a, b\) and \(b,
+    r\), respecitvely. We have \(d \mid a - bq = r\) so \(d\) is a common divisor of \(b\) and
+    \(r\); thus \(d \mid d'\). On the other hand, we have \(d' \mid bq + r = a\), so \(d'\) is a
+    common divisor of \(a\) and \(b\); thus \(d' \mid d\). Hence, \((d) = (d')\).
+\end{myproof}
+
+\begin{Definition}{Euclidean Algorithm}[]
+    Let \(R\) be a Euclidean domain and let \(\delta \colon R \setminus \{0\} \to \ZZ_{\ge 0}\)
+    be its Euclidean function.
+    The following algorithm is called \emph{Euclidean algorithm}.
+    For CS majors, assume that there is a Euclidean divison oracle for \Cref{ln:euclidDiv}.
+
+    \vspace*{.5\baselineskip}
+    \begin{algorithm}[H]
+        \NoCaptionOfAlgo
+        \DontPrintSemicolon
+        \caption{\textsc{Euclidean Algorithm}}
+        \label{alg:euclid}
+        \SetKwFunction{euclidean}{Euclid}
+        \SetKwProg{myalg}{Algorithm}{}{}
+        \myalg{\euclidean{\(a\), \(b\)}}{
+            \KwIn{\(a, b \in R\)}
+            \KwOut{\(x, y \in R\) such that \((a, b) = (ax + by)\)}
+            \lIf{\(b = 0\)}{\Return \((1, 0)\)}
+            \label{ln:euclidBase}
+            Find \(q, r \in R\) such that \(a = bq + r\) with \(r = 0\) or \(\delta(r) < \delta(b)\).\;
+            \label{ln:euclidDiv}
+            \((x, y) \gets \euclidean{\(b\), \(r\)}\)\;
+            \label{ln:euclidRecurse}
+            \Return \((y, x - qy)\)\;
+        }
+    \end{algorithm}
+\end{Definition}
+
+\begin{Theorem}{}[euclidCorrect]
+    Let \(R\) be a Euclidean domain and let \(\delta \colon R \setminus \{0\} \to \ZZ_{\ge 0}\)
+    be its Euclidean function.
+    \begin{enumerate}[label=(\roman*), ref=\protect{\Cref{th:euclidCorrect} (\roman*)}]
+        \ii
+        \nameref{alg:euclid} terminates in a finite number of recursions.
+        \ii
+        The result of \nameref{alg:euclid} is correct.
+        \ii\label{itm:euclidCorrect.iii}
+        For any greatest common divisor \(d\) of \(a\) and \(b\), there exist \(x, y \in R\)
+        such that \(d = ax + by\).
+    \end{enumerate}
+\end{Theorem}
+
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[label=(\roman*)]
+    \ii
+    At \Cref{ln:euclidRecurse}, \(\delta(\cdot)\) value of the right argument strictly decreases.
+    Hence, in at most \(\delta(b)\) recursions, the algorithm falls into the base case at
+    \Cref{ln:euclidBase}.
+
+    \ii
+    We first make sure that \Cref{ln:euclidBase} is evidently correct;
+    and hence the case in which \(r = 0\) at \Cref{ln:euclidDiv} is correct.
+
+    Now, we conduct the induction on \(\delta(b)\); assume the algorithm is correct for all inputs
+    \((a', b')\) such that \(b' \neq 0\) or \(\delta(b') < \delta(b)\). Then, the algorithm will
+    reach \Cref{ln:euclidDiv} with \(r = 0\) or \(\delta(r) < \delta(b)\). If \(r = 0\), then it is
+    done; in the other case, by the induction hypothesis and \Cref{lem:edEuclid},
+    \[
+        (a, b) = (b, r) = (bx + ry) = (bx + (a - bq)y) = (ay + b(x - qy))\text{.}
+    \]
+    The result follows by the mathematical induction.
+
+    \ii
+    It is a direct consequence of \Cref{th:edThenPid} and \Cref{th:idGCD}.
+    \qed
+\end{enumerate}
+\end{myclaim}
 
 \end{document}

@@ -1,0 +1,119 @@
+\documentclass[../modern_algebra_2.tex]{subfiles}
+
+\begin{document}
+
+\section{Unique Factorization Domains}
+
+\begin{Definition}{Unique Factorization Domain}[]
+    A \emph{unique factorization domain} is an integral domain \(R\)
+    such that:
+    \begin{enumerate}[label=(\roman*)]
+        \ii
+        Every nonzero nonunit element
+        is a product of irreducible elements of \(R\).
+        \ii
+        If \(u = p_1 p_2 \cdots p_r = q_1 q_2 \cdots q_s\)
+        are two products of irreducible elements of \(R\),
+        then \(r = s\), and (possibly after reordering)
+        \(p_i\) is an associate of \(q_i\) for all \(i \in [r]\).
+    \end{enumerate}
+\end{Definition}
+
+\begin{Example}{}[]
+\begin{enumerate}[label=(\roman*), ref=\protect{(\roman*)}, listparindent=\parindent]
+    \ii
+    \(\ZZ\) is a unique factorization domain by Fundamental Theorem of Arithmetic.
+    \ii
+    \(\mcal{O}_{\QQ(\sqrt{-5})}\) is not a unique factorization domain.
+    \[
+        6 = (1+\sqrt{-5})(1-\sqrt{-5}) = 2 \cdot 3
+    \]
+    is a two different factorizations of \(6\) into irreducible elements.
+\end{enumerate}
+\end{Example}
+
+\begin{Theorem}{}[ufdIrredThenPrime]
+    Let \(R\) be a UFD.
+    Then, every irreducible element in \(R\) is prime.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(p \in R\) be irreducible.
+    If \(p \mid ab\), then \(ab = pc\) for some \(c \in R\).
+    Since \(R\) is a UFD, \(a\) or \(b\) has a factor which is
+    an associate of \(p\), i.e., \(p \mid a\) or \(p \mid b\).
+\end{myproof}
+
+\begin{Definition}{Ascending Chain Condition on Principal Ideals}[acc]
+    Let \(R\) be an integral domain.
+    \(R\) is said to satisfy \emph{ascending chain condition on principal ideals} if,
+    for all infinite chains of principal ideals
+    \[
+        (a_1) \subseteq (a_2) \subseteq (a_3) \subseteq \cdots\text{,}
+    \]
+    then there exists \(n \in \NN\) such that \((a_n) = (a_{n+1}) = (a_{n+1}) = \cdots\).
+\end{Definition}
+
+\begin{Theorem}{}[ufdIff]
+    Let \(R\) be an integral domain.
+    \(R\) is a unique factorization domain if and only if
+    \begin{enumerate}[label=(\roman*)]
+        \ii \(R\) satisfies ascending chain condition on principal ideals and
+        \ii if \(p\) is irreducible in \(R\), then \(p\) is prime in \(R\).
+    \end{enumerate}
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{pftfae}[labelwidth=\widthof{(\(\Rightarrow\))}]
+    \ii[(\(\Rightarrow\))]
+    Thanks to \Cref{th:ufdIrredThenPrime}, we only need to check (i).
+
+    Let \((a_1) \subseteq (a_2) \subseteq \cdots\) be an ascending chain of principal ideals.
+    Let \(a_1 = u p_1^{e_1} \cdots p_n^{e_n}\) be an irreducible factorization.
+    There are at most \(e_1 + \cdots + e_n\) strict inclusions.
+    \ii[(\(\Leftarrow\))]
+    Take any nonunit \(r \in R \setminus \{0\}\).
+    We want to find an irreducible factorization of \(r\).
+    If \(r\) is already irreducible, then we are done.
+
+    Assume \(r = r_1 r_1'\) for some nonunit \(r_1, r_1' \in R \setminus \{0\}\)
+    so that \((r) \subsetneq (r_1)\).
+    Continue this to get an ascending chain \((r) \subsetneq (r_1) \subsetneq (r_2) \subseteq \cdots\).
+    Hence, we get an irreducible factor \(r_k\) at some point.
+    % TODO: fix this
+    \qed
+\end{pftfae}
+\end{myclaim}
+
+\begin{Corollary}{}[pidThenUfd]
+    Every principal ideal domain is a unique factorization domain.
+\end{Corollary}
+\begin{myproof}[Proof]
+    By \Cref{th:pidIrredThenPrime}, every irreducible element in \(R\) is prime.
+
+    Let \(I_1 \subseteq I_2 \subseteq \cdots\) be an ascending chain of principal ideals in \(R\).
+    Let \(I \triangleq \bigcup_{i \ge 1} I_i\) so that \(I\) is an ideal in \(R\).
+    Then, as \(R\) is a principal ideal domain, \(I = (c)\) for some \(c \in R\).
+    By definition, \(c \in I_n\) for some \(n \in \ZZ_{>0}\).
+    Hence, \(I = (c) \subseteq I_n \subseteq I_{n+1} \subseteq \cdots \subseteq I = (c)\).
+\end{myproof}
+
+% TODO: Fermat's theorem
+
+\begin{Theorem}{}[]
+    Let \(d \in \ZZ\) be a square-free integer.
+    Every nonzero nonunit element in \(\rqi{\sqrt{d}}\) is a product of irreducible elements.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let
+    \[
+        S \triangleq \{\,\text{nonzero nonunit elements in }\rqi{\sqrt{d}}\text{ that are not a
+        product of irreducible elements}\,\}\text{.}
+    \]
+    Suppose \(S \neq \OO\) for the sake of contradiction and choose \(a \in S\) such that \(|N(a)|\)
+    is minimized.
+    As \(a\) is not irreducible, then \(a = bc\) for some nonunit \(b, c \in R \setminus \{0\}\).
+    If \(b, c \notin S\), then \(b\) and \(c\) are products of irreducible elements;
+    hence \(b \in S\) or \(c \in S\). \WLOG, \(b \in S\). Then, \(|N(b)| < |N(a)|\),
+    which contradicts the choice of \(a\).
+\end{myproof}
+
+\end{document}
