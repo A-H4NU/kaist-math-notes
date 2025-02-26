@@ -1,0 +1,37 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Conditional Probability and Independence}
+
+\begin{Definition}{Conditional Probability}[]
+    Let \(B\) be an event with \(P(B) > 0\).
+    For any event \(A\), we define
+    \[
+        P(A \mid B) \coloneqq \frac{P(A \cap B)}{P(B)}
+    \]
+    and it is called the \emph{probability of \(A\) given \(B\)}.
+\end{Definition}
+
+\begin{Definition}{Independent Events}[]
+\begin{enumerate}[label=(\arabic*)]
+    \ii
+    Two events \(A\) and \(B\) are said to be \emph{indepenent} if
+    \(P(A \cap B) = P(A)P(B)\).
+
+    \ii
+    Let \(\mcal{A}\) be a nonempty family of events.
+    \(\mcal{A}\) is said to be a \emph{family of independent events} if
+    for any finite subfamily \(\lang A_1, \cdots, A_n \rang\) of \(\mcal{A}\),
+    \[
+        P\left( \bigcap_{i=1}^n A_i \right) = \prod_{i=1}^n P(A_i)\text.
+    \]
+\end{enumerate}
+\end{Definition}
+
+\begin{note}
+    When \(P(B) > 0\), \(A\) and \(B\) are indepenent
+    if and only if \(P(A \mid B) = P(A)\).
+\end{note}
+
+\end{document}

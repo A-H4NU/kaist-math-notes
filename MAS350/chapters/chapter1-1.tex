@@ -1,0 +1,114 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Events and Probability}
+
+\begin{Definition}{Probability Space}[]
+    A \emph{probability space} contains of a triple \((\Omega, \mcal{F}, P)\)
+    where
+    \begin{itemize}
+        \ii
+        \(\Omega\) is the sample space,
+        \ii
+        \(\mcal{F} \subseteq 2^{\Omega}\) (each \(A \in \mcal{F}\) is called an \emph{event}), and
+        \ii
+        \(P \colon \mcal{F} \to [0, 1]\) maps each event \(A \in \mcal{F}\) to the \emph{probability} of \(A\)
+    \end{itemize}
+    which satisfies the following conditions:
+    \paragraph*{Axioms Relative to the Events}
+    The family \(\mcal{F}\) of events must be a \(\sigma\)-field on \(\Omega\):
+    \begin{enumerate}[label=(\arabic*)]
+        \ii \(\Omega \in \mcal{F}\);
+        \ii If \(A \in \mcal{F}\), then \(\cmpl A \in \mcal{F}\) (where \(\cmpl A\) is the complement
+        of \(A\));
+        \ii If \(\lang A_n \rang_{n \in \ZZ_+}\) is a sequence on \(\mcal{F}\),
+        then \(\bigcup_{n=1}^\infty A_n \in \mcal{F}\).
+    \end{enumerate}
+    \paragraph*{Axioms Relative to the Probability}
+    The function \(P\) must satisfy the following conditions:
+    \begin{enumerate}[label=(\arabic*)]
+        \ii \(P(\Omega) = 1\);
+        \ii \(\sigma\)-additivity holds: if \(\lang A_n \rang_{n \in \ZZ_+}\) is a sequence of
+        pairwise disjoint events, then
+        \[
+            P\left( \bigcup_{n=1}^\infty A_n \right) = \sum_{n=1}^\infty P(A_n).
+        \]
+    \end{enumerate}
+\end{Definition}
+
+\begin{note}
+    Here are immediate properties of probability:
+    \begin{itemize}
+        \ii \(P(\cmpl A) = 1 - P(A)\);
+        \ii \(\OO = \cmpl\Omega \in \mcal{F}\) and \(P(\OO) = 0\);
+        \ii If \(\lang A_n \rang_{n \in \ZZ_+}\) is a sequence of events, then
+        \(\bigcap_{n=1}^\infty A_n\) is also an event;
+        \ii \(A, B \in \mcal{F}\) and \(A \subseteq B\) implies \(P(A) \le P(B)\).
+    \end{itemize}
+\end{note}
+
+\begin{Lemma}{sub-\(\sigma\)-additivity}[subAdd]
+    If \(\lang A_n \rang_{n \in \ZZ_+}\) is a sequence of events, then
+    \[
+        P\left( \bigcup_{n=1}^\infty A_n \right) \le \sum_{n=1}^\infty P(A_n)\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    Let \(B_n = A_n \setminus \bigcup_{i=1}^{n-1} A_i\)
+    for each \(n \ge 1\) and use \(\sigma\)-additivity.
+\end{myproof}
+
+\begin{Lemma}{Inclusion-Exclusion Principle}[]
+    If \(A_1, \cdots, A_n\) are events, then
+    \[
+        P \left( \bigcup_{i=1}^n A_i \right)
+        = \sum_{\OO \neq I \subseteq [n]} (-1)^{|I| - 1} P \left( \bigcap_{i \in I} A_i
+        \right)\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    Classic.
+\end{myproof}
+
+\begin{Theorem}{Sequential Continuity of Probability}[seqCont]
+    \begin{enumerate}[label=(\arabic*), ref=\protect{\Cref{th:seqCont} (\arabic*)}]
+        \ii\label{itm:seqCont.1}
+        Let \(\lang B_n \rang_{n \in \ZZ_+}\) be a sequence of events such that
+        \(B_n \subseteq B_{n+1}\) for all \(n \ge 1\). Then,
+        \[
+            P\left( \bigcup_{n=1}^\infty B_n \right) = \lim_{n \to \infty} P(B_n)\text.
+        \]
+        \ii\label{itm:seqCont.2}
+        Let \(\lang C_n \rang_{n \in \ZZ_+}\) be a sequence of events such that
+        \(C_n \supseteq C_{n+1}\) for all \(n \ge 1\). Then,
+        \[
+            P\left( \bigcap_{n=1}^\infty C_n \right) = \lim_{n \to \infty} P(C_n)\text.
+        \]
+    \end{enumerate}
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[label=(\arabic*)]
+    \ii
+    Let \(B_n' \coloneqq B_n \setminus B_{n-1}\) for each \(n \ge 2\) and \(B_1' \coloneqq B_1\).
+    so that \(B_m = \bigcup_{n=1}^m B_n'\)
+    and \(B_i'\)'s are pairwise disjoint.
+    Hence, by \(\sigma\)-additivity, we have
+    \[
+        P\left( \bigcup_{n=1}^\infty B_n \right) =
+        P\left( \bigcup_{n=1}^\infty B_n' \right) =
+        \sum_{n=1}^\infty P(B_n') =
+        P(B_1) + \sum_{n=1}^\infty \bigl( P(B_n) - P(B_{n-1}) \bigr) =
+        \lim_{n \to \infty} P(B_n)\text.
+    \]
+    \ii
+    Let \(C_n' \coloneqq \cmpl{C_n}\) for each \(n \ge 1\)
+    so that \(C_n' \subseteq C_{n+1}'\) for all \(n\).
+    Hence, by (1), we have \(P\left( \bigcup_{n=1}^\infty C_n' \right) = \lim_{n \to \infty}
+    P(C_n')\). The result follows from the fact that
+    \(\bigcup_{n=1}^\infty C_n' = \Omega \setminus \bigcap_{n=1}^\infty C_n\).
+    \qed
+\end{enumerate}
+\end{myclaim}
+
+\end{document}

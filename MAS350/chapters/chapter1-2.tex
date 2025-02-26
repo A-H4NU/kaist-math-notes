@@ -1,0 +1,93 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Random Variables and Their Distributions}
+
+\begin{Definition}{Random Variable}[]
+    A \emph{random variable} on \((\Omega, \mcal{F})\) is any mapping \(X \colon \Omega \to \ol{\RR}\)
+    such that for all \(a \in \RR\), \(\{\,X \le a\,\} \triangleq \{\,\omega \in \Omega \mid
+    X(\omega) \le a\,\} \in \mcal{F}\). Here, \(\ol{\RR} = \RR \cup \{\pm\infty\}\).
+
+    \begin{itemize}
+        \ii
+        If \(X\) only takes finite values, \(X\) is called a
+        \emph{real random variable}.
+        \ii
+        If \(X\) only takes only a countable set of values \(\{\,a_n\,\}_{n \in \ZZ_{\ge 0}}\),
+        \(X\) is called a \emph{discrete random variable}.
+    \end{itemize}
+\end{Definition}
+
+\begin{Definition}{Cumulative Distribution Function}[]
+    The \emph{cumulative distribution function} (CDF) of a random variable \(X\) is the function
+    \(F \colon \RR \to [0, 1]\) defined by
+    \[
+        F(x) = P(X \le x) \triangleq P(\{\,X \le x\,\})\text.
+    \]
+\end{Definition}
+
+\begin{Lemma}{}[basicCDF]
+    Let \(F\) be a cumulative distribution function of a random variable \(X\).
+    \begin{enumerate}[label=(\arabic*), ref=\protect{\Cref{lem:basicCDF} (\arabic*)}]
+        \ii
+        \(F\) is monotone increasing.
+        \ii
+        \(F\) is right-continuous.
+        \ii
+        If we define \(F(\infty) \coloneqq \lim_{x\to\infty}F(x)\) and \(F(-\infty) = \lim_{x \to
+        -\infty} F(x)\), then \(1 - F(\infty) = P(X = \infty)\) and \(F(-\infty) = P(X =
+        -\infty)\).
+    \end{enumerate}
+\end{Lemma}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[label=(\arabic*)]
+    \ii
+    Take any \(x, y \in \RR\) with \(x \le y\).
+    Then, \(\{\,X \le x\,\} \subseteq \{\,X \le y\,\}\).
+    Hence, \(F(x) = P(X \le x) \le P(X \le y) \le F(y)\).
+
+    \ii
+    Take any decreasing nonnegative sequence \(\lang \veps_n \rang_{n \in \ZZ_+}\)
+    of real numbers converging to zero and a real number \(x\).
+    Let \(C_n \coloneqq \{\,X \le x + \veps_n \,\}\)
+    so that \(\lang C_n \rang_{n \in \ZZ_+}\) is a decreasing sequence of events.
+    Note also that \(\{\,X \le x\,\} = \bigcap_{n=1}^\infty C_n\)
+    Then, by \ref{itm:seqCont.2},
+    \[
+        F(x) = P(X \le x) = \lim_{n \to \infty} P(X \le x + \veps_n) = \lim_{n \to \infty} F(x +
+        \veps_n)\text.
+    \]
+
+    \ii
+    Let \(B_n \coloneqq \{\,X \le n\,\}\) for each \(n \in \ZZ_+\)
+    so that \(\bigcup_{n=1}^\infty B_n = \{\,X < \infty\,\}\)
+    and \(\lang B_n \rang_{n \in \ZZ_+}\) is an increasing sequence of events.
+    By \ref{itm:seqCont.1},
+    \[
+        1 - P(X = \infty) = P(X < \infty)
+        = P \left( \bigcup_{n=1}^\infty B_n \right)
+        = \lim_{n\to\infty} P(B_n) = \lim_{n\to\infty} F(n) = F(\infty)\text.
+    \]
+    The last equality is due to (1).
+    \qed
+\end{enumerate}
+\end{myclaim}
+
+\begin{Definition}{Probability Density}[]
+    If a real random variable \(X\) admits a cumulative distribution function \(F\) such that
+    \[
+        F(x) = \int_{-\infty}^x f(y) \d y
+    \]
+    for some nonnegative function \(f\), then \(X\) is said to admit the
+    \emph{probability density} \(f\).
+\end{Definition}
+
+\begin{note}
+    Note that the probability density \(f\) satisfies
+    \[
+        \int_{-\infty}^\infty f(y) \d y = 1\text.
+    \]
+\end{note}
+
+\end{document}
