@@ -1,0 +1,29 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Logarithmic ``Functions''}
+
+\begin{Definition}{Logarithmic Function}[]
+    For any \(z \in \CC \setminus \{0\}\),
+    we define \(w = \ln z\) if and only if \(e^w = z\).
+\end{Definition}
+
+\begin{note}
+    How to compute \(\ln z\)?
+    Note that \(z = \abs{z} \cdot e^{i(\Arg z + 2k\pi)}\)
+    for \(k \in \ZZ\).
+    Let \(w = u + iv\) where \(u, v \in \RR\)
+    so that \(e^w = e^u \cdot e^{iv} = \abs{z} \cdot e^{i(\Arg z + 2k\pi)}\).
+    Hence, we have \(u = \ln\abs{z}\) and \(v = \Arg z + 2k\pi\).
+    In other words, \(\ln z = \ln\abs{z} + i\arg z\). (Note that this is not a ``function''!)
+\end{note}
+
+
+\begin{Definition}{Principal Logarithmic Function}[]
+    For any \(z \in \CC \setminus \{0\}\),
+    we define \(\Ln z \coloneqq \ln\abs{z} + i \Arg z\)
+    and it is called the \emph{principal value of \(\ln z\)}.
+\end{Definition}
+
+\end{document}

@@ -1,0 +1,112 @@
+%! TEX TS-program = lualatex
+\documentclass[a4paper,12pt]{report}
+\usepackage{subfiles}
+\usepackage{calc}
+
+\usepackage{preamble}
+\usepackage{macros}
+\usepackage{letterfonts}
+
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.18}
+\iftrue
+\pgfplotsset{
+    axis lines=middle,
+    xlabel=$x$,
+    ylabel=$y$,
+    no markers,
+    samples=200,
+    trig format plots=rad,
+    every axis plot/.append style={
+        line width=.7pt,
+        % smooth,
+    },
+}
+\fi
+\usepgfplotslibrary{fillbetween}
+\pgfmathsetmacro{\PI}{3.141592654}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdftitle={Complex Variables I},
+    pdfpagemode=FullScreen,
+}
+
+\usetikzlibrary{arrows.meta, positioning, decorations, decorations.markings}
+
+\let\dom\relax
+\DeclareMathOperator{\dom}{dom}
+\let\ran\relax
+\DeclareMathOperator{\ran}{ran}
+\let\char\relax
+\newcommand{\char}{\mathrel{\textrm{char}}}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Ln}{Ln}
+
+% for index
+\DeclareMathSymbol{:}{\mathord}{operators}{"3A}
+% \setlength{\emergencystretch}{10pt}
+
+\begin{document}
+
+% NOTE: This should not be commented out for the final product.
+% The usage of memoize may corrupt some tcb boxes;
+% this is only for fast compilation.
+% \mmzset{disable}
+
+\begin{titlepage}
+	\raggedleft
+
+	\rule{1pt}{\textheight}
+	\hspace{0.05\textwidth}
+	\parbox[b]{0.75\textwidth}{
+
+        {\Huge\bfseries Summary for\\[0.5\baselineskip] Complex Variables \rom{1}}\\[2\baselineskip]
+		\\[4\baselineskip]
+		{\Large\textsc{seungwoo han}}
+
+		\vspace{0.5\textheight}
+
+        % {\noindent
+        % David S. Dummit, Richard M. Foote.
+        % \textit{Abstract Algebra}. \newline
+        % 3rd ed., Wiley, 2003.}
+	}
+\end{titlepage}
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\hypersetup{
+    linkcolor=Maroon,
+    filecolor=black,
+    urlcolor=Maroon,
+}
+\pagebreak
+
+% \tcbstartdraftmode
+
+\chapter{Preliminaries}
+\subfile{chapters/chapter1-1.tex}
+\subfile{chapters/chapter1-2.tex}
+\subfile{chapters/chapter1-3.tex}
+
+\chapter{Elementary Complex Functions}
+\subfile{chapters/chapter2-1.tex}
+\subfile{chapters/chapter2-2.tex}
+\subfile{chapters/chapter2-3.tex}
+
+\chapter{Analytic Functions}
+
+\chapter{Complex Integration}
+
+\chapter{Conformal Mapping}
+
+\vfill
+\begin{center}
+    \textbf{\textit{End.}}
+\end{center}
+
+\end{document}

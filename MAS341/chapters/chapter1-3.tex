@@ -1,0 +1,31 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Polar Representation}
+
+Given \(z \in \CC\), \(\abs{z}\) is unique.
+\(\arg z = \theta + 2k \pi\) (\(k \in \ZZ\))
+(Or \(\arg z = \theta \pmod{2\pi}\))
+
+\begin{Definition}{}[]
+    If \(z = |z| \cdot (\cos\theta+i\sin\theta)\), \(\theta\) is called an \emph{argument} of \(z\)
+    and is written \(\arg z = \theta \pmod{2\pi}\) (as \(\theta + 2k\pi\) for \(k \in \ZZ\)
+    is an argument of \(z\) as well).
+    If \(\arg z = \theta^\ast \pmod{2\pi}\), and if \(-\pi < \theta^\ast \le \pi\), then we define
+    \(\Arg z = \theta^\ast\) and it is called the \emph{principal argument} of \(z\).
+\end{Definition}
+
+\begin{Theorem}{}[]
+    For \(z_1, z_2 \in \CC\) with \(z_1, z_2 \neq 0\),
+    \(\arg z_1z_2 = \arg z_1 + \arg z_2 \pmod{2\pi}\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(\arg z_1 = \theta_1 \pmod{2\pi}\) and \(\arg z_2 = \theta_2 \pmod{2\pi}\)
+    Then, \(z_1 = \abs{z_1} (\cos\theta_1 + i \sin\theta_1)\)
+    and \(z_2 = \abs{z_2} (\cos\theta_2 + i \sin\theta_2)\).
+    Now, we have \(z_1 \cdot z_2 = \abs{z_1}\abs{z_2} \bigl( \cos(\theta_1+\theta_2)+i
+    \sin(\theta_1+\theta_2) \bigr)\).
+\end{myproof}
+
+\end{document}

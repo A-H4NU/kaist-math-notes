@@ -1,0 +1,57 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Exponential Functions}
+
+\begin{Definition}{Exponential Function}[]
+    For each \(z = x + iy\) where \(x, y \in \RR\), we define
+    \(e^z \coloneqq e^x \cdot (\cos y + i \sin y)\).
+\end{Definition}
+
+\begin{Theorem}{}[]
+    For each \(z \in \CC\), \(e^z = \sum_{j=1}^\infty \frac{z^j}{j!}\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Proved later using complex integral.
+\end{myproof}
+
+\begin{Theorem}{}[basicExpo]
+    For each \(z, z' \in \CC\),
+    \begin{enumerate}[label=(\alph*)]
+        \ii \(e^{z+z'} = e^z \cdot e^{z'}\),
+        \ii \(e^{-z} = \frac{1}{e^z}\), and
+        \ii \(e^{z+2k\pi i} = e^z\) for all \(k \in \ZZ\).
+    \end{enumerate}
+\end{Theorem}
+
+\begin{Definition}{}[]
+    For each \(z \in \CC\),
+    \begin{enumerate}[label=(\arabic*)]
+        \ii \(\cos z \coloneqq \frac{e^{iz}+e^{-iz}}{2}\)
+        \ii \(\sin z \coloneqq \frac{e^{iz}-e^{-iz}}{2i}\)
+        \ii \(\cosh z = \frac{e^z + e^{-z}}{2}\)
+        \ii \(\sinh z = \frac{e^z - e^{-z}}{2}\)
+    \end{enumerate}
+\end{Definition}
+
+\begin{Theorem}{}[]
+    For each \(z \in \CC\), we have \(\cosh z = \cos(iz)\)
+    and \(\sinh z = -i \sin(iz)\).
+\end{Theorem}
+
+\begin{Example}{}[]
+    Let us solve \(\cos z = 2\).
+    Let \(t \coloneqq e^{iz}\) to obtain \(t^2 - 4t + 1 = 0\),
+    which gives \(t = 2 \pm \sqrt{3}\).
+    Write \(z = x + iy\) where \(x, y \in \RR\)
+    to have \(e^{ix} e^{-y} = 2 \pm\sqrt{3}\).
+    Taking modulus to both sides gives \(e^{-y} = 2 \pm \sqrt{3}\),
+    i.e., \(y = -\ln (2 \pm \sqrt{3})\).
+    Taking argument to both sides gives \(x = 2k\pi\)
+    for \(k \in \ZZ\).
+    Thus, \(z = 2k\pi - i \ln(2\pm\sqrt{3})\)
+    for \(k \in \ZZ\).
+\end{Example}
+
+\end{document}

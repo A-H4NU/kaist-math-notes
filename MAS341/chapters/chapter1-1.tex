@@ -1,0 +1,39 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Complex Plane}
+
+\begin{Definition}{Complex Number}[]
+    \(i \coloneqq \sqrt{-1}\)
+    is called the \emph{imaginary unit}.
+    \(\CC \coloneqq \{\,x + iy \mid x, y \in \RR\,\}\) is the set of complex numbers
+    where \(\RR\) is the set of real numbers.
+\end{Definition}
+
+\begin{Definition}{Algebras of \(\CC\)}[]
+    For \(z_k \coloneqq x_k + iy_k\) where \(k \in \ZZ_+\) and \(x_k, y_k \in \RR\),
+    \begin{itemize}
+        \ii \(z_1 + z_2 \coloneqq (x_1 + x_2) + i(y_1 + y_2)\)
+        \ii \(z_1 \cdot z_2 \coloneqq (x_1x_2-y_1y_2)+i(x_1y_2+x_2y_1)\).
+    \end{itemize}
+\end{Definition}
+
+\begin{Theorem}{}[]
+    \(\CC\) is a field.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Trivial.
+\end{myproof}
+
+\begin{note}
+    \(z = a + ib\), \(a, b \in \RR\) with \(z \neq 0\).
+    Then, \(z\inv = \frac{1}{a+ib} = \frac{a-ib}{a^2+b^2}\).
+\end{note}
+
+% \begin{Definition}{Conjugation}[]
+%     For \(z = a+ib\), define \(\ol{z} \coloneqq a-ib\).
+% \end{Definition}
+
+
+\end{document}
