@@ -1,0 +1,74 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Cauchy--Riemann Equation}
+
+\begin{Definition}{Continuity}[]
+    For a fixed point \(z_0 \in \CC\), a function
+    \(f\) is said to be continuous at \(z_0\) if
+    \[
+        \lim_{\abs{z-z_0} \to 0} \abs{f(z)-f(z_0)} = 0\text.
+    \]
+\end{Definition}
+
+\begin{Definition}{Differentiability}[]
+    For a fixed point \(z_0 \in \CC\), a function
+    \(f\) is said to be \emph{continuous at \(z_0\)} if
+    \[
+        \lim_{\substack{|\omega| \to 0 \\ \omega \in \CC}} \frac{f(z_0+\omega) - f(z_0)}{\omega}
+    \]
+    exists. If \(f\) is differentiable at \(z_0\), then define the \emph{derivative} of \(f\) at
+    \(z_0\) by
+    \[
+        f'(z_0) \coloneqq \lim_{\substack{|\omega| \to 0 \\ \omega \in \CC}} \frac{f(z_0+\omega) -
+        f(z_0)}{\omega}\text.
+    \]
+\end{Definition}
+
+\begin{Example}{}[]
+    For each \(n \in \NN\), one can derive that \(f'(z) = nz^{n-1}\) where \(f(z) = z^n\).
+\end{Example}
+
+\begin{Theorem}{}[]
+    If \(f\) is differentiable at \(z_0\), then it is continuous at \(z_0\).
+\end{Theorem}
+
+\begin{Example}{}[]
+    Let us determine differentiability of \(f(z) = |z|^2\).
+    Write \(z = x+iy\) and \(\omega = p+iq\) for \(x,y,p,q\in\RR\).
+    Then,
+    \[
+        \frac{f(z+\omega)-f(z)}{\omega} = \frac{2(xp+yq)+|\omega|^2}{\omega}
+    \]
+    As we know \(\lim_{\omega \to 0} \frac{|\omega|^2}{\omega} = 0\), we only need to care if
+    \(\lim_{\omega \to 0} \frac{2(xp+yq)}{p+iq}\).
+    Evaluating the limit along the real axis and the imaginary axis gives \(2x\) and \(-2yi\);
+    hence \(f\) is not differentiable at \(z \in \CC \setminus \{0\}\).
+    At the origin, we have \(f'(0) = \lim_{\omega \to 0} \frac{f(0+\omega)-f(0)}{\omega} = 0\).
+\end{Example}
+
+\begin{Theorem}{}[]
+    Product, quotient, chain rule still holds in complex derivative.
+    % TODO: Maybe list those derivative rules?
+\end{Theorem}
+
+\begin{Theorem}{Cauchy--Riemann Equation}[crEq]
+    \(f\) is differentiable at \(z\) if and only if \(f_y(z) = if_x(z)\) at \(z\),
+    or equivalently,
+    \[
+        \left\{\begin{aligned}[c]
+                u_x &= v_y \\
+                u_y &= -v_x
+        \end{aligned}\right.
+    \]
+    where \(f(x+iy) = u(x,y) + iv(x,y)\).
+\end{Theorem}
+
+\begin{Example}{}[]
+    \(f(z)= e^x(\cos y + i \sin y)\).
+    \(u(x,y) = e^x \cos y\) and \(v(x,y)=e^x \sin y\) satisfy the Cauchy--Riemann equation
+    for all \(z\); hence it is differentiable everywhere.
+\end{Example}
+
+\end{document}
