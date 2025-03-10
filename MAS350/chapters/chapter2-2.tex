@@ -1,0 +1,89 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Expectation}
+
+\begin{Definition}{Expectation of Discrete Random Variable}[expDRV]
+    Let \(X\) be a random element taking its values in \(E\),
+    and let \(f \colon E \to \RR\) be a function such that
+    \begin{equation}\label{eq:expAssum}
+        \sum_{x \in E} |f(x)| p(x) < \infty\text.
+    \end{equation}
+    One then defines the \emph{expectation} of \(f(X)\), denoted
+    \(\mbb{E}[f(X)]\), by
+    \[
+        \mbb{E}[f(X)] \coloneqq \sum_{x \in E} f(x) p(x)\text.
+    \]
+\end{Definition}
+
+\nt{%
+    If \eqref{eq:expAssum} is satisfied, \(\mbb{E}[f(X)]\) is well-defined
+    and finite.
+    If \eqref{eq:expAssum} is not satisfied and \(f\) is nonnegative,
+    then \(\mbb{E}[f(X)]\) is well-defined but can be infinite.
+    Otherwise, \(\mbb{E}[f(X)]\) may not be well-defined.
+}
+
+\nt{%
+    \Cref{dfn:expDRV} easily extends to \(f \colon E \to \CC\)
+    with the same condition. Writing \(f = g + ih\),
+    \eqref{eq:expAssum} is equivalent to
+    \[
+        \sum_{x \in E} |g(x)|p(x) < \infty\quad\text{and}\quad
+        \sum_{x \in E} |h(x)|p(x) < \infty\text.
+    \]
+}
+
+\nt{%
+    Some properties of expectation:
+    \begin{itemize}
+        \ii
+        \emph{Linearity}.
+        \(\mbb{E}[\lambda_1 f_1(X) + \lambda_2 f_2(X)] = \lambda_1 \mbb{E}[f_1(X)] + \lambda_2
+        \mbb{E}[f_2(X)]\).
+        \ii
+        \emph{Monotonicity}.
+        If \(\fall x \in E,\:f_1(x) \le f_2(x)\), then
+        \(\mbb{E}[f_1(X)] \le \mbb{E}[f_2(X)]\).
+        \ii
+        \(|\mbb{E}[f(X)]| \le \mbb{E}[|f(X)|]\).
+        \ii
+        Let \(C \subseteq E\) and let \(I_C\) be the \emph{indicator function}
+        of \(C\) defined by
+        \[
+            I_C(x) \coloneqq \begin{cases}
+                1 & \text{if }x \in C \\
+                0 & \text{otherwise.}
+            \end{cases}
+        \]
+        Then, \(\mbb{E}[I_C(X)] = \sum_{x \in E} I_C(x)p(x) = \sum_{x \in C}p(x)
+        = \sum_{x \in C}P(X = x) = P \bigl( \bigcup_{x \in C} \{\,X=x\,\} \bigr)\).
+
+        \ii
+        Let \((\Omega, \mcal{F}, P)\) be a probability space and let \(A \in \mcal{F}\).
+        Defining the indicator function \(I_A \colon \Omega \to \{0,1\}\) for \(A\),
+        \(I_A\) is clearly a discrete random variable taking values on \(\{0,1\}\).
+        We have \(\mbb{E}[I_A] = P(A)\).
+    \end{itemize}
+}
+
+\begin{Theorem}{Markov's Inequality}[markov]
+    Let \(f \colon E \to \RR\) satisfy \eqref{eq:expAssum}.
+    Then, for \(a > 0\), we have
+    \[
+        P(|f(X)| \ge a) \le \frac{\mbb{E}[|f(X)|]}{a}\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(C \coloneqq \{\,x \in E \mid |f(x)| \ge a\,\} \subseteq E\).
+    Then, \(|f(x)| \ge |f(x)| I_C(x)\) and thus
+    \begin{align*}
+        \mbb{E}[|f(X)|]
+        &\ge \mbb{E}[|f(x)| I_C(x)] \\
+        &\ge \mbb{E}[aI_C(X)] \\
+        &= a\mbb{E}[I_C(X)] = aP(|f(X)| \ge a)\text. \qedhere
+    \end{align*}
+\end{myproof}
+
+\end{document}

@@ -54,7 +54,7 @@
 \end{Theorem}
 
 \begin{Theorem}{Cauchy--Riemann Equation}[crEq]
-    \(f\) is differentiable at \(z\) if and only if \(f_y(z) = if_x(z)\) at \(z\),
+    If \(f\) is differentiable at \(z\), then \(f_y(z) = if_x(z)\) at \(z\),
     or equivalently,
     \[
         \left\{\begin{aligned}[c]
@@ -62,13 +62,104 @@
                 u_y &= -v_x
         \end{aligned}\right.
     \]
-    where \(f(x+iy) = u(x,y) + iv(x,y)\).
+    where \(u(x, y) \coloneqq \Re f(x+iy)\) and \(v(x, y) \coloneqq \Im f(x+iy)\)
+    for \(x, y \in \RR\).
 \end{Theorem}
+\begin{myproof}[Proof]
+    \(\displaystyle f_x(z) = \lim_{\xi \to 0} \frac{f(z + \xi) - f(z)}{\xi} = f'(z)\) and
+    \(\displaystyle -if_y(z) = \lim_{\eta \to 0} \frac{f(z + i\eta) - f(z)}{i\eta} = f'(z)\).
+\end{myproof}
 
 \begin{Example}{}[]
-    \(f(z)= e^x(\cos y + i \sin y)\).
-    \(u(x,y) = e^x \cos y\) and \(v(x,y)=e^x \sin y\) satisfy the Cauchy--Riemann equation
-    for all \(z\); hence it is differentiable everywhere.
+    Is \(e^z\) differentiable in \(\CC\)?
+    \begin{align*}
+        \lim_{h \to 0} \frac{e^h - 1}{h}
+        &= \lim_{(\xi,\eta) \to 0} \frac{(e^\xi - 1) e^{i\eta} + (e^{i\eta} - 1)}{\xi+i\eta} \\
+    \end{align*}
+    % TODO: Fill the detail here.
 \end{Example}
+
+\nt{%
+    We may write \(f(z) = u \left( \frac{z+\ol{z}}{2}, \frac{z-\ol{z}}{2i} \right) + iv \left(
+    \frac{z+\ol{z}}{2}, \frac{z-\ol{z}}{2i} \right)\).
+    If \(f\) is differentiable, we \emph{define}
+    \begin{align*}
+        \frac{\partial f}{\partial z} &\coloneqq
+        \left( \frac{1}{2}\partial_x + \frac{1}{2i} \partial_y \right) u
+        + i \left( \frac{1}{2} \partial_x + \frac{1}{2i} \partial_y \right) v
+        = \left( \frac{1}{2} \partial_x + \frac{1}{2i} \partial_y \right) f \\
+        \frac{\partial f}{\partial \ol{z}} &\coloneqq
+        \left( \frac{1}{2}\partial_x - \frac{1}{2i} \partial_y \right) u
+        + i \left( \frac{1}{2} \partial_x - \frac{1}{2i} \partial_y \right) v
+        = \left( \frac{1}{2} \partial_x - \frac{1}{2i} \partial_y \right) f\text.
+    \end{align*}
+    So that \(\frac{\partial f}{\partial\ol{z}} = \frac{1}{2}(\partial_x + i\partial_y)f = 0\)
+    if \(f\) is differentiable.
+}
+
+\begin{Definition}{Domain}[]
+    A domain is an open and connected subset of \(\CC\).
+\end{Definition}
+
+\begin{Theorem}{}[domainPolyline]
+    Any two points in a domain can be connected by polygonal lines
+    parallel to the coordinate axes
+    that lies in the domain.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(D\) be a domain and let \(z_0 \in D\).
+    Let \(A \subseteq D\) be the set of all points in \(D\)
+    that can be connected from \(z_0\) by polygonal lines parallel to the coordinate axes.
+    Let \(B \coloneqq D \setminus A\).
+    If \(z \in A\) and \(r > 0\) satisfy \(B_r(z) \subseteq D\), then
+    \(B_r(z) \subseteq A\); hence \(A\) is open.
+    Similarly, \(B\) is open as well.
+    As \(D\) is connected, \(A\) or \(B\) is empty but \(z_0 \in A\); hence, \(B = \OO\).
+\end{myproof}
+
+\begin{Theorem}{}[diffZero]
+    If \(f'(z) \equiv 0\) in a domain \(D\), then \(f\) is constant on \(D\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    \(f_x \equiv f_y \equiv 0\); hence \(u_x \equiv v_x \equiv u_y \equiv u_x \equiv 0\) on \(D\).
+    Thus, \(f\) is contant on every line segment in \(D\) parallel to coordinate axes.
+    Hence, \(f\) is constant on \(D\).
+\end{myproof}
+
+\begin{Corollary}{}[diffConst]
+    Let \(f\) be differentiable on a domain \(D\).
+    \begin{enumerate}[label=(\arabic*), ref=\protect{\Cref{th:diffConst} (\arabic*)}]
+        \ii\label{itm:diffConst.1}
+        If \(\Re f(z)\) is constant on \(D\), then \(f\) is constant on \(D\).
+        \ii\label{itm:diffConst.2}
+        If \(\Im f(z)\) is constant on \(D\), then \(f\) is constant on \(D\).
+        \ii\label{itm:diffConst.3}
+        If \(\Arg f(z)\) is constant on \(D\), then \(f\) is constant on \(D\).
+    \end{enumerate}
+\end{Corollary}
+\begin{myclaim}[Proof]\hfill
+\begin{enumerate}[label=(\arabic*)]
+    \ii
+    There is \(\omega_0 \in \CC\) such that, when \(g\) is defined by \(g(z) \triangleq f(z) -
+    \omega_0\), we have \(\Re g(z) \equiv 0\) and \(g\) is differentiable on \(D\).
+    \[
+        \lim_{\xi \to 0} \frac{f(z + \xi) - f(z)}{\xi} = f'(z)
+        = \lim_{\eta \to 0} \frac{f(z + i\eta) - f(z)}{i\eta}
+    \]
+    where the left hand side is real and the right hand side is purely imaginary.
+    Therefore, \(f'(z) = 0\) for all \(z \in D\).
+    The result follows from \Cref{th:diffZero}.
+
+    \ii
+    Let \(g(z) = if(z)\) so that \(g\) is differentiable on \(D\) and \(\Re g(z)\) is constant.
+    Therefore, by (1), \(g\) is constant and thus \(f\) is constant.
+
+    \ii
+    There is \(\omega_0 \in \RR\) such that, when \(g\) is defined by \(g(z) \triangleq f(z)e^{-i\omega_0}\),
+    we have \(\Re g(z)\) is constant and \(g\) is differentiable on \(D\).
+    Tehrefore, by (1), \(g\) is constant and thus \(f\) is constant.
+    \qed
+\end{enumerate}
+\end{myclaim}
 
 \end{document}

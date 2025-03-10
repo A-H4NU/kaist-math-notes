@@ -1,0 +1,58 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Mean and Variance}
+
+\begin{Definition}{Mean and Variance of Discrete Random Variable}[meanVar]
+    If \(X\) is a discrete random variable, the quantities
+    \[
+        m \triangleq \mbb{E}[X]\quad\text{and}\quad
+        \sigma^2 \triangleq \Var[X] \triangleq \mbb{E}[(X - m)^2]
+    \]
+    are called the \emph{mean} and \emph{variance} of \(X\), respectively.
+    The quantity \(\sigma \triangleq \sqrt{\sigma^2}\) is called the
+    \emph{standard deviation} of \(X\).
+\end{Definition}
+
+\begin{note}
+    Some properties of mean and variance:
+    \begin{itemize}
+        \ii
+        \(\Var[aX] = a^2 \Var[X]\).
+        \ii
+        \(\sigma^2 = 0\) implies that
+        \(p(x) = 0\) for all \(x \neq m\).
+        \ii
+        If \(X_1, \cdots, X_n\) are independent discrete random variables,
+        then \(\Var \bigl[ \sum_{i=1}^n X_i \bigr] = \sum_{i=1}^n \Var[X_i]\).
+    \end{itemize}
+\end{note}
+
+\begin{Theorem}{Chebyshev's Inequality}[chebyshev]
+    Let \(X\) be a discrete random variable. Then,
+    for any \(\veps > 0\), we have
+    \[
+        P(|X-m| \ge \veps) \le \frac{\sigma^2}{\veps^2}\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    Apply \nameref{th:markov} to \(X\) with \(f(x) = (x-m)^2\) and \(a = \veps^2\) to get
+    \begin{align*}
+        P(|X-m| \ge \veps)
+        &= P((X-m)^2 \ge \veps^2) \\
+        &\le \frac{\mbb{E}[|X-m|^2]}{\veps^2}
+        = \frac{\sigma^2}{\veps^2}\text. \qedhere
+    \end{align*}
+\end{myproof}
+
+\begin{Theorem}{Weak Law of Large Numbers}[wlln]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of discrete random variables,
+    identically distributed with common mean \(m\) and common variance \(\sigma^2\).
+\end{Theorem}
+
+% TODO: Two exercises from lecture note.
+
+
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Analyticity}
+
+\begin{Definition}{Analytic Function}[]
+\begin{itemize}
+    \ii
+    For a fixed point \(z_0 \in \CC\),
+    a function \(f\) is \emph{analytic} at \(z_0\)
+    if there is some \(r > 0\) such that
+    \(f\) is differentiable at every point in
+    \(B_r(z_0) \triangleq \{\,z \in \CC \colon |z - z_0| < r\,\}\).
+
+    \ii
+    A function \(f\) is \emph{analytic in domain \(D\)}
+    if it is analytic at \(z\) for all \(z \in D\).
+
+    \ii
+    A function \(f\) is \emph{entire} if it is analytic in \(\CC\).
+\end{itemize}
+\end{Definition}
+
+\begin{Theorem}{}[]
+    Given a function \(f(z) = u(x,y)+iv(x,y)\) in domain \(D\), if
+    \begin{enumerate}[label=(\arabic*)]
+        \ii \(u(x, y)\) and \(v(x, y)\) are \(C^1\) in \(D\), and if
+        \ii \(u(x,y)\) and \(v(x,y)\) satisfy the Cauchy--Riemann equations in \(D\),
+    \end{enumerate}
+    then \(f\) is analytic in \(D\).
+\end{Theorem}
+
+\end{document}

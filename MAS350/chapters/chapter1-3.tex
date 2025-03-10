@@ -34,4 +34,67 @@
     if and only if \(P(A \mid B) = P(A)\).
 \end{note}
 
+\begin{Definition}{Independent Random Variables}[]
+    Two random variables \(X\) and \(Y\) defined on \((\Omega, \mcal{F}, P)\) are said to be
+    \emph{independent}
+    if
+    \[
+        \fall a, b \in \RR,\: P(X \le a, Y \le b) = P(X \le a) P(Y \le a)\text.
+    \]
+    A family \(\mcal{X}\) of random variables is said to be \emph{independent}
+    if, for any finite subfamily \(\{\, X_1, \cdots, X_n \,\} \subseteq \mcal{X}\),
+    and for any \(a_1, \cdots, a_n \in \RR\), we have
+    \[
+        P(X_1 \le a_1, \cdots, X_n \le a_n) = \prod_{i=1}^n P(X_i \le a_i)\text.
+    \]
+\end{Definition}
+
+\begin{note}
+    If \(X\) and \(Y\) takes values \(\lang a_n \rang_{n \in \ZZ_+}\)
+    and \(\lang b_n \rang_{n \in \ZZ_+}\), respectively,
+    then \(X\) and \(Y\) are independent if and only if
+    \[
+        P(X = a_i, Y = b_j) = P(X = a_i) P(Y = b_j)
+    \]
+    for all \(i, j \in \ZZ_+\). It is analogous to family of discrete random variables.
+\end{note}
+
+\begin{Lemma}{Bayes' Retrodiction Formula}[bayesRet]
+    If \(A\) and \(B\) are events of positive probability, then
+    \[
+        P(B \mid A) = \frac{P(A \mid B) P(B)}{P(A)}\text.
+    \]
+\end{Lemma}
+
+\begin{Lemma}{Bayes' Sequential Formula}[bayesSeq]
+    Let \(A_1, \cdots, A_n\) be events such that \(P(A_1 \cap \cdots \cap A_n) > 0\). Then,
+    \[
+        P(A_1 \cap \cdots \cap A_n) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1 \cap A_2) \cdots P(A_n
+        \mid A_1 \cap \cdots \cap A_{n-1})\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    Mathematical induction.
+\end{myproof}
+
+\begin{Lemma}{Law of Total Probability}[totProb]
+    Let \(A\) be an event, and let \(\lang B_n \rang_{n \in \ZZ_{>0}}\) be an exaustive sequence of
+    events. In other words, \(\bigcup_{n=1}^\infty B_n = \Omega\)
+    and \(B_i \cap B_j = \OO\) for all \(1 \le i < j\). Then, we have
+    \[
+        P(A) = \sum_{n=1}^\infty P(A \mid B_n) P(B_n)
+    \]
+    where we agree to have \(P(A \mid B_n) P(B_n) = 0\) when \(P(B_n) = 0\).
+    Moreover, for all \(m \in \ZZ_{>0}\), we have
+    \[
+        P(B_m \mid A) = \frac{P(A \mid B_m) P(B_m)}{\sum_{n=1}^\infty P(A \mid B_n) P(B_n)}
+    \]
+    if \(P(A) > 0\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    \(A = A \cap \Omega = A \cap \bigl( \bigcup_{n=1}^\infty B_n \bigr) = \bigcup_{n=1}^\infty (A
+    \cap B_n)\). Apply \(\sigma\)-additivity to obtain the result.
+    Note that \(P(A \cap B_n) = P(A \mid B_n) P(B_n)\) always according to our convention.
+\end{myproof}
+
 \end{document}

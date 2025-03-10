@@ -1,0 +1,34 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Counting and Probability}
+
+If \(\Omega\) is finite and we let \(p(\omega) \coloneqq P(\{\omega\})\)
+with equal probabilities, then we must have
+\(P(A) = (\card A)/(\card \Omega)\) for all \(A \subseteq \Omega\).
+Hence, we should \emph{count}.
+
+\begin{Example}{}[]
+\begin{itemize}
+    \ii
+    The number of injections from \(E\) to \(F\)
+    with \(p = \card(E)\) and \(n = \card(F)\) when \(p \le n\) is
+    \(A_p^n = \frac{n!}{(n-p)!}\).
+    \ii
+    In particular, if \(p = n\), we have \(A_n^n\),
+    the number of permutations of \(n\) elements, which is \(n!\).
+    \ii
+    The number of subsets of \(F\) with \(p\) elements is
+    \(\binom{n}{p} = \frac{n!}{p!(n-p)!}\).
+    \ii (Binomial formula)
+    \((x+y)^n = \sum_{p=0}^n x^p y^{n-p}\).
+    \(2^n = \sum_{p=0}^n \binom{n}{p}\).
+    \ii \(\binom{n}{p} = \binom{n}{n-p}\).
+    \ii (Pascal's formula) \(\binom{n}{p} = \binom{n-1}{p-1} + \binom{n-1}{p}\).
+\end{itemize}
+\end{Example}
+
+\end{document}
+
+

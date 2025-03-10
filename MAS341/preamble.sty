@@ -238,16 +238,16 @@
 
 \newtcolorbox{Theoremcon}
 {%
-	enhanced
-	,breakable
-	,colback = mytheorembg
-	,frame hidden
-	,boxrule = 0sp
-	,borderline west = {2pt}{0pt}{mytheoremfr}
-	,sharp corners
-	,description font = \mdseries
-	,separator sign={\enspace}
-    ,drop fuzzy shadow
+	enhanced,
+	breakable,
+	colback = mytheorembg,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{mytheoremfr},
+	sharp corners,
+	description font = \mdseries,
+	separator sign={\enspace},
+    drop fuzzy shadow,
 }
 
 %================================
@@ -255,52 +255,52 @@
 %================================
 \newtcbtheorem[number within=section,use counter from=Theorem@,Crefname={Corollary}{Corollaries}]{Corollary@}{Corollary}
 {%
-	enhanced
-	,breakable
-	,colback = mycorollarybg
-	,frame hidden
-	,boxrule = 0sp
-	,borderline west = {2pt}{0pt}{mycorollaryfr}
-	,sharp corners
-	,detach title
+	enhanced,
+	breakable,
+	colback = mycorollarybg,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{mycorollaryfr},
+	sharp corners,
+	detach title,
 	before upper = {%
         \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}%
         \tcbtitle\par\smallskip%
         \resetparindent\noindent%
     },
-	,coltitle = mycorollaryfr
-	,fonttitle = \bfseries
-	,description font = \mdseries\sffamily
-	,separator sign={\enspace}
-	,segmentation style={solid, mycorollaryfr!85!black}
-    ,drop fuzzy shadow
-    ,label type=theorem
+	coltitle = mycorollaryfr,
+	fonttitle = \bfseries,
+	description font = \mdseries\sffamily,
+	separator sign={\enspace},
+	segmentation style={solid, mycorollaryfr!85!black},
+    drop fuzzy shadow,
+    label type=theorem,
 }
 {cor}
 \NewDocumentEnvironment{Corollary}{ mO{} }{\begin{Corollary@}{\textsf{#1}}{#2}}{\end{Corollary@}}{}{}
 
 \newtcbtheorem[number within=chapter,use counter from=theorem@,Crefname={Corollary}{Corollaries}]{corollary@}{Corollary}
 {%
-	enhanced
-	,breakable
-	,colback = myp!10
-	,frame hidden
-	,boxrule = 0sp
-	,borderline west = {2pt}{0pt}{myp!85!black}
-	,sharp corners
-	,detach title
+	enhanced,
+	breakable,
+	colback = myp!10,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{myp!85!black},
+	sharp corners,
+	detach title,
 	before upper = {%
         \renewcommand\thempfootnote{\fnsymbol{mpfootnote}}%
         \tcbtitle\par\smallskip%
         \resetparindent\noindent%
     },
-	,coltitle = mycorollaryfr
-	,fonttitle = \bfseries
-	,description font = \mdseries\sffamily
-	,separator sign={\enspace}
-	,segmentation style={solid, myp!85!black}
-    ,drop fuzzy shadow
-    ,label type=theorem
+	coltitle = mycorollaryfr,
+	fonttitle = \bfseries,
+	description font = \mdseries\sffamily,
+	separator sign={\enspace},
+	segmentation style={solid, myp!85!black},
+    drop fuzzy shadow,
+    label type=theorem,
 }
 {cor}
 \NewDocumentEnvironment{corollary}{ mO{} }{\begin{corollary@}{\textsf{#1}}{#2}}{\end{corollary@}}{}{}
