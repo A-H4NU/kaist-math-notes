@@ -1,0 +1,112 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Quick Review}
+
+Some review on definitions of convergence, Cauchy sequence, completeness, Euclidean norm,
+Banach space, pointwise and uniform convergence, series.
+
+\begin{Definition}{Power Series}[]
+    Given a complex sequence \(\lang a_n \rang_{n \in \ZZ_{>0}}\),
+    \begin{enumerate}[label=(\roman*)]
+        \ii
+        \(\sum_{n=0}^\infty a_n z^n\) is called a \emph{Maclaurin series}.
+        \ii
+        \(\sum_{n=0}^\infty a_n (z-b)^n\) is called a \emph{Taylor series} centered at \(b\).
+    \end{enumerate}
+\end{Definition}
+
+\begin{Theorem}{}[powerConv]
+    Let \(P(z) = \sum_{n=0}^\infty a_nz^n\).
+    If the series converges at \(z = z_0\), then \(P(z)\) is convergent and analytic in \(B_{|z_0|}(0)\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Note that \(|a_nz^n|\) is bounded, say, by \(M > 0\).
+    Thus, for any \(z\) with \(|z| < |z_0|\),
+    \[
+        \sum_{n=0}^\infty |a_nz^n|
+        = \sum_{n=0}^\infty |a_n| |z_0|^n \left( \frac{|z|}{|z_0|} \right)^n
+        \le M \sum_{n=0}^\infty \left( \frac{|z|}{|z_0|} \right)^n\text;
+    \]
+    hence \(\sum_{n=0}^\infty a_nz^n\) (absolutely) converges.
+    Similarly, fixing \(\veps \in (0, |z_0|)\), for \(0 < n < m\) and \(|z| \le |z_0| - \veps\), we have
+    \[
+        \left| \sum_{j=n+1}^m a_nz^n \right|
+        \le M \sum_{j=n+1}^m \left( \frac{|z|}{|z_0|} \right)^j
+        \le M \sum_{j=n+1}^m \left( 1- \frac{\veps}{|z_0|} \right)^j \to 0
+    \]
+    as \(n, m \to \infty\). Hence, \(P(z)\) uniformly converges on
+    \(D = \{\,z \in \CC \colon |z| \le |z_0| - \veps\,\}\).
+    % TODO: Prove the analyticity.
+
+    We now prove the analyticity.
+    Fix \(z_1\) with \(|z_1| < |z_0|\) and any \(\veps \in \RR_{>0}\).
+    \[
+        L(z) \coloneqq \frac{P(z)-P(z_0)}{z-z_0} - \sum_{n=1}^\infty a_nz^{n-1}\text.
+    \]
+    Take any \(\veps \in \RR_{>0}\).
+    Let \(P_k(z)\) be the \(k\)th partial sum of \(P(z)\).
+    Then, we have
+    \[
+        L(z) = \underbrace{\frac{P_k(z) - P_k(z_1)}{z - z_0} - P_k'(z_1)}_{\mu_k(z)}
+        + \underbrace{\sum_{n=k+1}^\infty a_n \left( \frac{z^n-z_1^n}{z-z_1} - nz_1^{n-1} \right)}_{\omega_k(z)}\text.
+    \]
+    for any \(k\).
+    Now, we have
+    \[
+        |\omega_k(z)|
+        = \left| \sum_{n=k+1}^\infty a_n \left( \sum_{\ell=0}^{n-1}z^{\ell} z_1^{n-1-\ell} - nz_1^{n-1} \right) \right|
+        \le \sum_{n=k+1}^\infty |a_n| \cdot 2n(\max \{z, z_1\})^{n-1}
+    \]
+    % TODO: Fill here
+\end{myproof}
+
+\begin{Corollary}{}[]
+    Let \(P(z) = \sum_{n=0}^\infty a_nz^n\).
+    If the series diverges at \(z = z_0\), then \(P(z)\) is divergent at \(z\) for all \(|z| > |z_0|\).
+\end{Corollary}
+
+\begin{Corollary}{}[]
+    Let \(P(z) = \sum_{n=0}^\infty a_nz^n\).
+    Let
+    \[
+        R \triangleq \sup \left\{\,|z| \colon \sum_{n=0}^\infty |a_n| |z|^n\text{ converges} \right\}\text.
+    \]
+    Then,
+    \begin{enumerate}[label=(\roman*)]
+        \ii \(P(z)\) converges absolutely in \(|z| < R\);
+        \ii \(P(z)\) converges unifomrly in \(|z| \le r\) for \(0 < r < R\);
+        \ii \(P(z)\) diverges for \(|z| > R\).
+    \end{enumerate}
+\end{Corollary}
+
+\begin{Example}{}[]
+    Given a power series \(P(z) = \sum_{n=0}^\infty a_nz^n\),
+    if the radius of the convergence is \(R\), what is the radius of convergence of
+    \[
+        \sum_{n=1}^\infty na_nz^{n-1}\text?
+    \]
+    We have
+    \begin{align*}
+        \limsup_{n\to\infty}\sqrt[n]{n|a_n||z|^{n-1}}
+        &= \limsup_{n \to \infty} \sqrt[n]{n}\sqrt[n]{|a_n|}|z|^{1-1/n} \\
+        &= |z| \limsup_{n \to \infty}\sqrt[n]{|a_n|}\text.
+    \end{align*}
+    Hence, by the root test, the radius of convergence is \(R\).
+\end{Example}
+
+\begin{Corollary}{}[]
+    If \(P(z) = \sum_{n=0}^\infty a_nz^n\) has the radius of convergence \(R > 0\),
+    then
+    \[
+        a_n = \frac{P^{(n)}(0)}{n!}
+    \]
+    for \(n \ge 0\).
+\end{Corollary}
+
+\begin{Corollary}{}[]
+    If \(\sum_{n=0}^\infty a_nz^n = \sum_{n=0}^\infty b_nz^n\) in some open neighborhood of \(0\),
+    then \(a_n = b_n\) for all \(n \ge 0\).
+\end{Corollary}
+\end{document}
