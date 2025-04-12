@@ -1,0 +1,90 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{The Strong Law of Large Numbers}
+
+\begin{Theorem}{Strong Law of Large Numbers}[strongLLN]
+    Let \(\lang X_n \rang_{n\in \ZZ_{>0}}\) be identically distributed random variables.
+    Assume that their mean \(\mu = \mbb{E}[X_1]\) is defined with
+    finite variance \(\sigma^2\).
+    Moreover, assume that they are uncorrelated, i.e.,
+    \[
+        \Cov(X_i, X_j) = \mbb{E}[(X_i-\mu)(X_j-\mu)] = 0
+    \]
+    for all \(i \neq j\). Then, letting \(S_n = \sum_{i=1}^n X_i\),
+    we have
+    \[
+        \frac{S_n}{n} \asconv \mu\quad\text{as}\quad n \to \infty\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    \WLOG, \(\mu = 0\).
+    For each \(m \in \ZZ_{>0}\), let \(Z_m \coloneqq \max_{k=1}^{2m+1} \bigl| \sum_{i=1}^k X_{m^2+i}
+    \bigr|\). Moreover, for each \(n \in \ZZ_{>1}\), let \(m(n)\) be the unique integer such that
+    \[
+        m(n)^2 < n \le [m(n)+1]^2\text.
+    \]
+    Then, we have
+    \[
+        \left| \frac{S_n}{n} \right| \le \left| \frac{S_{m(n)^2}}{m(n)^2} \right|
+        + \frac{Z_{m(n)}}{m(n)^2}
+    \]
+    for all \(n > 1\).
+    Hence, we only need to prove \(\dfrac{S_{m^2}}{m^2} \asconv 0\) and \(\dfrac{Z_{m}}{m^2} \asconv
+    0\) as \(m \to \infty\).
+    \begin{itemize}
+        \ii
+        Fix any \(\veps \in \RR_{>0}\).
+        By \nameref{th:chebyshev}, we have
+        \[
+            P \left(\left|\frac{S_{m^2}}{m^2}\right| \ge \veps\right)
+            \le \frac{\Var(S_{m^2})}{m^4\veps^2} = \frac{\sigma^2}{m^2\veps^2}\text.
+        \]
+        Hence, we have \(\displaystyle \sum_{m=1}^\infty P \left(\left|\frac{S_{m^2}}{m^2}\right|
+        \ge \veps\right) < \infty\).
+        Therefore, by \Cref{cor:asStrat}, \(\dfrac{S_{m^2}}{m^2} \asconv 0\)
+        as \(m \to \infty\).
+
+        \ii
+        Fix any \(\veps \in \RR_{>0}\).
+        Let \(\xi_{m,k} \coloneqq \sum_{i=1}^k X_{m^2+i}\)
+        so that
+        \[
+            \left\{ \frac{Z_m}{m^2} \ge \veps \right\}
+            \subseteq \bigcup_{k=1}^{2m+1} \{|\xi_{m,k}| \ge m^2 k\}
+        \]
+        for each \(m \in \ZZ_{>0}\).
+        Note that \(\mbb{E}[\xi_{m,k}] = 0\) and
+        \(\Var(\xi_{m,k}) = \sum_{i=1}^k \Var(X_{m^2+i}) = k\sigma^2\)
+        as \(X_i\)'s are uncorrelated.
+        Therefore, by \(\sigma\)-subadditivity, we have
+        \begin{alignat*}{2}
+            P \left( \frac{Z_m}{m^2} \ge \veps \right)
+            &\le \sum_{k=1}^{2m+1} P(|\xi_{m,k}| \ge m^2k) &\qquad
+            &\comment{\(\sigma\)-subadditivity} \\
+            &\le \sum_{k=1}^{2m+1} \frac{\Var(\xi_{m,k})}{m^4 k^2}
+            && \comment{\nameref{th:chebyshev}} \\
+            &\le \frac{\sigma^2(2m+1)}{m^4}\text.
+        \end{alignat*}
+        Hence, \(\displaystyle \sum_{m=1}^\infty P \left(\frac{Z_m}{m^2}
+        \ge \veps\right) < \infty\).
+        Therefore, by \Cref{cor:asStrat}, \(\dfrac{Z_m}{m^2} \asconv 0\) as \(m \to \infty\).
+        \qedhere
+    \end{itemize}
+\end{myproof}
+
+\begin{Theorem}{Kolmogorov's Strong Law of Large Numbers}[kolmogorov]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of independent and identically
+    distributed random variables with mean \(\mu\). Then,
+    \[
+        \frac{1}{n}\sum_{i=1}^n X_i \asconv \mu\quad\text{as}\quad n \to \infty\text.
+    \]
+\end{Theorem}
+
+\begin{note}
+    \Cref{th:strongLLN} requires the random varaibles to have finite variance and to be
+    uncorrelated, while \Cref{th:kolmogorov} requires the random varaibles to be independent.
+\end{note}
+
+\end{document}

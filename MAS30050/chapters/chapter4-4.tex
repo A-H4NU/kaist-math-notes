@@ -1,0 +1,67 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Convergence in Law}
+
+\begin{Definition}{Convergence in Law}[convLaw]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\)
+    and \(X\) be real random variables with respective cumulative distribution functions
+    \(\lang F_{X_n} \rang_{n \in \ZZ_{>0}}\) and \(F_X\).
+    One says that \(\lang X_n \rang_{n \in \ZZ_{>0}}\) \emph{converges in law to \(X\)}
+    if
+    \begin{equation}\label{eq:convLaw}
+        \fall x \in \RR,\: \left( \lim_{a \to x^-} F(a) = F(x) \implies
+        \lim_{n \to \infty} F_{X_n}(x) = F_X(x) \right)\text.
+    \end{equation}
+    This is denoted by \(X_n \lawconv X\).
+\end{Definition}
+
+\begin{note}
+    In the definition of convergence in law,
+    the discontinuity points of the cumulative distribution function
+    do not play a spacial part. If \eqref{eq:convLaw} were
+    required to hold without the premise \(\lim\limits_{a \to x^-} F(a) = F(x)\),
+    then defining \(X_n \equiv a + \frac{1}{n}\) and \(X \equiv a\),
+    we could not say that \(X_n \lawconv X\) because \(P(X_n \le a) = 0\)
+    does not converge toward \(P(X \le a) = 1\).
+\end{note}
+
+\begin{Exercise}{}[]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of independent random variables such that
+    \(Z_n \sim U([0,1])\). Define
+    \[
+        Z_n \coloneqq \min \{X_1, \ldots, X_n\}\text.
+    \]
+    Show that \(n Z_n \lawconv X\) where \(X \sim \mcal{E}(1)\).
+\end{Exercise}
+\begin{solution}
+    For \(x \in \RR\), we have
+    \[
+        P( n Z_n \le x ) =
+        \begin{cases}
+            0 & \text{if } x < 0 \\
+            1-\left(1-\dfrac{x}{n}\right)^{n} & \text{if } 0 \le x \le n \\
+            1 & \text{otherwise.}
+        \end{cases}
+    \]
+    Therefore, for every \(x \in \RR_{\ge 0}\),
+    \[
+        \lim_{n \to \infty} P(n Z_n \le x)
+        = \lim_{n \to \infty} \left(1-\left(1-\frac{x}{n}\right)^{n}\right) = 1 - e^{-x}\text,
+    \]
+    which is the cumulative distribution function of \(\mcal{E}(1)\).
+    \qed
+\end{solution}
+
+\begin{Theorem}{Characteristic Function Criterion}[charFunCrit]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\)
+    be real random variables with respective characteristic distribution functions
+    \(\lang \phi_{X_n} \rang_{n \in \ZZ_{>0}}\).
+    If the sequence \(\lang \phi_{X_n} \rang_{n \in \ZZ_{>0}}\) converges
+    pointwise to some function \(\phi \colon \RR \to \CC\)
+    that is continuous at \(0\), then \(\phi\) is a characteristic function
+    of some real random variable \(X\), and moreover, \(X_n \lawconv X\).
+\end{Theorem}
+
+\end{document}

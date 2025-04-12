@@ -1,0 +1,118 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Covariance, Cross-Covariance, and Correlation}
+
+\begin{Definition}{Mean and Covariance Matrix of Random Vector}[meanCov]
+    Let \(X = (X_1, \cdots, X_n)\) be a real random vector of dimension \(n\).
+    Let \(g \colon \RR[n] \to \RR\) be a function. Then,
+    \[
+        \mbb{E}[g(X_1, \cdots, X_n)] =
+        \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} g(x_1, \cdots, x_n) f_X(x_1, \cdots,
+        x_n) \d x_n \cdots \d x_1
+    \]
+    is called the \emph{expectation} of \(g(X_1, \cdots, X_n)\).
+    The \emph{mean} of \(X\) is defined as
+    \[
+        m = \mbb{E}[X] \triangleq \begin{bmatrix}
+            \mbb{E}[X_1] \\ \vdots \\ \mbb{E}[X_2]
+        \end{bmatrix}\text.
+    \]
+    The \emph{covariance matrix} of \(X\) is defined as
+    \[
+        \Gamma = \mbb{E}[(X-m)(X-m)^\msf{T}] \triangleq \begin{bmatrix}
+            \sigma_{11} & \cdots & \sigma_{1n} \\
+            \vdots & \ddots & \vdots \\
+            \sigma_{n1} & \cdots & \sigma_{nn}
+        \end{bmatrix}
+    \]
+    where \(\sigma_{ij} = \mbb{E}[(X_i - m_i)(X_j - m_j)]\).
+\end{Definition}
+
+\begin{note}
+    The covariance matrix \(\Gamma\) is symmetric and positive semi-definite.
+    For any \((u_1, \cdots, u_n) \in \RR[n]\), we have
+    \[
+        u^\msf{T}\Gamma u
+        = \sum_{i=1}^n \sum_{j=1}^n u_i u_j \sigma_{ij}
+        = \mbb{E}\Biggl[ \Biggl( \sum_{i=1}^n u_i(X_i-m_i) \Biggr)^2 \Biggr] \ge 0\text.
+    \]
+\end{note}
+
+\begin{Definition}{Cross-Covariance Matrix}[crossCov]
+    Let \(X = (X_1, \cdots, X_n)\) and \(Y = (Y_1, \cdots, Y_p)\)
+    be two real random vectors. The \emph{cross-covariance matrix} of \(X\) and \(Y\)
+    is defined by
+    \[
+        \Sigma_{XY} \triangleq \mbb{E}[(X-m_X)(Y-m_Y)^\msf{T}]\text.
+    \]
+    \(X\) and \(Y\) are said to be \emph{uncorrelated} if \(\Sigma_{XY} = 0\).
+\end{Definition}
+
+\begin{note}
+    \begin{itemize}
+        \ii
+        In particular, \(\Sigma_{XX} = \Gamma_X\).
+        \ii
+        Obviously, \(\Sigma_{XY} = \Sigma_{YX}^\msf{T}\).
+        \ii
+        Let \(A\) be a \(k \times n\) matrix, \(C\) be a \(\ell \times p\) matrix,
+        and \(b\) and \(d\) be vectors of dimension \(k\) and \(\ell\), respectively.
+        Then,
+        \begin{gather*}
+            m_{AX+b} = Am_X + b \\
+            \shortintertext{and}
+            \Sigma_{AX+b, CY+d} = A \Sigma_{XY} C^\msf{T}\text.
+        \end{gather*}
+        In particular, \(\Gamma_{AX+b} = A\Gamma_X A^\msf{T}\).
+    \end{itemize}
+\end{note}
+
+\begin{Definition}{Characteristic Function of Random Vector}[]
+    Let \(X = (X_1, \cdots, X_n)\) be a random vector
+    that admits a probability density function.
+    is the fuction \(\phi_X \colon \RR^n \to \CC\) defined by
+    \[
+        \phi_X(u_1, \cdots, u_n) = \mbb{E}\left[ e^{iu(X_1+\cdots+X_n)} \right]\text.
+    \]
+\end{Definition}
+
+\begin{note}
+    We have
+    \begin{multline*}
+        \quad\frac{\partial^k}{\partial^{k_1} u_1 \cdots \partial^{k_n}u_n} \phi_X(u_1, \cdots, u_n) \\
+        = \int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty}
+        i^k x_1^{k_1} \cdots x_n^{k_n} e^{i(u_1 x_1 + \cdots + u_n x_n)}
+        f_X(x_1, \cdots, x_n) \d x_n \cdots \d x_1\quad
+    \end{multline*}
+    where \(k = k_1 + \cdots + k_n\). Hence,
+    \[
+        \frac{\partial^k}{\partial^{k_1} u_1 \cdots \partial^{k_n}u_n} \phi_X(0, \cdots, 0)
+        = i^k \mbb{E}\bigl[X_1^{k_1} \cdots X_n^{k_n}\bigr]\text.
+    \]
+    This will be justified in the advanced cources and is valid whenever
+    \[
+        \mbb{E}\bigl[|X_1|^{k_1} \cdots |X_n|^{k_n}\bigr] < \infty\text.
+    \]
+\end{note}
+
+\begin{Exercise}{}[]
+    Compute \(\mbb{E}[X^n]\) when \(X \sim \mcal{E}(\lambda)\).
+\end{Exercise}
+\begin{solution}
+    We have
+    \[
+        \phi_X(u) = \mbb{E}[e^{iuX}] = \int_0^\infty e^{iu x} \lambda e^{-\lambda x} \d x
+        = \lambda \int_0^\infty e^{(iu-\lambda)x} \d x
+        = \frac{\lambda}{\lambda-iu}\text.
+    \]
+    Then, we have
+    \[
+        \frac{\mrm{d}^n}{\mrm{d}^n u}\phi_X(u) = \frac{i^n \lambda n!}{(\lambda - iu)^{n+1}}\text;
+    \]
+    hence \(\mbb{E}[X^n] = i^{-n}\dfrac{i^n\lambda n!}{\lambda^{n+1}} = \dfrac{n!}{\lambda^{n+1}}\).
+    \qed
+\end{solution}
+
+\end{document}

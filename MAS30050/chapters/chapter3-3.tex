@@ -1,0 +1,66 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Chebyshev's Inequality}
+
+\begin{Theorem}{Markov's Inequality}[markovRV]
+    Let \(X\) be a random variable and let \(f \colon \RR \to \RR_{\ge 0}\) be a function.
+    Then, for each \(a \in \RR_{>0}\),
+    \[
+        P(f(X) \ge a) \le \frac{\mbb{E}[f(X)]}{a}
+    \]
+    given that \(\mbb{E}[f(X)]\) exists.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(C \coloneqq \{\,x \in \RR \mid f(x) \ge a\,\}\)
+    so that \(|f(x)| \le f(x) \cdot I_C(x)\).
+    Then,
+    \begin{align*}
+        \mbb{E}[f(X)]
+        &\ge \mbb{E}[f(x) \cdot I_C(X)] \\
+        &\ge \mbb{E}[af(x)] = a \mbb{E}[f(X)]\text.\qedhere
+    \end{align*}
+\end{myproof}
+
+\begin{Theorem}{Chebyshev's Inequality}[chebyshevRV]
+    Let \(X\) be a random variable for with the mean \(m\) and the variance \(\sigma^2\)
+    are defined. Then, for each \(\veps \in \RR_{>0}\),
+    \[
+        P(|X-m| \ge \veps) \le \frac{\sigma^2}{\veps^2}\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    Same as the proof of \Cref{th:chebyshev}.
+\end{myproof}
+
+\begin{Definition}{\(\bm{P}\)-Almost Surely Null/Constant}[asNull]
+    \begin{itemize}
+        \ii
+        A random variable \(X\) is said to be \emph{\(P\)-almost surely null} if \(P(X = 0) = 1\).
+        \ii
+        A random variable \(X\) is said to be \emph{\(P\)-almost surely constant} if \(P(X = c) = 1\)
+        for some constant \(c\).
+    \end{itemize}
+\end{Definition}
+
+\begin{Lemma}{}[varZeroAS]
+    Let \(X\) be a random variable with the mean \(m\) and the variance \(0\).
+    Then, \(X\) is \(P\)-almost surely \(m\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    Note that \(\{\,\omega \in \Omega \colon |X(\omega) - m| > 0\,\} = \bigcup_{n=1}^\infty \{\,\omega
+    \in \Omega \colon |X(\omega) - m| \ge 1/n\,\}\)
+    so that
+    \[
+        P(|X - m| > 0) \le \sum_{n=1}^\infty P \left( |X - m| \ge \frac{1}{n} \right)\text.
+    \]
+    By \nameref{th:chebyshevRV}, we have
+    \[
+        P\left(|X - m| \ge \frac{1}{n}\right)
+        \le \Var(X) \cdot n^2 = 0\text.
+    \]
+    Therefore, \(P(X = m) = 1 - P(|X - m| > 0) = 1\).
+\end{myproof}
+
+\end{document}

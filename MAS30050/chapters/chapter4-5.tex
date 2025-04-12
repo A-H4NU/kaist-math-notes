@@ -1,0 +1,36 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{The Central Limit Theorem}
+
+\begin{Theorem}{Central Limit Theorem}[clt]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of
+    independent and identically distributed random variables
+    with common (finite) mean \(\mu\) and (finite) variance \(\sigma^2\), respectively.
+    Then,
+    \[
+        \frac{\bigl(\sum_{i=1}^n X_i\bigr) - n\mu}{\sigma\sqrt{n}} \lawconv Z
+        \quad\text{as}\quad n \to \infty
+    \]
+    where \(Z \sim \mcal{N}(0, 1)\).
+\end{Theorem}
+\begin{myproof}[Proof Sketch]
+    \WLOG, \(\mu = 0\).
+    Let \(\phi(u)\) denote the characteristic function of \(X_1\).
+    Then, the characteristic function of \(\bigl(\sum_{i=1}^n X_i\bigr)/\sigma\sqrt{n}\) is
+    \(\phi(u/\sigma\sqrt{n})^n\). Since \(\phi(0) = 1\), \(\phi'(0) = 0\),
+    and \(\phi''(0) = -\sigma^2\), we have
+    \[
+         \phi\left(\frac{u}{\sigma\sqrt{n}}\right) = 1 - \frac{1}{2n}u^2 + o \left(\frac{1}{n}\right)\text.
+    \]
+    Therefore,
+    \[
+        \lim_{n \to \infty} \phi \left( \frac{u}{\sigma\sqrt{n}} \right)^n
+        = \lim_{n \to \infty} \left( 1-\frac{u^2}{2n} \right)^n = e^{-u^2/n}\text,
+    \]
+    which is the characteristic function of \(Z\).
+    The result follows from \nameref{th:charFunCrit}.
+\end{myproof}
+
+\end{document}

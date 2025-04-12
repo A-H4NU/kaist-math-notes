@@ -1,0 +1,79 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Independence}
+
+\begin{Definition}{Independence of Discrete Random Elements}[indepDRV]
+    Let \(X\) and \(Y\) be two discrete random elements
+    with values in the denumerable spaces \(E\) and \(F\), respectively.
+    Now, one can define another random element \(Z\) on \(G \coloneqq E \times F\)
+    by \(Z(\omega) = (X(\omega), Y(\omega))\).
+    We say \(X\) and \(Y\) are \emph{independent} if
+    \[
+        P(X = x, Y = y) \coloneqq P(Z = (x, y)) = P(X = x) P(Y = y)
+    \]
+    for all \(x \in E\) and \(y \in F\).
+    This can be ge
+\end{Definition}
+
+\begin{Lemma}{Product Formula}[prodFormula]
+    Let \(X\) and \(Y\) be two discrete random elements
+    with values in the denumerable spaces \(E\) and \(F\), respectively.
+    If \(f \colon E \to \RR\) and \(g \colon F \to \RR\)
+    satisfy \eqref{eq:expAssum}, and if \(X\) and \(Y\)
+    are independent, then \(\mbb{E}[f(X)g(Y)]\) is well-defined and
+    \[
+        \mbb{E}[f(X)g(Y)] = \mbb{E}[f(X)]\cdot \mbb{E}[g(Y)]\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    We have
+    \begin{align*}
+        \mbb{E}[f(X)g(Y)]
+        &= \sum_{(x, y)\in E \times F} f(x) g(y) P(X = x, Y = y) \\
+        &= \sum_{x \in E} f(x) P(X = x) \sum_{y \in F} g(y) P(Y = y) \\
+        &= \mbb{E}[f(X)] \cdot \mbb{E}[g(Y)]\text.\qedhere
+    \end{align*}
+\end{myproof}
+
+\begin{Lemma}{Convolution Formula}[convFormula]
+    Let \(X\) and \(Y\) be two discrete random elements
+    with values in the denumerable spaces \(E\) and \(F\), respectively.
+    If \(X\) and \(Y\),
+    the random variable \(S = X + Y\) admits the distribution
+    \[
+        P(S = k) = \sum_{j=0}^k P(X=j) \cdot P(Y=k-j)
+    \]
+    for \(k \ge 0\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    Note that \(\{S=k\} = \biguplus_{j=0}^k (\{X=j\} \cap \{Y=k-j\})\).
+    Hence,
+    \[
+        P(S = k) = \sum_{j=0}^k P(X=j, Y=k-j)
+        = \sum_{j=0}^k P(X=j) \cdot P(Y=k-j)\text.\qedhere
+    \]
+\end{myproof}
+
+\nt{%
+    \Cref{dfn:indepDRV,lem:prodFormula} can readily be generalized to
+    finite number of discrete random elements.
+}
+
+\begin{Exercise}{}[poissonSum]
+    Let \(X\) and \(Y\) be two independent Poisson random variables with parameters \(\lambda\) and
+    \(\mu\), respectively. Show that \(S = X + Y \sim \Poisson(\lambda + \mu)\).
+\end{Exercise}
+\begin{solution}
+    \begin{alignat*}{2}
+        P(S = k)
+        &= \sum_{j=0}^k P(X=j) \cdot P(Y=k-j) &\qquad& \comment{\nameref{lem:convFormula}} \\
+        &= \sum_{j=0}^k \frac{\lambda^j}{j!} e^{-\lambda} \cdot \frac{\mu^{k-j}}{(k-j)!} e^{-\mu} \\
+        &= e^{-(\lambda+\mu)} \frac{1}{k!} \sum_{j=0}^k \binom{k}{j} \lambda^j \mu^{k-j} \\
+        &= e^{-(\lambda+\mu)} \frac{(\lambda+\mu)^k}{k!}\text. && \comment{Binomial Formula}
+    \end{alignat*}
+    Hence, \(S \sim \Poisson(\lambda+\mu)\). \qed
+\end{solution}
+
+\end{document}

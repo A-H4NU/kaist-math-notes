@@ -20,7 +20,7 @@
     The family \(\mcal{F}\) of events must be a \(\sigma\)-field on \(\Omega\):
     \begin{enumerate}[label=(\arabic*)]
         \ii \(\Omega \in \mcal{F}\);
-        \ii If \(A \in \mcal{F}\), then \(\cmpl A \in \mcal{F}\) (where \(\cmpl A\) is the complement
+        \ii If \(A \in \mcal{F}\), then \(A^\cmpl \in \mcal{F}\) (where \(A^\cmpl\) is the complement
         of \(A\));
         \ii If \(\lang A_n \rang_{n \in \ZZ_+}\) is a sequence on \(\mcal{F}\),
         then \(\bigcup_{n=1}^\infty A_n \in \mcal{F}\).
@@ -40,8 +40,8 @@
 \begin{note}
     Here are immediate properties of probability:
     \begin{itemize}
-        \ii \(P(\cmpl A) = 1 - P(A)\);
-        \ii \(\OO = \cmpl\Omega \in \mcal{F}\) and \(P(\OO) = 0\);
+        \ii \(P(A^\cmpl) = 1 - P(A)\);
+        \ii \(\OO = \Omega^\cmpl \in \mcal{F}\) and \(P(\OO) = 0\);
         \ii If \(\lang A_n \rang_{n \in \ZZ_+}\) is a sequence of events, then
         \(\bigcap_{n=1}^\infty A_n\) is also an event;
         \ii \(A, B \in \mcal{F}\) and \(A \subseteq B\) implies \(P(A) \le P(B)\).
@@ -102,7 +102,7 @@
         \lim_{n \to \infty} P(B_n)\text.
     \]
     \ii
-    Let \(C_n' \coloneqq \cmpl{C_n}\) for each \(n \ge 1\)
+    Let \(C_n' \coloneqq C_n^\cmpl\) for each \(n \ge 1\)
     so that \(C_n' \subseteq C_{n+1}'\) for all \(n\).
     Hence, by (1), we have \(P\left( \bigcup_{n=1}^\infty C_n' \right) = \lim_{n \to \infty}
     P(C_n')\). The result follows from the fact that

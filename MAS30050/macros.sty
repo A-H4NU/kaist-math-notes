@@ -1,11 +1,15 @@
-\makeatletter \renewcommand{\comment}{%
-             \@ifstar
-                  \commentStar%
-                  \commentNoStar%
+\makeatletter
+\renewcommand{\comment}{%
+    \@ifstar\commentStar\commentNoStar%
 }
+\newcommand{\commentmath}{%
+    \@ifstar\commentmathStar\commentmathNoStar%
+}
+\newcommand{\commentNoStar}[1]{\hfill\text{\(\m@th\triangleright\)~#1}}
+\newcommand{\commentStar}[1]{\text{\(\m@th\triangleright\)~#1}}
+\newcommand{\commentmathNoStar}[1]{\hfill\text{\(\m@th\triangleright\)~}\ensuremath{#1}}
+\newcommand{\commentmathStar}[1]{\text{\(\m@th\triangleright\)~}\ensuremath{#1}}
 \makeatother
-\newcommand{\commentNoStar}[1]{\hfill\text{\(\triangleright\)~#1}}
-\newcommand{\commentStar}[1]{\text{\(\triangleright\)~#1}}
 \renewcommand{\vec}[1]{\boldsymbol{\mathrm{#1}}}
 \newcommand{\WLOG}{\textsf{WLOG}}
 \newcommand{\TFAE}{\textsf{TFAE}}
@@ -74,7 +78,7 @@
 \newcommand{\ol}{\overline}
 \newcommand{\ul}{\underline}
 \newcommand{\cl}{\overline}
-\newcommand{\cmpl}[1]{{#1}^{\mathsf{c}}} % complement
+\newcommand{\cmpl}{\mathsf{c}} % complement
 \newcommand{\inter}{\mathring} % interior
 \newcommand{\lang}{\langle}
 \newcommand{\rang}{\rangle}
@@ -132,3 +136,16 @@
 \right|_{#2}%
 }}
 \newcommand{\noleft}{\left.\kern-\nulldelimiterspace}
+
+% For elementary probability course
+\NewDocumentCommand\notxrightarrow{O{}m}{%
+    \centernot{\xrightarrow[#1]{#2}}%
+}
+\newcommand{\asconv}{\ensuremath{\xrightarrow{\mathrm{a.s.}}}}
+\newcommand{\notasconv}{\ensuremath{\notxrightarrow{\mathrm{a.s.}}}}
+\newcommand{\Pconv}{\ensuremath{\xrightarrow{P}}}
+\newcommand{\notPconv}{\ensuremath{\notxrightarrow{P}}}
+\newcommand{\lawconv}{\ensuremath{\xrightarrow{\mcal{L}}}}
+\newcommand{\notlawconv}{\ensuremath{\notxrightarrow{\mcal{L}}}}
+\newcommand{\Lpconv}[1]{\ensuremath{\xrightarrow{L^#1}}}
+\newcommand{\notLpconv}[1]{\ensuremath{\notxrightarrow{L^#1}}}

@@ -1,0 +1,36 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{A Criterion for Almost-Sure Convergence}
+
+\begin{Theorem}{}[asCrit]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of random variables.
+    It converges almost surely to the random variable \(X\) if and only if
+    \[
+        \fall \veps \in \RR_{>0},\:P(|X_n - X| \ge \veps\text{ i.o.}) = 0\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    \begin{align*}
+        &P\left(\lim_{n \to \infty} X_n = X\right) = 1 \\
+        &\iff \exs N \in \mcal{F},\:\bigl(P(N) = 0 \land \fall \omega \in N^\cmpl, \lim_{n \to \infty} X_n(\omega) = X(\omega)\bigr) \\
+        &\iff \fall \veps \in \RR_{>0}, P(|X_n - X| < \veps \text{ for all but finitely many \(n\)}) = 1 \\
+        &\iff \fall \veps \in \RR_{>0}, P(|X_n - X| \ge \veps \text{ for infinitely many \(n\)}) = 0 \qedhere
+    \end{align*}
+\end{myproof}
+
+\begin{Corollary}{}[asStrat]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of random variables.
+    If
+    \[
+        \fall \veps \in \RR_{>0},\:
+        \sum_{n=1}^\infty P(|X_n - X| \ge \veps) < \infty
+    \]
+    for a random variable \(X\), then \(X_n \asconv X\).
+\end{Corollary}
+\begin{myproof}[Proof]
+    Combine \nameref{th:borel1} and \Cref{th:asCrit}.
+\end{myproof}
+
+\end{document}

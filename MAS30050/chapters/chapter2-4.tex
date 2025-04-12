@@ -1,0 +1,153 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Mean and Variance}
+
+\begin{Definition}{Mean and Variance of Discrete Random Variable}[meanVar]
+    If \(X\) is a discrete random variable, the quantities
+    \[
+        m \triangleq \mbb{E}[X]\quad\text{and}\quad
+        \sigma^2 \triangleq \Var[X] \triangleq \mbb{E}[(X - m)^2]
+    \]
+    are called the \emph{mean} and \emph{variance} of \(X\), respectively.
+    The quantity \(\sigma \triangleq \sqrt{\sigma^2}\) is called the
+    \emph{standard deviation} of \(X\).
+\end{Definition}
+
+\begin{note}
+    Some properties of mean and variance:
+    \begin{itemize}
+        \ii
+        \(\Var(aX) = a^2 \Var(X)\).
+        \ii
+        \(\sigma^2 = 0\) implies that
+        \(p(x) = 0\) for all \(x \neq m\).
+        \ii
+        If \(X_1, \cdots, X_n\) are independent discrete random variables,
+        then \(\Var \bigl( \sum_{i=1}^n X_i \bigr)\) equals \(\sum_{i=1}^n \Var(X_i)\).
+
+        \ii
+        \(\Var(X) = \mbb{E}[X^2] - \mbb{E}[X]^2\).
+    \end{itemize}
+\end{note}
+
+\begin{Exercise}{}[]
+    Show that the variance of a Poisson random variable of parameter \(\lambda\) is \(\lambda\).
+    Show that the mean and variance of a geometric random variable of parameter \(p > 0\)
+    is \(1/p\) and \((1-p)/p^2\).
+\end{Exercise}
+\begin{solution}
+    Let \(X \sim \Poisson(\lambda)\).
+    By \Cref{exer:poissonE},
+    we have \(\Var(X) = \mbb{E}[X^2] - \mbb{E}[X]^2
+    = (\lambda^2 + \lambda) - \lambda^2 = \lambda\).
+
+    Let \(Y \sim \mcal{G}(p)\).
+    Then,
+    \begin{align*}
+        \mbb{E}[Y]
+        &= \sum_{k=1}^\infty k p(1-p)^{k-1} \\
+        &= p + \sum_{k=2}^\infty kp(1-p)^{k-1} \\
+        &= p + (1-p)\sum_{k=1}^\infty (k+1)p(1-p)^{k-1} \\
+        &= p + (1-p)\sum_{k=1}^\infty kp(1-p)^{k-1} + (1-p)\sum_{k=1}^\infty p(1-p)^{k-1} \\
+        &= (1-p)\mbb{E}[Y] + 1\text.
+    \end{align*}
+    Hence, \(\mbb{E}[Y] = 1/p\).
+    Moreover,
+    \begin{align*}
+        \mbb{E}[Y^2]
+        &= \sum_{k=1}^\infty k^2 p(1-p)^{k-1} \\
+        &= \sum_{k=1}^\infty \bigl( (k-1)^2 + 2k - 1 \bigr) p(1-p)^{k-1} \\
+        &= (1-p)\sum_{k=1}^\infty k^2 p(1-p)^{k-1} + 2\mbb{E}[Y] - 1 \\
+        &= (1-p)\mbb{E}[Y^2] + \frac{2}{p} - 1\text.
+    \end{align*}
+    Hence, \(\mbb{E}[Y^2] = (2-p)/p^2\).
+    Therefore, \(\Var(Y) = (2-p)/p^2 - 1/p^2 = (1-p)/p^2\).
+    \qed
+\end{solution}
+
+\begin{Exercise}{}[]
+    Let \(X\) be a discrete random variable with values in \(\NN_0 = \{0,1,2,\cdots\}\).
+    Show that
+    \[
+        \mbb{E}[X] = \sum_{n=1}^\infty P(X \ge n)\text.
+    \]
+\end{Exercise}
+\begin{solution}
+    Note that \(\{X \ge n\} = \biguplus_{k=n}^\infty \{X=k\}\)
+    for \(n \in \NN_0\). Hence, by \(\sigma\)-additivity,
+    \begin{alignat*}{2}
+        \sum_{n=1}^\infty P(X \ge n)
+        &= \sum_{n=1}^\infty \sum_{k=n}^\infty P(X=k) &\qquad \\
+        &= \sum_{k=1}^\infty \sum_{n=1}^k P(X=k) &\comment{Fubini's theorem} \\
+        &= \sum_{k=1}^\infty k P(X=k) \\
+        &= \sum_{k=0}^\infty k P(X=k) = \mbb{E}[X]\text.
+        \tag*{\qed}
+    \end{alignat*}
+\end{solution}
+
+\begin{Exercise}{}[binomialE]
+    Show that the mean and variance corresponding to the binomial distribution
+    of size \(n\) and parameter \(p\) are \(np\) and \(np(1-p)\), respectively.
+\end{Exercise}
+\begin{solution}
+    Let \(X \sim \Binomial(n, p)\).
+    Then, \(X \sim \sum_{i=1}^n X_i\)
+    where \(X_i\) are independent Bernoulli random variables with parameter \(p\).
+    We have \(\mbb{E}[X_i] = p\) and \(\Var(X_i) = p(1-p)\).
+    Hence, \(\mbb{E}[X] = np\) and \(\Var(X) = np(1-p)\).
+    \qed
+\end{solution}
+
+\begin{Theorem}{Chebyshev's Inequality}[chebyshev]
+    Let \(X\) be a discrete random variable. Then,
+    for any \(\veps > 0\), we have
+    \[
+        P(|X-m| \ge \veps) \le \frac{\sigma^2}{\veps^2}\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    Apply \nameref{th:markov} to \(X\) with \(f(x) = (x-m)^2\) and \(a = \veps^2\) to get
+    \begin{align*}
+        P(|X-m| \ge \veps)
+        &= P((X-m)^2 \ge \veps^2) \\
+        &\le \frac{\mbb{E}[|X-m|^2]}{\veps^2}
+        = \frac{\sigma^2}{\veps^2}\text. \qedhere
+    \end{align*}
+\end{myproof}
+
+\begin{Theorem}{Weak Law of Large Numbers}[wlln]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of discrete random variables,
+    identically distributed with common mean \(m\) and common variance \(\sigma^2\).
+    Consider the empirical mean \(S_n/n = (X_1 + \cdots + X_n)/n\).
+    Then,
+    \[
+        \lim_{n \to \infty} P \left( \left| \frac{S_n}{n}-m \right| \ge \veps \right) = 0
+    \]
+    for every \(\veps > 0\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    We have \(\Var[S_n/n] = \frac{\sigma^2}{n}\).
+    By \nameref{th:chebyshev},
+    \(P \left( \left| \frac{S_n}{n}-m \right| \ge \veps \right) \le \frac{\sigma^2}{n\veps^2}\).
+\end{myproof}
+
+\begin{Definition}{Convergence in Probability}[probConv]
+    A sequence of random variables \(\lang X_n \rang_{n \in \ZZ_{>0}}\) is said to
+    \emph{converge in probability} to a random variable \(X\) if
+    if, for all \(\veps > 0\),
+    \[
+        \lim_{n \to \infty} P(|X_n - X| \ge \veps) = 0\text.
+    \]
+    This is denoted by \(X_n \Pconv X\).
+\end{Definition}
+
+\nt{%
+    There are various notions of convergence: convergence in quadratic mean,
+    convergence in law, convergence in probability, and almost-sure convergence.
+    The strong law of large numbers states that \(S_n/n\) converges to \(m\)
+    almost surely.
+}
+
+\end{document}

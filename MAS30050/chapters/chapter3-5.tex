@@ -1,0 +1,47 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Multivariate Probability Densities}
+
+\begin{Definition}{Random Vector}[rVec]
+    Let \(X_1, X_2, \cdots, X_n\) be real random variables.
+    The vector \(X = (X_1, \cdots, X_n)\) is then called
+    a \emph{real random vector} of dimension \(n\).
+    The function \(F_X \colon \RR[n] \to \RR_{\ge 0}\) defined by
+    \[
+        F_X(x_1, \cdots, x_n) \triangleq P(X_1 \le x_1, \cdots, X_n \le x_n)
+    \]
+    is the cumulative distribution function of \(X\).
+    If
+    \[
+        F_X(x_1, \cdots, x_n) = \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_n} f_X(y_1, \cdots, y_n)
+        \d y_n \cdots \d y_1\text,
+    \]
+    for some nonnegative function \(f_X \colon \RR[n] \to \RR_{\ge 0}\),
+    then \(f_X\) is called a \emph{(joint) probability density function} of \(X\).
+\end{Definition}
+
+\begin{note}
+    Let \(X = (X_1, \cdots, X_n)\) be a real random vector
+    admitting a probability density function \(f(x_1, \cdots, x_n)\).
+    Let \(Y = (X_1, \cdots, X_\ell)\) for \(1 \le \ell \le n\).
+    Then,
+    \begin{align*}
+        F_Y(y_1, \cdots, y_\ell)
+        &= \int_{-\infty}^{y_1} \cdots \int_{-\infty}^{y_\ell} \int_{-\infty}^\infty \cdots
+        \int_{-\infty}^\infty f_X(z_1, \cdots, z_n) \d z_n \cdots \d z_1 \\
+        &= \int_{-\infty}^{y_1} \cdots \int_{-\infty}^{y_\ell} \left[ \int_{-\infty}^\infty \cdots
+        \int_{-\infty}^\infty f_X(z_1, \cdots, z_n) \d z_n \cdots \d z_{\ell+1} \right] \d z_\ell
+        \cdots \d z_1\text;
+    \end{align*}
+    hence
+    \[
+        f_Y(y_1, \cdots, y_\ell) =
+        \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty f_X(y_1, \cdots, y_\ell, z_{\ell+1}, \cdots, z_n) \d z_{n} \cdots \d
+        z_{\ell+1}
+    \]
+    is a probability density function of \(Y\).
+\end{note}
+
+\end{document}

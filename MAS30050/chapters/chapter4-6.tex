@@ -1,0 +1,101 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Convergence in \texorpdfstring{$L^p$}{L\^{}p} and Hierarchy of Convergences}
+
+\begin{Definition}{Convergence in Probability}[]
+    (Restatement of \Cref{dfn:probConv})
+    A sequence of random variables \(\lang X_n \rang_{n \in \ZZ_{>0}}\) is said to
+    \emph{converge in probability} to a random variable \(X\) if
+    if, for all \(\veps > 0\),
+    \[
+        \lim_{n \to \infty} P(|X_n - X| \ge \veps) = 0\text.
+    \]
+    This is denoted by \(X_n \Pconv X\).
+\end{Definition}
+
+\begin{Definition}{Convergence in \(\bm{L^p}\)}[convLp]
+    For any \(p \ge 1\), a sequence of random variables \(\lang X_n \rang_{n \in \ZZ_{>0}}\)
+    such that \(\mbb{E}[|X_n|^p] < \infty\) for \(n \in \ZZ_{>0}\)
+    is said to \emph{converge in \(L^p\)} to a random variable \(X\)
+    such that \(\mbb{E}[|X|^p] < \infty\) if
+    \[
+        \lim_{n \to \infty} \mbb{E}[|X_n - X|^p] = 0\text.
+    \]
+    This is denoted by \(X_n \Lpconv{p} X\).
+\end{Definition}
+
+\begin{Theorem}{}[hierarchyConv]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a sequence of random variables
+    and \(X\) be a random variable.
+    \begin{enumerate}[label=(\arabic*), ref=\protect{\Cref{th:hierarchyConv} (\arabic*)}]
+        \ii\label{itm:hierarchyConv.1}
+        If \(X_n \asconv X\), then \(X_n \Pconv X\).
+        \ii\label{itm:hierarchyConv.2}
+        If \(X_n \Lpconv{p} X\) for some \(p \ge 1\), then \(X_n \Pconv X\).
+        \ii\label{itm:hierarchyConv.3}
+        If \(X_n \Pconv X\), then \(X_n \lawconv X\).
+    \end{enumerate}
+\end{Theorem}
+\begin{myproof}[Proof]\hfill
+\begin{enumerate}[label=(\alph*)]
+    \ii
+    Fix any \(\veps \in \RR_{>0}\). By \Cref{th:asCrit},
+    we have \(P \left( \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty \{|X_k - X| \ge \veps\} \right) = 0\).
+    By \ref{itm:seqCont.2}, we get
+    \[
+        0 = \lim_{n \to \infty} P \left( \bigcup_{k=n}^\infty \{|X_k - X| \ge \veps\} \right)
+        \ge \lim_{n \to \infty} P \left( \{|X_n - X| \ge \veps\} \right)\text.
+    \]
+    Hence, \(X_n \Pconv X\) as \(n \to \infty\).
+
+    \ii
+    We have
+    \[
+        P(|X_n - X| \ge \veps)
+        = P(|X_n - X|^p \ge \veps^p) \le \frac{\mbb{E}[|X_n-X]^p}{\veps^p} \to 0
+    \]
+    as \(n \to \infty\).
+
+    \ii
+    We need the following lemma:
+    \begin{Claim}{fuydpnsr}
+        Let \(X\) and \(Y\) be random variables.
+        Let \(a \in \RR\) and \(\veps \in \RR_{>0}\).
+        Then, \[P(Y \le a) \le P(X \le a + \veps) + P(|Y-X| \ge \veps)\text.\]
+        \tcblower
+        We have:
+        \begin{align*}
+            P(Y \le a)
+            &\le P(Y \le a, X \le a + \veps) + P(Y \le a, X \ge a + \veps) \\
+            &\le P(X \le a + \veps) + P(Y - X \le a - X, a - X \le -\veps) \\
+            &\le P(X \le a + \veps) + P(Y - X \le -\veps) \\
+            &\le P(X \le a + \veps) + P(|Y - X| \le \veps)\text. \qedhere
+        \end{align*}
+    \end{Claim}
+    Applying \Cref{clm:fuydpnsr} twice, we get
+    \begin{gather}
+        \label{eq:hierarchy.1}
+        P(X \le x - \veps) - P(|X_n-X| \ge \veps) \le P(X_n \le x) \\
+        \label{eq:hierarchy.2}
+        P(X_n \le x) \le P(X \le x + \veps) + P(|X_n - X| \ge \veps)
+    \end{gather}
+    for every \(\veps \in \RR_{>0}\). Then, we have
+    \begin{alignat*}{2}
+        P(X \le x - \veps)
+        &\le P(X_n \le x) &\qquad
+        & \comment{\eqref{eq:hierarchy.1} and \(X_n \Pconv X\)} \\
+        &\le P(X \le x + \veps)
+        && \comment{\eqref{eq:hierarchy.2} and \(X_n \Pconv X\)}
+    \end{alignat*}
+    for every \(n \in \ZZ_{>0}\).
+    Therefore, if \(F_X\) is continuous at \(x\), limiting \(n \to \infty\), we have
+    \begin{equation*}
+        \lim_{n \to \infty} P(X_n \le x) = P(X \le x)\text.
+        \tag*{\qed}
+    \end{equation*}
+\end{enumerate}
+\end{myproof}
+
+\end{document}

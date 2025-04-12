@@ -1,0 +1,38 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Characteristic Function of a Random Variable}
+
+\begin{Definition}{Characteristic Function}[charFun]
+    Let \(X\) be a real random variable with the probability density function \(f_X\).
+    The \emph{characteristic function} \(\phi_X \colon \RR \to \CC\) of \(X\) is defined as
+    \[
+        \phi_X(u) \triangleq \mbb{E}[e^{iuX}] = \int_{-\infty}^{\infty} e^{iux} f(x) \,dx\text.
+    \]
+\end{Definition}
+
+\begin{note}
+\begin{itemize}
+    \ii
+    \Cref{dfn:charFun} is well-defined
+    as \(\cos\) and \(\sin\) are bounded.
+    \ii
+    \(\phi_{aX+b}(u) = \mbb{E}[e^{iuaX}e^{iub}]=e^{iub}\phi_X(au)\)
+    for any real numbers \(a\) and \(b\).
+    \ii
+    If two real random variables \(X\) and \(Y\) satisfy
+    \(\mbb{E}[e^{iuX}] = \mbb{E}[e^{iuY}]\) for all \(u \in \RR\),
+    then \(P(X \le x) = P(Y \le x)\) for all \(x \in \RR\).
+    Hence, the characteristic function uniquely determines the distribution of a random variable.
+
+    \ii
+    It should be emphasized that two random variables with the same distribution function
+    are not necessarily identical random variables.
+    For instance, take \(X \sim \mcal{N}(0,1)\) and \(Y = -X\).
+\end{itemize}
+\end{note}
+
+% TODO: Exercises from the lecture note.
+
+\end{document}

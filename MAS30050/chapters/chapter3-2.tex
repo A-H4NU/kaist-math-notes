@@ -1,0 +1,110 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Mean and Variance}
+
+\begin{Definition}{Mean and Variance}[meanVarPDF]
+    Let \(X\) be a real random variable with the probability density function \(f\).
+    The \emph{mean} of \(X\) is defined as
+    \[
+        m_X \triangleq \mbb{E}[X] = \int_{-\infty}^{\infty} x f(x) \,dx\text,
+    \]
+    provided that the integral exists.
+    The \emph{variance} of \(X\) is defined as
+    \[
+        \sigma_X^2 \triangleq \Var(X) = \mbb{E}[X - \mbb{E}[X]]^2 = \int_{-\infty}^{\infty} (x -
+        \mbb{E}[X])^2 f(x) \,dx\text,
+    \]
+    provided that the integral exists.
+\end{Definition}
+
+\begin{Exercise}{}[]
+    Show that if \(X \sim \Gamma(\alpha, \beta)\), then \(\mbb{E}[X] = \alpha/\beta\)
+    and \(\Var(X) = \alpha/\beta^2\).
+\end{Exercise}
+\begin{solution}
+    \begin{alignat*}{2}
+        \mbb{E}[X]
+        &= \int_0^\infty x \frac{\beta^\alpha x^{\alpha-1} e^{-\beta x}}{\Gamma(\alpha)} \d x &\qquad \\
+        &= \frac{1}{\beta \Gamma(\alpha)} \int_0^\infty u^\alpha e^{-u} \d u
+        && \comment{\(u = \beta x\)} \\
+        &= \frac{\Gamma(\alpha+1)}{\beta \Gamma(\alpha)} = \frac{\alpha}{\beta} \\
+        \shortintertext{and}
+        \mbb{E}[X^2]
+        &= \int_0^\infty x^2 \frac{\beta^\alpha x^{\alpha-1} e^{-\beta x}}{\Gamma(\alpha)} \d x \\
+        &= \frac{1}{\beta^2\Gamma(\alpha)}\int_0^\infty u^{\alpha+1}e^{-u} \d u
+        && \comment{\(u = \beta x\)} \\
+        &= \frac{\Gamma(\alpha+2)}{\beta^2\Gamma(\alpha)} = \frac{\alpha(\alpha+1)}{\beta^2}\text.
+    \end{alignat*}
+    Hence, \(\Var(X) = \mbb{E}[X^2] - \mbb{E}[X]^2 = \alpha/\beta^2\).\qed
+\end{solution}
+
+\begin{Exercise}{}[meanVarUEN]
+    Compute the mean and variance of \(X\)
+    when \(X \sim U([a, b])\), \(X \sim \mcal{E}(\lambda)\), and \(X \sim \mcal{N}(0, 1)\)\text.
+\end{Exercise}
+\begin{solution}
+    Let \(X \sim U([a, b])\).
+    Then,
+    \[
+        \mbb{E}[X] = \int_a^b x \frac{1}{b-a} \d x
+        = \frac{1}{b-a} \left[ \frac{x^2}{2} \right]_a^b
+        = \frac{b^2 - a^2}{2(b-a)} = \frac{a+b}{2}
+    \]
+    and
+    \[
+        \mbb{E}[X^2] = \int_a^b x^2 \frac{1}{b-a} \d x
+        = \frac{1}{b-a} \left[ \frac{x^3}{3} \right]_a^b
+        = \frac{1}{b-a} \left( \frac{b^3 - a^3}{3} \right) = \frac{a^2+ab+b^2}{3}\text.
+    \]
+    Hence, \(\Var(X) = \mbb{E}[X^2] - \mbb{E}[X]^2 = (a-b)^2/12\).
+
+    Let \(X \sim \mcal{E}(\lambda)\).
+    Then,
+    \[
+        \mbb{E}[X] = \int_0^\infty x \lambda e^{-\lambda x} \d x
+        = \frac{1}{\lambda} \int_0^\infty u e^{-u} \d u \\
+        = \frac{\Gamma(2)}{\lambda} = \frac{1}{\lambda}
+    \]
+    and
+    \[
+        \mbb{E}[X^2] = \int_0^\infty x^2 \lambda e^{-\lambda x} \d x
+        = \frac{1}{\lambda^2} \int_0^\infty u^2 e^{-u} \d u
+        = \frac{\Gamma(3)}{\lambda^2} = \frac{2}{\lambda^2}\text.
+    \]
+    Hence, \(\Var(X) = \mbb{E}[X^2] - \mbb{E}[X]^2 = 1/\lambda^2\).
+
+    Let \(X \sim \mcal{N}(0, 1)\).
+    Then, it is evident that \(\mbb{E}[X] = 0\).
+    We first have
+    \begin{alignat*}{2}
+        \Gamma \left( \frac{1}{2} \right)
+        &= \int_0^\infty \frac{e^{-x}}{\sqrt{x}} \d x &\qquad \\
+        &= \int_0^\infty 2e^{-u^2} \d u
+        && \comment{\(u = \sqrt{x}\)}\\
+        &= \int_{-\infty}^\infty e^{-u^2} \d u = \sqrt{\pi}
+    \end{alignat*}
+    Moreover,
+    \begin{alignat*}{2}
+        \Var(X) = \mbb{E}[X^2]
+        &= \int_{-\infty}^\infty x^2 \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} \d x &\qquad \\
+        &= \frac{2}{\sqrt{\pi}}\int_{-\infty}^\infty u^2 e^{-u^2} \d u
+        && \comment{\(x = \sqrt{2}u\)}\\
+        &= \frac{4}{\sqrt{\pi}}\int_0^\infty u^2 e^{-u^2} \d u \\
+        &= \frac{2}{\sqrt{\pi}}\int_0^\infty x^{1/2} e^{-x} \d x
+        && \comment{\(u = \sqrt{x}\)}\\
+        &= \frac{2}{\sqrt{\pi}}\Gamma\left(\frac{3}{2}\right) = 1\text.
+        \tag*{\qed}
+    \end{alignat*}
+\end{solution}
+
+\begin{note}
+    Let \(X\) be a random variable admitting the following probability density:
+    \[
+        f(x) = \frac{1}{\pi(1+x^2)}\text.
+    \]
+    Then, although \(f\) is even, \(\mbb{E}[X]\) is not defined.
+\end{note}
+
+\end{document}

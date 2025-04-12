@@ -1,0 +1,138 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Generating Functions}
+
+\begin{Definition}{Generating Function}[gf]
+    Let \(X\) be a discrete random variable taking its values in \(\ZZ_{\ge 0}\).
+    The \emph{generating function} of \(X\) is the function \(g\)
+    from the unit disc of \(\CC\) into \(\CC\) defined by
+    \[
+        g(s) \triangleq \mbb{E}[s^X]
+        = \sum_{k=0}^\infty s^k P(X=k)\text.
+    \]
+\end{Definition}
+
+\begin{note}
+    Inside the unit disk, the power series \(\sum_{k=0}^\infty s^k P(X=k)\)
+    uniformly and absolutely convergent since
+    \[
+        \sum_{k=1}^\infty P(X=k) |s|^k
+        \le \sum_{k=1}^\infty P(X=k) = 1\text.
+    \]
+    Hence, we can add, differentiate, and integrate term-by-term.
+
+    Moreover, the generating function uniquely determines the determines the distribution.
+    If \(\sum_{k=0}^\infty P(X_1=k) s^k = \sum_{k=0}^\infty P(X_2=k) s^k\)
+    in the unit disk, then the corresponding coefficients must be equal.
+\end{note}
+
+\begin{Exercise}{}[binomialGen]
+    Let \(X \sim \Binomial(n, p)\).
+    Show that the generating function of \(X\)
+    is \(g(s) = (ps + 1 - p)^n\).
+\end{Exercise}
+\begin{solution}
+    \begin{align*}
+        g(s)
+        &= \sum_{k=0}^n \binom{n}{k} p^k (1-p)^{n-k} s^k \\
+        &= \sum_{k=0}^n \binom{n}{k} (ps)^k (1-p)^{n-k} \\
+        &= (ps + 1 - p)^n \qedhere
+    \end{align*}
+\end{solution}
+
+\begin{Definition}{Multivariate Generating Function}[multiGF]
+    Let \(X_1, \cdots, X_k\) be \(k\) discrete random variables taking their values in \(\ZZ_{\ge 0}\).
+    The \emph{generating function} of \((X_1, \cdots, X_k)\) is the function \(g\)
+    from \(D^k\) into \(\CC\) defined by
+    \[
+        g(s_1, \cdots, s_k) \triangleq \mbb{E}[s_1^{X_1} \cdots s_k^{X_k}]
+        = \sum_{i_1=0}^\infty \cdots \sum_{i_k=0}^\infty s_1^{i_1} \cdots s_k^{i_k} P(X_1=i_1,
+        \cdots, X_k=i_k)
+    \]
+    where \(D\) is the unit disc of \(\CC\).
+\end{Definition}
+
+\begin{note}
+    \begin{itemize}
+        \ii
+        If \(g\) is a multivariate generating function, then
+        \(g(s_1, 1, \cdots, 1)\) is the generating function of \(X_1\).
+
+        \ii
+        If \(X_i\)'s are independent, then by \nameref{lem:prodFormula},
+        we have \(\mbb{E}[s_1^{X_1}\cdots s_k^{X_k}] = \prod_{i=1}^k \mbb{E}[s_i^{X_i}]\),
+        i.e.,
+        \[
+            g(s_1, \cdots, s_k) = \prod_{i=1}^k g(s_i)\text.
+        \]
+        Moreover, \(\mbb{E}[s^{X_1} \cdots s^{X_k}] = \mbb{E}[s^{X_1+\cdots+X_k}]\), i.e.,
+        \(g(s, \cdots, s)\) is the generating function of \(X_1 + \cdots + X_k\).
+    \end{itemize}
+\end{note}
+
+\begin{note}%
+    \textbf{Differentiation of Generating Functions and Moments}\hspace*{.5cm}
+    As \(g(s)\) is absolutely convergent in the unit disc, we can differentiate term-by-term to get
+    \[
+        g'(s) = \sum_{k=1}^\infty kp_ks^{k-1}
+    \]
+    for \(|s| < 1\). If \(\mbb{E}[X] = \sum_{k=0}^\infty kp_k\) exists, then by Abel's lemma, we get
+    \(\mbb{E}[X] = g'(1) \coloneqq \lim_{\substack{s \to 1\\|s| < 1}} g'(s)\). Doing this once more,
+    we have \(g''(1) = \sum_{k=2}^\infty k(k-1)p_k s^{k-2} = \mbb{E}[X^2] - m\). Moreover, we have
+    \(\sigma^2 = g''(1) + g'(1) - g'(1)^2\).
+\end{note}
+
+\begin{Exercise}{}[poissonSumGen]
+    Using generating functions, show that if \(X_1\) and \(X_2\) are independent
+    Poisson random variables \(X_1 \sim \Poisson(\lambda_1)\) and \(X_2 \sim \Poisson(\lambda_2)\),
+    then \(X_1 + X_2 \sim \Poisson(\lambda_1+\lambda_2)\).
+\end{Exercise}
+\begin{solution}
+    The generating function of a Poisson random variable of parameter \(\lambda\) is
+    \[
+        g(s) = \sum_{k=0}^\infty \frac{\lambda^k}{k!} s^k
+        = \sum_{k=0}^\infty \frac{(\lambda s)^k}{k!} = e^{\lambda s}\text.
+    \]
+    Letting \(X \sim \Poisson(\lambda_1 + \lambda_2)\),
+    we thus have \(g_{X_1+X_2}(s) = g_{X}(s)\) in some neighborhood of the origin.
+    Hence, \(X_1 + X_2 \sim \Poisson(\lambda_1+\lambda_2)\).
+    \qed
+\end{solution}
+
+\begin{Theorem}{Wald's Equality}[wald]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be an i.i.d. sequence of discrete random variables with
+    values in \(\ZZ_{\ge 0}\) and the common generating function \(g_X\).
+    Let \(T\) be a discrete random variable taking its values in \(\ZZ_{> 0}\) and the generating
+    function \(g_T\). Suppose moreover that \(T\) is independent from the \(X_n\)'s.
+    Let
+    \[
+        Y \triangleq X_1 + \cdots + X_T
+    \]
+    be a random variable.
+    Then, \(\mbb{E}[Y] = \mbb{E}[T] \cdot \mbb{E}[X_1]\).
+\end{Theorem}
+    \begin{myproof}[Proof]
+    Using \(1 = \sum_{n=1}^\infty I_{\{T = n\}}\), we have
+    \[
+        g_Y(s) = \mbb{E}[s^Y] = \mbb{E}[s^{X_1 + \cdots + X_T}]
+        = \mbb{E} \left[ \sum_{n=1}^\infty I_{\{T=n\}} s^{X_1+\cdots+X_n} \right]\text.
+    \]
+    By Lebesgue's dominated convergence theorem, we can interchange the sum and the expectation to get
+    \begin{alignat*}{2}
+        g_Y(s)
+        &= \sum_{n=1}^\infty \mbb{E}[I_{\{T=n\}} s^{X_1+\cdots+X_n}] &\qquad \\
+        &= \sum_{n=1}^\infty P(T=n) \mbb{E}[s^{X_1}]^n && \comment{\nameref{lem:prodFormula}} \\
+        &= \sum_{n=1}^\infty P(T=n) g_X(s)^n \\
+        &= g_T(g_X(s))\text.
+    \end{alignat*}
+
+    Then, we have
+    \[
+        \mbb{E}[Y] = g_Y'(1)
+        = \restr{g_T'(g_X(s))g_X'(s)}{s=1} = \mbb{E}[T] \cdot \mbb{E}[X_1]\text.\qedhere
+    \]
+\end{myproof}
+
+\end{document}

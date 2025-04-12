@@ -1,0 +1,134 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Independence of Random Variables}
+
+\begin{Theorem}{}[randVecIndep]
+    Let \(X = (X_1, \cdots, X_n)\) be a real random vector.
+    \(X_i\)'s are independent random variables admitting probability density
+    functions \(f_i\) if and only if \(f_i\)'s are probability densities such that
+    \begin{equation*}
+        f_X(x_1, \cdots, x_n) = \prod_{i=1}^n f_i(x_i)
+    \end{equation*}
+    is a probability density function of \(X\).
+\end{Theorem}
+\begin{myclaim}[Proof]\hfill
+\begin{pftfae}[labelwidth=\widthof{(\(\Rightarrow\))}]
+    \ii[(\(\Rightarrow\))]
+    We have, by independence and Fubini's theorem,
+    \[
+        F_X(x_1, \cdots, x_n) =
+        \prod_{i=1}^n F_{X_i}(x_i)
+        = \prod_{i=1}^n \int_{-\infty}^{x_i} f_i(y_i) \d y_i\text
+        = \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_n} \prod_{i=1}^n f_i(y_i) \d y_n \cdots \d
+        y_1\text.
+    \]
+    Hence, \(\prod_{i=1}^n f_i(x_i)\) is a probability density function of \(X\).
+    \ii[(\(\Leftarrow\))]
+    \begin{align*}
+        P(X_1 \le x_1)
+        &= \int_{-\infty}^{x_1} \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty
+        \prod_{i=1}^n f_i(y_i) \d y_n \cdots \d y_2 \d y_1 \\
+        &= \left(\int_{-\infty}^{x_1} f_1(y_1) \d y_1\right) \left(\int_{-\infty}^\infty f_2(y_2) \d y_2 \right)\cdots
+        \left(\int_{-\infty}^\infty f_2(y_n) \d y_n \right) \\
+        &= \int_{-\infty}^{x_1} f_1(y_1) \d y_1\text.
+    \end{align*}
+    Hence, \(f_1\) is a probability density function of \(X_1\).
+    Similarly, \(f_i\) is a probability density function of \(X_i\) for all \(i\).
+
+    Moreover, by Fubini's theorem,
+    \begin{align*}
+        F(x_1, \cdots, x_n)
+        &= \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_n} \prod_{i=1}^n f_i(y_i) \d y_n \cdots \d y_1 \\
+        &= \prod_{i=1}^n \int_{-\infty}^{x_i} f_i(y_i) \d y_i \\
+        &= \prod_{i=1}^n F_i(x_i)\text.
+    \end{align*}
+    Hence, \(X_i\)'s are independent random variables. \qed
+\end{pftfae}
+\end{myclaim}
+
+\begin{Lemma}{Product Formula}[prodFormulaReal]
+    Let \(X_1, \cdots, X_n\) be real random variables admitting probability density functions \(f_1,
+    \cdots, f_n\), respectively. Then, for any functions \(g_i \colon \RR \to \CC\) for \(i \in
+    [n]\), we have
+    \[
+        \mbb{E}\Biggl[ \prod_{i=1}^n g_i(X_i) \Biggr]
+        = \prod_{i=1}^n \mbb{E}[g_i(X_i)]\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    Fubini's theorem and \Cref{th:randVecIndep}.
+\end{myproof}
+
+\begin{note}
+    In particular, we get
+    \[
+        \phi_X(u_1, \cdots, u_n) = \prod_{i=1}^n \phi_{X_i}(u_i)
+    \]
+    for all \(u_i \in \RR\) where \(\phi\)'s are characteristic functions of corresponding
+    random vector or random variable
+    by applying \nameref{lem:prodFormulaReal}.
+
+    Although we cannot prove in this stage,
+    the converse is also true.
+\end{note}
+
+\begin{Lemma}{Convolution Formula}[convFormulaReal]
+    Let \(X\) and \(Y\) be independent real random variables
+    admitting probability density functions \(f_X\) and \(f_Y\), respectively.
+    Then, a probability density function \(f_Z\) of the random variable \(Z = X + Y\)
+    is given by:
+    \[
+        f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z-x) \d x\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    Fix \(z_0 \in \RR\) and let \(C = \{\,(x, y) \mid x + y \le z_0\,\}\).
+    We have
+    \begin{align*}
+        \int_{-\infty}^{z_0} f_Z(z) \d z
+        &= \int_{-\infty}^{z_0} \int_{-\infty}^{\infty} f_X(x) f_Y(z-x) \d x \d z \\
+        &= \int_{-\infty}^{\infty} \int_{-\infty}^{z_0} f_X(x) f_Y(z-x) \d z \d x \\
+        &= \int_{-\infty}^{\infty} \int_{-\infty}^{z_0-x} f_X(x) f_Y(y) \d y \d x \\
+        &= \iint_{\RR[2]} I_C(x, y)f_X(x) f_Y(y) \d y \d x \\
+        &= \mbb{E}[I_C(X, Y)] = P(X+Y \le z_0)\text. \qedhere
+    \end{align*}
+\end{myproof}
+
+\begin{Definition}{Independence of Random Vector}[]
+    Let \(X\) and \(Y\) are real random vectors
+    of dimension \(n\) and \(p\), respectively.
+    We say \(X\) and \(Y\) are \emph{independent} if
+    \[
+        P(X \le x, Y \le y) = P(X \le x) P(Y \le y)
+    \]
+    for all \(x \in \RR[n]\) and \(Y \in \RR[p]\).
+\end{Definition}
+
+\begin{Theorem}{}[twoRandVecIndep]
+    Let \(X = (X_1, \cdots, X_n)\) and \(Y = (Y_1, \cdots, Y_p)\) be real random vectors.
+    Then, \(X\) and \(Y\) are independent random vectors
+    admitting probability density functions \(f_X\) and \(f_Y\), respectively,
+    if and only if \(f_X\) and \(f_Y\) are probability density functions
+    such that \(f_Z(x, y) = f_X(x) f_Y(y)\) is a probability density function of \(Z = (X_1, \cdots,
+    X_n, Y_1, \cdots, Y_p)\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Same as \Cref{th:randVecIndep}.
+\end{myproof}
+
+\begin{Lemma}{}[twoRvecProdFormula]
+    Let \(X = (X_1, \cdots, X_n)\) and \(Y = (Y_1, \cdots, Y_p)\) be independent real random vectors.
+    Let \(g \colon \RR[n] \to \RR\) and \(h \to \RR[p] \to \RR\).
+    Then,
+    \[
+        \mbb{E}[g(X) h(Y)] = \mbb{E}[g(X)] \cdot \mbb{E}[h(Y)]
+    \]
+    provided that the quantities are well-defined.
+\end{Lemma}
+\begin{myproof}[Proof]
+    Same as \Cref{lem:prodFormulaReal}.
+\end{myproof}
+
+\end{document}

@@ -1,0 +1,77 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Univariate Probability Densities}
+
+Recall \Cref{dfn:pdf}.
+
+% TODO: Some examples of probability densities.
+
+\begin{Example}{Uniform Density}[uniform]
+    A random variable \(X\) with the probability density
+    \[
+        f(x) = \begin{cases}
+            \dfrac{1}{b-a} & \text{if } a \le x \le b \\
+            0 & \text{otherwise}
+        \end{cases}
+    \]
+    is said to be \emph{uniformly distributed} on \([a, b]\).
+    This is denoted by \(X \sim U([a, b])\).
+\end{Example}
+
+\begin{Example}{Exponential Density}[exponential]
+    For \(\lambda \in \RR_{>0}\), the random variable \(X\) with the probability density
+    \[
+        f(x) = \begin{cases}
+            \lambda e^{-\lambda x} & \text{if } x \ge 0 \\
+            0 & \text{otherwise}
+        \end{cases}
+    \]
+    is called an \emph{exponential random variable}.
+    This is denoted by \(X \sim \mcal{E}(\lambda)\).
+\end{Example}
+
+\begin{Example}{Gaussian Density}[gaussian]
+    For \(\mu \in \RR\) and \(\sigma \in \RR_{>0}\), the random variable \(X\) with the probability
+    density
+    \[
+        f(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{1}{2} \left(\frac{x-m}{\sigma}\right)^2}
+    \]
+    is called a \emph{Gaussian random variable}.
+    This is denoted by \(X \sim \mcal{N}(m, \sigma^2)\).
+    When \(X \sim \mcal{N}(0, 1)\), we say that \(X\) is a \emph{standard Gaussian random variable}.
+\end{Example}
+
+\begin{Example}{Gamma Density}[gamma]
+    Let \(\alpha, \beta \in \RR_{>0}\).
+    The random variable \(X\) with the probability density
+    \[
+        f(x) = \begin{cases}
+            \dfrac{\beta^\alpha x^{\alpha-1}e^{-\beta x}}{\Gamma(\alpha)}
+            &\text{if }x > 0 \\
+            0 & \text{otherwise}
+        \end{cases}
+    \]
+    is called a \emph{gamma distributed random variable}
+    where
+    \[
+        \Gamma(\alpha) = \int_0^\infty x^{\alpha-1} e^{-x} \d x\text.
+    \]
+    This is denoted by \(X \sim \Gamma(\alpha, \beta)\).
+\end{Example}
+
+\begin{note}
+    When \(\alpha = 1\), the gamma distribution is simply the exponential distribution:
+    \[
+        \Gamma(1, \beta) = \mcal{E}(\beta)\text.
+    \]
+    When \(\alpha = n/2\) and \(\beta = 1/2\), the corresponding distribution
+    is called the \emph{chi-squared distribution} with \(n\) degrees of freedom.
+    When \(X\) admits this density, we denote this by
+    \[
+        X \sim \chi_n^2\text.
+    \]
+\end{note}
+
+\end{document}

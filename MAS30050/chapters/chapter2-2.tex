@@ -25,6 +25,29 @@
     Otherwise, \(\mbb{E}[f(X)]\) may not be well-defined.
 }
 
+\begin{Exercise}{}[poissonE]
+    Let \(X\) be a \hyperlink{exmp:poisson}{Poisson random variable} with parameter \(\lambda\).
+    We have
+    \[
+        \mbb{E}[X] = \lambda\text
+        \qquad\text{and}\qquad
+        \mbb{E}[X^2] = \lambda^2 + \lambda\text.
+    \]
+\end{Exercise}
+\begin{solution}
+    \begin{align*}
+        \mbb{E}[X]
+        &= \sum_{k=0}^\infty k \frac{\lambda^k}{k!} e^{-\lambda}
+        = \lambda e^{-\lambda}\sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k-1)!} = \lambda \\
+        \mbb{E}[X^2]
+        &= \sum_{k=0}^\infty k^2 \frac{\lambda^k}{k!} e^{-\lambda} \\
+        &= \lambda\sum_{k=1}^\infty (k-1) \frac{\lambda^{k-1}}{(k-1)!} e^{-\lambda}
+        + \lambda\sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k-1)!} e^{-\lambda} \\
+        &= \lambda\mbb{E}[X] + \lambda = \lambda^2 + \lambda\text.
+        \qedhere
+    \end{align*}
+\end{solution}
+
 \nt{%
     \Cref{dfn:expDRV} easily extends to \(f \colon E \to \CC\)
     with the same condition. Writing \(f = g + ih\),
@@ -80,7 +103,7 @@
     Then, \(|f(x)| \ge |f(x)| I_C(x)\) and thus
     \begin{align*}
         \mbb{E}[|f(X)|]
-        &\ge \mbb{E}[|f(x)| I_C(x)] \\
+        &\ge \mbb{E}[|f(X)| I_C(X)] \\
         &\ge \mbb{E}[aI_C(X)] \\
         &= a\mbb{E}[I_C(X)] = aP(|f(X)| \ge a)\text. \qedhere
     \end{align*}

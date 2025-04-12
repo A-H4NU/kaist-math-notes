@@ -1,0 +1,109 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Discrete Random Elements}
+
+\begin{Definition}{Discrete Random Element}[dre2]
+    Let \(E\) be a denumerable set and let \((\Omega, \mcal{F}, P)\) be a
+    probability space. Any function \(X \colon \Omega \to E\) such that
+    \[
+        \fall x \in E,\: \{\,\omega \mid X(\omega) = x\,\} \in \mcal{F}
+    \]
+    is called a \emph{discrete random element} of \(E\).
+    When \(E \subseteq \RR\), we refer to \(X\) as a \emph{discrete random variable}.
+    This allows us to define
+    \[
+        p(x) \coloneqq P(X = x)
+    \]
+    for \(x \in E\).
+    The collection \(\{p(x)\}_{x \in E}\)
+    is the \emph{distribution} of \(X\). It satisfies
+    \[
+        0 \le p(x) \le 1\quad\text{and}\quad
+        \sum_{x \in E} p(x) = 1\text.
+    \]
+\end{Definition}
+
+\nt{%
+    \(E\) being denumerable enables us to define in such way.
+    Note the difference from \Cref{dfn:rv}.
+}
+
+\begin{Example}{Bernoulli Distribution}[bernoulli]
+    The coin tossing experiment of a single coin with bias \(p\) (\(0 \le p \le 1\))
+    is described by a discrete random variable \(X\)
+    taking its values in \(E = \{0,1\}\) with the distribution
+    \[
+        P(X = 1) = p,\qquad P(X = 0) = 1-p\text.
+    \]
+    This is called the \emph{Bernoulli distribution} of parameter \(p\).
+\end{Example}
+
+\begin{Example}{Binomial Distribution}[binomial]
+    Let \(X_1, \cdots, X_n\) be \(n\) indepenent random variables
+    with the Bernoulli distribution of parameter \(p\).
+    The distribution of a discrete random variable \(S_n = \sum_{i=1}^n X_i\)
+    satisfies
+    \[
+        P(S_n = k) = \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k}
+    \]
+    for \(0 \le k \le n\).
+    This is called the \emph{binomial distribution} of size \(n\) and parameter \(p\).
+\end{Example}
+
+\begin{Example}{Geometric Distribution}[geometric]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\)
+    be a sequence of independent random variables with the Bernoulli distribution of parameter
+    \(p\).
+    Let \(T\) be a random element such that
+    \[
+        T = \begin{cases}
+            \min \{\,n \mid X_n = 1\,\} & \text{if }\{\,n \mid X_n = 1\,\} \neq \OO \\
+            +\infty & \text{otherwise.}
+        \end{cases}
+    \]
+    Then, we have
+    \[
+        P(T = k) = p(1-p)^{k-1}
+    \]
+    for \(k \ge 1\) and \(P(T = \infty) = 0 \text{ or } 1\) according to whether \(p > 0\)
+    or \(p = 0\).
+    We call \(T\) a \emph{geometry random variable} of paramter \(p\).
+    This is symbolized by \(T \sim \mcal{G}(p)\).
+\end{Example}
+
+\begin{Example}{Multinomial Distribution}[multinomial]
+    Suppose you have \(k\) boxes in which you place \(n\) balls at random in the following manner.
+    The balls are thrown into the boxes independently of one another, and the probability
+    that a given ball falls in a box \(i\) is \(p_i\). Of course, \(0 \le p_i \le k\) and
+    \(\sum_{i=1}^k p_i = 1\).
+    Let \(N_i\) (\(1 \le i \le k\)) denote the number of balls that fall into box \(i\).
+    The random vector \(N = (N_1, \cdots, N_k)\) takes its values in the \(k\)-tuples
+    of integers \((n_1, \cdots, n_k)\) satisfying
+    \[
+        n_1 + \cdots + n_k = n\text.
+    \]
+    The probability that \(N_i = n_i\) for all \(i\) is given by
+    \[
+        P(N_1 = n_1, \cdots, N_k = n_k)
+        = \frac{n!}{n_1! \cdots n_k!} p_1^{n_1} \cdots p_k^{n_k}\text,
+    \]
+    where \(n_1 + \cdots + n_k = n\).
+    This type of distribution is called the \emph{multinomial distribution} of size \((n, k)\)
+    and of parameters \((p_1, \cdots, p_k)\). Notation \((N_1, \cdots, N_k) \sim \mcal{M}(n, k, p_i)\)
+    expresses that \((N_1, \cdots, N_k)\) is a multinomial random variable.
+\end{Example}
+
+\begin{Example}{Poisson Distribution}[poisson]
+    A random variable \(X\) that takes its values in \(E = \ZZ_{\ge 0}\) and
+    admits the distribution
+    \[
+        P(X=k) = e^{-\lambda} \frac{\lambda^k}{k!}
+    \]
+    for \(k \ge 0\), where \(\lambda\) is a nonnegative real number,
+    is called a \emph{Poisson random variable} with parameter \(\lambda\).
+    This is denoted by \(X \sim \Poisson(\lambda)\).
+\end{Example}
+
+\end{document}

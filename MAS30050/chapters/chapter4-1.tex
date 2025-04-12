@@ -1,0 +1,104 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Almost-Sure Convergence}
+
+\begin{Definition}{Almost-Sure Convergence}[]
+    Let \(\lang X_n \rang_{n \in \ZZ_{>0}}\) be a
+    sequence of random variables.
+    One says that \(X_n \asconv X\)
+    (read \(X_n\) converges to \(X\) almost surely when \(n \to \infty\))
+    if there exists an event \(N\) of null probability
+    such that for all \(\omega \in N^\cmpl\),
+    \(\lim_{n \to \infty} X_n(\omega) = X(\omega)\).
+    In other words, \(P \left( \lim_{n \to \infty} X_n = X \right) = 1\). (See \Cref{lem:asUniq}.)
+\end{Definition}
+
+\begin{Lemma}{}[asUniq]
+    If the almost-sure limit of a sequence \(\lang X_n \rang_{n \in \ZZ_{>0}}\)
+    exists, it is \emph{essentially unique}.
+    If \(X_n \asconv X\) and \(X_n \asconv X'\), then \(X = X'\) \(P\)-a.s., i.e., \(P(X = X') = 1\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    There are events of null probability \(N, N' \subseteq \Omega\)
+    such that \(\lim_{n \to \infty} X_n(\omega) = X(\omega)\)
+    for all \(\omega \in N \cup N'\).
+    Now, note that \(P(N \cup N') = 0\);
+    hence \(X(\omega) = X'(\omega)\) for all \(\omega \in (N \cup N')^\cmpl\).
+\end{myproof}
+
+\begin{note}
+    % TODO: Why?
+\end{note}
+
+\begin{Notation}{}[]
+    Let \(\lang A_n \rang_{n \in \ZZ_{>0}}\) be a sequence of evenets.
+    We write
+    \[
+        \{\,A_n\text{ i.o.}\,\} \triangleq \{\,\omega \colon \omega \in A_n\text{ infinitely
+        often}\,\}\text.
+    \]
+    In other words,
+    \[
+        \{\,A_n\text{ i.o.}\,\} = \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\text.
+    \]
+\end{Notation}
+
+\begin{Theorem}{First Borel--Cantelli Lemma}[borel1]
+    For any sequence of events \(\lang A_n \rang_{n \in \ZZ_{>0}}\),
+    \[
+        \sum_{n=1}^\infty P(A_n) < \infty
+        \implies P(A_n\text{ i.o.}) = 0\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(B_n \triangleq \bigcup_{k=n}^\infty A_k\).
+    Then, we have
+    \begin{alignat*}{2}
+        P(A_n\text{ i.o.})
+        &= P \left( \bigcap_{n=1}^\infty B_n \right) \\
+        &= \lim_{n\to\infty} P(B_n) &\qquad& \comment{\nameref{th:seqCont}} \\
+        &= \lim_{n \to \infty} P \left( \bigcup_{k=n}^\infty A_k\right) \\
+        &\le \lim_{n \to \infty} \sum_{k=n}^\infty P(A_k) = 0\text.
+    \end{alignat*}
+\end{myproof}
+
+\begin{Theorem}{Second Borel--Cantelli Lemma}[borel2]
+    For any sequence of independent events \(\lang A_n \rang_{n \in \ZZ_{>0}}\),
+    \[
+        \sum_{n=1}^\infty P(A_n) = \infty
+        \implies P(A_n\text{ i.o.}) = 1\text.
+    \]
+\end{Theorem}
+\begin{myproof}[Proof]
+    Let \(B_n \triangleq \bigcap_{k=n}^\infty A_k\).
+    Note that \(P((A_n\text{ i.o.})^\cmpl) = P \left( \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty
+    A_k^\cmpl \right)\).
+    Then,
+    \begin{alignat*}{2}
+        P \left( \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k^\cmpl \right)
+        &\le \sum_{n=1}^\infty P \left( B_n \right) &\qquad \\
+        &= \sum_{n=1}^\infty \lim_{m \to \infty} P \left( \bigcap_{k=n}^m A_k^\cmpl \right) && \comment{\nameref{th:seqCont}} \\
+        &= \sum_{n=1}^\infty \lim_{m \to \infty} \prod_{k=n}^m (1-P(A_k)) \\
+        &\le \sum_{n=1}^\infty \lim_{m \to \infty} \exp \left( -\sum_{k=n}^m P(A_k) \right) && \comment{\(e^{-x} \le 1-x\)} \\
+        &= \sum_{n=1}^\infty \exp \left( -\lim_{m \to \infty} \sum_{k=n}^m P(A_k) \right) \\
+        &= \sum_{n=1}^\infty 0 = 0\text.
+    \end{alignat*}
+\end{myproof}
+
+\begin{Exercise}{Borel's Law of Large Numbers}[borelLLN]
+    Consider a sequence of independent random variables \(\lang X_n \rang_{n \in \ZZ_{>0}}\)
+    with values in \(\{0,1\}\)
+    such that \(P(X_n = 1) = p\) for all \(n \in \ZZ_{>0}\).
+    Define the empirical frequency of ``\(1\)'' as
+    \[
+        \ol{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\text.
+    \]
+    Show that \(\ol{X}_n \asconv p\) as \(n \to \infty\).
+\end{Exercise}
+\begin{solution}
+    Apply \nameref{th:strongLLN}.
+\end{solution}
+
+\end{document}
