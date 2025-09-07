@@ -1,0 +1,138 @@
+\documentclass[../complex_variables_1.tex]{subfiles}
+
+\begin{document}
+
+\section{Analyticity}
+
+\begin{Definition}{Analytic Function}[analytic]
+\begin{itemize}
+    \ii
+    For a fixed point \(z_0 \in \CC\),
+    a function \(f\) is \emph{analytic} at \(z_0\)
+    if there is some \(r > 0\) such that
+    \(f\) is differentiable at every point in
+    \(B_r(z_0) \triangleq \{\,z \in \CC \colon |z - z_0| < r\,\}\).
+
+    \ii
+    A function \(f\) is \emph{analytic in domain \(D\)}
+    if it is analytic at \(z\) for all \(z \in D\).
+
+    \ii
+    A function \(f\) is \emph{entire} if it is analytic in \(\CC\).
+\end{itemize}
+\end{Definition}
+
+\begin{Theorem}{}[uvAnalytic]
+    Given a function \(f(z) = u(x,y)+iv(x,y)\) in domain \(D\), if
+    \begin{enumerate}[label=(\arabic*)]
+        \ii \(u(x, y)\) and \(v(x, y)\) are \(C^1\) in \(D\), and if
+        \ii \(u(x,y)\) and \(v(x,y)\) satisfy the Cauchy--Riemann equations in \(D\),
+    \end{enumerate}
+    then \(f\) is analytic in \(D\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Fix \(z = x + iy \in D\) and write \(\Delta z \coloneqq \xi + i\eta\) for \(\xi,\eta \in \RR\)
+    where \(\Delta z\) is sufficiently small. (This is possible since \(D\) is open.)
+    Then,
+    \begin{align*}
+        f(z+\Delta z)
+        &= (f(z+\xi)-f(z)) - (f(z+\Delta z)-f(z+\xi)) \\
+        &= \int_0^1 \frac{\d}{\d t} f(x+t\xi, y) \d t + \int_0^1 \frac{\d}{\d t} f(x+\xi+i(y+t\eta)) \bigr) \d t \\
+        &= \xi\int_0^1 f_x(x+t\xi) \d t + \eta\int_0^1 f_y(x+\xi+i(y+t\eta)) \d t \\
+        &= \xi\int_0^1 f_x(x+t\xi) \d t + i\eta\int_0^1 f_x(x+\xi+i(y+t\eta)) \d t \\
+        &= f_x(z) \Delta z + \xi\int_0^1 \bigl(f_x(x+t\xi) - f_x(z)\bigr) \d t + i\eta\int_0^1 \bigl(f_x(x+\xi+i(y+t\eta))-f_x(z)\bigr) \d t
+    \end{align*}
+    As \(f_x\) is continuous at \(z\), we have
+    \begin{gather*}
+        \left| \int_0^1 \bigl(f_x(x+t\xi) - f_x(z)\bigr) \d t \right| \to 0\text{ and} \\
+        \left| \int_0^1 \bigl(f_x(x+\xi+i(y+t\eta))-f(z)\bigr) \d t \right| \to 0
+    \end{gather*}
+    as \(\Delta z \to 0\). Moreover, since \((\Re z) / z\) and \((\Im z)/z\) are bounded,
+    we have
+    \begin{equation*}
+        \lim_{\Delta z \to 0} \frac{f(z+\Delta z) - f(z)}{\Delta z} = f_x(z)\text.
+        \qedhere
+    \end{equation*}
+\end{myproof}
+
+\begin{Example}{}[]
+    Let \(f(x+iy) = x^2 + y^2 + ixy\).
+    \(u_x = 2x\), \(u_y = 2y\), \(v_x = y\), and \(v_y = x\).
+    Hence, \(u\) and \(v\) are \(C^1\) in \(\RR^2\).
+    \(f_x = 2x + yi\) and \(-i f_y = -i (2y + xi) = x - 2yi\);
+    hence \(f\) satisfies the Cauchy--Riemann equation only at \(z = 0\).
+    Hence, by \Cref{th:uvAnalytic}, \(f\) is nowhere analytic.
+\end{Example}
+
+\begin{Theorem}{Cauchy--Riemann Equations for Polar Coordinates}[polarCR]
+    Let \(f \colon \CC \to \CC\) be differentiable at \(z_0 \neq 0\).
+    Then, it satisfies
+    \[
+        \left\{\begin{aligned}[c]
+                u_r &= v_\theta/r \\
+                u_r &= -u_\theta/r
+        \end{aligned}\right.\text,
+    \]
+    i.e., \(f_r(z) = -if_\theta(z)/r\) at \(z_0\) where \(f(x+iy) = u(x,y)+iv(x,y)\).
+    Moreover, this is equivalent to the \hyperlink{dfn:cauchyRiemann}{Cauchy--Riemann equations}.
+\end{Theorem}
+\begin{myproof}[Proof]
+    By \Cref{th:diffThenCR}, \(f\) satisfies the Cauchy--Riemann equations at \(z_0\),
+    i.e., \(u_x = v_y\) and \(u_y = -v_x\) hold at \(z_0\).
+    Write \(z = re^{i\theta} \neq 0\) with \(r > 0\) so that
+    \begin{align*}
+        \frac{\partial u}{\partial r}
+        &= \frac{\partial u}{\partial x}\frac{\partial x}{\partial r} + \frac{\partial u}{\partial y}\frac{\partial y}{\partial r} \\
+        &= \frac{\partial u}{\partial x} \cos\theta + \frac{\partial u}{\partial y} \sin\theta \\
+        &= \frac{1}{r} \left(\frac{\partial v}{\partial y} \cos\theta - \frac{\partial v}{\partial x} \cdot r \sin\theta\right) \\
+        &= \frac{1}{r} \left(\frac{\partial v}{\partial y}\frac{\partial y}{\partial \theta} + \frac{\partial v}{\partial x}\frac{\partial x}{\partial\theta}\right)
+        = \frac{1}{r} \frac{\partial v}{\partial \theta} \\
+        \shortintertext{and}
+        \frac{\partial v}{\partial r}
+        &= \frac{\partial v}{\partial x}\frac{\partial x}{\partial r} + \frac{\partial v}{\partial y}\frac{\partial y}{\partial r} \\
+        &= \frac{\partial v}{\partial x} \cos\theta + \frac{\partial v}{\partial y} \sin\theta \\
+        &= -\frac{1}{r} \left(\frac{\partial u}{\partial y} \cdot r \cos\theta - \frac{\partial u}{\partial x} \cdot r \sin\theta\right) \\
+        &= -\frac{1}{r} \left(\frac{\partial u}{\partial y}\frac{\partial y}{\partial \theta} + \frac{\partial u}{\partial x}\frac{\partial x}{\partial\theta}\right) \\
+        &= -\frac{1}{r} \frac{\partial u}{\partial \theta}
+    \end{align*}
+    is satisfied at \(z_0\).
+ 
+    To see the equivalence, assume the Cauchy--Riemann equations for polar coordinates hold at \(z_0\).
+    Then, we have
+    \begin{align*}
+        \frac{\partial u}{\partial x}
+        &= \frac{\partial u}{\partial r}\frac{\partial r}{\partial x} + \frac{\partial u}{\partial \theta}\frac{\partial \theta}{\partial y} \\
+        &= \frac{\partial u}{\partial r} \cos\theta - \frac{\partial u}{\partial \theta}\frac{\sin\theta}{r} \\
+        &= \frac{\partial v}{\partial \theta} \frac{\cos\theta}{r} + \frac{\partial v}{\partial r} \sin\theta \\
+        &= \frac{\partial v}{\partial \theta} \frac{\partial\theta}{\partial y} + \frac{\partial v}{\partial r} \frac{\partial r}{\partial y}
+        = \frac{\partial v}{\partial y} \\
+        \shortintertext{and}
+        \frac{\partial u}{\partial y}
+        &= \frac{\partial u}{\partial r}\frac{\partial r}{\partial y} + \frac{\partial u}{\partial \theta}\frac{\partial \theta}{\partial y} \\
+        &= \frac{\partial u}{\partial r}\sin\theta + \frac{\partial u}{\partial \theta}\frac{\cos\theta}{r} \\
+        &= \frac{\partial v}{\partial \theta}\frac{\sin\theta}{r} - \frac{\partial v}{\partial r}\cos\theta \\
+        &= - \left(\frac{\partial v}{\partial \theta}\frac{\partial\theta}{\partial x} + \frac{\partial v}{\partial r}\frac{\partial r}{\partial x} \right)
+        = -\frac{\partial v}{\partial x}\text.\qedhere
+    \end{align*}
+\end{myproof}
+
+\begin{Example}{Analyticity of Principal Log}[]
+    Let \(f(z) = \Log z\) and let \(D = \CC \setminus \RR_{\le 0}\)
+    be a domain.
+    Write \(\Log z = \ln\sqrt{x^2+y^2} + i\Arg z\)
+    so \(u = \ln\sqrt{x^2+y^2}\) and \(v = \Arg(x+iy)\). \(u\) is obviously \(C^1\) on \(D\).
+    As for \(v\), as \(z\) is fixed, one may choose \(\Arg z\) from
+    \[
+        \Arg z = \pm\arccos\left(\frac{x}{\sqrt{x^2+y^2}}\right),
+        \arctan\left(\frac{y}{x}\right)
+    \]
+    depending on \(z\) to argue that \(\Arg z\) is \(C^1\) on
+    a local neighborhood of \(z\).
+    Hence, \(v\) is \(C^1\) on \(D\).
+
+    Write \(f(z) = \ln r + i\theta\) in polar coordinates.
+    Then, we have \(irf_r(z) = i\) and \(f_\theta(z) = i\).
+    By \Cref{th:polarCR,th:uvAnalytic}, \(f\) is analytic on \(D\).
+\end{Example}
+
+\end{document}

@@ -66,6 +66,10 @@
 \DeclareMathOperator{\Hom}{Hom} % homomorphism
 \DeclareMathOperator{\Mor}{Mor} % morphisms
 \DeclareMathOperator{\End}{End} % endomorphism
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re} % real part
+\let\Im\relax
+\DeclareMathOperator{\Im}{Im} % imaginary part
 
 \newcommand{\eps}{\epsilon}
 \newcommand{\veps}{\varepsilon}
@@ -83,9 +87,10 @@
 \newcommand{\vocab}[1]{\textbf{\color{blue} #1}}
 \providecommand{\half}{\frac{1}{2}}
 \newcommand{\dang}{\measuredangle} %% Directed angle
-\newcommand{\ray}[1]{\overrightarrow{#1}}
-\newcommand{\seg}[1]{\overline{#1}}
-\newcommand{\arc}[1]{\wideparen{#1}}
+% \newcommand{\ray}[1]{\overrightarrow{#1}}
+% \newcommand{\seg}[1]{\overline{#1}}
+% \newcommand{\arc}[1]{\wideparen{#1}}
+\newcommand\arc\overrightarrow
 \DeclareMathOperator{\cis}{cis}
 \DeclareMathOperator*{\lcm}{lcm}
 \DeclareMathOperator*{\argmin}{arg min}
@@ -120,7 +125,7 @@
 \newcommand{\st}{\strut}
 \newcommand{\dps}[1]{\displaystyle{#1}}
 \newcommand{\nsub}{\trianglelefteq}
-\newcommand{\rqi}[1]{\mcal{O}_{\mathbb{Q}(#1)}} % Ring of quadratic integer
+\newcommand{\tmblank}{\text{\textvisiblespace}}
 
 \newcommand{\sol}{\setlength{\parindent}{0cm}\textbf{\textit{Solution:}}\setlength{\parindent}{1cm} }
 \newcommand{\solve}[1]{\setlength{\parindent}{0cm}\textbf{\textit{Solution: }}\setlength{\parindent}{1cm}#1 \Qed}

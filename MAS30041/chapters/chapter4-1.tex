@@ -43,13 +43,13 @@ Banach space, pointwise and uniform convergence, series.
     We now prove the analyticity.
     Fix \(z_1\) with \(|z_1| < |z_0|\) and any \(\veps \in \RR_{>0}\).
     \[
-        L(z) \coloneqq \frac{P(z)-P(z_0)}{z-z_0} - \sum_{n=1}^\infty a_nz^{n-1}\text.
+        L(z) \coloneqq \frac{P(z)-P(z_0)}{z-z_0} - \sum_{n=1}^\infty na_nz^{n-1}\text.
     \]
     Take any \(\veps \in \RR_{>0}\).
     Let \(P_k(z)\) be the \(k\)th partial sum of \(P(z)\).
     Then, we have
     \[
-        L(z) = \underbrace{\frac{P_k(z) - P_k(z_1)}{z - z_0} - P_k'(z_1)}_{\mu_k(z)}
+        L(z) = \underbrace{\frac{P_k(z) - P_k(z_1)}{z - z_1} - P_k'(z_1)}_{\mu_k(z)}
         + \underbrace{\sum_{n=k+1}^\infty a_n \left( \frac{z^n-z_1^n}{z-z_1} - nz_1^{n-1} \right)}_{\omega_k(z)}\text.
     \]
     for any \(k\).
@@ -109,4 +109,7 @@ Banach space, pointwise and uniform convergence, series.
     If \(\sum_{n=0}^\infty a_nz^n = \sum_{n=0}^\infty b_nz^n\) in some open neighborhood of \(0\),
     then \(a_n = b_n\) for all \(n \ge 0\).
 \end{Corollary}
+
+% TODO: Everything.
+
 \end{document}

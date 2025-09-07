@@ -48,38 +48,59 @@
     At the origin, we have \(f'(0) = \lim_{\omega \to 0} \frac{f(0+\omega)-f(0)}{\omega} = 0\).
 \end{Example}
 
-\begin{Theorem}{}[]
+\begin{Theorem}{}[diffRules]
     Product, quotient, chain rule still holds in complex derivative.
-    % TODO: Maybe list those derivative rules?
+    Let \(f, g \colon \CC \to \CC\) be complex functions.
+    \begin{enumerate}[label=(\arabic*)]
+        \ii
+        If \(f\) and \(g\) are differentiable at \(z_0\), then \(f + g\) is differentiable at
+        \(z_0\) and \((f+g)'(z_0) = f'(z_0) + g'(z_0)\).
+        \ii
+        If \(f\) and \(g\) are differentiable at \(z_0\), then \(fg\) is differentiable at
+        \(z_0\) and \((fg)'(z_0) = f'(z_0)g(z_0) + f(z_0)g'(z_0)\).
+        \ii
+        If \(f\) and \(g\) are differentiable at \(z_0\), and if \(g(z_0) \neq 0\), then \(f/g\) is
+        differentiable at \(z_0\) and \(\displaystyle \left( \frac{f}{g} \right)'(z_0) =
+        \frac{f'(z_0)g(z_0)-f(z_0)g'(z_0)}{g(z_0)^2}\).
+        \ii
+        If \(g\) is differentiable at \(z_0\) and \(f\) is differentiable at \(f(z_0)\), then
+        \(f \circ g\) is differentiable at \(z_0\) and \((f \circ g)'(z_0) = f'(g(z_0))f'(z_0)\).
+    \end{enumerate}
 \end{Theorem}
 
-\begin{Theorem}{Cauchy--Riemann Equation}[crEq]
-    If \(f\) is differentiable at \(z\), then \(f_y(z) = if_x(z)\) at \(z\),
-    or equivalently,
+\begin{Definition}{Cauchy--Riemann Equations}[cauchyRiemann]
+    Let \(f \colon \CC \to \CC\) be a complex function.
+    Write \(f(x+iy) = u(x, y) + iv(x, y)\) for \(x, y \in \RR\) and real functions \(u\) and \(v\).
+    Then, the system of equations
     \[
         \left\{\begin{aligned}[c]
                 u_x &= v_y \\
                 u_y &= -v_x
         \end{aligned}\right.
     \]
-    where \(u(x, y) \coloneqq \Re f(x+iy)\) and \(v(x, y) \coloneqq \Im f(x+iy)\)
-    for \(x, y \in \RR\).
+    is called the \emph{Cauchy--Riemann equations}.
+    This is the equivalent to \(if_x(z) = f_y(z)\).
+\end{Definition}
+
+\begin{Theorem}{}[diffThenCR]
+    If \(f\) is differentiable at \(z\), then \(f\)
+    satisfies the \hyperlink{dfn:cauchyRiemann}{Cauchy--Riemann equations} at \(z\).
 \end{Theorem}
 \begin{myproof}[Proof]
     \(\displaystyle f_x(z) = \lim_{\xi \to 0} \frac{f(z + \xi) - f(z)}{\xi} = f'(z)\) and
     \(\displaystyle -if_y(z) = \lim_{\eta \to 0} \frac{f(z + i\eta) - f(z)}{i\eta} = f'(z)\).
 \end{myproof}
 
-\begin{Example}{}[]
-    Is \(e^z\) differentiable in \(\CC\)?
-    \begin{align*}
-        \lim_{h \to 0} \frac{e^h - 1}{h}
-        &= \lim_{(\xi,\eta) \to 0} \frac{(e^\xi - 1) e^{i\eta} + (e^{i\eta} - 1)}{\xi+i\eta} \\
-    \end{align*}
-    % TODO: Fill the detail here.
-\end{Example}
+% \begin{Example}{}[]
+%     Is \(e^z\) differentiable in \(\CC\)?
+%     \begin{align*}
+%         \lim_{h \to 0} \frac{e^h - 1}{h}
+%         &= \lim_{(\xi,\eta) \to 0} \frac{(e^\xi - 1) e^{i\eta} + (e^{i\eta} - 1)}{\xi+i\eta} \\
+%     \end{align*}
+%     % TODO: Fill the detail here.
+% \end{Example}
 
-\nt{%
+\begin{note}
     We may write \(f(z) = u \left( \frac{z+\ol{z}}{2}, \frac{z-\ol{z}}{2i} \right) + iv \left(
     \frac{z+\ol{z}}{2}, \frac{z-\ol{z}}{2i} \right)\).
     If \(f\) is differentiable, we \emph{define}
@@ -95,10 +116,10 @@
     \end{align*}
     So that \(\frac{\partial f}{\partial\ol{z}} = \frac{1}{2}(\partial_x + i\partial_y)f = 0\)
     if \(f\) is differentiable.
-}
+\end{note}
 
 \begin{Definition}{Domain}[]
-    A domain is an open and connected subset of \(\CC\).
+    A domain is an open and connected subset of \(\CC\). (In the topological sense.)
 \end{Definition}
 
 \begin{Theorem}{}[domainPolyline]
@@ -123,12 +144,12 @@
 \begin{myproof}[Proof]
     \(f_x \equiv f_y \equiv 0\); hence \(u_x \equiv v_x \equiv u_y \equiv u_x \equiv 0\) on \(D\).
     Thus, \(f\) is contant on every line segment in \(D\) parallel to coordinate axes.
-    Hence, \(f\) is constant on \(D\).
+    Hence, \(f\) is constant on \(D\) by \Cref{th:domainPolyline}.
 \end{myproof}
 
 \begin{Corollary}{}[diffConst]
     Let \(f\) be differentiable on a domain \(D\).
-    \begin{enumerate}[label=(\arabic*), ref=\protect{\Cref{th:diffConst} (\arabic*)}]
+    \begin{enumerate}[label=(\arabic*), ref=\protect{\Cref{cor:diffConst} (\arabic*)}]
         \ii\label{itm:diffConst.1}
         If \(\Re f(z)\) is constant on \(D\), then \(f\) is constant on \(D\).
         \ii\label{itm:diffConst.2}
@@ -137,7 +158,7 @@
         If \(\Arg f(z)\) is constant on \(D\), then \(f\) is constant on \(D\).
     \end{enumerate}
 \end{Corollary}
-\begin{myclaim}[Proof]\hfill
+\begin{myproof}[Proof]\hfill
 \begin{enumerate}[label=(\arabic*)]
     \ii
     There is \(\omega_0 \in \CC\) such that, when \(g\) is defined by \(g(z) \triangleq f(z) -
@@ -152,14 +173,14 @@
 
     \ii
     Let \(g(z) = if(z)\) so that \(g\) is differentiable on \(D\) and \(\Re g(z)\) is constant.
-    Therefore, by (1), \(g\) is constant and thus \(f\) is constant.
+    Therefore, by \ref{itm:diffConst.1}, \(g\) is constant and thus \(f\) is constant.
 
     \ii
     There is \(\omega_0 \in \RR\) such that, when \(g\) is defined by \(g(z) \triangleq f(z)e^{-i\omega_0}\),
     we have \(\Re g(z)\) is constant and \(g\) is differentiable on \(D\).
-    Tehrefore, by (1), \(g\) is constant and thus \(f\) is constant.
-    \qed
+    Tehrefore, by \ref{itm:diffConst.1}, \(g\) is constant and thus \(f\) is constant.
+    \qedhere
 \end{enumerate}
-\end{myclaim}
+\end{myproof}
 
 \end{document}
