@@ -1,0 +1,21 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Multistep Transition Probabilities}
+
+\begin{Theorem}{}[multistepMarkov]
+    The \(m\)-step transition probabilities of a Markov chain
+    are independent of the past.
+    \[
+        P(X_{n+m}=j \mid X_n = i, X_{n-1} = i_{n-1}, \cdots, X_0 = i_0)
+        = P(X_{n+m}=j \mid X_n = i)
+        = p^m(i, j)
+    \]
+    where \(p^m\) is the \(m\)-th power of the transition matrix.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Just feel it.
+\end{myproof}
+
+\end{document}

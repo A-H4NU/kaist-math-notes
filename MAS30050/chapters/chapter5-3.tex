@@ -1,0 +1,299 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Classification of States}
+
+\begin{Notation}{}[]
+    For any event \(A\) and state \(x\), we introduce the following notation:
+    \[
+        P_x(A) \triangleq P(A \mid X_0 = x)
+    \]
+    Expectations under this probability measure are denoted by \(\mbb{E}_x\).
+    These simply mean that, when computing \(P_x\) or \(\mbb{E}_x\), we assume that
+    the associated Markov chain starts from \(x\).
+\end{Notation}
+
+\begin{Definition}{Time of the First Jump}[tfj]
+    Let \(T_y\) be the random variable of the \emph{time of the first jump} to state \(y\):
+    \[
+        T_y \triangleq \min \{\,n \ge 1 \mid X_n = y\,\}
+    \]
+    Note that, if the chain starts from \(y\), the time zero does \emph{not} count as a visit.
+\end{Definition}
+
+\begin{Definition}{Stopping Time}[]
+    Assume \(\lang X_n \rang_{n \in \ZZ_{\ge 0}}\) is a Markov chain.
+    Given a (extended) random variable \(T\), with values in the set of time indices \(\{0,1,\cdots,\infty\}\),
+    \(T\) is called a \emph{stopping time} (with respect to \(\lang X_n \rang_{n \in \ZZ_{\ge 0}}\))
+    if the occurrence or non-occurrence of the event \(\{T = n\}\) can be determined
+    only by looking at the values \(X_0, \cdots, X_n\).
+\end{Definition}
+
+\begin{Definition}{Ever Jumping}[everJump]
+    Denote the \emph{probability of ever jumping to \(y\), starting from \(x\)}, by \(\rho_{xy}\):
+    \[
+        \rho_{xy} \triangleq P_x(T_y < \infty)\text.
+    \]
+\end{Definition}
+
+\begin{Theorem}{Strong Markov Property of a Markov Chain}[strongMarkov]
+    Assume \(\lang X_n \rang_{n \in \ZZ_{\ge 0}}\) is a Markov chain and \(T\)
+    is a stopping time. Conditional on \(T < \infty\) and \(X_T = y\),
+    any other information about \(X_0, \cdots, X_{T-1}\) is irrelevant for the future
+    distribution of the Markov chain.
+    Namely, the new process \(\lang \tilde{X}_n \triangleq X_{T+n} \rang_{n \in \ZZ_{\ge 0}}\)
+    is also a Markov chain, with the same transition matrix and with initial state \(y\),
+    and it is independent of \(T\) and the past values \((X_0, \cdots, X_{T-1})\).
+\end{Theorem}
+\begin{myproof}[Proof]
+    Skipped.
+\end{myproof}
+
+\begin{note}
+    If we restrict \Cref{th:strongMarkov}
+    by forcing \(T\) to be \emph{deterministic}, then the new property
+    becomes a \emph{regular (or, standard) Markov property}.
+\end{note}
+
+\begin{Definition}{\(\bm{k}\)-th Jump}[]
+    For \(k \ge 1\), we introduce the \emph{time of the \(k\)-th jump} to state \(y\):
+    \begin{align*}
+        T_y^1 &\triangleq T_y\text, \\
+        T_y^{k} &\triangleq \min \bigl\{\,n > T_{y}^{k-1} \bigm| X_n = y\,\bigr\}\text.
+    \end{align*}
+    Note that they are stopping times.
+\end{Definition}
+
+\begin{Lemma}{}[kthProb]
+    \(P_x(T_y^k < \infty) = \rho_{xy}\rho_{yy}^{k-1}\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    For each \(k \ge 2\), we have
+    \begin{alignat*}{2}
+        P_y(T_y^k < \infty)
+        &= P_y(T_y^k < \infty \mid T_y^{k-1} < \infty) P_y(T_y^{k-1} < \infty) &\qquad \\
+        &= \rho_{yy} \cdot P_y(T_y^{k-1} < \infty)\text. && \comment{\Cref{th:strongMarkov}}
+    \end{alignat*}
+    Hence, the result follows from mathematical induction.
+\end{myproof}
+
+\begin{Definition}{Transient and Recurrent States}[transientRecurrent]
+    \begin{itemize}
+        \ii
+        If \(\rho_{yy} < 1\), then the state \(y\) is called \emph{transient}.
+        \ii
+        If \(\rho_{yy} = 1\), then the state \(y\) is called \emph{recurrent}.
+    \end{itemize}
+\end{Definition}
+
+\begin{note}
+    By \Cref{lem:kthProb}, we have the following:
+    \begin{itemize}
+        \ii
+        If a state \(y\) is transient, then \(\lim_{k \to \infty} P_y(T_y^k < \infty) = 0\).
+        \ii
+        If a state \(y\) is recurrent, then \(\lim_{k \to \infty} P_y(T_y^k < \infty) = 1\).
+    \end{itemize}
+\end{note}
+
+\begin{Definition}{The Number of Visits}[]
+    Let \(N_y\) be the random variable of the number of visits to state \(y\), i.e.,
+    \[
+        N_y \triangleq \sum_{k=1}^\infty \mbf{1}_{\{T_y^k < \infty\}}\text,
+    \]
+    where \(\mbf{1}_A\) is an indicator of event \(A\).
+\end{Definition}
+
+\begin{Lemma}{}[nvisitsTransient]
+    If \(y\) is a transient state,
+    \[
+        \mbb{E}_x[N_y] = \frac{\rho_{xy}}{1-\rho_{yy}}\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    \begin{alignat*}{2}
+        \mbb{E}_x[N_y]
+        &= \mbb{E}_x \left[ \sum_{k=1}^\infty \mbf{1}_{\{T_y^k < \infty\}}\right] &\qquad \\
+        &= \sum_{k=1}^\infty \mbb{E}_x \left[ \mbf{1}_{\{T_y^k < \infty\}}\right]
+        && \comment{Tonelli's Theorem} \\
+        &= \sum_{k=1}^\infty P(T_y^k < \infty) \\
+        &= \sum_{k=1}^\infty \rho_{xy}\rho_{yy}^{k-1}
+        && \comment{\Cref{lem:kthProb}} \\
+        &= \frac{\rho_{xy}}{1-\rho_{yy}}\tag*{\qedhere}
+    \end{alignat*}
+\end{myproof}
+
+\begin{Lemma}{}[nvisitsRecurrent]
+    If \(y\) is a recurrent state, then
+    \[
+        P_y(N_y = \infty) = 1\text.
+    \]
+\end{Lemma}
+\begin{myproof}[Proof]
+    Note that
+    \[
+        \{N_y = \infty\} = \bigcap_{k=1}^\infty \{T_y^k < \infty\}\text.
+    \]
+    Hence,
+    \begin{alignat*}{2}
+        P_y(N_y = \infty)
+        &= \lim_{N \to \infty} P_y\left( \bigcap_{k=1}^N \{T_y^k < \infty\} \right)
+        &\qquad& \comment{\nameref{th:seqCont}} \\
+        &= \lim_{N \to \infty} P_y\bigl(T_y^N < \infty\bigr) \\
+        &= \lim_{N \to \infty} \rho_{yy}^N
+        && \comment{\Cref{lem:kthProb}} \\
+        &= 1\text. \tag*{\qedhere}
+    \end{alignat*}
+\end{myproof}
+
+\begin{Lemma}{}[recurrIff]
+    A state \(y\) is recurrent if and only if \(\mbb{E}_y[N_y] = \infty\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    Combine \Cref{lem:nvisitsTransient,lem:nvisitsRecurrent}.
+\end{myproof}
+
+\begin{Definition}{Communicating States}[communStates]
+    We say that \(x\) \emph{communicates with} \(y\), and denote it by \(x \to y\),
+    if
+    \[
+        \rho_{xy} = P_x(T_y < \infty) > 0\text.
+    \]
+\end{Definition}
+
+\begin{Lemma}{}[communIff]
+    \(x\) communicates with \(y\) if and only if
+    there is some \(m \in \ZZ_{>0}\) such that \(p^m(x, y) > 0\).
+\end{Lemma}
+\begin{myproof}[Proof]\hfill
+\begin{pftfae}[labelwidth=\widthof{(\(\Rightarrow\))}]
+    \ii[(\(\Rightarrow\))]
+    As \(P_x(T_x < \infty) = \sum_{k=1}^\infty P_x(T_y = k) > 0\),
+    there is some \(m \in \ZZ_{>0}\) such that \(P_x(T_y = k) > 0\).
+    Such \(m\) satisfies \(p^m(x,y) \ge P_x(T_y = k) > 0\).
+    \ii[(\(\Leftarrow\))]
+    Trivial.
+    \qedhere
+\end{pftfae}
+\end{myproof}
+
+\begin{Lemma}{}[communTransitive]
+    If \(x \to y\) and \(y \to z\), then \(x \to z\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    By \Cref{lem:communIff}, there are \(m_1, m_2 \in \ZZ_{>0}\)
+    such that \(p^{m_1}(x, y) > 0\) and \(p^{m_2}(y, z) > 0\).
+    Hence, we have \(p^{m_1+m_2}(x,z) \ge p^{m_1}(x, y) \cdot p^{m_2}(y, z) > 0\).
+    The result follows from \Cref{lem:communIff}.
+\end{myproof}
+
+\begin{Lemma}{}[betrayTransient]
+    If \(x \to y\) and \(\rho_{yx} < 1\), then \(x\) is a transient state.
+\end{Lemma}
+\begin{myproof}[Proof]
+    Let \(K \triangleq \{\,k \in \ZZ_{>0} \mid p^k(x, y) > 0\,\}\).
+    There is a sequence \(y_1, \cdots, y_{K-1}\) of states so that
+    \[
+        p(x, y_1) p(y_1, y_2) \cdots p(y_{K-2}, y_{K-1}) p(y_{K-1}, y) > 0
+    \]
+    Then, we have
+    \[
+        P_x(T_x = \infty)
+        \ge p(x, y_1) p(y_1, y_2) \cdots p(y_{K-2}, y_{K-1}) p(y_{K-1}, y) \cdot (1 - \rho_{yx}) > 0
+    \]
+    so that \(x\) is transient.
+\end{myproof}
+
+\begin{Lemma}{}[recurrTransThenReach]
+    If \(x\) is recurrent and \(x \to y\), then \(\rho_{yx} = 1\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    Direct consequence of \Cref{lem:betrayTransient}.
+\end{myproof}
+
+\begin{Lemma}{}[recurrIff2]
+    \(\mbb{E}_x[N_y] = \sum_{n=1}^\infty p^n(x, y)\).
+    Moreover, \(y\) is recurrent if and only if \(\sum_{n=1}^\infty p^n(y,y) = \infty\).
+\end{Lemma}
+\begin{myproof}[Proof]
+    Note that \(N_y = \sum_{n=1}^\infty \mbf{1}_{\{X_n = y\}}\).
+    Hence, by the same argument as in the proof of \Cref{lem:nvisitsRecurrent},
+    \(\mbb{E}_x[N_y] = \sum_{n=1}^\infty p^n(x, y)\).
+    The result follows from \Cref{lem:recurrIff}.
+\end{myproof}
+
+\begin{Lemma}{}[recurrSpread]
+    If \(x\) is recurrent and \(x \to y\), then \(y\) is recurrent.
+\end{Lemma}
+\begin{myproof}[Proof]
+    By \Cref{lem:recurrTransThenReach}, \(\rho_{yx} = 1\).
+    By \Cref{lem:communIff}, there are some \(m_1, m_2 \in \ZZ_{>0}\)
+    such that \(p^{m_1}(x, y) > 0\) and \(p^{m_2}(y, x) > 0\).
+    Then, for \(n \ge m_1 + m_2\), we have
+    \[
+        p^{n}(y, y) \ge p^{m_2}(y, x) \cdot p^{n-m_1-m_2}(x, x) \cdot p^{m_1}(x, y)\text.
+    \]
+    Hence, by \Cref{lem:recurrIff2}, \(y\) is recurrent.
+\end{myproof}
+
+\begin{Definition}{Closed Set}[closedSet]
+    A nonempty set \(A\) of states is \emph{closed} if
+    \[
+        \fall i \in A,\: \fall j \in \mbb{S} \setminus A,\:
+        p(i, j) = 0\text.
+    \]
+\end{Definition}
+
+\begin{Lemma}{}[finClosedHasRecurr]
+    If \(A\) is a finite closed set,
+    then \(A\) has at least one recurrent state.
+\end{Lemma}
+\begin{myproof}[Proof]
+    Suppose all states in \(A\) are transient for the sake of contradiction.
+    Fix any state \(x \in A\).
+    Then,
+    \begin{alignat*}{2}
+        \infty
+        &> \sum_{y \in A} \mbb{E}_x[N_y]
+        &\qquad& \comment{\Cref{lem:nvisitsTransient}} \\
+        &= \sum_{y \in A} \sum_{n = 1}^\infty p^n(x, y)
+        && \comment{\Cref{lem:recurrIff2}} \\
+        &= \sum_{n=1}^\infty \sum_{y \in A} p^n(x, y) \\
+        &= \sum_{n=1}^\infty 1
+        && \comment{\(A\) is closed} \\
+        &= \infty\text,
+    \end{alignat*}
+    which is a contradiction.
+\end{myproof}
+
+\begin{Definition}{Irreducible Set}[irreducibleSet]
+    A nonempty set \(A\) of states is \emph{irreducible} if
+    \[
+        \fall x \in A,\: \fall y \in A,\: x \to y\text.
+    \]
+\end{Definition}
+
+\begin{Theorem}{}[finClosedIrrAllRecurr]
+    All states in a finite closed irreducible set is recurrent.
+\end{Theorem}
+\begin{myproof}[Proof]
+    Combine \Cref{lem:recurrSpread,lem:finClosedHasRecurr}\text.
+\end{myproof}
+
+\begin{Theorem}{Decomposition Theorem}[decomposition]
+    If the state space \(\mbb{S}\) of a Markov chain is finite, then
+    \[
+        \mbb{S} = T \uplus R_1 \uplus \cdots \uplus R_k
+    \]
+    where \(T\) is the set of transient states,
+    and each \(R_i\)'s are closed irreducible sets of recurrent states.
+\end{Theorem}
+\begin{myproof}[Proof]
+    The relation \(x \sim y\) defined by \(x \to y\) and \(y \to x\) is an equivalence relation
+    on \(\mbb{S} \setminus T\) by \Cref{lem:communTransitive}.
+    Let \(R\) be an equivalence class of \(\mbb{S} \setminus T\) under \(\sim\).
+    Then, it is closed and irreducible.
+\end{myproof}
+
+\end{document}

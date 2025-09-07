@@ -1,0 +1,35 @@
+\documentclass[../probability.tex]{subfiles}
+
+\begin{document}
+
+\section{Markov Chain}
+
+\begin{Definition}{Stochastic Process}[stochasticProcess]
+    A \emph{stochastic process with state space \(\mbb{S}\)}
+    is a sequence \(X = \lang X_n \rang_{n \in \ZZ_{>0}}\)
+    of random variables taking values in \(\mbb{S}\).
+\end{Definition}
+
+\begin{Definition}{Markov Chain}[markovChain]
+    A stochastic process \(X = \lang X_n \rang_{n \in \ZZ_{>0}}\),
+    with a discrete state space \(\mbb{S}\),
+    is a \emph{(homogeneous) Markov chain} with transition probabilities
+    \(p = \lang p(i,j) \rang_{i,j \in \mbb{S}}\)
+    if for any \(i_0, j_0, \cdots, i_{n-1}, j_{n-1}, i, j \in \mbb{S}\) such that
+    \[
+        P(X_n = i, X_{n-1} = i_{n-1}, \cdots, X_0 = i_0) > 0\text,
+    \]
+    we have
+    \begin{align*}
+        &P(X_{n+1} = j \mid X_n = i, X_{n-1} = i_{n-1}, \cdots, X_0 = i_0) \\
+        =\mbox{}&P(X_{n+1} = j \mid X_n = i, X_{n-1} = j_{n-1}, \cdots, X_0 = j_0) = p(i, j)\text.
+    \end{align*}
+    When \(\mbb{S}\) is \emph{finite}, we refer to \(p\) as a \emph{transition matrix}.
+\end{Definition}
+
+\begin{Definition}{Stochastic Matrix}[stochasticMatrix]
+    Any square matrix \(p\) satisfying \(p(i, j) \ge 0\)
+    and \(\sum_{j \in \mbb{S}} p(i, j) = 1\) is called a \emph{stochastic matrix}.
+\end{Definition}
+
+\end{document}
